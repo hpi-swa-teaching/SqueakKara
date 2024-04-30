@@ -1,0 +1,10 @@
+[
+	SquotTonelMapper {
+		#package : MCPackage {
+			#name : 'SqueakKara'
+		},
+		#path : FSAbsolutePath [
+			'src'
+		]
+	}
+]
