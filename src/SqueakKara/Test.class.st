@@ -1,5 +1,5 @@
 Class {
-	#name : #PleaseDeleteMe,
+	#name : #Test,
 	#superclass : #Object,
 	#category : #SqueakKara
 }
