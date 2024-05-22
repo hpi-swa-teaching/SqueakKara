@@ -9,11 +9,11 @@ Class {
 
 {
 	#category : #'instance creation',
-	#'squeak_changestamp' : 'LK 5/22/2024 16:58'
+	#'squeak_changestamp' : 'LK 5/22/2024 17:24'
 }
 SKGridObject class >> newInGrid: aGrid [
 
-	^ self newInGrid: aGrid at: 0@0
+	^ self newInGrid: aGrid at: 1 @ 1
 ]
 
 {
