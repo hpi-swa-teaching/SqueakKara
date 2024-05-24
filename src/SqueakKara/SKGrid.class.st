@@ -3,18 +3,28 @@ Class {
 	#superclass : #Morph,
 	#instVars : [
 		'gridWidth',
-		'gridHeight'
+		'gridHeight',
+		'gridCoordinator'
 	],
 	#category : #SqueakKara
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #'instance creation',
 	#'squeak_changestamp' : 'LK 5/22/2024 16:24'
 }
 SKGrid class >> newWithExtent: aPoint [
 
 	^ SKGrid basicNew initializeWithExtent: aPoint
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'LK 5/24/2024 11:18'
+}
+SKGrid >> gridCoordinator [
+
+	^ gridCoordinator ifNil: [gridCoordinator := SKGridCoordinator newForGrid: self]
 ]
 
 {
@@ -80,6 +90,16 @@ SKGrid >> initializeWithExtent: aPoint [
 	
 	
 
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'LK 5/24/2024 11:07'
+}
+SKGrid >> isPointInGridDimensions: aPoint [
+
+	^ (aPoint x between: 1 and: self gridWidth) 
+		and: (aPoint y between: 1 and: self gridHeight) 
 ]
 
 {
