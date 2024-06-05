@@ -165,7 +165,7 @@ SKGridObject >> gridCoordinator [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LK 5/22/2024 17:03'
+	#'squeak_changestamp' : 'JJG 6/5/2024 17:23'
 }
 SKGridObject >> initializeInGrid: aGrid at: aPoint [
 
@@ -175,7 +175,8 @@ SKGridObject >> initializeInGrid: aGrid at: aPoint [
 	self coordinates: aPoint;
 		addToGrid;
 		height: self grid pixelPerBlock;
-		width: self grid pixelPerBlock
+		width: self grid pixelPerBlock;
+		setTexture
 ]
 
 {
@@ -260,4 +261,30 @@ SKGridObject >> position: aPoint [
 SKGridObject >> relativePosition [
 
 	^ self position - self grid position
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'JJG 6/5/2024 17:25'
+}
+SKGridObject >> setTexture [
+
+	| aTextureLoader aForm |
+	
+	aTextureLoader := SKTextureLoader new.
+	
+	aForm := aTextureLoader
+		getTexture: self textureFilename
+		scaledToWidth: self grid pixelPerBlock.
+		
+	self image: aForm
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'JJG 6/5/2024 17:21'
+}
+SKGridObject >> textureFilename [
+
+	^ SubclassResponsibility
 ]
