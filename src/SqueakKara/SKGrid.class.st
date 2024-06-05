@@ -12,11 +12,20 @@ Class {
 
 {
 	#category : #'instance creation',
-	#'squeak_changestamp' : 'LK 5/22/2024 16:24'
+	#'squeak_changestamp' : 'JJG 6/5/2024 17:29'
 }
 SKGrid class >> newWithExtent: aPoint [
 
-	^ SKGrid basicNew initializeWithExtent: aPoint
+	^ self newWithExtent: aPoint andScale: 1
+]
+
+{
+	#category : #'instance creation',
+	#'squeak_changestamp' : 'JJG 6/5/2024 17:28'
+}
+SKGrid class >> newWithExtent: aPoint andScale: aFloat [
+
+	^ SKGrid basicNew initializeWithExtent: aPoint andScale: aFloat
 ]
 
 {
@@ -81,13 +90,15 @@ SKGrid >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:30'
+	#'squeak_changestamp' : 'JJG 6/5/2024 17:31'
 }
-SKGrid >> initializeWithExtent: aPoint [
+SKGrid >> initializeWithExtent: aPoint andScale: aFloat [
 
 	self initialize.
-	self gridWidth: aPoint x;
+	self scaleFactor: aFloat; 
+		gridWidth: aPoint x;
 		gridHeight: aPoint y
+	
 	
 	
 
@@ -114,11 +125,11 @@ SKGrid >> pixelPerBlock [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'JJG 6/5/2024 16:49'
+	#'squeak_changestamp' : 'JJG 6/5/2024 17:29'
 }
 SKGrid >> scaleFactor [
 
-	^ scaleFactor ifNil: [scaleFactor := 1]
+	^ scaleFactor
 ]
 
 {
