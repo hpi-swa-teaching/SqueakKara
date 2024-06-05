@@ -6,5 +6,12 @@
 		#path : FSAbsolutePath [
 			'src'
 		]
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'Kara-v1.png'
+		],
+		#encoding : Class [ #PNGReadWriter ]
 	}
 ]

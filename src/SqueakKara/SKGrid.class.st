@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'gridWidth',
 		'gridHeight',
-		'gridCoordinator'
+		'gridCoordinator',
+		'scaleFactor'
 	],
 	#category : #SqueakKara
 }
@@ -104,11 +105,30 @@ SKGrid >> isPointInGridDimensions: aPoint [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:39'
+	#'squeak_changestamp' : 'JJG 6/5/2024 16:42'
 }
 SKGrid >> pixelPerBlock [
 
-	^ 32
+	^ SKGridObject textureDimension px * self scaleFactor
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'JJG 6/5/2024 16:49'
+}
+SKGrid >> scaleFactor [
+
+	^ scaleFactor ifNil: [scaleFactor := 1]
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'JJG 6/5/2024 16:48'
+}
+SKGrid >> scaleFactor: aNumber [
+	
+	scaleFactor := aNumber
+	
 ]
 
 {

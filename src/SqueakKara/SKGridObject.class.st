@@ -1,6 +1,6 @@
 Class {
 	#name : #SKGridObject,
-	#superclass : #Morph,
+	#superclass : #ImageMorph,
 	#instVars : [
 		'grid'
 	],
@@ -23,6 +23,15 @@ SKGridObject class >> newInGrid: aGrid [
 SKGridObject class >> newInGrid: aGrid at: aPoint [
 
 	^ self basicNew initializeInGrid: aGrid at: aPoint
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'JJG 6/5/2024 16:41'
+}
+SKGridObject class >> textureDimension [
+
+	^ 32
 ]
 
 {
