@@ -9,11 +9,45 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'NR 5/29/2024 10:26'
+	#'squeak_changestamp' : 'NR 6/6/2024 12:56'
+}
+SKKara >> convertAngleToDirection: angle [
+
+	| AngleToDirection |
+	
+	AngleToDirection := Dictionary new.
+	AngleToDirection at: 0 put: 0@1.
+	AngleToDirection at: 90 put: 1@0.
+	AngleToDirection at: 180 put: 0@(-1).
+	AngleToDirection at: 270 put: (-1)@0.
+	
+	^AngleToDirection at: angle
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'NR 6/6/2024 12:59'
+}
+SKKara >> convertDirectionToAngle: direction [
+
+	| DirectionToAngle |
+	
+	DirectionToAngle := Dictionary new.
+	DirectionToAngle at: 0@1 put: 0.
+	DirectionToAngle at: 1@0 put: 90.
+	DirectionToAngle at: 0@(-1) put: 180.
+	DirectionToAngle at: (-1)@0 put: 270.
+	
+	^DirectionToAngle at: direction
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'NR 6/6/2024 13:22'
 }
 SKKara >> move [
 	
-	self coordinates: [self coordinates + viewDirection].
+	self coordinates: self coordinates + self viewDirection.
 
 ]
 
@@ -60,33 +94,22 @@ SKKara >> trunkAhead [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'NR 5/29/2024 15:47'
+	#'squeak_changestamp' : 'NR 6/6/2024 13:17'
 }
 SKKara >> turn: aDirection [
 	
-	| angle DirectionAngleDict |
-	
-	DirectionAngleDict := Dictionary new.
-	DirectionAngleDict at: 0@1 put: 0.
-	DirectionAngleDict at: 1@0 put: 90.
-	DirectionAngleDict at: 0@(-1) put: 180.
-	DirectionAngleDict at: (-1)@0 put: 270.
-	DirectionAngleDict at: 0 put: 0@1.
-	DirectionAngleDict at: 90 put: 1@0.
-	DirectionAngleDict at: 180 put: 0@(-1).
-	DirectionAngleDict at: 270 put: (-1)@0.
+	| angle |
 
-
-	angle := DirectionAngleDict at: [viewDirection] .
+	angle := self convertDirectionToAngle: self viewDirection.
 	
 	aDirection = 'links'
-		ifTrue: [angle := angle-90 % 360]
+		ifTrue: [angle := angle-90 \\\ 360]
 		ifFalse:
 			[aDirection = 'rechts'
-				ifTrue: [angle := angle+90 % 360]].
+				ifTrue: [angle := angle+90 \\\ 360]].
 				"Fehlerbehandlung für falsche Eingabe"
 												
-	self viewDirection:	 [DirectionAngleDict at: [angle]].		
+	self viewDirection:	 (self convertAngleToDirection: angle).		
 			
 
 	
@@ -94,11 +117,11 @@ SKKara >> turn: aDirection [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'NR 5/29/2024 10:24'
+	#'squeak_changestamp' : 'NR 6/6/2024 12:20'
 }
 SKKara >> viewDirection [
 	
-	^viewDirection
+	^viewDirection ifNil: [self viewDirection: 1@0].
 ]
 
 {
