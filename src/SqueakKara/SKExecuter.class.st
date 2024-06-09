@@ -80,12 +80,12 @@ SKExecuter >> executeBlock: aBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/5/2024 18:15'
+	#'squeak_changestamp' : 'EB 6/9/2024 22:04'
 }
 SKExecuter >> initialize [
 
 	compiler:=Compiler new.
-	ctxt:=compiler evaluate: 'Transcript show: ''Executer Init'''.
+	ctxt:=compiler evaluate: 'Transcript show: ''Executer Init.'''.
 	^self
 ]
 
