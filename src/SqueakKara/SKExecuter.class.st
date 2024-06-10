@@ -4,8 +4,9 @@ Class {
 	#instVars : [
 		'kara',
 		'codeString',
-		'ctxt',
-		'compiler'
+		'compiler',
+		'process',
+		'stepTime'
 	],
 	#category : #SqueakKara
 }
@@ -60,32 +61,31 @@ SKExecuter >> ctxt: anObject [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/5/2024 17:30'
+	#'squeak_changestamp' : 'KD 6/10/2024 08:21'
 }
 SKExecuter >> execute: aCode [
 
+	process := (self executeBlock: aCode) fork.
 	
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/5/2024 18:11'
+	#'squeak_changestamp' : 'KD 6/10/2024 16:44'
 }
 SKExecuter >> executeBlock: aBlock [
 	
-	|value|
-	value:=compiler evaluate: aBlock in: ctxt to: self.
-	ctxt:=value
+	^ compiler evaluate: aBlock for: self
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 6/9/2024 22:04'
+	#'squeak_changestamp' : 'KD 6/10/2024 08:44'
 }
 SKExecuter >> initialize [
 
 	compiler:=Compiler new.
-	ctxt:=compiler evaluate: 'Transcript show: ''Executer Init.'''.
+	stepTime := 33.
 	^self
 ]
 
@@ -103,4 +103,47 @@ SKExecuter >> kara [
 }
 SKExecuter >> kara: anObject [
 	kara := anObject
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'KD 6/10/2024 08:41'
+}
+SKExecuter >> process [
+	^ process
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'KD 6/10/2024 08:41'
+}
+SKExecuter >> process: anObject [
+	process := anObject
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'KD 6/10/2024 08:33'
+}
+SKExecuter >> step [
+
+	[stepTime > 0]
+	ifTrue: [process pause. (Delay forMilliseconds: stepTime) wait. process resume.]
+	
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'KD 6/10/2024 08:41'
+}
+SKExecuter >> stepTime [
+	^ stepTime
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'KD 6/10/2024 08:41'
+}
+SKExecuter >> stepTime: anObject [
+	stepTime := anObject
 ]
