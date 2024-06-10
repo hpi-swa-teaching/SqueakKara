@@ -1,14 +1,16 @@
 Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
+
 	#instVars : [
 		'viewDirection'
-	],
+	]
 	#category : #SqueakKara
 }
 
 {
 	#category : #'as yet unclassified',
+
 	#'squeak_changestamp' : 'NR 6/6/2024 12:56'
 }
 SKKara >> convertAngleToDirection: angle [
@@ -39,10 +41,12 @@ SKKara >> convertDirectionToAngle: direction [
 	DirectionToAngle at: (-1)@0 put: 270.
 	
 	^DirectionToAngle at: direction
+
 ]
 
 {
 	#category : #'as yet unclassified',
+
 	#'squeak_changestamp' : 'NR 6/6/2024 13:22'
 }
 SKKara >> move [
