@@ -61,11 +61,12 @@ SKExecuter >> ctxt: anObject [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/10/2024 08:21'
+	#'squeak_changestamp' : 'KD 6/10/2024 23:24'
 }
 SKExecuter >> execute: aCode [
 
-	process := (self executeBlock: aCode) fork.
+	self codeString: aCode.
+	self process: [self executeBlock: aCode] fork.
 	
 ]
 
@@ -80,12 +81,12 @@ SKExecuter >> executeBlock: aBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/10/2024 08:44'
+	#'squeak_changestamp' : 'KD 6/10/2024 23:26'
 }
 SKExecuter >> initialize [
 
 	compiler:=Compiler new.
-	stepTime := 33.
+	stepTime := 500.
 	^self
 ]
 
@@ -123,12 +124,21 @@ SKExecuter >> process: anObject [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/10/2024 08:33'
+	#'squeak_changestamp' : 'KD 6/10/2024 23:20'
+}
+SKExecuter >> resumeExecution [
+	
+	process resume.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'KD 6/10/2024 23:25'
 }
 SKExecuter >> step [
 
-	[stepTime > 0]
-	ifTrue: [process pause. (Delay forMilliseconds: stepTime) wait. process resume.]
+	stepTime > 0
+		ifTrue: [(Delay forMilliseconds: stepTime) wait.]
 	
 ]
 
@@ -146,4 +156,13 @@ SKExecuter >> stepTime [
 }
 SKExecuter >> stepTime: anObject [
 	stepTime := anObject
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'KD 6/10/2024 23:20'
+}
+SKExecuter >> suspendExecution [
+	
+	process suspend.
 ]

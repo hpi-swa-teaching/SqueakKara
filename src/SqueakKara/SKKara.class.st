@@ -16,10 +16,11 @@ SKKara >> getValue [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/5/2024 17:25'
+	#'squeak_changestamp' : 'KD 6/10/2024 22:45'
 }
 SKKara >> move [
 	"comment stating purpose of message"
 
 	Transcript show: 'move' ; cr.
+	self grid executer step.
 ]
