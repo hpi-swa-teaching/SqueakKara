@@ -1,8 +1,27 @@
 Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
+	#instVars : [
+		'doneReceiver'
+	],
 	#category : #SqueakKara
 }
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'EB 6/10/2024 22:23'
+}
+SKKara >> doneReceiver [
+	^ doneReceiver
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'EB 6/10/2024 22:23'
+}
+SKKara >> doneReceiver: anObject [
+	doneReceiver := anObject
+]
 
 {
 	#category : #'as yet unclassified',
@@ -16,10 +35,12 @@ SKKara >> getValue [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/5/2024 17:25'
+	#'squeak_changestamp' : 'EB 6/10/2024 23:31'
 }
 SKKara >> move [
 	"comment stating purpose of message"
 
-	Transcript show: 'move' ; cr.
+	Transcript showln: 'move'.
+	doneReceiver karadone.
+	"doneReceiver karadone."
 ]

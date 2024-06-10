@@ -5,7 +5,8 @@ Class {
 		'kara',
 		'codeString',
 		'ctxt',
-		'compiler'
+		'compiler',
+		'process'
 	],
 	#category : #SqueakKara
 }
@@ -60,31 +61,36 @@ SKExecuter >> ctxt: anObject [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/5/2024 17:30'
+	#'squeak_changestamp' : 'EB 6/11/2024 00:06'
 }
 SKExecuter >> execute: aCode [
 
+	self process: [self executeBlock: aCode] fork.
+	[self process isTerminated not] whileTrue:[
+		(Delay forSeconds: 2)  wait.
+		(self process isSuspended and: [self process isTerminated not]) ifTrue: [self process resume.]
+		].
 	
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/5/2024 18:11'
+	#'squeak_changestamp' : 'EB 6/10/2024 22:37'
 }
 SKExecuter >> executeBlock: aBlock [
 	
-	|value|
-	value:=compiler evaluate: aBlock in: ctxt to: self.
-	ctxt:=value
+	ctxt:=compiler evaluate: aBlock for: self.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 6/9/2024 22:04'
+	#'squeak_changestamp' : 'EB 6/10/2024 22:24'
 }
 SKExecuter >> initialize [
 
 	compiler:=Compiler new.
+	kara := SKKara new.
+	kara doneReceiver: self.
 	ctxt:=compiler evaluate: 'Transcript show: ''Executer Init.'''.
 	^self
 ]
@@ -103,4 +109,28 @@ SKExecuter >> kara [
 }
 SKExecuter >> kara: anObject [
 	kara := anObject
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'EB 6/11/2024 00:06'
+}
+SKExecuter >> karadone [
+	(self process isSuspended) ifFalse: [self process suspend.].
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'EB 6/10/2024 22:32'
+}
+SKExecuter >> process [
+	^ process
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'EB 6/10/2024 22:32'
+}
+SKExecuter >> process: anObject [
+	process := anObject
 ]
