@@ -6,9 +6,18 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'NR 5/29/2024 19:18'
+	#'squeak_changestamp' : 'jt 6/11/2024 13:01'
 }
 SKTrunk >> isTrunk [
 	
-	^ True
+	^ true
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'jt 6/11/2024 12:51'
+}
+SKTrunk >> textureFilename [
+
+	^ 'Kara-v1.png'
 ]

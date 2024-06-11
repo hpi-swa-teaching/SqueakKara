@@ -6,9 +6,18 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'NR 5/29/2024 19:19'
+	#'squeak_changestamp' : 'jt 6/11/2024 13:02'
 }
 SKCloverleaf >> isCloverleaf [
 
-	^ True
+	^ true
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'jt 6/11/2024 13:24'
+}
+SKCloverleaf >> textureFilename [
+
+	^ 'Kara-v1.png'
 ]

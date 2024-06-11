@@ -181,20 +181,20 @@ SKGridObject >> initializeInGrid: aGrid at: aPoint [
 
 {
 	#category : #type,
-	#'squeak_changestamp' : 'NR 5/29/2024 19:15'
+	#'squeak_changestamp' : 'jt 6/11/2024 13:18'
 }
 SKGridObject >> isCloverleaf [
 
-	^False
+	^ false
 ]
 
 {
 	#category : #type,
-	#'squeak_changestamp' : 'NR 5/29/2024 19:16'
+	#'squeak_changestamp' : 'jt 6/11/2024 13:18'
 }
 SKGridObject >> isTrunk [
 	
-	^ False
+	^ false
 ]
 
 {
