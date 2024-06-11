@@ -181,6 +181,24 @@ SKGridObject >> initializeInGrid: aGrid at: aPoint [
 ]
 
 {
+	#category : #type,
+	#'squeak_changestamp' : 'jt 6/11/2024 13:18'
+}
+SKGridObject >> isCloverleaf [
+
+	^ false
+]
+
+{
+	#category : #type,
+	#'squeak_changestamp' : 'jt 6/11/2024 13:18'
+}
+SKGridObject >> isTrunk [
+	
+	^ false
+]
+
+{
 	#category : #'neighbour detection',
 	#'squeak_changestamp' : 'LK 5/24/2024 11:29'
 }
