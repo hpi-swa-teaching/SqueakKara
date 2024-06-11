@@ -44,23 +44,7 @@ SKExecuter >> compiler: anObject [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/5/2024 18:08'
-}
-SKExecuter >> ctxt [
-	^ ctxt
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/5/2024 18:08'
-}
-SKExecuter >> ctxt: anObject [
-	ctxt := anObject
-]
-
-{
-	#category : #'as yet unclassified',
+	#category : #execution,
 	#'squeak_changestamp' : 'KD 6/10/2024 23:24'
 }
 SKExecuter >> execute: aCode [
@@ -71,8 +55,8 @@ SKExecuter >> execute: aCode [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/10/2024 16:44'
+	#category : #execution,
+	#'squeak_changestamp' : 'EB 6/11/2024 10:17'
 }
 SKExecuter >> executeBlock: aBlock [
 	
@@ -80,19 +64,21 @@ SKExecuter >> executeBlock: aBlock [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/10/2024 23:26'
+	#category : #'initialize-release',
+	#'squeak_changestamp' : 'EB 6/11/2024 10:18'
 }
 SKExecuter >> initialize [
 
-	compiler:=Compiler new.
+	self kara: SKKaraDecorator new.
+	self kara executer: self.
+	self compiler: Compiler new.
 	stepTime := 500.
 	^self
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/5/2024 17:28'
+	#'squeak_changestamp' : 'EB 6/11/2024 10:17'
 }
 SKExecuter >> kara [
 	^ kara
@@ -100,7 +86,7 @@ SKExecuter >> kara [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/5/2024 17:28'
+	#'squeak_changestamp' : 'EB 6/11/2024 10:17'
 }
 SKExecuter >> kara: anObject [
 	kara := anObject
@@ -123,16 +109,16 @@ SKExecuter >> process: anObject [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/10/2024 23:20'
+	#category : #execution,
+	#'squeak_changestamp' : 'EB 6/11/2024 09:55'
 }
 SKExecuter >> resumeExecution [
 	
-	process resume.
+	[self process isTerminated not] ifTrue: [self process resume].
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #execution,
 	#'squeak_changestamp' : 'KD 6/10/2024 23:25'
 }
 SKExecuter >> step [
@@ -159,10 +145,10 @@ SKExecuter >> stepTime: anObject [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/10/2024 23:20'
+	#category : #execution,
+	#'squeak_changestamp' : 'EB 6/11/2024 09:55'
 }
 SKExecuter >> suspendExecution [
 	
-	process suspend.
+	[self process isTerminated not and: [self process isSuspended]] ifTrue: [process suspend].
 ]
