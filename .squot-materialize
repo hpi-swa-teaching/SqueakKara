@@ -20,5 +20,12 @@
 			'Trunk.png'
 		],
 		#encoding : Class [ #PNGReadWriter ]
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'Cloverleaf.png'
+		],
+		#encoding : Class [ #PNGReadWriter ]
 	}
 ]
