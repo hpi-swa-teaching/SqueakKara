@@ -5,7 +5,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #type,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:01'
 }
 SKTrunk >> isTrunk [
@@ -14,7 +14,7 @@ SKTrunk >> isTrunk [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #appearance,
 	#'squeak_changestamp' : 'jt 6/11/2024 19:54'
 }
 SKTrunk >> textureFilename [

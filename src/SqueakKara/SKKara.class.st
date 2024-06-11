@@ -8,7 +8,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #turning,
 	#'squeak_changestamp' : 'jt 6/11/2024 12:44'
 }
 SKKara >> convertAngleToDirection: angle [
@@ -25,7 +25,7 @@ SKKara >> convertAngleToDirection: angle [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #turning,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:22'
 }
 SKKara >> convertDirectionToAngle: direction [
@@ -42,7 +42,7 @@ SKKara >> convertDirectionToAngle: direction [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #appearance,
 	#'squeak_changestamp' : 'jt 6/11/2024 19:59'
 }
 SKKara >> getTextureForDirection [
@@ -56,7 +56,7 @@ SKKara >> getTextureForDirection [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #movement,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:26'
 }
 SKKara >> move [
@@ -68,7 +68,7 @@ SKKara >> move [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'object detection',
 	#'squeak_changestamp' : 'jt 6/11/2024 13:21'
 }
 SKKara >> onCloverleaf [
@@ -77,7 +77,7 @@ SKKara >> onCloverleaf [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #appearance,
 	#'squeak_changestamp' : 'jt 6/11/2024 19:58'
 }
 SKKara >> textureFilename [
@@ -86,7 +86,7 @@ SKKara >> textureFilename [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'object detection',
 	#'squeak_changestamp' : 'jt 6/11/2024 13:20'
 }
 SKKara >> trunkAhead [
@@ -100,7 +100,7 @@ SKKara >> trunkAhead [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #turning,
 	#'squeak_changestamp' : 'jt 6/11/2024 20:54'
 }
 SKKara >> turn: aDirection [
@@ -123,7 +123,7 @@ SKKara >> turn: aDirection [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #movement,
 	#'squeak_changestamp' : 'jt 6/11/2024 11:41'
 }
 SKKara >> viewDirection [
@@ -132,7 +132,7 @@ SKKara >> viewDirection [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #movement,
 	#'squeak_changestamp' : 'jt 6/11/2024 11:29'
 }
 SKKara >> viewDirection: aDirection [

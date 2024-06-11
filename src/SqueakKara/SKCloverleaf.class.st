@@ -5,7 +5,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #type,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:02'
 }
 SKCloverleaf >> isCloverleaf [
@@ -14,7 +14,7 @@ SKCloverleaf >> isCloverleaf [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #appearance,
 	#'squeak_changestamp' : 'jt 6/11/2024 19:55'
 }
 SKCloverleaf >> textureFilename [

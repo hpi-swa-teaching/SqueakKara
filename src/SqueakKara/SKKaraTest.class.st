@@ -8,7 +8,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'jt 6/11/2024 11:14'
 }
 SKKaraTest >> grid [
@@ -17,7 +17,7 @@ SKKaraTest >> grid [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'jt 6/11/2024 11:14'
 }
 SKKaraTest >> gridSize [
@@ -26,7 +26,7 @@ SKKaraTest >> gridSize [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #setup,
 	#'squeak_changestamp' : 'jt 6/11/2024 11:14'
 }
 SKKaraTest >> setUp [
@@ -35,7 +35,7 @@ SKKaraTest >> setUp [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #setup,
 	#'squeak_changestamp' : 'jt 6/11/2024 11:14'
 }
 SKKaraTest >> tearDown [
@@ -44,7 +44,7 @@ SKKaraTest >> tearDown [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'jt 6/11/2024 11:28'
 }
 SKKaraTest >> testAbsolutePositionAfterMoveWithChangedDirection [
@@ -59,7 +59,7 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithChangedDirection [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'jt 6/11/2024 11:27'
 }
 SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
@@ -73,7 +73,7 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'jt 6/11/2024 12:47'
 }
 SKKaraTest >> testKaraTurn [
@@ -94,7 +94,7 @@ SKKaraTest >> testKaraTurn [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:27'
 }
 SKKaraTest >> testMoveWhenTrunkAhead [
@@ -109,7 +109,7 @@ SKKaraTest >> testMoveWhenTrunkAhead [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:58'
 }
 SKKaraTest >> testNotOnCloverleaf [
@@ -123,7 +123,7 @@ SKKaraTest >> testNotOnCloverleaf [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'jt 6/11/2024 11:57'
 }
 SKKaraTest >> testOnCloverleaf [
@@ -137,7 +137,7 @@ SKKaraTest >> testOnCloverleaf [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:23'
 }
 SKKaraTest >> testTrunkAhead [
@@ -151,7 +151,7 @@ SKKaraTest >> testTrunkAhead [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:56'
 }
 SKKaraTest >> testTrunkAheadAfterTurn [
