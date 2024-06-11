@@ -43,6 +43,20 @@ SKKara >> convertDirectionToAngle: direction [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'jt 6/11/2024 19:59'
+}
+SKKara >> getTextureForDirection [
+
+	self viewDirection caseOf: {
+		[SKDirection above] -> [^ 'Kara-FacingUp.png' ].
+		[SKDirection right] -> [^ 'Kara-FacingRight.png'].
+		[SKDirection below] -> [^ 'Kara-FacingDown.png'].
+		[SKDirection left] -> [^ 'Kara-FacingLeft.png']
+	}
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'jt 6/11/2024 13:26'
 }
 SKKara >> move [
@@ -64,11 +78,11 @@ SKKara >> onCloverleaf [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'jt 6/10/2024 17:13'
+	#'squeak_changestamp' : 'jt 6/11/2024 19:58'
 }
 SKKara >> textureFilename [
 
-	^ 'Kara-v1.png'
+	^ self getTextureForDirection
 ]
 
 {
@@ -87,7 +101,7 @@ SKKara >> trunkAhead [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'jt 6/11/2024 13:56'
+	#'squeak_changestamp' : 'jt 6/11/2024 20:54'
 }
 SKKara >> turn: aDirection [
 	
@@ -103,7 +117,7 @@ SKKara >> turn: aDirection [
 				"Fehlerbehandlung für falsche Eingabe"
 												
 	self viewDirection:	 (self convertAngleToDirection: angle).		
-			
+	self setTexture
 
 	
 ]

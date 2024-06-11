@@ -15,9 +15,9 @@ SKTrunk >> isTrunk [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'jt 6/11/2024 12:51'
+	#'squeak_changestamp' : 'jt 6/11/2024 19:54'
 }
 SKTrunk >> textureFilename [
 
-	^ 'Kara-v1.png'
+	^ 'Trunk.png'
 ]

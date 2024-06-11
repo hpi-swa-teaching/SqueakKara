@@ -15,9 +15,9 @@ SKCloverleaf >> isCloverleaf [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'jt 6/11/2024 13:24'
+	#'squeak_changestamp' : 'jt 6/11/2024 19:55'
 }
 SKCloverleaf >> textureFilename [
 
-	^ 'Kara-v1.png'
+	^ 'Cloverleaf.png'
 ]
