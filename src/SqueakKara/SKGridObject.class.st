@@ -118,12 +118,14 @@ SKGridObject >> coordinates [
 
 {
 	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:51'
+	#'squeak_changestamp' : 'KD 6/10/2024 08:48'
 }
 SKGridObject >> coordinates: aPoint [
 
 	self coordinateX: aPoint x;
-		coordinateY: aPoint y
+		coordinateY: aPoint y.
+	self grid executer step.
+		
 ]
 
 {
