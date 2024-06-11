@@ -33,13 +33,13 @@ kara = SKKaraObject new.
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 5/29/2024 15:19'
+	#'squeak_changestamp' : 'KD 6/10/2024 22:41'
 }
 SKWorkspace >> getUserCode [
 	"user code with appended other stuff"
 	|code|
 	
-	code := self getSetupCode, self contents.
+	code := self contents.
 	^ code
 ]
 
