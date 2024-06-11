@@ -13,5 +13,12 @@
 			'Kara-v1.png'
 		],
 		#encoding : Class [ #PNGReadWriter ]
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'Trunk.png'
+		],
+		#encoding : Class [ #PNGReadWriter ]
 	}
 ]
