@@ -12,12 +12,12 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:52'
+	#'squeak_changestamp' : 'KD 6/12/2024 13:28'
 }
 SKEnvironment >> close [
 
-	self workspace close.
-	self grid abandon.
+	"self workspace close.
+	self grid abandon."
 
 	
 ]
@@ -96,16 +96,20 @@ SKEnvironment >> kara: anObject [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:56'
+	#'squeak_changestamp' : 'KD 6/12/2024 13:29'
 }
 SKEnvironment >> pause [
+
+	executer suspendExecution.
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:56'
+	#'squeak_changestamp' : 'KD 6/12/2024 13:29'
 }
 SKEnvironment >> resume [
+
+	executer resumeExecution.
 ]
 
 {

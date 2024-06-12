@@ -28,7 +28,7 @@ SKWorkspace >> getExampleCode [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/12/2024 11:48'
+	#'squeak_changestamp' : 'KD 6/12/2024 13:27'
 }
 SKWorkspace >> initialize [
 	

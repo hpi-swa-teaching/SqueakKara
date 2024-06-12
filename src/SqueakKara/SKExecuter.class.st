@@ -119,11 +119,11 @@ SKExecuter >> process: anObject [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'EB 6/11/2024 09:55'
+	#'squeak_changestamp' : 'KD 6/12/2024 13:32'
 }
 SKExecuter >> resumeExecution [
 	
-	[self process isTerminated not] ifTrue: [self process resume].
+	(self process isTerminated not) ifTrue: [self process resume].
 ]
 
 {
@@ -174,9 +174,9 @@ SKExecuter >> stepTime: anObject [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'EB 6/11/2024 09:55'
+	#'squeak_changestamp' : 'KD 6/12/2024 15:01'
 }
 SKExecuter >> suspendExecution [
-	
-	[self process isTerminated not and: [self process isSuspended]] ifTrue: [process suspend].
+
+	((self process isTerminated not) and: (self process isSuspended not)) ifTrue: [process suspend].
 ]
