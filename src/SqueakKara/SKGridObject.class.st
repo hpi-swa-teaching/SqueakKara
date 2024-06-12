@@ -118,12 +118,13 @@ SKGridObject >> coordinates [
 
 {
 	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:51'
+	#'squeak_changestamp' : 'KD 6/11/2024 11:31'
 }
 SKGridObject >> coordinates: aPoint [
 
 	self coordinateX: aPoint x;
-		coordinateY: aPoint y
+		coordinateY: aPoint y.
+		
 ]
 
 {
@@ -177,6 +178,24 @@ SKGridObject >> initializeInGrid: aGrid at: aPoint [
 		height: self grid pixelPerBlock;
 		width: self grid pixelPerBlock;
 		setTexture
+]
+
+{
+	#category : #type,
+	#'squeak_changestamp' : 'jt 6/11/2024 13:18'
+}
+SKGridObject >> isCloverleaf [
+
+	^ false
+]
+
+{
+	#category : #type,
+	#'squeak_changestamp' : 'jt 6/11/2024 13:18'
+}
+SKGridObject >> isTrunk [
+	
+	^ false
 ]
 
 {

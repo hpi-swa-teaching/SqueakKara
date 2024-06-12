@@ -77,13 +77,14 @@ SKGrid >> gridWidth: aNumber [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:38'
+	#'squeak_changestamp' : 'KD 6/10/2024 08:43'
 }
 SKGrid >> initialize [
 
 	super initialize.
 	self openInWorld;
-		color: Color lightGreen lighter
+		color: Color lightGreen lighter.
+	executer := SKExecuter new.
 	
 
 ]
