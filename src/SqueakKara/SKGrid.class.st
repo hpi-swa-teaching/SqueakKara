@@ -5,34 +5,27 @@ Class {
 		'gridWidth',
 		'gridHeight',
 		'gridCoordinator',
-		'executer'
+		'scaleFactor'
 	],
 	#category : #SqueakKara
 }
 
 {
 	#category : #'instance creation',
-	#'squeak_changestamp' : 'LK 5/22/2024 16:24'
+	#'squeak_changestamp' : 'JJG 6/5/2024 17:29'
 }
 SKGrid class >> newWithExtent: aPoint [
 
-	^ SKGrid basicNew initializeWithExtent: aPoint
+	^ self newWithExtent: aPoint andScale: 1
 ]
 
 {
-	#category : #layout,
-	#'squeak_changestamp' : 'KD 6/10/2024 08:46'
+	#category : #'instance creation',
+	#'squeak_changestamp' : 'JJG 6/5/2024 17:28'
 }
-SKGrid >> executer [
-	^executer
-]
+SKGrid class >> newWithExtent: aPoint andScale: aFloat [
 
-{
-	#category : #layout,
-	#'squeak_changestamp' : 'KD 6/10/2024 08:46'
-}
-SKGrid >> executer: anExecuter [
-	executer := anExecuter.
+	^ SKGrid basicNew initializeWithExtent: aPoint andScale: aFloat
 ]
 
 {
@@ -98,13 +91,15 @@ SKGrid >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:30'
+	#'squeak_changestamp' : 'JJG 6/5/2024 17:31'
 }
-SKGrid >> initializeWithExtent: aPoint [
+SKGrid >> initializeWithExtent: aPoint andScale: aFloat [
 
 	self initialize.
-	self gridWidth: aPoint x;
+	self scaleFactor: aFloat; 
+		gridWidth: aPoint x;
 		gridHeight: aPoint y
+	
 	
 	
 
@@ -122,11 +117,30 @@ SKGrid >> isPointInGridDimensions: aPoint [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:39'
+	#'squeak_changestamp' : 'JJG 6/5/2024 16:42'
 }
 SKGrid >> pixelPerBlock [
 
-	^ 32
+	^ SKGridObject textureDimension px * self scaleFactor
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'JJG 6/5/2024 17:29'
+}
+SKGrid >> scaleFactor [
+
+	^ scaleFactor
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'JJG 6/5/2024 16:48'
+}
+SKGrid >> scaleFactor: aNumber [
+	
+	scaleFactor := aNumber
+	
 ]
 
 {
