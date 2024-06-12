@@ -29,6 +29,68 @@ SKGrid class >> newWithExtent: aPoint andScale: aFloat [
 ]
 
 {
+	#category : #texture,
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:41'
+}
+SKGrid >> addHorizontalLineAt: aCoordinate [
+
+	| aMorph |
+	
+	aMorph := Morph new.
+		
+	self addMorph: aMorph.	
+
+	aMorph color: self lineColor;
+			width: self width;
+			height: self lineWidth;
+	 		position: self position x @ (self position y + (aCoordinate * self pixelPerBlock)).
+
+
+	
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:40'
+}
+SKGrid >> addTexture [
+
+	1 to: self gridHeight - 1 do: [:anInteger |
+		self addVerticalLineAt: anInteger].
+	1 to: self gridWidth - 1 do: [:anInteger |
+		self addHorizontalLineAt: anInteger].
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:37'
+}
+SKGrid >> addVerticalLineAt: aCoordinate [
+
+	| aMorph |
+	
+	aMorph := Morph new.
+		
+	self addMorph: aMorph.	
+
+	aMorph color: self lineColor;
+			width: self lineWidth;
+			height: self height;
+	 		position: (self position x + (aCoordinate * self pixelPerBlock)) @ self position y.
+
+	
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:45'
+}
+SKGrid >> backgroundColor [
+
+	 ^ Color lightGreen lighter
+]
+
+{
 	#category : #initialization,
 	#'squeak_changestamp' : 'LK 5/24/2024 11:18'
 }
@@ -77,28 +139,28 @@ SKGrid >> gridWidth: aNumber [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'KD 6/10/2024 08:43'
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:47'
 }
 SKGrid >> initialize [
 
 	super initialize.
 	self openInWorld;
-		color: Color lightGreen lighter.
-	executer := SKExecuter new.
-	
+		color: self backgroundColor
+		
 
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 6/5/2024 17:31'
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:47'
 }
 SKGrid >> initializeWithExtent: aPoint andScale: aFloat [
 
 	self initialize.
 	self scaleFactor: aFloat; 
 		gridWidth: aPoint x;
-		gridHeight: aPoint y
+		gridHeight: aPoint y;
+		addTexture
 	
 	
 	
@@ -113,6 +175,28 @@ SKGrid >> isPointInGridDimensions: aPoint [
 
 	^ (aPoint x between: 1 and: self gridWidth) 
 		and: (aPoint y between: 1 and: self gridHeight) 
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:45'
+}
+SKGrid >> lineColor [
+
+	^ Color gray lighter
+
+	
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:22'
+}
+SKGrid >> lineWidth [
+
+	^ 1 px
+
+	
 ]
 
 {
