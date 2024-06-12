@@ -2,10 +2,19 @@ Class {
 	#name : #SKWorkspace,
 	#superclass : #Workspace,
 	#instVars : [
-		'textMorph'
+		'kara'
 	],
 	#category : #SqueakKara
 }
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'KD 6/12/2024 11:52'
+}
+SKWorkspace >> close [
+
+	self abandon.
+]
 
 {
 	#category : #'as yet unclassified',
@@ -19,40 +28,49 @@ SKWorkspace >> getExampleCode [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 5/29/2024 15:15'
-}
-SKWorkspace >> getSetupCode [
-	
-	^'
-| kara |
-	
-kara = SKKaraObject new.
-'
-
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/10/2024 22:41'
-}
-SKWorkspace >> getUserCode [
-	"user code with appended other stuff"
-	|code|
-	
-	code := self contents.
-	^ code
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 5/29/2024 15:21'
+	#'squeak_changestamp' : 'KD 6/12/2024 11:48'
 }
 SKWorkspace >> initialize [
 	
 	super initialize.
 	self buildAndOpen.
 	self windowTitle: 'SKWorkspace'.
-	self bindings at: #kara put: 'KARA!'.
+	
+	"replace, when kara turn method is updated"
+	"self bindings at: #left put: SKDirection left."
+	self bindings at: #left put: 'left'.
+	self bindings at: #right put: 'right'.
 	self contents: self getExampleCode.
 
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'KD 6/12/2024 11:35'
+}
+SKWorkspace >> kara [
+
+	^kara
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'KD 6/12/2024 11:37'
+}
+SKWorkspace >> kara: aKara [
+
+	kara := aKara.
+	self bindings at: #kara put: aKara.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'KD 6/12/2024 12:07'
+}
+SKWorkspace >> userCode [
+	"user code with appended other stuff"
+	|code|
+	
+	code := self contents.
+	^ code
 ]
