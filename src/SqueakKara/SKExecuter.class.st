@@ -6,10 +6,19 @@ Class {
 		'codeString',
 		'compiler',
 		'process',
-		'stepTime'
+		'speed'
 	],
 	#category : #SqueakKara
 }
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'KD 6/12/2024 12:29'
+}
+SKExecuter >> codeContext [
+
+	^ (SKExecuteContext new kara: self kara).
+]
 
 {
 	#category : #accessing,
@@ -56,23 +65,23 @@ SKExecuter >> execute: aCode [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'EB 6/11/2024 10:17'
+	#'squeak_changestamp' : 'KD 6/12/2024 12:32'
 }
 SKExecuter >> executeBlock: aBlock [
 	
-	^ compiler evaluate: aBlock for: self
+	^ compiler evaluate: aBlock for: (self codeContext).
 ]
 
 {
 	#category : #'initialize-release',
-	#'squeak_changestamp' : 'EB 6/11/2024 10:18'
+	#'squeak_changestamp' : 'KD 6/12/2024 12:14'
 }
 SKExecuter >> initialize [
 
 	self kara: SKKaraDecorator new.
 	self kara executer: self.
 	self compiler: Compiler new.
-	stepTime := 500.
+	self speed: 5.
 	^self
 ]
 
@@ -110,30 +119,49 @@ SKExecuter >> process: anObject [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'EB 6/11/2024 09:55'
+	#'squeak_changestamp' : 'KD 6/12/2024 13:32'
 }
 SKExecuter >> resumeExecution [
 	
-	[self process isTerminated not] ifTrue: [self process resume].
+	(self process isTerminated not) ifTrue: [self process resume].
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'KD 6/12/2024 12:05'
+}
+SKExecuter >> speed [
+	
+	^ speed
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'KD 6/12/2024 12:05'
+}
+SKExecuter >> speed: aSpeed [
+	
+	speed := aSpeed
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'KD 6/10/2024 23:25'
+	#'squeak_changestamp' : 'KD 6/12/2024 12:12'
 }
 SKExecuter >> step [
 
-	stepTime > 0
-		ifTrue: [(Delay forMilliseconds: stepTime) wait.]
+	self stepTime > 0
+		ifTrue: [(Delay forMilliseconds: self stepTime) wait.]
 	
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/10/2024 08:41'
+	#'squeak_changestamp' : 'KD 6/12/2024 12:15'
 }
 SKExecuter >> stepTime [
-	^ stepTime
+
+	^ (1000 / self speed) floor.
 ]
 
 {
@@ -146,9 +174,9 @@ SKExecuter >> stepTime: anObject [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'EB 6/11/2024 09:55'
+	#'squeak_changestamp' : 'KD 6/12/2024 15:01'
 }
 SKExecuter >> suspendExecution [
-	
-	[self process isTerminated not and: [self process isSuspended]] ifTrue: [process suspend].
+
+	((self process isTerminated not) and: (self process isSuspended not)) ifTrue: [process suspend].
 ]

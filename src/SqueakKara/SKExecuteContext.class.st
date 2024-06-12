@@ -1,0 +1,38 @@
+Class {
+	#name : #SKExecuteContext,
+	#superclass : #Object,
+	#instVars : [
+		'kara',
+		'right',
+		'left'
+	],
+	#category : #SqueakKara
+}
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'KD 6/12/2024 12:26'
+}
+SKExecuteContext class >> create: aKara [
+
+	self basicNew.
+	self kara: aKara.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'KD 6/12/2024 12:35'
+}
+SKExecuteContext >> initialize [
+		
+	left := 'left'.
+	right := 'right'
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'KD 6/12/2024 12:26'
+}
+SKExecuteContext >> kara: anObject [
+	kara := anObject
+]

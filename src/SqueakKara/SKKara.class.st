@@ -101,9 +101,11 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'jt 6/11/2024 20:54'
+	#'squeak_changestamp' : 'KD 6/12/2024 11:49'
 }
 SKKara >> turn: aDirection [
+
+	"also update SKWorkspace initialize, when kara turn method is updated to use SKDirection"
 	
 	| angle |
 
