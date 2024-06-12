@@ -45,13 +45,13 @@ SKGridObjectTest >> tearDown [
 
 {
 	#category : #'initialization testing',
-	#'squeak_changestamp' : 'LK 5/24/2024 11:43'
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:08'
 }
 SKGridObjectTest >> testAbsolutePositionAfterInitialize [
 
 	| object |
 	
-	object := SKGridObject newInGrid: self grid.
+	object := SKKara newInGrid: self grid.
 	self assert: object position = self grid position
 	
 	
@@ -59,13 +59,13 @@ SKGridObjectTest >> testAbsolutePositionAfterInitialize [
 
 {
 	#category : #'initialization testing',
-	#'squeak_changestamp' : 'LK 5/24/2024 11:43'
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:08'
 }
 SKGridObjectTest >> testAbsolutePositionAfterInitializeAt22 [
 
 	| object |
 	
-	object := SKGridObject newInGrid: self grid at: 2 @ 2.
+	object := SKKara newInGrid: self grid at: 2 @ 2.
 	self assert: object position = (self grid position + (self grid pixelPerBlock @ self grid pixelPerBlock))
 	
 	
@@ -73,13 +73,13 @@ SKGridObjectTest >> testAbsolutePositionAfterInitializeAt22 [
 
 {
 	#category : #'movement testing',
-	#'squeak_changestamp' : 'LK 5/24/2024 11:43'
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:08'
 }
 SKGridObjectTest >> testAlignment [
 
 	| object |
 	
-	object := SKGridObject newInGrid: self grid.
+	object := SKKara newInGrid: self grid.
 	object position: object position + ((1/4 * self grid pixelPerBlock) @ (1/4 * self grid pixelPerBlock)).
 	
 	self assert: object coordinates = (1 @ 1)
@@ -87,13 +87,13 @@ SKGridObjectTest >> testAlignment [
 
 {
 	#category : #'initialization testing',
-	#'squeak_changestamp' : 'LK 5/24/2024 11:44'
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:09'
 }
 SKGridObjectTest >> testCoordinatesAfterInitialize [
 
 	| object |
 	
-	object := SKGridObject newInGrid: self grid.
+	object := SKKara newInGrid: self grid.
 	self assert: object coordinates = (1 @ 1)
 	
 	
@@ -101,13 +101,13 @@ SKGridObjectTest >> testCoordinatesAfterInitialize [
 
 {
 	#category : #'initialization testing',
-	#'squeak_changestamp' : 'LK 5/24/2024 11:44'
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:09'
 }
 SKGridObjectTest >> testCoordinatesAfterInitializeAt22 [
 
 	| object |
 	
-	object := SKGridObject newInGrid: self grid at: 2 @ 2.
+	object := SKKara newInGrid: self grid at: 2 @ 2.
 	self assert: object coordinates = (2 @ 2)
 	
 	
@@ -115,13 +115,13 @@ SKGridObjectTest >> testCoordinatesAfterInitializeAt22 [
 
 {
 	#category : #'movement testing',
-	#'squeak_changestamp' : 'LK 5/24/2024 11:43'
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:09'
 }
 SKGridObjectTest >> testGridOutOfBounds1 [
 
 	| object |
 	
-	object := SKGridObject newInGrid: self grid.
+	object := SKKara newInGrid: self grid.
 	object position: self grid position - (30 @ 30).
 	
 	self assert: object coordinates = (1 @ 1)
@@ -129,13 +129,13 @@ SKGridObjectTest >> testGridOutOfBounds1 [
 
 {
 	#category : #'movement testing',
-	#'squeak_changestamp' : 'LK 5/24/2024 11:43'
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:09'
 }
 SKGridObjectTest >> testGridOutOfBounds2 [
 
 	| object |
 	
-	object := SKGridObject newInGrid: self grid at: self gridSize.
+	object := SKKara newInGrid: self grid at: self gridSize.
 	object position: object position + (30 @ 30).
 	
 	self assert: object coordinates = self gridSize
@@ -143,13 +143,13 @@ SKGridObjectTest >> testGridOutOfBounds2 [
 
 {
 	#category : #'movement testing',
-	#'squeak_changestamp' : 'LK 5/24/2024 11:43'
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:09'
 }
 SKGridObjectTest >> testMovement [
 
 	| object |
 	
-	object := SKGridObject newInGrid: self grid.
+	object := SKKara newInGrid: self grid.
 	object position: object position + (self grid pixelPerBlock @ self grid pixelPerBlock).
 	
 	self assert: object coordinates = (2 @ 2)
@@ -157,13 +157,13 @@ SKGridObjectTest >> testMovement [
 
 {
 	#category : #'initialization testing',
-	#'squeak_changestamp' : 'LK 5/24/2024 11:44'
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:09'
 }
 SKGridObjectTest >> testRelativePositionAfterInitialize [
 
 	| object |
 	
-	object := SKGridObject newInGrid: self grid.
+	object := SKKara newInGrid: self grid.
 	self assert: object relativePosition = (0 @ 0)
 	
 	
@@ -171,13 +171,13 @@ SKGridObjectTest >> testRelativePositionAfterInitialize [
 
 {
 	#category : #'initialization testing',
-	#'squeak_changestamp' : 'LK 5/24/2024 11:44'
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:09'
 }
 SKGridObjectTest >> testRelativePositionAfterInitializeAt22 [
 
 	| object |
 	
-	object := SKGridObject newInGrid: self grid at: 2 @ 2.
+	object := SKKara newInGrid: self grid at: 2 @ 2.
 	self assert: object relativePosition = (self grid pixelPerBlock @ self grid pixelPerBlock)
 	
 	
