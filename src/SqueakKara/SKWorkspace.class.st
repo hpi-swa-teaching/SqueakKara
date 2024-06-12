@@ -9,6 +9,15 @@ Class {
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'KD 6/12/2024 18:43'
+}
+SKWorkspace class >> newWithKara: aKara [
+
+	^self basicNew initializeWithKara: aKara.
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'KD 6/12/2024 11:52'
 }
 SKWorkspace >> close [
@@ -18,19 +27,23 @@ SKWorkspace >> close [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 5/29/2024 15:12'
+	#'squeak_changestamp' : 'KD 6/12/2024 18:29'
 }
 SKWorkspace >> getExampleCode [
 	
-	^'kara move.'
+	^'[kara onCloverleaf not]
+	whileTrue: [
+		kara trunkAhead 
+			ifTrue: [kara turn: right]
+			ifFalse: [kara move]]'
 
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/12/2024 13:27'
+	#'squeak_changestamp' : 'KD 6/12/2024 18:41'
 }
-SKWorkspace >> initialize [
+SKWorkspace >> initializeWithKara: aKara [
 	
 	super initialize.
 	self buildAndOpen.
@@ -40,6 +53,7 @@ SKWorkspace >> initialize [
 	"self bindings at: #left put: SKDirection left."
 	self bindings at: #left put: 'left'.
 	self bindings at: #right put: 'right'.
+	self bindings at: #kara put: aKara.
 	self contents: self getExampleCode.
 
 ]

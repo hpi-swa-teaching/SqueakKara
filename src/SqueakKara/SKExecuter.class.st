@@ -54,11 +54,12 @@ SKExecuter >> compiler: anObject [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'KD 6/10/2024 23:24'
+	#'squeak_changestamp' : 'KD 6/12/2024 18:24'
 }
 SKExecuter >> execute: aCode [
 
 	self codeString: aCode.
+	"self suspendExecution. geht gerade nicht aber wär schon wenn der aktuelle Prozess beendet würde bevor ein neuer ausgeführt wird"
 	self process: [self executeBlock: aCode] fork.
 	
 ]

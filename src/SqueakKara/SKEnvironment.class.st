@@ -65,15 +65,14 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:43'
+	#'squeak_changestamp' : 'KD 6/12/2024 18:36'
 }
 SKEnvironment >> initialize [
 
 
-	self grid: (SKGrid newWithExtent: 20@20).
-	self kara: (SKKara newInGrid: grid).
-	self workspace: (SKWorkspace new).
-	self workspace kara: (self kara).
+	self grid: (SKGrid newWithExtent: 7@7).
+	self kara: self grid challenge1.
+	self workspace: (SKWorkspace newWithKara: self kara).
 	self executer: (SKExecuter new).
 	(self executer kara) setRealKara: self kara.
 ]

@@ -91,6 +91,55 @@ SKGrid >> backgroundColor [
 ]
 
 {
+	#category : #challenges,
+	#'squeak_changestamp' : 'KD 6/12/2024 18:26'
+}
+SKGrid >> challenge1 [
+	SKTrunk newInGrid: self at: 1@1.
+	SKTrunk newInGrid: self at: 2@1.
+	SKTrunk newInGrid: self at: 3@1.
+	SKTrunk newInGrid: self at: 4@1.
+	SKTrunk newInGrid: self at: 5@1.
+	SKTrunk newInGrid: self at: 6@1.
+	SKTrunk newInGrid: self at: 7@1.
+	
+	SKTrunk newInGrid: self at: 7@2.
+	SKTrunk newInGrid: self at: 7@3.
+	SKTrunk newInGrid: self at: 7@4.
+	SKTrunk newInGrid: self at: 7@5.
+	SKTrunk newInGrid: self at: 7@6.
+	SKTrunk newInGrid: self at: 7@7.
+	
+	SKTrunk newInGrid: self at: 6@7.
+	SKTrunk newInGrid: self at: 5@7.
+	SKTrunk newInGrid: self at: 4@7.
+	SKTrunk newInGrid: self at: 3@7.
+	SKTrunk newInGrid: self at: 2@7.
+	SKTrunk newInGrid: self at: 1@7.
+	
+	SKTrunk newInGrid: self at: 1@6.
+	SKTrunk newInGrid: self at: 1@5.
+	SKTrunk newInGrid: self at: 1@4.
+	SKTrunk newInGrid: self at: 1@3.
+	
+	SKTrunk newInGrid: self at: 2@3.
+	SKTrunk newInGrid: self at: 3@3.
+	SKTrunk newInGrid: self at: 4@3.
+	SKTrunk newInGrid: self at: 5@3.
+	
+	SKTrunk newInGrid: self at: 5@3.
+	SKTrunk newInGrid: self at: 5@4.
+	SKTrunk newInGrid: self at: 5@5.
+	
+	SKTrunk newInGrid: self at: 4@5.
+	SKTrunk newInGrid: self at: 3@5.
+	
+	SKCloverleaf newInGrid: self at: 4@4.
+	^SKKara newInGrid: self at: 1@2.
+	
+]
+
+{
 	#category : #initialization,
 	#'squeak_changestamp' : 'LK 5/24/2024 11:18'
 }
