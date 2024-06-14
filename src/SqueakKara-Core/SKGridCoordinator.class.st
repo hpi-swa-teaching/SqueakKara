@@ -5,7 +5,7 @@ Class {
 		'grid',
 		'gridMatrix'
 	],
-	#category : #SqueakKara
+	#category : #SqueakKara-Core
 }
 
 {

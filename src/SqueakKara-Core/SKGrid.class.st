@@ -7,7 +7,7 @@ Class {
 		'gridCoordinator',
 		'scaleFactor'
 	],
-	#category : #SqueakKara
+	#category : #SqueakKara-Core
 }
 
 {

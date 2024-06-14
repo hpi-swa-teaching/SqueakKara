@@ -7,7 +7,7 @@ Class {
 		'executer',
 		'kara'
 	],
-	#category : #SqueakKara
+	#category : #SqueakKara-Core
 }
 
 {

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'viewDirection'
 	],
-	#category : #SqueakKara
+	#category : #SqueakKara-Core
 }
 
 {

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'kara'
 	],
-	#category : #SqueakKara
+	#category : #SqueakKara-Core
 }
 
 {

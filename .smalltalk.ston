@@ -1,0 +1,13 @@
+SmalltalkCISpec {
+	#loading : [
+		SCIMetacelloLoadSpec {
+			#baseline : 'SqueakKara',
+			#directory : 'src',
+			#platforms : [#squeak],
+			#load : ['tests']
+		}
+	],
+	#testing : {
+		#packages : ['SqueakKara-Tests']
+	}
+}
