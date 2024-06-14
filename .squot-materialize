@@ -1,11 +1,23 @@
 [
 	SquotTonelMapper {
 		#package : MCPackage {
-			#name : 'SqueakKara'
+			#name : 'BaselineOfSqueakKara'
 		},
 		#path : FSAbsolutePath [
 			'src'
 		]
+	},
+	SquotTonelMapper {
+		#package : MCPackage {
+			#name : 'SqueakKara-Core'
+		},
+		#path : @4
+	},
+	SquotTonelMapper {
+		#package : MCPackage {
+			#name : 'SqueakKara-Tests'
+		},
+		#path : @4
 	},
 	SquotImageMapper {
 		#path : FSAbsolutePath [

@@ -1,7 +1,7 @@
 Class {
 	#name : #SKDirection,
 	#superclass : #Object,
-	#category : #SqueakKara
+	#category : #SqueakKara-Core
 }
 
 {

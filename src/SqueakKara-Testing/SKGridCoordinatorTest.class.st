@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'grid'
 	],
-	#category : #SqueakKara
+	#category : #SqueakKara-Testing
 }
 
 {

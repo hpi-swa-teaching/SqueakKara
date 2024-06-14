@@ -8,7 +8,7 @@ Class {
 		'process',
 		'speed'
 	],
-	#category : #SqueakKara
+	#category : #SqueakKara-Core
 }
 
 {

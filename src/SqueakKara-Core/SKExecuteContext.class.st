@@ -6,7 +6,7 @@ Class {
 		'right',
 		'left'
 	],
-	#category : #SqueakKara
+	#category : #SqueakKara-Core
 }
 
 {
