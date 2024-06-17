@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'viewDirection'
 	],
-	#category : #SqueakKara-Core
+	#category : #'SqueakKara-Core'
 }
 
 {
@@ -101,7 +101,7 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:49'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:30'
 }
 SKKara >> turn: aDirection [
 
@@ -116,7 +116,6 @@ SKKara >> turn: aDirection [
 		ifFalse:
 			[aDirection = 'right'
 				ifTrue: [angle := (angle + 90) \\\ 360]].
-				"Fehlerbehandlung für falsche Eingabe"
 												
 	self viewDirection:	 (self convertAngleToDirection: angle).		
 	self setTexture

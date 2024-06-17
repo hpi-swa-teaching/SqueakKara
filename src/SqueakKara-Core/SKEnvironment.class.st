@@ -7,11 +7,11 @@ Class {
 		'executer',
 		'kara'
 	],
-	#category : #SqueakKara-Core
+	#category : #'SqueakKara-Core'
 }
 
 {
-	#category : #accessing,
+	#category : #commands,
 	#'squeak_changestamp' : 'KD 6/12/2024 13:28'
 }
 SKEnvironment >> close [
@@ -24,17 +24,19 @@ SKEnvironment >> close [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:22'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:40'
 }
 SKEnvironment >> executer [
+	
 	^ executer
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:22'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:40'
 }
 SKEnvironment >> executer: anObject [
+	
 	executer := anObject
 ]
 
@@ -49,28 +51,30 @@ SKEnvironment >> executionSpeed: aSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:22'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:40'
 }
 SKEnvironment >> grid [
+	
 	^ grid
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:22'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:40'
 }
 SKEnvironment >> grid: anObject [
+	
 	grid := anObject
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 18:36'
+	#category : #initialization,
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:40'
 }
 SKEnvironment >> initialize [
 
 
-	self grid: (SKGrid newWithExtent: 7@7).
+	self grid: (SKGrid newWithExtent: 7 @ 7).
 	self kara: self grid challenge1.
 	self workspace: (SKWorkspace newWithKara: self kara).
 	self executer: (SKExecuter new).
@@ -79,22 +83,24 @@ SKEnvironment >> initialize [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:28'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:41'
 }
 SKEnvironment >> kara [
+	
 	^ kara
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:28'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:41'
 }
 SKEnvironment >> kara: anObject [
+	
 	kara := anObject
 ]
 
 {
-	#category : #accessing,
+	#category : #commands,
 	#'squeak_changestamp' : 'KD 6/12/2024 13:29'
 }
 SKEnvironment >> pause [
@@ -103,7 +109,7 @@ SKEnvironment >> pause [
 ]
 
 {
-	#category : #accessing,
+	#category : #commands,
 	#'squeak_changestamp' : 'KD 6/12/2024 13:29'
 }
 SKEnvironment >> resume [
@@ -112,27 +118,31 @@ SKEnvironment >> resume [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 12:08'
+	#category : #commands,
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:41'
 }
 SKEnvironment >> run [
+	
 	|code|
+	
 	code :=  self workspace userCode.
-	self executer execute: code.
+	self executer execute: code
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:22'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:41'
 }
 SKEnvironment >> workspace [
+	
 	^ workspace
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:22'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:41'
 }
 SKEnvironment >> workspace: anObject [
+	
 	workspace := anObject
 ]

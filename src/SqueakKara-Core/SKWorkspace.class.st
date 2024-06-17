@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'kara'
 	],
-	#category : #SqueakKara-Core
+	#category : #'SqueakKara-Core'
 }
 
 {
@@ -17,7 +17,7 @@ SKWorkspace class >> newWithKara: aKara [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #commands,
 	#'squeak_changestamp' : 'KD 6/12/2024 11:52'
 }
 SKWorkspace >> close [
@@ -26,7 +26,7 @@ SKWorkspace >> close [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'KD 6/12/2024 18:29'
 }
 SKWorkspace >> getExampleCode [
@@ -40,7 +40,7 @@ SKWorkspace >> getExampleCode [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #initialization,
 	#'squeak_changestamp' : 'KD 6/12/2024 18:41'
 }
 SKWorkspace >> initializeWithKara: aKara [
@@ -59,7 +59,7 @@ SKWorkspace >> initializeWithKara: aKara [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'KD 6/12/2024 11:35'
 }
 SKWorkspace >> kara [
@@ -68,7 +68,7 @@ SKWorkspace >> kara [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'KD 6/12/2024 11:37'
 }
 SKWorkspace >> kara: aKara [
@@ -78,7 +78,7 @@ SKWorkspace >> kara: aKara [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'KD 6/12/2024 12:07'
 }
 SKWorkspace >> userCode [

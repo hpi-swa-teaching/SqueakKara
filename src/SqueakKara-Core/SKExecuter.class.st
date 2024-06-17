@@ -8,73 +8,77 @@ Class {
 		'process',
 		'speed'
 	],
-	#category : #SqueakKara-Core
+	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'KD 6/12/2024 12:29'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:36'
 }
 SKExecuter >> codeContext [
 
-	^ (SKExecuteContext new kara: self kara).
+	^ (SKExecuteContext new kara: self kara)
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/5/2024 17:28'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
 SKExecuter >> codeString [
+	
 	^ codeString
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/5/2024 17:28'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
 SKExecuter >> codeString: anObject [
+	
 	codeString := anObject
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/5/2024 18:08'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
 SKExecuter >> compiler [
+	
 	^ compiler
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/5/2024 18:08'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
 SKExecuter >> compiler: anObject [
+	
 	compiler := anObject
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'KD 6/12/2024 18:24'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
 SKExecuter >> execute: aCode [
 
 	self codeString: aCode.
 	"self suspendExecution. geht gerade nicht aber wär schon wenn der aktuelle Prozess beendet würde bevor ein neuer ausgeführt wird"
-	self process: [self executeBlock: aCode] fork.
+	self process: [self executeBlock: aCode] fork
 	
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'KD 6/12/2024 12:32'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
 SKExecuter >> executeBlock: aBlock [
 	
-	^ compiler evaluate: aBlock for: (self codeContext).
+	^ compiler evaluate: aBlock for: (self codeContext)
 ]
 
 {
-	#category : #'initialize-release',
+	#category : #initialization,
 	#'squeak_changestamp' : 'KD 6/12/2024 12:14'
 }
 SKExecuter >> initialize [
@@ -88,43 +92,47 @@ SKExecuter >> initialize [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/11/2024 10:17'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
 SKExecuter >> kara [
+	
 	^ kara
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/11/2024 10:17'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:38'
 }
 SKExecuter >> kara: anObject [
+	
 	kara := anObject
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/10/2024 08:41'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:38'
 }
 SKExecuter >> process [
+	
 	^ process
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/10/2024 08:41'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:38'
 }
 SKExecuter >> process: anObject [
+	
 	process := anObject
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'KD 6/12/2024 13:32'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
 SKExecuter >> resumeExecution [
 	
-	(self process isTerminated not) ifTrue: [self process resume].
+	(self process isTerminated not) ifTrue: [self process resume]
 ]
 
 {
@@ -147,37 +155,29 @@ SKExecuter >> speed: aSpeed [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'KD 6/12/2024 12:12'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
 SKExecuter >> step [
 
 	self stepTime > 0
-		ifTrue: [(Delay forMilliseconds: self stepTime) wait.]
+		ifTrue: [(Delay forMilliseconds: self stepTime) wait]
 	
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 12:15'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:38'
 }
 SKExecuter >> stepTime [
 
-	^ (1000 / self speed) floor.
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/10/2024 08:41'
-}
-SKExecuter >> stepTime: anObject [
-	stepTime := anObject
+	^ (1000 / self speed) floor
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'KD 6/12/2024 15:01'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
 SKExecuter >> suspendExecution [
 
-	((self process isTerminated not) and: (self process isSuspended not)) ifTrue: [process suspend].
+	((self process isTerminated not) and: (self process isSuspended not)) ifTrue: [process suspend]
 ]

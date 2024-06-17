@@ -1,7 +1,7 @@
 Class {
 	#name : #SKGridNullTile,
 	#superclass : #SKGridTile,
-	#category : #SqueakKara-Core
+	#category : #'SqueakKara-Core'
 }
 
 {
