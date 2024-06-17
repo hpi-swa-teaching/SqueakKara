@@ -5,38 +5,42 @@ Class {
 		'kara',
 		'executer'
 	],
-	#category : #SqueakKara-Core
+	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/11/2024 09:59'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }
 SKKaraDecorator >> executer [
+	
 	^ executer
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/11/2024 09:59'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }
 SKKaraDecorator >> executer: anObject [
+	
 	executer := anObject
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/11/2024 09:59'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }
 SKKaraDecorator >> kara [
+	
 	^ kara
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/11/2024 09:59'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }
 SKKaraDecorator >> kara: anObject [
+	
 	kara := anObject
 ]
 
@@ -62,9 +66,10 @@ SKKaraDecorator >> onCloverleaf [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/11/2024 10:20'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }
 SKKaraDecorator >> setRealKara: anObject [
+	
 	kara := anObject
 ]
 

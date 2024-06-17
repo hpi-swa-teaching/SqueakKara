@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'assetLoader'
 	],
-	#category : #SqueakKara-Core
+	#category : #'SqueakKara-Core'
 }
 
 {
