@@ -21,12 +21,12 @@ SKEnvironment class >> newWithKaraAt: aPoint [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'KD 6/12/2024 13:28'
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:43'
 }
 SKEnvironment >> close [
 
-	"self workspace close.
-	self grid abandon."
+	self workspace close.
+	self grid abandon.
 
 	
 ]

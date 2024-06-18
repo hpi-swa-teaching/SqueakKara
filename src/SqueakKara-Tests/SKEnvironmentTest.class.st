@@ -27,12 +27,11 @@ SKEnvironmentTest >> setUp [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:01'
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:44'
 }
 SKEnvironmentTest >> tearDown [
 
-	self environment grid abandon.
-	"self environment workspace owner delete"
+	self environment close
 	
 ]
 
