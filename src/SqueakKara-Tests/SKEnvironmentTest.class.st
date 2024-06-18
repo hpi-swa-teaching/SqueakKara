@@ -89,13 +89,14 @@ SKEnvironmentTest >> testDetectNoTrunk [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:20'
+	#'squeak_changestamp' : 'JJG 6/18/2024 19:04'
 }
 SKEnvironmentTest >> testDetectTrunk [
 
 	self environment workspace userCode: 'kara trunkAhead ifTrue: [kara turn: right. kara move]'.
 	SKTrunk newInGrid: self environment grid at: 2 @ 1.
 	self environment run.
+	self environment executer step.
 	self environment executer step.
 	self environment executer step.
 	self environment executer step.
@@ -116,7 +117,7 @@ SKEnvironmentTest >> testMove [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 12:17'
+	#'squeak_changestamp' : 'JJG 6/18/2024 19:06'
 }
 SKEnvironmentTest >> testMoveTwice [
 
@@ -124,18 +125,20 @@ SKEnvironmentTest >> testMoveTwice [
 	self environment run.
 	self environment executer step.
 	self environment executer step.
+	self environment executer step.
 	self assert: self environment kara coordinates = (3 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:13'
+	#'squeak_changestamp' : 'JJG 6/18/2024 19:07'
 }
 SKEnvironmentTest >> testTurnLeftMove [
 
 	self environment kara coordinates: (2 @ 2).
 	self environment workspace userCode: 'kara turn: left. kara move'.
 	self environment run.
+	self environment executer step.
 	self environment executer step.
 	self environment executer step.
 	self assert: self environment kara coordinates = (2 @ 1)

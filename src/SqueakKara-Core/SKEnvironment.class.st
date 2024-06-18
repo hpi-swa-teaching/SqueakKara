@@ -87,7 +87,7 @@ SKEnvironment >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 6/18/2024 11:20'
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:47'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
@@ -96,12 +96,12 @@ SKEnvironment >> initializeWithChallenge1 [
 	self kara: self grid challenge1.
 	self workspace: (SKWorkspace newWithKara: self kara).
 	self executer: (SKExecuter new).
-	(self executer kara) setRealKara: self kara.
+	(self executer kara) kara: self kara.
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 6/18/2024 11:22'
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:47'
 }
 SKEnvironment >> initializeWithKaraAt: aPoint [
 
@@ -110,7 +110,7 @@ SKEnvironment >> initializeWithKaraAt: aPoint [
 	self kara: (SKKara newInGrid: self grid at: aPoint).
 	self workspace: (SKWorkspace newWithKara: self kara).
 	self executer: (SKExecuter new).
-	(self executer kara) setRealKara: self kara.
+	(self executer kara) kara: self kara.
 ]
 
 {
