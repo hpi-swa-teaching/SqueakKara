@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'grid'
 	],
-	#category : #SqueakKara-Tests
+	#category : #'SqueakKara-Tests'
 }
 
 {
@@ -36,7 +36,7 @@ SKGridCoordinatorTest >> setUp [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'LK 5/24/2024 11:34'
+	#'squeak_changestamp' : 'JJG 6/18/2024 11:14'
 }
 SKGridCoordinatorTest >> tearDown [
 
@@ -56,6 +56,34 @@ SKGridCoordinatorTest >> testDeleteObject [
 	anotherObject abandon.
 	
 	self deny: ((anObject neighboursHere includes: anotherObject) or: (anObject neighboursHere size = 2))
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:27'
+}
+SKGridCoordinatorTest >> testNeighbourAbove [
+
+	| anObject anotherObject |
+	
+	anObject := SKKara newInGrid: self grid at: 1 @ 1.
+	anotherObject := SKKara newInGrid: self grid at: 1 @ 1 + SKDirection below.
+	
+	self assert: ((anotherObject neighboursAbove includes: anObject) and: (anotherObject neighboursAbove size = 1))
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:28'
+}
+SKGridCoordinatorTest >> testNeighbourBelow [
+
+	| anObject anotherObject |
+	
+	anObject := SKKara newInGrid: self grid at: 1 @ 1.
+	anotherObject := SKKara newInGrid: self grid at: 1 @ 1 + SKDirection below.
+	
+	self assert: ((anObject neighboursBelow includes: anotherObject) and: (anObject neighboursBelow size = 1))
 ]
 
 {
@@ -100,6 +128,20 @@ SKGridCoordinatorTest >> testNeighbourLeftAfterMove [
 	anotherObject coordinateX: anotherObject coordinateX + 2.
 	
 	self assert: ((anotherObject neighboursLeft includes: anObject) and: (anotherObject neighboursLeft size = 1))
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:24'
+}
+SKGridCoordinatorTest >> testNeighbourRight [
+
+	| anObject anotherObject |
+	
+	anObject := SKKara newInGrid: self grid at: 1 @ 1 + SKDirection right.
+	anotherObject := SKKara newInGrid: self grid.
+	
+	self assert: ((anotherObject neighboursRight includes: anObject) and: (anotherObject neighboursRight size = 1))
 ]
 
 {

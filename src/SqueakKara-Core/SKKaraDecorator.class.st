@@ -65,15 +65,6 @@ SKKaraDecorator >> onCloverleaf [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
-}
-SKKaraDecorator >> setRealKara: anObject [
-	
-	kara := anObject
-]
-
-{
 	#category : #'SKKara functions',
 	#'squeak_changestamp' : 'EB 6/11/2024 10:01'
 }

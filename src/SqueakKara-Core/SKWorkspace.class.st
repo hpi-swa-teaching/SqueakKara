@@ -18,11 +18,11 @@ SKWorkspace class >> newWithKara: aKara [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:52'
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:43'
 }
 SKWorkspace >> close [
 
-	self abandon.
+	self changed: #close
 ]
 
 {
@@ -79,12 +79,26 @@ SKWorkspace >> kara: aKara [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 12:07'
+	#'squeak_changestamp' : 'JJG 6/18/2024 11:09'
 }
 SKWorkspace >> userCode [
+	
 	"user code with appended other stuff"
+	
 	|code|
 	
 	code := self contents.
 	^ code
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JJG 6/18/2024 11:10'
+}
+SKWorkspace >> userCode: aString [
+	
+	"to be used only for testing"
+	
+	self contents: aString
+	
 ]

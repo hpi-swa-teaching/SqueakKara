@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'grid'
 	],
-	#category : #SqueakKara-Tests
+	#category : #'SqueakKara-Tests'
 }
 
 {
@@ -45,7 +45,7 @@ SKKaraTest >> tearDown [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'jt 6/11/2024 11:28'
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:41'
 }
 SKKaraTest >> testAbsolutePositionAfterMoveWithChangedDirection [
 
@@ -54,13 +54,13 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithChangedDirection [
 	kara := SKKara newInGrid: self grid.
 	kara viewDirection: 0 @ 1.
 	kara move.
-	self assert: kara position = (self grid position + (0 @ self grid pixelPerBlock)).
+	self assert: kara position = (self grid position + (0 @ self grid pixelPerBlock))
 
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'jt 6/11/2024 11:27'
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:41'
 }
 SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 
@@ -68,29 +68,113 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 	
 	kara := SKKara newInGrid: self grid.
 	kara move.
-	self assert: kara position = (self grid position + (self grid pixelPerBlock @ 0)).
+	self assert: kara position = (self grid position + (self grid pixelPerBlock @ 0))
 
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'jt 6/11/2024 12:47'
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
 }
-SKKaraTest >> testKaraTurn [
+SKKaraTest >> testKaraStartTurnLeftRight [
+
+	| kara |
+	
+	kara := SKKara newInGrid: self grid.
+	kara turn: SKDirection right.
+	kara turn: SKDirection left.
+	self assert: kara viewDirection = SKDirection right
+
+	
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
+}
+SKKaraTest >> testKaraStartViewDirection [
+
+	| kara |
+	
+	kara := SKKara newInGrid: self grid.
+	self assert: kara viewDirection = SKDirection right
+
+	
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
+}
+SKKaraTest >> testKaraTurnLeft [
 
 	| kara |
 	
 	kara := SKKara newInGrid: self grid.
 	kara turn: 'left'.
-	self assert: kara viewDirection = SKDirection above.
+	self assert: kara viewDirection = SKDirection above
+
+	
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
+}
+SKKaraTest >> testKaraTurnLeftTwice [
+
+	| kara |
+	
+	kara := SKKara newInGrid: self grid.
 	kara turn: 'left'.
-	self assert: kara viewDirection = SKDirection left.
-	kara turn: 'right'.
-	self assert: kara viewDirection = SKDirection above.
-	kara turn: 'right'.
-	self assert: kara viewDirection = SKDirection right.
+	kara turn: 'left'.
+	self assert: kara viewDirection = SKDirection left
+	
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
+}
+SKKaraTest >> testKaraTurnRight [
+
+	| kara |
+	
+	kara := SKKara newInGrid: self grid.
 	kara turn: 'right'.
 	self assert: kara viewDirection = SKDirection below
+
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
+}
+SKKaraTest >> testKaraTurnRightThrice [
+
+	| kara |
+	
+	kara := SKKara newInGrid: self grid.
+	kara turn: 'right'.
+	kara turn: 'right'.
+	kara turn: 'right'.
+	self assert: kara viewDirection = SKDirection above
+
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
+}
+SKKaraTest >> testKaraTurnRightTwice [
+
+	| kara |
+	
+	kara := SKKara newInGrid: self grid.
+	kara turn: 'right'.
+	kara turn: 'right'.
+	self assert: kara viewDirection = SKDirection left
+
 ]
 
 {
@@ -110,43 +194,56 @@ SKKaraTest >> testMoveWhenTrunkAhead [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'jt 6/11/2024 13:58'
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
+}
+SKKaraTest >> testNoTrunkAhead [
+
+	| kara |
+	
+	kara := SKKara newInGrid: self grid.
+	self deny: kara trunkAhead
+
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
 }
 SKKaraTest >> testNotOnCloverleaf [
 
-	| kara cloverleaf |
+	| kara |
 	
 	kara := SKKara newInGrid: self grid.
-	cloverleaf := SKCloverleaf newInGrid: self grid at: 2 @ 1.
-	self assert: false = kara onCloverleaf.
+	SKCloverleaf newInGrid: self grid at: 2 @ 1.
+	self deny: kara onCloverleaf
 
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'jt 6/11/2024 11:57'
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
 }
 SKKaraTest >> testOnCloverleaf [
 
-	| kara cloverleaf |
+	| kara |
 	
 	kara := SKKara newInGrid: self grid.
-	cloverleaf := SKCloverleaf newInGrid: self grid.
-	self assert: true = kara onCloverleaf.
+	SKCloverleaf newInGrid: self grid.
+	self assert: kara onCloverleaf
 
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'jt 6/11/2024 13:23'
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:39'
 }
 SKKaraTest >> testTrunkAhead [
 
-	| kara trunk |
+	| kara |
 	
 	kara := SKKara newInGrid: self grid.
-	trunk := SKTrunk newInGrid: self grid at: 2 @ 1.
-	self assert: true = kara trunkAhead.
+	SKTrunk newInGrid: self grid at: 2 @ 1.
+	self assert: kara trunkAhead
 
 ]
 
