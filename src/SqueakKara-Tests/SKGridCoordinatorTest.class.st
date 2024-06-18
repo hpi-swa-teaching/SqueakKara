@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'grid'
 	],
-	#category : #SqueakKara-Tests
+	#category : #'SqueakKara-Tests'
 }
 
 {
@@ -36,7 +36,7 @@ SKGridCoordinatorTest >> setUp [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'LK 5/24/2024 11:34'
+	#'squeak_changestamp' : 'JJG 6/18/2024 11:14'
 }
 SKGridCoordinatorTest >> tearDown [
 

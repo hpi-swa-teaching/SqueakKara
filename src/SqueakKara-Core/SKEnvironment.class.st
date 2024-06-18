@@ -11,6 +11,15 @@ Class {
 }
 
 {
+	#category : #'instance creation',
+	#'squeak_changestamp' : 'JJG 6/18/2024 11:38'
+}
+SKEnvironment class >> newWithKaraAt: aPoint [
+
+	^ self basicNew initializeWithKaraAt: aPoint
+]
+
+{
 	#category : #commands,
 	#'squeak_changestamp' : 'KD 6/12/2024 13:28'
 }
@@ -69,13 +78,36 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:40'
+	#'squeak_changestamp' : 'JJG 6/18/2024 11:32'
 }
 SKEnvironment >> initialize [
+
+	"self initializeWithChallenge1"
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'JJG 6/18/2024 11:20'
+}
+SKEnvironment >> initializeWithChallenge1 [
 
 
 	self grid: (SKGrid newWithExtent: 7 @ 7).
 	self kara: self grid challenge1.
+	self workspace: (SKWorkspace newWithKara: self kara).
+	self executer: (SKExecuter new).
+	(self executer kara) setRealKara: self kara.
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'JJG 6/18/2024 11:22'
+}
+SKEnvironment >> initializeWithKaraAt: aPoint [
+
+
+	self grid: (SKGrid newWithExtent: 7 @ 7).
+	self kara: (SKKara newInGrid: self grid at: aPoint).
 	self workspace: (SKWorkspace newWithKara: self kara).
 	self executer: (SKExecuter new).
 	(self executer kara) setRealKara: self kara.
