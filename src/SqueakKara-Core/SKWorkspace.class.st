@@ -18,11 +18,11 @@ SKWorkspace class >> newWithKara: aKara [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:52'
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:06'
 }
 SKWorkspace >> close [
 
-	self abandon.
+	"self abandon."
 ]
 
 {
