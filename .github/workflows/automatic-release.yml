@@ -58,6 +58,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /home/runner/.smalltalkCI/_builds/squello.sar
-          asset_name: squello.sar
+          asset_path: /home/runner/.smalltalkCI/_builds/squeakkara.sar
+          asset_name: squeakkara.sar
           asset_content_type: application/zip
