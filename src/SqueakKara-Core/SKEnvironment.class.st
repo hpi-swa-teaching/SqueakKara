@@ -5,7 +5,8 @@ Class {
 		'grid',
 		'workspace',
 		'executer',
-		'kara'
+		'kara',
+		'executeControls'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -33,6 +34,22 @@ SKEnvironment >> close [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'EB 6/22/2024 14:11'
+}
+SKEnvironment >> executeControls [
+	^ executeControls
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'EB 6/22/2024 14:11'
+}
+SKEnvironment >> executeControls: anObject [
+	executeControls := anObject
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:40'
 }
 SKEnvironment >> executer [
@@ -47,6 +64,15 @@ SKEnvironment >> executer [
 SKEnvironment >> executer: anObject [
 	
 	executer := anObject
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'EB 6/22/2024 14:16'
+}
+SKEnvironment >> executerState [
+
+	^ self executer state.
 ]
 
 {
@@ -101,7 +127,7 @@ SKEnvironment >> initializeWithChallenge1 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:47'
+	#'squeak_changestamp' : 'EB 6/22/2024 14:11'
 }
 SKEnvironment >> initializeWithKaraAt: aPoint [
 
@@ -111,6 +137,8 @@ SKEnvironment >> initializeWithKaraAt: aPoint [
 	self workspace: (SKWorkspace newWithKara: self kara).
 	self executer: (SKExecuter new).
 	(self executer kara) kara: self kara.
+	self executeControls: SKExecuteControls new.
+	executeControls environment: self.
 ]
 
 {
@@ -159,6 +187,15 @@ SKEnvironment >> run [
 	
 	code :=  self workspace userCode.
 	self executer execute: code
+]
+
+{
+	#category : #commands,
+	#'squeak_changestamp' : 'EB 6/22/2024 14:30'
+}
+SKEnvironment >> stop [
+	
+	self executer terminate.
 ]
 
 {
