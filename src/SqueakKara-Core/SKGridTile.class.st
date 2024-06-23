@@ -1,5 +1,5 @@
 Class {
 	#name : #SKGridTile,
 	#superclass : #Set,
-	#category : #SqueakKara
+	#category : #'SqueakKara-Core'
 }

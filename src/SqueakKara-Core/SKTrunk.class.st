@@ -1,7 +1,7 @@
 Class {
 	#name : #SKTrunk,
 	#superclass : #SKGridObject,
-	#category : #SqueakKara
+	#category : #'SqueakKara-Core'
 }
 
 {
