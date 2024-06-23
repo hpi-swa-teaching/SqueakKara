@@ -75,10 +75,24 @@
 		],
 		#encoding : @4
 	},
+	SquotTonelMapper {
+		#package : MCPackage {
+			#name : 'SqueakKara-Tests'
+		},
+		#path : FSAbsolutePath [
+			'src'
+		]
+	},
+	SquotTonelMapper {
+		#package : MCPackage {
+			#name : 'BaselineOfSqueakKara'
+		},
+		#path : @16
+	},
 	SquotImageMapper {
 		#path : FSAbsolutePath [
 			'assets',
-			'Kara-FacingDown.png'
+			'Kara-FacingUp.png'
 		],
 		#encoding : @4
 	}
