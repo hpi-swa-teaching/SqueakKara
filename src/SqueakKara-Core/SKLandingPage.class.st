@@ -16,21 +16,21 @@ SKLandingPage >> actionExample1 [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'KD 6/23/2024 19:42'
+	#'squeak_changestamp' : 'LK 6/21/2024 23:02'
 }
 SKLandingPage >> actionExample2 [
 
-	SKEnvironment basicNew initializeWithChallenge2.
+	SKEnvironment basicNew initializeWithChallenge1.
 	self delete
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'KD 6/23/2024 19:42'
+	#'squeak_changestamp' : 'LK 6/21/2024 23:02'
 }
 SKLandingPage >> actionExample3 [
 
-	SKEnvironment basicNew initializeWithChallenge3.
+	SKEnvironment basicNew initializeWithChallenge1.
 	self delete
 ]
 

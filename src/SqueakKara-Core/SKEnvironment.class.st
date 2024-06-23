@@ -113,7 +113,7 @@ SKEnvironment >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'KD 6/23/2024 19:35'
+	#'squeak_changestamp' : 'JJG 6/18/2024 18:47'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
@@ -123,40 +123,6 @@ SKEnvironment >> initializeWithChallenge1 [
 	self workspace: (SKWorkspace newWithKara: self kara).
 	self executer: (SKExecuter new).
 	(self executer kara) kara: self kara.
-	self executeControls: SKExecuteControls new.
-	executeControls environment: self.
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'KD 6/23/2024 19:40'
-}
-SKEnvironment >> initializeWithChallenge2 [
-
-
-	self grid: (SKGrid newWithExtent: 9 @ 2).
-	self kara: self grid challenge2.
-	self workspace: (SKWorkspace newWithKara: self kara).
-	self executer: (SKExecuter new).
-	(self executer kara) kara: self kara.
-	self executeControls: SKExecuteControls new.
-	executeControls environment: self.
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'KD 6/23/2024 19:59'
-}
-SKEnvironment >> initializeWithChallenge3 [
-
-
-	self grid: (SKGrid newWithExtent: 9 @ 3).
-	self kara: self grid challenge3.
-	self workspace: (SKWorkspace newWithKara: self kara).
-	self executer: (SKExecuter new).
-	(self executer kara) kara: self kara.
-	self executeControls: SKExecuteControls new.
-	executeControls environment: self.
 ]
 
 {
