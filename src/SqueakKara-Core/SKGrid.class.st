@@ -51,14 +51,14 @@ SKGrid >> addHorizontalLineAt: aCoordinate [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'KD 6/23/2024 19:52'
+	#'squeak_changestamp' : 'JJG 6/12/2024 16:40'
 }
 SKGrid >> addTexture [
 
 	1 to: self gridHeight - 1 do: [:anInteger |
-		self addHorizontalLineAt: anInteger].
-	1 to: self gridWidth - 1 do: [:anInteger |
 		self addVerticalLineAt: anInteger].
+	1 to: self gridWidth - 1 do: [:anInteger |
+		self addHorizontalLineAt: anInteger].
 ]
 
 {
@@ -136,45 +136,6 @@ SKGrid >> challenge1 [
 	SKTrunk newInGrid: self at: 3 @ 5.
 	
 	SKCloverleaf newInGrid: self at: 4 @ 4.
-	^SKKara newInGrid: self at: 1 @ 2.
-	
-]
-
-{
-	#category : #challenges,
-	#'squeak_changestamp' : 'KD 6/23/2024 19:54'
-}
-SKGrid >> challenge2 [
-	
-	SKTrunk newInGrid: self at: 3 @ 2.
-	SKTrunk newInGrid: self at: 5 @ 2.
-	SKTrunk newInGrid: self at: 7 @ 2.
-	
-	SKCloverleaf newInGrid: self at: 9 @ 2.
-	
-	^SKKara newInGrid: self at: 1 @ 2.
-	
-]
-
-{
-	#category : #challenges,
-	#'squeak_changestamp' : 'KD 6/23/2024 19:59'
-}
-SKGrid >> challenge3 [
-	
-	SKTrunk newInGrid: self at: 2 @ 1.
-	SKTrunk newInGrid: self at: 3 @ 1.
-	SKTrunk newInGrid: self at: 4 @ 1.
-	SKTrunk newInGrid: self at: 5 @ 1.
-	SKTrunk newInGrid: self at: 6 @ 1.
-	
-	SKTrunk newInGrid: self at: 4 @ 3.
-	SKTrunk newInGrid: self at: 5 @ 3.
-	SKTrunk newInGrid: self at: 6 @ 3.
-	SKTrunk newInGrid: self at: 7 @ 3.
-	SKTrunk newInGrid: self at: 8 @ 3.
-	SKTrunk newInGrid: self at: 9 @ 3.
-	
 	^SKKara newInGrid: self at: 1 @ 2.
 	
 ]

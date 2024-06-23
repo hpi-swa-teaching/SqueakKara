@@ -81,14 +81,14 @@ SKExecuter >> executeBlock: aBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'EB 6/22/2024 15:07'
+	#'squeak_changestamp' : 'EB 6/22/2024 14:13'
 }
 SKExecuter >> initialize [
 
 	self kara: SKKaraDecorator new.
 	self kara executer: self.
 	self compiler: Compiler new.
-	self speed: 25.
+	self speed: 5.
 	self state: #terminated.
 	^self
 ]
