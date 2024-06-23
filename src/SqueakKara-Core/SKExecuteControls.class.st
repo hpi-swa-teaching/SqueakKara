@@ -12,16 +12,15 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'EB 6/22/2024 15:05'
+	#'squeak_changestamp' : 'EB 6/23/2024 19:42'
 }
 SKExecuteControls >> actionRun [
-	|dict label texture|
+	|dict texture|
 	dict := Dictionary new.
-	dict at: #terminated put:[self environment run. label := 'pause'. texture := self pauseTextureFilename].
-	dict at: #suspended put:[self environment resume. label := 'pause'. texture := self pauseTextureFilename].
-	dict at: #running put:[self environment pause. label := 'resume'. texture := self runTextureFilename].
+	dict at: #terminated put:[self environment run. texture := self pauseTextureFilename].
+	dict at: #suspended put:[self environment resume. texture := self pauseTextureFilename].
+	dict at: #running put:[self environment pause. texture := self runTextureFilename].
 	(dict at: self environment executerState) value.
-	self buttonRun label: label.
 	self buttonRunSetTexture: texture.
 ]
 
@@ -70,12 +69,11 @@ SKExecuteControls >> addWidgetCentered: aWidget atXPosition: aXValue [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'EB 6/22/2024 15:00'
+	#'squeak_changestamp' : 'EB 6/23/2024 19:41'
 }
 SKExecuteControls >> buildButtonRun [
 	
 	^IconicButton new
-		label: 'run';
 		target: self;
 		actionSelector: #actionRun;
 		color: Color lightGray.
@@ -83,12 +81,11 @@ SKExecuteControls >> buildButtonRun [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'EB 6/22/2024 15:00'
+	#'squeak_changestamp' : 'EB 6/23/2024 19:42'
 }
 SKExecuteControls >> buildButtonStop [
 
 	^ IconicButton new
-		    label: 'stop';
 		    target: self;
 		    actionSelector: #actionStop;
 		    color: Color lightGray
@@ -218,20 +215,20 @@ SKExecuteControls >> initialize [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'EB 6/22/2024 15:02'
+	#'squeak_changestamp' : 'EB 6/23/2024 19:40'
 }
 SKExecuteControls >> pauseTextureFilename [
 
-	^'Trunk.png'
+	^'pause.png'
 ]
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:55'
+	#'squeak_changestamp' : 'EB 6/23/2024 19:40'
 }
 SKExecuteControls >> runTextureFilename [
 
-	^'Trunk.png'
+	^'play.png'
 ]
 
 {
@@ -262,11 +259,11 @@ SKExecuteControls >> sliderSpeedValueChanged: aValue [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'EB 6/22/2024 15:02'
+	#'squeak_changestamp' : 'EB 6/23/2024 19:40'
 }
 SKExecuteControls >> stopTextureFilename [
 
-	^'Trunk.png'
+	^'stop.png'
 ]
 
 {
