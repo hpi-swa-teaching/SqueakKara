@@ -218,20 +218,20 @@ SKExecuteControls >> initialize [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'EB 6/22/2024 15:02'
+	#'squeak_changestamp' : 'KD 6/23/2024 19:51'
 }
 SKExecuteControls >> pauseTextureFilename [
 
-	^'Trunk.png'
+	^'Kara-FacingUp.png'
 ]
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:55'
+	#'squeak_changestamp' : 'KD 6/23/2024 19:51'
 }
 SKExecuteControls >> runTextureFilename [
 
-	^'Trunk.png'
+	^'Cloverleaf.png'
 ]
 
 {
