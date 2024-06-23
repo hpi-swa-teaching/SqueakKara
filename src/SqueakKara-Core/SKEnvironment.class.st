@@ -113,16 +113,37 @@ SKEnvironment >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:47'
+	#'squeak_changestamp' : 'jt 6/23/2024 19:47'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
+	| gameWindow textMorph |
 
 	self grid: (SKGrid newWithExtent: 7 @ 7).
 	self kara: self grid challenge1.
 	self workspace: (SKWorkspace newWithKara: self kara).
 	self executer: (SKExecuter new).
 	(self executer kara) kara: self kara.
+	self executeControls: SKExecuteControls new.
+	executeControls environment: self.
+
+	gameWindow := SystemWindow new.
+	gameWindow setLabel: 'Kara'.
+
+	textMorph := PluggableTextMorph on: self workspace contents
+	                text: #contents
+	                accept: #contents:
+	                readSelection: nil
+	                menu: #codePaneMenu:shifted:.
+	textMorph borderWidth: 1.
+	textMorph extent: self grid width @ self grid height.
+
+	gameWindow addMorph: self executeControls frame: (0.0@0.0 corner: 1.0@0.1).
+	gameWindow addMorph: textMorph frame: (0.0@0.1 corner: 0.5@1.0).
+	gameWindow addMorph: self grid frame: (0.5@0.1 corner: 1.0@1.0).
+
+	gameWindow openInWorld.
+
 ]
 
 {

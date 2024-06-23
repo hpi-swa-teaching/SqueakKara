@@ -189,12 +189,12 @@ SKGrid >> gridWidth: aNumber [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:47'
+	#'squeak_changestamp' : 'jt 6/23/2024 19:38'
 }
 SKGrid >> initialize [
 
 	super initialize.
-	self openInWorld;
+	self "openInWorld;"
 		color: self backgroundColor
 		
 

@@ -41,12 +41,12 @@ SKWorkspace >> getExampleCode [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'KD 6/12/2024 18:41'
+	#'squeak_changestamp' : 'jt 6/23/2024 19:38'
 }
 SKWorkspace >> initializeWithKara: aKara [
 	
 	super initialize.
-	self buildAndOpen.
+	"self buildAndOpen."
 	self windowTitle: 'SKWorkspace'.
 	
 	"replace, when kara turn method is updated"
