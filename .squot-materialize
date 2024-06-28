@@ -2,14 +2,57 @@
 	SquotImageMapper {
 		#path : FSAbsolutePath [
 			'assets',
-			'Cloverleaf.png'
+			'stop.png'
 		],
 		#encoding : Class [ #PNGReadWriter ]
 	},
 	SquotImageMapper {
 		#path : FSAbsolutePath [
 			'assets',
+			'Kara-FacingDown.png'
+		],
+		#encoding : @4
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'Trunk.png'
+		],
+		#encoding : @4
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'pause.png'
+		],
+		#encoding : @4
+	},
+	SquotTonelMapper {
+		#package : MCPackage {
+			#name : 'SqueakKara'
+		},
+		#path : FSAbsolutePath [
+			'src'
+		]
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'Kara-FacingRight.png'
+		],
+		#encoding : @4
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
 			'play.png'
+		],
+		#encoding : @4
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'Kara-FacingLeft.png'
 		],
 		#encoding : @4
 	},
@@ -24,13 +67,6 @@
 	SquotImageMapper {
 		#path : FSAbsolutePath [
 			'assets',
-			'stop.png'
-		],
-		#encoding : @4
-	},
-	SquotImageMapper {
-		#path : FSAbsolutePath [
-			'assets',
 			'Kara-FacingUp.png'
 		],
 		#encoding : @4
@@ -39,26 +75,12 @@
 		#package : MCPackage {
 			#name : 'SqueakKara-Core'
 		},
-		#path : @9
+		#path : @22
 	},
 	SquotImageMapper {
 		#path : FSAbsolutePath [
 			'assets',
-			'pause.png'
-		],
-		#encoding : @4
-	},
-	SquotImageMapper {
-		#path : FSAbsolutePath [
-			'assets',
-			'Trunk.png'
-		],
-		#encoding : @4
-	},
-	SquotImageMapper {
-		#path : FSAbsolutePath [
-			'assets',
-			'Kara-FacingLeft.png'
+			'Cloverleaf.png'
 		],
 		#encoding : @4
 	},
@@ -66,20 +88,6 @@
 		#package : MCPackage {
 			#name : 'BaselineOfSqueakKara'
 		},
-		#path : @9
-	},
-	SquotImageMapper {
-		#path : FSAbsolutePath [
-			'assets',
-			'Kara-FacingRight.png'
-		],
-		#encoding : @4
-	},
-	SquotImageMapper {
-		#path : FSAbsolutePath [
-			'assets',
-			'Kara-FacingDown.png'
-		],
-		#encoding : @4
+		#path : @22
 	}
 ]
