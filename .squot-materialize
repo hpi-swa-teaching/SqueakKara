@@ -1,49 +1,8 @@
 [
-	SquotTonelMapper {
-		#package : MCPackage {
-			#name : 'BaselineOfSqueakKara'
-		},
-		#path : FSAbsolutePath [
-			'src'
-		]
-	},
-	SquotTonelMapper {
-		#package : MCPackage {
-			#name : 'SqueakKara-Core'
-		},
-		#path : @4
-	},
-	SquotTonelMapper {
-		#package : MCPackage {
-			#name : 'SqueakKara-Tests'
-		},
-		#path : @4
-	},
 	SquotImageMapper {
 		#path : FSAbsolutePath [
 			'assets',
-			'Trunk.png'
-		],
-		#encoding : Class [ #PNGReadWriter ]
-	},
-	SquotImageMapper {
-		#path : FSAbsolutePath [
-			'assets',
-			'Cloverleaf.png'
-		],
-		#encoding : Class [ #PNGReadWriter ]
-	},
-	SquotImageMapper {
-		#path : FSAbsolutePath [
-			'assets',
-			'Kara-FacingUp.png'
-		],
-		#encoding : Class [ #PNGReadWriter ]
-	},
-	SquotImageMapper {
-		#path : FSAbsolutePath [
-			'assets',
-			'Kara-FacingRight.png'
+			'stop.png'
 		],
 		#encoding : Class [ #PNGReadWriter ]
 	},
@@ -52,13 +11,83 @@
 			'assets',
 			'Kara-FacingDown.png'
 		],
-		#encoding : Class [ #PNGReadWriter ]
+		#encoding : @4
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'Trunk.png'
+		],
+		#encoding : @4
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'pause.png'
+		],
+		#encoding : @4
+	},
+	SquotTonelMapper {
+		#package : MCPackage {
+			#name : 'SqueakKara'
+		},
+		#path : FSAbsolutePath [
+			'src'
+		]
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'Kara-FacingRight.png'
+		],
+		#encoding : @4
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'play.png'
+		],
+		#encoding : @4
 	},
 	SquotImageMapper {
 		#path : FSAbsolutePath [
 			'assets',
 			'Kara-FacingLeft.png'
 		],
-		#encoding : Class [ #PNGReadWriter ]
+		#encoding : @4
+	},
+	SquotTonelMapper {
+		#package : MCPackage {
+			#name : 'SqueakKara-Tests'
+		},
+		#path : FSAbsolutePath [
+			'src'
+		]
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'Kara-FacingUp.png'
+		],
+		#encoding : @4
+	},
+	SquotTonelMapper {
+		#package : MCPackage {
+			#name : 'SqueakKara-Core'
+		},
+		#path : @22
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'Cloverleaf.png'
+		],
+		#encoding : @4
+	},
+	SquotTonelMapper {
+		#package : MCPackage {
+			#name : 'BaselineOfSqueakKara'
+		},
+		#path : @22
 	}
 ]
