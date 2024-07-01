@@ -1,3 +1,6 @@
+"
+SKExecuter provides a way to run the code step by step. It uses the pre-existing Compiler class and adds the feature that each move or turn call on the SKKara-object ist executed on its own beat as well as the ability to pause, stop or restart execution.
+"
 Class {
 	#name : #SKExecuter,
 	#superclass : #Object,
@@ -9,7 +12,8 @@ Class {
 		'speed',
 		'state'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:45'
 }
 
 {
@@ -59,12 +63,11 @@ SKExecuter >> compiler: anObject [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:28'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
 }
 SKExecuter >> execute: aCode [
 
 	self codeString: aCode.
-	"self suspendExecution. geht gerade nicht aber wär schon wenn der aktuelle Prozess beendet würde bevor ein neuer ausgeführt wird"
 	self state: #running.
 	self process: [self executeBlock: aCode] fork
 	
@@ -81,7 +84,7 @@ SKExecuter >> executeBlock: aBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:13'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
 }
 SKExecuter >> initialize [
 
@@ -90,7 +93,7 @@ SKExecuter >> initialize [
 	self compiler: Compiler new.
 	self speed: 5.
 	self state: #terminated.
-	^self
+	^ self
 ]
 
 {

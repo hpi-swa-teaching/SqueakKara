@@ -1,3 +1,6 @@
+"
+SKGridCoordinator stores all objects within the SKGrid. All SKGridObjects within the grid must register with the SKGridCoordinator, which stores their position in its gridMatrix, which is made up of SKGridTiles.
+"
 Class {
 	#name : #SKGridCoordinator,
 	#superclass : #Object,
@@ -5,7 +8,8 @@ Class {
 		'grid',
 		'gridMatrix'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:57'
 }
 
 {

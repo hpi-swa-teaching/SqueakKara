@@ -1,3 +1,6 @@
+"
+SKGrid provides the grid in which all SKGridObjects are displayed. It creates and scales the grid itself and creates a SKGridCoordinator which handles all objects within the grid.
+"
 Class {
 	#name : #SKGrid,
 	#superclass : #Morph,
@@ -7,7 +10,8 @@ Class {
 		'gridCoordinator',
 		'scaleFactor'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:48'
 }
 
 {

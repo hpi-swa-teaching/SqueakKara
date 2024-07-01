@@ -1,10 +1,14 @@
+"
+SKTextureLoader is used to load and scale all textures.
+"
 Class {
 	#name : #SKTextureLoader,
 	#superclass : #Object,
 	#instVars : [
 		'assetLoader'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:01'
 }
 
 {

@@ -1,7 +1,11 @@
+"
+SKGridNullTile overwrites the remove method of the pre-existing Set class for simpler handling within the SKGridCoordinator.
+"
 Class {
 	#name : #SKGridNullTile,
 	#superclass : #SKGridTile,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:58'
 }
 
 {

@@ -1,10 +1,14 @@
+"
+SKGridObject is the common superclass shared by all objects that may appear within the SKGrid (namely SKKara, SKTrunk and SKCloverleaf). It mainly ensures that the objects remain aligned to the grid at all times and offers methods for interacting with the grid, such as detecting neighbours. Additionally, it provides an interface for setting the texture in the inheriting subclasses.
+"
 Class {
 	#name : #SKGridObject,
 	#superclass : #ImageMorph,
 	#instVars : [
 		'grid'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:54'
 }
 
 {

@@ -1,3 +1,6 @@
+"
+SKEnvironment provides the main programming environment, consisting of the grid (SKGrid) with its kara object (SKKara), a workspace (SKWorkspace) in which to write the code, an executer (SKExecuter) to execute the code and executeControls (SKExecuteControls) to provide UI for the code execution. Apart from being a common access point for all these elements, SKEnvironent also stores relevant variables for the scaling of the application.
+"
 Class {
 	#name : #SKEnvironment,
 	#superclass : #Object,
@@ -10,7 +13,8 @@ Class {
 		'gameWidth',
 		'gameHeight'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
 }
 
 {
@@ -24,29 +28,31 @@ SKEnvironment class >> newWithKaraAt: aPoint [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:43'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:06'
 }
 SKEnvironment >> close [
 
 	self workspace close.
-	self grid abandon.
+	self grid abandon
 
 	
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:11'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:06'
 }
 SKEnvironment >> executeControls [
+	
 	^ executeControls
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:11'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:06'
 }
 SKEnvironment >> executeControls: anObject [
+	
 	executeControls := anObject
 ]
 
@@ -70,20 +76,20 @@ SKEnvironment >> executer: anObject [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:16'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:06'
 }
 SKEnvironment >> executerState [
 
-	^ self executer state.
+	^ self executer state
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 12:16'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:06'
 }
 SKEnvironment >> executionSpeed: aSpeed [
 
-	self executer speed: aSpeed.
+	self executer speed: aSpeed
 ]
 
 {
@@ -142,16 +148,7 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 6/18/2024 11:32'
-}
-SKEnvironment >> initialize [
-
-	"self initializeWithChallenge1"
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'jt 6/24/2024 00:17'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:07'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
@@ -179,13 +176,13 @@ SKEnvironment >> initializeWithChallenge1 [
 	startPoint := ((self gameWidth / 2) - (executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
 	self executeControls position: gameWindow position + startPoint.
 	
-	gameWindow openInHand.
+	gameWindow openInHand
 
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jt 6/24/2024 00:23'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:07'
 }
 SKEnvironment >> initializeWithChallenge2 [
 
@@ -213,12 +210,12 @@ SKEnvironment >> initializeWithChallenge2 [
 	startPoint := ((self gameWidth / 2) - (executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
 	self executeControls position: gameWindow position + startPoint.
 	
-	gameWindow openInHand.
+	gameWindow openInHand
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jt 6/24/2024 00:23'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:08'
 }
 SKEnvironment >> initializeWithChallenge3 [
 
@@ -246,12 +243,12 @@ SKEnvironment >> initializeWithChallenge3 [
 	startPoint := ((self gameWidth / 2) - (executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
 	self executeControls position: gameWindow position + startPoint.
 	
-	gameWindow openInHand.
+	gameWindow openInHand
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jt 6/24/2024 00:23'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:08'
 }
 SKEnvironment >> initializeWithKaraAt: aPoint [
 
@@ -279,7 +276,7 @@ SKEnvironment >> initializeWithKaraAt: aPoint [
 	startPoint := ((self gameWidth / 2) - (executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
 	self executeControls position: gameWindow position + startPoint.
 	
-	gameWindow openInHand.
+	gameWindow openInHand
 ]
 
 {
@@ -302,20 +299,20 @@ SKEnvironment >> kara: anObject [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'KD 6/12/2024 13:29'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:08'
 }
 SKEnvironment >> pause [
 
-	executer suspendExecution.
+	executer suspendExecution
 ]
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'KD 6/12/2024 13:29'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
 }
 SKEnvironment >> resume [
 
-	executer resumeExecution.
+	executer resumeExecution
 ]
 
 {
@@ -332,11 +329,11 @@ SKEnvironment >> run [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:30'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
 }
 SKEnvironment >> stop [
 	
-	self executer terminate.
+	self executer terminate
 ]
 
 {

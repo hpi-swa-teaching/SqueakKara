@@ -1,3 +1,6 @@
+"
+SKExecuteContext stores bindings for variables that can be used in the SKWorkspace and is used to compile the code written by the user.
+"
 Class {
 	#name : #SKExecuteContext,
 	#superclass : #Object,
@@ -6,7 +9,8 @@ Class {
 		'right',
 		'left'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:41'
 }
 
 {

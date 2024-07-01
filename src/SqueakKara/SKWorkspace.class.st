@@ -1,10 +1,14 @@
+"
+SKWorkspace extends the pre-existing workspace to allow the user a way to write code which can then be executed and visualized within the SKGrid.
+"
 Class {
 	#name : #SKWorkspace,
 	#superclass : #Workspace,
 	#instVars : [
 		'kara'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:03'
 }
 
 {
@@ -27,11 +31,11 @@ SKWorkspace >> close [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 18:29'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:12'
 }
 SKWorkspace >> getExampleCode [
 	
-	^'[kara onCloverleaf not]
+	^ '[kara onCloverleaf not]
 	whileTrue: [
 		kara trunkAhead 
 			ifTrue: [kara turn: right]
@@ -41,7 +45,7 @@ SKWorkspace >> getExampleCode [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'KD 6/12/2024 18:41'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
 }
 SKWorkspace >> initializeWithKara: aKara [
 	
@@ -49,41 +53,37 @@ SKWorkspace >> initializeWithKara: aKara [
 	self buildAndOpen.
 	self windowTitle: 'SKWorkspace'.
 	
-	"replace, when kara turn method is updated"
-	"self bindings at: #left put: SKDirection left."
 	self bindings at: #left put: 'left'.
 	self bindings at: #right put: 'right'.
 	self bindings at: #kara put: aKara.
-	self contents: self getExampleCode.
+	self contents: self getExampleCode
 
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:35'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
 }
 SKWorkspace >> kara [
 
-	^kara
+	^ kara
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 11:37'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
 }
 SKWorkspace >> kara: aKara [
 
 	kara := aKara.
-	self bindings at: #kara put: aKara.
+	self bindings at: #kara put: aKara
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 11:09'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
 }
 SKWorkspace >> userCode [
-	
-	"user code with appended other stuff"
 	
 	|code|
 	
