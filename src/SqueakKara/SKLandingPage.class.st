@@ -1,7 +1,11 @@
+"
+SKLandingPage provides a user interface for the user to select either a blank work environment or one of the provided example problems. It is the first page the user sees.
+"
 Class {
 	#name : #SKLandingPage,
 	#superclass : #SystemWindow,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:01'
 }
 
 {
@@ -36,11 +40,11 @@ SKLandingPage >> actionExample3 [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'LK 6/21/2024 23:01'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:01'
 }
 SKLandingPage >> actionNew [
 
-	SKEnvironment newWithKaraAt: 1@1.
+	SKEnvironment newWithKaraAt: 1 @ 1.
 	self delete
 ]
 

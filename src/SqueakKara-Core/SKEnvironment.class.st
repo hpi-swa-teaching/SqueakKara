@@ -1,3 +1,6 @@
+"
+SKEnvironment provides the main programming environment, consisting of the grid (SKGrid) with its kara object (SKKara), a workspace (SKWorkspace) in which to write the code, an executer (SKExecuter) to execute the code and executeControls (SKExecuteControls) to provide UI for the code execution. Apart from being a common access point for all these elements, SKEnvironent also stores relevant variables for the scaling of the application.
+"
 Class {
 	#name : #SKEnvironment,
 	#superclass : #Object,
@@ -8,9 +11,11 @@ Class {
 		'kara',
 		'executeControls',
 		'gameWidth',
-		'gameHeight'
+		'gameHeight',
+		'systemWindow'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
 }
 
 {
@@ -24,29 +29,32 @@ SKEnvironment class >> newWithKaraAt: aPoint [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:43'
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:18'
 }
 SKEnvironment >> close [
 
 	self workspace close.
 	self grid abandon.
+	self systemWindow delete
 
 	
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:11'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:06'
 }
 SKEnvironment >> executeControls [
+	
 	^ executeControls
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:11'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:06'
 }
 SKEnvironment >> executeControls: anObject [
+	
 	executeControls := anObject
 ]
 
@@ -70,20 +78,20 @@ SKEnvironment >> executer: anObject [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:16'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:06'
 }
 SKEnvironment >> executerState [
 
-	^ self executer state.
+	^ self executer state
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 12:16'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:06'
 }
 SKEnvironment >> executionSpeed: aSpeed [
 
-	self executer speed: aSpeed.
+	self executer speed: aSpeed
 ]
 
 {
@@ -142,144 +150,64 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 6/18/2024 11:32'
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:28'
 }
-SKEnvironment >> initialize [
+SKEnvironment >> initializeObjects [
+	
 
-	"self initializeWithChallenge1"
+	self workspace: (SKWorkspace newWithKara: self kara).
+	self executer: (SKExecuter new).
+	(self executer kara) kara: self kara.
+	self executeControls: SKExecuteControls new.
+	executeControls environment: self.
+	
+	self setSystemWindow.
+	self systemWindow openInHand
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jt 6/24/2024 00:17'
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:28'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
-	| gameWindow  startPoint |
-
 	self grid: (SKGrid newWithExtent: 7 @ 7).
 	self kara: self grid challenge1.
-	self workspace: (SKWorkspace newWithKara: self kara).
-	self executer: (SKExecuter new).
-	(self executer kara) kara: self kara.
-	self executeControls: SKExecuteControls new.
-	executeControls environment: self.
-	
-	gameWindow := SystemWindow new.
-	gameWindow setLabel: 'Kara'.
-	gameWindow extent: self gameWidth @ self gameHeight.
-	gameWindow setWindowColor: self grid backgroundColor.
-	
-	gameWindow addMorph: self executeControls.
-	gameWindow addMorph: self grid.
-		
-	startPoint := self grid pixelPerBlock @ (3 * self grid pixelPerBlock).
-	self grid position: gameWindow position + startPoint.
-	
-	startPoint := ((self gameWidth / 2) - (executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
-	self executeControls position: gameWindow position + startPoint.
-	
-	gameWindow openInHand.
+	self initializeObjects
 
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jt 6/24/2024 00:23'
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:30'
 }
 SKEnvironment >> initializeWithChallenge2 [
 
-	| gameWindow startPoint |
-
 	self grid: (SKGrid newWithExtent: 9 @ 2).
 	self kara: self grid challenge2.
-	self workspace: (SKWorkspace newWithKara: self kara).
-	self executer: (SKExecuter new).
-	(self executer kara) kara: self kara.
-	self executeControls: SKExecuteControls new.
-	executeControls environment: self.
-	
-	gameWindow := SystemWindow new.
-	gameWindow setLabel: 'Kara'.
-	gameWindow extent: self gameWidth @ self gameHeight.
-	gameWindow setWindowColor: self grid backgroundColor.
-	
-	gameWindow addMorph: self executeControls.
-	gameWindow addMorph: self grid.
-		
-	startPoint := self grid pixelPerBlock @ (3 * self grid pixelPerBlock).
-	self grid position: gameWindow position + startPoint.
-	
-	startPoint := ((self gameWidth / 2) - (executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
-	self executeControls position: gameWindow position + startPoint.
-	
-	gameWindow openInHand.
+	self initializeObjects
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jt 6/24/2024 00:23'
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:30'
 }
 SKEnvironment >> initializeWithChallenge3 [
 
-	| gameWindow startPoint |
-
 	self grid: (SKGrid newWithExtent: 9 @ 3).
 	self kara: self grid challenge3.
-	self workspace: (SKWorkspace newWithKara: self kara).
-	self executer: (SKExecuter new).
-	(self executer kara) kara: self kara.
-	self executeControls: SKExecuteControls new.
-	executeControls environment: self.
-	
-	gameWindow := SystemWindow new.
-	gameWindow setLabel: 'Kara'.
-	gameWindow extent: self gameWidth @ self gameHeight.
-	gameWindow setWindowColor: self grid backgroundColor.
-	
-	gameWindow addMorph: self executeControls.
-	gameWindow addMorph: self grid.
-		
-	startPoint := self grid pixelPerBlock @ (3 * self grid pixelPerBlock).
-	self grid position: gameWindow position + startPoint.
-	
-	startPoint := ((self gameWidth / 2) - (executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
-	self executeControls position: gameWindow position + startPoint.
-	
-	gameWindow openInHand.
+	self initializeObjects
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jt 6/24/2024 00:23'
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:30'
 }
 SKEnvironment >> initializeWithKaraAt: aPoint [
-
-	| gameWindow startPoint |
 	
 	self grid: (SKGrid newWithExtent: 7 @ 7).
 	self kara: (SKKara newInGrid: self grid at: aPoint).
-	self workspace: (SKWorkspace newWithKara: self kara).
-	self executer: (SKExecuter new).
-	(self executer kara) kara: self kara.
-	self executeControls: SKExecuteControls new.
-	executeControls environment: self.
-	
-	gameWindow := SystemWindow new.
-	gameWindow setLabel: 'Kara'.
-	gameWindow extent: self gameWidth @ self gameHeight.
-	gameWindow setWindowColor: self grid backgroundColor.
-	
-	gameWindow addMorph: self executeControls.
-	gameWindow addMorph: self grid.
-		
-	startPoint := self grid pixelPerBlock @ (3 * self grid pixelPerBlock).
-	self grid position: gameWindow position + startPoint.
-	
-	startPoint := ((self gameWidth / 2) - (executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
-	self executeControls position: gameWindow position + startPoint.
-	
-	gameWindow openInHand.
+	self initializeObjects
 ]
 
 {
@@ -302,20 +230,35 @@ SKEnvironment >> kara: anObject [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'KD 6/12/2024 13:29'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:08'
 }
 SKEnvironment >> pause [
 
-	executer suspendExecution.
+	executer suspendExecution
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:25'
+}
+SKEnvironment >> positionExecuteControlsAndGrid [
+
+	| startPoint |
+	
+	startPoint  := self grid pixelPerBlock @ (3 * self grid pixelPerBlock).
+	self grid position: self systemWindow position + startPoint.
+	
+	startPoint := ((self gameWidth / 2) - (executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
+	self executeControls position: self systemWindow position + startPoint.
 ]
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'KD 6/12/2024 13:29'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
 }
 SKEnvironment >> resume [
 
-	executer resumeExecution.
+	executer resumeExecution
 ]
 
 {
@@ -331,12 +274,47 @@ SKEnvironment >> run [
 ]
 
 {
+	#category : #initialization,
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:25'
+}
+SKEnvironment >> setSystemWindow [
+
+	
+	self systemWindow: SystemWindow new.
+	self systemWindow setLabel: 'Kara'.
+	self systemWindow 
+		extent: self gameWidth @ self gameHeight;
+		setWindowColor: self grid backgroundColor;
+		addMorph: self executeControls;
+		addMorph: self grid.
+	self positionExecuteControlsAndGrid
+]
+
+{
 	#category : #commands,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:30'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
 }
 SKEnvironment >> stop [
 	
-	self executer terminate.
+	self executer terminate
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:11'
+}
+SKEnvironment >> systemWindow [
+	
+	^ systemWindow
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:10'
+}
+SKEnvironment >> systemWindow: anObject [
+	
+	systemWindow := anObject
 ]
 
 {

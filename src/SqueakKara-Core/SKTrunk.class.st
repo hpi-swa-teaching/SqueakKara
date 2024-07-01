@@ -1,7 +1,11 @@
+"
+SKTrunk adds the proper texture and a way to identify it as a trunk to the functionality provided by SKGridObject.
+"
 Class {
 	#name : #SKTrunk,
 	#superclass : #SKGridObject,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
 }
 
 {

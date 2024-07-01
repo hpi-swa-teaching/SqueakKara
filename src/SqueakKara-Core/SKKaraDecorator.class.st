@@ -1,3 +1,6 @@
+"
+SKKaraDecorator is a decorator for SKKara used to add the necessary step calls to the turn and move methods and modify the SKKara methods so that they can be used by the SKExecuter.
+"
 Class {
 	#name : #SKKaraDecorator,
 	#superclass : #Object,
@@ -5,7 +8,8 @@ Class {
 		'kara',
 		'executer'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 16:00'
 }
 
 {
@@ -46,12 +50,12 @@ SKKaraDecorator >> kara: anObject [
 
 {
 	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'EB 6/11/2024 10:04'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:11'
 }
 SKKaraDecorator >> move [
 
 	self kara move.
-	self executer step.
+	self executer step
 ]
 
 {
@@ -76,11 +80,11 @@ SKKaraDecorator >> trunkAhead [
 
 {
 	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'EB 6/11/2024 10:04'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:12'
 }
 SKKaraDecorator >> turn: aDirection [
 
 	self kara turn: aDirection.
-	self executer step.
+	self executer step
 
 ]

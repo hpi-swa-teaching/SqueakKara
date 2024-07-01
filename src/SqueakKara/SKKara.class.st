@@ -1,10 +1,14 @@
+"
+SKKara provides methods to move an turn kara within the grid.
+"
 Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
 	#instVars : [
 		'viewDirection'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
 }
 
 {
