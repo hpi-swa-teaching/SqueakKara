@@ -87,11 +87,11 @@ SKGrid >> addVerticalLineAt: aCoordinate [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:45'
+	#'squeak_changestamp' : 'LK 7/4/2024 19:10'
 }
 SKGrid >> backgroundColor [
 
-	 ^ Color lightGreen lighter
+	 ^ SKStylesheet primaryColor
 ]
 
 {
@@ -271,11 +271,11 @@ SKGrid >> isPointInGridDimensions: aPoint [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:45'
+	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
 }
 SKGrid >> lineColor [
 
-	^ Color gray lighter
+	^ SKStylesheet secondaryColor
 
 	
 ]

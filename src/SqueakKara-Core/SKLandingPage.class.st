@@ -63,7 +63,7 @@ SKLandingPage >> addAllButtons [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:52'
+	#'squeak_changestamp' : 'LK 7/4/2024 19:01'
 }
 SKLandingPage >> addButton: aButton atIndex: anInteger [
 
@@ -73,58 +73,65 @@ SKLandingPage >> addButton: aButton atIndex: anInteger [
 	
 	anOffset := 2 * aButton height * anInteger.
 	
-	aButton position: self center - (aButton width / 2) + (0 @ anOffset).
+	aButton position: self center - (aButton width / 2) + (0 @ anOffset)
 ]
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 6/21/2024 23:02'
+	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
 }
 SKLandingPage >> buildButtonExample1 [
 
-	^ SimpleButtonMorph new
-		    label: self buttonExample1Label;
-		    target: self;
-		    actionSelector: #actionExample1;
-		    color: Color lightGray
+	^ self buildButtonWithLabel: self buttonExample1Label
+		andSelector: #actionExample1
+		andColor: SKStylesheet secondaryColor
 ]
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 6/21/2024 23:02'
+	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
 }
 SKLandingPage >> buildButtonExample2 [
 
-	^ SimpleButtonMorph new
-		    label: self buttonExample2Label;
-		    target: self;
-		    actionSelector: #actionExample2;
-		    color: Color lightGray
+	^ self buildButtonWithLabel: self buttonExample2Label
+		andSelector: #actionExample2
+		andColor: SKStylesheet secondaryColor
 ]
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 6/21/2024 23:02'
+	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
 }
 SKLandingPage >> buildButtonExample3 [
 
-	^ SimpleButtonMorph new
-		    label: self buttonExample3Label;
-		    target: self;
-		    actionSelector: #actionExample3;
-		    color: Color lightGray
+	^ self buildButtonWithLabel: self buttonExample3Label
+		andSelector: #actionExample3
+		andColor: SKStylesheet secondaryColor
 ]
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 6/21/2024 23:01'
+	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
 }
 SKLandingPage >> buildButtonNew [
 
+	^ self buildButtonWithLabel: self buttonNewLabel
+		andSelector: #actionNew
+		andColor: SKStylesheet primaryColor
+]
+
+{
+	#category : #buttons,
+	#'squeak_changestamp' : 'LK 7/4/2024 19:07'
+}
+SKLandingPage >> buildButtonWithLabel: aLabel andSelector: aSelector andColor: aColor [
+
 	^ SimpleButtonMorph new
-		    label: self buttonNewLabel;
+		    label: aLabel;
 		    target: self;
-		    actionSelector: #actionNew.
+		    actionSelector: aSelector;
+		    color: aColor;
+		    height: self buttonHeight
 ]
 
 {
@@ -152,6 +159,15 @@ SKLandingPage >> buttonExample2Label [
 SKLandingPage >> buttonExample3Label [
 
 	^ 'Example Project 3'
+]
+
+{
+	#category : #buttons,
+	#'squeak_changestamp' : 'LK 7/4/2024 19:06'
+}
+SKLandingPage >> buttonHeight [
+
+	^ 20 px
 ]
 
 {
