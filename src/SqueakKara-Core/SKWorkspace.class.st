@@ -31,15 +31,21 @@ SKWorkspace >> close [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:12'
+	#'squeak_changestamp' : 'NR 7/5/2024 15:14'
 }
 SKWorkspace >> getExampleCode [
 	
-	^ '[kara onCloverleaf not]
-	whileTrue: [
-		kara trunkAhead 
-			ifTrue: [kara turn: right]
-			ifFalse: [kara move]]'
+	^ '"
+To solve this challenge use following functions:
+
+COMMANDS: kara
+	move, turn left/right
+		
+SENSOREN: kara
+	onCloverleaf, trunkAhead
+"
+'
+
 
 ]
 

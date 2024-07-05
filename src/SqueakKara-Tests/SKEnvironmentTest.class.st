@@ -46,17 +46,18 @@ SKEnvironmentTest >> testCreation [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:19'
+	#'squeak_changestamp' : 'NR 7/5/2024 14:00'
 }
 SKEnvironmentTest >> testDetectCloverleaf [
 
 	self environment workspace userCode: 'kara onCloverleaf ifTrue: [kara move]'.
 	SKCloverleaf newInGrid: self environment grid at: 1 @ 1.
+	"self environment executer speed: 0."
 	self environment run.
 	self environment executer step.
 	self environment executer step.
 	self environment executer step.
-	self assert: self environment kara coordinates = (2 @ 1)
+	self assert: (self environment kara coordinates = (2 @ 1))
 ]
 
 {
