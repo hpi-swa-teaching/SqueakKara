@@ -16,21 +16,6 @@ Class {
 
 {
 	#category : #'instance creation',
-	#'squeak_changestamp' : 'NR 7/5/2024 12:01'
-}
-SKGrid class >> newWithChallenge: aNumber [
-
-	"comment stating purpose of message"
-
-	
-	
-	
-
-
-]
-
-{
-	#category : #'instance creation',
 	#'squeak_changestamp' : 'JJG 6/5/2024 17:29'
 }
 SKGrid class >> newWithExtent: aPoint [

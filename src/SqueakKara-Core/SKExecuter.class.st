@@ -134,14 +134,13 @@ SKExecuter >> process: anObject [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:10'
+	#'squeak_changestamp' : 'JJG 7/6/2024 17:52'
 }
 SKExecuter >> resumeExecution [
 	
-	(self process isTerminated not) ifTrue: [
+	(self process isTerminated) ifFalse: [
 		self state: #running.
-		self process resume.
-	]
+		self process resume.]
 ]
 
 {
@@ -164,18 +163,18 @@ SKExecuter >> speed: aSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:08'
+	#'squeak_changestamp' : 'JJG 7/6/2024 17:49'
 }
 SKExecuter >> state [
 
-	(self process isNil) ifTrue: [
-		self state: #terminated
-	]
-	ifFalse: [
-		(self process isTerminated) ifTrue: [
+	(self process isNil) 
+	ifTrue: [
 		self state: #terminated
 		]
-	].
+	ifFalse: [
+		(self process isTerminated) ifTrue: [
+		self state: #terminated]
+		].
 	^ state
 ]
 
@@ -210,21 +209,23 @@ SKExecuter >> stepTime [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:09'
+	#'squeak_changestamp' : 'JJG 7/6/2024 17:47'
 }
 SKExecuter >> suspendExecution [
 
 	((self process isTerminated not) and: (self process isSuspended not)) ifTrue: [
 		self state: #suspended.
-		process suspend.
+		self process suspend.
 	].
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:34'
+	#'squeak_changestamp' : 'JJG 7/6/2024 17:54'
 }
 SKExecuter >> terminate [
 
-	(self state = #terminated) ifFalse: [self process terminate. self state: #terminated]
+	(self state = #terminated) ifFalse: [
+		self process terminate. 
+		self state: #terminated]
 ]
