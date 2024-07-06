@@ -13,36 +13,36 @@ Class {
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'jt 6/11/2024 12:44'
+	#'squeak_changestamp' : 'JJG 7/6/2024 17:57'
 }
 SKKara >> convertAngleToDirection: angle [
 
-	| AngleToDirection |
+	| angleToDirection |
 	
-	AngleToDirection := Dictionary newFrom: {
+	angleToDirection := Dictionary newFrom: {
 		0 -> SKDirection above.
 	      90 -> SKDirection right.
 		180 -> SKDirection below.
 		270 -> SKDirection left.}.
 	
-	^ AngleToDirection at: angle
+	^ angleToDirection at: angle
 ]
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'jt 6/11/2024 13:22'
+	#'squeak_changestamp' : 'JJG 7/6/2024 17:58'
 }
 SKKara >> convertDirectionToAngle: direction [
 
-	| DirectionToAngle |
+	| directionToAngle |
 	
-	DirectionToAngle := Dictionary newFrom: {
+	directionToAngle := Dictionary newFrom: {
 		SKDirection above -> 0.
 	      SKDirection right -> 90.
 		SKDirection below -> 180.
 		SKDirection left -> 270.}.
 	
-	^ DirectionToAngle at: direction
+	^ directionToAngle at: direction
 ]
 
 {

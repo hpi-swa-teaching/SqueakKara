@@ -42,34 +42,30 @@ SKExecuteControls >> actionStop [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:57'
+	#'squeak_changestamp' : 'JJG 7/6/2024 17:26'
 }
 SKExecuteControls >> addAllWidgets [
-
-	| verticalSpace|
 
 	self buttonRun: self buildButtonRun.
 	self sliderSpeed: self buildSliderSpeed.
 	self buttonStop: self buildButtonStop.
 	self buttonRunSetTexture: self runTextureFilename.
 	self buttonStopSetTexture.
-	verticalSpace := self addWidgetCentered: self buttonRun atXPosition: self widgetMargin.
-	verticalSpace := self addWidgetCentered: self sliderSpeed atXPosition: verticalSpace + self widgetMargin.
-	verticalSpace := self addWidgetCentered: self buttonStop atXPosition: verticalSpace + self widgetMargin
+	self positionWidgets
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:57'
+	#'squeak_changestamp' : 'JJG 7/6/2024 17:24'
 }
 SKExecuteControls >> addWidgetCentered: aWidget atXPosition: aXValue [ 
 
 	|verticalCenter widgetCenter|
 
 	self addMorph: aWidget.
-	verticalCenter := (self extent y)/2.
-	widgetCenter := (aWidget extent y)/2.
-	aWidget position: (aXValue @ (verticalCenter-widgetCenter)).
+	verticalCenter := (self extent y) / 2.
+	widgetCenter := (aWidget extent y) / 2.
+	aWidget position: (aXValue @ (verticalCenter - widgetCenter)).
 	
 	^ aXValue + aWidget extent x
 ]
@@ -100,12 +96,12 @@ SKExecuteControls >> buildButtonStop [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:58'
+	#'squeak_changestamp' : 'JJG 7/6/2024 17:24'
 }
 SKExecuteControls >> buildSliderSpeed [
 
 	^ SimpleSliderMorph new
-		bounds: (0@0 extent: 100@20);
+		bounds: (0 @ 0 extent: 100 @ 20);
 		minVal: 0;
 		maxVal: 50;
 		setNumericValue: 25;
@@ -169,7 +165,7 @@ SKExecuteControls >> buttonStopSetTexture [
 ]
 
 {
-	#category : #widgets,
+	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 7/1/2024 14:59'
 }
 SKExecuteControls >> defaultBounds [
@@ -214,18 +210,18 @@ SKExecuteControls >> getTexture: aFilename [
 ]
 
 {
-	#category : #widgets,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:59'
+	#category : #initialization,
+	#'squeak_changestamp' : 'JJG 7/6/2024 17:32'
 }
 SKExecuteControls >> initialize [
 
 	super initialize.
-	self bounds: self defaultBounds.
-	self color: Color lightGreen lighter.
-	self borderWidth: 1 px.
-	self borderColor: Color lightGray.
-	self addAllWidgets.
-	self openInWorld
+	self bounds: self defaultBounds;
+		color: SKStylesheet primaryColor;
+		borderWidth: 1 px;
+		borderColor: SKStylesheet secondaryColor;
+		addAllWidgets;
+		openInWorld
 ]
 
 {
@@ -235,6 +231,19 @@ SKExecuteControls >> initialize [
 SKExecuteControls >> pauseTextureFilename [
 
 	^ 'pause.png'
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'JJG 7/6/2024 17:26'
+}
+SKExecuteControls >> positionWidgets [
+
+	| verticalSpace|
+
+	verticalSpace := self addWidgetCentered: self buttonRun atXPosition: self widgetMargin.
+	verticalSpace := self addWidgetCentered: self sliderSpeed atXPosition: verticalSpace + self widgetMargin.
+	verticalSpace := self addWidgetCentered: self buttonStop atXPosition: verticalSpace + self widgetMargin
 ]
 
 {

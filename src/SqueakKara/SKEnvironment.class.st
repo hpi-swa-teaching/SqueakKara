@@ -150,16 +150,15 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:28'
+	#'squeak_changestamp' : 'JJG 7/6/2024 17:48'
 }
 SKEnvironment >> initializeObjects [
-	
 
 	self workspace: (SKWorkspace newWithKara: self kara).
 	self executer: (SKExecuter new).
 	(self executer kara) kara: self kara.
 	self executeControls: SKExecuteControls new.
-	executeControls environment: self.
+	self executeControls environment: self.
 	
 	self setSystemWindow.
 	self systemWindow openInHand
