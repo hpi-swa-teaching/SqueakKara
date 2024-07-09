@@ -29,7 +29,7 @@ And remember to use Squeak Syntax.
 
 ### Example Code 👨‍💻
 
-```smalltalk
+```squeak
 [kara onCloverleaf not]
 	whileTrue: [
 		kara trunkAhead 
