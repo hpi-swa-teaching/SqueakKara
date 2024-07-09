@@ -7,9 +7,9 @@ To start the game, open a workspace and run 'SKLandingPage new.'. Then you can s
 
 You see it opened 2 windows SKGrid and SKWorkspace. 
 
-You have 2 options to execute code: either you use the *"Do It!"* or the *"Print It!"* commands in the newly opened SKWorkspace for instant feedback. OR you write full code in the SKWorkspace, **save the code** and use the execute controls above the SKGrid.
+You have 2 options to execute code: either you use the *"Do It!"* or the *"Print It!"* commands in the newly opened SKWorkspace for instant feedback. OR you write full code in the SKWorkspace, **save the code** and use the **execute controls** above the SKGrid.
 
-## What to do
+## What to do 🎱
 
 When you just want to experiment open a blank project. 
 
