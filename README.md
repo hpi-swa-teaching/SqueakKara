@@ -29,7 +29,7 @@ And remember to use Squeak Syntax.
 
 ### Example Code 👨‍💻
 
-```ruby
+```smalltalk
 [kara onCloverleaf not]
 	whileTrue: [
 		kara trunkAhead 
