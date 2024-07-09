@@ -14,18 +14,8 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'KD 6/12/2024 12:26'
-}
-SKExecuteContext class >> create: aKara [
-
-	self basicNew.
-	self kara: aKara.
-]
-
-{
 	#category : #initialization,
-	#'squeak_changestamp' : 'KD 6/12/2024 12:35'
+	#'squeak_changestamp' : 'KD 7/9/2024 15:26'
 }
 SKExecuteContext >> initialize [
 		

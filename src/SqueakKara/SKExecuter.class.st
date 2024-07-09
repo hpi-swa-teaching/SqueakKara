@@ -18,7 +18,7 @@ Class {
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:36'
+	#'squeak_changestamp' : 'KD 7/9/2024 15:26'
 }
 SKExecuter >> codeContext [
 
