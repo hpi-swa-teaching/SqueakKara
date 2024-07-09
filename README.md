@@ -3,27 +3,27 @@ When you want coding to be as simple a collecting a cloverleaf.
 
 ## How To Use 🍀
 
-To start the game, open a workspace and run 'SKLandingPage new.'. Then you can select a new project or a level from the LandingPage and start playing!
+To start the game, open a workspace and run `SKLandingPage new`. Then you can select a new project or a level from the LandingPage and start playing!
 
-You see it opened 2 windows SKGrid and SKWorkspace. 
+You see it opened 2 windows `SKGrid` and `SKWorkspace`. 
 
-You have 2 options to execute code: either you use the *"Do It!"* or the *"Print It!"* commands in the newly opened SKWorkspace for instant feedback. OR you write full code in the SKWorkspace, **save the code** and use the **execute controls** above the SKGrid.
+You have 2 options to execute code: either you use the *"Do It!"* or the *"Print It!"* commands in the newly opened `SKWorkspace` for instant feedback. OR you write full code in the `SKWorkspace`, **save the code** and use the **execute controls** above the `SKGrid`.
 
 ## What to do 🎱
 
 When you just want to experiment open a blank project. 
 
-To solve problems open one of the example projects. The first 2 are completed when you reach the cloverleaf. The 3rd one is a bit trickier, there you have to make Kara stop moving at the start or the end of the tunnel.
+To solve problems open one of the example projects. The first two are completed when you reach the cloverleaf. The 3rd one is a bit trickier, there you have to make Kara stop moving at the start or the end of the tunnel.
 
-To add your own projects you can modify the challenge functions in the SKGrid and the SKEnvironment class. 
+To add your own projects you can modify the challenge functions in the `SKGrid` and the `SKEnvironment` class. 
 
 ## Hints 💡
 
 Kara has following methods you can use:
-  - move
-  - turn: left/right
-  - trunkAhead
-  - onCloverleaf
+  - `move`
+  - `turn: left` or `turn: right`
+  - `trunkAhead`
+  - `onCloverleaf`
 
 And remember to use Squeak Syntax.
 
