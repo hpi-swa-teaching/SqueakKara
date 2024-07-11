@@ -15,12 +15,12 @@ Class {
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'KD 7/9/2024 15:26'
+	#'squeak_changestamp' : 'EB 7/11/2024 15:20'
 }
 SKExecuteContext >> initialize [
 		
-	left := 'left'.
-	right := 'right'
+	left := SKDirection rotateLeft.
+	right := SKDirection rotateRight
 ]
 
 {

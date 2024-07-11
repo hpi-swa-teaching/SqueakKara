@@ -52,3 +52,37 @@ SKDirection class >> right [
 
 	^ 1 @ 0
 ]
+
+{
+	#category : #directions,
+	#'squeak_changestamp' : 'EB 7/11/2024 15:17'
+}
+SKDirection class >> rotateLeft [
+
+	^ {
+    		{ 0. 1 }.
+    		{ -1. 0 }.
+	}
+]
+
+{
+	#category : #directions,
+	#'squeak_changestamp' : 'EB 7/11/2024 15:13'
+}
+SKDirection class >> rotatePosition: aPosition by: aMatrix [
+	|vector|
+	vector := aMatrix collect: [:row |((row at: 1) * aPosition x) + ((row at: 2) * aPosition y)].
+	^ (vector first) @ (vector second)
+]
+
+{
+	#category : #directions,
+	#'squeak_changestamp' : 'EB 7/11/2024 15:17'
+}
+SKDirection class >> rotateRight [
+
+	^ {
+    		{ 0. -1 }.
+    		{ 1. 0 }.
+	}
+]

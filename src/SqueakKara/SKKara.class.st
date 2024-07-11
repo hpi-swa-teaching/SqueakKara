@@ -12,40 +12,6 @@ Class {
 }
 
 {
-	#category : #turning,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:57'
-}
-SKKara >> convertAngleToDirection: angle [
-
-	| angleToDirection |
-	
-	angleToDirection := Dictionary newFrom: {
-		0 -> SKDirection above.
-	      90 -> SKDirection right.
-		180 -> SKDirection below.
-		270 -> SKDirection left.}.
-	
-	^ angleToDirection at: angle
-]
-
-{
-	#category : #turning,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:58'
-}
-SKKara >> convertDirectionToAngle: direction [
-
-	| directionToAngle |
-	
-	directionToAngle := Dictionary newFrom: {
-		SKDirection above -> 0.
-	      SKDirection right -> 90.
-		SKDirection below -> 180.
-		SKDirection left -> 270.}.
-	
-	^ directionToAngle at: direction
-]
-
-{
 	#category : #appearance,
 	#'squeak_changestamp' : 'jt 6/11/2024 19:59'
 }
@@ -105,23 +71,11 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:30'
+	#'squeak_changestamp' : 'EB 7/11/2024 15:18'
 }
-SKKara >> turn: aDirection [
-
-	"also update SKWorkspace initialize, when kara turn method is updated to use SKDirection"
-	
-	| angle |
-
-	angle := self convertDirectionToAngle: self viewDirection.
-	
-	aDirection = 'left'
-		ifTrue: [angle := (angle - 90) \\\ 360]
-		ifFalse:
-			[aDirection = 'right'
-				ifTrue: [angle := (angle + 90) \\\ 360]].
+SKKara >> turn: aRotation [
 												
-	self viewDirection:	 (self convertAngleToDirection: angle).		
+	self viewDirection:	 (SKDirection rotatePosition: self viewDirection by: aRotation).		
 	self setTexture
 
 	

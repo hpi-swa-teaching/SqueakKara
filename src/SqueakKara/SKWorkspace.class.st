@@ -51,7 +51,7 @@ SENSOREN: kara
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
+	#'squeak_changestamp' : 'EB 7/11/2024 15:19'
 }
 SKWorkspace >> initializeWithKara: aKara [
 	
@@ -59,8 +59,8 @@ SKWorkspace >> initializeWithKara: aKara [
 	self buildAndOpen.
 	self windowTitle: 'SKWorkspace'.
 	
-	self bindings at: #left put: 'left'.
-	self bindings at: #right put: 'right'.
+	self bindings at: #left put: SKDirection rotateLeft.
+	self bindings at: #right put: SKDirection rotateRight.
 	self bindings at: #kara put: aKara.
 	self contents: self getExampleCode
 

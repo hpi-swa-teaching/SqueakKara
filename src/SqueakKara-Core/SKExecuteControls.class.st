@@ -72,26 +72,26 @@ SKExecuteControls >> addWidgetCentered: aWidget atXPosition: aXValue [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:58'
+	#'squeak_changestamp' : 'EB 7/11/2024 14:40'
 }
 SKExecuteControls >> buildButtonRun [
 	
 	^ IconicButton new
 		target: self;
 		actionSelector: #actionRun;
-		color: Color lightGray
+		color: SKStylesheet secondaryColor
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'EB 6/23/2024 19:42'
+	#'squeak_changestamp' : 'EB 7/11/2024 14:40'
 }
 SKExecuteControls >> buildButtonStop [
 
 	^ IconicButton new
 		    target: self;
 		    actionSelector: #actionStop;
-		    color: Color lightGray
+		    color: SKStylesheet secondaryColor
 ]
 
 {
@@ -275,12 +275,11 @@ SKExecuteControls >> sliderSpeed: anObject [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:00'
+	#'squeak_changestamp' : 'EB 7/11/2024 14:40'
 }
 SKExecuteControls >> sliderSpeedValueChanged: aValue [
 	
 	self environment executionSpeed: aValue.
-	Transcript showln: aValue
 ]
 
 {
