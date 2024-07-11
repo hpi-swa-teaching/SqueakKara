@@ -74,15 +74,15 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
+	#'squeak_changestamp' : 'EB 7/11/2024 15:30'
 }
 SKKaraTest >> testKaraStartTurnLeftRight [
 
 	| kara |
 	
 	kara := SKKara newInGrid: self grid.
-	kara turn: SKDirection right.
-	kara turn: SKDirection left.
+	kara turn: SKDirection rotateRight.
+	kara turn: SKDirection rotateLeft.
 	self assert: kara viewDirection = SKDirection right
 
 	
@@ -104,14 +104,14 @@ SKKaraTest >> testKaraStartViewDirection [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
+	#'squeak_changestamp' : 'EB 7/11/2024 15:28'
 }
 SKKaraTest >> testKaraTurnLeft [
 
 	| kara |
 	
 	kara := SKKara newInGrid: self grid.
-	kara turn: 'left'.
+	kara turn: SKDirection rotateLeft.
 	self assert: kara viewDirection = SKDirection above
 
 	
@@ -119,60 +119,60 @@ SKKaraTest >> testKaraTurnLeft [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
+	#'squeak_changestamp' : 'EB 7/11/2024 15:28'
 }
 SKKaraTest >> testKaraTurnLeftTwice [
 
 	| kara |
 	
 	kara := SKKara newInGrid: self grid.
-	kara turn: 'left'.
-	kara turn: 'left'.
+	kara turn: SKDirection rotateLeft.
+	kara turn: SKDirection rotateLeft.
 	self assert: kara viewDirection = SKDirection left
 	
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
+	#'squeak_changestamp' : 'EB 7/11/2024 15:28'
 }
 SKKaraTest >> testKaraTurnRight [
 
 	| kara |
 	
 	kara := SKKara newInGrid: self grid.
-	kara turn: 'right'.
+	kara turn: SKDirection rotateRight.
 	self assert: kara viewDirection = SKDirection below
 
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
+	#'squeak_changestamp' : 'EB 7/11/2024 15:28'
 }
 SKKaraTest >> testKaraTurnRightThrice [
 
 	| kara |
 	
 	kara := SKKara newInGrid: self grid.
-	kara turn: 'right'.
-	kara turn: 'right'.
-	kara turn: 'right'.
+	kara turn: SKDirection rotateRight.
+	kara turn: SKDirection rotateRight.
+	kara turn: SKDirection rotateRight.
 	self assert: kara viewDirection = SKDirection above
 
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
+	#'squeak_changestamp' : 'EB 7/11/2024 15:28'
 }
 SKKaraTest >> testKaraTurnRightTwice [
 
 	| kara |
 	
 	kara := SKKara newInGrid: self grid.
-	kara turn: 'right'.
-	kara turn: 'right'.
+	kara turn: SKDirection rotateRight.
+	kara turn: SKDirection rotateRight.
 	self assert: kara viewDirection = SKDirection left
 
 ]
@@ -249,7 +249,7 @@ SKKaraTest >> testTrunkAhead [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'jt 6/11/2024 13:56'
+	#'squeak_changestamp' : 'EB 7/11/2024 15:28'
 }
 SKKaraTest >> testTrunkAheadAfterTurn [
 
@@ -258,6 +258,6 @@ SKKaraTest >> testTrunkAheadAfterTurn [
 	kara := SKKara newInGrid: self grid.
 	trunk := SKTrunk newInGrid: self grid at: 1 @ 2.
 	self assert: false = kara trunkAhead.
-	kara turn: 'right'.
+	kara turn: SKDirection rotateRight.
 	self assert: true = kara trunkAhead
 ]

@@ -120,22 +120,22 @@ SKKaraDecoratorTest >> testKaraTrunkAhead [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:57'
+	#'squeak_changestamp' : 'EB 7/11/2024 15:27'
 }
 SKKaraDecoratorTest >> testKaraTurnLeft [
 
 
-	self decorator turn: 'left'.
+	self decorator turn: SKDirection rotateLeft.
 	self assert: decorator kara viewDirection = SKDirection above
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:56'
+	#'squeak_changestamp' : 'EB 7/11/2024 15:29'
 }
 SKKaraDecoratorTest >> testKaraTurnRight [
 
 
-	self decorator turn: 'right'.
+	self decorator turn: SKDirection rotateRight.
 	self assert: decorator kara viewDirection = SKDirection below
 ]
