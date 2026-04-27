@@ -8,7 +8,8 @@ Class {
 		'gridWidth',
 		'gridHeight',
 		'gridCoordinator',
-		'scaleFactor'
+		'scaleFactor',
+		'gridLines'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:48'
@@ -33,8 +34,17 @@ SKGrid class >> newWithExtent: aPoint andScale: aFloat [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/27/2026 19:51'
+}
+SKGrid >> addGridLine: aMorph [
+	self addMorph: aMorph.
+	self gridLines add: aMorph
+]
+
+{
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/27/2026 12:21'
+	#'squeak_changestamp' : 'LM 4/27/2026 19:51'
 }
 SKGrid >> addHorizontalLineAt: aCoordinate [
 
@@ -42,7 +52,7 @@ SKGrid >> addHorizontalLineAt: aCoordinate [
 	
 	aMorph := Morph new.
 	
-	self addMorph: aMorph.
+	self addGridLine: aMorph.
 
 	aMorph color: self lineColor;
 			width: self width;
@@ -55,7 +65,7 @@ SKGrid >> addHorizontalLineAt: aCoordinate [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/27/2026 12:21'
+	#'squeak_changestamp' : 'LM 4/27/2026 19:52'
 }
 SKGrid >> addVerticalLineAt: aCoordinate [
 
@@ -63,7 +73,7 @@ SKGrid >> addVerticalLineAt: aCoordinate [
 	
 	aMorph := Morph new.
 		
-	self addMorph: aMorph.
+	self addGridLine: aMorph.
 
 	aMorph color: self lineColor;
 			width: self lineWidth;
@@ -211,6 +221,22 @@ SKGrid >> gridHeight: aNumber [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/27/2026 19:50'
+}
+SKGrid >> gridLines [
+	^ gridLines ifNil: [ gridLines := OrderedCollection new ]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/27/2026 19:48'
+}
+SKGrid >> gridLines: aCollection [
+	gridLines := aCollection
+]
+
+{
 	#category : #layout,
 	#'squeak_changestamp' : 'LK 5/22/2024 16:35'
 }
@@ -302,11 +328,14 @@ SKGrid >> pixelPerBlock [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/27/2026 12:10'
+	#'squeak_changestamp' : 'LM 4/27/2026 20:07'
 }
 SKGrid >> redrawTexture [
 
-	self submorphsDo: [:submorph | self removeMorph: submorph].
+	self gridLines do: [:gridLine | self removeMorph: gridLine ].
+	
+	self submorphsDo: [:submorph | submorph scaleFactor: (self scaleFactor) ].
+	
 	self drawTexture
 ]
 

@@ -5,7 +5,8 @@ Class {
 	#name : #SKGridObject,
 	#superclass : #ImageMorph,
 	#instVars : [
-		'grid'
+		'grid',
+		'originalImage'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:54'
@@ -258,11 +259,26 @@ SKGridObject >> neighboursRight [
 
 {
 	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/24/2024 11:10'
+	#'squeak_changestamp' : 'LM 4/27/2026 20:36'
 }
 SKGridObject >> notifyGridCoordinator [
-
 	self gridCoordinator storeObject: self at: self coordinates
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/27/2026 20:15'
+}
+SKGridObject >> originalImage [
+	^ originalImage
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/27/2026 20:15'
+}
+SKGridObject >> originalImage: aForm [
+	originalImage := aForm
 ]
 
 {
@@ -278,6 +294,20 @@ SKGridObject >> position: aPoint [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/27/2026 20:25'
+}
+SKGridObject >> positionFromCoordinates [
+
+	| size |
+	size := self grid pixelPerBlock.
+
+	^ self grid position
+		+ (((self coordinates x - 1) * size)
+		@ ((self coordinates y - 1) * size))
+]
+
+{
 	#category : #positioning,
 	#'squeak_changestamp' : 'LK 5/22/2024 16:53'
 }
@@ -288,7 +318,22 @@ SKGridObject >> relativePosition [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'JJG 6/5/2024 17:25'
+	#'squeak_changestamp' : 'LM 4/27/2026 20:30'
+}
+SKGridObject >> scaleFactor: aNumber [
+
+	| size |
+	size := self grid pixelPerBlock.
+
+	self image: (self originalImage scaledToSize: size @ size).
+	self extent: size @ size.
+	self updatePositionFromCoordinates.
+	self changed
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 4/27/2026 20:16'
 }
 SKGridObject >> setTexture [
 
@@ -298,9 +343,9 @@ SKGridObject >> setTexture [
 	
 	aForm := aTextureLoader
 		getTexture: self textureFilename
-		scaledToWidth: self grid pixelPerBlock.
+		scaledToWidth: self grid pixelPerBlock * self scaleFactor.
 		
-	self image: aForm
+	self image: aForm; originalImage: aForm
 ]
 
 {
@@ -310,4 +355,13 @@ SKGridObject >> setTexture [
 SKGridObject >> textureFilename [
 
 	^ SubclassResponsibility
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 4/27/2026 20:35'
+}
+SKGridObject >> updatePositionFromCoordinates [
+
+	super position: self positionFromCoordinates.
 ]
