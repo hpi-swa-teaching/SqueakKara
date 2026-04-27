@@ -34,15 +34,15 @@ SKGrid class >> newWithExtent: aPoint andScale: aFloat [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:41'
+	#'squeak_changestamp' : 'LM 4/27/2026 12:21'
 }
 SKGrid >> addHorizontalLineAt: aCoordinate [
 
 	| aMorph |
 	
 	aMorph := Morph new.
-		
-	self addMorph: aMorph.	
+	
+	self addMorph: aMorph.
 
 	aMorph color: self lineColor;
 			width: self width;
@@ -55,19 +55,7 @@ SKGrid >> addHorizontalLineAt: aCoordinate [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'KD 6/23/2024 20:58'
-}
-SKGrid >> addTexture [
-
-	1 to: self gridHeight - 1 do: [:anInteger |
-		self addHorizontalLineAt: anInteger].
-	1 to: self gridWidth - 1 do: [:anInteger |
-		self addVerticalLineAt: anInteger].
-]
-
-{
-	#category : #texture,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:37'
+	#'squeak_changestamp' : 'LM 4/27/2026 12:21'
 }
 SKGrid >> addVerticalLineAt: aCoordinate [
 
@@ -75,7 +63,7 @@ SKGrid >> addVerticalLineAt: aCoordinate [
 	
 	aMorph := Morph new.
 		
-	self addMorph: aMorph.	
+	self addMorph: aMorph.
 
 	aMorph color: self lineColor;
 			width: self lineWidth;
@@ -183,6 +171,18 @@ SKGrid >> challenge3 [
 ]
 
 {
+	#category : #texture,
+	#'squeak_changestamp' : 'LM 4/27/2026 11:27'
+}
+SKGrid >> drawTexture [
+
+	1 to: self gridHeight - 1 do: [:anInteger |
+		self addHorizontalLineAt: anInteger].
+	1 to: self gridWidth - 1 do: [:anInteger |
+		self addVerticalLineAt: anInteger].
+]
+
+{
 	#category : #initialization,
 	#'squeak_changestamp' : 'LK 5/24/2024 11:18'
 }
@@ -202,7 +202,7 @@ SKGrid >> gridHeight [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:34'
+	#'squeak_changestamp' : 'LM 4/27/2026 11:34'
 }
 SKGrid >> gridHeight: aNumber [
 	
@@ -221,7 +221,7 @@ SKGrid >> gridWidth [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:33'
+	#'squeak_changestamp' : 'LM 4/27/2026 11:03'
 }
 SKGrid >> gridWidth: aNumber [
 	
@@ -244,7 +244,7 @@ SKGrid >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:47'
+	#'squeak_changestamp' : 'LM 4/27/2026 11:27'
 }
 SKGrid >> initializeWithExtent: aPoint andScale: aFloat [
 
@@ -252,7 +252,7 @@ SKGrid >> initializeWithExtent: aPoint andScale: aFloat [
 	self scaleFactor: aFloat; 
 		gridWidth: aPoint x;
 		gridHeight: aPoint y;
-		addTexture
+		drawTexture
 	
 	
 	
@@ -301,8 +301,18 @@ SKGrid >> pixelPerBlock [
 ]
 
 {
+	#category : #texture,
+	#'squeak_changestamp' : 'LM 4/27/2026 12:10'
+}
+SKGrid >> redrawTexture [
+
+	self submorphsDo: [:submorph | self removeMorph: submorph].
+	self drawTexture
+]
+
+{
 	#category : #layout,
-	#'squeak_changestamp' : 'JJG 6/5/2024 17:29'
+	#'squeak_changestamp' : 'LM 4/27/2026 12:22'
 }
 SKGrid >> scaleFactor [
 
@@ -321,10 +331,11 @@ SKGrid >> scaleFactor: aNumber [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:35'
+	#'squeak_changestamp' : 'LM 4/27/2026 12:00'
 }
 SKGrid >> updateDimensions [
 
+	self redrawTexture.
 	self width: self pixelPerBlock * self gridWidth;
 		height: self pixelPerBlock * self gridHeight
 ]

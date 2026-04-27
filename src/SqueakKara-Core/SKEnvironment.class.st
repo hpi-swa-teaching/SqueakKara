@@ -28,6 +28,14 @@ SKEnvironment class >> newWithKaraAt: aPoint [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/27/2026 12:20'
+}
+SKEnvironment >> calculateScaleFactor: aPoint [
+	 ^ (aPoint x / self gameWidth) min: (aPoint y / self gameHeight)
+]
+
+{
 	#category : #commands,
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:18'
 }
@@ -38,6 +46,21 @@ SKEnvironment >> close [
 	self systemWindow delete
 
 	
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/27/2026 12:25'
+}
+SKEnvironment >> containerMorph [
+	^ Morph new
+		color: Color transparent;
+		layoutPolicy: TableLayout new;
+		listCentering: #center;
+		wrapCentering: #center;
+		hResizing: #spaceFill;
+		vResizing: #spaceFill;
+		cellInset: 10
 ]
 
 {
@@ -114,10 +137,9 @@ SKEnvironment >> gameHeight: aNumber [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'jt 6/24/2024 00:15'
+	#'squeak_changestamp' : 'LM 4/27/2026 10:54'
 }
 SKEnvironment >> gameWidth [
-
 	^ gameWidth ifNil: [gameWidth := self grid width + (self grid pixelPerBlock * 2)]
 ]
 
@@ -200,7 +222,7 @@ SKEnvironment >> initializeWithChallenge3 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:30'
+	#'squeak_changestamp' : 'LM 4/27/2026 11:57'
 }
 SKEnvironment >> initializeWithKaraAt: aPoint [
 	
@@ -252,6 +274,15 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 ]
 
 {
+	#category : #layout,
+	#'squeak_changestamp' : 'LM 4/27/2026 12:20'
+}
+SKEnvironment >> resizeGrid [
+	self grid scaleFactor: (self calculateScaleFactor: self systemWindow extent).
+	self grid updateDimensions
+]
+
+{
 	#category : #commands,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
 }
@@ -274,18 +305,24 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:25'
+	#'squeak_changestamp' : 'LM 4/27/2026 12:29'
 }
 SKEnvironment >> setSystemWindow [
-
 	
-	self systemWindow: SystemWindow new.
+	| container |
+	
+	self systemWindow: SKSystemWindow new.
 	self systemWindow setLabel: 'Kara'.
-	self systemWindow 
+	
+	container := self containerMorph
+		addMorph: self grid;
+		addMorph: self executeControls.
+	
+	self systemWindow
 		extent: self gameWidth @ self gameHeight;
 		setWindowColor: self grid backgroundColor;
-		addMorph: self executeControls;
-		addMorph: self grid.
+		resizeListener: [self resizeGrid];
+		addMorph: container fullFrame: (LayoutFrame fractions: (0@0 corner: 1@1)).
 	self positionExecuteControlsAndGrid
 ]
 
