@@ -29,7 +29,7 @@ SKEnvironment class >> newWithKaraAt: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/27/2026 12:20'
+	#'squeak_changestamp' : 'LM 4/27/2026 13:13'
 }
 SKEnvironment >> calculateScaleFactor: aPoint [
 	 ^ (aPoint x / self gameWidth) min: (aPoint y / self gameHeight)
@@ -275,7 +275,7 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LM 4/27/2026 12:20'
+	#'squeak_changestamp' : 'LM 4/27/2026 13:25'
 }
 SKEnvironment >> resizeGrid [
 	self grid scaleFactor: (self calculateScaleFactor: self systemWindow extent).

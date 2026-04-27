@@ -331,11 +331,10 @@ SKGrid >> scaleFactor: aNumber [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LM 4/27/2026 12:00'
+	#'squeak_changestamp' : 'LM 4/27/2026 13:27'
 }
 SKGrid >> updateDimensions [
-
-	self redrawTexture.
 	self width: self pixelPerBlock * self gridWidth;
-		height: self pixelPerBlock * self gridHeight
+		height: self pixelPerBlock * self gridHeight.
+	self redrawTexture
 ]
