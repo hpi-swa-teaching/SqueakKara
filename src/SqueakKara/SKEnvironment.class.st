@@ -277,10 +277,32 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 
 {
 	#category : #layout,
+	#'squeak_changestamp' : 'LM 4/28/2026 21:32'
+}
+SKEnvironment >> resize [
+	
+	| scaleFactor |
+	scaleFactor := self calculateScaleFactor: self systemWindow extent.
+	
+	self resizeGridByFactor: scaleFactor.
+	self executeControls resizeWidgetByFactor: scaleFactor
+]
+
+{
+	#category : #layout,
 	#'squeak_changestamp' : 'LM 4/27/2026 13:25'
 }
 SKEnvironment >> resizeGrid [
 	self grid scaleFactor: (self calculateScaleFactor: self systemWindow extent).
+	self grid updateDimensions
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'LM 4/28/2026 21:26'
+}
+SKEnvironment >> resizeGridByFactor: aNumber [
+	self grid scaleFactor: aNumber.
 	self grid updateDimensions
 ]
 
@@ -307,7 +329,7 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:13'
+	#'squeak_changestamp' : 'LM 4/28/2026 21:31'
 }
 SKEnvironment >> setSystemWindow [
 	
@@ -324,7 +346,7 @@ SKEnvironment >> setSystemWindow [
 	self systemWindow
 		extent: self gameWidth @ self gameHeight;
 		setWindowColor: self grid backgroundColor;
-		resizeListener: [ self resizeGrid ];
+		resizeListener: [ self resize ];
 		addMorph: container fullFrame: (LayoutFrame fractions: (0@0 corner: 1@1)).
 	self positionExecuteControlsAndGrid
 ]

@@ -7,8 +7,11 @@ Class {
 	#instVars : [
 		'environment',
 		'buttonRun',
-		'sliderSpeed',
-		'buttonStop'
+		'buttonStop',
+		'stopTexture',
+		'runTexture',
+		'pauseTexture',
+		'sliderSpeed'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:42'
@@ -16,41 +19,35 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:56'
+	#'squeak_changestamp' : 'LM 4/28/2026 21:39'
 }
 SKExecuteControls >> actionRun [
 
-	| dict texture |
-	
-	dict := Dictionary new.
-	texture := self runTextureFilename.
-	dict at: #terminated put: [self environment run. texture := self pauseTextureFilename].
-	dict at: #suspended put: [self environment resume. texture := self pauseTextureFilename].
-	dict at: #running put: [self environment pause. texture := self runTextureFilename].
-	(dict at: self environment executerState) value.
-	self buttonRunSetTexture: texture
+	self buttonRunSetTexture: self currentRunButtonTexture
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'EB 6/22/2024 15:06'
+	#'squeak_changestamp' : 'LM 4/28/2026 21:19'
 }
 SKExecuteControls >> actionStop [
 
 	self environment stop.
-	self buttonRunSetTexture: self runTextureFilename
+	self buttonRunSetTexture: self runTexture
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:26'
+	#'squeak_changestamp' : 'LM 4/28/2026 21:18'
 }
 SKExecuteControls >> addAllWidgets [
+
+	self loadTextures.
 
 	self buttonRun: self buildButtonRun.
 	self sliderSpeed: self buildSliderSpeed.
 	self buttonStop: self buildButtonStop.
-	self buttonRunSetTexture: self runTextureFilename.
+	self buttonRunSetTexture: self runTexture.
 	self buttonStopSetTexture.
 	self positionWidgets
 ]
@@ -73,7 +70,7 @@ SKExecuteControls >> addWidgetCentered: aWidget atXPosition: aXValue [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:06'
+	#'squeak_changestamp' : 'LM 4/28/2026 21:00'
 }
 SKExecuteControls >> buildButtonRun [
 	
@@ -99,12 +96,12 @@ SKExecuteControls >> buildButtonStop [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:07'
+	#'squeak_changestamp' : 'LM 4/28/2026 21:43'
 }
 SKExecuteControls >> buildSliderSpeed [
 
 	^ SimpleSliderMorph new
-		bounds: (0 @ 0 extent: 100 @ 20);
+		bounds: (0 @ 0 extent: self defaultSliderSize);
 		minVal: 0;
 		maxVal: 50;
 		setNumericValue: 25;
@@ -134,11 +131,11 @@ SKExecuteControls >> buttonRun: anObject [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:58'
+	#'squeak_changestamp' : 'LM 4/28/2026 21:19'
 }
-SKExecuteControls >> buttonRunSetTexture: aFilename [
+SKExecuteControls >> buttonRunSetTexture: aForm [
 
-	self buttonRun labelGraphic: (self getTexture: aFilename)	
+	self buttonRun labelGraphic: aForm	
 ]
 
 {
@@ -161,11 +158,28 @@ SKExecuteControls >> buttonStop: anObject [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:58'
+	#'squeak_changestamp' : 'LM 4/28/2026 21:15'
 }
 SKExecuteControls >> buttonStopSetTexture [
 
-	self buttonStop labelGraphic: (self getTexture: self stopTextureFilename)
+	self buttonStop labelGraphic: self stopTexture
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'LM 4/28/2026 21:39'
+}
+SKExecuteControls >> currentRunButtonTexture [
+
+	| dict texture |
+	
+	dict := Dictionary new.
+	texture := self runTexture.
+	dict at: #terminated put: [self environment run. texture := self pauseTexture].
+	dict at: #suspended put: [self environment resume. texture := self pauseTexture].
+	dict at: #running put: [self environment pause. texture := self runTexture].
+	(dict at: self environment executerState) value.
+	^ texture
 ]
 
 {
@@ -175,6 +189,23 @@ SKExecuteControls >> buttonStopSetTexture [
 SKExecuteControls >> defaultBounds [
 
 	^ 0 @ 0 extent: 250 @ 50
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 21:04'
+}
+SKExecuteControls >> defaultIconicButtonSize [
+
+	^ 34 @ 34
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 21:43'
+}
+SKExecuteControls >> defaultSliderSize [
+	^ 100 @ 20
 ]
 
 {
@@ -206,7 +237,7 @@ SKExecuteControls >> getTexture: aFilename [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:32'
+	#'squeak_changestamp' : 'LM 4/28/2026 21:18'
 }
 SKExecuteControls >> initialize [
 
@@ -217,6 +248,35 @@ SKExecuteControls >> initialize [
 		borderColor: SKStylesheet secondaryColor;
 		addAllWidgets;
 		openInWorld
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'LM 4/28/2026 21:17'
+}
+SKExecuteControls >> loadTextures [
+	self
+		stopTexture: (self getTexture: self stopTextureFilename);
+		runTexture: (self getTexture: self runTextureFilename);
+		pauseTexture: (self getTexture: self pauseTextureFilename)
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 21:14'
+}
+SKExecuteControls >> pauseTexture [
+
+	^ pauseTexture
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 21:14'
+}
+SKExecuteControls >> pauseTexture: aForm [
+
+	^ pauseTexture := aForm
 ]
 
 {
@@ -242,6 +302,47 @@ SKExecuteControls >> positionWidgets [
 ]
 
 {
+	#category : #widgets,
+	#'squeak_changestamp' : 'LM 4/28/2026 22:14'
+}
+SKExecuteControls >> resizeWidgetByFactor: aNumber [
+	
+	| buttonSize iconSize controlSize sliderSize |
+	controlSize := self defaultBounds extent * aNumber.
+	buttonSize := self defaultIconicButtonSize * aNumber.
+	iconSize := (self defaultIconicButtonSize - (10@10)) * aNumber.
+	sliderSize := self defaultSliderSize * aNumber.
+	
+	self extent: controlSize.
+	
+	self buttonStop extent: buttonSize.
+	self buttonStop labelGraphic: (self stopTexture scaledToSize: iconSize).
+	
+	self buttonRun extent: buttonSize.
+	self buttonRun labelGraphic: (self currentRunButtonTexture scaledToSize: iconSize).
+	
+	self sliderSpeed extent: sliderSize.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 21:13'
+}
+SKExecuteControls >> runTexture [
+
+	^ runTexture
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 21:13'
+}
+SKExecuteControls >> runTexture: aForm [
+
+	^ runTexture := aForm
+]
+
+{
 	#category : #texture,
 	#'squeak_changestamp' : 'JJG 7/1/2024 14:59'
 }
@@ -261,11 +362,11 @@ SKExecuteControls >> sliderSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:00'
+	#'squeak_changestamp' : 'LM 4/28/2026 21:14'
 }
-SKExecuteControls >> sliderSpeed: anObject [
+SKExecuteControls >> sliderSpeed: aNumber [
 	
-	sliderSpeed := anObject
+	^ sliderSpeed := aNumber
 ]
 
 {
@@ -275,6 +376,24 @@ SKExecuteControls >> sliderSpeed: anObject [
 SKExecuteControls >> sliderSpeedValueChanged: aValue [
 	
 	self environment executionSpeed: aValue.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 21:13'
+}
+SKExecuteControls >> stopTexture [
+
+	^ stopTexture
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 21:13'
+}
+SKExecuteControls >> stopTexture: aForm [
+
+	^ stopTexture := aForm
 ]
 
 {
