@@ -69,11 +69,20 @@ SKGridCoordinator >> grid: aGrid [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LK 5/24/2024 10:49'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
 }
 SKGridCoordinator >> gridMatrix [
 
-	^ gridMatrix ifNil: [gridMatrix := self createGridMatrix]
+	^ gridMatrix ifNil: [ self gridMatrix: self createGridMatrix ]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 20:57'
+}
+SKGridCoordinator >> gridMatrix: aMatrix [
+
+	^ gridMatrix := aMatrix
 ]
 
 {

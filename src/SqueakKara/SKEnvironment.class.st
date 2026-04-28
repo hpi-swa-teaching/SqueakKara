@@ -50,7 +50,7 @@ SKEnvironment >> close [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/27/2026 12:25'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:06'
 }
 SKEnvironment >> containerMorph [
 	^ Morph new
@@ -60,7 +60,8 @@ SKEnvironment >> containerMorph [
 		wrapCentering: #center;
 		hResizing: #spaceFill;
 		vResizing: #spaceFill;
-		cellInset: 10
+		cellInset: 10;
+		yourself
 ]
 
 {
@@ -119,37 +120,38 @@ SKEnvironment >> executionSpeed: aSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'jt 6/24/2024 00:14'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:27'
 }
 SKEnvironment >> gameHeight [
 
-	^ gameHeight ifNil: [gameHeight := self grid height + (self grid pixelPerBlock * 4)]
+	^ gameHeight ifNil: [ self gameHeight: self grid height + (self grid pixelPerBlock * 4)]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'jt 6/24/2024 00:16'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:52'
 }
 SKEnvironment >> gameHeight: aNumber [
 
-	gameHeight := aNumber
+	^ gameHeight := aNumber
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/27/2026 10:54'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:27'
 }
 SKEnvironment >> gameWidth [
-	^ gameWidth ifNil: [gameWidth := self grid width + (self grid pixelPerBlock * 2)]
+	
+	^ gameWidth ifNil: [ self gameWidth: self grid width + (self grid pixelPerBlock * 2)]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'jt 6/24/2024 00:15'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:52'
 }
 SKEnvironment >> gameWidth: aNumber [
 
-	gameWidth := aNumber
+	^ gameWidth := aNumber
 ]
 
 {
@@ -251,16 +253,16 @@ SKEnvironment >> kara: anObject [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:08'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:44'
 }
 SKEnvironment >> pause [
 
-	executer suspendExecution
+	self executer suspendExecution
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:25'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:46'
 }
 SKEnvironment >> positionExecuteControlsAndGrid [
 
@@ -269,7 +271,7 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 	startPoint  := self grid pixelPerBlock @ (3 * self grid pixelPerBlock).
 	self grid position: self systemWindow position + startPoint.
 	
-	startPoint := ((self gameWidth / 2) - (executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
+	startPoint := ((self gameWidth / 2) - (self executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
 	self executeControls position: self systemWindow position + startPoint.
 ]
 
@@ -284,11 +286,11 @@ SKEnvironment >> resizeGrid [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:46'
 }
 SKEnvironment >> resume [
 
-	executer resumeExecution
+	self executer resumeExecution
 ]
 
 {
@@ -305,7 +307,7 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/27/2026 12:29'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:13'
 }
 SKEnvironment >> setSystemWindow [
 	
@@ -316,12 +318,13 @@ SKEnvironment >> setSystemWindow [
 	
 	container := self containerMorph
 		addMorph: self grid;
-		addMorph: self executeControls.
+		addMorph: self executeControls;
+		yourself.
 	
 	self systemWindow
 		extent: self gameWidth @ self gameHeight;
 		setWindowColor: self grid backgroundColor;
-		resizeListener: [self resizeGrid];
+		resizeListener: [ self resizeGrid ];
 		addMorph: container fullFrame: (LayoutFrame fractions: (0@0 corner: 1@1)).
 	self positionExecuteControlsAndGrid
 ]

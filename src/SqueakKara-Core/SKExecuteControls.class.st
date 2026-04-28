@@ -16,13 +16,14 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:14'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:56'
 }
 SKExecuteControls >> actionRun [
 
 	| dict texture |
 	
 	dict := Dictionary new.
+	texture := self runTextureFilename.
 	dict at: #terminated put: [self environment run. texture := self pauseTextureFilename].
 	dict at: #suspended put: [self environment resume. texture := self pauseTextureFilename].
 	dict at: #running put: [self environment pause. texture := self runTextureFilename].
@@ -72,31 +73,33 @@ SKExecuteControls >> addWidgetCentered: aWidget atXPosition: aXValue [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'EB 7/11/2024 14:40'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:06'
 }
 SKExecuteControls >> buildButtonRun [
 	
 	^ IconicButton new
 		target: self;
 		actionSelector: #actionRun;
-		color: SKStylesheet secondaryColor
+		color: SKStylesheet secondaryColor;
+		yourself
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'EB 7/11/2024 14:40'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:07'
 }
 SKExecuteControls >> buildButtonStop [
 
 	^ IconicButton new
-		    target: self;
-		    actionSelector: #actionStop;
-		    color: SKStylesheet secondaryColor
+		target: self;
+		actionSelector: #actionStop;
+		color: SKStylesheet secondaryColor;
+		yourself
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:24'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:07'
 }
 SKExecuteControls >> buildSliderSpeed [
 
@@ -107,7 +110,8 @@ SKExecuteControls >> buildSliderSpeed [
 		setNumericValue: 25;
 		orientation: #horizontal;
 		target: self;
-		actionSelector: #sliderSpeedValueChanged:
+		actionSelector: #sliderSpeedValueChanged:;
+		yourself
 ]
 
 {
@@ -165,7 +169,7 @@ SKExecuteControls >> buttonStopSetTexture [
 ]
 
 {
-	#category : #accessing,
+	#category : #initialization,
 	#'squeak_changestamp' : 'JJG 7/1/2024 14:59'
 }
 SKExecuteControls >> defaultBounds [
@@ -189,15 +193,6 @@ SKExecuteControls >> environment [
 SKExecuteControls >> environment: anObject [
 	
 	environment := anObject
-]
-
-{
-	#category : #texture,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:59'
-}
-SKExecuteControls >> getTexture [
-
-	^ SKTextureLoader new getTexture: self textureFilename
 ]
 
 {

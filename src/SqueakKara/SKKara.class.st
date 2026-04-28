@@ -82,18 +82,18 @@ SKKara >> turn: aRotation [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jt 6/11/2024 11:41'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
 }
 SKKara >> viewDirection [
 	
-	^ viewDirection ifNil: [viewDirection:= SKDirection right]
+	^ viewDirection ifNil: [ self viewDirection: SKDirection right ]
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jt 6/11/2024 11:29'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
 }
 SKKara >> viewDirection: aDirection [
 	
-	viewDirection := aDirection
+	^ viewDirection := aDirection
 ]

@@ -35,9 +35,10 @@ SKGrid class >> newWithExtent: aPoint andScale: aFloat [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/27/2026 19:51'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:35'
 }
 SKGrid >> addGridLine: aMorph [
+
 	self addMorph: aMorph.
 	self gridLines add: aMorph
 ]
@@ -94,7 +95,7 @@ SKGrid >> backgroundColor [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'JJG 6/18/2024 11:19'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:15'
 }
 SKGrid >> challenge1 [
 	
@@ -138,13 +139,13 @@ SKGrid >> challenge1 [
 	SKTrunk newInGrid: self at: 3 @ 5.
 	
 	SKCloverleaf newInGrid: self at: 4 @ 4.
-	^SKKara newInGrid: self at: 1 @ 2.
+	^ SKKara newInGrid: self at: 1 @ 2
 	
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'KD 6/23/2024 20:58'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:15'
 }
 SKGrid >> challenge2 [
 	
@@ -154,13 +155,13 @@ SKGrid >> challenge2 [
 	
 	SKCloverleaf newInGrid: self at: 9 @ 2.
 	
-	^SKKara newInGrid: self at: 1 @ 2.
+	^ SKKara newInGrid: self at: 1 @ 2
 	
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'KD 6/23/2024 20:59'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:15'
 }
 SKGrid >> challenge3 [
 	
@@ -177,7 +178,7 @@ SKGrid >> challenge3 [
 	SKTrunk newInGrid: self at: 8 @ 3.
 	SKTrunk newInGrid: self at: 9 @ 3.
 	
-	^SKKara newInGrid: self at: 1 @ 2.
+	^ SKKara newInGrid: self at: 1 @ 2
 ]
 
 {
@@ -222,18 +223,20 @@ SKGrid >> gridHeight: aNumber [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/27/2026 19:50'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:35'
 }
 SKGrid >> gridLines [
-	^ gridLines ifNil: [ gridLines := OrderedCollection new ]
+
+	^ gridLines ifNil: [ self gridLines: OrderedCollection new ]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/27/2026 19:48'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:52'
 }
 SKGrid >> gridLines: aCollection [
-	gridLines := aCollection
+
+	^ gridLines := aCollection
 ]
 
 {
@@ -328,19 +331,18 @@ SKGrid >> pixelPerBlock [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/27/2026 20:07'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:37'
 }
 SKGrid >> redrawTexture [
 
 	self gridLines do: [:gridLine | self removeMorph: gridLine ].
-	
-	self submorphsDo: [:submorph | submorph scaleFactor: (self scaleFactor) ].
+	self submorphsDo: [:submorph | submorph scaleFactor: (self scaleFactor)].
 	
 	self drawTexture
 ]
 
 {
-	#category : #layout,
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 4/27/2026 12:22'
 }
 SKGrid >> scaleFactor [
@@ -349,7 +351,7 @@ SKGrid >> scaleFactor [
 ]
 
 {
-	#category : #layout,
+	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/5/2024 16:48'
 }
 SKGrid >> scaleFactor: aNumber [

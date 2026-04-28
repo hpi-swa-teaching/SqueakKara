@@ -117,7 +117,7 @@ SKGridCoordinatorTest >> testNeighbourLeftAfterDelete [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:11'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:31'
 }
 SKGridCoordinatorTest >> testNeighbourLeftAfterMove [
 
@@ -125,7 +125,7 @@ SKGridCoordinatorTest >> testNeighbourLeftAfterMove [
 	
 	anObject := SKKara newInGrid: self grid at: 1 @ 1 + SKDirection right.
 	anotherObject := SKKara newInGrid: self grid.
-	anotherObject coordinateX: anotherObject coordinateX + 2.
+	anotherObject coordinates: ((anotherObject coordinates x + 2) @ anotherObject coordinates y).
 	
 	self assert: ((anotherObject neighboursLeft includes: anObject) and: (anotherObject neighboursLeft size = 1))
 ]

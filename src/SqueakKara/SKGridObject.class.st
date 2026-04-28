@@ -51,58 +51,7 @@ SKGridObject >> addToGrid [
 ]
 
 {
-	#category : #positioning,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:31'
-}
-SKGridObject >> alignToGrid [
-
-	self coordinates: self coordinateX @ self coordinateY.
-	super position: self positionFromCoordinates.
-	self notifyGridCoordinator
-]
-
-{
-	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:46'
-}
-SKGridObject >> coordinateX [
-
-	^ 1 + (self relativePosition x / self grid pixelPerBlock) rounded
-		clampLow: 1
-		high: self grid gridWidth
-]
-
-{
-	#category : #positioning,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:35'
-}
-SKGridObject >> coordinateX: aNumber [
-
-	self coordinates: aNumber @ self coordinates y
-]
-
-{
-	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:45'
-}
-SKGridObject >> coordinateY [
-
-	^ 1 + (self relativePosition y / self grid pixelPerBlock) rounded
-		clampLow: 1
-		high: self grid gridHeight
-]
-
-{
-	#category : #positioning,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:35'
-}
-SKGridObject >> coordinateY: aNumber [
-
-	self coordinates: self coordinates x @ aNumber
-]
-
-{
-	#category : #positioning,
+	#category : #geometry,
 	#'squeak_changestamp' : 'LM 4/28/2026 18:49'
 }
 SKGridObject >> coordinates [
@@ -111,7 +60,7 @@ SKGridObject >> coordinates [
 ]
 
 {
-	#category : #positioning,
+	#category : #geometry,
 	#'squeak_changestamp' : 'LM 4/28/2026 19:34'
 }
 SKGridObject >> coordinates: aPoint [
@@ -121,7 +70,7 @@ SKGridObject >> coordinates: aPoint [
 ]
 
 {
-	#category : #deletion,
+	#category : #'submorphs - add/remove',
 	#'squeak_changestamp' : 'LK 5/24/2024 11:14'
 }
 SKGridObject >> delete [
@@ -191,13 +140,10 @@ SKGridObject >> isTrunk [
 ]
 
 {
-	#category : #positioning,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:01'
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/28/2026 20:55'
 }
 SKGridObject >> moveToCoordinates: aPoint [
-
-	| oldCoordinates |
-	oldCoordinates := self coordinates.
 
 	self gridCoordinator removeObject: self.
 	self coordinates: aPoint.
@@ -260,7 +206,7 @@ SKGridObject >> neighboursRight [
 ]
 
 {
-	#category : #positioning,
+	#category : #geometry,
 	#'squeak_changestamp' : 'LM 4/28/2026 19:15'
 }
 SKGridObject >> notifyGridCoordinator [
@@ -285,18 +231,6 @@ SKGridObject >> originalImage: aForm [
 ]
 
 {
-	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/22/2024 17:00'
-}
-SKGridObject >> position: aPoint [
-	"overwritten position method forces blocks to stay aligned when moving
-	them with the halo"
-	
-	super position: aPoint.
-	self alignToGrid
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 4/28/2026 19:22'
 }
@@ -308,7 +242,7 @@ SKGridObject >> positionFromCoordinates [
 ]
 
 {
-	#category : #positioning,
+	#category : #geometry,
 	#'squeak_changestamp' : 'LK 5/22/2024 16:53'
 }
 SKGridObject >> relativePosition [
