@@ -182,3 +182,34 @@ SKGridObjectTest >> testRelativePositionAfterInitializeAt22 [
 	
 	
 ]
+
+{
+	#category : #'layout testing',
+	#'squeak_changestamp' : 'LM 4/28/2026 22:30'
+}
+SKGridObjectTest >> testResizeKeepsCoordinates [
+
+	| object |
+	object := SKGridObject new initializeInGrid: grid at: 3@4.
+
+	object scaleFactor: 2.
+
+	self assert: object coordinates equals: 3@4
+]
+
+{
+	#category : #'layout testing',
+	#'squeak_changestamp' : 'LM 4/28/2026 22:32'
+}
+SKGridObjectTest >> testResizeUpdatesPositionFromCoordinates [
+
+	| object expectedPosition |
+	object := SKGridObject new initializeInGrid: grid at: 3@4.
+
+	self grid pixelPerBlock: 50.
+	object scaleFactor: 1.
+
+	expectedPosition := grid position + (100@150).
+
+	self assert: object position equals: expectedPosition
+]

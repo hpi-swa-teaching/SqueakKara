@@ -45,6 +45,22 @@ SKGridCoordinatorTest >> tearDown [
 
 {
 	#category : #testing,
+	#'squeak_changestamp' : 'LM 4/28/2026 22:43'
+}
+SKGridCoordinatorTest >> testConsistencyOnResize [
+
+	| expectedObject receivedSet oldMatrix |
+	oldMatrix := self grid gridCoordinator.
+	expectedObject := SKGridObject new initializeInGrid: grid at: 2@2.
+	expectedObject scaleFactor: 2.
+	
+	receivedSet := self grid gridCoordinator getTileAtCoordinates: 2@2.
+	
+	self assert: (receivedSet includes: expectedObject)
+]
+
+{
+	#category : #testing,
 	#'squeak_changestamp' : 'JJG 6/12/2024 16:10'
 }
 SKGridCoordinatorTest >> testDeleteObject [
@@ -167,4 +183,36 @@ SKGridCoordinatorTest >> testNeighboursHereTwoObjects [
 	anObject := SKKara newInGrid: self grid.
 	anotherObject := SKKara newInGrid: self grid.
 	self assert: ((anObject neighboursHere includes: anotherObject) and: (anObject neighboursHere size = 2))
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'LM 4/28/2026 22:38'
+}
+SKGridCoordinatorTest >> testObjectInsertion [
+
+	| expectedObject receivedSet oldMatrix |
+	oldMatrix := self grid gridCoordinator.
+	expectedObject := SKGridObject new initializeInGrid: grid at: 2@2.
+	receivedSet := self grid gridCoordinator getTileAtCoordinates: 2@2.
+	
+	self assert: (receivedSet includes: expectedObject)
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'LM 4/28/2026 22:44'
+}
+SKGridCoordinatorTest >> testObjectMove [
+
+	| expectedObject oldSet newSet |
+	expectedObject := SKGridObject new initializeInGrid: grid at: 2@2.
+
+	expectedObject moveToCoordinates: 4@2.
+
+	oldSet := self grid gridCoordinator getTileAtCoordinates: 2@2.
+	newSet := self grid gridCoordinator getTileAtCoordinates: 4@2.
+
+	self deny: (oldSet includes: expectedObject).
+	self assert: (newSet includes: expectedObject)
 ]
