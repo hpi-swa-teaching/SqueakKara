@@ -27,19 +27,21 @@ Kara has following methods you can use:
 
 And remember to use Squeak Syntax.
 
-### Example Code 👨‍💻
+### Example Code for "Example Project 1" 👨‍💻
 
 ```squeak
 [kara onCloverleaf not]
 	whileTrue: [
 		kara trunkAhead 
-			ifTrue: [kara turn: left]
+			ifTrue: [kara turn: right]
 			ifFalse: [kara move]]
 ```
 
 You can use the slider in the middle to change the speed of the code execution.
 
 If you have moved Kara in a tricky spot you can always change its position in the grid via the Squeak Halo.
+
+You might run code by using the "do it" command `CTRL+D`. If you find yourself stuck in an infinite loop (Squeak might get unresponsive), just press `ALT+.` to interrupt the code execution.
 
 ## Architecture 🌇
 
