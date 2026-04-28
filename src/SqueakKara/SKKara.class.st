@@ -27,12 +27,12 @@ SKKara >> getTextureForDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jt 6/11/2024 13:26'
+	#'squeak_changestamp' : 'LM 4/28/2026 18:58'
 }
 SKKara >> move [
 	
-	(self trunkAhead)
-		ifFalse: [self coordinates: self coordinates + self viewDirection]
+	(self trunkAhead) ifFalse: [
+		self moveToCoordinates: self coordinates + self viewDirection ]
 	
 
 ]
@@ -57,16 +57,15 @@ SKKara >> textureFilename [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'jt 6/11/2024 13:20'
+	#'squeak_changestamp' : 'LM 4/28/2026 19:10'
 }
 SKKara >> trunkAhead [
 
-	| tileAhead |
-	
-	tileAhead := self neighboursAt: self viewDirection.
-	^ tileAhead anySatisfy: [:each | each isTrunk]
-		
-	
+	| target tileAhead |
+	target := self coordinates + self viewDirection.
+	tileAhead := self gridCoordinator getTileAtCoordinates: target.
+
+	^ tileAhead anySatisfy: [ :each | each isTrunk ]
 ]
 
 {

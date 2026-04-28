@@ -16,11 +16,11 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:56'
+	#'squeak_changestamp' : 'LM 4/28/2026 19:14'
 }
 SKExecuteControls >> actionRun [
 
-	|dict texture|
+	| dict texture |
 	
 	dict := Dictionary new.
 	dict at: #terminated put: [self environment run. texture := self pauseTextureFilename].
