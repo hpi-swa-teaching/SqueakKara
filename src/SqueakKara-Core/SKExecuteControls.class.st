@@ -19,12 +19,24 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/28/2026 22:22'
+	#'squeak_changestamp' : 'LM 4/28/2026 23:04'
 }
 SKExecuteControls >> actionRun [
 
-	self environment run.
-	self buttonRunSetTexture: self currentRunButtonTexture
+	| state |
+	state := self environment executerState.
+
+	state = #terminated ifTrue: [
+		self environment run.
+		^ self buttonRunSetTexture: self currentRunButtonTexture ].
+
+	state = #suspended ifTrue: [
+		self environment resume.
+		^ self buttonRunSetTexture: self currentRunButtonTexture ].
+
+	state = #running ifTrue: [
+		self environment pause.
+		^ self buttonRunSetTexture: self currentRunButtonTexture ]
 ]
 
 {
@@ -174,7 +186,7 @@ SKExecuteControls >> buttonStopSetTexture [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/28/2026 22:23'
+	#'squeak_changestamp' : 'LM 4/28/2026 23:02'
 }
 SKExecuteControls >> currentRunButtonTexture [
 

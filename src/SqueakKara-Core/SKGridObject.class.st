@@ -231,6 +231,15 @@ SKGridObject >> originalImage: aForm [
 ]
 
 {
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/28/2026 22:50'
+}
+SKGridObject >> position: aPoint [
+
+	self error: 'Use moveToCoordinates: or coordinates: -  not position: directly.'
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 4/28/2026 19:22'
 }
