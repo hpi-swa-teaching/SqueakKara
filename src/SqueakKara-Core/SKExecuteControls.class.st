@@ -19,10 +19,11 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:39'
+	#'squeak_changestamp' : 'LM 4/28/2026 22:22'
 }
 SKExecuteControls >> actionRun [
 
+	self environment run.
 	self buttonRunSetTexture: self currentRunButtonTexture
 ]
 
@@ -38,27 +39,33 @@ SKExecuteControls >> actionStop [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:18'
+	#'squeak_changestamp' : 'LM 4/28/2026 22:18'
 }
 SKExecuteControls >> addAllWidgets [
 
 	self loadTextures.
-
+	
 	self buttonRun: self buildButtonRun.
 	self sliderSpeed: self buildSliderSpeed.
 	self buttonStop: self buildButtonStop.
+	
 	self buttonRunSetTexture: self runTexture.
 	self buttonStopSetTexture.
-	self positionWidgets
+	
+	self addMorphBack: self buttonRun.
+	self addMorphBack: self sliderSpeed.
+	self addMorphBack: self buttonStop.
+	
+	self layoutChanged
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:24'
+	#'squeak_changestamp' : 'LM 4/28/2026 22:26'
 }
 SKExecuteControls >> addWidgetCentered: aWidget atXPosition: aXValue [ 
 
-	|verticalCenter widgetCenter|
+	| verticalCenter widgetCenter |
 
 	self addMorph: aWidget.
 	verticalCenter := (self extent y) / 2.
@@ -167,28 +174,23 @@ SKExecuteControls >> buttonStopSetTexture [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:39'
+	#'squeak_changestamp' : 'LM 4/28/2026 22:23'
 }
 SKExecuteControls >> currentRunButtonTexture [
 
-	| dict texture |
-	
-	dict := Dictionary new.
-	texture := self runTexture.
-	dict at: #terminated put: [self environment run. texture := self pauseTexture].
-	dict at: #suspended put: [self environment resume. texture := self pauseTexture].
-	dict at: #running put: [self environment pause. texture := self runTexture].
-	(dict at: self environment executerState) value.
-	^ texture
+	self environment executerState = #running
+		ifTrue: [ ^ self pauseTexture ].
+
+	^ self runTexture
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:59'
+	#'squeak_changestamp' : 'LM 4/28/2026 22:28'
 }
 SKExecuteControls >> defaultBounds [
 
-	^ 0 @ 0 extent: 250 @ 50
+	^ 0 @ 0 extent: 250 @ 45
 ]
 
 {
@@ -237,7 +239,7 @@ SKExecuteControls >> getTexture: aFilename [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:18'
+	#'squeak_changestamp' : 'LM 4/28/2026 22:27'
 }
 SKExecuteControls >> initialize [
 
@@ -246,6 +248,12 @@ SKExecuteControls >> initialize [
 		color: SKStylesheet primaryColor;
 		borderWidth: 1 px;
 		borderColor: SKStylesheet secondaryColor;
+		layoutPolicy: TableLayout new;
+		listDirection: #leftToRight;
+		cellPositioning: #center;
+		cellInset: 5;
+		hResizing: #rigid;
+		vResizing: #rigid;
 		addAllWidgets;
 		openInWorld
 ]
@@ -286,19 +294,6 @@ SKExecuteControls >> pauseTexture: aForm [
 SKExecuteControls >> pauseTextureFilename [
 
 	^ 'pause.png'
-]
-
-{
-	#category : #widgets,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:26'
-}
-SKExecuteControls >> positionWidgets [
-
-	| verticalSpace|
-
-	verticalSpace := self addWidgetCentered: self buttonRun atXPosition: self widgetMargin.
-	verticalSpace := self addWidgetCentered: self sliderSpeed atXPosition: verticalSpace + self widgetMargin.
-	verticalSpace := self addWidgetCentered: self buttonStop atXPosition: verticalSpace + self widgetMargin
 ]
 
 {
@@ -403,22 +398,4 @@ SKExecuteControls >> stopTexture: aForm [
 SKExecuteControls >> stopTextureFilename [
 
 	^ 'stop.png'
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:00'
-}
-SKExecuteControls >> textureFilename [
-
-	^ 'Trunk.png'
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:00'
-}
-SKExecuteControls >> widgetMargin [
-	
-	^ 20
 ]
