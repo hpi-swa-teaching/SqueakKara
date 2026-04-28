@@ -74,12 +74,11 @@ SKGridObject >> coordinateX [
 
 {
 	#category : #positioning,
-	#'squeak_changestamp' : 'LM 4/28/2026 18:51'
+	#'squeak_changestamp' : 'LM 4/28/2026 19:35'
 }
 SKGridObject >> coordinateX: aNumber [
 
-	self coordinates: ((aNumber clampLow: 1 high: self grid gridWidth) @ self coordinates y).
-	super position: self positionFromCoordinates
+	self coordinates: aNumber @ self coordinates y
 ]
 
 {
@@ -95,12 +94,11 @@ SKGridObject >> coordinateY [
 
 {
 	#category : #positioning,
-	#'squeak_changestamp' : 'LM 4/28/2026 18:51'
+	#'squeak_changestamp' : 'LM 4/28/2026 19:35'
 }
 SKGridObject >> coordinateY: aNumber [
 
-	self coordinates: (self coordinates x @ (aNumber clampLow: 1 high: self grid gridHeight)).
-	super position: self positionFromCoordinates
+	self coordinates: self coordinates x @ aNumber
 ]
 
 {
@@ -114,11 +112,12 @@ SKGridObject >> coordinates [
 
 {
 	#category : #positioning,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:08'
+	#'squeak_changestamp' : 'LM 4/28/2026 19:34'
 }
 SKGridObject >> coordinates: aPoint [
 
-	coordinates := aPoint
+	coordinates := (aPoint x clampLow: 1 high: self grid gridWidth) @(aPoint y clampLow: 1 high: self grid gridHeight).
+	super position: self positionFromCoordinates
 ]
 
 {
@@ -193,13 +192,15 @@ SKGridObject >> isTrunk [
 
 {
 	#category : #positioning,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:13'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:01'
 }
 SKGridObject >> moveToCoordinates: aPoint [
 
-	self coordinates: (aPoint x clampLow: 1 high: self grid gridWidth) @ (aPoint y clampLow: 1 high: self grid gridHeight).
+	| oldCoordinates |
+	oldCoordinates := self coordinates.
 
-	super position: self positionFromCoordinates.
+	self gridCoordinator removeObject: self.
+	self coordinates: aPoint.
 	self notifyGridCoordinator.
 	self changed
 ]
@@ -317,7 +318,7 @@ SKGridObject >> relativePosition [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:22'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:03'
 }
 SKGridObject >> scaleFactor: aNumber [
 
