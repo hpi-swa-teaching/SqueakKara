@@ -45,22 +45,6 @@ SKGridCoordinatorTest >> tearDown [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 4/28/2026 22:54'
-}
-SKGridCoordinatorTest >> testConsistencyOnResize [
-
-	| expectedObject receivedSet oldMatrix |
-	oldMatrix := self grid gridCoordinator.
-	expectedObject := SKKara new initializeInGrid: grid at: 2@2.
-	expectedObject scaleFactor: 2.
-	
-	receivedSet := self grid gridCoordinator getTileAtCoordinates: 2@2.
-	
-	self assert: (receivedSet includes: expectedObject)
-]
-
-{
-	#category : #testing,
 	#'squeak_changestamp' : 'JJG 6/12/2024 16:10'
 }
 SKGridCoordinatorTest >> testDeleteObject [
@@ -72,6 +56,22 @@ SKGridCoordinatorTest >> testDeleteObject [
 	anotherObject abandon.
 	
 	self deny: ((anObject neighboursHere includes: anotherObject) or: (anObject neighboursHere size = 2))
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'LM 4/29/2026 18:56'
+}
+SKGridCoordinatorTest >> testLogicalConsistencyOnResize [
+
+	| expectedObject receivedSet oldMatrix |
+	oldMatrix := self grid gridCoordinator.
+	expectedObject := SKKara new initializeInGrid: grid at: 2@2.
+	expectedObject scaleFactor: 2.
+	
+	receivedSet := self grid gridCoordinator getTileAtCoordinates: 2@2.
+	
+	self assert: (receivedSet includes: expectedObject)
 ]
 
 {

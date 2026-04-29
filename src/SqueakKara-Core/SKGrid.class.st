@@ -223,11 +223,11 @@ SKGrid >> gridHeight: aNumber [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:35'
+	#'squeak_changestamp' : 'LM 4/29/2026 18:51'
 }
 SKGrid >> gridLines [
 
-	^ gridLines ifNil: [ self gridLines: OrderedCollection new ]
+	^ gridLines
 ]
 
 {
@@ -260,9 +260,10 @@ SKGrid >> gridWidth: aNumber [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:47'
+	#'squeak_changestamp' : 'LM 4/29/2026 18:51'
 }
 SKGrid >> initialize [
+	self gridLines: OrderedCollection new.
 
 	super initialize.
 	self openInWorld;

@@ -186,20 +186,6 @@ SKGridObjectTest >> testRelativePositionAfterInitializeAt22 [
 
 {
 	#category : #'layout testing',
-	#'squeak_changestamp' : 'LM 4/28/2026 22:54'
-}
-SKGridObjectTest >> testResizeKeepsCoordinates [
-
-	| object |
-	object := SKKara new initializeInGrid: grid at: 3@4.
-
-	object scaleFactor: 2.
-
-	self assert: object coordinates equals: 3@4
-]
-
-{
-	#category : #'layout testing',
 	#'squeak_changestamp' : 'LM 4/28/2026 22:58'
 }
 SKGridObjectTest >> testResizeUpdatesPositionFromCoordinates [
@@ -215,4 +201,18 @@ SKGridObjectTest >> testResizeUpdatesPositionFromCoordinates [
 		@ ((4 - 1) * self grid pixelPerBlock)).
 
 	self assert: object position equals: expectedPosition
+]
+
+{
+	#category : #'layout testing',
+	#'squeak_changestamp' : 'LM 4/29/2026 18:56'
+}
+SKGridObjectTest >> testVisualConsistencyOnResize [
+
+	| object |
+	object := SKKara new initializeInGrid: grid at: 3@4.
+
+	object scaleFactor: 2.
+
+	self assert: object coordinates equals: 3@4
 ]

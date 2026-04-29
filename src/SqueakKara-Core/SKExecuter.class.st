@@ -164,13 +164,14 @@ SKExecuter >> speed: aSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:50'
+	#'squeak_changestamp' : 'LM 4/29/2026 18:50'
 }
 SKExecuter >> state [
 
 	(self process isNil) 
 		ifTrue: [ self state: #terminated ]
-		ifFalse: [ (self process isTerminated) ifTrue: [ self state: #terminated]].
+		ifFalse: [(self process isTerminated) 
+			ifTrue: [ self state: #terminated ]].
 	^ state
 ]
 
