@@ -30,11 +30,11 @@ SKSystemWindow >> extent: aPoint [
 
 {
 	#category : #'geometry - layout',
-	#'squeak_changestamp' : 'LM 4/27/2026 13:29'
+	#'squeak_changestamp' : 'LM 4/29/2026 16:09'
 }
 SKSystemWindow >> minimumExtent [
 	
-	^ 400 @ 400
+	^ 450 @ 550
 ]
 
 {
