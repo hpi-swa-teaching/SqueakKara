@@ -129,6 +129,20 @@ SKGridObjectTest >> testGridOutOfBounds2 [
 
 {
 	#category : #'movement testing',
+	#'squeak_changestamp' : 'LM 4/29/2026 13:16'
+}
+SKGridObjectTest >> testHaloMovement [
+
+	| object |
+
+	object := SKKara newInGrid: self grid at: 1@1.
+
+	object position: object position + (self grid pixelPerBlock @ self grid pixelPerBlock).
+	self assert: object coordinates = (2@2)
+]
+
+{
+	#category : #'movement testing',
 	#'squeak_changestamp' : 'LM 4/28/2026 22:52'
 }
 SKGridObjectTest >> testMovement [
@@ -201,19 +215,4 @@ SKGridObjectTest >> testResizeUpdatesPositionFromCoordinates [
 		@ ((4 - 1) * self grid pixelPerBlock)).
 
 	self assert: object position equals: expectedPosition
-]
-
-{
-	#category : #'movement testing',
-	#'squeak_changestamp' : 'LM 4/28/2026 22:51'
-}
-SKGridObjectTest >> testWrongMovement [
-
-	| object |
-
-	object := SKKara newInGrid: self grid.
-
-	self
-		should: [ object position: object position + (self grid pixelPerBlock @ self grid pixelPerBlock)]
-		raise: Error
 ]
