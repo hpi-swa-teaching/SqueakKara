@@ -277,7 +277,7 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:32'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:26'
 }
 SKEnvironment >> resize [
 	
@@ -285,16 +285,7 @@ SKEnvironment >> resize [
 	scaleFactor := self calculateScaleFactor: self systemWindow extent.
 	
 	self resizeGridByFactor: scaleFactor.
-	self executeControls resizeWidgetByFactor: scaleFactor
-]
-
-{
-	#category : #layout,
-	#'squeak_changestamp' : 'LM 4/27/2026 13:25'
-}
-SKEnvironment >> resizeGrid [
-	self grid scaleFactor: (self calculateScaleFactor: self systemWindow extent).
-	self grid updateDimensions
+	self executeControls scaleFactor: scaleFactor
 ]
 
 {

@@ -11,7 +11,8 @@ Class {
 		'stopTexture',
 		'runTexture',
 		'pauseTexture',
-		'sliderSpeed'
+		'sliderSpeed',
+		'scaleFactor'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:42'
@@ -19,7 +20,7 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/28/2026 23:04'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:29'
 }
 SKExecuteControls >> actionRun [
 
@@ -41,17 +42,17 @@ SKExecuteControls >> actionRun [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:19'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:43'
 }
 SKExecuteControls >> actionStop [
 
 	self environment stop.
-	self buttonRunSetTexture: self runTexture
+	self buttonRunSetTexture: self currentRunButtonTexture
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/28/2026 22:18'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:35'
 }
 SKExecuteControls >> addAllWidgets [
 
@@ -141,11 +142,11 @@ SKExecuteControls >> buttonRun [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:58'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:37'
 }
-SKExecuteControls >> buttonRun: anObject [
+SKExecuteControls >> buttonRun: aMorph [
 	
-	buttonRun := anObject
+	buttonRun := aMorph
 ]
 
 {
@@ -168,11 +169,11 @@ SKExecuteControls >> buttonStop [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:58'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:37'
 }
-SKExecuteControls >> buttonStop: anObject [
+SKExecuteControls >> buttonStop: aMorph [
 	
-	buttonStop := anObject
+	buttonStop := aMorph
 ]
 
 {
@@ -186,14 +187,17 @@ SKExecuteControls >> buttonStopSetTexture [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/28/2026 23:02'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:33'
 }
 SKExecuteControls >> currentRunButtonTexture [
 
-	self environment executerState = #running
-		ifTrue: [ ^ self pauseTexture ].
+	| iconSize |
+	iconSize := (self defaultIconicButtonSize - (10@10)) * self scaleFactor.
 
-	^ self runTexture
+	self environment executerState = #running
+		ifTrue: [ ^ self pauseTexture scaledToSize: iconSize ].
+
+	^ self runTexture scaledToSize: iconSize
 ]
 
 {
@@ -233,11 +237,11 @@ SKExecuteControls >> environment [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:59'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:41'
 }
-SKExecuteControls >> environment: anObject [
+SKExecuteControls >> environment: anEnvironment [
 	
-	environment := anObject
+	environment := anEnvironment
 ]
 
 {
@@ -251,7 +255,7 @@ SKExecuteControls >> getTexture: aFilename [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/28/2026 22:27'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:34'
 }
 SKExecuteControls >> initialize [
 
@@ -310,7 +314,7 @@ SKExecuteControls >> pauseTextureFilename [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/28/2026 22:14'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:28'
 }
 SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
@@ -328,7 +332,7 @@ SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	self buttonRun extent: buttonSize.
 	self buttonRun labelGraphic: (self currentRunButtonTexture scaledToSize: iconSize).
 	
-	self sliderSpeed extent: sliderSize.
+	self sliderSpeed extent: sliderSize
 ]
 
 {
@@ -356,6 +360,25 @@ SKExecuteControls >> runTexture: aForm [
 SKExecuteControls >> runTextureFilename [
 
 	^ 'play.png'
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/29/2026 12:43'
+}
+SKExecuteControls >> scaleFactor [
+
+	^ scaleFactor ifNil: [ 1 ]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/29/2026 12:42'
+}
+SKExecuteControls >> scaleFactor: aNumber [
+
+	self resizeWidgetByFactor: aNumber.
+	^ scaleFactor := aNumber
 ]
 
 {
