@@ -31,22 +31,22 @@ SKWorkspace >> close [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'NR 7/5/2024 15:14'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:01'
 }
 SKWorkspace >> getExampleCode [
-	
 	^ '"
 To solve this challenge use following functions:
 
 COMMANDS: kara
 	move, turn left/right
-		
-SENSOREN: kara
+        
+SENSORS: kara
 	onCloverleaf, trunkAhead
+
+INFO:
+	You might run code by using the <do it> command [CTRL+D]. If you find yourself stuck in an infinite loop (Squeak might get unresponsive), just press [ALT+.] to interrupt the code execution.
 "
 '
-
-
 ]
 
 {
