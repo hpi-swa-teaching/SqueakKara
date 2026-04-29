@@ -13,11 +13,11 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:17'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:16'
 }
 SKWorkspace class >> newWithKara: aKara [
 
-	^ self basicNew initializeWithKara: aKara.
+	^ self basicNew initializeWithKara: aKara
 ]
 
 {

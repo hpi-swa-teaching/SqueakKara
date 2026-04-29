@@ -72,20 +72,6 @@ SKGridObjectTest >> testAbsolutePositionAfterInitializeAt22 [
 ]
 
 {
-	#category : #'movement testing',
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:08'
-}
-SKGridObjectTest >> testAlignment [
-
-	| object |
-	
-	object := SKKara newInGrid: self grid.
-	object position: object position + ((1/4 * self grid pixelPerBlock) @ (1/4 * self grid pixelPerBlock)).
-	
-	self assert: object coordinates = (1 @ 1)
-]
-
-{
 	#category : #'initialization testing',
 	#'squeak_changestamp' : 'JJG 6/12/2024 16:09'
 }
@@ -115,44 +101,59 @@ SKGridObjectTest >> testCoordinatesAfterInitializeAt22 [
 
 {
 	#category : #'movement testing',
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:09'
+	#'squeak_changestamp' : 'LM 4/28/2026 22:56'
 }
 SKGridObjectTest >> testGridOutOfBounds1 [
 
 	| object |
-	
-	object := SKKara newInGrid: self grid.
-	object position: self grid position - (30 @ 30).
-	
-	self assert: object coordinates = (1 @ 1)
+
+	object := SKKara newInGrid: self grid at: 1@1.
+	object moveToCoordinates: 0@0.
+
+	self assert: object coordinates equals: 1@1
 ]
 
 {
 	#category : #'movement testing',
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:09'
+	#'squeak_changestamp' : 'LM 4/28/2026 22:56'
 }
 SKGridObjectTest >> testGridOutOfBounds2 [
 
 	| object |
-	
+
 	object := SKKara newInGrid: self grid at: self gridSize.
-	object position: object position + (30 @ 30).
-	
-	self assert: object coordinates = self gridSize
+	object moveToCoordinates: (self gridSize + (1@1)).
+
+	self assert: object coordinates equals: self gridSize
 ]
 
 {
 	#category : #'movement testing',
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:09'
+	#'squeak_changestamp' : 'LM 4/29/2026 13:16'
+}
+SKGridObjectTest >> testHaloMovement [
+
+	| object |
+
+	object := SKKara newInGrid: self grid at: 1@1.
+
+	object position: object position + (self grid pixelPerBlock @ self grid pixelPerBlock).
+	self assert: object coordinates = (2@2)
+]
+
+{
+	#category : #'movement testing',
+	#'squeak_changestamp' : 'LM 4/28/2026 22:52'
 }
 SKGridObjectTest >> testMovement [
 
 	| object |
+
+	object := SKKara newInGrid: self grid at: 1@1.
+	object moveToCoordinates: 2@2.
 	
-	object := SKKara newInGrid: self grid.
-	object position: object position + (self grid pixelPerBlock @ self grid pixelPerBlock).
-	
-	self assert: object coordinates = (2 @ 2)
+	self assert: object coordinates equals: 2@2.
+	self deny: ((self grid gridCoordinator getTileAtCoordinates: 1@1) includes: object)
 ]
 
 {
@@ -181,4 +182,37 @@ SKGridObjectTest >> testRelativePositionAfterInitializeAt22 [
 	self assert: object relativePosition = (self grid pixelPerBlock @ self grid pixelPerBlock)
 	
 	
+]
+
+{
+	#category : #'layout testing',
+	#'squeak_changestamp' : 'LM 4/28/2026 22:58'
+}
+SKGridObjectTest >> testResizeUpdatesPositionFromCoordinates [
+
+	| object expectedPosition |
+	object := SKKara new initializeInGrid: grid at: 3@4.
+
+	self grid scaleFactor: 1.
+	object scaleFactor: 1.
+
+	expectedPosition := grid position
+		+ (((3 - 1) * self grid pixelPerBlock)
+		@ ((4 - 1) * self grid pixelPerBlock)).
+
+	self assert: object position equals: expectedPosition
+]
+
+{
+	#category : #'layout testing',
+	#'squeak_changestamp' : 'LM 4/29/2026 18:56'
+}
+SKGridObjectTest >> testVisualConsistencyOnResize [
+
+	| object |
+	object := SKKara new initializeInGrid: grid at: 3@4.
+
+	object scaleFactor: 2.
+
+	self assert: object coordinates equals: 3@4
 ]
