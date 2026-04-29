@@ -320,7 +320,7 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:31'
+	#'squeak_changestamp' : 'LM 4/29/2026 18:06'
 }
 SKEnvironment >> setSystemWindow [
 	
@@ -339,7 +339,9 @@ SKEnvironment >> setSystemWindow [
 		setWindowColor: self grid backgroundColor;
 		resizeListener: [ self resize ];
 		addMorph: container fullFrame: (LayoutFrame fractions: (0@0 corner: 1@1)).
-	self positionExecuteControlsAndGrid
+	self positionExecuteControlsAndGrid.
+	
+	self resize
 ]
 
 {
