@@ -61,12 +61,31 @@ SKGridObject >> coordinates [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:34'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:44'
 }
 SKGridObject >> coordinates: aPoint [
 
-	coordinates := (aPoint x clampLow: 1 high: self grid gridWidth) @(aPoint y clampLow: 1 high: self grid gridHeight).
+	coordinates := (aPoint x clampLow: 1 high: self grid gridWidth) @ (aPoint y clampLow: 1 high: self grid gridHeight).
 	super position: self positionFromCoordinates
+]
+
+{
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/29/2026 12:54'
+}
+SKGridObject >> coordinatesFromPosition: aPoint [
+	| relativePosition newX newY |
+	relativePosition := self relativePositionFor: aPoint.
+
+	newX := ((relativePosition x / self grid pixelPerBlock) rounded + 1)
+		clampLow: 1
+		high: self grid gridWidth.
+
+	newY := ((relativePosition y / self grid pixelPerBlock) rounded + 1)
+		clampLow: 1
+		high: self grid gridHeight.
+	
+	^ newX @ newY
 ]
 
 {
@@ -122,10 +141,28 @@ SKGridObject >> initializeInGrid: aGrid at: aPoint [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/29/2026 13:09'
+}
+SKGridObject >> isBlocking [
+
+	^ self isKara or: [ self isCloverleaf ] or: [ self isTrunk ]
+]
+
+{
 	#category : #type,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:18'
 }
 SKGridObject >> isCloverleaf [
+
+	^ false
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/29/2026 13:07'
+}
+SKGridObject >> isKara [
 
 	^ false
 ]
@@ -232,16 +269,16 @@ SKGridObject >> originalImage: aForm [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/28/2026 22:50'
+	#'squeak_changestamp' : 'LM 4/29/2026 13:12'
 }
 SKGridObject >> position: aPoint [
 
-	self error: 'Use moveToCoordinates: or coordinates: -  not position: directly.'
+	self moveToCoordinates: (self coordinatesFromPosition: aPoint)
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:22'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:45'
 }
 SKGridObject >> positionFromCoordinates [
 
@@ -257,6 +294,15 @@ SKGridObject >> positionFromCoordinates [
 SKGridObject >> relativePosition [
 
 	^ self position - self grid position
+]
+
+{
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/29/2026 12:51'
+}
+SKGridObject >> relativePositionFor: aPoint [
+
+	^ aPoint - self grid position
 ]
 
 {

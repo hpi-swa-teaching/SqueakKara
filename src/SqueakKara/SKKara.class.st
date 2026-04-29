@@ -26,6 +26,15 @@ SKKara >> getTextureForDirection [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/29/2026 13:07'
+}
+SKKara >> isKara [
+
+	^ true
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'LM 4/28/2026 18:58'
 }
@@ -44,6 +53,21 @@ SKKara >> move [
 SKKara >> onCloverleaf [
 
 	^ self neighboursHere anySatisfy: [:each | each isCloverleaf]
+]
+
+{
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/29/2026 12:58'
+}
+SKKara >> position: aPoint [
+
+	| coordinates tile |
+	coordinates := self coordinatesFromPosition: aPoint.
+	tile := self gridCoordinator getTileAtCoordinates: coordinates.
+	
+	(tile anySatisfy: [ :each | each isTrunk ]) ifTrue: [^ self ].
+
+	super position: aPoint
 ]
 
 {
