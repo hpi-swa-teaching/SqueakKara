@@ -9,6 +9,7 @@ Class {
 		'workspace',
 		'executer',
 		'kara',
+		'karas',
 		'executeControls',
 		'gameWidth',
 		'gameHeight',
@@ -200,6 +201,17 @@ SKEnvironment >> initializeWithChallenge3 [
 
 {
 	#category : #initialization,
+	#'squeak_changestamp' : 'mr 4/29/2026 13:06'
+}
+SKEnvironment >> initializeWithChallenge4 [
+
+	self grid: (SKGrid newWithExtent: 8 @ 8).
+	self karas: self grid challenge4.
+	self initializeObjects
+]
+
+{
+	#category : #initialization,
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:30'
 }
 SKEnvironment >> initializeWithKaraAt: aPoint [
@@ -211,20 +223,36 @@ SKEnvironment >> initializeWithKaraAt: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:41'
+	#'squeak_changestamp' : 'mr 4/29/2026 13:07'
 }
 SKEnvironment >> kara [
-	
 	^ kara
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:41'
+	#'squeak_changestamp' : 'mr 4/29/2026 13:07'
 }
 SKEnvironment >> kara: anObject [
-	
 	kara := anObject
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 4/29/2026 13:04'
+}
+SKEnvironment >> karas [
+	
+	^ karas
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 4/29/2026 13:03'
+}
+SKEnvironment >> karas: anOrderedCollection [
+	
+	karas := anOrderedCollection
 ]
 
 {

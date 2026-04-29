@@ -40,6 +40,16 @@ SKLandingPage >> actionExample3 [
 
 {
 	#category : #actions,
+	#'squeak_changestamp' : 'mr 4/29/2026 13:08'
+}
+SKLandingPage >> actionExample4 [
+
+	SKEnvironment basicNew initializeWithChallenge4.
+	self delete
+]
+
+{
+	#category : #actions,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:01'
 }
 SKLandingPage >> actionNew [
@@ -50,7 +60,7 @@ SKLandingPage >> actionNew [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:55'
+	#'squeak_changestamp' : 'mr 4/29/2026 13:09'
 }
 SKLandingPage >> addAllButtons [
 
@@ -59,21 +69,23 @@ SKLandingPage >> addAllButtons [
 	self addButton: self buildButtonExample1 atIndex: 1.
 	self addButton: self buildButtonExample2 atIndex: 2.
 	self addButton: self buildButtonExample3 atIndex: 3.
+	self addButton: self buildButtonExample4 atIndex: 4.
 ]
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:01'
+	#'squeak_changestamp' : 'mr 4/29/2026 13:23'
 }
 SKLandingPage >> addButton: aButton atIndex: anInteger [
-
-	| anOffset |
-
+	
+	| newX newY topOffset |
 	self addMorph: aButton.
 	
-	anOffset := 2 * aButton height * anInteger.
+	newX := self center x - (aButton width / 2).
+	topOffset := 100.
+	newY := self position y + (2 * aButton height * anInteger) + topOffset.
 	
-	aButton position: self center - (aButton width / 2) + (0 @ anOffset)
+	aButton position: (newX @ newY)
 ]
 
 {
@@ -106,6 +118,17 @@ SKLandingPage >> buildButtonExample3 [
 
 	^ self buildButtonWithLabel: self buttonExample3Label
 		andSelector: #actionExample3
+		andColor: SKStylesheet secondaryColor
+]
+
+{
+	#category : #buttons,
+	#'squeak_changestamp' : 'mr 4/29/2026 13:08'
+}
+SKLandingPage >> buildButtonExample4 [
+
+	^ self buildButtonWithLabel: self buttonExample4Label
+		andSelector: #actionExample4
 		andColor: SKStylesheet secondaryColor
 ]
 
@@ -162,6 +185,15 @@ SKLandingPage >> buttonExample3Label [
 ]
 
 {
+	#category : #labels,
+	#'squeak_changestamp' : 'mr 4/29/2026 13:11'
+}
+SKLandingPage >> buttonExample4Label [
+
+	^ 'Example Project 4 with 2 Karas'
+]
+
+{
 	#category : #buttons,
 	#'squeak_changestamp' : 'LK 7/4/2024 19:06'
 }
@@ -181,11 +213,11 @@ SKLandingPage >> buttonNewLabel [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:53'
+	#'squeak_changestamp' : 'mr 4/29/2026 13:11'
 }
 SKLandingPage >> defaultExtent [
 
-	^ 200 px @ 200 px
+	^ 250 px @ 250 px
 ]
 
 {
