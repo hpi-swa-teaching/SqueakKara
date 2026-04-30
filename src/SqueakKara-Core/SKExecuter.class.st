@@ -84,7 +84,7 @@ SKExecuter >> executeBlock: aBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'NR 7/5/2024 11:53'
+	#'squeak_changestamp' : 'jawi 4/30/2026 17:31'
 }
 SKExecuter >> initialize [
 
@@ -93,7 +93,7 @@ SKExecuter >> initialize [
 	self compiler: Compiler new.
 	self speed: 25.
 	self state: #terminated.
-	^ self
+	^ self 
 ]
 
 {
