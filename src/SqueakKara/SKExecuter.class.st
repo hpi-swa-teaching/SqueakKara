@@ -10,7 +10,8 @@ Class {
 		'compiler',
 		'process',
 		'speed',
-		'state'
+		'state',
+		'environment'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:45'
@@ -62,6 +63,24 @@ SKExecuter >> compiler: anObject [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 4/30/2026 17:36'
+}
+SKExecuter >> environment [
+	
+	^ environment
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 4/30/2026 17:36'
+}
+SKExecuter >> environment: anObject [
+	
+	environment := anObject
+]
+
+{
 	#category : #execution,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
 }
@@ -75,11 +94,13 @@ SKExecuter >> execute: aCode [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:46'
+	#'squeak_changestamp' : 'jawi 4/30/2026 17:37'
 }
 SKExecuter >> executeBlock: aBlock [
 	
-	^ self compiler evaluate: aBlock for: (self codeContext)
+	self compiler evaluate: aBlock for: (self codeContext).
+	self state: #terminated.
+	self environment executeControls actionStop
 ]
 
 {
