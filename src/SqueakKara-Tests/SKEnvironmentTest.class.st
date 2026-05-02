@@ -37,16 +37,16 @@ SKEnvironmentTest >> tearDown [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 11:40'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:41'
 }
 SKEnvironmentTest >> testCreation [
 
-	self assert: self environment kara coordinates = (1 @ 1)
+	self assert: self environment karas first coordinates = (1 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'NR 7/5/2024 14:00'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:41'
 }
 SKEnvironmentTest >> testDetectCloverleaf [
 
@@ -57,12 +57,12 @@ SKEnvironmentTest >> testDetectCloverleaf [
 	self environment executer step.
 	self environment executer step.
 	self environment executer step.
-	self assert: (self environment kara coordinates = (2 @ 1))
+	self assert: (self environment karas first coordinates = (2 @ 1))
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:18'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:41'
 }
 SKEnvironmentTest >> testDetectNoCloverleaf [
 
@@ -71,12 +71,12 @@ SKEnvironmentTest >> testDetectNoCloverleaf [
 	self environment executer step.
 	self environment executer step.
 	self environment executer step.
-	self assert: self environment kara coordinates = (1 @ 1)
+	self assert: self environment karas first coordinates = (1 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:21'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:41'
 }
 SKEnvironmentTest >> testDetectNoTrunk [
 
@@ -85,12 +85,12 @@ SKEnvironmentTest >> testDetectNoTrunk [
 	self environment executer step.
 	self environment executer step.
 	self environment executer step.
-	self assert: self environment kara coordinates = (1 @ 1)
+	self assert: self environment karas first coordinates = (1 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 19:04'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:41'
 }
 SKEnvironmentTest >> testDetectTrunk [
 
@@ -101,24 +101,24 @@ SKEnvironmentTest >> testDetectTrunk [
 	self environment executer step.
 	self environment executer step.
 	self environment executer step.
-	self assert: self environment kara coordinates = (1 @ 2)
+	self assert: self environment karas first coordinates = (1 @ 2)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 12:17'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:42'
 }
 SKEnvironmentTest >> testMove [
 
 	self environment workspace userCode: 'kara move'.
 	self environment run.
 	self environment executer step.
-	self assert: self environment kara coordinates = (2 @ 1)
+	self assert: self environment karas first coordinates = (2 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 19:06'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:42'
 }
 SKEnvironmentTest >> testMoveTwice [
 
@@ -127,27 +127,27 @@ SKEnvironmentTest >> testMoveTwice [
 	self environment executer step.
 	self environment executer step.
 	self environment executer step.
-	self assert: self environment kara coordinates = (3 @ 1)
+	self assert: self environment karas first coordinates = (3 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 19:07'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:43'
 }
 SKEnvironmentTest >> testTurnLeftMove [
 
-	self environment kara coordinates: (2 @ 2).
+	self environment karas first coordinates: (2 @ 2).
 	self environment workspace userCode: 'kara turn: left. kara move'.
 	self environment run.
 	self environment executer step.
 	self environment executer step.
 	self environment executer step.
-	self assert: self environment kara coordinates = (2 @ 1)
+	self assert: self environment karas first coordinates = (2 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 12:20'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:42'
 }
 SKEnvironmentTest >> testTurnRightMove [
 
@@ -155,5 +155,5 @@ SKEnvironmentTest >> testTurnRightMove [
 	self environment run.
 	self environment executer step.
 	self environment executer step.
-	self assert: self environment kara coordinates = (1 @ 2)
+	self assert: self environment karas first coordinates = (1 @ 2)
 ]

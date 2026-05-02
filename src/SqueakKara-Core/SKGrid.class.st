@@ -183,7 +183,7 @@ SKGrid >> challenge3 [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'mr 5/2/2026 16:26'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:37'
 }
 SKGrid >> challenge4 [
 	(1 to: 8) do: [ :x | 
@@ -203,8 +203,6 @@ SKGrid >> challenge4 [
 	^ {
 		SKKara newInGrid: self at: 1 @ 2 .
 		SKKara newInGrid: self at: 1 @ 7 .
-		SKKara newInGrid: self at: 2 @ 2 .
-		SKKara newInGrid: self at: 2 @ 7 .
 	} asOrderedCollection
 ]
 
