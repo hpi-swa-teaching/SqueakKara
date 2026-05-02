@@ -1,5 +1,5 @@
 Class {
-	#name : #SKKaraDecoratorTest,
+	#name : #SKKaraProxyTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'decorator',
@@ -13,7 +13,7 @@ Class {
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/18/2024 18:52'
 }
-SKKaraDecoratorTest >> decorator [
+SKKaraProxyTest >> decorator [
 
 	^ decorator
 	
@@ -23,7 +23,7 @@ SKKaraDecoratorTest >> decorator [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/18/2024 18:52'
 }
-SKKaraDecoratorTest >> grid [
+SKKaraProxyTest >> grid [
 
 	^ grid
 ]
@@ -32,7 +32,7 @@ SKKaraDecoratorTest >> grid [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/18/2024 18:54'
 }
-SKKaraDecoratorTest >> gridSize [
+SKKaraProxyTest >> gridSize [
 
 	^ 20 @ 20
 	
@@ -42,20 +42,20 @@ SKKaraDecoratorTest >> gridSize [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/18/2024 18:52'
 }
-SKKaraDecoratorTest >> kara [
+SKKaraProxyTest >> kara [
 
 	^ kara
 ]
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:56'
+	#'squeak_changestamp' : 'mr 5/2/2026 17:03'
 }
-SKKaraDecoratorTest >> setUp [
+SKKaraProxyTest >> setUp [
 
 	grid := SKGrid newWithExtent: self gridSize.
 	kara := SKKara newInGrid: self grid at: 1 @ 1.
-	decorator := SKKaraDecorator new.
+	decorator := SKKaraProxy new.
 	self decorator kara: self kara.
 	self decorator executer: SKExecuter new
 ]
@@ -64,7 +64,7 @@ SKKaraDecoratorTest >> setUp [
 	#category : #setup,
 	#'squeak_changestamp' : 'JJG 6/18/2024 18:51'
 }
-SKKaraDecoratorTest >> tearDown [
+SKKaraProxyTest >> tearDown [
 
 	self grid abandon
 ]
@@ -73,7 +73,7 @@ SKKaraDecoratorTest >> tearDown [
 	#category : #testing,
 	#'squeak_changestamp' : 'JJG 6/18/2024 18:58'
 }
-SKKaraDecoratorTest >> testKaraMove [
+SKKaraProxyTest >> testKaraMove [
 
 
 	self decorator move.
@@ -84,7 +84,7 @@ SKKaraDecoratorTest >> testKaraMove [
 	#category : #testing,
 	#'squeak_changestamp' : 'JJG 6/18/2024 19:00'
 }
-SKKaraDecoratorTest >> testKaraNoTrunkAhead [
+SKKaraProxyTest >> testKaraNoTrunkAhead [
 
 	self deny: decorator kara trunkAhead
 ]
@@ -93,7 +93,7 @@ SKKaraDecoratorTest >> testKaraNoTrunkAhead [
 	#category : #testing,
 	#'squeak_changestamp' : 'JJG 6/18/2024 18:59'
 }
-SKKaraDecoratorTest >> testKaraNotOnCloverleaf [
+SKKaraProxyTest >> testKaraNotOnCloverleaf [
 
 	self deny: decorator kara onCloverleaf
 ]
@@ -102,7 +102,7 @@ SKKaraDecoratorTest >> testKaraNotOnCloverleaf [
 	#category : #testing,
 	#'squeak_changestamp' : 'JJG 6/18/2024 18:59'
 }
-SKKaraDecoratorTest >> testKaraOnCloverleaf [
+SKKaraProxyTest >> testKaraOnCloverleaf [
 
 	SKCloverleaf newInGrid: self grid at: 1 @ 1.
 	self assert: decorator kara onCloverleaf
@@ -112,7 +112,7 @@ SKKaraDecoratorTest >> testKaraOnCloverleaf [
 	#category : #testing,
 	#'squeak_changestamp' : 'JJG 6/18/2024 19:01'
 }
-SKKaraDecoratorTest >> testKaraTrunkAhead [
+SKKaraProxyTest >> testKaraTrunkAhead [
 
 	SKTrunk newInGrid: self grid at: 2 @ 1.
 	self assert: decorator kara trunkAhead
@@ -122,7 +122,7 @@ SKKaraDecoratorTest >> testKaraTrunkAhead [
 	#category : #testing,
 	#'squeak_changestamp' : 'EB 7/11/2024 15:27'
 }
-SKKaraDecoratorTest >> testKaraTurnLeft [
+SKKaraProxyTest >> testKaraTurnLeft [
 
 
 	self decorator turn: SKDirection rotateLeft.
@@ -133,7 +133,7 @@ SKKaraDecoratorTest >> testKaraTurnLeft [
 	#category : #testing,
 	#'squeak_changestamp' : 'EB 7/11/2024 15:29'
 }
-SKKaraDecoratorTest >> testKaraTurnRight [
+SKKaraProxyTest >> testKaraTurnRight [
 
 
 	self decorator turn: SKDirection rotateRight.

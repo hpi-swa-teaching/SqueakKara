@@ -5,19 +5,21 @@ Class {
 	#name : #SKWorkspace,
 	#superclass : #Workspace,
 	#instVars : [
-		'kara'
+		'executer'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:03'
 }
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LM 4/28/2026 20:16'
+	#category : #'instance creation',
+	#'squeak_changestamp' : 'mr 5/2/2026 17:34'
 }
-SKWorkspace class >> newWithKara: aKara [
+SKWorkspace class >> newWithExecuter: anExecuter [
 
-	^ self basicNew initializeWithKara: aKara
+	^ self new
+		executer: anExecuter;
+		yourself
 ]
 
 {
@@ -27,6 +29,30 @@ SKWorkspace class >> newWithKara: aKara [
 SKWorkspace >> close [
 
 	self changed: #close
+]
+
+{
+	#category : #commands,
+	#'squeak_changestamp' : 'mr 5/2/2026 17:35'
+}
+SKWorkspace >> evaluateExpression: aString [
+	^ self executer execute: aString
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 5/2/2026 17:32'
+}
+SKWorkspace >> executer [
+	^ executer
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 5/2/2026 17:32'
+}
+SKWorkspace >> executer: anExecuter [
+	executer := anExecuter
 ]
 
 {
@@ -51,9 +77,9 @@ INFO:
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'mr 5/2/2026 16:08'
+	#'squeak_changestamp' : 'mr 5/2/2026 17:38'
 }
-SKWorkspace >> initializeWithKara: aKara [
+SKWorkspace >> initialize [
 	
 	super initialize.
 	self buildAndOpen.
@@ -61,7 +87,7 @@ SKWorkspace >> initializeWithKara: aKara [
 	
 	self bindings at: #left put: SKDirection rotateLeft.
 	self bindings at: #right put: SKDirection rotateRight.
-	self bindings at: #kara put: aKara.
+	"self bindings at: #kara put: aKara."
 	self contents: self getExampleCode
 
 ]

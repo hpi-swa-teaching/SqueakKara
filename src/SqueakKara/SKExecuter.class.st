@@ -17,15 +17,6 @@ Class {
 }
 
 {
-	#category : #execution,
-	#'squeak_changestamp' : 'KD 7/9/2024 15:26'
-}
-SKExecuter >> codeContext [
-
-	^ (SKExecuteContext new kara: self kara)
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
@@ -63,31 +54,30 @@ SKExecuter >> compiler: anObject [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
+	#'squeak_changestamp' : 'mr 5/2/2026 17:31'
 }
-SKExecuter >> execute: aCode [
+SKExecuter >> execute: aString [
 
-	self codeString: aCode.
+	self codeString: aString.
 	self state: #running.
-	self process: [self executeBlock: aCode] fork
+	self process: [self executeBlock: aString] fork
 	
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'mr 5/2/2026 16:16'
+	#'squeak_changestamp' : 'mr 5/2/2026 17:36'
 }
 SKExecuter >> executeBlock: aBlock [
 	
 	self karas do: [ :kara | 
 		| decorator context |
 		
-		decorator := SKKaraDecorator newWithKara: kara executer: self.
+		decorator := SKKaraProxy newWithKara: kara executer: self.
 		context := SKExecuteContext new.
 		context kara: decorator.
 		self compiler evaluate: aBlock for: context
-	].
-	^ nil
+	]
 ]
 
 {

@@ -1,22 +1,22 @@
 "
-SKKaraDecorator is a decorator for SKKara used to add the necessary step calls to the turn and move methods and modify the SKKara methods so that they can be used by the SKExecuter.
+SKKaraProxy is a surrogate for SKKara used to add the necessary step calls to the turn and move methods and modify the SKKara methods so that they can be used by the SKExecuter.
 "
 Class {
-	#name : #SKKaraDecorator,
+	#name : #SKKaraProxy,
 	#superclass : #Object,
 	#instVars : [
 		'kara',
 		'executer'
 	],
 	#category : #'SqueakKara-Core',
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:00'
+	#'squeak_changestamp' : 'mr 5/2/2026 17:44'
 }
 
 {
 	#category : #'instance creation',
 	#'squeak_changestamp' : 'mr 5/2/2026 16:15'
 }
-SKKaraDecorator class >> newWithKara: aKara executer: anExecuter [
+SKKaraProxy class >> newWithKara: aKara executer: anExecuter [
 	^ self new
 		kara: aKara;
 		executer: anExecuter;
@@ -27,7 +27,7 @@ SKKaraDecorator class >> newWithKara: aKara executer: anExecuter [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }
-SKKaraDecorator >> executer [
+SKKaraProxy >> executer [
 	
 	^ executer
 ]
@@ -36,7 +36,7 @@ SKKaraDecorator >> executer [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }
-SKKaraDecorator >> executer: anObject [
+SKKaraProxy >> executer: anObject [
 	
 	executer := anObject
 ]
@@ -45,7 +45,7 @@ SKKaraDecorator >> executer: anObject [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }
-SKKaraDecorator >> kara [
+SKKaraProxy >> kara [
 	
 	^ kara
 ]
@@ -54,7 +54,7 @@ SKKaraDecorator >> kara [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }
-SKKaraDecorator >> kara: anObject [
+SKKaraProxy >> kara: anObject [
 	
 	kara := anObject
 ]
@@ -63,7 +63,7 @@ SKKaraDecorator >> kara: anObject [
 	#category : #'SKKara functions',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:11'
 }
-SKKaraDecorator >> move [
+SKKaraProxy >> move [
 
 	self kara move.
 	self executer step
@@ -73,7 +73,7 @@ SKKaraDecorator >> move [
 	#category : #'SKKara functions',
 	#'squeak_changestamp' : 'EB 6/11/2024 10:01'
 }
-SKKaraDecorator >> onCloverleaf [
+SKKaraProxy >> onCloverleaf [
 
 	^ self kara onCloverleaf
 
@@ -83,7 +83,7 @@ SKKaraDecorator >> onCloverleaf [
 	#category : #'SKKara functions',
 	#'squeak_changestamp' : 'EB 6/11/2024 10:01'
 }
-SKKaraDecorator >> trunkAhead [
+SKKaraProxy >> trunkAhead [
 
 	^ self kara trunkAhead
 
@@ -93,7 +93,7 @@ SKKaraDecorator >> trunkAhead [
 	#category : #'SKKara functions',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:12'
 }
-SKKaraDecorator >> turn: aDirection [
+SKKaraProxy >> turn: aDirection [
 
 	self kara turn: aDirection.
 	self executer step
