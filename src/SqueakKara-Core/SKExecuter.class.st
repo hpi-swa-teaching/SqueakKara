@@ -75,11 +75,11 @@ SKExecuter >> execute: aCode [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:46'
 }
 SKExecuter >> executeBlock: aBlock [
 	
-	^ compiler evaluate: aBlock for: (self codeContext)
+	^ self compiler evaluate: aBlock for: (self codeContext)
 ]
 
 {
@@ -134,13 +134,14 @@ SKExecuter >> process: anObject [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:52'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:09'
 }
 SKExecuter >> resumeExecution [
 	
-	(self process isTerminated) ifFalse: [
-		self state: #running.
-		self process resume.]
+	self process isTerminated ifTrue: [ ^ self ].
+	
+	self state: #running.
+	self process resume
 ]
 
 {
@@ -163,18 +164,14 @@ SKExecuter >> speed: aSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:49'
+	#'squeak_changestamp' : 'LM 4/29/2026 18:50'
 }
 SKExecuter >> state [
 
 	(self process isNil) 
-	ifTrue: [
-		self state: #terminated
-		]
-	ifFalse: [
-		(self process isTerminated) ifTrue: [
-		self state: #terminated]
-		].
+		ifTrue: [ self state: #terminated ]
+		ifFalse: [(self process isTerminated) 
+			ifTrue: [ self state: #terminated ]].
 	^ state
 ]
 
@@ -199,33 +196,34 @@ SKExecuter >> step [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:42'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:19'
 }
 SKExecuter >> stepTime [
 
-	(self speed = 0) ifTrue: [ ^ 5000].
+	(self speed = 0) ifTrue: [ ^ 5000 ].
 	^ 5000 / self speed
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:47'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:14'
 }
 SKExecuter >> suspendExecution [
 
-	((self process isTerminated not) and: (self process isSuspended not)) ifTrue: [
-		self state: #suspended.
-		self process suspend.
-	].
+	((self process isTerminated not) and: (self process isSuspended not)) ifFalse: [ ^ self ].
+
+	self state: #suspended.
+	self process suspend
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:54'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:14'
 }
 SKExecuter >> terminate [
 
-	(self state = #terminated) ifFalse: [
-		self process terminate. 
-		self state: #terminated]
+	(self state = #terminated) ifTrue: [ ^ self ].
+
+	self process terminate. 
+	self state: #terminated
 ]

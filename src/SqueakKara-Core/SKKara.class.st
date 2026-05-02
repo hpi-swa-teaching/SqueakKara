@@ -26,13 +26,22 @@ SKKara >> getTextureForDirection [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/29/2026 13:07'
+}
+SKKara >> isKara [
+
+	^ true
+]
+
+{
 	#category : #movement,
-	#'squeak_changestamp' : 'jt 6/11/2024 13:26'
+	#'squeak_changestamp' : 'LM 4/28/2026 18:58'
 }
 SKKara >> move [
 	
-	(self trunkAhead)
-		ifFalse: [self coordinates: self coordinates + self viewDirection]
+	(self trunkAhead) ifFalse: [
+		self moveToCoordinates: self coordinates + self viewDirection ]
 	
 
 ]
@@ -47,6 +56,21 @@ SKKara >> onCloverleaf [
 ]
 
 {
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/29/2026 12:58'
+}
+SKKara >> position: aPoint [
+
+	| coordinates tile |
+	coordinates := self coordinatesFromPosition: aPoint.
+	tile := self gridCoordinator getTileAtCoordinates: coordinates.
+	
+	(tile anySatisfy: [ :each | each isTrunk ]) ifTrue: [^ self ].
+
+	super position: aPoint
+]
+
+{
 	#category : #appearance,
 	#'squeak_changestamp' : 'jt 6/11/2024 19:58'
 }
@@ -57,16 +81,15 @@ SKKara >> textureFilename [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'jt 6/11/2024 13:20'
+	#'squeak_changestamp' : 'LM 4/28/2026 19:10'
 }
 SKKara >> trunkAhead [
 
-	| tileAhead |
-	
-	tileAhead := self neighboursAt: self viewDirection.
-	^ tileAhead anySatisfy: [:each | each isTrunk]
-		
-	
+	| target tileAhead |
+	target := self coordinates + self viewDirection.
+	tileAhead := self gridCoordinator getTileAtCoordinates: target.
+
+	^ tileAhead anySatisfy: [ :each | each isTrunk ]
 ]
 
 {
@@ -83,18 +106,18 @@ SKKara >> turn: aRotation [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jt 6/11/2024 11:41'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
 }
 SKKara >> viewDirection [
 	
-	^ viewDirection ifNil: [viewDirection:= SKDirection right]
+	^ viewDirection ifNil: [ self viewDirection: SKDirection right ]
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jt 6/11/2024 11:29'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
 }
 SKKara >> viewDirection: aDirection [
 	
-	viewDirection := aDirection
+	^ viewDirection := aDirection
 ]

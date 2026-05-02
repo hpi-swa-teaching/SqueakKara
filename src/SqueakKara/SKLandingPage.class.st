@@ -145,16 +145,17 @@ SKLandingPage >> buildButtonNew [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:07'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:08'
 }
 SKLandingPage >> buildButtonWithLabel: aLabel andSelector: aSelector andColor: aColor [
 
 	^ SimpleButtonMorph new
-		    label: aLabel;
-		    target: self;
-		    actionSelector: aSelector;
-		    color: aColor;
-		    height: self buttonHeight
+		label: aLabel;
+		target: self;
+		actionSelector: aSelector;
+		color: aColor;
+		height: self buttonHeight;
+		yourself
 ]
 
 {
