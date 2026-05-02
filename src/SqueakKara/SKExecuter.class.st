@@ -6,7 +6,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'karas',
-		'codeString',
 		'compiler',
 		'process',
 		'speed',
@@ -20,24 +19,6 @@ Class {
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
-SKExecuter >> codeString [
-	
-	^ codeString
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
-}
-SKExecuter >> codeString: anObject [
-	
-	codeString := anObject
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
-}
 SKExecuter >> compiler [
 	
 	^ compiler
@@ -45,51 +26,85 @@ SKExecuter >> compiler [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
+	#'squeak_changestamp' : 'mr 5/2/2026 17:49'
 }
-SKExecuter >> compiler: anObject [
+SKExecuter >> compiler: aCompiler [
 	
-	compiler := anObject
+	compiler := aCompiler
+]
+
+{
+	#category : #constants,
+	#'squeak_changestamp' : 'mr 5/2/2026 17:49'
+}
+SKExecuter >> defaultSpeed [
+	
+	^ 25
+]
+
+{
+	#category : #constants,
+	#'squeak_changestamp' : 'mr 5/2/2026 17:50'
+}
+SKExecuter >> defaultState [
+	
+	^ #terminated
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'mr 5/2/2026 17:31'
+	#'squeak_changestamp' : 'mr 5/2/2026 18:37'
 }
-SKExecuter >> execute: aString [
+SKExecuter >> execute: aString useProxy: aBoolean [
 
-	self codeString: aString.
 	self state: #running.
-	self process: [self executeBlock: aString] fork
+	^ self executeForEachKara: aString useProxy: aBoolean
 	
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'mr 5/2/2026 17:36'
+	#'squeak_changestamp' : 'mr 5/2/2026 18:37'
 }
-SKExecuter >> executeBlock: aBlock [
+SKExecuter >> executeForEachKara: aString useProxy: aBoolean [
+	
+	| executionResult |
 	
 	self karas do: [ :kara | 
-		| decorator context |
+		| karaForExecution context |
 		
-		decorator := SKKaraProxy newWithKara: kara executer: self.
+		karaForExecution := aBoolean 
+			ifTrue: [ SKKaraProxy newWithKara: kara executer: self ]
+			ifFalse: [ kara ].
+
 		context := SKExecuteContext new.
-		context kara: decorator.
-		self compiler evaluate: aBlock for: context
-	]
+		context kara: karaForExecution.
+		
+		executionResult := self compiler evaluate: aString for: context
+	].
+
+	^ executionResult
+]
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'mr 5/2/2026 18:38'
+}
+SKExecuter >> executeForked: aString [
+
+	self process: [ self execute: aString useProxy: true ] fork
+	
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'mr 5/2/2026 16:11'
+	#'squeak_changestamp' : 'mr 5/2/2026 17:50'
 }
 SKExecuter >> initialize [
 	
 	self compiler: Compiler new.
-	self speed: 25.
-	self state: #terminated.
-	^ self
+	self speed: self defaultSpeed.
+	self state: self defaultState.
 ]
 
 {

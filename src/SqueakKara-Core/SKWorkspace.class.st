@@ -33,10 +33,10 @@ SKWorkspace >> close [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'mr 5/2/2026 17:35'
+	#'squeak_changestamp' : 'mr 5/2/2026 18:38'
 }
 SKWorkspace >> evaluateExpression: aString [
-	^ self executer execute: aString
+	^ self executer execute: aString useProxy: false
 ]
 
 {
@@ -76,8 +76,17 @@ INFO:
 ]
 
 {
+	#category : #binding,
+	#'squeak_changestamp' : 'mr 5/2/2026 18:30'
+}
+SKWorkspace >> hasBindingOf: aString [
+	"For syntax highlighting"
+	^ aString = 'kara' or: [ super hasBindingOf: aString ]
+]
+
+{
 	#category : #initialization,
-	#'squeak_changestamp' : 'mr 5/2/2026 17:38'
+	#'squeak_changestamp' : 'mr 5/2/2026 18:30'
 }
 SKWorkspace >> initialize [
 	
@@ -87,7 +96,7 @@ SKWorkspace >> initialize [
 	
 	self bindings at: #left put: SKDirection rotateLeft.
 	self bindings at: #right put: SKDirection rotateRight.
-	"self bindings at: #kara put: aKara."
+
 	self contents: self getExampleCode
 
 ]

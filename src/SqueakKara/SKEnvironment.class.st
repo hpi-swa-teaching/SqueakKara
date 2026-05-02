@@ -320,14 +320,14 @@ SKEnvironment >> resume [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:16'
+	#'squeak_changestamp' : 'mr 5/2/2026 18:00'
 }
 SKEnvironment >> run [
 
 	| code |
 	
 	code :=  self workspace userCode.
-	self executer execute: code
+	self executer executeForked: code
 ]
 
 {
