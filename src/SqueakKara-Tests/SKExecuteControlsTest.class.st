@@ -29,11 +29,11 @@ SKExecuteControlsTest >> tearDown [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'mr 5/2/2026 16:43'
+	#'squeak_changestamp' : 'mr 5/2/2026 19:00'
 }
 SKExecuteControlsTest >> testRun [
 
-	environment workspace userCode: 'kara move'.
+	environment workspace contents: 'kara move'.
 	controls actionRun.
 	environment executer step.
 	self assert: environment karas first coordinates = (2 @ 1)
@@ -41,11 +41,11 @@ SKExecuteControlsTest >> testRun [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'mr 5/2/2026 16:43'
+	#'squeak_changestamp' : 'mr 5/2/2026 19:00'
 }
 SKExecuteControlsTest >> testRunPause [
 
-	environment workspace userCode: 'kara move. kara move. kara move'.
+	environment workspace contents: 'kara move. kara move. kara move'.
 	controls actionRun.
 	environment executer step.
 	controls actionRun.
@@ -64,11 +64,11 @@ SKExecuteControlsTest >> testSlider [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:51'
+	#'squeak_changestamp' : 'mr 5/2/2026 19:00'
 }
 SKExecuteControlsTest >> testStop [
 
-	environment workspace userCode: 'kara move.'.
+	environment workspace contents: 'kara move.'.
 	controls actionRun.
 	controls actionStop.
 	self assert: environment executer state = #terminated.

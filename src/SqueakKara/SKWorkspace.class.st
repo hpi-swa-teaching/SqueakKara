@@ -33,10 +33,10 @@ SKWorkspace >> close [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'mr 5/2/2026 18:38'
+	#'squeak_changestamp' : 'mr 5/2/2026 18:57'
 }
 SKWorkspace >> evaluateExpression: aString [
-	^ self executer execute: aString useProxy: false
+	^ self executer execute: aString
 ]
 
 {
@@ -118,28 +118,4 @@ SKWorkspace >> kara: aKara [
 
 	kara := aKara.
 	self bindings at: #kara put: aKara
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
-}
-SKWorkspace >> userCode [
-	
-	|code|
-	
-	code := self contents.
-	^ code
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 11:10'
-}
-SKWorkspace >> userCode: aString [
-	
-	"to be used only for testing"
-	
-	self contents: aString
-	
 ]

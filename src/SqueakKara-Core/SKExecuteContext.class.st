@@ -35,11 +35,11 @@ SKExecuteContext >> kara [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:39'
+	#'squeak_changestamp' : 'mr 5/2/2026 19:01'
 }
-SKExecuteContext >> kara: aGridObject [
+SKExecuteContext >> kara: aKara [
 	
-	kara := aGridObject
+	kara := aKara
 ]
 
 {

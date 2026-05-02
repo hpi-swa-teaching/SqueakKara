@@ -53,12 +53,12 @@ SKExecuter >> defaultState [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'mr 5/2/2026 18:37'
+	#'squeak_changestamp' : 'mr 5/2/2026 18:56'
 }
-SKExecuter >> execute: aString useProxy: aBoolean [
+SKExecuter >> execute: aString [
 
 	self state: #running.
-	^ self executeForEachKara: aString useProxy: aBoolean
+	^ self executeForEachKara: aString useProxy: false
 	
 ]
 
@@ -88,23 +88,24 @@ SKExecuter >> executeForEachKara: aString useProxy: aBoolean [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'mr 5/2/2026 18:38'
+	#'squeak_changestamp' : 'mr 5/2/2026 18:56'
 }
 SKExecuter >> executeForked: aString [
 
-	self process: [ self execute: aString useProxy: true ] fork
+	self state: #running.
+	self process: [ self executeForEachKara: aString useProxy: true ] fork
 	
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'mr 5/2/2026 17:50'
+	#'squeak_changestamp' : 'mr 5/2/2026 19:02'
 }
 SKExecuter >> initialize [
 	
 	self compiler: Compiler new.
 	self speed: self defaultSpeed.
-	self state: self defaultState.
+	self state: self defaultState
 ]
 
 {
@@ -135,11 +136,11 @@ SKExecuter >> process [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:38'
+	#'squeak_changestamp' : 'mr 5/2/2026 19:02'
 }
-SKExecuter >> process: anObject [
+SKExecuter >> process: aProcess [
 	
-	process := anObject
+	process := aProcess
 ]
 
 {
@@ -165,11 +166,11 @@ SKExecuter >> speed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 12:05'
+	#'squeak_changestamp' : 'mr 5/2/2026 19:04'
 }
-SKExecuter >> speed: aSpeed [
+SKExecuter >> speed: anInteger [
 	
-	speed := aSpeed
+	speed := anInteger
 ]
 
 {
@@ -187,10 +188,11 @@ SKExecuter >> state [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:07'
+	#'squeak_changestamp' : 'mr 5/2/2026 19:04'
 }
-SKExecuter >> state: anObject [
-	state := anObject
+SKExecuter >> state: aSymbol [
+
+	state := aSymbol
 ]
 
 {
