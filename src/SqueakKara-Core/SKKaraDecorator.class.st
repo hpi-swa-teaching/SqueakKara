@@ -13,6 +13,17 @@ Class {
 }
 
 {
+	#category : #'instance creation',
+	#'squeak_changestamp' : 'mr 5/2/2026 16:15'
+}
+SKKaraDecorator class >> newWithKara: aKara executer: anExecuter [
+	^ self new
+		kara: aKara;
+		executer: anExecuter;
+		yourself
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }

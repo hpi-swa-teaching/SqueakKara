@@ -51,7 +51,7 @@ INFO:
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'EB 7/11/2024 15:19'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:08'
 }
 SKWorkspace >> initializeWithKara: aKara [
 	

@@ -95,7 +95,7 @@ SKGrid >> backgroundColor [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:15'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:31'
 }
 SKGrid >> challenge1 [
 	
@@ -139,13 +139,13 @@ SKGrid >> challenge1 [
 	SKTrunk newInGrid: self at: 3 @ 5.
 	
 	SKCloverleaf newInGrid: self at: 4 @ 4.
-	^ SKKara newInGrid: self at: 1 @ 2
+	^ { SKKara newInGrid: self at: 1 @ 2 } asOrderedCollection
 	
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:15'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:31'
 }
 SKGrid >> challenge2 [
 	
@@ -155,13 +155,13 @@ SKGrid >> challenge2 [
 	
 	SKCloverleaf newInGrid: self at: 9 @ 2.
 	
-	^ SKKara newInGrid: self at: 1 @ 2
+	^ { SKKara newInGrid: self at: 1 @ 2 } asOrderedCollection
 	
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:15'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:31'
 }
 SKGrid >> challenge3 [
 	
@@ -178,17 +178,33 @@ SKGrid >> challenge3 [
 	SKTrunk newInGrid: self at: 8 @ 3.
 	SKTrunk newInGrid: self at: 9 @ 3.
 	
-	^ SKKara newInGrid: self at: 1 @ 2
+	^ { SKKara newInGrid: self at: 1 @ 2 } asOrderedCollection
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'mr 4/29/2026 13:34'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:26'
 }
 SKGrid >> challenge4 [
+	(1 to: 8) do: [ :x | 
+		SKTrunk newInGrid: self at: x @ 1. 
+		SKTrunk newInGrid: self at: x @ 8  ].
+
+	(1 to: 6) do: [ :x | 
+		SKTrunk newInGrid: self at: x @ 3. 
+		SKTrunk newInGrid: self at: x @ 6  ].
+
+	(2 to: 7) do: [ :y | 
+		SKTrunk newInGrid: self at: 8 @ y ].
+	
+	SKCloverleaf newInGrid: self at: 1 @ 4.
+	SKCloverleaf newInGrid: self at: 1 @ 5.
+	
 	^ {
-		SKKara newInGrid: self at: 1 @ 1 .
+		SKKara newInGrid: self at: 1 @ 2 .
+		SKKara newInGrid: self at: 1 @ 7 .
 		SKKara newInGrid: self at: 2 @ 2 .
+		SKKara newInGrid: self at: 2 @ 7 .
 	} asOrderedCollection
 ]
 

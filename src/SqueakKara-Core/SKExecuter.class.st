@@ -5,7 +5,7 @@ Class {
 	#name : #SKExecuter,
 	#superclass : #Object,
 	#instVars : [
-		'kara',
+		'karas',
 		'codeString',
 		'compiler',
 		'process',
@@ -75,21 +75,27 @@ SKExecuter >> execute: aCode [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:46'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:16'
 }
 SKExecuter >> executeBlock: aBlock [
 	
-	^ self compiler evaluate: aBlock for: (self codeContext)
+	self karas do: [ :kara | 
+		| decorator context |
+		
+		decorator := SKKaraDecorator newWithKara: kara executer: self.
+		context := SKExecuteContext new.
+		context kara: decorator.
+		self compiler evaluate: aBlock for: context
+	].
+	^ nil
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'NR 7/5/2024 11:53'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:11'
 }
 SKExecuter >> initialize [
-
-	self kara: SKKaraDecorator new.
-	self kara executer: self.
+	
 	self compiler: Compiler new.
 	self speed: 25.
 	self state: #terminated.
@@ -98,20 +104,19 @@ SKExecuter >> initialize [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:09'
 }
-SKExecuter >> kara [
-	
-	^ kara
+SKExecuter >> karas [
+	^ karas
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:38'
+	#'squeak_changestamp' : 'mr 5/2/2026 16:09'
 }
-SKExecuter >> kara: anObject [
-	
-	kara := anObject
+SKExecuter >> karas: anOrderedCollection [
+
+	karas := anOrderedCollection
 ]
 
 {
