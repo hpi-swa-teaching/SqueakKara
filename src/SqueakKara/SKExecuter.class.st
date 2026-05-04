@@ -18,6 +18,26 @@ Class {
 }
 
 {
+	#category : #'class initialization',
+	#'squeak_changestamp' : 'LM 5/4/2026 12:53'
+}
+SKExecuter class >> newWithEnvironment: anEnvironment kara: aKara [
+	
+	| executer karaDecorator |
+	executer := self new.
+
+	karaDecorator := SKKaraDecorator new.
+	karaDecorator kara: aKara.
+	karaDecorator executer: executer.
+
+	executer
+		kara: karaDecorator;
+		environment: anEnvironment.
+
+	^ executer
+]
+
+{
 	#category : #execution,
 	#'squeak_changestamp' : 'KD 7/9/2024 15:26'
 }
@@ -73,11 +93,11 @@ SKExecuter >> environment [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'jawi 4/30/2026 17:36'
+	#'squeak_changestamp' : 'LM 5/4/2026 12:36'
 }
-SKExecuter >> environment: anObject [
+SKExecuter >> environment: anEnvironment [
 	
-	environment := anObject
+	environment := anEnvironment
 ]
 
 {
@@ -105,12 +125,11 @@ SKExecuter >> executeBlock: aBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jawi 4/30/2026 17:31'
+	#'squeak_changestamp' : 'LM 5/4/2026 12:54'
 }
 SKExecuter >> initialize [
 
-	self kara: SKKaraDecorator new.
-	self kara executer: self.
+	super initialize.
 	self compiler: Compiler new.
 	self speed: 25.
 	self state: #terminated.
