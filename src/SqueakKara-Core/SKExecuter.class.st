@@ -10,11 +10,32 @@ Class {
 		'compiler',
 		'process',
 		'speed',
-		'state'
+		'state',
+		'environment'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:45'
 }
+
+{
+	#category : #'class initialization',
+	#'squeak_changestamp' : 'LM 5/4/2026 12:53'
+}
+SKExecuter class >> newWithEnvironment: anEnvironment kara: aKara [
+	
+	| executer karaDecorator |
+	executer := self new.
+
+	karaDecorator := SKKaraDecorator new.
+	karaDecorator kara: aKara.
+	karaDecorator executer: executer.
+
+	executer
+		kara: karaDecorator;
+		environment: anEnvironment.
+
+	^ executer
+]
 
 {
 	#category : #execution,
@@ -62,6 +83,24 @@ SKExecuter >> compiler: anObject [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 4/30/2026 17:36'
+}
+SKExecuter >> environment [
+	
+	^ environment
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/4/2026 12:36'
+}
+SKExecuter >> environment: anEnvironment [
+	
+	environment := anEnvironment
+]
+
+{
 	#category : #execution,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
 }
@@ -75,25 +114,26 @@ SKExecuter >> execute: aCode [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:46'
+	#'squeak_changestamp' : 'LM 5/4/2026 12:57'
 }
 SKExecuter >> executeBlock: aBlock [
 	
-	^ self compiler evaluate: aBlock for: (self codeContext)
+	self compiler evaluate: aBlock for: (self codeContext).
+	self state: #terminated.
+	self environment onFinish
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'NR 7/5/2024 11:53'
+	#'squeak_changestamp' : 'LM 5/4/2026 12:54'
 }
 SKExecuter >> initialize [
 
-	self kara: SKKaraDecorator new.
-	self kara executer: self.
+	super initialize.
 	self compiler: Compiler new.
 	self speed: 25.
 	self state: #terminated.
-	^ self
+	^ self 
 ]
 
 {

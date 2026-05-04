@@ -174,13 +174,12 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:48'
+	#'squeak_changestamp' : 'LM 5/4/2026 12:54'
 }
 SKEnvironment >> initializeObjects [
 
 	self workspace: (SKWorkspace newWithKara: self kara).
-	self executer: (SKExecuter new).
-	(self executer kara) kara: self kara.
+	self executer: (SKExecuter newWithEnvironment: self kara: self kara).
 	self executeControls: SKExecuteControls new.
 	self executeControls environment: self.
 	
@@ -249,6 +248,15 @@ SKEnvironment >> kara [
 SKEnvironment >> kara: anObject [
 	
 	kara := anObject
+]
+
+{
+	#category : #commands,
+	#'squeak_changestamp' : 'LM 5/4/2026 12:56'
+}
+SKEnvironment >> onFinish [
+
+	self executeControls actionStop
 ]
 
 {
