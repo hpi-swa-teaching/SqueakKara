@@ -114,13 +114,13 @@ SKExecuter >> execute: aCode [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'jawi 4/30/2026 17:37'
+	#'squeak_changestamp' : 'LM 5/4/2026 12:57'
 }
 SKExecuter >> executeBlock: aBlock [
 	
 	self compiler evaluate: aBlock for: (self codeContext).
 	self state: #terminated.
-	self environment executeControls actionStop
+	self environment onFinish
 ]
 
 {

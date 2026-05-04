@@ -252,6 +252,15 @@ SKEnvironment >> kara: anObject [
 
 {
 	#category : #commands,
+	#'squeak_changestamp' : 'LM 5/4/2026 12:56'
+}
+SKEnvironment >> onFinish [
+
+	self executeControls actionStop
+]
+
+{
+	#category : #commands,
 	#'squeak_changestamp' : 'LM 4/28/2026 20:44'
 }
 SKEnvironment >> pause [
