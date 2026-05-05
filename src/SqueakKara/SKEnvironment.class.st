@@ -7,6 +7,7 @@ Class {
 	#instVars : [
 		'grid',
 		'workspace',
+		'blockspace',
 		'executer',
 		'kara',
 		'executeControls',
@@ -25,6 +26,22 @@ Class {
 SKEnvironment class >> newWithKaraAt: aPoint [
 
 	^ self basicNew initializeWithKaraAt: aPoint
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 5/5/2026 15:19'
+}
+SKEnvironment >> blockspace [
+	^ blockspace
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 5/5/2026 15:19'
+}
+SKEnvironment >> blockspace: anObject [
+	blockspace := anObject
 ]
 
 {
@@ -150,11 +167,12 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:48'
+	#'squeak_changestamp' : 'FR 5/5/2026 23:58'
 }
 SKEnvironment >> initializeObjects [
 
 	self workspace: (SKWorkspace newWithKara: self kara).
+	self blockspace: ((SKBlockSpace newWithKara: self kara) environment: self).
 	self executer: (SKExecuter new).
 	(self executer kara) kara: self kara.
 	self executeControls: SKExecuteControls new.
