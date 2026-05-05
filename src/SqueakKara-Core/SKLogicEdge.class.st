@@ -13,9 +13,9 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:52'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:19'
 }
-SKLogicEdge class >> newWithCommand: aString condition: anotherString outNode: aLogicNode inNode: anotherLogicNode [
+SKLogicEdge class >> newWithCommand: aString condition: anotherString fromNode: aLogicNode toNode: anotherLogicNode [
 
 	^(self new
 		command: aString;
@@ -27,36 +27,27 @@ SKLogicEdge class >> newWithCommand: aString condition: anotherString outNode: a
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 16:43'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:30'
 }
-SKLogicEdge class >> newWithCommand: aString condition: anotherString toNode: anotherLogicNode [
+SKLogicEdge class >> newWithCommand: aString condition: anotherString toNode: aLogicNode [
 
 	^(self new
 		command: aString;
 		condition: anotherString;
-		toNode: anotherLogicNode;
+		toNode: aLogicNode;
 		yourself)
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 15:01'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:19'
 }
-SKLogicEdge class >> newWithOutNode: aLogicNode inNode: anotherLogicNode [
+SKLogicEdge class >> newWithfromNode: aLogicNode toNode: anotherLogicNode [
 
 	^ (self new
 		outNode: aLogicNode;
 		inNode: anotherLogicNode;
 		yourself)
-]
-
-{
-	#category : #visitor,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:37'
-}
-SKLogicEdge >> accept: aVisitor [
-
-	aVisitor visitLogicEdge: self
 ]
 
 {
@@ -88,11 +79,11 @@ SKLogicEdge >> condition [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 15:30'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:50'
 }
 SKLogicEdge >> condition: aString [
 
-	self toggleHasNoDefaultCondition.
+	(aString  ~= '') ifTrue: [self toggleHasNoDefaultCondition].
 	condition := aString
 ]
 

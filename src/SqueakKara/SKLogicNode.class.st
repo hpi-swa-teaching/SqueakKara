@@ -21,12 +21,14 @@ SKLogicNode class >> newWithName: aString [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 16:47'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:06'
 }
 SKLogicNode >> addEdge: aLogicEdge [
 	
 	aLogicEdge fromNode: self.
-	self edges add: aLogicEdge 
+	self edges add: aLogicEdge.
+	
+	^ aLogicEdge
 ]
 
 {

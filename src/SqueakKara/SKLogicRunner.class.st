@@ -11,25 +11,24 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 17:03'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 21:07'
 }
-SKLogicRunner class >> newWithKara: aKara [
+SKLogicRunner class >> newWithExecutionContext: aExecutionContext [
 
-	| runner |
-	
-	runner := self new.
-	runner executeContext kara: aKara.
-	^ runner
+	^ (self new
+		executeContext: aExecutionContext copy;
+		yourself)
 ]
 
 {
 	#category : #initialize,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 17:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 21:45'
 }
 SKLogicRunner >> attachToGraph: aLogicGraph [
 
 	Transcript show: '[LogicRunner] Attacht to startingNode: ' , aLogicGraph startingNode name; cr.
 
+	self executeContext env: (SKContextVariables new).
 	self compiler: (Compiler new);
 		currentNode: aLogicGraph startingNode 
 ]
@@ -81,11 +80,11 @@ SKLogicRunner >> executeCode: aString [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 16:32'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 20:56'
 }
 SKLogicRunner >> executeContext [
 
-	^ executeContext ifNil: [executeContext := SKExecuteContext new]
+	^ executeContext
 ]
 
 {
@@ -99,7 +98,7 @@ SKLogicRunner >> executeContext: aExecuteContext [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 16:07'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:55'
 }
 SKLogicRunner >> executeStep [
 	
@@ -117,7 +116,7 @@ SKLogicRunner >> executeStep [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 16:14'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:55'
 }
 SKLogicRunner >> findNextEdge: aLogicNode [
 
@@ -145,13 +144,4 @@ SKLogicRunner >> traverseEdge: aLogicEdge [
 
 	self currentNode: aLogicEdge toNode
 	
-]
-
-{
-	#category : #visit,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:39'
-}
-SKLogicRunner >> visitLogicEdge: aLogicEdge [
-
-	self traverseEdge: aLogicEdge
 ]

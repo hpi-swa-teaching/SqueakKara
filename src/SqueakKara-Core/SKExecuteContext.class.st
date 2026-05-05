@@ -7,11 +7,30 @@ Class {
 	#instVars : [
 		'kara',
 		'right',
-		'left'
+		'left',
+		'env'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:41'
 }
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:42'
+}
+SKExecuteContext >> env [
+
+	^ env
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 21:04'
+}
+SKExecuteContext >> env: aDictonary [
+
+	env := aDictonary
+]
 
 {
 	#category : #initialization,

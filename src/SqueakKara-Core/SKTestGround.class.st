@@ -6,22 +6,26 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 17:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:31'
 }
 SKTestGround >> testLogicGraphWithKara [
 
-	| node1 node2 edge12 graph runner grid kara | 
+	| graph runner grid kara executionContext | 
 	
-	node1 := SKLogicNode newWithName: 'node1'.
-	node2 := SKLogicNode newWithName: 'node2'.
-	edge12 := SKLogicEdge newWithCommand: 'kara move' condition: 'true' toNode: node2.
-	node1 addEdge: edge12.
-	graph := SKLogicGraph newWithStartingNode: node1.
+	graph := (SKLogicGraph new
+				addNodeWithName: 'node1';
+				addNodeWithName: 'node2';
+				addEdgeFrom: 'node1' to: 'node2' command: 'kara move. env at: #test put: true' condition: 'true';
+				addEdgeFrom: 'node2' to: 'node1' command: '' condition: 'env at: #test';
+				setStartNode: 'node1';
+				yourself).
 	
 	grid := SKGrid newWithExtent: 7@7.
 	kara := SKKara newInGrid: grid at: 1@1.
+	executionContext := SKExecuteContext new.
+	executionContext kara: kara.
 
-	runner := SKLogicRunner newWithKara: kara.
+	runner := SKLogicRunner newWithExecutionContext: executionContext.
 	runner attachToGraph: graph.
 
 	^ runner
