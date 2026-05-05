@@ -25,7 +25,7 @@ SKExecuteContext >> initialize [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:40'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 17:05'
 }
 SKExecuteContext >> kara: anObject [
 	

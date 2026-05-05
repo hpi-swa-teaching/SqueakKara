@@ -9,21 +9,42 @@ Class {
 }
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:18'
+	#category : #constructor,
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:49'
 }
-SKLogicNode >> addEdge: aLogicEdge [
+SKLogicNode class >> newWithName: aString [
 	
-	edges add: aLogicEdge 
+	^ (self new
+		name: aString;
+		yourself)
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:15'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 16:47'
+}
+SKLogicNode >> addEdge: aLogicEdge [
+	
+	aLogicEdge fromNode: self.
+	self edges add: aLogicEdge 
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 15:04'
 }
 SKLogicNode >> edges [
 
-	^ edges
+	^ edges ifNil: [edges := OrderedCollection new]
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 15:05'
+}
+SKLogicNode >> hasEdge [
+
+	^ (self edges size > 0)
 ]
 
 {

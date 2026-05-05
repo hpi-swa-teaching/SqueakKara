@@ -12,7 +12,8 @@ Class {
 		'executeControls',
 		'gameWidth',
 		'gameHeight',
-		'systemWindow'
+		'systemWindow',
+		'logicGraph'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'

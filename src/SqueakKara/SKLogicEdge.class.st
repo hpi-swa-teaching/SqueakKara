@@ -2,19 +2,61 @@ Class {
 	#name : #SKLogicEdge,
 	#superclass : #Object,
 	#instVars : [
-		'inNode',
-		'outNode',
+		'toNode',
+		'fromNode',
 		'command',
-		'condition'
+		'condition',
+		'hasDefaultCondition'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:52'
+}
+SKLogicEdge class >> newWithCommand: aString condition: anotherString outNode: aLogicNode inNode: anotherLogicNode [
+
+	^(self new
+		command: aString;
+		condition: anotherString;
+		outNode: aLogicNode;
+		inNode: anotherLogicNode;
+		yourself)
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 16:43'
+}
+SKLogicEdge class >> newWithCommand: aString condition: anotherString toNode: anotherLogicNode [
+
+	^(self new
+		command: aString;
+		condition: anotherString;
+		toNode: anotherLogicNode;
+		yourself)
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 15:01'
+}
+SKLogicEdge class >> newWithOutNode: aLogicNode inNode: anotherLogicNode [
+
+	^ (self new
+		outNode: aLogicNode;
+		inNode: anotherLogicNode;
+		yourself)
+]
+
+{
 	#category : #visitor,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:25'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:37'
 }
 SKLogicEdge >> accept: aVisitor [
+
+	aVisitor visitLogicEdge: self
 ]
 
 {
@@ -37,54 +79,73 @@ SKLogicEdge >> command: aString [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:23'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 15:27'
 }
 SKLogicEdge >> condition [
 
-	^ condition ifNil: [ condition := 'default' ]
+	^ condition ifNil: [ condition := '' ]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:23'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 15:30'
 }
 SKLogicEdge >> condition: aString [
 
+	self toggleHasNoDefaultCondition.
 	condition := aString
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:21'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 16:44'
 }
-SKLogicEdge >> inNode [
+SKLogicEdge >> fromNode [
 
-	^ inNode
+	^ fromNode
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:21'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 16:44'
 }
-SKLogicEdge >> inNode: aLogicNode [
+SKLogicEdge >> fromNode: aLogicNode [
 
-	inNode := aLogicNode
+	fromNode := aLogicNode
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:21'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 15:46'
 }
-SKLogicEdge >> outNode [
-
-	^ outNode
+SKLogicEdge >> hasDefaultCondition [
+	
+	^ hasDefaultCondition ifNil: [hasDefaultCondition := true]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:21'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 16:44'
 }
-SKLogicEdge >> outNode: aLogicNode [
+SKLogicEdge >> toNode [
 
-	outNode := aLogicNode
+	^ toNode
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 16:45'
+}
+SKLogicEdge >> toNode: aLogicNode [
+
+	toNode := aLogicNode
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 15:29'
+}
+SKLogicEdge >> toggleHasNoDefaultCondition [
+
+	hasDefaultCondition := false
 ]
