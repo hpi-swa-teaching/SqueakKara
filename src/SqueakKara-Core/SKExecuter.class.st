@@ -5,15 +5,37 @@ Class {
 	#name : #SKExecuter,
 	#superclass : #Object,
 	#instVars : [
-		'karas',
+		'kara',
+		'codeString',
 		'compiler',
 		'process',
 		'speed',
-		'state'
+		'state',
+		'environment'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:45'
 }
+
+{
+	#category : #'class initialization',
+	#'squeak_changestamp' : 'LM 5/4/2026 12:53'
+}
+SKExecuter class >> newWithEnvironment: anEnvironment kara: aKara [
+	
+	| executer karaDecorator |
+	executer := self new.
+
+	karaDecorator := SKKaraDecorator new.
+	karaDecorator kara: aKara.
+	karaDecorator executer: executer.
+
+	executer
+		kara: karaDecorator;
+		environment: anEnvironment.
+
+	^ executer
+]
 
 {
 	#category : #accessing,
@@ -52,6 +74,24 @@ SKExecuter >> defaultState [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 4/30/2026 17:36'
+}
+SKExecuter >> environment [
+	
+	^ environment
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/4/2026 12:36'
+}
+SKExecuter >> environment: anEnvironment [
+	
+	environment := anEnvironment
+]
+
+{
 	#category : #execution,
 	#'squeak_changestamp' : 'mr 5/2/2026 18:56'
 }
@@ -60,6 +100,17 @@ SKExecuter >> execute: aString [
 	self state: #running.
 	^ self executeForEachKara: aString useProxy: false
 	
+]
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/4/2026 12:57'
+}
+SKExecuter >> executeBlock: aBlock [
+	
+	self compiler evaluate: aBlock for: (self codeContext).
+	self state: #terminated.
+	self environment onFinish
 ]
 
 {
@@ -99,10 +150,10 @@ SKExecuter >> executeForked: aString [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'mr 5/2/2026 19:02'
+	#'squeak_changestamp' : 'mr 5/5/2026 13:04'
 }
 SKExecuter >> initialize [
-	
+	super initialize.
 	self compiler: Compiler new.
 	self speed: self defaultSpeed.
 	self state: self defaultState

@@ -174,17 +174,15 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'mr 5/2/2026 17:42'
+	#'squeak_changestamp' : 'LM 5/4/2026 12:54'
 }
 SKEnvironment >> initializeObjects [
 
-	self executer: (SKExecuter new).
-	self executer karas: self karas.
+	self workspace: (SKWorkspace newWithKara: self kara).
+	self executer: (SKExecuter newWithEnvironment: self kara: self kara).
 	self executeControls: SKExecuteControls new.
 	self executeControls environment: self.
 	
-	self workspace: (SKWorkspace newWithExecuter: self executer).
-		
 	self setSystemWindow.
 	self systemWindow openInHand
 ]
@@ -261,6 +259,15 @@ SKEnvironment >> karas [
 SKEnvironment >> karas: anOrderedCollection [
 
 	karas := anOrderedCollection
+]
+
+{
+	#category : #commands,
+	#'squeak_changestamp' : 'LM 5/4/2026 12:56'
+}
+SKEnvironment >> onFinish [
+
+	self executeControls actionStop
 ]
 
 {
