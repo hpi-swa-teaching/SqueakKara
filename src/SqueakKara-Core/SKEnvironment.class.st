@@ -174,14 +174,15 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/4/2026 12:54'
+	#'squeak_changestamp' : 'mr 5/5/2026 13:07'
 }
 SKEnvironment >> initializeObjects [
 
-	self workspace: (SKWorkspace newWithKara: self kara).
-	self executer: (SKExecuter newWithEnvironment: self kara: self kara).
+	self executer: (SKExecuter newWithEnvironment: self karas: self karas).
 	self executeControls: SKExecuteControls new.
 	self executeControls environment: self.
+	
+	self workspace: (SKWorkspace newWithExecuter: self executer).
 	
 	self setSystemWindow.
 	self systemWindow openInHand
@@ -259,15 +260,6 @@ SKEnvironment >> karas [
 SKEnvironment >> karas: anOrderedCollection [
 
 	karas := anOrderedCollection
-]
-
-{
-	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/4/2026 12:56'
-}
-SKEnvironment >> onFinish [
-
-	self executeControls actionStop
 ]
 
 {
@@ -388,6 +380,15 @@ SKEnvironment >> systemWindow [
 SKEnvironment >> systemWindow: anObject [
 	
 	systemWindow := anObject
+]
+
+{
+	#category : #ui,
+	#'squeak_changestamp' : 'mr 5/5/2026 13:18'
+}
+SKEnvironment >> updateRunButtonTexture [
+
+	self executeControls updateRunButtonTexture
 ]
 
 {

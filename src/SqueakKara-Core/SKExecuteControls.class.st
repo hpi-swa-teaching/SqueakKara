@@ -42,12 +42,12 @@ SKExecuteControls >> actionRun [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:43'
+	#'squeak_changestamp' : 'mr 5/5/2026 13:16'
 }
 SKExecuteControls >> actionStop [
 
 	self environment stop.
-	self buttonRunSetTexture: self currentRunButtonTexture
+	self updateRunButtonTexture
 ]
 
 {
@@ -433,4 +433,13 @@ SKExecuteControls >> stopTexture: aForm [
 SKExecuteControls >> stopTextureFilename [
 
 	^ 'stop.png'
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'mr 5/5/2026 13:16'
+}
+SKExecuteControls >> updateRunButtonTexture [
+	
+	self buttonRunSetTexture: self currentRunButtonTexture
 ]
