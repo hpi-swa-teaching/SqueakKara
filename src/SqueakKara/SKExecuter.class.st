@@ -13,6 +13,7 @@ Class {
 		'state',
 		'environment',
 		'stepLock',
+		'activeDecorators',
 		'releaseLocks',
 		'submittedSteps'
 	],
@@ -106,7 +107,7 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 21:53'
+	#'squeak_changestamp' : 'LM 5/6/2026 22:15'
 }
 SKExecuter >> execute: aCode [
 
@@ -124,7 +125,8 @@ SKExecuter >> execute: aCode [
 	self processes: (decorators collect: [ :decorator |
 		| context |
 		context := SKExecuteContext new kara: decorator.
-		[ self compiler evaluate: aCode for: context ] forkAt: priority ]).
+		[[ self compiler evaluate: aCode for: context ] ensure: [
+			self finishDecorator: decorator ]] forkAt: priority ]).
 	Transcript showln: self processes.
 	
 	"self processes: (self karas collect: [ :kara | [ SKKaraDecorator runWith: kara ] fork ]).
@@ -145,6 +147,27 @@ SKExecuter >> executeBlock: aBlock [
 ]
 
 {
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/6/2026 22:16'
+}
+SKExecuter >> finishDecorator: aDecorator [
+
+	stepLock critical: [
+		activeDecorators remove: aDecorator ifAbsent: [].
+		releaseLocks removeKey: aDecorator ifAbsent: [].
+		
+		activeDecorators isEmpty ifTrue: [
+			self state: #terminated.
+			self environment onFinish ].
+
+		submittedSteps size = activeDecorators size ifTrue: [
+			submittedSteps isEmpty ifFalse: [
+				self playSubmittedStep.
+				submittedSteps removeAll.
+				self releaseAllKaras ]]]
+]
+
+{
 	#category : #initialization,
 	#'squeak_changestamp' : 'LM 5/6/2026 20:11'
 }
@@ -160,13 +183,15 @@ SKExecuter >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/6/2026 21:48'
+	#'squeak_changestamp' : 'LM 5/6/2026 22:13'
 }
 SKExecuter >> initializeStepSchedulerFor: decorators [
 	
 	stepLock := Semaphore forMutualExclusion.
 	releaseLocks := Dictionary new.
 	submittedSteps := Dictionary new.
+	activeDecorators := decorators asOrderedCollection.
+	
 	decorators do: [ :decorator |
 		releaseLocks at: decorator put: Semaphore new ]
 ]
@@ -303,14 +328,14 @@ SKExecuter >> stepTime [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 21:54'
+	#'squeak_changestamp' : 'LM 5/6/2026 22:13'
 }
 SKExecuter >> submitStepActions: actions for: aDecorator [
 
 	stepLock critical: [
 		submittedSteps at: aDecorator put: actions.
 		
-		submittedSteps size = self karas size ifTrue: [
+		submittedSteps size = activeDecorators size ifTrue: [
 			self playSubmittedStep.
 			submittedSteps removeAll.
 			self releaseAllKaras ]]

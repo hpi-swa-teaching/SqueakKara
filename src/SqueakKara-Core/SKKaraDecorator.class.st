@@ -88,14 +88,11 @@ SKKaraDecorator >> kara: anObject [
 
 {
 	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'LM 5/6/2026 22:02'
+	#'squeak_changestamp' : 'LM 5/6/2026 22:17'
 }
 SKKaraDecorator >> move [
 
-	self pendingActions add: {
-		#move.
-		[ Transcript showln: 'ADD move for ', self kara printString.
-		self kara move ]}.
+	self pendingActions add: { #move. [ self kara move ]}.
 
 	self executer submitStepActions: self pendingActions copy for: self.
 	self pendingActions removeAll.
@@ -141,12 +138,12 @@ SKKaraDecorator >> trunkAhead [
 
 {
 	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'LM 5/6/2026 22:02'
+	#'squeak_changestamp' : 'LM 5/6/2026 22:10'
 }
 SKKaraDecorator >> turn: aDirection [
 
+	self kara turn: aDirection.
 	self pendingActions add: {
 		#turn.
-		[ Transcript showln: 'ADD turn for ', self kara printString.
-		self kara turn: aDirection ]}
+		[ Transcript showln: 'ADD turn for ', self kara printString ]}
 ]
