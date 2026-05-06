@@ -6,11 +6,35 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'kara',
-		'executer'
+		'executer',
+		'lock'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:00'
 }
+
+{
+	#category : #'class initialization',
+	#'squeak_changestamp' : 'LM 5/6/2026 19:33'
+}
+SKKaraDecorator class >> newWith: aKara lock: aSemaphore executer: anExecuter [
+
+	| decorator |
+	Transcript showln: 'success'.
+	decorator := self new.
+	decorator kara: aKara; lock: aSemaphore; executer: anExecuter.
+	
+	^ decorator
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/6/2026 18:59'
+}
+SKKaraDecorator >> codeContext [
+
+	^ (SKExecuteContext new kara: self kara)
+]
 
 {
 	#category : #accessing,
@@ -49,42 +73,64 @@ SKKaraDecorator >> kara: anObject [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/6/2026 19:05'
+}
+SKKaraDecorator >> lock [
+
+	^ lock
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/6/2026 19:05'
+}
+SKKaraDecorator >> lock: aSemaphore [
+
+	lock := aSemaphore
+]
+
+{
 	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:11'
+	#'squeak_changestamp' : 'LM 5/6/2026 19:50'
 }
 SKKaraDecorator >> move [
 
-	self kara move.
-	self executer step
+	self lock critical: [
+		Transcript showln: 'Entering move critical section for ', self kara.
+		self kara move.
+		self executer step ].
+	Processor yield
 ]
 
 {
 	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'EB 6/11/2024 10:01'
+	#'squeak_changestamp' : 'LM 5/6/2026 19:38'
 }
 SKKaraDecorator >> onCloverleaf [
 
-	^ self kara onCloverleaf
+	self lock critical: [ ^ self kara onCloverleaf ]
 
 ]
 
 {
 	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'EB 6/11/2024 10:01'
+	#'squeak_changestamp' : 'LM 5/6/2026 19:38'
 }
 SKKaraDecorator >> trunkAhead [
 
-	^ self kara trunkAhead
+	self lock critical: [ ^ self kara trunkAhead ]
 
 ]
 
 {
 	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:12'
+	#'squeak_changestamp' : 'LM 5/6/2026 19:56'
 }
 SKKaraDecorator >> turn: aDirection [
 
-	self kara turn: aDirection.
-	self executer step
-
+	self lock critical: [
+		Transcript showln: 'Entering turn critical section for ', self kara.
+		self kara turn: aDirection.
+		self executer step ]
 ]

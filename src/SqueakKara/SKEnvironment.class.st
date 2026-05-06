@@ -174,12 +174,14 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/4/2026 12:54'
+	#'squeak_changestamp' : 'LM 5/6/2026 19:14'
 }
 SKEnvironment >> initializeObjects [
 
 	self workspace: (SKWorkspace newWithKara: self kara).
-	self executer: (SKExecuter newWithEnvironment: self kara: self kara).
+	self executer: (SKExecuter newWithEnvironment: self).
+	self executer addKara: self kara.
+	self executer addKara: (SKKara newInGrid: self grid at: 2@2).
 	self executeControls: SKExecuteControls new.
 	self executeControls environment: self.
 	
