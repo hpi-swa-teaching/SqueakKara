@@ -11,7 +11,10 @@ Class {
 		'processes',
 		'speed',
 		'state',
-		'environment'
+		'environment',
+		'stepLock',
+		'releaseLocks',
+		'submittedSteps'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:45'
@@ -59,24 +62,6 @@ SKExecuter >> codeContext [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
-SKExecuter >> codeString [
-	
-	^ codeString
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
-}
-SKExecuter >> codeString: anObject [
-	
-	codeString := anObject
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
-}
 SKExecuter >> compiler [
 	
 	^ compiler
@@ -89,6 +74,16 @@ SKExecuter >> compiler [
 SKExecuter >> compiler: anObject [
 	
 	compiler := anObject
+]
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/6/2026 22:05'
+}
+SKExecuter >> delayStep [
+
+	self stepTime > 0
+		ifTrue: [(Delay forMilliseconds: self stepTime) wait ]
 ]
 
 {
@@ -111,24 +106,25 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 20:08'
+	#'squeak_changestamp' : 'LM 5/6/2026 21:53'
 }
 SKExecuter >> execute: aCode [
 
-	| lock |
+	| priority decorators |
 
-	self codeString: aCode.
 	self state: #running.
 	Transcript showln: self karas.
-	lock := Semaphore forMutualExclusion.
+	priority := Processor userBackgroundPriority.
 	
-	self processes: (self karas collect: [ :kara |
-		| decorator context priority |
-		priority := Processor userBackgroundPriority.
-		decorator := SKKaraDecorator newWith: kara lock: lock executer: self.
-		context := (SKExecuteContext new kara: decorator).
-		[ self compiler evaluate: aCode for: context ] fork
-	]).
+	decorators := self karas collect: [ :kara |
+		SKKaraDecorator newWith: kara executer: self ].
+	
+	self initializeStepSchedulerFor: decorators.
+	
+	self processes: (decorators collect: [ :decorator |
+		| context |
+		context := SKExecuteContext new kara: decorator.
+		[ self compiler evaluate: aCode for: context ] forkAt: priority ]).
 	Transcript showln: self processes.
 	
 	"self processes: (self karas collect: [ :kara | [ SKKaraDecorator runWith: kara ] fork ]).
@@ -163,6 +159,19 @@ SKExecuter >> initialize [
 ]
 
 {
+	#category : #initialization,
+	#'squeak_changestamp' : 'LM 5/6/2026 21:48'
+}
+SKExecuter >> initializeStepSchedulerFor: decorators [
+	
+	stepLock := Semaphore forMutualExclusion.
+	releaseLocks := Dictionary new.
+	submittedSteps := Dictionary new.
+	decorators do: [ :decorator |
+		releaseLocks at: decorator put: Semaphore new ]
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/6/2026 18:37'
 }
@@ -181,6 +190,29 @@ SKExecuter >> karas: aCollection [
 ]
 
 {
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/6/2026 22:04'
+}
+SKExecuter >> playActionType: actionType [
+
+	submittedSteps valuesDo: [ :actions |
+		actions do: [ :entry | entry first = actionType ifTrue: [
+                entry second value ]]]
+]
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/6/2026 22:05'
+}
+SKExecuter >> playSubmittedStep [
+
+	self playActionType: #turn.
+	self delayStep.
+	self playActionType: #move.
+	self delayStep
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/6/2026 18:37'
 }
@@ -196,6 +228,14 @@ SKExecuter >> processes [
 SKExecuter >> processes: aCollection [
 	
 	processes := aCollection
+]
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/6/2026 21:49'
+}
+SKExecuter >> releaseAllKaras [
+	releaseLocks valuesDo: [ :semaphore | semaphore signal ]
 ]
 
 {
@@ -252,19 +292,8 @@ SKExecuter >> state: anObject [
 ]
 
 {
-	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 19:08'
-}
-SKExecuter >> step [
-
-	self stepTime > 0
-		ifTrue: [(Delay forMilliseconds: self stepTime) wait ]
-	
-]
-
-{
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:19'
+	#'squeak_changestamp' : 'LM 5/6/2026 21:33'
 }
 SKExecuter >> stepTime [
 
@@ -274,14 +303,27 @@ SKExecuter >> stepTime [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 20:17'
+	#'squeak_changestamp' : 'LM 5/6/2026 21:54'
+}
+SKExecuter >> submitStepActions: actions for: aDecorator [
+
+	stepLock critical: [
+		submittedSteps at: aDecorator put: actions.
+		
+		submittedSteps size = self karas size ifTrue: [
+			self playSubmittedStep.
+			submittedSteps removeAll.
+			self releaseAllKaras ]]
+]
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/6/2026 21:33'
 }
 SKExecuter >> suspendExecution [
 
 	self processes do: [ :process |
-		Transcript showln: process isTerminated not.
-		Transcript showln: process isSuspended not.
-		((process isTerminated not) and: (process isSuspended not)) ifTrue: [ Transcript showln: 'Suspending'. process suspend ]].
+		((process isTerminated not) and: (process isSuspended not)) ifTrue: [ process suspend ]].
 	
 	self state: #suspended
 ]
@@ -296,4 +338,13 @@ SKExecuter >> terminate [
 
 	self processes do: [ :process | process terminate ]. 
 	self state: #terminated
+]
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/6/2026 21:49'
+}
+SKExecuter >> waitForNextStepFor: aDecorator [
+
+	(releaseLocks at: aDecorator) wait
 ]

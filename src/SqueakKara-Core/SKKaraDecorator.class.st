@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'kara',
 		'executer',
-		'lock'
+		'lock',
+		'pendingActions'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:00'
@@ -15,16 +16,29 @@ Class {
 
 {
 	#category : #'class initialization',
-	#'squeak_changestamp' : 'LM 5/6/2026 19:33'
+	#'squeak_changestamp' : 'LM 5/6/2026 21:52'
+}
+SKKaraDecorator class >> newWith: aKara executer: anExecuter [
+
+	^ self new
+		kara: aKara;
+		executer: anExecuter;
+		pendingActions: OrderedCollection new;
+		yourself
+]
+
+{
+	#category : #'class initialization',
+	#'squeak_changestamp' : 'LM 5/6/2026 21:40'
 }
 SKKaraDecorator class >> newWith: aKara lock: aSemaphore executer: anExecuter [
 
-	| decorator |
-	Transcript showln: 'success'.
-	decorator := self new.
-	decorator kara: aKara; lock: aSemaphore; executer: anExecuter.
-	
-	^ decorator
+	^ self new
+		kara: aKara;
+		lock: aSemaphore;
+		executer: anExecuter;
+		pendingActions: OrderedCollection new;
+		yourself
 ]
 
 {
@@ -73,64 +87,66 @@ SKKaraDecorator >> kara: anObject [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/6/2026 19:05'
-}
-SKKaraDecorator >> lock [
-
-	^ lock
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/6/2026 19:05'
-}
-SKKaraDecorator >> lock: aSemaphore [
-
-	lock := aSemaphore
-]
-
-{
 	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'LM 5/6/2026 19:50'
+	#'squeak_changestamp' : 'LM 5/6/2026 22:02'
 }
 SKKaraDecorator >> move [
 
-	self lock critical: [
-		Transcript showln: 'Entering move critical section for ', self kara.
-		self kara move.
-		self executer step ].
-	Processor yield
+	self pendingActions add: {
+		#move.
+		[ Transcript showln: 'ADD move for ', self kara printString.
+		self kara move ]}.
+
+	self executer submitStepActions: self pendingActions copy for: self.
+	self pendingActions removeAll.
+	self executer waitForNextStepFor: self
 ]
 
 {
 	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'LM 5/6/2026 19:38'
+	#'squeak_changestamp' : 'LM 5/6/2026 21:57'
 }
 SKKaraDecorator >> onCloverleaf [
 
-	self lock critical: [ ^ self kara onCloverleaf ]
+	^ self kara onCloverleaf
+]
 
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/6/2026 21:39'
+}
+SKKaraDecorator >> pendingActions [
+
+	^ pendingActions
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/6/2026 21:39'
+}
+SKKaraDecorator >> pendingActions: aCollection [
+
+	pendingActions := aCollection
 ]
 
 {
 	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'LM 5/6/2026 19:38'
+	#'squeak_changestamp' : 'LM 5/6/2026 21:57'
 }
 SKKaraDecorator >> trunkAhead [
 
-	self lock critical: [ ^ self kara trunkAhead ]
+	^ self kara trunkAhead
 
 ]
 
 {
 	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'LM 5/6/2026 19:56'
+	#'squeak_changestamp' : 'LM 5/6/2026 22:02'
 }
 SKKaraDecorator >> turn: aDirection [
 
-	self lock critical: [
-		Transcript showln: 'Entering turn critical section for ', self kara.
-		self kara turn: aDirection.
-		self executer step ]
+	self pendingActions add: {
+		#turn.
+		[ Transcript showln: 'ADD turn for ', self kara printString.
+		self kara turn: aDirection ]}
 ]
