@@ -138,12 +138,10 @@ SKKaraDecorator >> trunkAhead [
 
 {
 	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'LM 5/6/2026 22:10'
+	#'squeak_changestamp' : 'LM 5/6/2026 22:18'
 }
 SKKaraDecorator >> turn: aDirection [
 
 	self kara turn: aDirection.
-	self pendingActions add: {
-		#turn.
-		[ Transcript showln: 'ADD turn for ', self kara printString ]}
+	self pendingActions add: { #turn. []}
 ]
