@@ -27,10 +27,9 @@ SKKara >> getTextureForDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/6/2026 10:58'
+	#'squeak_changestamp' : 'LD 5/6/2026 11:01'
 }
 SKKara >> move [
-	"test"
 	(self trunkAhead)
 		ifFalse: [self coordinates: self coordinates + self viewDirection]
 	
