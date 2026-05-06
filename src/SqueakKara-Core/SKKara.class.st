@@ -5,7 +5,8 @@ Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
 	#instVars : [
-		'viewDirection'
+		'viewDirection',
+		'previousColor'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
@@ -13,7 +14,7 @@ Class {
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'jt 6/11/2024 19:59'
+	#'squeak_changestamp' : 'LD 5/6/2026 21:56'
 }
 SKKara >> getTextureForDirection [
 
@@ -46,12 +47,71 @@ SKKara >> onCloverleaf [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 5/6/2026 22:26'
+}
+SKKara >> previousColor [
+	^ previousColor ifNil: Color red
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 5/6/2026 22:27'
+}
+SKKara >> previousColor: aColor [
+	previousColor := aColor.
+]
+
+{
 	#category : #appearance,
-	#'squeak_changestamp' : 'jt 6/11/2024 19:58'
+	#'squeak_changestamp' : 'LD 5/6/2026 22:47'
+}
+SKKara >> setColor: aForm [
+	
+	|target replacement |
+
+	target := self previousColor.
+	replacement := self color.
+	Transcript show: self color.
+	Transcript show: self previousColor.
+	1 to: aForm width do: [:x |
+	  1 to: aForm height do: [:y |
+		(aForm colorAt: x@y) = target ifTrue: [
+	      aForm colorAt: x@y put: replacement
+	    	].
+		(aForm colorAt: x@y) = (Color red) ifTrue: [
+		      aForm colorAt: x@y put: replacement
+		].
+	  ]].
+	
+	self previousColor: self color.
+	self image: aForm
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LD 5/6/2026 22:47'
+}
+SKKara >> setTexture [
+
+	| aTextureLoader aForm |
+	
+	aTextureLoader := SKTextureLoader new.
+	
+	aForm := aTextureLoader
+		getTexture: self textureFilename
+		scaledToWidth: self grid pixelPerBlock.
+
+	self setColor: aForm
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LD 5/6/2026 11:46'
 }
 SKKara >> textureFilename [
 
-	^ self getTextureForDirection
+	^ self getTextureForDirection.
 ]
 
 {
@@ -70,7 +130,7 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'EB 7/11/2024 15:18'
+	#'squeak_changestamp' : 'LD 5/6/2026 11:44'
 }
 SKKara >> turn: aRotation [
 												

@@ -170,7 +170,7 @@ SKGridObject >> gridCoordinator [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 6/5/2024 17:23'
+	#'squeak_changestamp' : 'LD 5/6/2026 22:40'
 }
 SKGridObject >> initializeInGrid: aGrid at: aPoint [
 
@@ -181,7 +181,9 @@ SKGridObject >> initializeInGrid: aGrid at: aPoint [
 		addToGrid;
 		height: self grid pixelPerBlock;
 		width: self grid pixelPerBlock;
+		color: Color red;
 		setTexture
+		
 ]
 
 {
