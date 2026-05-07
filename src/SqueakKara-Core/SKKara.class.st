@@ -14,12 +14,14 @@ Class {
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LD 5/7/2026 17:28'
+	#'squeak_changestamp' : 'LD 5/7/2026 17:55'
 }
 SKKara >> color: aColor [
-
-	super color: aColor.
-	self setColor
+	
+	(self isSimilarColor: aColor to: (Color black)) not ifTrue: [
+		super color: aColor.
+		self setColor
+	]
 ]
 
 {
