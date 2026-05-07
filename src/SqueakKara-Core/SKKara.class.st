@@ -14,28 +14,34 @@ Class {
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LD 5/7/2026 11:42'
+	#'squeak_changestamp' : 'LD 5/7/2026 17:28'
 }
 SKKara >> color: aColor [
+
 	super color: aColor.
 	self setColor
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LD 5/7/2026 11:58'
+	#'squeak_changestamp' : 'LD 5/7/2026 17:29'
 }
 SKKara >> defaultColor [
-	^ Color red.
+
+	^ Color red
 ]
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LD 5/7/2026 09:59'
+	#'squeak_changestamp' : 'LD 5/7/2026 17:48'
 }
 SKKara >> fillStyle: aFillStyle [
-	super fillStyle: aFillStyle.
-	self setColor
+		
+		(self isSimilarColor: aFillStyle to: (Color black)) not ifTrue: [
+			super fillStyle: aFillStyle.
+			self setColor
+		]
+	
 ]
 
 {
@@ -63,9 +69,10 @@ SKKara >> isKara [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LD 5/7/2026 11:45'
+	#'squeak_changestamp' : 'LD 5/7/2026 17:28'
 }
 SKKara >> isSimilarColor: aColor to: anotherColor [
+
 	^ (aColor red roundTo: 0.1) == (anotherColor red roundTo: 0.1) 
 		and: (aColor green roundTo: 0.1) == (anotherColor green roundTo: 0.1) 
 		and: (aColor blue roundTo: 0.1) == (anotherColor blue roundTo: 0.1) 
@@ -73,9 +80,10 @@ SKKara >> isSimilarColor: aColor to: anotherColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/7/2026 09:44'
+	#'squeak_changestamp' : 'LD 5/7/2026 17:28'
 }
 SKKara >> move [
+
 	(self trunkAhead) ifFalse: [
 		self moveToCoordinates: self coordinates + self viewDirection ]
 	
@@ -107,44 +115,47 @@ SKKara >> position: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LD 5/7/2026 12:16'
+	#'squeak_changestamp' : 'LD 5/7/2026 17:29'
 }
 SKKara >> previousColor [
-	^ previousColor ifNil: self defaultColor.
+
+	^ previousColor ifNil: self defaultColor
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LD 5/6/2026 22:27'
+	#'squeak_changestamp' : 'LD 5/7/2026 17:29'
 }
 SKKara >> previousColor: aColor [
-	previousColor := aColor.
+
+	previousColor := aColor
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LD 5/7/2026 11:58'
+	#'squeak_changestamp' : 'LD 5/7/2026 17:29'
 }
 SKKara >> scaleFactor: aNumber [
 
 	super scaleFactor: aNumber.
 	self previousColor: self defaultColor.
-	self setColor.
+	self setColor
 ]
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LD 5/7/2026 11:50'
+	#'squeak_changestamp' : 'LD 5/7/2026 17:30'
 }
 SKKara >> setColor [
-	self setColor: self image.
+
+	self setColorFor: self image
 ]
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LD 5/7/2026 12:07'
+	#'squeak_changestamp' : 'LD 5/7/2026 17:31'
 }
-SKKara >> setColor: aForm [
+SKKara >> setColorFor: aForm [
 	
 	| target replacement |
 
@@ -152,10 +163,10 @@ SKKara >> setColor: aForm [
 	replacement := self color.
 	1 to: aForm width do: [:x |
 	  1 to: aForm height do: [:y |
-		((self isSimilarColor: (aForm colorAt: x@y) to: target) 
-			or: [(aForm colorAt: x@y) = (self defaultColor)])
+		((self isSimilarColor: (aForm colorAt: x @ y) to: target) 
+			or: [(aForm colorAt: x @ y) = (self defaultColor)])
 				ifTrue: [
-	      			aForm colorAt: x@y put: replacement ].
+	      			aForm colorAt: x @ y put: replacement ].
 	  			]].
 	
 	self previousColor: self color.
@@ -164,7 +175,7 @@ SKKara >> setColor: aForm [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LD 5/7/2026 09:48'
+	#'squeak_changestamp' : 'LD 5/7/2026 17:30'
 }
 SKKara >> setTexture [
 
@@ -176,16 +187,16 @@ SKKara >> setTexture [
 		getTexture: self textureFilename
 		scaledToWidth: self grid pixelPerBlock.
 	self originalImage: aForm.
-	self setColor: aForm
+	self setColorFor: aForm
 ]
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LD 5/6/2026 11:46'
+	#'squeak_changestamp' : 'LD 5/7/2026 17:30'
 }
 SKKara >> textureFilename [
 
-	^ self getTextureForDirection.
+	^ self getTextureForDirection
 ]
 
 {
