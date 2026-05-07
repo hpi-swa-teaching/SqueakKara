@@ -13,7 +13,7 @@ Class {
 
 {
 	#category : #'class initialization',
-	#'squeak_changestamp' : 'LM 5/7/2026 10:13'
+	#'squeak_changestamp' : 'LM 5/7/2026 16:26'
 }
 SKScheduler class >> newWithDecorators: aCollection executer: anExecuter [
 
@@ -24,7 +24,7 @@ SKScheduler class >> newWithDecorators: aCollection executer: anExecuter [
 		activeDecorators: aCollection;
 		releaseLocks: Dictionary new;
 		stepLock: Semaphore forMutualExclusion;
-		submittedSteps: Dictionary new.
+		scheduledSteps: Dictionary new.
 		
 	aCollection do: [ :decorator |
 		scheduler releaseLocks at: decorator put: Semaphore new ].
@@ -52,12 +52,12 @@ SKScheduler >> activeDecorators: aDictionary [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/7/2026 10:16'
+	#'squeak_changestamp' : 'LM 5/7/2026 16:28'
 }
 SKScheduler >> delayStep [
 
-	self scheduler stepTime > 0
-		ifTrue: [(Delay forMilliseconds: self scheduler stepTime) wait ]
+	self executer stepTime > 0
+		ifTrue: [(Delay forMilliseconds: self executer stepTime) wait ]
 ]
 
 {
@@ -80,7 +80,7 @@ SKScheduler >> executer: anExecuter [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/7/2026 10:42'
+	#'squeak_changestamp' : 'LM 5/7/2026 16:29'
 }
 SKScheduler >> finishDecorator: aDecorator [
 
@@ -94,9 +94,9 @@ SKScheduler >> finishDecorator: aDecorator [
 
 		self scheduledSteps size = self activeDecorators size ifTrue: [
 			self scheduledSteps isEmpty ifFalse: [
-				self playSubmittedStep.
+				self step.
 				self scheduledSteps removeAll.
-				self releaseAllKaras ]]]
+				self releaseAll ]]]
 ]
 
 {
@@ -127,7 +127,7 @@ SKScheduler >> releaseLocks: aDictionary [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'LM 5/7/2026 10:47'
+	#'squeak_changestamp' : 'LM 5/7/2026 16:27'
 }
 SKScheduler >> scheduleAction: anAction for: aDecorator [
 
@@ -139,7 +139,7 @@ SKScheduler >> scheduleAction: anAction for: aDecorator [
 		self scheduledSteps at: aDecorator put: decoratorActions.
 		
 		self scheduledSteps size = activeDecorators size ifTrue: [
-			self playSubmittedStep.
+			self step.
 			self scheduledSteps removeAll.
 			self releaseAll ]]
 ]
@@ -164,12 +164,11 @@ SKScheduler >> scheduledSteps: aDictionary [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/7/2026 10:43'
+	#'squeak_changestamp' : 'LM 5/7/2026 16:30'
 }
 SKScheduler >> step [
 
-	"self stepForType: #turn.
-	self delayStep."
+	self delayStep.
 	self stepForType: #move.
 	self delayStep
 ]

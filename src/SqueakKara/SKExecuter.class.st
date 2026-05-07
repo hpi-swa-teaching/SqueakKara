@@ -69,16 +69,6 @@ SKExecuter >> compiler: anObject [
 ]
 
 {
-	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 22:05'
-}
-SKExecuter >> delayStep [
-
-	self stepTime > 0
-		ifTrue: [(Delay forMilliseconds: self stepTime) wait ]
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'jawi 4/30/2026 17:36'
 }
@@ -98,7 +88,7 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/7/2026 10:29'
+	#'squeak_changestamp' : 'LM 5/7/2026 16:31'
 }
 SKExecuter >> execute: aCode [
 
@@ -114,8 +104,6 @@ SKExecuter >> execute: aCode [
 		newWithDecorators: decorators 
 		executer: self.
 	
-	"self initializeStepSchedulerFor: decorators."
-	
 	self processes: (decorators collect: [ :decorator |
 		| context |
 		decorator scheduler: scheduler.
@@ -123,27 +111,6 @@ SKExecuter >> execute: aCode [
 		[[ self compiler evaluate: aCode for: context ] ensure: [
 			scheduler finishDecorator: decorator ]] forkAt: priority ])
 	
-]
-
-{
-	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/7/2026 09:22'
-}
-SKExecuter >> finishDecorator: aDecorator [
-
-	stepLock critical: [
-		activeDecorators remove: aDecorator.
-		releaseLocks removeKey: aDecorator.
-		
-		activeDecorators isEmpty ifTrue: [
-			self state: #terminated.
-			self environment onFinish ].
-
-		submittedSteps size = activeDecorators size ifTrue: [
-			submittedSteps isEmpty ifFalse: [
-				self playSubmittedStep.
-				submittedSteps removeAll.
-				self releaseAllKaras ]]]
 ]
 
 {
@@ -158,21 +125,6 @@ SKExecuter >> initialize [
 	self processes: OrderedCollection new.
 	self state: #terminated.
 	^ self 
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 09:24'
-}
-SKExecuter >> initializeStepSchedulerFor: decorators [
-	
-	stepLock := Semaphore forMutualExclusion.
-	releaseLocks := Dictionary new.
-	submittedSteps := Dictionary new.
-	activeDecorators := decorators asOrderedCollection.
-	
-	decorators do: [ :decorator |
-		releaseLocks at: decorator put: Semaphore new ]
 ]
 
 {
@@ -202,29 +154,6 @@ SKExecuter >> onFinish [
 ]
 
 {
-	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 22:04'
-}
-SKExecuter >> playActionType: actionType [
-
-	submittedSteps valuesDo: [ :actions |
-		actions do: [ :entry | entry first = actionType ifTrue: [
-                entry second value ]]]
-]
-
-{
-	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 22:05'
-}
-SKExecuter >> playSubmittedStep [
-
-	self playActionType: #turn.
-	self delayStep.
-	self playActionType: #move.
-	self delayStep
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/6/2026 18:37'
 }
@@ -240,14 +169,6 @@ SKExecuter >> processes [
 SKExecuter >> processes: aCollection [
 	
 	processes := aCollection
-]
-
-{
-	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 21:49'
-}
-SKExecuter >> releaseAllKaras [
-	releaseLocks valuesDo: [ :semaphore | semaphore signal ]
 ]
 
 {
@@ -280,15 +201,10 @@ SKExecuter >> speed: aSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/6/2026 20:14'
+	#'squeak_changestamp' : 'LM 5/7/2026 16:31'
 }
 SKExecuter >> state [
 
-	"(self process isNil) 
-		ifTrue: [ self state: #terminated ]
-		ifFalse: [(self process isTerminated) 
-			ifTrue: [ self state: #terminated ]].
-	^ state"
 	(self processes allSatisfy: [ :process | process isTerminated ])
 		ifTrue: [ ^ #terminated ].
 	
@@ -315,21 +231,6 @@ SKExecuter >> stepTime [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 22:13'
-}
-SKExecuter >> submitStepActions: actions for: aDecorator [
-
-	stepLock critical: [
-		submittedSteps at: aDecorator put: actions.
-		
-		submittedSteps size = activeDecorators size ifTrue: [
-			self playSubmittedStep.
-			submittedSteps removeAll.
-			self releaseAllKaras ]]
-]
-
-{
-	#category : #execution,
 	#'squeak_changestamp' : 'LM 5/6/2026 21:33'
 }
 SKExecuter >> suspendExecution [
@@ -350,13 +251,4 @@ SKExecuter >> terminate [
 
 	self processes do: [ :process | process terminate ]. 
 	self state: #terminated
-]
-
-{
-	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 21:49'
-}
-SKExecuter >> waitForNextStepFor: aDecorator [
-
-	(releaseLocks at: aDecorator) wait
 ]
