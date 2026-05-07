@@ -164,7 +164,7 @@ SKScheduler >> scheduledSteps: aDictionary [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/7/2026 16:30'
+	#'squeak_changestamp' : 'LM 5/7/2026 23:01'
 }
 SKScheduler >> step [
 

@@ -29,27 +29,35 @@ SKExecuteControlsTest >> tearDown [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:47'
+	#'squeak_changestamp' : 'LM 5/7/2026 23:11'
 }
 SKExecuteControlsTest >> testRun [
 
 	environment workspace userCode: 'kara move'.
 	controls actionRun.
-	environment executer step.
-	self assert: environment kara coordinates = (2 @ 1)
+	
+	"Busy waiting until execution done."
+	environment executer waitUntilTerminated.
+	
+	self assert: environment karas first coordinates = (2 @ 1)
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:50'
+	#'squeak_changestamp' : 'LM 5/7/2026 23:09'
 }
 SKExecuteControlsTest >> testRunPause [
 
 	environment workspace userCode: 'kara move. kara move. kara move'.
+
 	controls actionRun.
-	environment executer step.
+	(Delay forMilliseconds: 1) wait.
+
 	controls actionRun.
-	self assert: environment kara coordinates = (2 @ 1)
+
+	self assert: environment executer state = #suspended.
+	self assert: (environment executer processes anySatisfy: [ :process |
+		process isSuspended ])
 ]
 
 {

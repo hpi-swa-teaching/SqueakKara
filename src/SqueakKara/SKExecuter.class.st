@@ -10,7 +10,8 @@ Class {
 		'processes',
 		'speed',
 		'state',
-		'environment'
+		'environment',
+		'testMode'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:45'
@@ -18,11 +19,12 @@ Class {
 
 {
 	#category : #'class initialization',
-	#'squeak_changestamp' : 'LM 5/7/2026 21:50'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:59'
 }
 SKExecuter class >> newWithEnvironment: anEnvironment [
 	
 	^ self new
+		testMode: false;
 		environment: anEnvironment;
 		stateWithoutUpdate: #terminated;
 		yourself
@@ -75,7 +77,7 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:29'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:43'
 }
 SKExecuter >> execute: aCode [
 
@@ -98,12 +100,11 @@ SKExecuter >> execute: aCode [
 			scheduler finishDecorator: decorator ]] forkAt: priority ]).
 
 	self state: #running
-	
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:31'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:44'
 }
 SKExecuter >> initialize [
 
@@ -111,7 +112,7 @@ SKExecuter >> initialize [
 	self compiler: Compiler new.
 	self speed: 25.
 	self processes: OrderedCollection new.
-	^ self 
+	^ self
 ]
 
 {
@@ -211,9 +212,11 @@ SKExecuter >> stateWithoutUpdate: aSymbol [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/6/2026 21:33'
+	#'squeak_changestamp' : 'LM 5/7/2026 23:00'
 }
 SKExecuter >> stepTime [
+
+	self testMode ifTrue: [ ^ 0 ].
 
 	(self speed = 0) ifTrue: [ ^ 5000 ].
 	^ 5000 / self speed
@@ -241,4 +244,33 @@ SKExecuter >> terminate [
 
 	self processes do: [ :process | process terminate ].
 	self state: #terminated
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/7/2026 22:59'
+}
+SKExecuter >> testMode [
+
+	^ testMode
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/7/2026 22:59'
+}
+SKExecuter >> testMode: aBoolean [
+
+	testMode := aBoolean
+]
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/7/2026 23:08'
+}
+SKExecuter >> waitUntilTerminated [
+
+	"Busy waiting until all karas reach their end state."
+	[ self state = #terminated ] whileFalse: [
+		(Delay forMilliseconds: 1) wait ]
 ]

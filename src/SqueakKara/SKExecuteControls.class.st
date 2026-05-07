@@ -389,11 +389,11 @@ SKExecuteControls >> sliderSpeed: aNumber [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'EB 7/11/2024 14:40'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:58'
 }
 SKExecuteControls >> sliderSpeedValueChanged: aValue [
 	
-	self environment executionSpeed: aValue.
+	self environment executionSpeed: aValue
 ]
 
 {
