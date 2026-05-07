@@ -107,10 +107,10 @@ SKKara >> position: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LD 5/6/2026 22:26'
+	#'squeak_changestamp' : 'LD 5/7/2026 12:16'
 }
 SKKara >> previousColor [
-	^ previousColor ifNil: Color red
+	^ previousColor ifNil: self defaultColor.
 ]
 
 {
