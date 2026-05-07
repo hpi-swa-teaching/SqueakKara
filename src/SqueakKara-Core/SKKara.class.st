@@ -36,7 +36,7 @@ SKKara >> isKara [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/6/2026 19:46'
+	#'squeak_changestamp' : 'LM 5/7/2026 17:17'
 }
 SKKara >> move [
 

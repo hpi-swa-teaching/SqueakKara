@@ -87,11 +87,11 @@ SKWorkspace >> kara: aKara [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
+	#'squeak_changestamp' : 'LM 5/7/2026 16:57'
 }
 SKWorkspace >> userCode [
 	
-	|code|
+	| code |
 	
 	code := self contents.
 	^ code

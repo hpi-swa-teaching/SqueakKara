@@ -11,11 +11,7 @@ Class {
 		'processes',
 		'speed',
 		'state',
-		'environment',
-		'stepLock',
-		'activeDecorators',
-		'releaseLocks',
-		'submittedSteps'
+		'environment'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:45'

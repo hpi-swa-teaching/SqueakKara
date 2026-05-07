@@ -6,8 +6,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'kara',
-		'scheduler',
-		'pendingActions'
+		'scheduler'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:00'
@@ -15,13 +14,12 @@ Class {
 
 {
 	#category : #'class initialization',
-	#'squeak_changestamp' : 'LM 5/7/2026 09:45'
+	#'squeak_changestamp' : 'LM 5/7/2026 16:53'
 }
 SKKaraDecorator class >> newWith: aKara [
 
 	^ self new
 		kara: aKara;
-		pendingActions: OrderedCollection new;
 		yourself
 ]
 
@@ -54,14 +52,10 @@ SKKaraDecorator >> kara: anObject [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/7/2026 10:45'
+	#'squeak_changestamp' : 'LM 5/7/2026 16:52'
 }
 SKKaraDecorator >> move [
 
-	"self pendingActions add: (SKAction newWithType: #move action: [ self kara move ])."
-
-	"self scheduler submitStepActions: self pendingActions copy for: self.
-	self pendingActions removeAll."
 	self scheduler scheduleAction: (SKAction newWithType: #move action: [ self kara move ]) for: self.
 	self scheduler waitFor: self
 ]
@@ -73,24 +67,6 @@ SKKaraDecorator >> move [
 SKKaraDecorator >> onCloverleaf [
 
 	^ self kara onCloverleaf
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/6/2026 21:39'
-}
-SKKaraDecorator >> pendingActions [
-
-	^ pendingActions
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/6/2026 21:39'
-}
-SKKaraDecorator >> pendingActions: aCollection [
-
-	pendingActions := aCollection
 ]
 
 {
@@ -113,12 +89,11 @@ SKKaraDecorator >> scheduler: aScheduler [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/6/2026 21:57'
+	#'squeak_changestamp' : 'LM 5/7/2026 16:53'
 }
 SKKaraDecorator >> trunkAhead [
 
 	^ self kara trunkAhead
-
 ]
 
 {
