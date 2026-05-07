@@ -439,7 +439,7 @@ SKExecuteControls >> toggleExecutionState [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:03'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:29'
 }
 SKExecuteControls >> updateTextures [
 

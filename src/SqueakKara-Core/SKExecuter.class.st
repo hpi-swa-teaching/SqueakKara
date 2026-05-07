@@ -75,13 +75,12 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:29'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:29'
 }
 SKExecuter >> execute: aCode [
 
 	| priority scheduler decorators |
 
-	self state: #running.
 	priority := Processor userBackgroundPriority.
 	
 	decorators := self karas collect: [ :kara |
@@ -96,7 +95,9 @@ SKExecuter >> execute: aCode [
 		decorator scheduler: scheduler.
 		context := SKExecuteContext new kara: decorator.
 		[[ self compiler evaluate: aCode for: context ] ensure: [
-			scheduler finishDecorator: decorator ]] forkAt: priority ])
+			scheduler finishDecorator: decorator ]] forkAt: priority ]).
+
+	self state: #running
 	
 ]
 
@@ -124,9 +125,10 @@ SKExecuter >> karas [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/7/2026 10:23'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:13'
 }
 SKExecuter >> onFinish [
+
 	self environment onFinish
 ]
 
@@ -190,7 +192,7 @@ SKExecuter >> state [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:29'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:29'
 }
 SKExecuter >> state: aSymbol [
 

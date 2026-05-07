@@ -40,6 +40,16 @@ SKLandingPage >> actionExample3 [
 
 {
 	#category : #actions,
+	#'squeak_changestamp' : 'LM 5/7/2026 22:15'
+}
+SKLandingPage >> actionExample4 [
+
+	SKEnvironment new initializeWithChallenge4.
+	self delete
+]
+
+{
+	#category : #actions,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:01'
 }
 SKLandingPage >> actionNew [
@@ -50,7 +60,7 @@ SKLandingPage >> actionNew [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:55'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:16'
 }
 SKLandingPage >> addAllButtons [
 
@@ -59,21 +69,26 @@ SKLandingPage >> addAllButtons [
 	self addButton: self buildButtonExample1 atIndex: 1.
 	self addButton: self buildButtonExample2 atIndex: 2.
 	self addButton: self buildButtonExample3 atIndex: 3.
+	self addButton: self buildButtonExample4 atIndex: 4
 ]
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:01'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:20'
 }
 SKLandingPage >> addButton: aButton atIndex: anInteger [
 
-	| anOffset |
-
+	| yOffset basePosition |
+	
 	self addMorph: aButton.
 	
-	anOffset := 2 * aButton height * anInteger.
+	yOffset := (aButton height + 10) * (anInteger - 1).
 	
-	aButton position: self center - (aButton width / 2) + (0 @ anOffset)
+	basePosition := self center
+		- (aButton width / 2)
+		+ (0 @ 50).
+	
+	aButton position: basePosition + (0 @ yOffset)
 ]
 
 {
@@ -106,6 +121,17 @@ SKLandingPage >> buildButtonExample3 [
 
 	^ self buildButtonWithLabel: self buttonExample3Label
 		andSelector: #actionExample3
+		andColor: SKStylesheet secondaryColor
+]
+
+{
+	#category : #buttons,
+	#'squeak_changestamp' : 'LM 5/7/2026 22:15'
+}
+SKLandingPage >> buildButtonExample4 [
+
+	^ self buildButtonWithLabel: self buttonExample4Label
+		andSelector: #actionExample4
 		andColor: SKStylesheet secondaryColor
 ]
 
@@ -163,6 +189,15 @@ SKLandingPage >> buttonExample3Label [
 ]
 
 {
+	#category : #labels,
+	#'squeak_changestamp' : 'LM 5/7/2026 22:15'
+}
+SKLandingPage >> buttonExample4Label [
+
+	^ 'Example Project 4'
+]
+
+{
 	#category : #buttons,
 	#'squeak_changestamp' : 'LK 7/4/2024 19:06'
 }
@@ -182,7 +217,7 @@ SKLandingPage >> buttonNewLabel [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:53'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:17'
 }
 SKLandingPage >> defaultExtent [
 
