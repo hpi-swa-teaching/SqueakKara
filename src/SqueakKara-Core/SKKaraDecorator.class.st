@@ -6,8 +6,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'kara',
-		'executer',
-		'lock',
+		'scheduler',
 		'pendingActions'
 	],
 	#category : #'SqueakKara-Core',
@@ -16,27 +15,12 @@ Class {
 
 {
 	#category : #'class initialization',
-	#'squeak_changestamp' : 'LM 5/6/2026 21:52'
+	#'squeak_changestamp' : 'LM 5/7/2026 09:45'
 }
-SKKaraDecorator class >> newWith: aKara executer: anExecuter [
+SKKaraDecorator class >> newWith: aKara [
 
 	^ self new
 		kara: aKara;
-		executer: anExecuter;
-		pendingActions: OrderedCollection new;
-		yourself
-]
-
-{
-	#category : #'class initialization',
-	#'squeak_changestamp' : 'LM 5/6/2026 21:40'
-}
-SKKaraDecorator class >> newWith: aKara lock: aSemaphore executer: anExecuter [
-
-	^ self new
-		kara: aKara;
-		lock: aSemaphore;
-		executer: anExecuter;
 		pendingActions: OrderedCollection new;
 		yourself
 ]
@@ -48,24 +32,6 @@ SKKaraDecorator class >> newWith: aKara lock: aSemaphore executer: anExecuter [
 SKKaraDecorator >> codeContext [
 
 	^ (SKExecuteContext new kara: self kara)
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
-}
-SKKaraDecorator >> executer [
-	
-	^ executer
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
-}
-SKKaraDecorator >> executer: anObject [
-	
-	executer := anObject
 ]
 
 {
@@ -87,20 +53,21 @@ SKKaraDecorator >> kara: anObject [
 ]
 
 {
-	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'LM 5/6/2026 22:17'
+	#category : #commands,
+	#'squeak_changestamp' : 'LM 5/7/2026 10:45'
 }
 SKKaraDecorator >> move [
 
-	self pendingActions add: { #move. [ self kara move ]}.
+	"self pendingActions add: (SKAction newWithType: #move action: [ self kara move ])."
 
-	self executer submitStepActions: self pendingActions copy for: self.
-	self pendingActions removeAll.
-	self executer waitForNextStepFor: self
+	"self scheduler submitStepActions: self pendingActions copy for: self.
+	self pendingActions removeAll."
+	self scheduler scheduleAction: (SKAction newWithType: #move action: [ self kara move ]) for: self.
+	self scheduler waitFor: self
 ]
 
 {
-	#category : #'SKKara functions',
+	#category : #commands,
 	#'squeak_changestamp' : 'LM 5/6/2026 21:57'
 }
 SKKaraDecorator >> onCloverleaf [
@@ -127,7 +94,25 @@ SKKaraDecorator >> pendingActions: aCollection [
 ]
 
 {
-	#category : #'SKKara functions',
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/7/2026 09:40'
+}
+SKKaraDecorator >> scheduler [
+
+	^ scheduler
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/7/2026 09:40'
+}
+SKKaraDecorator >> scheduler: aScheduler [
+
+	scheduler := aScheduler
+]
+
+{
+	#category : #commands,
 	#'squeak_changestamp' : 'LM 5/6/2026 21:57'
 }
 SKKaraDecorator >> trunkAhead [
@@ -137,11 +122,10 @@ SKKaraDecorator >> trunkAhead [
 ]
 
 {
-	#category : #'SKKara functions',
-	#'squeak_changestamp' : 'LM 5/6/2026 22:18'
+	#category : #commands,
+	#'squeak_changestamp' : 'LM 5/7/2026 10:29'
 }
 SKKaraDecorator >> turn: aDirection [
 
-	self kara turn: aDirection.
-	self pendingActions add: { #turn. []}
+	self kara turn: aDirection
 ]

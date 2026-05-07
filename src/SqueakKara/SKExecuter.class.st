@@ -51,15 +51,6 @@ SKExecuter >> addKara: aKara [
 ]
 
 {
-	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 19:00'
-}
-SKExecuter >> codeContext [
-
-	^ (SKExecuteContext new kara: self kara)
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
@@ -107,48 +98,42 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 22:18'
+	#'squeak_changestamp' : 'LM 5/7/2026 10:29'
 }
 SKExecuter >> execute: aCode [
 
-	| priority decorators |
+	| priority scheduler decorators |
 
 	self state: #running.
-	priority := Processor userBackgroundPriority.
+	priority := Processor userBackgroundPriority. 
 	
 	decorators := self karas collect: [ :kara |
-		SKKaraDecorator newWith: kara executer: self ].
+		SKKaraDecorator newWith: kara ].
 	
-	self initializeStepSchedulerFor: decorators.
+	scheduler := SKScheduler
+		newWithDecorators: decorators 
+		executer: self.
+	
+	"self initializeStepSchedulerFor: decorators."
 	
 	self processes: (decorators collect: [ :decorator |
 		| context |
+		decorator scheduler: scheduler.
 		context := SKExecuteContext new kara: decorator.
 		[[ self compiler evaluate: aCode for: context ] ensure: [
-			self finishDecorator: decorator ]] forkAt: priority ])
+			scheduler finishDecorator: decorator ]] forkAt: priority ])
 	
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 18:58'
-}
-SKExecuter >> executeBlock: aBlock [
-	
-	self compiler evaluate: aBlock for: (self codeContext).
-	self state: #terminated.
-	self environment onFinish
-]
-
-{
-	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 22:16'
+	#'squeak_changestamp' : 'LM 5/7/2026 09:22'
 }
 SKExecuter >> finishDecorator: aDecorator [
 
 	stepLock critical: [
-		activeDecorators remove: aDecorator ifAbsent: [].
-		releaseLocks removeKey: aDecorator ifAbsent: [].
+		activeDecorators remove: aDecorator.
+		releaseLocks removeKey: aDecorator.
 		
 		activeDecorators isEmpty ifTrue: [
 			self state: #terminated.
@@ -177,7 +162,7 @@ SKExecuter >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/6/2026 22:13'
+	#'squeak_changestamp' : 'LM 5/7/2026 09:24'
 }
 SKExecuter >> initializeStepSchedulerFor: decorators [
 	
@@ -206,6 +191,14 @@ SKExecuter >> karas [
 SKExecuter >> karas: aCollection [
 	
 	karas := aCollection
+]
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/7/2026 10:23'
+}
+SKExecuter >> onFinish [
+	self environment onFinish
 ]
 
 {
