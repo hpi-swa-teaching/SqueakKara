@@ -5,7 +5,6 @@ Class {
 	#name : #SKExecuter,
 	#superclass : #Object,
 	#instVars : [
-		'karas',
 		'codeString',
 		'compiler',
 		'processes',
@@ -19,22 +18,14 @@ Class {
 
 {
 	#category : #'class initialization',
-	#'squeak_changestamp' : 'LM 5/6/2026 18:39'
+	#'squeak_changestamp' : 'LM 5/7/2026 21:50'
 }
 SKExecuter class >> newWithEnvironment: anEnvironment [
 	
-	| executer |
-	executer := self new.
-
-	"karaDecorator := SKKaraDecorator new.
-	karaDecorator kara: aKara.
-	karaDecorator executer: executer."
-
-	executer
-		karas: OrderedCollection new;
-		environment: anEnvironment.
-
-	^ executer
+	^ self new
+		environment: anEnvironment;
+		stateWithoutUpdate: #terminated;
+		yourself
 ]
 
 {
@@ -84,20 +75,20 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/7/2026 16:31'
+	#'squeak_changestamp' : 'LM 5/7/2026 21:29'
 }
 SKExecuter >> execute: aCode [
 
 	| priority scheduler decorators |
 
 	self state: #running.
-	priority := Processor userBackgroundPriority. 
+	priority := Processor userBackgroundPriority.
 	
 	decorators := self karas collect: [ :kara |
 		SKKaraDecorator newWith: kara ].
 	
 	scheduler := SKScheduler
-		newWithDecorators: decorators 
+		newWithDecorators: decorators
 		executer: self.
 	
 	self processes: (decorators collect: [ :decorator |
@@ -111,7 +102,7 @@ SKExecuter >> execute: aCode [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/6/2026 20:11'
+	#'squeak_changestamp' : 'LM 5/7/2026 21:31'
 }
 SKExecuter >> initialize [
 
@@ -119,26 +110,16 @@ SKExecuter >> initialize [
 	self compiler: Compiler new.
 	self speed: 25.
 	self processes: OrderedCollection new.
-	self state: #terminated.
 	^ self 
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/6/2026 18:37'
+	#'squeak_changestamp' : 'LM 5/7/2026 21:50'
 }
 SKExecuter >> karas [
 	
-	^ karas
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/6/2026 18:37'
-}
-SKExecuter >> karas: aCollection [
-	
-	karas := aCollection
+	^ self environment karas
 ]
 
 {
@@ -209,10 +190,21 @@ SKExecuter >> state [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'EB 6/22/2024 14:07'
+	#'squeak_changestamp' : 'LM 5/7/2026 21:29'
 }
-SKExecuter >> state: anObject [
-	state := anObject
+SKExecuter >> state: aSymbol [
+
+	state := aSymbol.
+	self environment updateTextures
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/7/2026 21:34'
+}
+SKExecuter >> stateWithoutUpdate: aSymbol [
+
+	state := aSymbol
 ]
 
 {
@@ -239,12 +231,12 @@ SKExecuter >> suspendExecution [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 19:48'
+	#'squeak_changestamp' : 'LM 5/7/2026 21:43'
 }
 SKExecuter >> terminate [
 
 	(self state = #terminated) ifTrue: [ ^ self ].
 
-	self processes do: [ :process | process terminate ]. 
+	self processes do: [ :process | process terminate ].
 	self state: #terminated
 ]

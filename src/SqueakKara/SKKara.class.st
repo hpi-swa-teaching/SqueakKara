@@ -36,9 +36,10 @@ SKKara >> isKara [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/7/2026 17:17'
+	#'squeak_changestamp' : 'LM 5/7/2026 18:46'
 }
 SKKara >> move [
+	"self halt."
 
 	(self trunkAhead) ifFalse: [
 		self moveToCoordinates: self coordinates + self viewDirection ]

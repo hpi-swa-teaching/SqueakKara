@@ -10,31 +10,31 @@ Class {
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'LK 6/21/2024 23:02'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:07'
 }
 SKLandingPage >> actionExample1 [
 
-	SKEnvironment basicNew initializeWithChallenge1.
+	SKEnvironment new initializeWithChallenge1.
 	self delete
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'KD 6/23/2024 20:59'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:07'
 }
 SKLandingPage >> actionExample2 [
 
-	SKEnvironment basicNew initializeWithChallenge2.
+	SKEnvironment new initializeWithChallenge2.
 	self delete
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'KD 6/23/2024 20:59'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:09'
 }
 SKLandingPage >> actionExample3 [
 
-	SKEnvironment basicNew initializeWithChallenge3.
+	SKEnvironment new initializeWithChallenge3.
 	self delete
 ]
 
