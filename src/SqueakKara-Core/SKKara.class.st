@@ -5,11 +5,45 @@ Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
 	#instVars : [
-		'viewDirection'
+		'viewDirection',
+		'previousColor'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
 }
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/7/2026 18:32'
+}
+SKKara >> color: aColor [
+	
+	(aColor isSimilarColorTo: (Color black)) not ifTrue: [
+		super color: aColor.
+		self setColor
+	]
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/7/2026 18:08'
+}
+SKKara >> defaultColor [
+
+	^ Color red
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/7/2026 18:13'
+}
+SKKara >> fillStyle: aFillStyle [
+		
+		(aFillStyle isSimilarColorTo: (Color black)) not ifTrue: [
+			super fillStyle: aFillStyle.
+			self setColor
+		]
+]
 
 {
 	#category : #appearance,
@@ -68,6 +102,83 @@ SKKara >> position: aPoint [
 	(tile anySatisfy: [ :each | each isTrunk ]) ifTrue: [^ self ].
 
 	super position: aPoint
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/7/2026 18:08'
+}
+SKKara >> previousColor [
+
+	^ previousColor ifNil: self defaultColor
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/7/2026 18:09'
+}
+SKKara >> previousColor: aColor [
+
+	previousColor := aColor
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/7/2026 18:23'
+}
+SKKara >> scaleFactor: aNumber [
+	
+	super scaleFactor: aNumber.
+	self previousColor: self defaultColor.
+	self setColor
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/7/2026 18:20'
+}
+SKKara >> setColor [
+
+	self setColorFor: self image
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/7/2026 18:13'
+}
+SKKara >> setColorFor: aForm [
+	
+	| target replacement |
+
+	target := self previousColor.
+	replacement := self color.
+	1 to: aForm width do: [:x |
+	  1 to: aForm height do: [:y |
+		(((aForm colorAt: x @ y) isSimilarColorTo: target) 
+			or: [(aForm colorAt: x @ y) = (self defaultColor)])
+				ifTrue: [
+	      			aForm colorAt: x @ y put: replacement ].
+	  			]].
+	
+	self previousColor: self color.
+	self image: aForm
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/7/2026 18:09'
+}
+SKKara >> setTexture [
+
+	| aTextureLoader aForm |
+	
+	aTextureLoader := SKTextureLoader new.
+	
+	aForm := aTextureLoader
+		getTexture: self textureFilename
+		scaledToWidth: self grid pixelPerBlock.
+	self originalImage: aForm.
+	self setColorFor: aForm
 ]
 
 {
