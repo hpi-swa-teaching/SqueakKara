@@ -18,6 +18,21 @@ SKTrunk >> isTrunk [
 ]
 
 {
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/29/2026 13:13'
+}
+SKTrunk >> position: aPoint [
+
+	| coordinates tile |
+	coordinates := self coordinatesFromPosition: aPoint.
+	tile := self gridCoordinator getTileAtCoordinates: coordinates.
+	
+	(tile anySatisfy: [ :each | each isBlocking ]) ifTrue: [ ^ self ].
+
+	super position: aPoint
+]
+
+{
 	#category : #appearance,
 	#'squeak_changestamp' : 'jt 6/11/2024 19:54'
 }
