@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'executer',
 		'stepLock',
-		'activeDecorators',
+		'activeActors',
 		'releaseLocks',
 		'scheduledSteps'
 	],
@@ -13,15 +13,15 @@ Class {
 
 {
 	#category : #'class initialization',
-	#'squeak_changestamp' : 'LM 5/7/2026 16:26'
+	#'squeak_changestamp' : 'LM 5/8/2026 16:56'
 }
-SKScheduler class >> newWithDecorators: aCollection executer: anExecuter [
+SKScheduler class >> newWithActors: aCollection executer: anExecuter [
 
 	| scheduler |
 
 	 scheduler := self new
 		executer: anExecuter;
-		activeDecorators: aCollection;
+		activeActors: aCollection;
 		releaseLocks: Dictionary new;
 		stepLock: Semaphore forMutualExclusion;
 		scheduledSteps: Dictionary new.
@@ -34,20 +34,20 @@ SKScheduler class >> newWithDecorators: aCollection executer: anExecuter [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 09:29'
+	#'squeak_changestamp' : 'LM 5/8/2026 16:55'
 }
-SKScheduler >> activeDecorators [
+SKScheduler >> activeActors [
 
-	^ activeDecorators
+	^ activeActors
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 09:29'
+	#'squeak_changestamp' : 'LM 5/8/2026 16:55'
 }
-SKScheduler >> activeDecorators: aDictionary [
+SKScheduler >> activeActors: aDictionary [
 
-	activeDecorators := aDictionary
+	activeActors := aDictionary
 ]
 
 {
@@ -80,19 +80,19 @@ SKScheduler >> executer: anExecuter [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/7/2026 16:29'
+	#'squeak_changestamp' : 'LM 5/8/2026 16:55'
 }
 SKScheduler >> finishDecorator: aDecorator [
 
 	self stepLock critical: [
-		self activeDecorators remove: aDecorator.
+		self activeActors remove: aDecorator.
 		self releaseLocks removeKey: aDecorator.
 		
-		self activeDecorators isEmpty ifTrue: [
+		self activeActors isEmpty ifTrue: [
 			self executer state: #terminated.
 			self executer onFinish ].
 
-		self scheduledSteps size = self activeDecorators size ifTrue: [
+		self scheduledSteps size = self activeActors size ifTrue: [
 			self scheduledSteps isEmpty ifFalse: [
 				self step.
 				self scheduledSteps removeAll.
@@ -127,7 +127,7 @@ SKScheduler >> releaseLocks: aDictionary [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'LM 5/7/2026 16:27'
+	#'squeak_changestamp' : 'LM 5/8/2026 16:56'
 }
 SKScheduler >> scheduleAction: anAction for: aDecorator [
 
@@ -138,7 +138,7 @@ SKScheduler >> scheduleAction: anAction for: aDecorator [
 		decoratorActions add: anAction.
 		self scheduledSteps at: aDecorator put: decoratorActions.
 		
-		self scheduledSteps size = activeDecorators size ifTrue: [
+		self scheduledSteps size = self activeActors size ifTrue: [
 			self step.
 			self scheduledSteps removeAll.
 			self releaseAll ]]

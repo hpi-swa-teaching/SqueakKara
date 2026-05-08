@@ -77,7 +77,7 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/8/2026 13:28'
+	#'squeak_changestamp' : 'LM 5/8/2026 16:57'
 }
 SKExecuter >> execute: aCode [
 
@@ -89,7 +89,7 @@ SKExecuter >> execute: aCode [
 		SKKaraProxy newWith: kara ].
 	
 	scheduler := SKScheduler
-		newWithDecorators: decorators
+		newWithActors: decorators
 		executer: self.
 	
 	self processes: (decorators collect: [ :decorator |

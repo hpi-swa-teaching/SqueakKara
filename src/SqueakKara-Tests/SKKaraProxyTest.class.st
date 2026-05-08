@@ -59,7 +59,7 @@ SKKaraProxyTest >> scheduler [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:16'
+	#'squeak_changestamp' : 'LM 5/8/2026 17:00'
 }
 SKKaraProxyTest >> setUp [
 
@@ -68,14 +68,14 @@ SKKaraProxyTest >> setUp [
 	grid := SKGrid newWithExtent: self gridSize.
 	kara := SKKara newInGrid: self grid at: 1 @ 1.
 
-	decorator := SKKaraDecorator new.
+	decorator := SKKaraProxy new.
 	decorator kara: kara.
 
 	executer := SKExecuter new.
 	executer testMode: true.
 
 	scheduler := SKScheduler
-		newWithDecorators: { decorator }
+		newWithActors: { decorator }
 		executer: executer.
 
 	decorator scheduler: scheduler
