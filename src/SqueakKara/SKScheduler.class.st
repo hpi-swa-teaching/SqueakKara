@@ -80,13 +80,13 @@ SKScheduler >> executer: anExecuter [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/8/2026 16:55'
+	#'squeak_changestamp' : 'LM 5/8/2026 17:55'
 }
-SKScheduler >> finishDecorator: aDecorator [
+SKScheduler >> finishActor: anActor [
 
 	self stepLock critical: [
-		self activeActors remove: aDecorator.
-		self releaseLocks removeKey: aDecorator.
+		self activeActors remove: anActor.
+		self releaseLocks removeKey: anActor.
 		
 		self activeActors isEmpty ifTrue: [
 			self executer state: #terminated.
@@ -127,16 +127,16 @@ SKScheduler >> releaseLocks: aDictionary [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'LM 5/8/2026 16:56'
+	#'squeak_changestamp' : 'LM 5/8/2026 17:56'
 }
-SKScheduler >> scheduleAction: anAction for: aDecorator [
+SKScheduler >> scheduleAction: anAction for: anActor [
 
 	stepLock critical: [
-		| decoratorActions |
+		| actions |
 		
-		decoratorActions := self scheduledSteps at: aDecorator ifAbsent: [ OrderedCollection new ].
-		decoratorActions add: anAction.
-		self scheduledSteps at: aDecorator put: decoratorActions.
+		actions := self scheduledSteps at: anActor ifAbsent: [ OrderedCollection new ].
+		actions add: anAction.
+		self scheduledSteps at: anActor put: actions.
 		
 		self scheduledSteps size = self activeActors size ifTrue: [
 			self step.
@@ -204,9 +204,9 @@ SKScheduler >> stepLock: aSemaphore [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'LM 5/7/2026 10:45'
+	#'squeak_changestamp' : 'LM 5/8/2026 17:56'
 }
-SKScheduler >> waitFor: aDecorator [
+SKScheduler >> waitFor: anActor [
 
-	(releaseLocks at: aDecorator) wait
+	(releaseLocks at: anActor) wait
 ]

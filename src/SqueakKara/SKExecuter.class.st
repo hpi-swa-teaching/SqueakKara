@@ -77,7 +77,7 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/8/2026 16:57'
+	#'squeak_changestamp' : 'LM 5/8/2026 17:55'
 }
 SKExecuter >> execute: aCode [
 
@@ -97,7 +97,7 @@ SKExecuter >> execute: aCode [
 		decorator scheduler: scheduler.
 		context := SKExecuteContext new kara: decorator.
 		[[ self compiler evaluate: aCode for: context ] ensure: [
-			scheduler finishDecorator: decorator ]] forkAt: priority ]).
+			scheduler finishActor: decorator ]] forkAt: priority ]).
 
 	self state: #running
 ]
