@@ -2,7 +2,7 @@
 SKKaraDecorator is a decorator for SKKara used to add the necessary step calls to the turn and move methods and modify the SKKara methods so that they can be used by the SKExecuter.
 "
 Class {
-	#name : #SKKaraDecorator,
+	#name : #SKKaraProxy,
 	#superclass : #Object,
 	#instVars : [
 		'kara',
@@ -16,7 +16,7 @@ Class {
 	#category : #'class initialization',
 	#'squeak_changestamp' : 'LM 5/7/2026 16:53'
 }
-SKKaraDecorator class >> newWith: aKara [
+SKKaraProxy class >> newWith: aKara [
 
 	^ self new
 		kara: aKara;
@@ -27,7 +27,7 @@ SKKaraDecorator class >> newWith: aKara [
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/6/2026 18:59'
 }
-SKKaraDecorator >> codeContext [
+SKKaraProxy >> codeContext [
 
 	^ (SKExecuteContext new kara: self kara)
 ]
@@ -36,7 +36,7 @@ SKKaraDecorator >> codeContext [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }
-SKKaraDecorator >> kara [
+SKKaraProxy >> kara [
 	
 	^ kara
 ]
@@ -45,7 +45,7 @@ SKKaraDecorator >> kara [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }
-SKKaraDecorator >> kara: anObject [
+SKKaraProxy >> kara: anObject [
 	
 	kara := anObject
 ]
@@ -54,7 +54,7 @@ SKKaraDecorator >> kara: anObject [
 	#category : #commands,
 	#'squeak_changestamp' : 'LM 5/7/2026 16:52'
 }
-SKKaraDecorator >> move [
+SKKaraProxy >> move [
 
 	self scheduler scheduleAction: (SKAction newWithType: #move action: [ self kara move ]) for: self.
 	self scheduler waitFor: self
@@ -64,7 +64,7 @@ SKKaraDecorator >> move [
 	#category : #commands,
 	#'squeak_changestamp' : 'LM 5/6/2026 21:57'
 }
-SKKaraDecorator >> onCloverleaf [
+SKKaraProxy >> onCloverleaf [
 
 	^ self kara onCloverleaf
 ]
@@ -73,7 +73,7 @@ SKKaraDecorator >> onCloverleaf [
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/7/2026 09:40'
 }
-SKKaraDecorator >> scheduler [
+SKKaraProxy >> scheduler [
 
 	^ scheduler
 ]
@@ -82,7 +82,7 @@ SKKaraDecorator >> scheduler [
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/7/2026 09:40'
 }
-SKKaraDecorator >> scheduler: aScheduler [
+SKKaraProxy >> scheduler: aScheduler [
 
 	scheduler := aScheduler
 ]
@@ -91,7 +91,7 @@ SKKaraDecorator >> scheduler: aScheduler [
 	#category : #commands,
 	#'squeak_changestamp' : 'LM 5/7/2026 16:53'
 }
-SKKaraDecorator >> trunkAhead [
+SKKaraProxy >> trunkAhead [
 
 	^ self kara trunkAhead
 ]
@@ -100,7 +100,7 @@ SKKaraDecorator >> trunkAhead [
 	#category : #commands,
 	#'squeak_changestamp' : 'LM 5/7/2026 10:29'
 }
-SKKaraDecorator >> turn: aDirection [
+SKKaraProxy >> turn: aDirection [
 
 	self kara turn: aDirection
 ]
