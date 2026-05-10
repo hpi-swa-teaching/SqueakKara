@@ -9,6 +9,15 @@ Class {
 }
 
 {
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/6/2026 12:15'
+}
+SKBlock >> action [
+
+	^ SubclassResponsibility.
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'FR 5/6/2026 00:54'
 }
@@ -111,6 +120,15 @@ SKBlock >> rejectDropMorphEvent: anEvent [
 }
 SKBlock >> startDrag: anEvent [
 	anEvent hand grabMorph: self
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/6/2026 12:27'
+}
+SKBlock >> subBlocks [
+
+	^ nil.
 ]
 
 {
