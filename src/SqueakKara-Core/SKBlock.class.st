@@ -5,14 +5,15 @@ Class {
 		'text',
 		'leftSource',
 		'blockParts',
-		'label'
+		'label',
+		'category'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/11/2026 18:41'
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/11/2026 20:50'
 }
 SKBlock >> addBlockPart: aBlockPart [
 
@@ -20,30 +21,33 @@ SKBlock >> addBlockPart: aBlockPart [
 	
 	self addMorph: aBlockPart;
 		addMorph: aBlockPart label.
-	
-	"self addMorph: self label;
-		gap: (TextMorph new contents: '3');
-		addMorph: self gap;
-		addMorph: (StringMorph new contents: ' steps');
-		hResizing: #shrinkWrap."
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/11/2026 18:40'
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/11/2026 20:55'
 }
-SKBlock >> addBlockPart: aBlockPart withId: anId [
+SKBlock >> addBooleanPart: aLabel withDefault: aDefaultValue [
 
-	self blockParts add: aBlockPart.
-	
-	self addMorph: (self blockParts at: anId);
-		addMorph: ((self blockParts at: anId) label).
-	
-	"self addMorph: self label;
-		gap: (TextMorph new contents: '3');
-		addMorph: self gap;
-		addMorph: (StringMorph new contents: ' steps');
-		hResizing: #shrinkWrap."
+	self addBlockPart: (SKBooleanBlockPart new label: aLabel; value: aDefaultValue; yourself)
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/11/2026 20:55'
+}
+SKBlock >> addIntegerPart: aLabel withDefault: aDefaultValue [
+
+	self addBlockPart: (SKIntegerBlockPart new label: aLabel; value: aDefaultValue; yourself)
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/11/2026 20:55'
+}
+SKBlock >> addStringPart: aLabel withDefault: aDefaultValue [
+
+	self addBlockPart: (SKStringBlockPart new label: aLabel; value: aDefaultValue; yourself)
 ]
 
 {
@@ -65,7 +69,34 @@ SKBlock >> blockParts: anOrderedCollection [
 ]
 
 {
-	#category : #accessing,
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/11/2026 20:51'
+}
+SKBlock >> category [
+
+	^ category ifNil: [category := 'default'].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/11/2026 19:34'
+}
+SKBlock >> category: aCategory [
+
+	category := aCategory.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/11/2026 20:51'
+}
+SKBlock >> colorFromCategory [
+
+	^ (Dictionary new at: 'default' put: '#e5c890'; yourself) at: self category
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'SLH 5/11/2026 09:50'
 }
 SKBlock >> command [
@@ -99,29 +130,21 @@ SKBlock >> handlesMouseOver: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 17:27'
+	#'squeak_changestamp' : 'SLH 5/11/2026 20:07'
 }
 SKBlock >> initialize [
 	super initialize.
 	
-	self borderColor: Color red;
-		color: Color white;
+	self borderColor: (Color fromString: '#df8e1d');
+		cornerStyle: #rounded;
+		cornerRadius: 5;
+		color: (Color fromString: self colorFromCategory);
 		borderWidth: 2.
 	
 	self layoutPolicy: TableLayout new;
 		addMorph: self label;
 		listDirection: #rightToLeft;
 		hResizing: #shrinkWrap.
-		
-	"self blockParts do: [:each |
-		self addMorph: each;
-			addMorph: (each label)]."
-	
-	"self addMorph: self label;
-		gap: (TextMorph new contents: '3');
-		addMorph: self gap;
-		addMorph: (StringMorph new contents: ' steps')."
-
 ]
 
 {

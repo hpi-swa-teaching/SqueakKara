@@ -6,9 +6,9 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 09:37'
+	#'squeak_changestamp' : 'SLH 5/11/2026 20:57'
 }
-SKIntegerBlockPart >> returnType [
+SKIntegerBlockPart >> type [
 
 	^ #Integer.
 ]

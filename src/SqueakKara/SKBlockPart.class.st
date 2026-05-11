@@ -3,26 +3,28 @@ Class {
 	#superclass : #Morph,
 	#instVars : [
 		'label',
-		'value',
-		'returnType'
+		'type',
+		'value'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 17:30'
+	#'squeak_changestamp' : 'SLH 5/11/2026 20:12'
 }
 SKBlockPart >> initialize [
 	super initialize.
 	
-	self borderColor: Color blue;
+	self borderColor: Color black;
 		color: Color white;
-		borderWidth: 2;
+		borderWidth: 1;
+		cornerStyle: #rounded;
+		cornerRadius: 100;
 		addMorph: self value;
 		hResizing: #shrinkWrap; vResizing: #shrinkWrap.
 	
-	self extent: self value extent+(5@5).
+	self extent: (self value extent+(5@5) max: 20@20).
 	self value center: self center.
 ]
 
@@ -46,25 +48,16 @@ SKBlockPart >> label: aLabel [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 16:53'
+	#'squeak_changestamp' : 'SLH 5/11/2026 20:56'
 }
-SKBlockPart >> returnType [
+SKBlockPart >> type [
 
-	^ returnType.
+	^ SubclassResponsibility.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 16:53'
-}
-SKBlockPart >> returnType: aType [
-
-	returnType := aType.
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 17:07'
+	#'squeak_changestamp' : 'SLH 5/11/2026 20:16'
 }
 SKBlockPart >> value [
 
@@ -73,11 +66,9 @@ SKBlockPart >> value [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 17:11'
+	#'squeak_changestamp' : 'SLH 5/11/2026 20:20'
 }
 SKBlockPart >> value: aValue [
 
-	self value contents: aValue.
-	"self extent: self label extent+(10@10).
-	self label center: self center."
+	self value contents: (aValue asString).
 ]
