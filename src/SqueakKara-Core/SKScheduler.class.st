@@ -1,3 +1,29 @@
+"
+A SKScheduler is a custom Scheduler for scheduling action grouped by type.
+
+Instance Variables
+	activeActors:		<Object>
+	executer:			<Object>
+	releaseLocks:		<Object>
+	scheduledSteps:		<Object>
+	stepLock:		<Object>
+
+activeActors
+	- xxxxx
+
+executer
+	- xxxxx
+
+releaseLocks
+	- xxxxx
+
+scheduledSteps
+	- xxxxx
+
+stepLock
+	- xxxxx
+
+"
 Class {
 	#name : #SKScheduler,
 	#superclass : #Object,
@@ -8,7 +34,8 @@ Class {
 		'releaseLocks',
 		'scheduledSteps'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'LM 5/10/2026 20:31'
 }
 
 {
@@ -62,7 +89,7 @@ SKScheduler >> delayStep [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 10:13'
+	#'squeak_changestamp' : 'LM 5/11/2026 21:47'
 }
 SKScheduler >> executer [
 
@@ -71,7 +98,7 @@ SKScheduler >> executer [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 10:13'
+	#'squeak_changestamp' : 'LM 5/11/2026 21:47'
 }
 SKScheduler >> executer: anExecuter [
 
@@ -101,9 +128,10 @@ SKScheduler >> finishActor: anActor [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'LM 5/7/2026 10:47'
+	#'squeak_changestamp' : 'LM 5/10/2026 21:44'
 }
 SKScheduler >> releaseAll [
+
 	self releaseLocks valuesDo: [ :semaphore | semaphore signal ]
 ]
 
@@ -127,11 +155,11 @@ SKScheduler >> releaseLocks: aDictionary [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'LM 5/8/2026 17:56'
+	#'squeak_changestamp' : 'LM 5/10/2026 20:29'
 }
 SKScheduler >> scheduleAction: anAction for: anActor [
 
-	stepLock critical: [
+	self stepLock critical: [
 		| actions |
 		
 		actions := self scheduledSteps at: anActor ifAbsent: [ OrderedCollection new ].
@@ -164,11 +192,11 @@ SKScheduler >> scheduledSteps: aDictionary [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:01'
+	#'squeak_changestamp' : 'LM 5/10/2026 20:55'
 }
 SKScheduler >> step [
 
-	self delayStep.
+	"self delayStep."
 	self stepForType: #move.
 	self delayStep
 ]

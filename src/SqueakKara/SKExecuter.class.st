@@ -11,6 +11,7 @@ Class {
 		'speed',
 		'state',
 		'environment',
+		'scheduler',
 		'testMode'
 	],
 	#category : #'SqueakKara-Core',
@@ -77,24 +78,26 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/8/2026 17:55'
+	#'squeak_changestamp' : 'LM 5/10/2026 21:40'
 }
 SKExecuter >> execute: aCode [
 
-	| priority scheduler decorators |
+	| priority decorators |
+	
+	self terminate.
 
 	priority := Processor userBackgroundPriority.
 	
 	decorators := self karas collect: [ :kara |
 		SKKaraProxy newWith: kara ].
 	
-	scheduler := SKScheduler
+	self scheduler: (SKScheduler
 		newWithActors: decorators
-		executer: self.
+		executer: self).
 	
 	self processes: (decorators collect: [ :decorator |
 		| context |
-		decorator scheduler: scheduler.
+		decorator scheduler: self scheduler.
 		context := SKExecuteContext new kara: decorator.
 		[[ self compiler evaluate: aCode for: context ] ensure: [
 			scheduler finishActor: decorator ]] forkAt: priority ]).
@@ -163,6 +166,24 @@ SKExecuter >> resumeExecution [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/10/2026 20:46'
+}
+SKExecuter >> scheduler [
+
+	^ scheduler
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/10/2026 20:46'
+}
+SKExecuter >> scheduler: aScheduler [
+
+	scheduler := aScheduler
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'KD 6/12/2024 12:05'
 }
 SKExecuter >> speed [
@@ -172,7 +193,7 @@ SKExecuter >> speed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'KD 6/12/2024 12:05'
+	#'squeak_changestamp' : 'LM 5/11/2026 21:43'
 }
 SKExecuter >> speed: aSpeed [
 	
@@ -208,6 +229,15 @@ SKExecuter >> state: aSymbol [
 SKExecuter >> stateWithoutUpdate: aSymbol [
 
 	state := aSymbol
+]
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/10/2026 20:58'
+}
+SKExecuter >> step [
+	
+	self scheduler step
 ]
 
 {

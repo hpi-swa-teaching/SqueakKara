@@ -1,3 +1,17 @@
+"
+A SKAction contains an action type and an action, represented by a block.
+
+Instance Variables
+	action:		<Block>
+	type:		<Object/Symbol>
+
+action
+	- A Block that can be executed.
+
+type
+	- Some kind of type for comparison. Depending on usage, can have different data types.
+
+"
 Class {
 	#name : #SKAction,
 	#superclass : #Object,
@@ -5,7 +19,8 @@ Class {
 		'type',
 		'action'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'LM 5/10/2026 20:27'
 }
 
 {
