@@ -14,7 +14,7 @@ SKBlockSource >> handlesMouseDown: evt [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/6/2026 01:12'
+	#'squeak_changestamp' : 'SLH 5/11/2026 19:22'
 }
 SKBlockSource >> initialize [
 	|m|
@@ -29,11 +29,13 @@ SKBlockSource >> initialize [
 		wrapCentering: #center;
 		hResizing: #spaceFill;
 	 	vResizing: #spaceFill.
-	self addMorph: (SKBlock new contents: 'end').
-	self addMorph: (SKBlock new contents: 'turn: left').
-	self addMorph: (SKBlock new contents: 'turn: right').
-	self addMorph: (SKGapBlock new contents: 'move ').
-	self addMorph: (SKBlock new contents: 'move').
+	self addMorph: (SKActionBlock new label: 'end'; yourself).
+	self addMorph: (SKActionBlock new label: 'move'; action: ['kara move']; yourself).
+	self addMorph: (SKActionBlock new label: 'move';
+		addBlockPart: (SKBlockPart new label: 'steps'; value: (3 asString); yourself);
+		action: [:steps | steps,' timesRepeat: [kara move]']; yourself).
+	self addMorph: (SKActionBlock new label: 'turn left'; action: ['kara turn: left']; yourself).
+	self addMorph: (SKActionBlock new label: 'turn right'; action: ['kara turn: right']; yourself).
 	m addMorph: self.
 	m openInWindowLabeled: 'SKBlockSource'
 ]

@@ -31,10 +31,10 @@ SKBlockSpace >> acceptDroppingMorph: aMorph event: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/5/2026 23:42'
+	#'squeak_changestamp' : 'SLH 5/11/2026 16:22'
 }
 SKBlockSpace >> addStartBlock [
-	self start: (SKBlock new contents: 'Start of Script').
+	self start: (SKBlock new label: 'Start of Script').
 	self addMorph: self start.
 ]
 
@@ -116,7 +116,7 @@ SKBlockSpace >> start: anObject [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/6/2026 01:14'
+	#'squeak_changestamp' : 'SLH 5/11/2026 18:07'
 }
 SKBlockSpace >> updateCode [
 	"this is obviously temporary"
@@ -125,7 +125,7 @@ SKBlockSpace >> updateCode [
 	behind := false.
 	self flag: #temp.
 	self submorphsBehind: self start do: [:each | behind
-		ifFalse: [ each command ~= 'kara end' ifTrue: [code:= code, each command, '.',  String cr]]].
+		ifFalse: [ each action ifNotNil: [code:= code, each command, '.',  String cr]]].
 	self environment workspace userCode: code.
 ]
 

@@ -3,35 +3,74 @@ Class {
 	#superclass : #Morph,
 	#instVars : [
 		'text',
-		'leftSource'
+		'leftSource',
+		'blockParts',
+		'label'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/6/2026 12:15'
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 5/11/2026 18:41'
 }
-SKBlock >> action [
+SKBlock >> addBlockPart: aBlockPart [
 
-	^ SubclassResponsibility.
+	self blockParts add: aBlockPart.
+	
+	self addMorph: aBlockPart;
+		addMorph: aBlockPart label.
+	
+	"self addMorph: self label;
+		gap: (TextMorph new contents: '3');
+		addMorph: self gap;
+		addMorph: (StringMorph new contents: ' steps');
+		hResizing: #shrinkWrap."
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/6/2026 00:54'
+	#'squeak_changestamp' : 'SLH 5/11/2026 18:40'
 }
-SKBlock >> command [
-	^'kara ', text contents
+SKBlock >> addBlockPart: aBlockPart withId: anId [
+
+	self blockParts add: aBlockPart.
+	
+	self addMorph: (self blockParts at: anId);
+		addMorph: ((self blockParts at: anId) label).
+	
+	"self addMorph: self label;
+		gap: (TextMorph new contents: '3');
+		addMorph: self gap;
+		addMorph: (StringMorph new contents: ' steps');
+		hResizing: #shrinkWrap."
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/5/2026 23:04'
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 5/11/2026 18:40'
 }
-SKBlock >> contents: aString [
-	self text contents: aString.
-	self extent: self text extent+(10@10)
+SKBlock >> blockParts [
+
+	^ blockParts ifNil: [blockParts := OrderedCollection new].
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 5/11/2026 18:40'
+}
+SKBlock >> blockParts: anOrderedCollection [
+
+	blockParts := anOrderedCollection.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 5/11/2026 09:50'
+}
+SKBlock >> command [
+
+	^ SubclassResponsibility.
 ]
 
 {
@@ -60,19 +99,49 @@ SKBlock >> handlesMouseOver: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/5/2026 23:03'
+	#'squeak_changestamp' : 'SLH 5/11/2026 17:27'
 }
 SKBlock >> initialize [
 	super initialize.
-	self text: (StringMorph new contents:'Placeholder').
-	self extent: text extent+(10@10).
-	self text center: self center.
-	self addMorph: self text;
-		borderColor: Color red;
+	
+	self borderColor: Color red;
 		color: Color white;
 		borderWidth: 2.
+	
+	self layoutPolicy: TableLayout new;
+		addMorph: self label;
+		listDirection: #rightToLeft;
+		hResizing: #shrinkWrap.
 		
+	"self blockParts do: [:each |
+		self addMorph: each;
+			addMorph: (each label)]."
+	
+	"self addMorph: self label;
+		gap: (TextMorph new contents: '3');
+		addMorph: self gap;
+		addMorph: (StringMorph new contents: ' steps')."
 
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/11/2026 16:33'
+}
+SKBlock >> label [
+
+	^ label ifNil: [label := StringMorph new contents: 'Placeholder'].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/11/2026 16:32'
+}
+SKBlock >> label: aLabel [
+	
+	self label contents: aLabel.
+	self extent: self label extent+(10@10).
+	self label center: self center.
 ]
 
 {
@@ -123,15 +192,6 @@ SKBlock >> startDrag: anEvent [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/6/2026 12:27'
-}
-SKBlock >> subBlocks [
-
-	^ nil.
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'FR 5/5/2026 23:00'
 }
@@ -145,6 +205,15 @@ SKBlock >> text [
 }
 SKBlock >> text: anObject [
 	text := anObject
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/11/2026 09:55'
+}
+SKBlock >> type [
+
+	^ SubclassResponsibility.
 ]
 
 {

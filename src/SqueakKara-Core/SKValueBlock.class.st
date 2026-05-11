@@ -6,6 +6,15 @@ Class {
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/11/2026 09:55'
+}
+SKValueBlock >> type [
+
+	^ 'value'.
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'SLH 5/6/2026 12:28'
 }
 SKValueBlock >> value [

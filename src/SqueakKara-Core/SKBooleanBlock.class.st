@@ -1,5 +1,5 @@
 Class {
 	#name : #SKBooleanBlock,
-	#superclass : #SKPrimitiveBlock,
+	#superclass : #SKValueBlock,
 	#category : #'SqueakKara-Core'
 }
