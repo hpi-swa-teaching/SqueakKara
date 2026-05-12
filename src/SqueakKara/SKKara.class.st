@@ -5,7 +5,8 @@ Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
 	#instVars : [
-		'viewDirection'
+		'viewDirection',
+		'movementBlocked'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
@@ -27,14 +28,31 @@ SKKara >> getTextureForDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Gustav Meinshausen 5/12/2026 20:36'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/12/2026 21:01'
 }
 SKKara >> move [
 	
-	(self walkableAhead)
-		ifTrue: []
-		ifFalse: [self coordinates: self coordinates + self viewDirection]
+	(self walkableAhead and: self movementBlocked not)
+		ifTrue: [self coordinates: self coordinates + self viewDirection]
+		ifFalse: [self movementBlocked: true]
 
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/12/2026 21:13'
+}
+SKKara >> movementBlocked [
+	movementBlocked ifNil: [self movementBlocked: false].
+	^ movementBlocked
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/12/2026 20:49'
+}
+SKKara >> movementBlocked: anObject [
+	movementBlocked := anObject
 ]
 
 {
@@ -71,11 +89,11 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'EB 7/11/2024 15:18'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/12/2026 20:39'
 }
 SKKara >> turn: aRotation [
 												
-	self viewDirection:	 (SKDirection rotatePosition: self viewDirection by: aRotation).		
+	self viewDirection: (SKDirection rotatePosition: self viewDirection by: aRotation).		
 	self setTexture
 
 	
@@ -101,13 +119,13 @@ SKKara >> viewDirection: aDirection [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'Gustav Meinshausen 5/12/2026 20:30'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/12/2026 20:44'
 }
 SKKara >> walkableAhead [
 
 	| tileAheadInGrid |
 	
-	tileAheadInGrid := grid isPointInGridDimensions: self viewDirection + self coordinates.
+	tileAheadInGrid := self grid isPointInGridDimensions: self viewDirection + self coordinates.
 	
 	^ self trunkAhead not  and: tileAheadInGrid.
 		
