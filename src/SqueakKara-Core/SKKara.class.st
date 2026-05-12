@@ -27,13 +27,13 @@ SKKara >> getTextureForDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jt 6/11/2024 13:26'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/12/2026 20:36'
 }
 SKKara >> move [
 	
-	(self trunkAhead)
+	(self walkableAhead)
+		ifTrue: []
 		ifFalse: [self coordinates: self coordinates + self viewDirection]
-	
 
 ]
 
@@ -97,4 +97,19 @@ SKKara >> viewDirection [
 SKKara >> viewDirection: aDirection [
 	
 	viewDirection := aDirection
+]
+
+{
+	#category : #'object detection',
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/12/2026 20:30'
+}
+SKKara >> walkableAhead [
+
+	| tileAheadInGrid |
+	
+	tileAheadInGrid := grid isPointInGridDimensions: self viewDirection + self coordinates.
+	
+	^ self trunkAhead not  and: tileAheadInGrid.
+		
+	
 ]
