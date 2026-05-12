@@ -28,13 +28,14 @@ SKKara >> getTextureForDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Gustav Meinshausen 5/12/2026 21:01'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/12/2026 21:23'
 }
 SKKara >> move [
 	
 	(self walkableAhead and: self movementBlocked not)
 		ifTrue: [self coordinates: self coordinates + self viewDirection]
-		ifFalse: [self movementBlocked: true]
+		ifFalse: [self movementBlocked: true.
+			self say: 'ouch, there might be a bug somewhere']
 
 ]
 
