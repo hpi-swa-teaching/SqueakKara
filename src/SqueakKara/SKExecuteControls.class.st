@@ -20,34 +20,22 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:29'
+	#'squeak_changestamp' : 'LM 5/7/2026 21:41'
 }
 SKExecuteControls >> actionRun [
 
-	| state |
-	state := self environment executerState.
-
-	state = #terminated ifTrue: [
-		self environment run.
-		^ self buttonRunSetTexture: self currentRunButtonTexture ].
-
-	state = #suspended ifTrue: [
-		self environment resume.
-		^ self buttonRunSetTexture: self currentRunButtonTexture ].
-
-	state = #running ifTrue: [
-		self environment pause.
-		^ self buttonRunSetTexture: self currentRunButtonTexture ]
+	self toggleExecutionState.
+	self updateTextures
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:43'
+	#'squeak_changestamp' : 'LM 5/7/2026 21:28'
 }
 SKExecuteControls >> actionStop [
 
 	self environment stop.
-	self buttonRunSetTexture: self currentRunButtonTexture
+	self updateTextures
 ]
 
 {
@@ -401,11 +389,11 @@ SKExecuteControls >> sliderSpeed: aNumber [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'EB 7/11/2024 14:40'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:58'
 }
 SKExecuteControls >> sliderSpeedValueChanged: aValue [
 	
-	self environment executionSpeed: aValue.
+	self environment executionSpeed: aValue
 ]
 
 {
@@ -433,4 +421,28 @@ SKExecuteControls >> stopTexture: aForm [
 SKExecuteControls >> stopTextureFilename [
 
 	^ 'stop.png'
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'LM 5/7/2026 21:41'
+}
+SKExecuteControls >> toggleExecutionState [
+
+	| state |
+	state := self environment executerState.
+
+	state = #terminated ifTrue: [ self environment run. ^ self ].
+	state = #suspended ifTrue: [ self environment resume. ^ self ].
+	state = #running ifTrue: [ self environment pause. ^ self ].
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'LM 5/7/2026 22:29'
+}
+SKExecuteControls >> updateTextures [
+
+	self buttonRunSetTexture: self currentRunButtonTexture.
+	self buttonStopSetTexture
 ]
