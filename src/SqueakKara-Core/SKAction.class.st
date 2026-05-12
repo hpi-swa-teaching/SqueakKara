@@ -25,9 +25,10 @@ Class {
 
 {
 	#category : #'class initialization',
-	#'squeak_changestamp' : 'LM 5/7/2026 09:57'
+	#'squeak_changestamp' : 'LM 5/12/2026 21:00'
 }
 SKAction class >> newWithType: aType [
+
 	^ self new
 		type: aType;
 		action: []
@@ -35,9 +36,10 @@ SKAction class >> newWithType: aType [
 
 {
 	#category : #'class initialization',
-	#'squeak_changestamp' : 'LM 5/7/2026 09:54'
+	#'squeak_changestamp' : 'LM 5/12/2026 21:00'
 }
 SKAction class >> newWithType: aType action: aBlock [
+
 	^ self new
 		type: aType;
 		action: aBlock

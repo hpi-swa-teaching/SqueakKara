@@ -49,11 +49,11 @@ SKKara >> karaAhead [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:19'
+	#'squeak_changestamp' : 'LM 5/11/2026 22:18'
 }
 SKKara >> move [
 
-	(self trunkAhead or: [ self karaAhead ]) ifTrue: [ ^ self ].
+	(self trunkAhead) ifTrue: [ ^ self ].
 	self moveToCoordinates: self coordinates + self viewDirection
 ]
 

@@ -418,9 +418,10 @@ SKEnvironment >> systemWindow: anObject [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:29'
+	#'squeak_changestamp' : 'LM 5/12/2026 21:01'
 }
 SKEnvironment >> updateTextures [
+
 	self executeControls updateTextures
 ]
 

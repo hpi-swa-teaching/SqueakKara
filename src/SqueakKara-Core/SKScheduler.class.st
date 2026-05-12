@@ -128,11 +128,12 @@ SKScheduler >> finishActor: anActor [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'LM 5/10/2026 21:44'
+	#'squeak_changestamp' : 'LM 5/12/2026 21:01'
 }
 SKScheduler >> releaseAll [
 
-	self releaseLocks valuesDo: [ :semaphore | semaphore signal ]
+	self releaseLocks valuesDo: [ 
+		:semaphore | semaphore signal ]
 ]
 
 {
