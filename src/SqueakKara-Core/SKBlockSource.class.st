@@ -14,7 +14,7 @@ SKBlockSource >> handlesMouseDown: evt [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 13:04'
+	#'squeak_changestamp' : 'SLH 5/13/2026 14:55'
 }
 SKBlockSource >> initialize [
 	|m|
@@ -37,8 +37,8 @@ SKBlockSource >> initialize [
 		category: #movement; yourself).
 	self addMorph: (SKActionBlock new label: 'turn left'; action: ['kara turn: left']; category: #movement; yourself).
 	self addMorph: (SKActionBlock new label: 'turn right'; action: ['kara turn: right']; category: #movement; yourself).
-	self addMorph: (SKBooleanBlock new label: 'trunk ahead?'; value: ['kara trunkAhead']; category: #sensing; yourself).
-	self addMorph: (SKBooleanBlock new label: 'on cloverleaf?'; value: ['kara onCloverleaf']; category: #sensing; yourself).
+	self addMorph: (SKValueBlock new label: 'trunk ahead?'; type: #Boolean; value: ['kara trunkAhead']; category: #sensing; yourself).
+	self addMorph: (SKValueBlock new label: 'on cloverleaf?'; type: #Boolean; value: ['kara onCloverleaf']; category: #sensing; yourself).
 	m addMorph: self.
 	m openInWindowLabeled: 'SKBlockSource'
 ]
