@@ -70,29 +70,45 @@ SKBlock >> blockParts: anOrderedCollection [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 20:51'
+	#'squeak_changestamp' : 'SLH 5/13/2026 12:46'
 }
-SKBlock >> category [
+SKBlock >> borderColorFromCategory [
 
-	^ category ifNil: [category := 'default'].
+	^ Color fromString: ((Dictionary new at: #default put: '#df8e1d';
+		at: #movement put: '#1e66f5';
+		at: #sensing put: '#40a02b'; yourself) at: self category).
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 19:34'
+	#'squeak_changestamp' : 'SLH 5/13/2026 12:31'
+}
+SKBlock >> category [
+
+	^ category ifNil: [category := #default].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/13/2026 12:34'
 }
 SKBlock >> category: aCategory [
 
 	category := aCategory.
+	
+	self color: self colorFromCategory;
+		borderColor: self borderColorFromCategory.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 20:51'
+	#'squeak_changestamp' : 'SLH 5/13/2026 12:46'
 }
 SKBlock >> colorFromCategory [
 
-	^ (Dictionary new at: 'default' put: '#e5c890'; yourself) at: self category
+	^ Color fromString: ((Dictionary new at: #default put: '#e5c890';
+		at: #movement put: '#8caaee';
+		at: #sensing put: '#a6d189'; yourself) at: self category).
 ]
 
 {
@@ -130,21 +146,23 @@ SKBlock >> handlesMouseOver: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 20:07'
+	#'squeak_changestamp' : 'SLH 5/13/2026 12:39'
 }
 SKBlock >> initialize [
 	super initialize.
 	
-	self borderColor: (Color fromString: '#df8e1d');
+	self borderColor: self borderColorFromCategory;
 		cornerStyle: #rounded;
 		cornerRadius: 5;
-		color: (Color fromString: self colorFromCategory);
+		color: self colorFromCategory;
 		borderWidth: 2.
 	
 	self layoutPolicy: TableLayout new;
 		addMorph: self label;
 		listDirection: #rightToLeft;
-		hResizing: #shrinkWrap.
+		hResizing: #shrinkWrap;
+		cellInset: 5@0;
+		layoutInset: 5@0.
 ]
 
 {

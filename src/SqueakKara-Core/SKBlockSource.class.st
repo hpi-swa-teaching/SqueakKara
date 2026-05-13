@@ -14,7 +14,7 @@ SKBlockSource >> handlesMouseDown: evt [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 21:04'
+	#'squeak_changestamp' : 'SLH 5/13/2026 13:04'
 }
 SKBlockSource >> initialize [
 	|m|
@@ -30,12 +30,15 @@ SKBlockSource >> initialize [
 		hResizing: #spaceFill;
 	 	vResizing: #spaceFill.
 	self addMorph: (SKActionBlock new label: 'end'; yourself).
-	self addMorph: (SKActionBlock new label: 'move'; action: ['kara move']; yourself).
+	self addMorph: (SKActionBlock new label: 'move'; action: ['kara move']; category: #movement; yourself).
 	self addMorph: (SKActionBlock new label: 'move';
 		addIntegerPart: 'steps' withDefault: 3;
-		action: [:steps | steps,' timesRepeat: [kara move]']; yourself).
-	self addMorph: (SKActionBlock new label: 'turn left'; action: ['kara turn: left']; yourself).
-	self addMorph: (SKActionBlock new label: 'turn right'; action: ['kara turn: right']; yourself).
+		action: [:steps | steps,' timesRepeat: [kara move]']; 
+		category: #movement; yourself).
+	self addMorph: (SKActionBlock new label: 'turn left'; action: ['kara turn: left']; category: #movement; yourself).
+	self addMorph: (SKActionBlock new label: 'turn right'; action: ['kara turn: right']; category: #movement; yourself).
+	self addMorph: (SKBooleanBlock new label: 'trunk ahead?'; value: ['kara trunkAhead']; category: #sensing; yourself).
+	self addMorph: (SKBooleanBlock new label: 'on cloverleaf?'; value: ['kara onCloverleaf']; category: #sensing; yourself).
 	m addMorph: self.
 	m openInWindowLabeled: 'SKBlockSource'
 ]
