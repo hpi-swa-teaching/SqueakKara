@@ -131,10 +131,10 @@ SKBlockSpace >> updateCode [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/6/2026 00:51'
+	#'squeak_changestamp' : 'SLH 5/13/2026 16:07'
 }
 SKBlockSpace >> wantsDroppedMorph: aMorph event: anEvent [
 	self flag: #toBeExtended.
-	^(aMorph class = SKBlock) or: [SKBlock subclasses includes: aMorph class]
+	^((aMorph class = SKBlock) or: [SKBlock subclasses includes: aMorph class]) and: [aMorph blockType = #Action].
 	 
 ]

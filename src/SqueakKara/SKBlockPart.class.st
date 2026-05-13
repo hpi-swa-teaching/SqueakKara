@@ -50,11 +50,20 @@ SKBlockPart >> label: aLabel [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 20:56'
+	#'squeak_changestamp' : 'SLH 5/13/2026 16:00'
 }
 SKBlockPart >> type [
 
-	^ SubclassResponsibility.
+	^ type.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/13/2026 16:00'
+}
+SKBlockPart >> type: aType [
+
+	type := aType.
 ]
 
 {

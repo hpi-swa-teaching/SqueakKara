@@ -25,29 +25,29 @@ SKBlock >> addBlockPart: aBlockPart [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 20:55'
+	#'squeak_changestamp' : 'SLH 5/13/2026 15:59'
 }
 SKBlock >> addBooleanPart: aLabel withDefault: aDefaultValue [
 
-	self addBlockPart: (SKBooleanBlockPart new label: aLabel; value: aDefaultValue; yourself)
+	self addBlockPart: (SKBlockPart new type: #Boolean; label: aLabel; value: aDefaultValue; yourself)
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 20:55'
+	#'squeak_changestamp' : 'SLH 5/13/2026 15:59'
 }
 SKBlock >> addIntegerPart: aLabel withDefault: aDefaultValue [
 
-	self addBlockPart: (SKIntegerBlockPart new label: aLabel; value: aDefaultValue; yourself)
+	self addBlockPart: (SKBlockPart new type: #Integer; label: aLabel; value: aDefaultValue; yourself)
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 20:55'
+	#'squeak_changestamp' : 'SLH 5/13/2026 16:00'
 }
 SKBlock >> addStringPart: aLabel withDefault: aDefaultValue [
 
-	self addBlockPart: (SKStringBlockPart new label: aLabel; value: aDefaultValue; yourself)
+	self addBlockPart: (SKBlockPart new type: #String; label: aLabel; value: aDefaultValue; yourself)
 ]
 
 {
@@ -66,6 +66,15 @@ SKBlock >> blockParts [
 SKBlock >> blockParts: anOrderedCollection [
 
 	blockParts := anOrderedCollection.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/13/2026 16:02'
+}
+SKBlock >> blockType [
+
+	^ SubclassResponsibility.
 ]
 
 {
@@ -246,15 +255,6 @@ SKBlock >> text [
 }
 SKBlock >> text: anObject [
 	text := anObject
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 09:55'
-}
-SKBlock >> type [
-
-	^ SubclassResponsibility.
 ]
 
 {

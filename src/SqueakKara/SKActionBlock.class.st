@@ -36,6 +36,15 @@ SKActionBlock >> action: aBlock [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/13/2026 16:03'
+}
+SKActionBlock >> blockType [
+
+	^ #Action.
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'SLH 5/11/2026 19:06'
 }
 SKActionBlock >> command [
@@ -45,13 +54,4 @@ SKActionBlock >> command [
 	args := self blockParts collect: [:each | each value contents asString].
 	
 	^ self action valueWithArguments: args asArray.
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 20:35'
-}
-SKActionBlock >> type [
-
-	^ #Action.
 ]

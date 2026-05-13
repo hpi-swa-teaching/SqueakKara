@@ -2,18 +2,37 @@ Class {
 	#name : #SKValueBlock,
 	#superclass : #SKBlock,
 	#instVars : [
-		'value'
+		'value',
+		'type'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 20:35'
+	#'squeak_changestamp' : 'SLH 5/13/2026 16:03'
+}
+SKValueBlock >> blockType [
+
+	^ #Value.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/13/2026 16:02'
 }
 SKValueBlock >> type [
 
-	^ #Value.
+	^ type.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/13/2026 16:02'
+}
+SKValueBlock >> type: aType [
+
+	type := aType.
 ]
 
 {
