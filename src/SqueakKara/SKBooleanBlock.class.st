@@ -29,3 +29,12 @@ SKBooleanBlock >> drawOn: aCanvas [
 		borderWidth: 2
 		borderColor: self borderColor.
 ]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/13/2026 18:02'
+}
+SKBooleanBlock >> type [
+
+	^ #Boolean.
+]

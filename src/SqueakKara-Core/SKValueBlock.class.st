@@ -19,20 +19,11 @@ SKValueBlock >> blockType [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 16:02'
+	#'squeak_changestamp' : 'SLH 5/13/2026 18:02'
 }
 SKValueBlock >> type [
 
-	^ type.
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 16:02'
-}
-SKValueBlock >> type: aType [
-
-	type := aType.
+	^ SubclassResponsibility.
 ]
 
 {
