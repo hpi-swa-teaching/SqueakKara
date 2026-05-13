@@ -90,14 +90,12 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'Gustav Meinshausen 5/12/2026 20:39'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/13/2026 14:52'
 }
 SKKara >> turn: aRotation [
-												
-	self viewDirection: (SKDirection rotatePosition: self viewDirection by: aRotation).		
-	self setTexture
-
-	
+	self movementBlocked ifFalse: [
+		self viewDirection: (SKDirection rotatePosition: self viewDirection by: aRotation).		
+		self setTexture].
 ]
 
 {
