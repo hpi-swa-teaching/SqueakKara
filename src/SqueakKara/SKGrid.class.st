@@ -135,7 +135,7 @@ SKGrid >> gridHeight: aNumber [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/29/2026 18:51'
+	#'squeak_changestamp' : 'jawi 5/14/2026 11:21'
 }
 SKGrid >> gridLines [
 
@@ -172,9 +172,10 @@ SKGrid >> gridWidth: aNumber [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/29/2026 18:51'
+	#'squeak_changestamp' : 'jawi 5/14/2026 13:15'
 }
 SKGrid >> initialize [
+	
 	self gridLines: OrderedCollection new.
 
 	super initialize.
