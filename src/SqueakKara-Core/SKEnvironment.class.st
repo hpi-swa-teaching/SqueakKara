@@ -13,7 +13,8 @@ Class {
 		'gameWidth',
 		'gameHeight',
 		'systemWindow',
-		'windowManager'
+		'windowManager',
+		'challange'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
@@ -26,6 +27,22 @@ Class {
 SKEnvironment class >> newWithKaraAt: aPoint [
 
 	^ self basicNew initializeWithKaraAt: aPoint
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/15/2026 20:18'
+}
+SKEnvironment >> challange [
+	^ challange
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/15/2026 20:18'
+}
+SKEnvironment >> challange: anObject [
+	challange := anObject
 ]
 
 {
@@ -168,10 +185,11 @@ SKEnvironment >> initializeObjects [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:28'
+	#'squeak_changestamp' : 'JS 5/15/2026 20:19'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
+	self challange: 'challenge1'.
 	self grid: (SKGrid newWithExtent: 7 @ 7).
 	self kara: self grid challenge1.
 	self initializeObjects
@@ -180,10 +198,11 @@ SKEnvironment >> initializeWithChallenge1 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:30'
+	#'squeak_changestamp' : 'JS 5/15/2026 20:20'
 }
 SKEnvironment >> initializeWithChallenge2 [
 
+	self challange: 'challenge2'.
 	self grid: (SKGrid newWithExtent: 9 @ 2).
 	self kara: self grid challenge2.
 	self initializeObjects
@@ -191,10 +210,11 @@ SKEnvironment >> initializeWithChallenge2 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:30'
+	#'squeak_changestamp' : 'JS 5/15/2026 20:20'
 }
 SKEnvironment >> initializeWithChallenge3 [
 
+	self challange: 'challenge3'.
 	self grid: (SKGrid newWithExtent: 9 @ 3).
 	self kara: self grid challenge3.
 	self initializeObjects
@@ -262,6 +282,15 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 	
 	startPoint := ((self gameWidth / 2) - (executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
 	self executeControls position: self systemWindow position + startPoint.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/15/2026 20:19'
+}
+SKEnvironment >> reset [
+	self grid clear.
+	self grid perform: (self challange) asSymbol.
 ]
 
 {
