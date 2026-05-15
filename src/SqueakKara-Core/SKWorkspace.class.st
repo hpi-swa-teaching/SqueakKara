@@ -96,6 +96,14 @@ SKWorkspace >> kara: aKara [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/15/2026 22:23'
+}
+SKWorkspace >> resetKara: aKara [
+	self bindings at: #kara put: aKara.
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
 }
 SKWorkspace >> userCode [

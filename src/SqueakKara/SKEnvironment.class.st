@@ -185,39 +185,39 @@ SKEnvironment >> initializeObjects [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/15/2026 20:19'
+	#'squeak_changestamp' : 'JS 5/15/2026 22:14'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
-	self challange: 'challenge1'.
 	self grid: (SKGrid newWithExtent: 7 @ 7).
 	self kara: self grid challenge1.
-	self initializeObjects
+	self initializeObjects.
+	self executeControls currentChallenge: 'challenge1'.
 
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/15/2026 20:20'
+	#'squeak_changestamp' : 'JS 5/15/2026 22:15'
 }
 SKEnvironment >> initializeWithChallenge2 [
 
-	self challange: 'challenge2'.
 	self grid: (SKGrid newWithExtent: 9 @ 2).
 	self kara: self grid challenge2.
-	self initializeObjects
+	self initializeObjects.
+	self executeControls currentChallenge: 'challenge2'
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/15/2026 20:20'
+	#'squeak_changestamp' : 'JS 5/15/2026 22:15'
 }
 SKEnvironment >> initializeWithChallenge3 [
 
-	self challange: 'challenge3'.
 	self grid: (SKGrid newWithExtent: 9 @ 3).
 	self kara: self grid challenge3.
-	self initializeObjects
+	self initializeObjects.
+	self executeControls currentChallenge: 'challenge3'
 ]
 
 {
@@ -286,20 +286,12 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/15/2026 20:19'
-}
-SKEnvironment >> reset [
-	self grid clear.
-	self grid perform: (self challange) asSymbol.
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/15/2026 19:59'
+	#'squeak_changestamp' : 'JS 5/15/2026 22:26'
 }
 SKEnvironment >> reset: aChallenge [
 	self grid clear.
-	self grid perform: aChallenge asSymbol.
+	self kara: (self grid perform: aChallenge asSymbol).
+	self workspace resetKara: self kara.
 ]
 
 {

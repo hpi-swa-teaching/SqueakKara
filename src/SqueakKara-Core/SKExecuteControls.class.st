@@ -8,7 +8,9 @@ Class {
 		'environment',
 		'buttonRun',
 		'sliderSpeed',
-		'buttonStop'
+		'buttonStop',
+		'buttonReset',
+		'currentChallenge'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:42'
@@ -16,13 +18,12 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/15/2026 20:15'
+	#'squeak_changestamp' : 'JS 5/15/2026 22:12'
 }
 SKExecuteControls >> actionReset [
 	self environment stop.
 	self buttonRunSetTexture: self runTextureFilename.
-	"self environment reset: 'challenge1'."
-	self environment reset.
+	self environment reset: currentChallenge.
 ]
 
 {
@@ -53,14 +54,16 @@ SKExecuteControls >> actionStop [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:26'
+	#'squeak_changestamp' : 'JS 5/15/2026 23:34'
 }
 SKExecuteControls >> addAllWidgets [
 
 	self buttonRun: self buildButtonRun.
 	self sliderSpeed: self buildSliderSpeed.
 	self buttonStop: self buildButtonStop.
+	self buttonReset: self buildButtonReset.
 	self buttonRunSetTexture: self runTextureFilename.
+	self buttonResetSetTexture: self resetTextureFilename.
 	self buttonStopSetTexture.
 	self positionWidgets
 ]
@@ -83,6 +86,18 @@ SKExecuteControls >> addWidgetCentered: aWidget atXPosition: aXValue [
 
 {
 	#category : #widgets,
+	#'squeak_changestamp' : 'JS 5/15/2026 22:35'
+}
+SKExecuteControls >> buildButtonReset [
+
+	^ IconicButton new
+		    target: self;
+		    actionSelector: #actionReset;
+		    color: SKStylesheet secondaryColor
+]
+
+{
+	#category : #widgets,
 	#'squeak_changestamp' : 'EB 7/11/2024 14:40'
 }
 SKExecuteControls >> buildButtonRun [
@@ -95,13 +110,13 @@ SKExecuteControls >> buildButtonRun [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/15/2026 19:29'
+	#'squeak_changestamp' : 'JS 5/15/2026 22:33'
 }
 SKExecuteControls >> buildButtonStop [
 
 	^ IconicButton new
 		    target: self;
-		    actionSelector: #actionReset;
+		    actionSelector: #actionStop;
 		    color: SKStylesheet secondaryColor
 ]
 
@@ -119,6 +134,31 @@ SKExecuteControls >> buildSliderSpeed [
 		orientation: #horizontal;
 		target: self;
 		actionSelector: #sliderSpeedValueChanged:
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/15/2026 22:35'
+}
+SKExecuteControls >> buttonReset [
+	^ buttonReset
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/15/2026 22:35'
+}
+SKExecuteControls >> buttonReset: anObject [
+	buttonReset := anObject
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'JS 5/15/2026 22:38'
+}
+SKExecuteControls >> buttonResetSetTexture: aFilename [
+
+	self buttonReset labelGraphic: (self getTexture: aFilename)	
 ]
 
 {
@@ -177,11 +217,27 @@ SKExecuteControls >> buttonStopSetTexture [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 14:59'
+	#'squeak_changestamp' : 'JS 5/15/2026 22:13'
+}
+SKExecuteControls >> currentChallenge [
+	^ currentChallenge
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/15/2026 22:13'
+}
+SKExecuteControls >> currentChallenge: anObject [
+	currentChallenge := anObject
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/15/2026 22:51'
 }
 SKExecuteControls >> defaultBounds [
 
-	^ 0 @ 0 extent: 250 @ 50
+	^ 0 @ 0 extent: 292 @ 50
 ]
 
 {
@@ -246,7 +302,7 @@ SKExecuteControls >> pauseTextureFilename [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:26'
+	#'squeak_changestamp' : 'JS 5/15/2026 22:51'
 }
 SKExecuteControls >> positionWidgets [
 
@@ -254,7 +310,17 @@ SKExecuteControls >> positionWidgets [
 
 	verticalSpace := self addWidgetCentered: self buttonRun atXPosition: self widgetMargin.
 	verticalSpace := self addWidgetCentered: self sliderSpeed atXPosition: verticalSpace + self widgetMargin.
-	verticalSpace := self addWidgetCentered: self buttonStop atXPosition: verticalSpace + self widgetMargin
+	verticalSpace := self addWidgetCentered: self buttonStop atXPosition: verticalSpace + self widgetMargin.
+	verticalSpace := self addWidgetCentered: self buttonReset atXPosition: verticalSpace + self widgetMargin
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'JS 5/15/2026 23:34'
+}
+SKExecuteControls >> resetTextureFilename [
+
+	^ 'reset.png'
 ]
 
 {
