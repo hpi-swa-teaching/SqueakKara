@@ -30,6 +30,15 @@ SKWorkspace >> close [
 ]
 
 {
+	#category : #commands,
+	#'squeak_changestamp' : 'JS 5/12/2026 19:01'
+}
+SKWorkspace >> delete [
+
+	self changed: #close
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'NR 7/5/2024 15:14'
 }

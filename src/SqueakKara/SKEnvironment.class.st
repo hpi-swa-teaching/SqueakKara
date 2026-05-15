@@ -12,7 +12,8 @@ Class {
 		'executeControls',
 		'gameWidth',
 		'gameHeight',
-		'systemWindow'
+		'systemWindow',
+		'windowManager'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
@@ -150,7 +151,7 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:48'
+	#'squeak_changestamp' : 'JS 5/12/2026 18:45'
 }
 SKEnvironment >> initializeObjects [
 
@@ -161,6 +162,7 @@ SKEnvironment >> initializeObjects [
 	self executeControls environment: self.
 	
 	self setSystemWindow.
+	self windowManager addWindow: self workspace.
 	self systemWindow openInHand
 ]
 
@@ -238,6 +240,17 @@ SKEnvironment >> pause [
 
 {
 	#category : #initialization,
+	#'squeak_changestamp' : 'JS 5/12/2026 19:43'
+}
+SKEnvironment >> positionCloseButton [
+
+	self windowManager center: self grid bounds bottomCenter + (0@self grid pixelPerBlock/2).
+	
+
+]
+
+{
+	#category : #initialization,
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:25'
 }
 SKEnvironment >> positionExecuteControlsAndGrid [
@@ -274,19 +287,23 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:25'
+	#'squeak_changestamp' : 'JS 5/12/2026 19:36'
 }
 SKEnvironment >> setSystemWindow [
-
 	
+	self windowManager: SKWindowManager new.
+	self windowManager buildCloseButton.
 	self systemWindow: SystemWindow new.
 	self systemWindow setLabel: 'Kara'.
 	self systemWindow 
 		extent: self gameWidth @ self gameHeight;
 		setWindowColor: self grid backgroundColor;
 		addMorph: self executeControls;
-		addMorph: self grid.
-	self positionExecuteControlsAndGrid
+		addMorph: self grid;
+		addMorph: self windowManager. 
+	self positionExecuteControlsAndGrid.
+	self positionCloseButton.
+	self windowManager addWindow: self systemWindow.
 ]
 
 {
@@ -314,6 +331,22 @@ SKEnvironment >> systemWindow [
 SKEnvironment >> systemWindow: anObject [
 	
 	systemWindow := anObject
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/12/2026 18:24'
+}
+SKEnvironment >> windowManager [
+	^ windowManager
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/12/2026 18:24'
+}
+SKEnvironment >> windowManager: anObject [
+	windowManager := anObject
 ]
 
 {
