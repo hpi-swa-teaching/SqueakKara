@@ -16,6 +16,16 @@ Class {
 
 {
 	#category : #widgets,
+	#'squeak_changestamp' : 'JS 5/15/2026 19:30'
+}
+SKExecuteControls >> actionReset [
+	self environment stop.
+	self buttonRunSetTexture: self runTextureFilename.
+	self environment reset: 'challenge1'.
+]
+
+{
+	#category : #widgets,
 	#'squeak_changestamp' : 'JJG 7/1/2024 14:56'
 }
 SKExecuteControls >> actionRun [
@@ -84,13 +94,13 @@ SKExecuteControls >> buildButtonRun [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'EB 7/11/2024 14:40'
+	#'squeak_changestamp' : 'JS 5/15/2026 19:29'
 }
 SKExecuteControls >> buildButtonStop [
 
 	^ IconicButton new
 		    target: self;
-		    actionSelector: #actionStop;
+		    actionSelector: #actionReset;
 		    color: SKStylesheet secondaryColor
 ]
 

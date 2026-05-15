@@ -183,6 +183,15 @@ SKGrid >> challenge3 [
 ]
 
 {
+	#category : #texture,
+	#'squeak_changestamp' : 'JS 5/15/2026 20:11'
+}
+SKGrid >> clear [
+	self submorphsDo: [:cell | cell delete.].
+	self addTexture.
+]
+
+{
 	#category : #initialization,
 	#'squeak_changestamp' : 'LK 5/24/2024 11:18'
 }

@@ -265,6 +265,15 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/15/2026 19:59'
+}
+SKEnvironment >> reset: aChallenge [
+	self grid clear.
+	self grid perform: aChallenge asSymbol.
+]
+
+{
 	#category : #commands,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
 }
