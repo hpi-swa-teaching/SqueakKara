@@ -393,7 +393,7 @@ SKExecuteControls >> pauseTextureFilename [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:28'
+	#'squeak_changestamp' : 'jawi 5/15/2026 09:20'
 }
 SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
@@ -410,6 +410,9 @@ SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
 	self buttonRun extent: buttonSize.
 	self buttonRun labelGraphic: (self currentRunButtonTexture scaledToSize: iconSize).
+	
+	self buttonSpawnKara extent: buttonSize.
+	self buttonSpawnKara labelGraphic: (self karaTexture scaledToSize: iconSize).
 	
 	self sliderSpeed extent: sliderSize
 ]
