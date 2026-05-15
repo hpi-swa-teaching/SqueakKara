@@ -8,5 +8,9 @@ assignees: ''
 ---
 
 As a [user], I want [goal] so that [requirement] is fulfilled because [reason].
-Current: Currently [...] is behaving in such and such way.
-Should: [...] has to behave in a certain way.
+
+## Current
+Currently [...] is behaving in such and such way.
+
+## Should 
+[...] has to behave in a certain way.
