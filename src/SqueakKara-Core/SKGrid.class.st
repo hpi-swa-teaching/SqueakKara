@@ -96,6 +96,14 @@ SKGrid >> backgroundColor [
 
 {
 	#category : #challenges,
+	#'squeak_changestamp' : 'JS 5/17/2026 13:01'
+}
+SKGrid >> blankProject [	
+	^SKKara newInGrid: self at: 1 @ 1.
+]
+
+{
+	#category : #challenges,
 	#'squeak_changestamp' : 'JJG 6/18/2024 11:19'
 }
 SKGrid >> challenge1 [

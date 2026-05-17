@@ -185,6 +185,18 @@ SKEnvironment >> initializeObjects [
 
 {
 	#category : #initialization,
+	#'squeak_changestamp' : 'JS 5/17/2026 13:02'
+}
+SKEnvironment >> initializeWithBlankProject [
+
+	self grid: (SKGrid newWithExtent: 7 @ 7).
+	self kara: (SKKara newInGrid: self grid at: 1 @ 1).
+	self initializeObjects.
+	self executeControls currentChallenge: 'blankProject'
+]
+
+{
+	#category : #initialization,
 	#'squeak_changestamp' : 'JS 5/15/2026 22:14'
 }
 SKEnvironment >> initializeWithChallenge1 [
@@ -285,13 +297,14 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/15/2026 22:26'
+	#category : #commands,
+	#'squeak_changestamp' : 'JS 5/17/2026 13:06'
 }
 SKEnvironment >> reset: aChallenge [
 	self grid clear.
 	self kara: (self grid perform: aChallenge asSymbol).
 	self workspace resetKara: self kara.
+	self executer kara: self kara.
 ]
 
 {
@@ -317,13 +330,12 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/12/2026 19:36'
+	#'squeak_changestamp' : 'JS 5/17/2026 12:44'
 }
 SKEnvironment >> setSystemWindow [
 	
 	self windowManager: SKWindowManager new.
-	self windowManager buildCloseButton.
-	self systemWindow: SystemWindow new.
+	self systemWindow: (SKChallengeWindow new windowManager: self windowManager).
 	self systemWindow setLabel: 'Kara'.
 	self systemWindow 
 		extent: self gameWidth @ self gameHeight;

@@ -2,14 +2,21 @@ Class {
 	#name : #SKWindowManager,
 	#superclass : #Morph,
 	#instVars : [
-		'openWindows',
-		'closeButton'
+		'openWindows'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
-	#category : #accessing,
+	#category : #actions,
+	#'squeak_changestamp' : 'JS 5/16/2026 12:21'
+}
+SKWindowManager >> actionCloseAllWindows [
+	self openWindows do: [:a | a delete].
+]
+
+{
+	#category : #actions,
 	#'squeak_changestamp' : 'JS 5/12/2026 18:54'
 }
 SKWindowManager >> addWindow: aWindow [
@@ -17,44 +24,19 @@ SKWindowManager >> addWindow: aWindow [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/12/2026 19:40'
+	#category : #initialization,
+	#'squeak_changestamp' : 'JS 5/16/2026 12:50'
 }
-SKWindowManager >> buildCloseButton [
-	self closeButton: (IconicButton new
-		target: self;
-		actionSelector: #closeAllWindows;
-		color: SKStylesheet secondaryColor).
-	self addMorph: self closeButton.
-	self closeButton center: self center
+SKWindowManager >> buildConfirmationWindow [
+	
+	self addWindow:
+		(SKCloseConfirmationWindow new openInWorld; 
+			windowManager: self; 
+			buildWidgets).
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/12/2026 19:00'
-}
-SKWindowManager >> closeAllWindows [
-	self openWindows do: [:a | a delete].
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/12/2026 19:21'
-}
-SKWindowManager >> closeButton [
-	^ closeButton
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/12/2026 19:21'
-}
-SKWindowManager >> closeButton: anObject [
-	closeButton := anObject
-]
-
-{
-	#category : #accessing,
+	#category : #initialization,
 	#'squeak_changestamp' : 'JS 5/12/2026 19:26'
 }
 SKWindowManager >> initialize [
