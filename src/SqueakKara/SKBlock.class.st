@@ -89,7 +89,7 @@ SKBlock >> borderColorFromCategory [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 5/13/2026 12:31'
 }
 SKBlock >> category [
@@ -98,7 +98,7 @@ SKBlock >> category [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 5/13/2026 12:34'
 }
 SKBlock >> category: aCategory [
@@ -130,7 +130,7 @@ SKBlock >> command [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'FR 5/5/2026 21:15'
 }
 SKBlock >> handlesKeyboard: anEvent [
@@ -138,7 +138,7 @@ SKBlock >> handlesKeyboard: anEvent [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'FR 5/5/2026 23:08'
 }
 SKBlock >> handlesMouseDown: anEvent [
@@ -146,7 +146,7 @@ SKBlock >> handlesMouseDown: anEvent [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'FR 5/5/2026 20:45'
 }
 SKBlock >> handlesMouseOver: anEvent [
@@ -175,7 +175,17 @@ SKBlock >> initialize [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'dropping/grabbing',
+	#'squeak_changestamp' : 'FR 5/19/2026 14:31'
+}
+SKBlock >> justDroppedInto: anObject event: anEvent [
+	super justDroppedInto: anObject event: anEvent.
+	anObject == World ifTrue:[self delete].
+
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 5/11/2026 16:33'
 }
 SKBlock >> label [
@@ -184,12 +194,12 @@ SKBlock >> label [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 16:32'
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 5/19/2026 14:43'
 }
-SKBlock >> label: aLabel [
+SKBlock >> label: aString [
 	
-	self label contents: aLabel.
+	self label contents: aString.
 	self extent: self label extent+(10@10).
 	self label center: self center.
 ]
@@ -204,14 +214,14 @@ SKBlock >> leftSource [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/5/2026 23:07'
+	#'squeak_changestamp' : 'FR 5/19/2026 13:57'
 }
-SKBlock >> leftSource: anObject [
-	leftSource := anObject
+SKBlock >> leftSource: aBoolean [
+	leftSource := aBoolean
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'FR 5/5/2026 23:09'
 }
 SKBlock >> mouseDown: anEvent [
@@ -223,7 +233,7 @@ SKBlock >> mouseDown: anEvent [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'dropping/grabbing',
 	#'squeak_changestamp' : 'FR 5/5/2026 20:49'
 }
 SKBlock >> rejectDropMorphEvent: anEvent [
@@ -234,7 +244,7 @@ SKBlock >> rejectDropMorphEvent: anEvent [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'dropping/grabbing',
 	#'squeak_changestamp' : 'FR 5/5/2026 23:10'
 }
 SKBlock >> startDrag: anEvent [
@@ -258,7 +268,7 @@ SKBlock >> text: anObject [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'FR 5/5/2026 21:15'
 }
 SKBlock >> wantsKeyboardFocus [
