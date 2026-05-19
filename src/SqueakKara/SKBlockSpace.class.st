@@ -31,13 +31,19 @@ SKBlockSpace >> acceptDroppingMorph: aMorph event: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/19/2026 16:51'
+	#'squeak_changestamp' : 'FR 5/20/2026 01:07'
 }
 SKBlockSpace >> addDropZoneAtIndex: aNumber of: aMorph [
+	| dropZone |
 	(self dropIndex = aNumber or:[aNumber > self submorphCount and:[self dropIndex ~= nil]]) ifFalse:[
 		self removeDropZone.
+		dropZone := aMorph copy.
+		"dropZone submorphs do: [:each | each color: Color gray]."
+		dropZone submorphCount timesRepeat: [dropZone firstSubmorph delete]. "may not work with compound blocks but looks nicer for now"
+		dropZone color: Color gray;
+			borderColor: Color gray.
 		self dropIndex: aNumber;
-			privateAddMorph: aMorph copy
+			privateAddMorph: dropZone
 				atIndex: (aNumber).]
 ]
 
@@ -114,13 +120,14 @@ SKBlockSpace >> handlesMouseOver: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/6/2026 00:56'
+	#'squeak_changestamp' : 'FR 5/20/2026 00:49'
 }
 SKBlockSpace >> initializeWithKara: aKara [
 	super initialize.
 	self listDirection: #topToBottom;
 	hResizing: #spaceFill;
 	wrapCentering: #center;
+	cellPositioning: #topLeft;
 	width: 500;
 	height: 500;
 	vResizing: #spaceFill;
