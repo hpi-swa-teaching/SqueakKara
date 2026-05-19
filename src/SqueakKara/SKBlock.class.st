@@ -146,14 +146,6 @@ SKBlock >> handlesMouseDown: anEvent [
 ]
 
 {
-	#category : #'event handling',
-	#'squeak_changestamp' : 'FR 5/5/2026 20:45'
-}
-SKBlock >> handlesMouseOver: anEvent [
-	^true.
-]
-
-{
 	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'SLH 5/13/2026 12:39'
 }
@@ -176,7 +168,7 @@ SKBlock >> initialize [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 5/19/2026 14:31'
+	#'squeak_changestamp' : 'FR 5/20/2026 01:43'
 }
 SKBlock >> justDroppedInto: anObject event: anEvent [
 	super justDroppedInto: anObject event: anEvent.
@@ -234,7 +226,7 @@ SKBlock >> mouseDown: anEvent [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 5/5/2026 20:49'
+	#'squeak_changestamp' : 'FR 5/20/2026 01:33'
 }
 SKBlock >> rejectDropMorphEvent: anEvent [
 | h |
@@ -249,22 +241,6 @@ SKBlock >> rejectDropMorphEvent: anEvent [
 }
 SKBlock >> startDrag: anEvent [
 	anEvent hand grabMorph: self
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/5/2026 23:00'
-}
-SKBlock >> text [
-	^ text
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/5/2026 23:00'
-}
-SKBlock >> text: anObject [
-	text := anObject
 ]
 
 {

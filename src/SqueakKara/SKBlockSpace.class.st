@@ -20,11 +20,11 @@ SKBlockSpace class >> newWithKara: aKara [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/19/2026 15:42'
+	#'squeak_changestamp' : 'FR 5/20/2026 01:41'
 }
 SKBlockSpace >> acceptDroppingMorph: aMorph event: anEvent [
+	self addMorph: aMorph atIndex: self dropIndex +1.
 	self removeDropZone.
-	super acceptDroppingMorph: aMorph event: anEvent.
 	self updateCode.
 	
 ]
@@ -90,31 +90,25 @@ SKBlockSpace >> environment: anObject [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/19/2026 16:08'
+	#'squeak_changestamp' : 'FR 5/20/2026 01:25'
 }
-SKBlockSpace >> handleMouseLeave: anEvent [
-	self removeDropZone.
+SKBlockSpace >> handlesMouseMove: anEvent [
+	^true
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/19/2026 16:51'
-}
-SKBlockSpace >> handleMouseOver: anEvent [
-| grabbedMorph layout |
-	anEvent hand submorphCount = 1 ifTrue:[
-		grabbedMorph := anEvent hand firstSubmorph.
-		(self wantsDroppedMorph: grabbedMorph event: anEvent) ifFalse: [^self].
-		layout := self layoutPolicy.
-		self addDropZoneAtIndex: (layout indexForInserting: grabbedMorph at: anEvent position in: self) of: grabbedMorph
-		]
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/19/2026 15:18'
+	#'squeak_changestamp' : 'FR 5/20/2026 01:20'
 }
 SKBlockSpace >> handlesMouseOver: anEvent [
+	^true
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/20/2026 01:20'
+}
+SKBlockSpace >> handlesMouseOverDragging: anEvent [
 	^true
 ]
 
@@ -161,6 +155,28 @@ SKBlockSpace >> kara: anObject [
 }
 SKBlockSpace >> mouseLeave: anEvent [
 	self removeDropZone.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/20/2026 01:21'
+}
+SKBlockSpace >> mouseLeaveDragging: anEvent [
+	self removeDropZone.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/20/2026 01:25'
+}
+SKBlockSpace >> mouseMove: anEvent [
+| grabbedMorph layout |
+	anEvent hand submorphCount = 1 ifTrue:[
+		grabbedMorph := anEvent hand firstSubmorph.
+		(self wantsDroppedMorph: grabbedMorph event: anEvent) ifFalse: [^self].
+		layout := self layoutPolicy.
+		self addDropZoneAtIndex: (layout indexForInserting: grabbedMorph at: anEvent position in: self) of: grabbedMorph
+		]
 ]
 
 {
