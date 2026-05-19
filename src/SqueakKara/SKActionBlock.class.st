@@ -99,13 +99,11 @@ SKActionBlock >> drawOn: aCanvas [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/19/2026 23:21'
+	#'squeak_changestamp' : 'SLH 5/20/2026 00:20'
 }
-SKActionBlock >> layoutBounds [
-	| normalBounds |
-	normalBounds := super layoutBounds.
+SKActionBlock >> minHeight [
 
-	^ normalBounds origin corner: (normalBounds corner x @ (normalBounds corner y - self tabHeight)).
+	^ super minHeight + self tabHeight.
 ]
 
 {

@@ -221,6 +221,15 @@ SKBlock >> leftSource: aBoolean [
 ]
 
 {
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/20/2026 00:22'
+}
+SKBlock >> minHeight [
+
+	^ 35
+]
+
+{
 	#category : #'event handling',
 	#'squeak_changestamp' : 'FR 5/5/2026 23:09'
 }
