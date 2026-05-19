@@ -2,11 +2,15 @@ Extension { #name : #Color }
 
 {
 	#category : #'*SqueakKara-Core',
-	#'squeak_changestamp' : 'LD 5/7/2026 18:12'
+	#'squeak_changestamp' : 'LD 5/19/2026 13:31'
 }
 Color >> isSimilarColorTo: anotherColor [
-
-	^ (self red roundTo: 0.1) == (anotherColor red roundTo: 0.1) 
-		and: (self green roundTo: 0.1) == (anotherColor green roundTo: 0.1) 
-		and: (self blue roundTo: 0.1) == (anotherColor blue roundTo: 0.1) 
+	
+	| accuracy |
+	
+	accuracy := 0.1.
+	
+	^ (self red roundTo: accuracy) == (anotherColor red roundTo: accuracy) 
+		and: (self green roundTo: accuracy) == (anotherColor green roundTo: accuracy) 
+		and: (self blue roundTo: accuracy) == (anotherColor blue roundTo: accuracy) 
 ]
