@@ -2,6 +2,15 @@ Extension { #name : #Color }
 
 {
 	#category : #'*SqueakKara-Core',
+	#'squeak_changestamp' : 'LD 5/19/2026 18:21'
+}
+Color >> colorNotBlack [
+
+	^ (self isSimilarColorTo: (Color black)) not
+]
+
+{
+	#category : #'*SqueakKara-Core',
 	#'squeak_changestamp' : 'LD 5/19/2026 13:31'
 }
 Color >> isSimilarColorTo: anotherColor [

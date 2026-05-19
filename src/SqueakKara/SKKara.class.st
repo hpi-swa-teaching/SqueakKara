@@ -14,11 +14,11 @@ Class {
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 13:33'
+	#'squeak_changestamp' : 'LD 5/19/2026 18:21'
 }
 SKKara >> color: aColor [
 	
-	(self colorNotBlack: aColor) ifTrue: [
+	(aColor colorNotBlack) ifTrue: [
 		super color: aColor.
 		self updateColor
 	]
@@ -45,11 +45,11 @@ SKKara >> defaultColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 13:33'
+	#'squeak_changestamp' : 'LD 5/19/2026 18:21'
 }
 SKKara >> fillStyle: aFillStyle [
 		
-		(self colorNotBlack: aFillStyle) ifTrue: [
+		(aFillStyle colorNotBlack) ifTrue: [
 			super fillStyle: aFillStyle.
 			self updateColor
 		]
@@ -205,23 +205,25 @@ SKKara >> updateColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 13:33'
+	#'squeak_changestamp' : 'LD 5/19/2026 18:30'
 }
 SKKara >> updateColorFor: aForm [
 	
 	| target replacement |
-
+	
 	target := self previousColor.
 	replacement := self color.
+	
 	1 to: aForm width do: [:x |
 	  1 to: aForm height do: [:y |
 		(((aForm colorAt: x @ y) isSimilarColorTo: target) 
 			or: [(aForm colorAt: x @ y) = (self defaultColor)])
 				ifTrue: [
 	      			aForm colorAt: x @ y put: replacement ].
+					self previousColor: self color.
 	  			]].
 	
-	self previousColor: self color.
+	
 	self image: aForm
 ]
 
