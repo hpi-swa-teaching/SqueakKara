@@ -14,7 +14,7 @@ SKBlockSource >> handlesMouseDown: evt [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 18:03'
+	#'squeak_changestamp' : 'SLH 5/19/2026 23:26'
 }
 SKBlockSource >> initialize [
 	|m|

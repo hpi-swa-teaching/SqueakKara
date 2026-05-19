@@ -55,3 +55,64 @@ SKActionBlock >> command [
 	
 	^ self action valueWithArguments: args asArray.
 ]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/19/2026 23:24'
+}
+SKActionBlock >> drawOn: aCanvas [
+	| b bw topEdge bottomEdge tabOffset tabWidth slantWidth pts |
+
+	bw := self borderWidth max: 1. 
+	b := self bounds insetBy: bw.
+
+	tabOffset := 8.
+	tabWidth := 32.
+	slantWidth := 8.
+
+	topEdge := b top.
+	bottomEdge := b bottom - self tabHeight.
+
+	pts := {
+		b left @ topEdge.
+		(b left + tabOffset) @ topEdge. 
+		(b left + tabOffset + slantWidth) @ (topEdge + self tabHeight).
+		(b left + tabOffset + tabWidth - slantWidth) @ (topEdge + self tabHeight).
+		(b left + tabOffset + tabWidth) @ topEdge.
+		b right @ topEdge.
+    
+		b right @ bottomEdge.
+
+		(b left + tabOffset + tabWidth) @ bottomEdge.
+		(b left + tabOffset + tabWidth - slantWidth) @ (bottomEdge + self tabHeight).
+		(b left + tabOffset + slantWidth) @ (bottomEdge + self tabHeight).
+		(b left + tabOffset) @ bottomEdge.
+		b left @ bottomEdge.
+	}.
+
+	aCanvas 
+		drawPolygon: pts 
+		color: self color 
+		borderWidth: bw 
+		borderColor: self borderColor.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/19/2026 23:21'
+}
+SKActionBlock >> layoutBounds [
+	| normalBounds |
+	normalBounds := super layoutBounds.
+
+	^ normalBounds origin corner: (normalBounds corner x @ (normalBounds corner y - self tabHeight)).
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/19/2026 23:13'
+}
+SKActionBlock >> tabHeight [
+
+	^ 8.
+]

@@ -155,7 +155,7 @@ SKBlock >> handlesMouseOver: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 12:39'
+	#'squeak_changestamp' : 'SLH 5/19/2026 23:15'
 }
 SKBlock >> initialize [
 	super initialize.
@@ -171,7 +171,7 @@ SKBlock >> initialize [
 		listDirection: #rightToLeft;
 		hResizing: #shrinkWrap;
 		cellInset: 5@0;
-		layoutInset: 5@0.
+		layoutInset: 10@5.
 ]
 
 {
