@@ -40,6 +40,20 @@ SKGridCoordinator >> createGridMatrix [
 
 {
 	#category : #'object storing',
+	#'squeak_changestamp' : 'jawi 5/14/2026 12:24'
+}
+SKGridCoordinator >> findFreeField [
+
+	| aSet |
+
+	aSet := Set new.	
+	self gridMatrix indicesDo: [ :x :y | ((self getTileAtCoordinates: x @ y) isEmpty) ifTrue: [aSet add: x @ y]].
+	
+	^ aSet
+]
+
+{
+	#category : #'object storing',
 	#'squeak_changestamp' : 'LK 5/24/2024 11:07'
 }
 SKGridCoordinator >> getTileAtCoordinates: aPoint [
