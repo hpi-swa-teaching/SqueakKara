@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'kara',
 		'environment',
-		'start',
 		'dropIndex'
 	],
 	#category : #'SqueakKara-Core'
@@ -20,34 +19,33 @@ SKBlockSpace class >> newWithKara: aKara [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/19/2026 15:42'
+	#'squeak_changestamp' : 'FR 5/20/2026 03:57'
 }
 SKBlockSpace >> acceptDroppingMorph: aMorph event: anEvent [
+	self addMorph: aMorph atIndex: self dropIndex+1.
 	self removeDropZone.
-	super acceptDroppingMorph: aMorph event: anEvent.
 	self updateCode.
 	
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/19/2026 16:51'
+	#'squeak_changestamp' : 'FR 5/20/2026 03:55'
 }
 SKBlockSpace >> addDropZoneAtIndex: aNumber of: aMorph [
+	| dropZone newIndex|
 	(self dropIndex = aNumber or:[aNumber > self submorphCount and:[self dropIndex ~= nil]]) ifFalse:[
+		newIndex := aNumber.
+		aNumber = 1 ifTrue:[newIndex:= 2].
 		self removeDropZone.
-		self dropIndex: aNumber;
-			privateAddMorph: aMorph copy
-				atIndex: (aNumber).]
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 16:22'
-}
-SKBlockSpace >> addStartBlock [
-	self start: (SKBlock new label: 'Start of Script').
-	self addMorph: self start.
+		dropZone := aMorph copy.
+		"dropZone submorphs do: [:each | each color: Color gray]."
+		dropZone submorphCount timesRepeat: [dropZone firstSubmorph delete]. "may not work with compound blocks but looks nicer for now"
+		dropZone color: Color gray;
+			borderColor: Color gray.
+		self dropIndex: newIndex;
+			privateAddMorph: dropZone
+				atIndex: (newIndex).]
 ]
 
 {
@@ -84,29 +82,15 @@ SKBlockSpace >> environment: anObject [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/19/2026 16:08'
+	#'squeak_changestamp' : 'FR 5/20/2026 02:38'
 }
-SKBlockSpace >> handleMouseLeave: anEvent [
-	self removeDropZone.
+SKBlockSpace >> handlesMouseMove: anEvent [
+	^true
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/19/2026 16:51'
-}
-SKBlockSpace >> handleMouseOver: anEvent [
-| grabbedMorph layout |
-	anEvent hand submorphCount = 1 ifTrue:[
-		grabbedMorph := anEvent hand firstSubmorph.
-		(self wantsDroppedMorph: grabbedMorph event: anEvent) ifFalse: [^self].
-		layout := self layoutPolicy.
-		self addDropZoneAtIndex: (layout indexForInserting: grabbedMorph at: anEvent position in: self) of: grabbedMorph
-		]
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/19/2026 15:18'
+	#'squeak_changestamp' : 'FR 5/20/2026 02:25'
 }
 SKBlockSpace >> handlesMouseOver: anEvent [
 	^true
@@ -114,20 +98,30 @@ SKBlockSpace >> handlesMouseOver: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/6/2026 00:56'
+	#'squeak_changestamp' : 'FR 5/20/2026 02:25'
+}
+SKBlockSpace >> handlesMouseOverDragging: anEvent [
+	^true
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/20/2026 04:25'
 }
 SKBlockSpace >> initializeWithKara: aKara [
 	super initialize.
 	self listDirection: #topToBottom;
 	hResizing: #spaceFill;
 	wrapCentering: #center;
+	cellPositioning: #topLeft;
+	cellGap: -5;
 	width: 500;
 	height: 500;
 	vResizing: #spaceFill;
 	kara: aKara;
 	openInWindowLabeled: 'SKBlockSpace'.
 	SKBlockSource new.
-	self addStartBlock
+	self addMorph: (SKBlock new label: 'Start of Script')
 
 	
 ]
@@ -158,6 +152,28 @@ SKBlockSpace >> mouseLeave: anEvent [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/20/2026 01:21'
+}
+SKBlockSpace >> mouseLeaveDragging: anEvent [
+	self removeDropZone.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/20/2026 01:25'
+}
+SKBlockSpace >> mouseMove: anEvent [
+| grabbedMorph layout |
+	anEvent hand submorphCount = 1 ifTrue:[
+		grabbedMorph := anEvent hand firstSubmorph.
+		(self wantsDroppedMorph: grabbedMorph event: anEvent) ifFalse: [^self].
+		layout := self layoutPolicy.
+		self addDropZoneAtIndex: (layout indexForInserting: grabbedMorph at: anEvent position in: self) of: grabbedMorph
+		]
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'FR 5/5/2026 22:28'
 }
 SKBlockSpace >> objectHeight [
@@ -177,33 +193,15 @@ SKBlockSpace >> removeDropZone [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/5/2026 23:42'
-}
-SKBlockSpace >> start [
-	^ start
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/5/2026 23:42'
-}
-SKBlockSpace >> start: anObject [
-	start := anObject
-]
-
-{
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 18:07'
+	#'squeak_changestamp' : 'FR 5/20/2026 04:43'
 }
 SKBlockSpace >> updateCode [
 	"this is obviously temporary"
-	| code behind |
+	| code |
 	code:= ''.
-	behind := false.
 	self flag: #temp.
-	self submorphsBehind: self start do: [:each | behind
-		ifFalse: [ each action ifNotNil: [code:= code, each command, '.',  String cr]]].
+	self submorphsBehind: (self firstSubmorph) do: [:each | each action ifNotNil: [code:= code, each command, '.',  String cr]].
 	self environment workspace userCode: code.
 ]
 
