@@ -5,8 +5,7 @@ Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
 	#instVars : [
-		'viewDirection',
-		'previousColor'
+		'viewDirection'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
@@ -14,13 +13,13 @@ Class {
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 18:21'
+	#'squeak_changestamp' : 'ND 5/20/2026 14:51'
 }
 SKKara >> color: aColor [
 	
 	(aColor colorNotBlack) ifTrue: [
+		self scaleToFactor.
 		super color: aColor.
-		self updateColor
 	]
 ]
 
@@ -53,20 +52,6 @@ SKKara >> fillStyle: aFillStyle [
 			super fillStyle: aFillStyle.
 			self updateColor
 		]
-]
-
-{
-	#category : #appearance,
-	#'squeak_changestamp' : 'jt 6/11/2024 19:59'
-}
-SKKara >> getTextureForDirection [
-
-	self viewDirection caseOf: {
-		[SKDirection above] -> [^ 'Kara-FacingUp.png' ].
-		[SKDirection right] -> [^ 'Kara-FacingRight.png'].
-		[SKDirection below] -> [^ 'Kara-FacingDown.png'].
-		[SKDirection left] -> [^ 'Kara-FacingLeft.png']
-	}
 ]
 
 {
@@ -116,36 +101,43 @@ SKKara >> position: aPoint [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/7/2026 18:08'
+	#'squeak_changestamp' : 'ND 5/20/2026 15:51'
 }
-SKKara >> previousColor [
-
-	^ previousColor ifNil: self defaultColor
-]
-
-{
-	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/7/2026 18:09'
-}
-SKKara >> previousColor: aColor [
-
-	previousColor := aColor
-]
-
-{
-	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 13:33'
-}
-SKKara >> scaleFactor: aNumber [
+SKKara >> rotate [
 	
-	super scaleFactor: aNumber.
-	self previousColor: self defaultColor.
-	self updateColor
+	| centerWidth centerHeight img|
+	
+	centerWidth := self image width / 2.
+	centerHeight := self image height / 2.
+	img := self originalImage.
+	self viewDirection caseOf: {
+		[SKDirection right] -> [img := self image rotateBy: #right centerAt: centerWidth @ centerHeight].
+		[SKDirection below] -> [img := self image rotateBy: #pi centerAt: centerWidth @ centerHeight].
+		[SKDirection left] -> [img := self image rotateBy: #left centerAt: centerWidth @ centerHeight].
+		[SKDirection above] -> [img := self image rotateBy: #none centerAt: centerWidth @ centerHeight].
+	}.
+	
+	^ img.
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 13:33'
+	#'squeak_changestamp' : 'ND 5/20/2026 15:51'
+}
+SKKara >> scaleToFactor [
+
+	| img |
+	
+	super scaleToFactor.
+	self updateColor.
+	
+	img := self rotate.
+	self image: img.
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'ND 5/20/2026 15:52'
 }
 SKKara >> setTexture [
 
@@ -156,17 +148,22 @@ SKKara >> setTexture [
 	aForm := aTextureLoader
 		getTexture: self textureFilename
 		scaledToWidth: self grid pixelPerBlock.
+
+	self image: aForm.
+	self rotate.
 	self originalImage: aForm.
 	self updateColorFor: aForm
+	
+
 ]
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'jt 6/11/2024 19:58'
+	#'squeak_changestamp' : 'ND 5/20/2026 15:46'
 }
 SKKara >> textureFilename [
 
-	^ self getTextureForDirection
+	^ 'Kara-FacingUp.png'
 ]
 
 {
@@ -184,40 +181,38 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'EB 7/11/2024 15:18'
+	#'squeak_changestamp' : 'ND 5/20/2026 15:36'
 }
 SKKara >> turn: aRotation [
-												
+								
 	self viewDirection:	 (SKDirection rotatePosition: self viewDirection by: aRotation).		
-	self setTexture
+	self scaleToFactor.
+	
+	
 
 	
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 13:33'
+	#'squeak_changestamp' : 'ND 5/20/2026 14:49'
 }
 SKKara >> updateColor [
-
 	self updateColorFor: self image
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 18:30'
+	#'squeak_changestamp' : 'ND 5/20/2026 14:49'
 }
 SKKara >> updateColorFor: aForm [
 	
-	| target replacement |
+	| replacement |
 	
-	target := self previousColor.
 	replacement := self color.
-	
 	1 to: aForm width do: [:x |
 	  1 to: aForm height do: [:y |
-		(((aForm colorAt: x @ y) isSimilarColorTo: target) 
-			or: [(aForm colorAt: x @ y) = (self defaultColor)])
+		((aForm colorAt: x @ y) = (self defaultColor))
 				ifTrue: [
 	      			aForm colorAt: x @ y put: replacement ].
 					self previousColor: self color.

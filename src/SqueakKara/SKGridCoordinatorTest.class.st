@@ -60,14 +60,14 @@ SKGridCoordinatorTest >> testDeleteObject [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 4/29/2026 18:56'
+	#'squeak_changestamp' : 'ND 5/20/2026 14:40'
 }
 SKGridCoordinatorTest >> testLogicalConsistencyOnResize [
 
 	| expectedObject receivedSet oldMatrix |
 	oldMatrix := self grid gridCoordinator.
 	expectedObject := SKKara new initializeInGrid: grid at: 2@2.
-	expectedObject scaleFactor: 2.
+	expectedObject scaleToFactor.
 	
 	receivedSet := self grid gridCoordinator getTileAtCoordinates: 2@2.
 	
