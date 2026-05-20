@@ -20,11 +20,12 @@ SKBlockSpace class >> newWithKara: aKara [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 01:41'
+	#'squeak_changestamp' : 'FR 5/20/2026 02:42'
 }
 SKBlockSpace >> acceptDroppingMorph: aMorph event: anEvent [
-	self addMorph: aMorph atIndex: self dropIndex +1.
+	"self addMorph: aMorph atIndex: self dropIndex +1."
 	self removeDropZone.
+	super acceptDroppingMorph: aMorph event: anEvent.
 	self updateCode.
 	
 ]
@@ -90,7 +91,7 @@ SKBlockSpace >> environment: anObject [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 01:25'
+	#'squeak_changestamp' : 'FR 5/20/2026 02:38'
 }
 SKBlockSpace >> handlesMouseMove: anEvent [
 	^true
@@ -98,7 +99,7 @@ SKBlockSpace >> handlesMouseMove: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 01:20'
+	#'squeak_changestamp' : 'FR 5/20/2026 02:25'
 }
 SKBlockSpace >> handlesMouseOver: anEvent [
 	^true
@@ -106,7 +107,7 @@ SKBlockSpace >> handlesMouseOver: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 01:20'
+	#'squeak_changestamp' : 'FR 5/20/2026 02:25'
 }
 SKBlockSpace >> handlesMouseOverDragging: anEvent [
 	^true
@@ -114,7 +115,7 @@ SKBlockSpace >> handlesMouseOverDragging: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 00:49'
+	#'squeak_changestamp' : 'FR 5/20/2026 02:53'
 }
 SKBlockSpace >> initializeWithKara: aKara [
 	super initialize.
@@ -122,6 +123,7 @@ SKBlockSpace >> initializeWithKara: aKara [
 	hResizing: #spaceFill;
 	wrapCentering: #center;
 	cellPositioning: #topLeft;
+	cellGap: -5;
 	width: 500;
 	height: 500;
 	vResizing: #spaceFill;
