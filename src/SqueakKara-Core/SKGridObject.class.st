@@ -127,7 +127,7 @@ SKGridObject >> gridCoordinator [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:40'
+	#'squeak_changestamp' : 'LM 4/28/2026 18:51'
 }
 SKGridObject >> initializeInGrid: aGrid at: aPoint [
 
@@ -137,7 +137,7 @@ SKGridObject >> initializeInGrid: aGrid at: aPoint [
 	self coordinates: aPoint.
 	self addToGrid.
 	self setTexture.
-	self scaleToFactor
+	self scaleFactor: self scaleFactor
 ]
 
 {
@@ -307,9 +307,9 @@ SKGridObject >> relativePositionFor: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:38'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:03'
 }
-SKGridObject >> scaleToFactor [
+SKGridObject >> scaleFactor: aNumber [
 
 	| size |
 	size := self grid pixelPerBlock.

@@ -194,6 +194,29 @@ SKKaraTest >> testMoveWhenTrunkAhead [
 
 {
 	#category : #testing,
+	#'squeak_changestamp' : 'LD 5/20/2026 16:48'
+}
+SKKaraTest >> testNewColorPicker [
+	
+	| kara aForm colorChanged |
+	
+	kara := SKKara newInGrid: self grid.
+	
+	kara color: Color green.
+	colorChanged := False.
+		
+	aForm := kara image.
+	1 to: aForm width do: [:x |
+	  1 to: aForm height do: [:y |
+			((aForm colorAt: x @ y) = (Color green))
+				ifTrue: [
+	      			colorChanged := True ].
+	  			]].
+	self assert: (colorChanged = True).
+]
+
+{
+	#category : #testing,
 	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
 }
 SKKaraTest >> testNoTrunkAhead [
@@ -217,6 +240,29 @@ SKKaraTest >> testNotOnCloverleaf [
 	SKCloverleaf newInGrid: self grid at: 2 @ 1.
 	self deny: kara onCloverleaf
 
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'LD 5/20/2026 16:46'
+}
+SKKaraTest >> testOldColorPicker [
+	
+	| kara aForm colorChanged |
+	
+	kara := SKKara newInGrid: self grid.
+	
+	kara fillStyle: Color green.
+	colorChanged := False.
+		
+	aForm := kara image.
+	1 to: aForm width do: [:x |
+	  1 to: aForm height do: [:y |
+			((aForm colorAt: x @ y) = (Color green))
+				ifTrue: [
+	      			colorChanged := True ].
+	  			]].
+	self assert: (colorChanged = True).
 ]
 
 {

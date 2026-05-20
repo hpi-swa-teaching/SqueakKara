@@ -332,12 +332,12 @@ SKGrid >> pixelPerBlock [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:40'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:37'
 }
 SKGrid >> redrawTexture [
 
 	self gridLines do: [:gridLine | self removeMorph: gridLine ].
-	self submorphsDo: [:submorph | submorph scaleToFactor].
+	self submorphsDo: [:submorph | submorph scaleFactor: (self scaleFactor)].
 	
 	self drawTexture
 ]
