@@ -5,14 +5,13 @@ Class {
 	#name : #SKExecuter,
 	#superclass : #Object,
 	#instVars : [
+		'kara',
 		'codeString',
 		'compiler',
-		'processes',
+		'process',
 		'speed',
 		'state',
-		'environment',
-		'scheduler',
-		'testMode'
+		'environment'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:45'
@@ -20,24 +19,49 @@ Class {
 
 {
 	#category : #'class initialization',
-	#'squeak_changestamp' : 'LM 5/7/2026 22:59'
+	#'squeak_changestamp' : 'LM 5/4/2026 12:53'
 }
-SKExecuter class >> newWithEnvironment: anEnvironment [
+SKExecuter class >> newWithEnvironment: anEnvironment kara: aKara [
 	
-	^ self new
-		testMode: false;
-		environment: anEnvironment;
-		stateWithoutUpdate: #terminated;
-		yourself
+	| executer karaDecorator |
+	executer := self new.
+
+	karaDecorator := SKKaraDecorator new.
+	karaDecorator kara: aKara.
+	karaDecorator executer: executer.
+
+	executer
+		kara: karaDecorator;
+		environment: anEnvironment.
+
+	^ executer
+]
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'KD 7/9/2024 15:26'
+}
+SKExecuter >> codeContext [
+
+	^ (SKExecuteContext new kara: self kara)
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/6/2026 18:40'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
-SKExecuter >> addKara: aKara [
+SKExecuter >> codeString [
 	
-	self karas add: aKara
+	^ codeString
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
+}
+SKExecuter >> codeString: anObject [
+	
+	codeString := anObject
 ]
 
 {
@@ -78,108 +102,86 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/10/2026 21:40'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
 }
 SKExecuter >> execute: aCode [
 
-	| priority decorators |
+	self codeString: aCode.
+	self state: #running.
+	self process: [self executeBlock: aCode] fork
 	
-	self terminate.
+]
 
-	priority := Processor userBackgroundPriority.
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/4/2026 12:57'
+}
+SKExecuter >> executeBlock: aBlock [
 	
-	decorators := self karas collect: [ :kara |
-		SKKaraProxy newWith: kara ].
-	
-	self scheduler: (SKScheduler
-		newWithActors: decorators
-		executer: self).
-	
-	self processes: (decorators collect: [ :decorator |
-		| context |
-		decorator scheduler: self scheduler.
-		context := SKExecuteContext new kara: decorator.
-		[[ self compiler evaluate: aCode for: context ] ensure: [
-			scheduler finishActor: decorator ]] forkAt: priority ]).
-
-	self state: #running
+	self compiler evaluate: aBlock for: (self codeContext).
+	self state: #terminated.
+	self environment onFinish
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:44'
+	#'squeak_changestamp' : 'LM 5/4/2026 12:54'
 }
 SKExecuter >> initialize [
 
 	super initialize.
 	self compiler: Compiler new.
 	self speed: 25.
-	self processes: OrderedCollection new.
-	^ self
+	self state: #terminated.
+	^ self 
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:50'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
-SKExecuter >> karas [
+SKExecuter >> kara [
 	
-	^ self environment karas
+	^ kara
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:38'
+}
+SKExecuter >> kara: anObject [
+	
+	kara := anObject
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:38'
+}
+SKExecuter >> process [
+	
+	^ process
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:38'
+}
+SKExecuter >> process: anObject [
+	
+	process := anObject
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:13'
-}
-SKExecuter >> onFinish [
-
-	self environment onFinish
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/6/2026 18:37'
-}
-SKExecuter >> processes [
-	
-	^ processes
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/6/2026 18:37'
-}
-SKExecuter >> processes: aCollection [
-	
-	processes := aCollection
-]
-
-{
-	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 20:19'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:09'
 }
 SKExecuter >> resumeExecution [
 	
-	self processes do: [ :process | process isTerminated ifFalse: [ process resume ]].
-	self state: #running
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:46'
-}
-SKExecuter >> scheduler [
-
-	^ scheduler
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:46'
-}
-SKExecuter >> scheduler: aScheduler [
-
-	scheduler := aScheduler
+	self process isTerminated ifTrue: [ ^ self ].
+	
+	self state: #running.
+	self process resume
 ]
 
 {
@@ -193,7 +195,7 @@ SKExecuter >> speed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/11/2026 21:43'
+	#'squeak_changestamp' : 'KD 6/12/2024 12:05'
 }
 SKExecuter >> speed: aSpeed [
 	
@@ -202,51 +204,41 @@ SKExecuter >> speed: aSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 16:31'
+	#'squeak_changestamp' : 'LM 4/29/2026 18:50'
 }
 SKExecuter >> state [
 
-	(self processes allSatisfy: [ :process | process isTerminated ])
-		ifTrue: [ ^ #terminated ].
-	
+	(self process isNil) 
+		ifTrue: [ self state: #terminated ]
+		ifFalse: [(self process isTerminated) 
+			ifTrue: [ self state: #terminated ]].
 	^ state
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:29'
+	#'squeak_changestamp' : 'EB 6/22/2024 14:07'
 }
-SKExecuter >> state: aSymbol [
-
-	state := aSymbol.
-	self environment updateTextures
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:34'
-}
-SKExecuter >> stateWithoutUpdate: aSymbol [
-
-	state := aSymbol
+SKExecuter >> state: anObject [
+	state := anObject
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:58'
+	#'squeak_changestamp' : 'JJG 6/17/2024 16:37'
 }
 SKExecuter >> step [
+
+	self stepTime > 0
+		ifTrue: [(Delay forMilliseconds: self stepTime) wait]
 	
-	self scheduler step
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:00'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:19'
 }
 SKExecuter >> stepTime [
-
-	self testMode ifTrue: [ ^ 0 ].
 
 	(self speed = 0) ifTrue: [ ^ 5000 ].
 	^ 5000 / self speed
@@ -254,53 +246,24 @@ SKExecuter >> stepTime [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/6/2026 21:33'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:14'
 }
 SKExecuter >> suspendExecution [
 
-	self processes do: [ :process |
-		((process isTerminated not) and: (process isSuspended not)) ifTrue: [ process suspend ]].
-	
-	self state: #suspended
+	((self process isTerminated not) and: (self process isSuspended not)) ifFalse: [ ^ self ].
+
+	self state: #suspended.
+	self process suspend
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:43'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:14'
 }
 SKExecuter >> terminate [
 
 	(self state = #terminated) ifTrue: [ ^ self ].
 
-	self processes do: [ :process | process terminate ].
+	self process terminate. 
 	self state: #terminated
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:59'
-}
-SKExecuter >> testMode [
-
-	^ testMode
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:59'
-}
-SKExecuter >> testMode: aBoolean [
-
-	testMode := aBoolean
-]
-
-{
-	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:08'
-}
-SKExecuter >> waitUntilTerminated [
-
-	"Busy waiting until all karas reach their end state."
-	[ self state = #terminated ] whileFalse: [
-		(Delay forMilliseconds: 1) wait ]
 ]

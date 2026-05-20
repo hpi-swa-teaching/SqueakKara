@@ -134,30 +134,6 @@ GSMetadata {
 				#name : 'BaselineOfSqueakKara'
 			},
 			#path : @12
-		},
-		GSImageMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'assets',
-				'Kara-FacingLeft.png'
-			],
-			#encoding : @5
-		},
-		GSImageMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'assets',
-				'Kara-FacingRight.png'
-			],
-			#encoding : @5
-		},
-		GSImageMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'assets',
-				'Kara-FacingDown.png'
-			],
-			#encoding : @5
 		}
 	],
 	#name : 'SqueakKara'

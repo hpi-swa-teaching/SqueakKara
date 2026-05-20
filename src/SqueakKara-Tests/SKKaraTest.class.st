@@ -194,7 +194,7 @@ SKKaraTest >> testMoveWhenTrunkAhead [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LD 5/20/2026 16:48'
+	#'squeak_changestamp' : 'LD 5/20/2026 21:38'
 }
 SKKaraTest >> testNewColorPicker [
 	
@@ -213,6 +213,7 @@ SKKaraTest >> testNewColorPicker [
 	      			colorChanged := True ].
 	  			]].
 	self assert: (colorChanged = True).
+
 ]
 
 {
@@ -244,7 +245,7 @@ SKKaraTest >> testNotOnCloverleaf [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LD 5/20/2026 16:46'
+	#'squeak_changestamp' : 'LD 5/20/2026 21:31'
 }
 SKKaraTest >> testOldColorPicker [
 	

@@ -5,21 +5,19 @@ Class {
 	#name : #SKWorkspace,
 	#superclass : #Workspace,
 	#instVars : [
-		'executer'
+		'kara'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:03'
 }
 
 {
-	#category : #'instance creation',
-	#'squeak_changestamp' : 'LM 5/7/2026 21:15'
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'LM 4/28/2026 20:16'
 }
-SKWorkspace class >> newWithExecuter: anExecuter [
+SKWorkspace class >> newWithKara: aKara [
 
-	^ self new
-		executer: anExecuter;
-		yourself
+	^ self basicNew initializeWithKara: aKara
 ]
 
 {
@@ -29,32 +27,6 @@ SKWorkspace class >> newWithExecuter: anExecuter [
 SKWorkspace >> close [
 
 	self changed: #close
-]
-
-{
-	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:14'
-}
-SKWorkspace >> evaluateExpression: aCode [
-	self executer execute: aCode
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:09'
-}
-SKWorkspace >> executer [
-
-	^ executer
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:10'
-}
-SKWorkspace >> executer: anExecuter [
-
-	executer := anExecuter
 ]
 
 {
@@ -78,18 +50,10 @@ INFO:
 ]
 
 {
-	#category : #binding,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:17'
-}
-SKWorkspace >> hasBindingOf: aString [
-	^ aString = 'kara' or: [ super hasBindingOf: aString ]
-]
-
-{
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:12'
+	#'squeak_changestamp' : 'EB 7/11/2024 15:19'
 }
-SKWorkspace >> initialize [
+SKWorkspace >> initializeWithKara: aKara [
 	
 	super initialize.
 	self buildAndOpen.
@@ -97,17 +61,37 @@ SKWorkspace >> initialize [
 	
 	self bindings at: #left put: SKDirection rotateLeft.
 	self bindings at: #right put: SKDirection rotateRight.
+	self bindings at: #kara put: aKara.
 	self contents: self getExampleCode
 
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 16:57'
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
+}
+SKWorkspace >> kara [
+
+	^ kara
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
+}
+SKWorkspace >> kara: aKara [
+
+	kara := aKara.
+	self bindings at: #kara put: aKara
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
 }
 SKWorkspace >> userCode [
 	
-	| code |
+	|code|
 	
 	code := self contents.
 	^ code

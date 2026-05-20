@@ -5,8 +5,7 @@ Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
 	#instVars : [
-		'viewDirection',
-		'previousColor'
+		'viewDirection'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
@@ -14,13 +13,13 @@ Class {
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 18:21'
+	#'squeak_changestamp' : 'LD 5/20/2026 21:40'
 }
 SKKara >> color: aColor [
 	
 	(aColor colorNotBlack) ifTrue: [
 		super color: aColor.
-		self updateColor
+		self scaleToFactor.
 	]
 ]
 
@@ -56,20 +55,6 @@ SKKara >> fillStyle: aFillStyle [
 ]
 
 {
-	#category : #appearance,
-	#'squeak_changestamp' : 'jt 6/11/2024 19:59'
-}
-SKKara >> getTextureForDirection [
-
-	self viewDirection caseOf: {
-		[SKDirection above] -> [^ 'Kara-FacingUp.png' ].
-		[SKDirection right] -> [^ 'Kara-FacingRight.png'].
-		[SKDirection below] -> [^ 'Kara-FacingDown.png'].
-		[SKDirection left] -> [^ 'Kara-FacingLeft.png']
-	}
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 4/29/2026 13:07'
 }
@@ -79,26 +64,15 @@ SKKara >> isKara [
 ]
 
 {
-	#category : #'object detection',
-	#'squeak_changestamp' : 'LM 5/10/2026 20:18'
-}
-SKKara >> karaAhead [
-
-	| target tileAhead |
-	target := self coordinates + self viewDirection.
-	tileAhead := self gridCoordinator getTileAtCoordinates: target.
-
-	^ tileAhead anySatisfy: [ :each | each isKara ]
-]
-
-{
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/11/2026 22:18'
+	#'squeak_changestamp' : 'LM 4/28/2026 18:58'
 }
 SKKara >> move [
+	
+	(self trunkAhead) ifFalse: [
+		self moveToCoordinates: self coordinates + self viewDirection ]
+	
 
-	(self trunkAhead) ifTrue: [ ^ self ].
-	self moveToCoordinates: self coordinates + self viewDirection
 ]
 
 {
@@ -111,19 +85,8 @@ SKKara >> onCloverleaf [
 ]
 
 {
-	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 22:53'
-}
-SKKara >> originalImageScaled [
-	
-	| size |
-	size := self grid pixelPerBlock.
-	^ (self originalImage scaledToSize: size @ size).
-]
-
-{
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:21'
+	#'squeak_changestamp' : 'LM 4/29/2026 12:58'
 }
 SKKara >> position: aPoint [
 
@@ -131,43 +94,50 @@ SKKara >> position: aPoint [
 	coordinates := self coordinatesFromPosition: aPoint.
 	tile := self gridCoordinator getTileAtCoordinates: coordinates.
 	
-	(tile anySatisfy: [ :each | each isTrunk or: [ each isKara ] ]) ifTrue: [^ self ].
+	(tile anySatisfy: [ :each | each isTrunk ]) ifTrue: [^ self ].
 
 	super position: aPoint
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/7/2026 18:08'
+	#'squeak_changestamp' : 'ND 5/20/2026 15:51'
 }
-SKKara >> previousColor [
-
-	^ previousColor ifNil: self defaultColor
-]
-
-{
-	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/7/2026 18:09'
-}
-SKKara >> previousColor: aColor [
-
-	previousColor := aColor
-]
-
-{
-	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 23:02'
-}
-SKKara >> scaleFactor: aNumber [
+SKKara >> rotate [
 	
-	super scaleFactor: aNumber.
-	self previousColor: self defaultColor.
-	self updateColor
+	| centerWidth centerHeight img|
+	
+	centerWidth := self image width / 2.
+	centerHeight := self image height / 2.
+	img := self originalImage.
+	self viewDirection caseOf: {
+		[SKDirection right] -> [img := self image rotateBy: #right centerAt: centerWidth @ centerHeight].
+		[SKDirection below] -> [img := self image rotateBy: #pi centerAt: centerWidth @ centerHeight].
+		[SKDirection left] -> [img := self image rotateBy: #left centerAt: centerWidth @ centerHeight].
+		[SKDirection above] -> [img := self image rotateBy: #none centerAt: centerWidth @ centerHeight].
+	}.
+	
+	^ img.
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 13:33'
+	#'squeak_changestamp' : 'ND 5/20/2026 15:51'
+}
+SKKara >> scaleToFactor [
+
+	| img |
+	
+	super scaleToFactor.
+	self updateColor.
+	
+	img := self rotate.
+	self image: img.
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'ND 5/20/2026 15:52'
 }
 SKKara >> setTexture [
 
@@ -178,17 +148,22 @@ SKKara >> setTexture [
 	aForm := aTextureLoader
 		getTexture: self textureFilename
 		scaledToWidth: self grid pixelPerBlock.
+
+	self image: aForm.
+	self rotate.
 	self originalImage: aForm.
 	self updateColorFor: aForm
+	
+
 ]
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'jt 6/11/2024 19:58'
+	#'squeak_changestamp' : 'ND 5/20/2026 15:46'
 }
 SKKara >> textureFilename [
 
-	^ self getTextureForDirection
+	^ 'Kara-FacingUp.png'
 ]
 
 {
@@ -206,40 +181,42 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'EB 7/11/2024 15:18'
+	#'squeak_changestamp' : 'LD 5/20/2026 21:23'
 }
 SKKara >> turn: aRotation [
-												
-	self viewDirection:	 (SKDirection rotatePosition: self viewDirection by: aRotation).		
-	self setTexture
+								
+	self viewDirection: (SKDirection rotatePosition: self viewDirection by: aRotation).		
+	self scaleToFactor.
+	
+	
 
 	
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 13:33'
+	#'squeak_changestamp' : 'ND 5/20/2026 14:49'
 }
 SKKara >> updateColor [
-
 	self updateColorFor: self image
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 23:02'
+	#'squeak_changestamp' : 'LD 5/20/2026 21:22'
 }
 SKKara >> updateColorFor: aForm [
-
-	| originalImageScaled |
-	originalImageScaled := self originalImageScaled.
 	
+	| replacement |
+	
+	replacement := self color.
 	1 to: aForm width do: [:x |
 	  1 to: aForm height do: [:y |
-			((originalImageScaled colorAt: x @ y) = (self defaultColor))
+		((aForm colorAt: x @ y) = (self defaultColor))
 				ifTrue: [
-	      			aForm colorAt: x @ y put: self color ].
+	      			aForm colorAt: x @ y put: replacement ].
 	  			]].
+	
 	
 	self image: aForm
 ]
