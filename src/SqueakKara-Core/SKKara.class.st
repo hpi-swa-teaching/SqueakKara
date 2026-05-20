@@ -49,11 +49,11 @@ SKKara >> movementBlocked [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Gustav Meinshausen 5/14/2026 12:09'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/20/2026 15:03'
 }
-SKKara >> movementBlocked: anObject [
+SKKara >> movementBlocked: aBoolean [
 
-	movementBlocked := anObject
+	movementBlocked := aBoolean
 ]
 
 {
