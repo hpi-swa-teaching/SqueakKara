@@ -106,7 +106,7 @@ SKBlockSpace >> handlesMouseOverDragging: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 04:25'
+	#'squeak_changestamp' : 'SLH 5/20/2026 09:25'
 }
 SKBlockSpace >> initializeWithKara: aKara [
 	super initialize.
@@ -114,14 +114,14 @@ SKBlockSpace >> initializeWithKara: aKara [
 	hResizing: #spaceFill;
 	wrapCentering: #center;
 	cellPositioning: #topLeft;
-	cellGap: -5;
+	cellGap: -12;
 	width: 500;
 	height: 500;
 	vResizing: #spaceFill;
 	kara: aKara;
 	openInWindowLabeled: 'SKBlockSpace'.
 	SKBlockSource new.
-	self addMorph: (SKBlock new label: 'Start of Script')
+	self addMorph: (SKActionBlock new label: 'Start of Script')
 
 	
 ]

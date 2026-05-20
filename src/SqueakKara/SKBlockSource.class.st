@@ -50,16 +50,16 @@ SKBlockSource >> mouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 04:03'
+	#'squeak_changestamp' : 'SLH 5/20/2026 09:23'
 }
 SKBlockSource >> populate [
-	self addMorph: (SKActionBlock new label: 'move'; action: ['kara move']; category: #movement; yourself).
-	self addMorph: (SKActionBlock new label: 'move';
+	self addMorphBack: (SKActionBlock new label: 'move'; action: ['kara move']; category: #movement; yourself).
+	self addMorphBack: (SKActionBlock new label: 'move';
 		addIntegerPart: 'steps' withDefault: 3;
 		action: [:steps | steps,' timesRepeat: [kara move]']; 
 		category: #movement; yourself).
-	self addMorph: (SKActionBlock new label: 'turn left'; action: ['kara turn: left']; category: #movement; yourself).
-	self addMorph: (SKActionBlock new label: 'turn right'; action: ['kara turn: right']; category: #movement; yourself).
+	self addMorphBack: (SKActionBlock new label: 'turn left'; action: ['kara turn: left']; category: #movement; yourself).
+	self addMorphBack: (SKActionBlock new label: 'turn right'; action: ['kara turn: right']; category: #movement; yourself).
 	"self addMorph: (SKValueBlock new label: 'trunk ahead?'; type: #Boolean; value: ['kara trunkAhead']; category: #sensing; yourself).
 	self addMorph: (SKValueBlock new label: 'on cloverleaf?'; type: #Boolean; value: ['kara onCloverleaf']; category: #sensing; yourself)."
 ]
