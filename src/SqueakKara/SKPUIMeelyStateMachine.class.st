@@ -55,7 +55,7 @@ SKPUIMeelyStateMachine >> createNode [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 11:51'
+	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:12'
 }
 SKPUIMeelyStateMachine >> initialize [
 
@@ -68,7 +68,7 @@ SKPUIMeelyStateMachine >> initialize [
 	
 	self playGround: (SKPlayGround new
 					extent: 900@900;
-					color: Color green;
+					color: Color white;
 					position: (self position + (50@100))).
 	self addMorph: self playGround.
 		

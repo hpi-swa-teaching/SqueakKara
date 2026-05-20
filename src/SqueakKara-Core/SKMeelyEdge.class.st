@@ -12,21 +12,24 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:32'
+	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 13:24'
 }
 SKMeelyEdge class >> newFrom: aNode to: anotherNode [
 
 	| instance line |
 	instance := self new.
-	line := LineMorph from: aNode center to: anotherNode center color: Color blue width: 3.
-	instance line: line.
+	line := LineMorph from: aNode center to: anotherNode center color: (Color fromString: '#8caaee') width: 5.
+	instance 
+		line: line;
+		fromNode: aNode;
+		toNode: anotherNode.
 	aNode controller playGround addMorph: line.
 	
 	^ instance
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:53'
 }
 SKMeelyEdge >> controller [
@@ -35,7 +38,7 @@ SKMeelyEdge >> controller [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:53'
 }
 SKMeelyEdge >> controller: aController [
@@ -44,7 +47,16 @@ SKMeelyEdge >> controller: aController [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #drawing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:38'
+}
+SKMeelyEdge >> delete [
+	
+	self line ifNotNil: [self line delete]
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:10'
 }
 SKMeelyEdge >> fromNode [
@@ -53,7 +65,7 @@ SKMeelyEdge >> fromNode [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:11'
 }
 SKMeelyEdge >> fromNode: aNode [
@@ -62,7 +74,7 @@ SKMeelyEdge >> fromNode: aNode [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:30'
 }
 SKMeelyEdge >> line [
@@ -71,7 +83,7 @@ SKMeelyEdge >> line [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:30'
 }
 SKMeelyEdge >> line: aLine [
@@ -80,7 +92,7 @@ SKMeelyEdge >> line: aLine [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:11'
 }
 SKMeelyEdge >> toNode [
@@ -89,7 +101,7 @@ SKMeelyEdge >> toNode [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:11'
 }
 SKMeelyEdge >> toNode: aNode [
@@ -98,12 +110,12 @@ SKMeelyEdge >> toNode: aNode [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:53'
+	#category : #drawing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 13:28'
 }
 SKMeelyEdge >> update: aValue [
 
 	self line delete.
-	self line: (LineMorph from: self fromNode center to: self toNode center color: Color blue width: 3).
-	self controller playGround addMorph: self line
+	self line: (LineMorph from: self fromNode center to: self toNode center color: (Color fromString: '#8caaee') width: 5).
+	self controller playGround addComponent: self line
 ]
