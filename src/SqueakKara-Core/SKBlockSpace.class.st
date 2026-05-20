@@ -194,14 +194,14 @@ SKBlockSpace >> removeDropZone [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 04:24'
+	#'squeak_changestamp' : 'FR 5/20/2026 04:43'
 }
 SKBlockSpace >> updateCode [
 	"this is obviously temporary"
 	| code |
 	code:= ''.
 	self flag: #temp.
-	self submorphs do: [:each | each action ifNotNil: [code:= code, each command, '.',  String cr]].
+	self submorphsBehind: (self firstSubmorph) do: [:each | each action ifNotNil: [code:= code, each command, '.',  String cr]].
 	self environment workspace userCode: code.
 ]
 
