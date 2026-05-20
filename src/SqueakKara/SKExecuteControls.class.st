@@ -8,9 +8,11 @@ Class {
 		'environment',
 		'buttonRun',
 		'buttonStop',
+		'buttonSpawnKara',
 		'stopTexture',
 		'runTexture',
 		'pauseTexture',
+		'karaTexture',
 		'sliderSpeed',
 		'scaleFactor'
 	],
@@ -20,39 +22,44 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:29'
+	#'squeak_changestamp' : 'LM 5/7/2026 21:41'
 }
 SKExecuteControls >> actionRun [
 
-	| state |
-	state := self environment executerState.
-
-	state = #terminated ifTrue: [
-		self environment run.
-		^ self buttonRunSetTexture: self currentRunButtonTexture ].
-
-	state = #suspended ifTrue: [
-		self environment resume.
-		^ self buttonRunSetTexture: self currentRunButtonTexture ].
-
-	state = #running ifTrue: [
-		self environment pause.
-		^ self buttonRunSetTexture: self currentRunButtonTexture ]
+	self toggleExecutionState.
+	self updateTextures
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:43'
+	#'squeak_changestamp' : 'jawi 5/14/2026 12:44'
+}
+SKExecuteControls >> actionSpawnKara [
+
+	| grid gridCoordinator freeList |
+	
+	grid := self environment grid.
+	gridCoordinator := grid gridCoordinator.
+	freeList := gridCoordinator findFreeField.
+	
+	freeList isEmpty ifTrue: [ ^ self ].
+	
+	self environment addKara: (SKKara newInGrid: grid at: (freeList atRandom))
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'LM 5/7/2026 21:28'
 }
 SKExecuteControls >> actionStop [
 
 	self environment stop.
-	self buttonRunSetTexture: self currentRunButtonTexture
+	self updateTextures
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:35'
+	#'squeak_changestamp' : 'jawi 5/14/2026 12:39'
 }
 SKExecuteControls >> addAllWidgets [
 
@@ -61,13 +68,16 @@ SKExecuteControls >> addAllWidgets [
 	self buttonRun: self buildButtonRun.
 	self sliderSpeed: self buildSliderSpeed.
 	self buttonStop: self buildButtonStop.
+	self buttonSpawnKara: self buildButtonSpawnKara.
 	
 	self buttonRunSetTexture: self runTexture.
 	self buttonStopSetTexture.
+	self buttonSpawnKaraSetTexture: self karaTexture.
 	
 	self addMorphBack: self buttonRun.
 	self addMorphBack: self sliderSpeed.
 	self addMorphBack: self buttonStop.
+	self addMorphBack: self buttonSpawnKara.
 	
 	self layoutChanged
 ]
@@ -97,6 +107,19 @@ SKExecuteControls >> buildButtonRun [
 	^ IconicButton new
 		target: self;
 		actionSelector: #actionRun;
+		color: SKStylesheet secondaryColor;
+		yourself
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'jawi 5/14/2026 12:13'
+}
+SKExecuteControls >> buildButtonSpawnKara [
+	
+	^ IconicButton new
+		target: self;
+		actionSelector: #actionSpawnKara;
 		color: SKStylesheet secondaryColor;
 		yourself
 ]
@@ -156,6 +179,33 @@ SKExecuteControls >> buttonRun: aMorph [
 SKExecuteControls >> buttonRunSetTexture: aForm [
 
 	self buttonRun labelGraphic: aForm	
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/14/2026 12:07'
+}
+SKExecuteControls >> buttonSpawnKara [
+	
+	^ buttonSpawnKara
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/14/2026 13:17'
+}
+SKExecuteControls >> buttonSpawnKara: aMorph [
+	
+	buttonSpawnKara := aMorph
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'jawi 5/14/2026 12:34'
+}
+SKExecuteControls >> buttonSpawnKaraSetTexture: aForm [
+
+	self buttonSpawnKara labelGraphic: aForm
 ]
 
 {
@@ -275,14 +325,43 @@ SKExecuteControls >> initialize [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/14/2026 12:35'
+}
+SKExecuteControls >> karaTexture [
+	
+	^ karaTexture
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/14/2026 12:35'
+}
+SKExecuteControls >> karaTexture: aForm [
+	
+	karaTexture := aForm
+]
+
+{
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:17'
+	#'squeak_changestamp' : 'jawi 5/14/2026 12:38'
+}
+SKExecuteControls >> karaTextureFilename [
+
+	^ 'Kara-FacingUp.png'
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'jawi 5/14/2026 13:16'
 }
 SKExecuteControls >> loadTextures [
+	
 	self
 		stopTexture: (self getTexture: self stopTextureFilename);
 		runTexture: (self getTexture: self runTextureFilename);
-		pauseTexture: (self getTexture: self pauseTextureFilename)
+		pauseTexture: (self getTexture: self pauseTextureFilename);
+		karaTexture: (self getTexture: self karaTextureFilename)
 ]
 
 {
@@ -314,7 +393,7 @@ SKExecuteControls >> pauseTextureFilename [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:28'
+	#'squeak_changestamp' : 'jawi 5/15/2026 09:20'
 }
 SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
@@ -331,6 +410,9 @@ SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
 	self buttonRun extent: buttonSize.
 	self buttonRun labelGraphic: (self currentRunButtonTexture scaledToSize: iconSize).
+	
+	self buttonSpawnKara extent: buttonSize.
+	self buttonSpawnKara labelGraphic: (self karaTexture scaledToSize: iconSize).
 	
 	self sliderSpeed extent: sliderSize
 ]
@@ -401,11 +483,11 @@ SKExecuteControls >> sliderSpeed: aNumber [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'EB 7/11/2024 14:40'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:58'
 }
 SKExecuteControls >> sliderSpeedValueChanged: aValue [
 	
-	self environment executionSpeed: aValue.
+	self environment executionSpeed: aValue
 ]
 
 {
@@ -433,4 +515,28 @@ SKExecuteControls >> stopTexture: aForm [
 SKExecuteControls >> stopTextureFilename [
 
 	^ 'stop.png'
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'LM 5/7/2026 21:41'
+}
+SKExecuteControls >> toggleExecutionState [
+
+	| state |
+	state := self environment executerState.
+
+	state = #terminated ifTrue: [ self environment run. ^ self ].
+	state = #suspended ifTrue: [ self environment resume. ^ self ].
+	state = #running ifTrue: [ self environment pause. ^ self ].
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'LM 5/7/2026 22:29'
+}
+SKExecuteControls >> updateTextures [
+
+	self buttonRunSetTexture: self currentRunButtonTexture.
+	self buttonStopSetTexture
 ]

@@ -79,15 +79,26 @@ SKKara >> isKara [
 ]
 
 {
+	#category : #'object detection',
+	#'squeak_changestamp' : 'LM 5/10/2026 20:18'
+}
+SKKara >> karaAhead [
+
+	| target tileAhead |
+	target := self coordinates + self viewDirection.
+	tileAhead := self gridCoordinator getTileAtCoordinates: target.
+
+	^ tileAhead anySatisfy: [ :each | each isKara ]
+]
+
+{
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 4/28/2026 18:58'
+	#'squeak_changestamp' : 'LM 5/11/2026 22:18'
 }
 SKKara >> move [
-	
-	(self trunkAhead) ifFalse: [
-		self moveToCoordinates: self coordinates + self viewDirection ]
-	
 
+	(self trunkAhead) ifTrue: [ ^ self ].
+	self moveToCoordinates: self coordinates + self viewDirection
 ]
 
 {
@@ -112,7 +123,7 @@ SKKara >> originalImageScaled [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:58'
+	#'squeak_changestamp' : 'LM 5/10/2026 20:21'
 }
 SKKara >> position: aPoint [
 
@@ -120,7 +131,7 @@ SKKara >> position: aPoint [
 	coordinates := self coordinatesFromPosition: aPoint.
 	tile := self gridCoordinator getTileAtCoordinates: coordinates.
 	
-	(tile anySatisfy: [ :each | each isTrunk ]) ifTrue: [^ self ].
+	(tile anySatisfy: [ :each | each isTrunk or: [ each isKara ] ]) ifTrue: [^ self ].
 
 	super position: aPoint
 ]
