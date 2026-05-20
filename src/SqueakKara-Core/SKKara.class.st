@@ -5,7 +5,8 @@ Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
 	#instVars : [
-		'viewDirection'
+		'viewDirection',
+		'movementBlocked'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
@@ -13,33 +14,51 @@ Class {
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'jt 6/11/2024 19:59'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/14/2026 12:09'
 }
 SKKara >> getTextureForDirection [
 
 	self viewDirection caseOf: {
-		[SKDirection above] -> [^ 'Kara-FacingUp.png' ].
+		[SKDirection above] -> [^ 'Kara-FacingUp.png'].
 		[SKDirection right] -> [^ 'Kara-FacingRight.png'].
 		[SKDirection below] -> [^ 'Kara-FacingDown.png'].
-		[SKDirection left] -> [^ 'Kara-FacingLeft.png']
-	}
+		[SKDirection left] -> [^ 'Kara-FacingLeft.png']}
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jt 6/11/2024 13:26'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/14/2026 12:09'
 }
 SKKara >> move [
-	
-	(self trunkAhead)
-		ifFalse: [self coordinates: self coordinates + self viewDirection]
-	
 
+	(self walkableAhead and: self movementBlocked not)
+		ifTrue: [self coordinates: self coordinates + self viewDirection]
+		ifFalse: [
+			self movementBlocked: true.
+			self say: 'I should not walk into things. There might also be a bug in the code!']
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/12/2026 21:13'
+}
+SKKara >> movementBlocked [
+	movementBlocked ifNil: [self movementBlocked: false].
+	^ movementBlocked
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/14/2026 12:09'
+}
+SKKara >> movementBlocked: anObject [
+
+	movementBlocked := anObject
 ]
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'jt 6/11/2024 13:21'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/14/2026 12:09'
 }
 SKKara >> onCloverleaf [
 
@@ -71,14 +90,12 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'EB 7/11/2024 15:18'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/13/2026 14:52'
 }
 SKKara >> turn: aRotation [
-												
-	self viewDirection:	 (SKDirection rotatePosition: self viewDirection by: aRotation).		
-	self setTexture
-
-	
+	self movementBlocked ifFalse: [
+		self viewDirection: (SKDirection rotatePosition: self viewDirection by: aRotation).		
+		self setTexture].
 ]
 
 {
@@ -92,9 +109,21 @@ SKKara >> viewDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jt 6/11/2024 11:29'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/14/2026 12:08'
 }
 SKKara >> viewDirection: aDirection [
-	
+
 	viewDirection := aDirection
+]
+
+{
+	#category : #'object detection',
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/14/2026 12:08'
+}
+SKKara >> walkableAhead [
+
+	| tileAheadInGrid |
+	tileAheadInGrid := self grid isPointInGridDimensions: self viewDirection + self coordinates.
+	
+	^ self trunkAhead not and: tileAheadInGrid
 ]
