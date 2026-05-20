@@ -6,30 +6,53 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/5/2026 22:56'
+	#'squeak_changestamp' : 'FR 5/20/2026 03:45'
 }
-SKBlockSource >> handlesMouseDown: evt [
+SKBlockSource >> handlesMouseDown: anEvent [
 	^ true
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 14:55'
+	#'squeak_changestamp' : 'FR 5/20/2026 03:51'
 }
 SKBlockSource >> initialize [
 	|m|
 	super initialize.
 	self color: Color transparent.
-	self flag: #joinked. "have to change dis but not right now"
-	m := RectangleMorph new extent: 100@300.
-	m color: Color transparent.
-	m layoutPolicy: TableLayout new.
-	self layoutPolicy: TableLayout new.
-	self listDirection: #topToBottom;
+	m := RectangleMorph new
+		extent: 100@300;
+		color: Color transparent;
+		layoutPolicy: TableLayout new;
+		yourself.
+	self layoutPolicy: TableLayout new;
+		listDirection: #topToBottom;
 		wrapCentering: #center;
 		hResizing: #spaceFill;
-	 	vResizing: #spaceFill.
-	self addMorph: (SKActionBlock new label: 'end'; yourself).
+	 	vResizing: #spaceFill;
+		populate.
+	m addMorph: self.
+	self openInWindowLabeled: 'SKBlockSource'
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/20/2026 03:44'
+}
+SKBlockSource >> mouseDown: anEvent [ 
+	(self targetMorphAt: anEvent)
+		ifNotNil: [anEvent hand
+				waitForClicksOrDrag: self
+				event: anEvent
+				selectors: {nil. nil. nil. #startDrag:}
+				threshold: HandMorph dragThreshold]
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/20/2026 04:03'
+}
+SKBlockSource >> populate [
 	self addMorph: (SKActionBlock new label: 'move'; action: ['kara move']; category: #movement; yourself).
 	self addMorph: (SKActionBlock new label: 'move';
 		addIntegerPart: 'steps' withDefault: 3;
@@ -37,53 +60,28 @@ SKBlockSource >> initialize [
 		category: #movement; yourself).
 	self addMorph: (SKActionBlock new label: 'turn left'; action: ['kara turn: left']; category: #movement; yourself).
 	self addMorph: (SKActionBlock new label: 'turn right'; action: ['kara turn: right']; category: #movement; yourself).
-	self addMorph: (SKValueBlock new label: 'trunk ahead?'; type: #Boolean; value: ['kara trunkAhead']; category: #sensing; yourself).
-	self addMorph: (SKValueBlock new label: 'on cloverleaf?'; type: #Boolean; value: ['kara onCloverleaf']; category: #sensing; yourself).
-	m addMorph: self.
-	m openInWindowLabeled: 'SKBlockSource'
+	"self addMorph: (SKValueBlock new label: 'trunk ahead?'; type: #Boolean; value: ['kara trunkAhead']; category: #sensing; yourself).
+	self addMorph: (SKValueBlock new label: 'on cloverleaf?'; type: #Boolean; value: ['kara onCloverleaf']; category: #sensing; yourself)."
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/5/2026 22:57'
+	#'squeak_changestamp' : 'FR 5/20/2026 03:47'
 }
-SKBlockSource >> mouseDown: evt [ 
-	"Do nothing upon mouse-down except inform the hand to watch for a
-	drag: message. Don't even do that if there are no submorphs"
-	self flag: #joinked.
-	(self targetMorphAt: evt)
-		ifNotNil: [evt hand
-				waitForClicksOrDrag: self
-				event: evt
-				selectors: {nil. nil. nil. #startDrag:}
-				threshold: HandMorph dragThreshold]
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/5/2026 23:11'
-}
-SKBlockSource >> startDrag: evt [
-"someone is trying to drag a submorph; find which one and attach it to the event's hand"
+SKBlockSource >> startDrag: anEvent [
 	| hit |
-	self flag: #joinked.
-	(hit := self targetMorphAt: evt) ifNil:[^self].
-
-	evt hand grabMorph: (hit duplicate leftSource: true)
+	(hit := self targetMorphAt: anEvent) ifNil:[^self].
+	anEvent hand grabMorph: (hit duplicate leftSource: true)
 	
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/5/2026 22:57'
+	#'squeak_changestamp' : 'FR 5/20/2026 03:46'
 }
-SKBlockSource >> targetMorphAt: evt [
-"find the submorph clicked on, if any"
+SKBlockSource >> targetMorphAt: anEvent [
 	| hits |
-	self flag: #joinked.
-	hits := self morphsAt: evt cursorPoint.
-
-	"if there are no hits or more than one, fuggedaboudit. filter the list to only direct submorphs"
+	hits := self morphsAt: anEvent cursorPoint.
 	hits := hits select:[:m| m owner == self].
 	(hits isEmpty or:[hits size >1]) ifTrue:[^nil].
 	^hits first

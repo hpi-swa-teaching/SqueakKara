@@ -11,7 +11,7 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 12:39'
+	#'squeak_changestamp' : 'FR 5/20/2026 04:21'
 }
 SKBlockPart >> initialize [
 	super initialize.
@@ -20,13 +20,14 @@ SKBlockPart >> initialize [
 		color: Color white;
 		borderWidth: 1;
 		cornerStyle: #rounded;
-		cornerRadius: 100;
+		cornerRadius: 20;
 		addMorph: self value;
-		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
-		layoutInset: 5@0.
-	
-	self extent: (self value extent+(5@5) max: 20@20).
+		layoutInset: 5@0;
+		extent: (self value extent+(10@5));
+		minWidth: self width;
+		hResizing: #shrinkWrap;
+		value: 3.
 	self value center: self center.
 ]
 
@@ -68,16 +69,16 @@ SKBlockPart >> type: aType [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 20:16'
+	#'squeak_changestamp' : 'FR 5/20/2026 04:13'
 }
 SKBlockPart >> value [
 
-	^ value ifNil: [value := TextMorph new].
+	^ value ifNil: [value := TextMorph new contents: 10 asString].
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 20:20'
+	#'squeak_changestamp' : 'FR 5/20/2026 04:27'
 }
 SKBlockPart >> value: aValue [
 
