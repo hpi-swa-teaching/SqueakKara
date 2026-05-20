@@ -14,25 +14,19 @@ SKBlockSource >> handlesMouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 03:51'
+	#'squeak_changestamp' : 'SLH 5/20/2026 12:58'
 }
 SKBlockSource >> initialize [
-	|m|
+
 	super initialize.
-	self color: Color transparent.
-	m := RectangleMorph new
-		extent: 100@300;
-		color: Color transparent;
+	
+	self color: Color transparent;
 		layoutPolicy: TableLayout new;
-		yourself.
-	self layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
 		wrapCentering: #center;
 		hResizing: #spaceFill;
 	 	vResizing: #spaceFill;
 		populate.
-	m addMorph: self.
-	self openInWindowLabeled: 'SKBlockSource'
 ]
 
 {

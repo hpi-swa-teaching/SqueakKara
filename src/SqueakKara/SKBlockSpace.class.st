@@ -106,23 +106,34 @@ SKBlockSpace >> handlesMouseOverDragging: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/20/2026 09:25'
+	#'squeak_changestamp' : 'SLH 5/20/2026 12:59'
 }
 SKBlockSpace >> initializeWithKara: aKara [
+
+	| window |
+
+	super initialize.
+	
+	window := RectangleMorph new
+		layoutPolicy: TableLayout new;
+		listDirection: #leftToRight;
+		yourself.
+	
 	super initialize.
 	self listDirection: #topToBottom;
 	hResizing: #spaceFill;
 	wrapCentering: #center;
 	cellPositioning: #topLeft;
 	cellGap: -12;
-	width: 500;
-	height: 500;
+	minWidth: 500;
+	minHeight: 500;
 	vResizing: #spaceFill;
-	kara: aKara;
-	openInWindowLabeled: 'SKBlockSpace'.
-	SKBlockSource new.
-	self addMorph: (SKActionBlock new label: 'Start of Script')
-
+	kara: aKara.
+	self addMorph: (SKActionBlock new label: 'Start of Script').
+	
+	window addMorph: self.
+	window addMorph: SKBlockSource new.
+	window openInWindowLabeled: 'SKBlockSource'
 	
 ]
 
