@@ -46,3 +46,12 @@ SKGridTile >> lockedFor: anActor [
 
 	^ (self locked = anActor or: [ self locked isNil ]) not
 ]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 20:28'
+}
+SKGridTile >> unlock [
+
+	self locked: false
+]

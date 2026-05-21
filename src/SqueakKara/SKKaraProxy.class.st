@@ -61,13 +61,16 @@ SKKaraProxy >> kara: anObject [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'AB 5/21/2026 20:10'
+	#'squeak_changestamp' : 'AB 5/21/2026 20:36'
 }
 SKKaraProxy >> move [
 
 	self scheduler scheduleAction: (SKAction newWithType: #move action: 
-		[(self scheduler isLocked: (self nextField) for: self) ifFalse:
-			[self kara move]]) for: self.
+		[(self scheduler isLocked: (self nextField) for: self) ifFalse: [
+			| previousPosition |
+			previousPosition := self coordinates.
+			self kara move.
+			self scheduler unlockAt: previousPosition ]]) for: self.
 	self scheduler waitFor: self
 ]
 

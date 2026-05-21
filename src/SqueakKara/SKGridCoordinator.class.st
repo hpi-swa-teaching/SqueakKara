@@ -199,3 +199,13 @@ SKGridCoordinator >> storeObject: aGridObject at: aPoint [
 	
 
 ]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 20:30'
+}
+SKGridCoordinator >> unlockAt: aPoint [
+	
+	(self grid isPointInGridDimensions: aPoint)
+		ifTrue: [(self gridMatrix at: aPoint x at: aPoint y) unlock ]
+]
