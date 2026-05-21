@@ -94,94 +94,6 @@ SKGrid >> backgroundColor [
 ]
 
 {
-	#category : #challenges,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:15'
-}
-SKGrid >> challenge1 [
-	
-	SKTrunk newInGrid: self at: 1 @ 1.
-	SKTrunk newInGrid: self at: 2 @ 1.
-	SKTrunk newInGrid: self at: 3 @ 1.
-	SKTrunk newInGrid: self at: 4 @ 1.
-	SKTrunk newInGrid: self at: 5 @ 1.
-	SKTrunk newInGrid: self at: 6 @ 1.
-	SKTrunk newInGrid: self at: 7 @ 1.
-	
-	SKTrunk newInGrid: self at: 7 @ 2.
-	SKTrunk newInGrid: self at: 7 @ 3.
-	SKTrunk newInGrid: self at: 7 @ 4.
-	SKTrunk newInGrid: self at: 7 @ 5.
-	SKTrunk newInGrid: self at: 7 @ 6.
-	SKTrunk newInGrid: self at: 7 @ 7.
-	
-	SKTrunk newInGrid: self at: 6 @ 7.
-	SKTrunk newInGrid: self at: 5 @ 7.
-	SKTrunk newInGrid: self at: 4 @ 7.
-	SKTrunk newInGrid: self at: 3 @ 7.
-	SKTrunk newInGrid: self at: 2 @ 7.
-	SKTrunk newInGrid: self at: 1 @ 7.
-	
-	SKTrunk newInGrid: self at: 1 @ 6.
-	SKTrunk newInGrid: self at: 1 @ 5.
-	SKTrunk newInGrid: self at: 1 @ 4.
-	SKTrunk newInGrid: self at: 1 @ 3.
-	
-	SKTrunk newInGrid: self at: 2 @ 3.
-	SKTrunk newInGrid: self at: 3 @ 3.
-	SKTrunk newInGrid: self at: 4 @ 3.
-	SKTrunk newInGrid: self at: 5 @ 3.
-	
-	SKTrunk newInGrid: self at: 5 @ 3.
-	SKTrunk newInGrid: self at: 5 @ 4.
-	SKTrunk newInGrid: self at: 5 @ 5.
-	
-	SKTrunk newInGrid: self at: 4 @ 5.
-	SKTrunk newInGrid: self at: 3 @ 5.
-	
-	SKCloverleaf newInGrid: self at: 4 @ 4.
-	^ SKKara newInGrid: self at: 1 @ 2
-	
-]
-
-{
-	#category : #challenges,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:15'
-}
-SKGrid >> challenge2 [
-	
-	SKTrunk newInGrid: self at: 3 @ 2.
-	SKTrunk newInGrid: self at: 5 @ 2.
-	SKTrunk newInGrid: self at: 7 @ 2.
-	
-	SKCloverleaf newInGrid: self at: 9 @ 2.
-	
-	^ SKKara newInGrid: self at: 1 @ 2
-	
-]
-
-{
-	#category : #challenges,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:15'
-}
-SKGrid >> challenge3 [
-	
-	SKTrunk newInGrid: self at: 2 @ 1.
-	SKTrunk newInGrid: self at: 3 @ 1.
-	SKTrunk newInGrid: self at: 4 @ 1.
-	SKTrunk newInGrid: self at: 5 @ 1.
-	SKTrunk newInGrid: self at: 6 @ 1.
-	
-	SKTrunk newInGrid: self at: 4 @ 3.
-	SKTrunk newInGrid: self at: 5 @ 3.
-	SKTrunk newInGrid: self at: 6 @ 3.
-	SKTrunk newInGrid: self at: 7 @ 3.
-	SKTrunk newInGrid: self at: 8 @ 3.
-	SKTrunk newInGrid: self at: 9 @ 3.
-	
-	^ SKKara newInGrid: self at: 1 @ 2
-]
-
-{
 	#category : #texture,
 	#'squeak_changestamp' : 'LM 4/27/2026 11:27'
 }
@@ -223,7 +135,7 @@ SKGrid >> gridHeight: aNumber [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/29/2026 18:51'
+	#'squeak_changestamp' : 'jawi 5/14/2026 11:21'
 }
 SKGrid >> gridLines [
 
@@ -260,9 +172,10 @@ SKGrid >> gridWidth: aNumber [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/29/2026 18:51'
+	#'squeak_changestamp' : 'jawi 5/14/2026 13:15'
 }
 SKGrid >> initialize [
+	
 	self gridLines: OrderedCollection new.
 
 	super initialize.
