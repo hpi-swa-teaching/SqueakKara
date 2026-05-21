@@ -1,5 +1,5 @@
 # SqueakKara 🐞
-When you want coding to be as simple a collecting a cloverleaf. 
+When you want coding to be as simple as collecting a cloverleaf. 
 
 ## How To Use 🍀
 
