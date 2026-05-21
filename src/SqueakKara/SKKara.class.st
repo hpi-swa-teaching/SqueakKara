@@ -35,7 +35,7 @@ SKKara >> colorNotBlack: aColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/7/2026 18:08'
+	#'squeak_changestamp' : 'AB 5/21/2026 18:22'
 }
 SKKara >> defaultColor [
 

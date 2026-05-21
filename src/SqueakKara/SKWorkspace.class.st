@@ -6,7 +6,8 @@ Class {
 	#superclass : #Workspace,
 	#instVars : [
 		'executer',
-		'kara'
+		'kara',
+		'color'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:03'
@@ -42,6 +43,33 @@ SKWorkspace class >> newWithExecuter: anExecuter and: aKara [
 SKWorkspace >> close [
 
 	self changed: #close
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 18:07'
+}
+SKWorkspace >> color [
+	
+	^ color ifNil: [ self defaultColor ]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 18:24'
+}
+SKWorkspace >> color: aColor [
+
+	color := aColor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 18:24'
+}
+SKWorkspace >> defaultColor [
+
+	^ Color red
 ]
 
 {
@@ -126,11 +154,12 @@ SKWorkspace >> kara [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/21/2026 09:57'
+	#'squeak_changestamp' : 'AB 5/21/2026 18:13'
 }
 SKWorkspace >> kara: aKara [
 
-	kara := aKara
+	kara := aKara.
+	self color: self kara color
 ]
 
 {
@@ -159,9 +188,9 @@ SKWorkspace >> userCode: aString [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:40'
+	#'squeak_changestamp' : 'AB 5/21/2026 18:25'
 }
 SKWorkspace >> windowColorToUse [
 
-	 ^ Color red
+	 ^ self color
 ]
