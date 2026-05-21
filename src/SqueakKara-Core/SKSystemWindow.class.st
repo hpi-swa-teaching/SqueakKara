@@ -12,11 +12,40 @@ Class {
 	#name : #SKSystemWindow,
 	#superclass : #SystemWindow,
 	#instVars : [
-		'resizeListener'
+		'resizeListener',
+		'closeListener'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'LM 4/28/2026 20:16'
 }
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/21/2026 17:30'
+}
+SKSystemWindow >> closeListener [
+
+	^ closeListener
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/21/2026 17:29'
+}
+SKSystemWindow >> closeListener: aBlock [
+
+	closeListener := aBlock
+]
+
+{
+	#category : #'submorphs - add/remove',
+	#'squeak_changestamp' : 'LM 5/21/2026 17:35'
+}
+SKSystemWindow >> delete [
+
+	self closeListener value.
+	super delete
+]
 
 {
 	#category : #geometry,
