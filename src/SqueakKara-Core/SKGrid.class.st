@@ -9,7 +9,8 @@ Class {
 		'gridHeight',
 		'gridCoordinator',
 		'scaleFactor',
-		'gridLines'
+		'gridLines',
+		'environment'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:48'
@@ -103,6 +104,22 @@ SKGrid >> drawTexture [
 		self addHorizontalLineAt: anInteger].
 	1 to: self gridWidth - 1 do: [:anInteger |
 		self addVerticalLineAt: anInteger].
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 5/21/2026 17:48'
+}
+SKGrid >> environment [
+	^ environment
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 5/21/2026 17:48'
+}
+SKGrid >> environment: anObject [
+	environment := anObject
 ]
 
 {
