@@ -53,9 +53,9 @@ SKKara >> defaultColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/21/2026 17:43'
+	#'squeak_changestamp' : 'ND 5/21/2026 18:49'
 }
-SKKara >> enviroment [
+SKKara >> environment [
 	
 	^ self grid environment
 ]
@@ -74,14 +74,14 @@ SKKara >> fillStyle: aFillStyle [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/21/2026 18:01'
+	#'squeak_changestamp' : 'ND 5/21/2026 18:49'
 }
 SKKara >> findFreeColor [
 	
 	| colorList karaList |
 	
 	colorList := SKKara defaultColors.
-	karaList := self enviroment karas.
+	karaList := self environment karas.
 	
 	karaList do: [:kara | colorList remove: kara color ifAbsent: []].
 	colorList isEmpty ifFalse: [^ colorList first].
