@@ -108,18 +108,20 @@ SKGrid >> drawTexture [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 5/21/2026 17:48'
+	#'squeak_changestamp' : 'ND 5/21/2026 22:04'
 }
 SKGrid >> environment [
+
 	^ environment
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 5/21/2026 17:48'
+	#'squeak_changestamp' : 'ND 5/21/2026 22:05'
 }
-SKGrid >> environment: anObject [
-	environment := anObject
+SKGrid >> environment: anEnvironment [
+
+	environment := anEnvironment
 ]
 
 {

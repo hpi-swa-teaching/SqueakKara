@@ -31,10 +31,10 @@ SKEnvironment class >> newWithKaraAt: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 5/21/2026 18:06'
+	#'squeak_changestamp' : 'ND 5/21/2026 22:03'
 }
 SKEnvironment >> addKara: aKara [
-	aKara color: aKara findFreeColor.
+	aKara color: aKara findUnusedColor.
 	self karas add: aKara
 ]
 
@@ -179,11 +179,12 @@ SKEnvironment >> grid [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 5/21/2026 17:49'
+	#'squeak_changestamp' : 'ND 5/21/2026 22:03'
 }
-SKEnvironment >> grid: anGrid [
-	anGrid environment: self.
-	grid := anGrid
+SKEnvironment >> grid: aGrid [
+	
+	aGrid environment: self.
+	grid := aGrid
 ]
 
 {
@@ -289,9 +290,10 @@ SKEnvironment >> karas: aCollection [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 5/21/2026 17:33'
+	#'squeak_changestamp' : 'ND 5/21/2026 22:03'
 }
 SKEnvironment >> maxNumberOfKaras [
+
 	^ SKKara defaultColors size
 ]
 

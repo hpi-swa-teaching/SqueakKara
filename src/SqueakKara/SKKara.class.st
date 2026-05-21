@@ -13,11 +13,11 @@ Class {
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'ND 5/21/2026 17:56'
+	#'squeak_changestamp' : 'ND 5/21/2026 22:05'
 }
 SKKara class >> defaultColors [
 	
-	^ {Color red. Color green. Color blue. Color magenta} asOrderedCollection
+	^ { Color red. Color green. Color blue. Color magenta } asOrderedCollection
 ]
 
 {
@@ -74,17 +74,17 @@ SKKara >> fillStyle: aFillStyle [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/21/2026 18:49'
+	#'squeak_changestamp' : 'ND 5/21/2026 22:07'
 }
-SKKara >> findFreeColor [
+SKKara >> findUnusedColor [
 	
 	| colorList karaList |
 	
 	colorList := SKKara defaultColors.
 	karaList := self environment karas.
 	
-	karaList do: [:kara | colorList remove: kara color ifAbsent: []].
-	colorList isEmpty ifFalse: [^ colorList first].
+	karaList do: [ :kara | colorList remove: kara color ifAbsent: [] ].
+	colorList isEmpty ifFalse: [ ^ colorList first ].
 	
 	^ Color black
 	
