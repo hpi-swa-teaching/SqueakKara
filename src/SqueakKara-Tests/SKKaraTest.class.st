@@ -74,7 +74,7 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'LD 5/21/2026 10:44'
+	#'squeak_changestamp' : 'LD 5/21/2026 11:10'
 }
 SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
     | kara aForm colorChanged |
@@ -91,8 +91,10 @@ SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
       1 to: aForm height do: [:y |
             ((aForm colorAt: x @ y) = (Color green))
                 ifTrue: [
-                      colorChanged := True ].
+				colorChanged := True ].
+				self assert: (((aForm colorAt: x @ y) = (kara defaultColor)) not)
                   ]].
+			
     self assert: (colorChanged = True).
 ]
 

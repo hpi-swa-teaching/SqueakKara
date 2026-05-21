@@ -13,11 +13,11 @@ Class {
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 09:51'
+	#'squeak_changestamp' : 'LD 5/21/2026 10:57'
 }
 SKKara >> color: aColor [
 	
-	(aColor colorNotBlack) ifTrue: [
+	(aColor notBlack) ifTrue: [
 		super color: aColor.
 		self scaleToFactor
 	]
@@ -44,11 +44,11 @@ SKKara >> defaultColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 09:51'
+	#'squeak_changestamp' : 'LD 5/21/2026 10:57'
 }
 SKKara >> fillStyle: aFillStyle [
 		
-		(aFillStyle colorNotBlack) ifTrue: [
+		(aFillStyle notBlack) ifTrue: [
 			super fillStyle: aFillStyle.
 			self scaleToFactor
 		]
@@ -112,38 +112,38 @@ SKKara >> position: aPoint [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/20/2026 15:51'
+	#'squeak_changestamp' : 'LD 5/21/2026 11:01'
 }
 SKKara >> rotate [
 	
-	| centerWidth centerHeight img|
+	| centerWidth centerHeight image |
 	
 	centerWidth := self image width / 2.
 	centerHeight := self image height / 2.
-	img := self originalImage.
+	image := self originalImage.
 	self viewDirection caseOf: {
-		[SKDirection right] -> [img := self image rotateBy: #right centerAt: centerWidth @ centerHeight].
-		[SKDirection below] -> [img := self image rotateBy: #pi centerAt: centerWidth @ centerHeight].
-		[SKDirection left] -> [img := self image rotateBy: #left centerAt: centerWidth @ centerHeight].
-		[SKDirection above] -> [img := self image rotateBy: #none centerAt: centerWidth @ centerHeight].
+		[SKDirection right] -> [image := self image rotateBy: #right centerAt: centerWidth @ centerHeight].
+		[SKDirection below] -> [image := self image rotateBy: #pi centerAt: centerWidth @ centerHeight].
+		[SKDirection left] -> [image := self image rotateBy: #left centerAt: centerWidth @ centerHeight].
+		[SKDirection above] -> [image := self image rotateBy: #none centerAt: centerWidth @ centerHeight].
 	}.
 	
-	^ img.
+	^ image.
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/20/2026 15:51'
+	#'squeak_changestamp' : 'LD 5/21/2026 11:01'
 }
 SKKara >> scaleToFactor [
 
-	| img |
+	| image |
 	
 	super scaleToFactor.
 	self updateColor.
 	
-	img := self rotate.
-	self image: img.
+	image := self rotate.
+	self image: image.
 ]
 
 {
@@ -192,12 +192,12 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'ND 5/20/2026 15:36'
+	#'squeak_changestamp' : 'LD 5/21/2026 11:01'
 }
 SKKara >> turn: aRotation [
 								
-	self viewDirection:	 (SKDirection rotatePosition: self viewDirection by: aRotation).		
-	self scaleToFactor.
+	self viewDirection: (SKDirection rotatePosition: self viewDirection by: aRotation).		
+	self scaleToFactor
 	
 	
 
