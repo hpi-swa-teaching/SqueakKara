@@ -82,6 +82,18 @@ SKKara >> position: aPoint [
 ]
 
 {
+	#category : #movement,
+	#'squeak_changestamp' : 'JanWein 5/21/2026 11:56'
+}
+SKKara >> randomDirection [
+	
+	| directions |
+	directions := {SKDirection right. SKDirection left. SKDirection above. SKDirection below}.
+	self viewDirection: directions atRandom.
+	self setTexture
+]
+
+{
 	#category : #appearance,
 	#'squeak_changestamp' : 'jt 6/11/2024 19:58'
 }
