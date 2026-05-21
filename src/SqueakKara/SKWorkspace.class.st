@@ -5,7 +5,8 @@ Class {
 	#name : #SKWorkspace,
 	#superclass : #Workspace,
 	#instVars : [
-		'executer'
+		'executer',
+		'kara'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:03'
@@ -23,6 +24,18 @@ SKWorkspace class >> newWithExecuter: anExecuter [
 ]
 
 {
+	#category : #'instance creation',
+	#'squeak_changestamp' : 'LM 5/21/2026 10:40'
+}
+SKWorkspace class >> newWithExecuter: anExecuter and: aKara [
+
+	^ self new
+		executer: anExecuter;
+		kara: aKara;
+		yourself
+]
+
+{
 	#category : #commands,
 	#'squeak_changestamp' : 'JJG 6/18/2024 18:43'
 }
@@ -33,10 +46,11 @@ SKWorkspace >> close [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:14'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:00'
 }
 SKWorkspace >> evaluateExpression: aCode [
-	self executer execute: aCode
+
+	self executer execute: aCode for: self kara
 ]
 
 {
@@ -87,7 +101,7 @@ SKWorkspace >> hasBindingOf: aString [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:12'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:35'
 }
 SKWorkspace >> initialize [
 	
@@ -99,6 +113,24 @@ SKWorkspace >> initialize [
 	self bindings at: #right put: SKDirection rotateRight.
 	self contents: self getExampleCode
 
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/21/2026 09:57'
+}
+SKWorkspace >> kara [
+
+	^ kara
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/21/2026 09:57'
+}
+SKWorkspace >> kara: aKara [
+
+	kara := aKara
 ]
 
 {
@@ -123,4 +155,13 @@ SKWorkspace >> userCode: aString [
 	
 	self contents: aString
 	
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/21/2026 10:40'
+}
+SKWorkspace >> windowColorToUse [
+
+	 ^ Color red
 ]

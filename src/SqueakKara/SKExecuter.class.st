@@ -106,15 +106,55 @@ SKExecuter >> execute: aCode [
 ]
 
 {
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/21/2026 10:16'
+}
+SKExecuter >> execute: aCode for: aKara [
+
+	| priority proxy context |
+	
+	self terminateFor: aKara.
+
+	priority := Processor userBackgroundPriority.
+	
+	"decorators := self karas collect: [ :kara |
+		SKKaraProxy newWith: kara ].
+	
+	self scheduler: (SKScheduler
+		newWithActors: decorators
+		executer: self).
+	
+	self processes: (decorators collect: [ :decorator |
+		| context |
+		decorator scheduler: self scheduler.
+		context := SKExecuteContext new kara: decorator.
+		[[ self compiler evaluate: aCode for: context ] ensure: [
+			scheduler finishActor: decorator ]] forkAt: priority ]).
+
+	self state: #running"
+	
+	proxy := (SKKaraProxy newWith: aKara)
+		scheduler: self scheduler; yourself.
+	
+	self scheduler addActor: proxy.
+	
+	context := SKExecuteContext new kara: proxy.
+	
+	self processes at: aKara put: ([[ self compiler evaluate: aCode for: context ] ensure: [
+		self scheduler finishActor: proxy ]] forkAt: priority)
+]
+
+{
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:44'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:09'
 }
 SKExecuter >> initialize [
 
 	super initialize.
 	self compiler: Compiler new.
 	self speed: 25.
-	self processes: OrderedCollection new.
+	self processes: Dictionary new.
+	self scheduler: (SKScheduler newWithExecuter: self).
 	^ self
 ]
 
@@ -147,11 +187,11 @@ SKExecuter >> processes [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/6/2026 18:37'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:01'
 }
-SKExecuter >> processes: aCollection [
+SKExecuter >> processes: aDictionary [
 	
-	processes := aCollection
+	processes := aDictionary
 ]
 
 {
@@ -274,6 +314,18 @@ SKExecuter >> terminate [
 
 	self processes do: [ :process | process terminate ].
 	self state: #terminated
+]
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'LM 5/21/2026 10:03'
+}
+SKExecuter >> terminateFor: aKara [
+
+	(self state = #terminated) ifTrue: [ ^ self ].
+
+	(self processes at: aKara) terminate.
+	"self state: #terminated"
 ]
 
 {

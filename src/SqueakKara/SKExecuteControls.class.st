@@ -32,7 +32,7 @@ SKExecuteControls >> actionRun [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'jawi 5/14/2026 12:44'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:33'
 }
 SKExecuteControls >> actionSpawnKara [
 
@@ -44,7 +44,7 @@ SKExecuteControls >> actionSpawnKara [
 	
 	freeList isEmpty ifTrue: [ ^ self ].
 	
-	self environment addKara: (SKKara newInGrid: grid at: (freeList atRandom))
+	self environment addKaraAt: freeList atRandom
 ]
 
 {

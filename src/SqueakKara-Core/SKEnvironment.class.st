@@ -6,9 +6,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'grid',
-		'workspace',
+		'workspaces',
 		'executer',
-		'karas',
 		'executeControls',
 		'gameWidth',
 		'gameHeight',
@@ -40,6 +39,18 @@ SKEnvironment >> addKara: aKara [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/21/2026 10:44'
+}
+SKEnvironment >> addKaraAt: aPoint [
+
+	| kara |
+	kara := (SKKara newInGrid: self grid at: aPoint).
+
+	self workspaces at: kara put: (SKWorkspace newWithExecuter: (self executer) and: kara)
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/7/2026 21:38'
 }
 SKEnvironment >> calculateScaleFactor: aPoint [
@@ -49,11 +60,11 @@ SKEnvironment >> calculateScaleFactor: aPoint [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:53'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:28'
 }
 SKEnvironment >> close [
 
-	self workspace close.
+	self workspaces valuesDo: [ :workspace | workspace close ].
 	self grid abandon.
 	self executer terminate.
 	self systemWindow delete
@@ -188,24 +199,22 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:06'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:46'
 }
 SKEnvironment >> initialize [
 
-	self karas: OrderedCollection new.
+	self executer: (SKExecuter newWithEnvironment: self).
+
+	self workspaces: Dictionary new.
 	super initialize
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:03'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:46'
 }
 SKEnvironment >> initializeObjects [
 
-	self executer: (SKExecuter newWithEnvironment: self).
-	
-	self workspace: (SKWorkspace newWithExecuter: self executer).
-	
 	self executeControls: SKExecuteControls new.
 	self executeControls environment: self.
 	
@@ -215,76 +224,58 @@ SKEnvironment >> initializeObjects [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jawi 5/14/2026 13:16'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:21'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
 	self grid: (SKGrid newWithExtent: 7 @ 7).
-	SKChallenge initializeChallenge1For: self grid environment: self.
+	SKChallenge initializeChallenge1For: self.
 	self initializeObjects
 
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:02'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:25'
 }
 SKEnvironment >> initializeWithChallenge2 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 2).
-	SKChallenge initializeChallenge2For: self grid environment: self.
+	SKChallenge initializeChallenge2For: self.
 	self initializeObjects
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:02'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:25'
 }
 SKEnvironment >> initializeWithChallenge3 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 3).
-	SKChallenge initializeChallenge3For: self grid environment: self.
+	SKChallenge initializeChallenge3For: self.
 	self initializeObjects
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:24'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:25'
 }
 SKEnvironment >> initializeWithChallenge4 [
 
 	self grid: (SKGrid newWithExtent: 7 @ 4).
-	SKChallenge initializeChallenge4For: self grid environment: self.
+	SKChallenge initializeChallenge4For: self.
 	self initializeObjects
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:51'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:32'
 }
 SKEnvironment >> initializeWithKaraAt: aPoint [
 	
 	self grid: (SKGrid newWithExtent: 7 @ 7).
-	self addKara: (SKKara newInGrid: self grid at: aPoint).
+	self addKaraAt: aPoint.
 	self initializeObjects
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:52'
-}
-SKEnvironment >> karas [
-	
-	^ karas
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:52'
-}
-SKEnvironment >> karas: aCollection [
-	
-	karas := aCollection
 ]
 
 {
@@ -353,14 +344,12 @@ SKEnvironment >> resume [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:16'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:42'
 }
 SKEnvironment >> run [
 
-	| code |
-	
-	code :=  self workspace userCode.
-	self executer execute: code
+	self workspaces keysAndValuesDo: [ :kara :workspace | 
+		self executer execute: workspace userCode for: kara ]
 ]
 
 {
@@ -427,18 +416,18 @@ SKEnvironment >> updateTextures [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:41'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:27'
 }
-SKEnvironment >> workspace [
+SKEnvironment >> workspaces [
 	
-	^ workspace
+	^ workspaces
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:41'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:27'
 }
-SKEnvironment >> workspace: anObject [
+SKEnvironment >> workspaces: aDictionary [
 	
-	workspace := anObject
+	workspaces := aDictionary
 ]

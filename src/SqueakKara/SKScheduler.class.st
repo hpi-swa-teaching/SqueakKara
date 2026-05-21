@@ -60,6 +60,21 @@ SKScheduler class >> newWithActors: aCollection executer: anExecuter [
 ]
 
 {
+	#category : #'class initialization',
+	#'squeak_changestamp' : 'LM 5/21/2026 10:09'
+}
+SKScheduler class >> newWithExecuter: anExecuter [
+
+	^ self new
+		executer: anExecuter;
+		activeActors: OrderedCollection new;
+		releaseLocks: Dictionary new;
+		stepLock: Semaphore forMutualExclusion;
+		scheduledSteps: Dictionary new;
+		yourself
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/8/2026 16:55'
 }
@@ -75,6 +90,16 @@ SKScheduler >> activeActors [
 SKScheduler >> activeActors: aDictionary [
 
 	activeActors := aDictionary
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/21/2026 10:11'
+}
+SKScheduler >> addActor: anActor [
+	
+	self activeActors add: anActor.
+	self releaseLocks at: anActor put: Semaphore new
 ]
 
 {
