@@ -112,6 +112,19 @@ SKKara >> position: aPoint [
 
 {
 	#category : #movement,
+	#'squeak_changestamp' : 'JanWein 5/21/2026 13:24'
+}
+SKKara >> randomDirection [
+	
+	| directions |
+	
+	directions := {SKDirection right. SKDirection left. SKDirection above. SKDirection below}.
+	self viewDirection: directions atRandom.
+	self scaleToFactor
+]
+
+{
+	#category : #movement,
 	#'squeak_changestamp' : 'LD 5/21/2026 12:08'
 }
 SKKara >> rotate [
