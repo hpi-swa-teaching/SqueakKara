@@ -32,11 +32,11 @@ SKExecuteControls >> actionRun [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:33'
+	#'squeak_changestamp' : 'LM 5/21/2026 17:23'
 }
 SKExecuteControls >> actionSpawnKara [
 
-	| grid gridCoordinator freeList |
+	| grid gridCoordinator freeList kara |
 	
 	grid := self environment grid.
 	gridCoordinator := grid gridCoordinator.
