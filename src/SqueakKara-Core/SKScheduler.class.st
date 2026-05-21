@@ -152,6 +152,26 @@ SKScheduler >> finishActor: anActor [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 19:41'
+}
+SKScheduler >> gridCoordinator [
+
+	^ self executer environment grid gridCoordinator
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 20:04'
+}
+SKScheduler >> isLocked: aPoint for: anActor [
+
+	^ self gridCoordinator isLocked: aPoint for: anActor
+
+	
+]
+
+{
 	#category : #scheduling,
 	#'squeak_changestamp' : 'LM 5/12/2026 21:01'
 }
@@ -181,7 +201,7 @@ SKScheduler >> releaseLocks: aDictionary [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:29'
+	#'squeak_changestamp' : 'AB 5/21/2026 20:06'
 }
 SKScheduler >> scheduleAction: anAction for: anActor [
 
@@ -190,6 +210,7 @@ SKScheduler >> scheduleAction: anAction for: anActor [
 		
 		actions := self scheduledSteps at: anActor ifAbsent: [ OrderedCollection new ].
 		actions add: anAction.
+		(anAction type = #move) ifTrue: [self gridCoordinator lockAt: (anActor nextField) for: anActor ].
 		self scheduledSteps at: anActor put: actions.
 		
 		self scheduledSteps size = self activeActors size ifTrue: [
@@ -218,7 +239,7 @@ SKScheduler >> scheduledSteps: aDictionary [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:55'
+	#'squeak_changestamp' : 'AB 5/21/2026 19:03'
 }
 SKScheduler >> step [
 

@@ -111,6 +111,27 @@ SKGridCoordinator >> initializeForGrid: aGrid [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 20:01'
+}
+SKGridCoordinator >> isLocked: aPoint for: anActor [
+	
+	(self grid isPointInGridDimensions: aPoint) ifFalse: [ ^ false ].
+	
+	^ (self gridMatrix at: aPoint x at: aPoint y) lockedFor: anActor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 19:49'
+}
+SKGridCoordinator >> lockAt: aPoint for: anActor [
+	
+	(self grid isPointInGridDimensions: aPoint)
+		ifTrue: [(self gridMatrix at: aPoint x at: aPoint y) lockFor: anActor ]
+]
+
+{
 	#category : #private,
 	#'squeak_changestamp' : 'LK 5/24/2024 10:52'
 }

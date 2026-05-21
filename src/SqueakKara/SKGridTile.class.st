@@ -4,6 +4,45 @@ SKGridTile inherits all functionality from the pre-existing class Set, existing 
 Class {
 	#name : #SKGridTile,
 	#superclass : #Set,
+	#instVars : [
+		'locked'
+	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:58'
 }
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 19:45'
+}
+SKGridTile >> lockFor: anActor [
+
+	self locked: anActor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 19:21'
+}
+SKGridTile >> locked [
+	
+	^ locked
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 19:43'
+}
+SKGridTile >> locked: anActor [
+	
+	locked := anActor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 20:03'
+}
+SKGridTile >> lockedFor: anActor [
+
+	^ (self locked = anActor or: [ self locked isNil ]) not
+]

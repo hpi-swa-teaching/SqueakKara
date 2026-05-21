@@ -34,6 +34,15 @@ SKKaraProxy >> codeContext [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 19:37'
+}
+SKKaraProxy >> coordinates [
+
+	^ self kara coordinates
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }
 SKKaraProxy >> kara [
@@ -52,12 +61,23 @@ SKKaraProxy >> kara: anObject [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/7/2026 16:52'
+	#'squeak_changestamp' : 'AB 5/21/2026 20:10'
 }
 SKKaraProxy >> move [
 
-	self scheduler scheduleAction: (SKAction newWithType: #move action: [ self kara move ]) for: self.
+	self scheduler scheduleAction: (SKAction newWithType: #move action: 
+		[(self scheduler isLocked: (self nextField) for: self) ifFalse:
+			[self kara move]]) for: self.
 	self scheduler waitFor: self
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 20:05'
+}
+SKKaraProxy >> nextField [
+
+	^ self coordinates + self viewDirection
 ]
 
 {
@@ -103,4 +123,13 @@ SKKaraProxy >> trunkAhead [
 SKKaraProxy >> turn: aDirection [
 
 	self kara turn: aDirection
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 19:38'
+}
+SKKaraProxy >> viewDirection [
+
+	^ self kara viewDirection
 ]
