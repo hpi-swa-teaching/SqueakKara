@@ -73,6 +73,30 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 ]
 
 {
+	#category : #helper,
+	#'squeak_changestamp' : 'LD 5/21/2026 10:44'
+}
+SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
+    | kara aForm colorChanged |
+    
+    kara := SKKara newInGrid: self grid.
+    
+    aBoolean ifTrue: [ kara color: Color green ]
+    ifFalse: [ kara fillStyle: Color green ].
+    
+    colorChanged := False.
+        
+    aForm := kara image.
+    1 to: aForm width do: [:x |
+      1 to: aForm height do: [:y |
+            ((aForm colorAt: x @ y) = (Color green))
+                ifTrue: [
+                      colorChanged := True ].
+                  ]].
+    self assert: (colorChanged = True).
+]
+
+{
 	#category : #testing,
 	#'squeak_changestamp' : 'EB 7/11/2024 15:30'
 }
@@ -194,25 +218,11 @@ SKKaraTest >> testMoveWhenTrunkAhead [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LD 5/21/2026 09:54'
+	#'squeak_changestamp' : 'LD 5/21/2026 10:44'
 }
 SKKaraTest >> testNewColorPicker [
 
-	| kara aForm colorChanged |
-	
-	kara := SKKara newInGrid: self grid.
-	
-	kara color: Color green.
-	colorChanged := False.
-		
-	aForm := kara image.
-	1 to: aForm width do: [:x |
-	  1 to: aForm height do: [:y |
-			((aForm colorAt: x @ y) = (Color green))
-				ifTrue: [
-	      			colorChanged := True ].
-	  			]].
-	self assert: (colorChanged = True).
+	self testColorUsingNewColorPicker: true
 ]
 
 {
@@ -244,25 +254,11 @@ SKKaraTest >> testNotOnCloverleaf [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LD 5/21/2026 09:54'
+	#'squeak_changestamp' : 'LD 5/21/2026 10:44'
 }
 SKKaraTest >> testOldColorPicker [
 
-	| kara aForm colorChanged |
-	
-	kara := SKKara newInGrid: self grid.
-	
-	kara fillStyle: Color green.
-	colorChanged := False.
-		
-	aForm := kara image.
-	1 to: aForm width do: [:x |
-	  1 to: aForm height do: [:y |
-			((aForm colorAt: x @ y) = (Color green))
-				ifTrue: [
-	      			colorChanged := True ].
-	  			]].
-	self assert: (colorChanged = True).
+	self testColorUsingNewColorPicker: false.
 ]
 
 {
