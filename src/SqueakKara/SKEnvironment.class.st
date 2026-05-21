@@ -54,14 +54,13 @@ SKEnvironment >> calculateScaleFactor: aPoint [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:28'
+	#'squeak_changestamp' : 'LM 5/21/2026 17:35'
 }
 SKEnvironment >> close [
 
 	self workspaces valuesDo: [ :workspace | workspace close ].
 	self grid abandon.
-	self executer terminate.
-	self systemWindow delete
+	self executer terminate
 
 	
 ]
@@ -320,9 +319,10 @@ SKEnvironment >> resize [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:26'
+	#'squeak_changestamp' : 'LM 5/21/2026 17:28'
 }
 SKEnvironment >> resizeGridByFactor: aNumber [
+
 	self grid scaleFactor: aNumber.
 	self grid updateDimensions
 ]
@@ -348,7 +348,7 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/29/2026 18:06'
+	#'squeak_changestamp' : 'LM 5/21/2026 17:33'
 }
 SKEnvironment >> setSystemWindow [
 	
@@ -366,6 +366,7 @@ SKEnvironment >> setSystemWindow [
 		extent: self gameWidth @ self gameHeight;
 		setWindowColor: self grid backgroundColor;
 		resizeListener: [ self resize ];
+		closeListener: [ self close ];
 		addMorph: container fullFrame: (LayoutFrame fractions: (0@0 corner: 1@1)).
 	self positionExecuteControlsAndGrid.
 	
