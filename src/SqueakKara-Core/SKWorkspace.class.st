@@ -163,6 +163,27 @@ SKWorkspace >> kara: aKara [
 ]
 
 {
+	#category : #stepping,
+	#'squeak_changestamp' : 'LM 5/21/2026 21:42'
+}
+SKWorkspace >> step [
+
+	(self kara color = color) ifTrue: [ ^ self ].
+
+	self color: self kara color.
+	self changed: #windowColorToUse
+]
+
+{
+	#category : #stepping,
+	#'squeak_changestamp' : 'LM 5/21/2026 21:42'
+}
+SKWorkspace >> stepTime [
+
+	^ 1
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/7/2026 16:57'
 }
@@ -187,8 +208,17 @@ SKWorkspace >> userCode: aString [
 ]
 
 {
+	#category : #stepping,
+	#'squeak_changestamp' : 'LM 5/21/2026 21:35'
+}
+SKWorkspace >> wantsSteps [
+
+	^ true
+]
+
+{
 	#category : #accessing,
-	#'squeak_changestamp' : 'AB 5/21/2026 18:25'
+	#'squeak_changestamp' : 'LM 5/21/2026 21:42'
 }
 SKWorkspace >> windowColorToUse [
 
