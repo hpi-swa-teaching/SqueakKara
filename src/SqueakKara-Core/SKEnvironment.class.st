@@ -30,7 +30,7 @@ SKEnvironment class >> newWithKaraAt: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/21/2026 16:59'
+	#'squeak_changestamp' : 'LM 5/21/2026 17:25'
 }
 SKEnvironment >> addKaraAt: aPoint [
 
@@ -38,7 +38,9 @@ SKEnvironment >> addKaraAt: aPoint [
 	kara := (SKKara newInGrid: self grid at: aPoint).
 
 	self workspaces at: kara put:
-		(SKWorkspace newWithExecuter: (self executer) and: kara)
+		(SKWorkspace newWithExecuter: (self executer) and: kara).
+	
+	^ kara
 ]
 
 {
