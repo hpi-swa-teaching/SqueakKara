@@ -112,7 +112,7 @@ SKKara >> position: aPoint [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 11:01'
+	#'squeak_changestamp' : 'LD 5/21/2026 12:08'
 }
 SKKara >> rotate [
 	
@@ -128,12 +128,12 @@ SKKara >> rotate [
 		[SKDirection above] -> [image := self image rotateBy: #none centerAt: centerWidth @ centerHeight].
 	}.
 	
-	^ image.
+	^ image
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 11:01'
+	#'squeak_changestamp' : 'LD 5/21/2026 12:08'
 }
 SKKara >> scaleToFactor [
 
@@ -143,7 +143,7 @@ SKKara >> scaleToFactor [
 	self updateColor.
 	
 	image := self rotate.
-	self image: image.
+	self image: image
 ]
 
 {

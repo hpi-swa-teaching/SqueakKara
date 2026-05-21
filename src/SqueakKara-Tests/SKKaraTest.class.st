@@ -74,7 +74,7 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'LD 5/21/2026 11:10'
+	#'squeak_changestamp' : 'LD 5/21/2026 12:07'
 }
 SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
     | kara aForm colorChanged |
@@ -95,7 +95,7 @@ SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
 				self assert: (((aForm colorAt: x @ y) = (kara defaultColor)) not)
                   ]].
 			
-    self assert: (colorChanged = True).
+    self assert: (colorChanged = True)
 ]
 
 {
@@ -256,11 +256,11 @@ SKKaraTest >> testNotOnCloverleaf [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LD 5/21/2026 10:44'
+	#'squeak_changestamp' : 'LD 5/21/2026 12:07'
 }
 SKKaraTest >> testOldColorPicker [
 
-	self testColorUsingNewColorPicker: false.
+	self testColorUsingNewColorPicker: false
 ]
 
 {
