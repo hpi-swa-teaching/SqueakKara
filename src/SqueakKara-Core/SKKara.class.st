@@ -12,17 +12,46 @@ Class {
 }
 
 {
-	#category : #appearance,
-	#'squeak_changestamp' : 'jt 6/11/2024 19:59'
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/21/2026 10:57'
 }
-SKKara >> getTextureForDirection [
+SKKara >> color: aColor [
+	
+	(aColor notBlack) ifTrue: [
+		super color: aColor.
+		self scaleToFactor
+	]
+]
 
-	self viewDirection caseOf: {
-		[SKDirection above] -> [^ 'Kara-FacingUp.png' ].
-		[SKDirection right] -> [^ 'Kara-FacingRight.png'].
-		[SKDirection below] -> [^ 'Kara-FacingDown.png'].
-		[SKDirection left] -> [^ 'Kara-FacingLeft.png']
-	}
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/19/2026 13:27'
+}
+SKKara >> colorNotBlack: aColor [
+
+	^ (aColor isSimilarColorTo: (Color black)) not
+		
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/7/2026 18:08'
+}
+SKKara >> defaultColor [
+
+	^ Color red
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/21/2026 10:57'
+}
+SKKara >> fillStyle: aFillStyle [
+		
+		(aFillStyle notBlack) ifTrue: [
+			super fillStyle: aFillStyle.
+			self scaleToFactor
+		]
 ]
 
 {
@@ -94,12 +123,70 @@ SKKara >> randomDirection [
 ]
 
 {
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/21/2026 12:08'
+}
+SKKara >> rotate [
+	
+	| centerWidth centerHeight image |
+	
+	centerWidth := self image width / 2.
+	centerHeight := self image height / 2.
+	image := self originalImage.
+	self viewDirection caseOf: {
+		[SKDirection right] -> [image := self image rotateBy: #right centerAt: centerWidth @ centerHeight].
+		[SKDirection below] -> [image := self image rotateBy: #pi centerAt: centerWidth @ centerHeight].
+		[SKDirection left] -> [image := self image rotateBy: #left centerAt: centerWidth @ centerHeight].
+		[SKDirection above] -> [image := self image rotateBy: #none centerAt: centerWidth @ centerHeight].
+	}.
+	
+	^ image
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/21/2026 12:08'
+}
+SKKara >> scaleToFactor [
+
+	| image |
+	
+	super scaleToFactor.
+	self updateColor.
+	
+	image := self rotate.
+	self image: image
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'ND 5/20/2026 15:52'
+}
+SKKara >> setTexture [
+
+	| aTextureLoader aForm |
+	
+	aTextureLoader := SKTextureLoader new.
+	
+	aForm := aTextureLoader
+		getTexture: self textureFilename
+		scaledToWidth: self grid pixelPerBlock.
+
+	self image: aForm.
+	self rotate.
+	self originalImage: aForm.
+	self updateColorFor: aForm
+	
+
+]
+
+{
 	#category : #appearance,
-	#'squeak_changestamp' : 'jt 6/11/2024 19:58'
+	#'squeak_changestamp' : 'ND 5/20/2026 15:46'
 }
 SKKara >> textureFilename [
 
-	^ self getTextureForDirection
+	^ 'Kara-FacingUp.png'
 ]
 
 {
@@ -117,14 +204,44 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'EB 7/11/2024 15:18'
+	#'squeak_changestamp' : 'LD 5/21/2026 11:01'
 }
 SKKara >> turn: aRotation [
-												
-	self viewDirection:	 (SKDirection rotatePosition: self viewDirection by: aRotation).		
-	self setTexture
+								
+	self viewDirection: (SKDirection rotatePosition: self viewDirection by: aRotation).		
+	self scaleToFactor
+	
+	
 
 	
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'ND 5/20/2026 14:49'
+}
+SKKara >> updateColor [
+	self updateColorFor: self image
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/21/2026 09:49'
+}
+SKKara >> updateColorFor: aForm [
+	
+	| replacement |
+	
+	replacement := self color.
+	1 to: aForm width do: [:x |
+	  1 to: aForm height do: [:y |
+		((aForm colorAt: x @ y) = (self defaultColor))
+				ifTrue: [
+	      			aForm colorAt: x @ y put: replacement ].
+	  			]].
+	
+	
+	self image: aForm
 ]
 
 {
