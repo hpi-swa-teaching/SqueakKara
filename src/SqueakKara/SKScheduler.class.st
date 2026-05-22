@@ -162,23 +162,24 @@ SKScheduler >> gridCoordinator [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'AB 5/21/2026 20:04'
+	#'squeak_changestamp' : 'LM 5/22/2026 11:50'
 }
 SKScheduler >> isLocked: aPoint for: anActor [
 
-	^ self gridCoordinator isLocked: aPoint for: anActor
+	^ self gridCoordinator isLocked: aPoint for: anActor kara
 
 	
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'AB 5/21/2026 20:33'
+	#'squeak_changestamp' : 'LM 5/22/2026 11:53'
 }
 SKScheduler >> lockFor: anActor [
 
 	(self isLocked: (anActor nextField) for: anActor) ifTrue: [ ^ self ].
-	self gridCoordinator lockAt: (anActor nextField) for: anActor
+	(self gridCoordinator lockAt: (anActor nextField) for: anActor kara) ifTrue: [
+		self unlockAt: anActor coordinates ]
 ]
 
 {
@@ -289,7 +290,7 @@ SKScheduler >> stepLock: aSemaphore [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'AB 5/21/2026 20:32'
+	#'squeak_changestamp' : 'LM 5/22/2026 11:53'
 }
 SKScheduler >> unlockAt: aPoint [
 

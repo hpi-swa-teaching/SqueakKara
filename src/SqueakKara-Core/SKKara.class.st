@@ -97,7 +97,7 @@ SKKara >> onCloverleaf [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:21'
+	#'squeak_changestamp' : 'LM 5/22/2026 11:50'
 }
 SKKara >> position: aPoint [
 
@@ -107,6 +107,9 @@ SKKara >> position: aPoint [
 	
 	(tile anySatisfy: [ :each | each isTrunk or: [ each isKara ] ]) ifTrue: [^ self ].
 
+	self gridCoordinator
+		unlockAt: self coordinates;
+		lockAt: coordinates for: self.
 	super position: aPoint
 ]
 

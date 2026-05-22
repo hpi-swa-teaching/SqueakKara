@@ -13,7 +13,7 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'AB 5/21/2026 19:45'
+	#'squeak_changestamp' : 'LM 5/22/2026 11:51'
 }
 SKGridTile >> lockFor: anActor [
 

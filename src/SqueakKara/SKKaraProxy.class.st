@@ -61,7 +61,7 @@ SKKaraProxy >> kara: anObject [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'AB 5/21/2026 20:36'
+	#'squeak_changestamp' : 'LM 5/22/2026 11:54'
 }
 SKKaraProxy >> move [
 
@@ -70,7 +70,7 @@ SKKaraProxy >> move [
 			| previousPosition |
 			previousPosition := self coordinates.
 			self kara move.
-			self scheduler unlockAt: previousPosition ]]) for: self.
+			]]) for: self.
 	self scheduler waitFor: self
 ]
 
