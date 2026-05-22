@@ -10,11 +10,12 @@ Class {
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:21'
+	#'squeak_changestamp' : 'LM 5/22/2026 11:56'
 }
 SKChallenge class >> initializeChallenge1For: anEnvironment [
 
 	| grid |
+	
 	grid := anEnvironment grid.
 	
 	SKTrunk newInGrid: grid at: 1 @ 1.
@@ -57,16 +58,17 @@ SKChallenge class >> initializeChallenge1For: anEnvironment [
 	SKTrunk newInGrid: grid at: 3 @ 5.
 	
 	SKCloverleaf newInGrid: grid at: 4 @ 4.
-	anEnvironment addKaraAt: 1 @ 2.
+	anEnvironment addKaraAt: 1 @ 2
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:23'
+	#'squeak_changestamp' : 'LM 5/22/2026 11:55'
 }
 SKChallenge class >> initializeChallenge2For: anEnvironment [
 
 	| grid |
+	
 	grid := anEnvironment grid.
 
 	SKTrunk newInGrid: grid at: 3 @ 2.
@@ -80,11 +82,12 @@ SKChallenge class >> initializeChallenge2For: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:24'
+	#'squeak_changestamp' : 'LM 5/22/2026 11:56'
 }
 SKChallenge class >> initializeChallenge3For: anEnvironment [
 
 	| grid |
+	
 	grid := anEnvironment grid.
 
 	SKTrunk newInGrid: grid at: 2 @ 1.
@@ -105,11 +108,12 @@ SKChallenge class >> initializeChallenge3For: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:25'
+	#'squeak_changestamp' : 'LM 5/22/2026 11:56'
 }
 SKChallenge class >> initializeChallenge4For: anEnvironment [
 
 	| grid |
+	
 	grid := anEnvironment grid.
 
 	SKCloverleaf newInGrid: grid at: 7 @ 2.
