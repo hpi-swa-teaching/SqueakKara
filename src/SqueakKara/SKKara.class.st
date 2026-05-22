@@ -74,7 +74,7 @@ SKKara >> fillStyle: aFillStyle [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/21/2026 22:07'
+	#'squeak_changestamp' : 'ND 5/22/2026 22:05'
 }
 SKKara >> findUnusedColor [
 	
@@ -87,8 +87,6 @@ SKKara >> findUnusedColor [
 	colorList isEmpty ifFalse: [ ^ colorList first ].
 	
 	^ Color black
-	
-
 ]
 
 {
@@ -198,7 +196,7 @@ SKKara >> scaleToFactor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/21/2026 18:00'
+	#'squeak_changestamp' : 'ND 5/22/2026 22:12'
 }
 SKKara >> setTexture [
 
@@ -214,8 +212,6 @@ SKKara >> setTexture [
 	self rotate.
 	self originalImage: aForm.
 	self updateColorFor: aForm
-	
-
 ]
 
 {
