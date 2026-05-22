@@ -10,31 +10,41 @@ Class {
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'LK 6/21/2024 23:02'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:07'
 }
 SKLandingPage >> actionExample1 [
 
-	SKEnvironment basicNew initializeWithChallenge1.
+	SKEnvironment new initializeWithChallenge1.
 	self delete
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'KD 6/23/2024 20:59'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:07'
 }
 SKLandingPage >> actionExample2 [
 
-	SKEnvironment basicNew initializeWithChallenge2.
+	SKEnvironment new initializeWithChallenge2.
 	self delete
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'KD 6/23/2024 20:59'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:09'
 }
 SKLandingPage >> actionExample3 [
 
-	SKEnvironment basicNew initializeWithChallenge3.
+	SKEnvironment new initializeWithChallenge3.
+	self delete
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'LM 5/7/2026 22:15'
+}
+SKLandingPage >> actionExample4 [
+
+	SKEnvironment new initializeWithChallenge4.
 	self delete
 ]
 
@@ -50,7 +60,7 @@ SKLandingPage >> actionNew [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:55'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:16'
 }
 SKLandingPage >> addAllButtons [
 
@@ -59,21 +69,26 @@ SKLandingPage >> addAllButtons [
 	self addButton: self buildButtonExample1 atIndex: 1.
 	self addButton: self buildButtonExample2 atIndex: 2.
 	self addButton: self buildButtonExample3 atIndex: 3.
+	self addButton: self buildButtonExample4 atIndex: 4
 ]
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:01'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:20'
 }
 SKLandingPage >> addButton: aButton atIndex: anInteger [
 
-	| anOffset |
-
+	| yOffset basePosition |
+	
 	self addMorph: aButton.
 	
-	anOffset := 2 * aButton height * anInteger.
+	yOffset := (aButton height + 10) * (anInteger - 1).
 	
-	aButton position: self center - (aButton width / 2) + (0 @ anOffset)
+	basePosition := self center
+		- (aButton width / 2)
+		+ (0 @ 50).
+	
+	aButton position: basePosition + (0 @ yOffset)
 ]
 
 {
@@ -111,6 +126,17 @@ SKLandingPage >> buildButtonExample3 [
 
 {
 	#category : #buttons,
+	#'squeak_changestamp' : 'LM 5/7/2026 22:15'
+}
+SKLandingPage >> buildButtonExample4 [
+
+	^ self buildButtonWithLabel: self buttonExample4Label
+		andSelector: #actionExample4
+		andColor: SKStylesheet secondaryColor
+]
+
+{
+	#category : #buttons,
 	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
 }
 SKLandingPage >> buildButtonNew [
@@ -122,16 +148,17 @@ SKLandingPage >> buildButtonNew [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:07'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:08'
 }
 SKLandingPage >> buildButtonWithLabel: aLabel andSelector: aSelector andColor: aColor [
 
 	^ SimpleButtonMorph new
-		    label: aLabel;
-		    target: self;
-		    actionSelector: aSelector;
-		    color: aColor;
-		    height: self buttonHeight
+		label: aLabel;
+		target: self;
+		actionSelector: aSelector;
+		color: aColor;
+		height: self buttonHeight;
+		yourself
 ]
 
 {
@@ -162,6 +189,15 @@ SKLandingPage >> buttonExample3Label [
 ]
 
 {
+	#category : #labels,
+	#'squeak_changestamp' : 'LM 5/7/2026 22:15'
+}
+SKLandingPage >> buttonExample4Label [
+
+	^ 'Example Project 4'
+]
+
+{
 	#category : #buttons,
 	#'squeak_changestamp' : 'LK 7/4/2024 19:06'
 }
@@ -181,7 +217,7 @@ SKLandingPage >> buttonNewLabel [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:53'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:17'
 }
 SKLandingPage >> defaultExtent [
 
