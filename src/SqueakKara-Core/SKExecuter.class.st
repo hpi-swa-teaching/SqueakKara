@@ -78,15 +78,13 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/10/2026 21:40'
+	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:21'
 }
 SKExecuter >> execute: aCode [
 
-	| priority decorators |
+	| decorators process |
 	
 	self terminate.
-
-	priority := Processor userBackgroundPriority.
 	
 	decorators := self karas collect: [ :kara |
 		SKKaraProxy newWith: kara ].
@@ -99,8 +97,11 @@ SKExecuter >> execute: aCode [
 		| context |
 		decorator scheduler: self scheduler.
 		context := SKExecuteContext new kara: decorator.
-		[[ self compiler evaluate: aCode for: context ] ensure: [
-			scheduler finishActor: decorator ]] forkAt: priority ]).
+		process := self environment programmingConcept buildProcessWithCompiler: self compiler.
+		[ process startWithCode: aCode context: context ] ensure: [
+			scheduler finishActor: decorator ].
+		
+		^ process ]).
 
 	self state: #running
 ]

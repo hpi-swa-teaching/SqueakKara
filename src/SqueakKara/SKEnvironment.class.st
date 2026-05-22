@@ -12,7 +12,8 @@ Class {
 		'executeControls',
 		'gameWidth',
 		'gameHeight',
-		'systemWindow'
+		'systemWindow',
+		'programmingConcept'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
@@ -188,11 +189,14 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:16'
 }
 SKEnvironment >> initialize [
 
 	self karas: OrderedCollection new.
+	
+	self programmingConcept: SKProgrammingConceptCode new.
+	
 	super initialize
 ]
 
@@ -318,6 +322,24 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 	
 	startPoint := ((self gameWidth / 2) - (self executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
 	self executeControls position: self systemWindow position + startPoint.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:09'
+}
+SKEnvironment >> programmingConcept [
+
+	^ programmingConcept
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:09'
+}
+SKEnvironment >> programmingConcept: aProgrammingConcept [
+
+	programmingConcept := aProgrammingConcept
 ]
 
 {
