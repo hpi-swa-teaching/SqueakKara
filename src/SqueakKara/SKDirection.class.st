@@ -67,10 +67,11 @@ SKDirection class >> rotateLeft [
 
 {
 	#category : #directions,
-	#'squeak_changestamp' : 'EB 7/11/2024 15:13'
+	#'squeak_changestamp' : 'LM 5/10/2026 20:29'
 }
 SKDirection class >> rotatePosition: aPosition by: aMatrix [
-	|vector|
+
+	| vector |
 	vector := aMatrix collect: [:row |((row at: 1) * aPosition x) + ((row at: 2) * aPosition y)].
 	^ (vector first) @ (vector second)
 ]

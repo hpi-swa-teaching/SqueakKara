@@ -40,6 +40,20 @@ SKGridCoordinator >> createGridMatrix [
 
 {
 	#category : #'object storing',
+	#'squeak_changestamp' : 'jawi 5/14/2026 12:24'
+}
+SKGridCoordinator >> findFreeField [
+
+	| aSet |
+
+	aSet := Set new.	
+	self gridMatrix indicesDo: [ :x :y | ((self getTileAtCoordinates: x @ y) isEmpty) ifTrue: [aSet add: x @ y]].
+	
+	^ aSet
+]
+
+{
+	#category : #'object storing',
 	#'squeak_changestamp' : 'LK 5/24/2024 11:07'
 }
 SKGridCoordinator >> getTileAtCoordinates: aPoint [
@@ -69,21 +83,31 @@ SKGridCoordinator >> grid: aGrid [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LK 5/24/2024 10:49'
+	#'squeak_changestamp' : 'LM 4/29/2026 18:53'
 }
 SKGridCoordinator >> gridMatrix [
 
-	^ gridMatrix ifNil: [gridMatrix := self createGridMatrix]
+	^ gridMatrix
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 20:57'
+}
+SKGridCoordinator >> gridMatrix: aMatrix [
+
+	^ gridMatrix := aMatrix
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LK 5/24/2024 11:17'
+	#'squeak_changestamp' : 'LM 4/29/2026 18:53'
 }
 SKGridCoordinator >> initializeForGrid: aGrid [
+	self grid: aGrid.
+	self gridMatrix: self createGridMatrix.
 
-	super initialize.
-	self grid: aGrid
+	super initialize
 ]
 
 {
