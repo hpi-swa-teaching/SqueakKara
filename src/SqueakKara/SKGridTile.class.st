@@ -49,9 +49,9 @@ SKGridTile >> lockedFor: anActor [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'AB 5/21/2026 20:28'
+	#'squeak_changestamp' : 'LM 5/22/2026 09:54'
 }
 SKGridTile >> unlock [
 
-	self locked: false
+	self locked: nil
 ]
