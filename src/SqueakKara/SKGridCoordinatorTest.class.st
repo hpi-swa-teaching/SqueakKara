@@ -60,6 +60,22 @@ SKGridCoordinatorTest >> testDeleteObject [
 
 {
 	#category : #testing,
+	#'squeak_changestamp' : 'ND 5/20/2026 14:40'
+}
+SKGridCoordinatorTest >> testLogicalConsistencyOnResize [
+
+	| expectedObject receivedSet oldMatrix |
+	oldMatrix := self grid gridCoordinator.
+	expectedObject := SKKara new initializeInGrid: grid at: 2@2.
+	expectedObject scaleToFactor.
+	
+	receivedSet := self grid gridCoordinator getTileAtCoordinates: 2@2.
+	
+	self assert: (receivedSet includes: expectedObject)
+]
+
+{
+	#category : #testing,
 	#'squeak_changestamp' : 'JJG 6/18/2024 18:27'
 }
 SKGridCoordinatorTest >> testNeighbourAbove [
@@ -117,7 +133,7 @@ SKGridCoordinatorTest >> testNeighbourLeftAfterDelete [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:11'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:31'
 }
 SKGridCoordinatorTest >> testNeighbourLeftAfterMove [
 
@@ -125,7 +141,7 @@ SKGridCoordinatorTest >> testNeighbourLeftAfterMove [
 	
 	anObject := SKKara newInGrid: self grid at: 1 @ 1 + SKDirection right.
 	anotherObject := SKKara newInGrid: self grid.
-	anotherObject coordinateX: anotherObject coordinateX + 2.
+	anotherObject coordinates: ((anotherObject coordinates x + 2) @ anotherObject coordinates y).
 	
 	self assert: ((anotherObject neighboursLeft includes: anObject) and: (anotherObject neighboursLeft size = 1))
 ]
@@ -167,4 +183,18 @@ SKGridCoordinatorTest >> testNeighboursHereTwoObjects [
 	anObject := SKKara newInGrid: self grid.
 	anotherObject := SKKara newInGrid: self grid.
 	self assert: ((anObject neighboursHere includes: anotherObject) and: (anObject neighboursHere size = 2))
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'LM 4/28/2026 22:54'
+}
+SKGridCoordinatorTest >> testObjectInsertion [
+
+	| expectedObject receivedSet oldMatrix |
+	oldMatrix := self grid gridCoordinator.
+	expectedObject := SKKara new initializeInGrid: grid at: 2@2.
+	receivedSet := self grid gridCoordinator getTileAtCoordinates: 2@2.
+	
+	self assert: (receivedSet includes: expectedObject)
 ]

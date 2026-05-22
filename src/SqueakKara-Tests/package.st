@@ -1,4 +1,4 @@
 Package {
-	#name : #'SqueakKara-Tests',
-	#'squeak_changestamp' : true
+	#'squeak_changestamp' : true,
+	#name : #'SqueakKara-Tests'
 }
