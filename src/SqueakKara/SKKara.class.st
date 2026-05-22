@@ -42,14 +42,12 @@ SKKara >> defaultColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 10:57'
+	#'squeak_changestamp' : 'LD 5/22/2026 12:03'
 }
 SKKara >> fillStyle: aFillStyle [
-		
-		(aFillStyle notBlack) ifTrue: [
-			super fillStyle: aFillStyle.
-			self scaleToFactor
-		]
+			
+		super fillStyle: aFillStyle.
+		self scaleToFactor
 ]
 
 {
