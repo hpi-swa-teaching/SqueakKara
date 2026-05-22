@@ -18,6 +18,21 @@ SKCloverleaf >> isCloverleaf [
 ]
 
 {
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/29/2026 12:59'
+}
+SKCloverleaf >> position: aPoint [
+
+	| coordinates tile |
+	coordinates := self coordinatesFromPosition: aPoint.
+	tile := self gridCoordinator getTileAtCoordinates: coordinates.
+	
+	(tile anySatisfy: [ :each | each isTrunk ]) ifTrue: [^ self ].
+
+	super position: aPoint
+]
+
+{
 	#category : #appearance,
 	#'squeak_changestamp' : 'jt 6/11/2024 19:55'
 }
