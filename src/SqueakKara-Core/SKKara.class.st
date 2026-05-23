@@ -5,7 +5,8 @@ Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
 	#instVars : [
-		'viewDirection'
+		'viewDirection',
+		'workspace'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
@@ -13,14 +14,14 @@ Class {
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 10:57'
+	#'squeak_changestamp' : 'LM 5/23/2026 13:46'
 }
 SKKara >> color: aColor [
 	
 	(aColor notBlack) ifTrue: [
 		super color: aColor.
-		self scaleToFactor
-	]
+		self scaleToFactor ].
+	self workspace color: self color
 ]
 
 {
@@ -44,14 +45,11 @@ SKKara >> defaultColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 10:57'
+	#'squeak_changestamp' : 'LM 5/23/2026 13:46'
 }
 SKKara >> fillStyle: aFillStyle [
-		
-		(aFillStyle notBlack) ifTrue: [
-			super fillStyle: aFillStyle.
-			self scaleToFactor
-		]
+
+	self color: aFillStyle
 ]
 
 {
@@ -264,4 +262,22 @@ SKKara >> viewDirection [
 SKKara >> viewDirection: aDirection [
 	
 	^ viewDirection := aDirection
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:42'
+}
+SKKara >> workspace [
+
+	^ workspace
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:42'
+}
+SKKara >> workspace: aWorkspace [
+
+	workspace := aWorkspace
 ]
