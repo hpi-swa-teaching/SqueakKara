@@ -82,7 +82,7 @@ SKLintTest >> writeMatchingMethodsFor: result on: stream [
 
 {
 	#category : #formatting,
-	#'squeak_changestamp' : 'mr 5/23/2026 17:36'
+	#'squeak_changestamp' : 'mr 5/23/2026 17:43'
 }
 SKLintTest >> writeResult: result on: stream [
 	
@@ -91,7 +91,7 @@ SKLintTest >> writeResult: result on: stream [
 	pluralS := result value > 1 ifTrue: [ 's' ] ifFalse: [ '' ].
 	resultText := 
 		result testData name, ': ', 
-		result value, ' occurence', pluralS, 'in ', result testObject name.
+		result value, ' occurence', pluralS, ' in ', result testObject name.
 		
 	equalsLine := String new: resultText size withAll: $=.
 	minusLine := String new: resultText size withAll: $-.
