@@ -6,11 +6,13 @@ Class {
 
 {
 	#category : #formatting,
-	#'squeak_changestamp' : 'mr 5/23/2026 12:33'
+	#'squeak_changestamp' : 'mr 5/23/2026 17:32'
 }
 SKLintTest >> formatResultsReport: results [
 	
 	^ String streamContents: [ :stream |
+		stream nextPut: Character cr.
+		
 		results do: [ :result |
 			self writeResult: result on: stream.
 			self writeMatchingMethodsFor: result on: stream ] ]
@@ -37,7 +39,7 @@ SKLintTest >> packageName [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'mr 5/23/2026 11:59'
+	#'squeak_changestamp' : 'mr 5/23/2026 17:32'
 }
 SKLintTest >> testLinting [
 	
@@ -58,7 +60,7 @@ SKLintTest >> testLinting [
 	resultEnvironment := testRunner runOnEnvironment: environment.
 	testResults := resultEnvironment results.
 	
-	self assert: testResults isEmpty description: (String cr, (self formatResultsReport: testResults))
+	self assert: testResults isEmpty description: (self formatResultsReport: testResults)
 ]
 
 {
@@ -80,24 +82,21 @@ SKLintTest >> writeMatchingMethodsFor: result on: stream [
 
 {
 	#category : #formatting,
-	#'squeak_changestamp' : 'mr 5/23/2026 12:22'
+	#'squeak_changestamp' : 'mr 5/23/2026 17:31'
 }
 SKLintTest >> writeResult: result on: stream [
 	
-	| pluralS |
+	| pluralS resultText seperationLine |
 	
 	pluralS := result value > 1 ifTrue: [ 's' ] ifFalse: [ '' ].
+	resultText := 
+		result testData name, ': ', 
+		result value, ' occurence', pluralS, 'in ', result testObject name.
+	seperationLine := (String new: resultText size) atAllPut: $=.
 	
 	stream
-		nextPutAll: '======';
-		cr;
-		nextPutAll: result testData name;
-		nextPutAll: ': ';
-		nextPutAll: result value asString;
-		nextPutAll: ' occurrence', pluralS, ' in ';
-		nextPutAll: result testObject name;
-		cr;
-		nextPutAll: '======';
-		cr; 
+		nextPutAll: seperationLine; cr;
+		nextPutAll: resultText; cr;
+		nextPutAll: seperationLine; cr; 
 		cr
 ]
