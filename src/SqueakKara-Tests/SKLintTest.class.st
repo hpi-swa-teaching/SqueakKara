@@ -6,14 +6,14 @@ Class {
 
 {
 	#category : #formatting,
-	#'squeak_changestamp' : 'mr 5/23/2026 11:48'
+	#'squeak_changestamp' : 'mr 5/23/2026 12:33'
 }
 SKLintTest >> formatResultsReport: results [
 	
 	^ String streamContents: [ :stream |
 		results do: [ :result |
 			self writeResult: result on: stream.
-			self writeMatchingMethodsFor: result on: stream] ]
+			self writeMatchingMethodsFor: result on: stream ] ]
 ]
 
 {
