@@ -80,9 +80,13 @@ SKLintTest >> writeMatchingMethodsFor: result on: stream [
 
 {
 	#category : #formatting,
-	#'squeak_changestamp' : 'mr 5/23/2026 11:48'
+	#'squeak_changestamp' : 'mr 5/23/2026 12:22'
 }
 SKLintTest >> writeResult: result on: stream [
+	
+	| pluralS |
+	
+	pluralS := result value > 1 ifTrue: [ 's' ] ifFalse: [ '' ].
 	
 	stream
 		nextPutAll: '======';
@@ -90,7 +94,7 @@ SKLintTest >> writeResult: result on: stream [
 		nextPutAll: result testData name;
 		nextPutAll: ': ';
 		nextPutAll: result value asString;
-		nextPutAll: ' occurrences in ';
+		nextPutAll: ' occurrence', pluralS, ' in ';
 		nextPutAll: result testObject name;
 		cr;
 		nextPutAll: '======';
