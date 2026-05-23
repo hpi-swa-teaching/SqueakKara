@@ -133,19 +133,19 @@ SKKara >> onCloverleaf [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 5/22/2026 11:50'
+	#'squeak_changestamp' : 'LM 5/23/2026 17:57'
 }
 SKKara >> position: aPoint [
 
-	| coordinates tile |
-	coordinates := self coordinatesFromPosition: aPoint.
-	tile := self gridCoordinator getTileAtCoordinates: coordinates.
+	| newCoordinates tile |
+	newCoordinates := self coordinatesFromPosition: aPoint.
+	tile := self gridCoordinator getTileAtCoordinates: newCoordinates.
 	
 	(tile anySatisfy: [ :each | each isTrunk or: [ each isKara ] ]) ifTrue: [^ self ].
 
 	self gridCoordinator
 		unlockAt: self coordinates;
-		lockAt: coordinates for: self.
+		lockAt: newCoordinates for: self.
 	super position: aPoint
 ]
 
