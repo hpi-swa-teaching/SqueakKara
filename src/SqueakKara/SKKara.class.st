@@ -5,7 +5,8 @@ Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
 	#instVars : [
-		'viewDirection'
+		'viewDirection',
+		'movementBlocked'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
@@ -78,12 +79,39 @@ SKKara >> karaAhead [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/11/2026 22:18'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/23/2026 18:36'
 }
 SKKara >> move [
 
-	(self trunkAhead) ifTrue: [ ^ self ].
-	self moveToCoordinates: self coordinates + self viewDirection
+	(self walkableAhead and: self movementBlocked not)
+		ifTrue: [self coordinates: self coordinates + self viewDirection]
+		ifFalse: [
+			self movementBlocked: true;
+				say: 'I should not walk into things. There might also be a bug in the code!'.
+			^ self]
+			
+			
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/23/2026 18:26'
+}
+SKKara >> movementBlocked [
+
+	movementBlocked ifNil: [self movementBlocked: false].
+	^ movementBlocked
+
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/23/2026 18:27'
+}
+SKKara >> movementBlocked: aBoolean [
+
+	movementBlocked := aBoolean
+
 ]
 
 {
@@ -205,12 +233,12 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'LD 5/21/2026 11:01'
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/23/2026 18:30'
 }
 SKKara >> turn: aRotation [
-								
-	self viewDirection: (SKDirection rotatePosition: self viewDirection by: aRotation).		
-	self scaleToFactor
+	self movementBlocked ifFalse: [
+		self viewDirection: (SKDirection rotatePosition: self viewDirection by: aRotation).		
+		self scaleToFactor].
 	
 	
 
@@ -261,4 +289,16 @@ SKKara >> viewDirection [
 SKKara >> viewDirection: aDirection [
 	
 	^ viewDirection := aDirection
+]
+
+{
+	#category : #'object detection',
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/23/2026 18:33'
+}
+SKKara >> walkableAhead [
+
+	| tileAheadInGrid |
+	tileAheadInGrid := self grid isPointInGridDimensions: self viewDirection + self coordinates.
+
+	^ self trunkAhead not and: tileAheadInGrid
 ]
