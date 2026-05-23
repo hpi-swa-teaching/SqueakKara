@@ -18,13 +18,11 @@ SKLintTest >> formatResultsReport: results [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'mr 5/22/2026 23:08'
+	#'squeak_changestamp' : 'mr 5/23/2026 11:59'
 }
 SKLintTest >> lintTestCases [
 
 	^ {	#instanceVariableAccessIsConsistent: .
-		#magicNumbers: .
-		#nilProgramming: .
 		#noClassComments: }
 ]
 
@@ -39,7 +37,7 @@ SKLintTest >> packageName [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'mr 5/23/2026 11:49'
+	#'squeak_changestamp' : 'mr 5/23/2026 11:59'
 }
 SKLintTest >> testLinting [
 	
@@ -48,7 +46,7 @@ SKLintTest >> testLinting [
 	packageName := self packageName.
 	PackageInfo allPackages detect: [ :package | package name = packageName ] ifNone: [ self fail: 'Package not found: ', packageName ].
 	
-	target := SL2Target withSystemCategories: { self packageName }.
+	target := SL2Target withSystemCategories: { packageName }.
 	environment := SLDefaultEnvironment new.
 	environment selectedClasses: target classes.
 	
@@ -60,7 +58,7 @@ SKLintTest >> testLinting [
 	resultEnvironment := testRunner runOnEnvironment: environment.
 	testResults := resultEnvironment results.
 	
-	self assert: testResults isEmpty description: (self formatResultsReport: testResults)
+	self assert: testResults isEmpty description: (String cr, (self formatResultsReport: testResults))
 ]
 
 {
