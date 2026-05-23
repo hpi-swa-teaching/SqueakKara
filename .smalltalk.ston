@@ -1,12 +1,6 @@
 SmalltalkCISpec {
 	#loading : [
 		SCIMetacelloLoadSpec {
-			#baseline : 'SwaLint',
-			#repository : 'github://hpi-swa-teaching/SwaLint:main/packages',
-			#platforms : [#squeak],
-			#load : ['default']
-		},
-		SCIMetacelloLoadSpec {
 			#baseline : 'SqueakKara',
 			#directory : 'src',
 			#platforms : [#squeak],
