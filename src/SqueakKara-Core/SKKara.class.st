@@ -62,6 +62,15 @@ SKKara >> isKara [
 ]
 
 {
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:50'
+}
+SKKara >> isLocked: aPoint [
+
+	^ self gridCoordinator isLocked: aPoint for: self
+]
+
+{
 	#category : #'object detection',
 	#'squeak_changestamp' : 'LM 5/10/2026 20:18'
 }
@@ -75,6 +84,26 @@ SKKara >> karaAhead [
 ]
 
 {
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/23/2026 14:01'
+}
+SKKara >> lockAt: aPoint [
+
+	(self isLocked: aPoint) ifTrue: [ ^ self ].
+	(self gridCoordinator lockAt: aPoint for: self) ifTrue: [
+		self unlockAt: self coordinates ]
+]
+
+{
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:51'
+}
+SKKara >> lockNextField [
+
+	self lockAt: self nextField
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'LM 5/11/2026 22:18'
 }
@@ -82,6 +111,15 @@ SKKara >> move [
 
 	(self trunkAhead) ifTrue: [ ^ self ].
 	self moveToCoordinates: self coordinates + self viewDirection
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:51'
+}
+SKKara >> nextField [
+
+	^ self coordinates + self viewDirection
 ]
 
 {
@@ -216,6 +254,15 @@ SKKara >> turn: aRotation [
 	
 
 	
+]
+
+{
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:49'
+}
+SKKara >> unlockAt: aPoint [
+
+	self gridCoordinator unlockAt: aPoint
 ]
 
 {

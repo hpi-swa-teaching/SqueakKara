@@ -152,37 +152,6 @@ SKScheduler >> finishActor: anActor [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'AB 5/21/2026 19:41'
-}
-SKScheduler >> gridCoordinator [
-
-	^ self executer environment grid gridCoordinator
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/22/2026 11:50'
-}
-SKScheduler >> isLocked: aPoint for: anActor [
-
-	^ self gridCoordinator isLocked: aPoint for: anActor kara
-
-	
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/22/2026 11:53'
-}
-SKScheduler >> lockFor: anActor [
-
-	(self isLocked: (anActor nextField) for: anActor) ifTrue: [ ^ self ].
-	(self gridCoordinator lockAt: (anActor nextField) for: anActor kara) ifTrue: [
-		self unlockAt: anActor coordinates ]
-]
-
-{
 	#category : #scheduling,
 	#'squeak_changestamp' : 'LM 5/12/2026 21:01'
 }
@@ -212,7 +181,7 @@ SKScheduler >> releaseLocks: aDictionary [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'AB 5/21/2026 20:35'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:00'
 }
 SKScheduler >> scheduleAction: anAction for: anActor [
 
@@ -221,7 +190,7 @@ SKScheduler >> scheduleAction: anAction for: anActor [
 		
 		actions := self scheduledSteps at: anActor ifAbsent: [ OrderedCollection new ].
 		actions add: anAction.
-		(anAction type = #move) ifTrue: [ self lockFor: anActor ].
+		(anAction type = #move) ifTrue: [ anActor lockNextField ].
 		self scheduledSteps at: anActor put: actions.
 		
 		self scheduledSteps size = self activeActors size ifTrue: [
@@ -250,11 +219,10 @@ SKScheduler >> scheduledSteps: aDictionary [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'AB 5/21/2026 19:03'
+	#'squeak_changestamp' : 'LM 5/23/2026 13:49'
 }
 SKScheduler >> step [
 
-	"self delayStep."
 	self stepForType: #move.
 	self delayStep
 ]
@@ -286,15 +254,6 @@ SKScheduler >> stepLock [
 SKScheduler >> stepLock: aSemaphore [
 
 	stepLock := aSemaphore
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/22/2026 11:53'
-}
-SKScheduler >> unlockAt: aPoint [
-
-	self gridCoordinator unlockAt: aPoint
 ]
 
 {
