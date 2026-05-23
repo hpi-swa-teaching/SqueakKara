@@ -30,11 +30,11 @@ SKEnvironment class >> newWithKaraAt: aPoint [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/23/2026 13:45'
+	#'squeak_changestamp' : 'LM 5/23/2026 18:29'
 }
 SKEnvironment >> abondon [
 
-	self workspaces do: [ :workspace | workspace close ]
+	self workspaces do: [ :workspace | workspace superClose ]
 ]
 
 {

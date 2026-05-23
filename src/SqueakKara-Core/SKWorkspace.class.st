@@ -38,11 +38,12 @@ SKWorkspace class >> newWithExecuter: anExecuter and: aKara [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:43'
+	#'squeak_changestamp' : 'LM 5/23/2026 18:26'
 }
 SKWorkspace >> close [
 
-	self changed: #close
+	self changed: #close.
+	self kara delete
 ]
 
 {
@@ -164,6 +165,15 @@ SKWorkspace >> kara: aKara [
 ]
 
 {
+	#category : #closing,
+	#'squeak_changestamp' : 'LM 5/23/2026 18:15'
+}
+SKWorkspace >> superClose [
+
+	self changed: #close
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/7/2026 16:57'
 }
@@ -194,4 +204,13 @@ SKWorkspace >> userCode: aString [
 SKWorkspace >> windowColorToUse [
 
 	 ^ self color
+]
+
+{
+	#category : #closing,
+	#'squeak_changestamp' : 'LM 5/23/2026 18:31'
+}
+SKWorkspace >> windowIsClosing [
+
+	self kara superDelete
 ]

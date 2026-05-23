@@ -44,6 +44,16 @@ SKKara >> defaultColor [
 ]
 
 {
+	#category : #'submorphs - add/remove',
+	#'squeak_changestamp' : 'LM 5/23/2026 18:15'
+}
+SKKara >> delete [
+
+	self workspace superClose.
+	super delete
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'LM 5/23/2026 13:46'
 }
@@ -218,6 +228,15 @@ SKKara >> setTexture [
 	self updateColorFor: aForm
 	
 
+]
+
+{
+	#category : #'submorphs - add/remove',
+	#'squeak_changestamp' : 'LM 5/23/2026 18:31'
+}
+SKKara >> superDelete [
+
+	super delete
 ]
 
 {
