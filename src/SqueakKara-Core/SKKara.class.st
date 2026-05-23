@@ -45,12 +45,12 @@ SKKara >> defaultColor [
 
 {
 	#category : #'submorphs - add/remove',
-	#'squeak_changestamp' : 'LM 5/23/2026 18:15'
+	#'squeak_changestamp' : 'LM 5/23/2026 18:40'
 }
 SKKara >> delete [
 
-	self workspace superClose.
-	super delete
+	self workspace ifNotNil: [ self workspace superClose ].
+	self superDelete
 ]
 
 {

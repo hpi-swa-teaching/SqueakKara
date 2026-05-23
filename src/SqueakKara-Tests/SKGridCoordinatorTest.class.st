@@ -60,6 +60,27 @@ SKGridCoordinatorTest >> testDeleteObject [
 
 {
 	#category : #testing,
+	#'squeak_changestamp' : 'LM 5/23/2026 18:37'
+}
+SKGridCoordinatorTest >> testLockingAndUnlocking [
+
+	| kara other |
+	
+	kara := SKKara newInGrid: self grid at: 1 @ 1.
+	other := SKKara newInGrid: self grid at: 3 @ 1.
+	
+	kara lockAt: 2 @ 1.
+	
+	self deny: (kara isLocked: 2 @ 1).
+	self assert: (other isLocked: 2 @ 1).
+	
+	kara unlockAt: 2 @ 1.
+	
+	self deny: (other isLocked: 2 @ 1)
+]
+
+{
+	#category : #testing,
 	#'squeak_changestamp' : 'ND 5/20/2026 14:40'
 }
 SKGridCoordinatorTest >> testLogicalConsistencyOnResize [

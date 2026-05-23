@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'executer',
 		'kara',
-		'color'
+		'color',
+		'closeListener'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:03'
@@ -44,6 +45,24 @@ SKWorkspace >> close [
 
 	self changed: #close.
 	self kara delete
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 18:42'
+}
+SKWorkspace >> closeListener [
+
+	^ closeListener
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 18:42'
+}
+SKWorkspace >> closeListener: aBlock [
+
+	closeListener := aBlock
 ]
 
 {
@@ -208,9 +227,11 @@ SKWorkspace >> windowColorToUse [
 
 {
 	#category : #closing,
-	#'squeak_changestamp' : 'LM 5/23/2026 18:31'
+	#'squeak_changestamp' : 'LM 5/23/2026 18:42'
 }
 SKWorkspace >> windowIsClosing [
 
-	self kara superDelete
+	self kara superDelete.
+	"Used for testing only"
+	self closeListener value
 ]
