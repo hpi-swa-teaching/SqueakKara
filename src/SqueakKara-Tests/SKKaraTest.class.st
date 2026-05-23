@@ -74,7 +74,7 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'LD 5/21/2026 12:07'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:08'
 }
 SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
     | kara aForm colorChanged |

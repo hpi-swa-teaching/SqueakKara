@@ -14,14 +14,14 @@ Class {
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/23/2026 13:46'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:08'
 }
 SKKara >> color: aColor [
 	
 	(aColor notBlack) ifTrue: [
 		super color: aColor.
 		self scaleToFactor ].
-	self workspace color: self color
+	self workspace ifNotNil: [ self workspace color: self color ]
 ]
 
 {

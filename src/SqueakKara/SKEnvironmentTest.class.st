@@ -47,11 +47,11 @@ SKEnvironmentTest >> testCreation [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:06'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:04'
 }
 SKEnvironmentTest >> testDetectCloverleaf [
 
-	self environment workspace userCode: 'kara onCloverleaf ifTrue: [kara move]'.
+	self environment firstWorkspace userCode: 'kara onCloverleaf ifTrue: [kara move]'.
 	SKCloverleaf newInGrid: self environment grid at: 1 @ 1.
 
 	self environment run.
@@ -64,11 +64,11 @@ SKEnvironmentTest >> testDetectCloverleaf [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:06'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:04'
 }
 SKEnvironmentTest >> testDetectNoCloverleaf [
 
-	self environment workspace userCode: 'kara onCloverleaf ifTrue: [kara move]'.
+	self environment firstWorkspace userCode: 'kara onCloverleaf ifTrue: [kara move]'.
 	
 	self environment run.
 	
@@ -80,11 +80,11 @@ SKEnvironmentTest >> testDetectNoCloverleaf [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:06'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:05'
 }
 SKEnvironmentTest >> testDetectNoTrunk [
 
-	self environment workspace userCode: 'kara trunkAhead ifTrue: [kara turn: right. kara move]'.
+	self environment firstWorkspace userCode: 'kara trunkAhead ifTrue: [kara turn: right. kara move]'.
 	
 	self environment run.
 	
@@ -96,11 +96,11 @@ SKEnvironmentTest >> testDetectNoTrunk [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:06'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:05'
 }
 SKEnvironmentTest >> testDetectTrunk [
 
-	self environment workspace userCode: 'kara trunkAhead ifTrue: [kara turn: right. kara move]'.
+	self environment firstWorkspace userCode: 'kara trunkAhead ifTrue: [kara turn: right. kara move]'.
 	SKTrunk newInGrid: self environment grid at: 2 @ 1.
 	
 	self environment run.
@@ -113,11 +113,11 @@ SKEnvironmentTest >> testDetectTrunk [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:06'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:05'
 }
 SKEnvironmentTest >> testMove [
 
-	self environment workspace userCode: 'kara move'.
+	self environment firstWorkspace userCode: 'kara move'.
 	
 	self environment run.
 	
@@ -129,11 +129,11 @@ SKEnvironmentTest >> testMove [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:08'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:05'
 }
 SKEnvironmentTest >> testMoveTwice [
 
-	self environment workspace userCode: 'kara move. kara move'.
+	self environment firstWorkspace userCode: 'kara move. kara move'.
 	
 	self environment run.
 	
@@ -145,12 +145,12 @@ SKEnvironmentTest >> testMoveTwice [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:02'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:05'
 }
 SKEnvironmentTest >> testTurnLeftMove [
 
 	self environment karas first coordinates: (2 @ 2).
-	self environment workspace userCode: 'kara turn: left. kara move'.
+	self environment firstWorkspace userCode: 'kara turn: left. kara move'.
 	
 	self environment run.
 	
@@ -162,11 +162,11 @@ SKEnvironmentTest >> testTurnLeftMove [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:08'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:05'
 }
 SKEnvironmentTest >> testTurnRightMove [
 
-	self environment workspace userCode: 'kara turn: right. kara move'.
+	self environment firstWorkspace userCode: 'kara turn: right. kara move'.
 	
 	self environment run.
 	

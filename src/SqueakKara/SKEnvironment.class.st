@@ -147,6 +147,15 @@ SKEnvironment >> executionSpeed: aSpeed [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 14:04'
+}
+SKEnvironment >> firstWorkspace [
+
+	^ self workspaces first
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 4/28/2026 20:27'
 }
 SKEnvironment >> gameHeight [
