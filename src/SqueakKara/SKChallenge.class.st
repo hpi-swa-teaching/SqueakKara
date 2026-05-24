@@ -106,3 +106,20 @@ SKChallenge class >> initializeChallenge4For: aGrid environment: anEnvironment [
 	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2).
 	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 4)
 ]
+
+{
+	#category : #challenges,
+	#'squeak_changestamp' : 'AB 5/24/2026 15:00'
+}
+SKChallenge class >> initializeChallenge5For: aGrid environment: anEnvironment [
+
+	SKCloverleaf newInGrid: aGrid at: 7 @ 2.
+	SKCloverleaf newInGrid: aGrid at: 7 @ 4.
+	SKCloverleaf newInGrid: aGrid at: 7 @ 3.
+	SKCloverleaf newInGrid: aGrid at: 7 @ 5.
+
+	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2).
+	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 3).
+	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 4).
+	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 5)
+]
