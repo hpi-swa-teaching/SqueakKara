@@ -17,12 +17,12 @@ BaselineOfSqueakKara >> baseline: spec [
                      baseline: 'Squot' with: [
                          spec repository: 'github://hpi-swa/Squot:mapper/src'. ].
                  spec
-                     package: 'SqueakKara-Core' with: [spec requires: #('Squot'); postLoadDoIt: #postLoad];
-                     package: 'SqueakKara-Tests' with: [spec requires: #('default')];
+                     package: 'SqueakKara' with: [spec requires: #('Squot'); postLoadDoIt: #postLoad];
+                     package: 'SqueakKaraTests' with: [spec requires: #('default')];
                      yourself.
                  spec
-                     group: 'default' with: #('SqueakKara-Core');
-                     group: 'tests' with: #('SqueakKara-Tests');
+                     group: 'default' with: #('SqueakKara');
+                     group: 'tests' with: #('SqueakKaraTests');
                      yourself].
 ]
 
