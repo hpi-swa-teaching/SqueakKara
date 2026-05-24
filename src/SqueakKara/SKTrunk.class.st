@@ -4,7 +4,7 @@ SKTrunk adds the proper texture and a way to identify it as a trunk to the funct
 Class {
 	#name : #SKTrunk,
 	#superclass : #SKGridObject,
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
 }
 

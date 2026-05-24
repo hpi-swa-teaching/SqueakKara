@@ -4,7 +4,7 @@ SKGridNullTile overwrites the remove method of the pre-existing Set class for si
 Class {
 	#name : #SKGridNullTile,
 	#superclass : #SKGridTile,
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:58'
 }
 

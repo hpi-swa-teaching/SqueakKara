@@ -4,7 +4,7 @@ SKStylesheet provides access to common stylistic properties, e.g. primary and se
 Class {
 	#name : #SKStylesheet,
 	#superclass : #Object,
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'LK 7/4/2024 19:13'
 }
 

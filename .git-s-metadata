@@ -26,22 +26,6 @@ GSMetadata {
 			],
 			#encoding : @5
 		},
-		GSTonelMapper {
-			#version : 1,
-			#package : MCPackage {
-				#name : 'SqueakKara-Tests'
-			},
-			#path : FSAbsolutePath [
-				'src'
-			]
-		},
-		GSPlaintextMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'LICENSE'
-			],
-			#encoding : 'TXT'
-		},
 		GSPlaintextMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
@@ -49,6 +33,14 @@ GSMetadata {
 				'.properties'
 			],
 			#encoding : 'TXT'
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'Trunk.png'
+			],
+			#encoding : @5
 		},
 		GSImageMapper {
 			#version : 1,
@@ -66,13 +58,12 @@ GSMetadata {
 			],
 			#encoding : @5
 		},
-		GSImageMapper {
+		GSPlaintextMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
-				'assets',
-				'Trunk.png'
+				'LICENSE'
 			],
-			#encoding : @5
+			#encoding : 'TXT'
 		},
 		GSPlaintextMapper {
 			#version : 1,
@@ -89,13 +80,6 @@ GSMetadata {
 				'automatic-testing.yml'
 			],
 			#encoding : 'TXT'
-		},
-		GSTonelMapper {
-			#version : 1,
-			#package : MCPackage {
-				#name : 'SqueakKara-Core'
-			},
-			#path : @12
 		},
 		GSPlaintextMapper {
 			#version : 1,
@@ -131,9 +115,20 @@ GSMetadata {
 		GSTonelMapper {
 			#version : 1,
 			#package : MCPackage {
+				#name : 'SqueakKaraTests'
+			},
+			#path : FSAbsolutePath [
+				'src'
+			]
+		},
+		GSTonelMapper {
+			#version : 1,
+			#package : MCPackage {
 				#name : 'BaselineOfSqueakKara'
 			},
-			#path : @12
+			#path : FSAbsolutePath [
+				'src'
+			]
 		}
 	],
 	#name : 'SqueakKara'

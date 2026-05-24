@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'viewDirection'
 	],
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
 }
 

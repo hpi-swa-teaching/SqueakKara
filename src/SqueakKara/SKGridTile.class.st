@@ -4,6 +4,6 @@ SKGridTile inherits all functionality from the pre-existing class Set, existing 
 Class {
 	#name : #SKGridTile,
 	#superclass : #Set,
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:58'
 }

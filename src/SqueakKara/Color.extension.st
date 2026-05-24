@@ -1,7 +1,7 @@
 Extension { #name : #Color }
 
 {
-	#category : #'*SqueakKara-Core',
+	#category : #'*SqueakKara',
 	#'squeak_changestamp' : 'LD 5/19/2026 13:31'
 }
 Color >> isSimilarColorTo: anotherColor [
@@ -16,7 +16,7 @@ Color >> isSimilarColorTo: anotherColor [
 ]
 
 {
-	#category : #'*SqueakKara-Core',
+	#category : #'*SqueakKara',
 	#'squeak_changestamp' : 'LD 5/21/2026 10:57'
 }
 Color >> notBlack [

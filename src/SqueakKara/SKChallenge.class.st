@@ -4,7 +4,7 @@ A SKChallenge is a static class that implementes methods for placing objects on 
 Class {
 	#name : #SKChallenge,
 	#superclass : #Object,
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'LM 5/10/2026 20:27'
 }
 

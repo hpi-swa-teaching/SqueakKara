@@ -5,7 +5,7 @@ Class {
 		'environment',
 		'controls'
 	],
-	#category : #'SqueakKara-Tests'
+	#category : #SqueakKaraTests
 }
 
 {

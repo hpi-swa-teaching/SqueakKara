@@ -4,7 +4,7 @@ SKLandingPage provides a user interface for the user to select either a blank wo
 Class {
 	#name : #SKLandingPage,
 	#superclass : #SystemWindow,
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:01'
 }
 

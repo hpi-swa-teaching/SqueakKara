@@ -8,7 +8,7 @@ Class {
 		'kara',
 		'scheduler'
 	],
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:00'
 }
 
