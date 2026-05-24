@@ -6,7 +6,7 @@ Class {
 
 {
 	#category : #baseline,
-	#'squeak_changestamp' : 'LK 6/12/2024 18:47'
+	#'squeak_changestamp' : 'mr 5/24/2026 19:38'
 }
 BaselineOfSqueakKara >> baseline: spec [
          <baseline>
@@ -14,10 +14,10 @@ BaselineOfSqueakKara >> baseline: spec [
              for: #'common'
              do: [
                  spec    
-                     baseline: 'Squot' with: [
-                         spec repository: 'github://hpi-swa/Squot:mapper/src'. ].
+                     baseline: 'GitS' with: [
+                         spec repository: 'github://hpi-swa/git-s:latest-release/src'. ].
                  spec
-                     package: 'SqueakKara' with: [spec requires: #('Squot'); postLoadDoIt: #postLoad];
+                     package: 'SqueakKara' with: [spec requires: #('GitS'); postLoadDoIt: #postLoad];
                      package: 'SqueakKaraTests' with: [spec requires: #('default')];
                      yourself.
                  spec
