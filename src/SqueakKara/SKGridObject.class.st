@@ -32,6 +32,15 @@ SKGridObject class >> newInGrid: aGrid at: aPoint [
 ]
 
 {
+	#category : #'instance creation',
+	#'squeak_changestamp' : 'jawi 5/25/2026 17:59'
+}
+SKGridObject class >> newInGrid: aGrid at: aKaraPosition with: aCloverleafPosition [ 
+
+	^ self basicNew initializeInGrid: aGrid at: aKaraPosition with: aCloverleafPosition
+]
+
+{
 	#category : #texture,
 	#'squeak_changestamp' : 'JJG 6/5/2024 16:41'
 }

@@ -10,7 +10,7 @@ Class {
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:49'
+	#'squeak_changestamp' : 'jawi 5/25/2026 17:46'
 }
 SKChallenge class >> initializeChallenge1For: aGrid environment: anEnvironment [
 	
@@ -54,7 +54,7 @@ SKChallenge class >> initializeChallenge1For: aGrid environment: anEnvironment [
 	SKTrunk newInGrid: aGrid at: 3 @ 5.
 	
 	SKCloverleaf newInGrid: aGrid at: 4 @ 4.
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2)
+	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2).
 ]
 
 {
@@ -96,7 +96,7 @@ SKChallenge class >> initializeChallenge3For: aGrid environment: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:24'
+	#'squeak_changestamp' : 'jawi 5/25/2026 18:02'
 }
 SKChallenge class >> initializeChallenge4For: aGrid environment: anEnvironment [
 

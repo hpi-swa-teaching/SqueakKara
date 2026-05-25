@@ -10,11 +10,11 @@ Class {
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LD 5/22/2026 11:58'
+	#'squeak_changestamp' : 'jawi 5/25/2026 17:11'
 }
 SKCloverleaf >> defaultColor [
 
-	^   (Color r: 0.027 g: 0.478 b: 0.156) 
+	^ (Color r: 0.027 g: 0.478 b: 0.156)
 ]
 
 {
@@ -43,20 +43,22 @@ SKCloverleaf >> position: aPoint [
 
 {
 	#category : #type,
-	#'squeak_changestamp' : 'LD 5/22/2026 11:50'
+	#'squeak_changestamp' : 'jawi 5/25/2026 17:11'
 }
 SKCloverleaf >> scaleToFactor [
+	
 	super scaleToFactor.
-	self updateColor.
+	self updateColor
 ]
 
 {
 	#category : #type,
-	#'squeak_changestamp' : 'LD 5/22/2026 11:50'
+	#'squeak_changestamp' : 'jawi 5/25/2026 17:11'
 }
 SKCloverleaf >> setColorToKaraColor: aColor [
+	
 	self color: aColor.
-	self scaleToFactor.
+	self scaleToFactor
 ]
 
 {

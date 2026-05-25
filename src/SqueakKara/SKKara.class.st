@@ -33,6 +33,19 @@ SKKara >> colorNotBlack: aColor [
 
 {
 	#category : #movement,
+	#'squeak_changestamp' : 'jawi 5/25/2026 17:30'
+}
+SKKara >> createCloverleaf: aPoint [
+	
+	| cloverleaf |
+	
+	cloverleaf := SKCloverleaf newInGrid: self grid at: aPoint.
+	cloverleaf color: self color
+	
+]
+
+{
+	#category : #movement,
 	#'squeak_changestamp' : 'LD 5/7/2026 18:08'
 }
 SKKara >> defaultColor [
@@ -48,6 +61,25 @@ SKKara >> fillStyle: aFillStyle [
 			
 		super fillStyle: aFillStyle.
 		self scaleToFactor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/25/2026 18:02'
+}
+SKKara >> initializeInGrid: aGrid at: aPoint [
+
+	super initializeInGrid: aGrid at: aPoint
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/25/2026 17:49'
+}
+SKKara >> initializeInGrid: aGrid at: aKaraPoint with: aCloverleafPoint [
+
+	super initializeInGrid: aGrid at: aKaraPoint.
+	self createCloverleaf: aCloverleafPoint
 ]
 
 {
