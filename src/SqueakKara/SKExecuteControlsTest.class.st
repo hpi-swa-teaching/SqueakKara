@@ -29,13 +29,13 @@ SKExecuteControlsTest >> tearDown [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'ND 5/25/2026 18:08'
+	#'squeak_changestamp' : 'ND 5/21/2026 22:18'
 }
 SKExecuteControlsTest >> testMaxNumberRandomKaraSpawn [
 	
 	| karaCount |
 	
-	karaCount := environment karas size.
+	karaCount:= environment karas size.
 	
 	SKKara defaultColors size + 5 timesRepeat: [ controls actionSpawnKara ].
 
@@ -44,13 +44,13 @@ SKExecuteControlsTest >> testMaxNumberRandomKaraSpawn [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'ND 5/21/2026 22:13'
+	#'squeak_changestamp' : 'ND 5/25/2026 18:16'
 }
 SKExecuteControlsTest >> testRandomKaraSpawn [
 	
 	| karaCount |
 	
-	karaCount:= environment karas size.
+	karaCount := environment karas size.
 	
 	controls actionSpawnKara.
 

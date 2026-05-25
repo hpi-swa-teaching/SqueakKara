@@ -113,15 +113,16 @@ SKEnvironmentTest >> testDetectTrunk [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'ND 5/25/2026 18:12'
+	#'squeak_changestamp' : 'ND 5/25/2026 18:17'
 }
 SKEnvironmentTest >> testKaraColor [
 	
 	| kara defaultColorSize |
 	
 	defaultColorSize := SKKara defaultColors size.
-	1 to: defaultColorSize - 1 do: [ :a | kara := SKKara newInGrid: self environment grid at: 2 @ a.
-	self environment addKara: kara ].
+	1 to: defaultColorSize - 1 do: [ :a | kara := SKKara newInGrid: 
+		self environment grid at: 2 @ a.
+		self environment addKara: kara ].
 
 	1 to: defaultColorSize do:[ :i | kara := (self environment karas at: i). 
 		self assert: (SKKara defaultColors at: i) == (kara color) ]
