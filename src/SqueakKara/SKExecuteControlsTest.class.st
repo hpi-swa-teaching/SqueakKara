@@ -29,6 +29,36 @@ SKExecuteControlsTest >> tearDown [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'ND 5/21/2026 22:18'
+}
+SKExecuteControlsTest >> testMaxNumberRandomKaraSpawn [
+	
+	| karaCount |
+	
+	karaCount:= environment karas size.
+	
+	SKKara defaultColors size + 5 timesRepeat: [ controls actionSpawnKara ].
+
+	self assert: environment karas size == (environment maxNumberOfKaras)
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'ND 5/25/2026 18:16'
+}
+SKExecuteControlsTest >> testRandomKaraSpawn [
+	
+	| karaCount |
+	
+	karaCount := environment karas size.
+	
+	controls actionSpawnKara.
+
+	self assert: environment karas size == (karaCount + 1)
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'LM 5/7/2026 23:11'
 }
 SKExecuteControlsTest >> testRun [
