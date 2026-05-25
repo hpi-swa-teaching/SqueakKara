@@ -12,6 +12,15 @@ Class {
 }
 
 {
+	#category : #colors,
+	#'squeak_changestamp' : 'ND 5/21/2026 22:05'
+}
+SKKara class >> defaultColors [
+	
+	^ { Color red. Color green. Color blue. Color magenta } asOrderedCollection
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'LD 5/22/2026 11:33'
 }
@@ -55,12 +64,38 @@ SKKara >> defaultColor [
 
 {
 	#category : #movement,
+	#'squeak_changestamp' : 'ND 5/21/2026 18:49'
+}
+SKKara >> environment [
+	
+	^ self grid environment
+]
+
+{
+	#category : #movement,
 	#'squeak_changestamp' : 'LD 5/22/2026 12:03'
 }
 SKKara >> fillStyle: aFillStyle [
 			
 		super fillStyle: aFillStyle.
 		self scaleToFactor
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'ND 5/22/2026 22:05'
+}
+SKKara >> findUnusedColor [
+	
+	| colorList karaList |
+	
+	colorList := SKKara defaultColors.
+	karaList := self environment karas.
+	
+	karaList do: [ :kara | colorList remove: kara color ifAbsent: [] ].
+	colorList isEmpty ifFalse: [ ^ colorList first ].
+	
+	^ Color black
 ]
 
 {
@@ -189,7 +224,7 @@ SKKara >> scaleToFactor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/20/2026 15:52'
+	#'squeak_changestamp' : 'ND 5/22/2026 22:12'
 }
 SKKara >> setTexture [
 
@@ -200,13 +235,11 @@ SKKara >> setTexture [
 	aForm := aTextureLoader
 		getTexture: self textureFilename
 		scaledToWidth: self grid pixelPerBlock.
-
+	
 	self image: aForm.
 	self rotate.
 	self originalImage: aForm.
 	self updateColorFor: aForm
-	
-
 ]
 
 {
