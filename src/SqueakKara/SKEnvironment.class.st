@@ -46,6 +46,7 @@ SKEnvironment >> addKaraAt: aPoint [
 	| kara workspace |
 	
 	kara := (SKKara newInGrid: self grid at: aPoint).
+  kara color: kara findUnusedColor.
 	workspace := SKWorkspace newWithExecuter: (self executer) and: kara.
 	kara workspace: workspace.
 	
@@ -201,11 +202,12 @@ SKEnvironment >> grid [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 6/17/2024 16:40'
+	#'squeak_changestamp' : 'ND 5/21/2026 22:03'
 }
-SKEnvironment >> grid: anObject [
+SKEnvironment >> grid: aGrid [
 	
-	grid := anObject
+	aGrid environment: self.
+	grid := aGrid
 ]
 
 {
@@ -305,6 +307,15 @@ SKEnvironment >> karas [
 SKEnvironment >> karas: aCollection [
 
 	karas := aCollection
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 5/21/2026 22:03'
+}
+SKEnvironment >> maxNumberOfKaras [
+
+	^ SKKara defaultColors size
 ]
 
 {
