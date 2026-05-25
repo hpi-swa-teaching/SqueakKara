@@ -9,6 +9,15 @@ Class {
 }
 
 {
+	#category : #appearance,
+	#'squeak_changestamp' : 'LD 5/22/2026 11:35'
+}
+SKTrunk >> defaultColor [
+
+	^ Color red.
+]
+
+{
 	#category : #type,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:01'
 }
@@ -30,6 +39,15 @@ SKTrunk >> position: aPoint [
 	(tile anySatisfy: [ :each | each isBlocking ]) ifTrue: [ ^ self ].
 
 	super position: aPoint
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LD 5/22/2026 11:36'
+}
+SKTrunk >> setColorToKaraColor: aColor [
+	self scaleToFactor
+	
 ]
 
 {
