@@ -39,20 +39,27 @@ SKEnvironment >> abondon [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/23/2026 13:42'
+	#'squeak_changestamp' : 'LM 5/25/2026 20:13'
+}
+SKEnvironment >> addKara: aKara [
+
+	| workspace |
+	
+	workspace := SKWorkspace newWithExecuter: (self executer) and: aKara.
+	aKara workspace: workspace; color: aKara findUnusedColor.
+	
+	self karas add: aKara.
+	
+	^ aKara
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/25/2026 20:13'
 }
 SKEnvironment >> addKaraAt: aPoint [
 
-	| kara workspace |
-	
-	kara := (SKKara newInGrid: self grid at: aPoint).
-  kara color: kara findUnusedColor.
-	workspace := SKWorkspace newWithExecuter: (self executer) and: kara.
-	kara workspace: workspace.
-	
-	self karas add: kara.
-	
-	^ kara
+	^ self addKara: (SKKara newInGrid: self grid at: aPoint)
 ]
 
 {
