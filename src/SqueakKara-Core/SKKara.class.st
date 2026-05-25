@@ -21,6 +21,15 @@ SKKara class >> defaultColors [
 ]
 
 {
+	#category : #'object detection',
+	#'squeak_changestamp' : 'ND 5/25/2026 20:10'
+}
+SKKara >> collectCloverleaf: aCloverleaf [
+
+	aCloverleaf delete
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'LD 5/22/2026 11:33'
 }
@@ -109,12 +118,13 @@ SKKara >> karaAhead [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/11/2026 22:18'
+	#'squeak_changestamp' : 'ND 5/25/2026 20:07'
 }
 SKKara >> move [
 
 	(self trunkAhead) ifTrue: [ ^ self ].
-	self moveToCoordinates: self coordinates + self viewDirection
+	self moveToCoordinates: self coordinates + self viewDirection.
+	self tryToCollectCloverleaf
 ]
 
 {
@@ -230,6 +240,17 @@ SKKara >> trunkAhead [
 	tileAhead := self gridCoordinator getTileAtCoordinates: target.
 
 	^ tileAhead anySatisfy: [ :each | each isTrunk ]
+]
+
+{
+	#category : #'object detection',
+	#'squeak_changestamp' : 'ND 5/25/2026 20:52'
+}
+SKKara >> tryToCollectCloverleaf [
+	
+	self neighboursHere do: [ :each | each isCloverleaf ifTrue: [
+			self color = each color ifTrue: [self collectCloverleaf: each ]]].
+	self grid allLeafesCollected ifTrue: [Transcript showln: 'Yippie']
 ]
 
 {

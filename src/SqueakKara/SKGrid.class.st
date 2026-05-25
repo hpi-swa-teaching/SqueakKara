@@ -10,7 +10,8 @@ Class {
 		'gridCoordinator',
 		'scaleFactor',
 		'gridLines',
-		'environment'
+		'environment',
+		'leafCount'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:48'
@@ -86,12 +87,30 @@ SKGrid >> addVerticalLineAt: aCoordinate [
 ]
 
 {
+	#category : #initialization,
+	#'squeak_changestamp' : 'ND 5/25/2026 20:51'
+}
+SKGrid >> allLeafesCollected [
+	
+	^ self leafCount = 0
+]
+
+{
 	#category : #texture,
 	#'squeak_changestamp' : 'LK 7/4/2024 19:10'
 }
 SKGrid >> backgroundColor [
 
 	 ^ SKStylesheet primaryColor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 5/25/2026 20:49'
+}
+SKGrid >> decrementLeafCount [
+
+	self leafCount: self leafCount - 1
 ]
 
 {
@@ -190,13 +209,22 @@ SKGrid >> gridWidth: aNumber [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 5/25/2026 20:49'
+}
+SKGrid >> incrementLeafCount [
+
+	self leafCount: self leafCount + 1
+]
+
+{
 	#category : #initialization,
-	#'squeak_changestamp' : 'jawi 5/14/2026 13:15'
+	#'squeak_changestamp' : 'ND 5/25/2026 21:03'
 }
 SKGrid >> initialize [
 	
 	self gridLines: OrderedCollection new.
-
+	self leafCount: 0.
 	super initialize.
 	self openInWorld;
 		color: self backgroundColor
@@ -229,6 +257,22 @@ SKGrid >> isPointInGridDimensions: aPoint [
 
 	^ (aPoint x between: 1 and: self gridWidth) 
 		and: (aPoint y between: 1 and: self gridHeight) 
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 5/25/2026 20:45'
+}
+SKGrid >> leafCount [
+	^ leafCount
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 5/25/2026 20:45'
+}
+SKGrid >> leafCount: anObject [
+	leafCount := anObject
 ]
 
 {

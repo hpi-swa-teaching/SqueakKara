@@ -18,6 +18,26 @@ SKCloverleaf >> defaultColor [
 ]
 
 {
+	#category : #appearance,
+	#'squeak_changestamp' : 'ND 5/25/2026 20:54'
+}
+SKCloverleaf >> delete [
+	
+	super delete.
+	self grid decrementLeafCount
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'ND 5/25/2026 20:49'
+}
+SKCloverleaf >> initializeInGrid: aGrid at: aPoint [
+
+	super initializeInGrid: aGrid at: aPoint.
+	aGrid incrementLeafCount
+]
+
+{
 	#category : #type,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:02'
 }
