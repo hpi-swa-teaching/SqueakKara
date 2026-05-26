@@ -27,7 +27,7 @@ SKEnvironmentTest >> environment: anObject [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'JS 5/27/2026 00:22'
+	#'squeak_changestamp' : 'JS 5/27/2026 00:28'
 }
 SKEnvironmentTest >> setUp [
 
@@ -36,11 +36,12 @@ SKEnvironmentTest >> setUp [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'JS 5/27/2026 00:22'
+	#'squeak_changestamp' : 'JS 5/27/2026 00:39'
 }
 SKEnvironmentTest >> tearDown [
 
-	(self environment) close
+	(self environment) ifNotNil: [:environment | environment close].
+	super tearDown
 	
 ]
 
