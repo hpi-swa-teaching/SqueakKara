@@ -292,20 +292,20 @@ SKLandingPage >> conceptButtons [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 22:40'
 }
 SKLandingPage >> conceptSelectionButtonNormalColor [
 
-	^ Color gray
+	^ SKStylesheet secondaryColor
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 22:40'
 }
 SKLandingPage >> conceptSelectionButtonSelectedColor [
 
-	^ Color red
+	^ SKStylesheet primaryColor
 ]
 
 {

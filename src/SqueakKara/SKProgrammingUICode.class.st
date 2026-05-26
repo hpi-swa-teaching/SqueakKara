@@ -36,15 +36,6 @@ SKProgrammingUICode >> getCode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:40'
-}
-SKProgrammingUICode >> open [
-	
-
-]
-
-{
-	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:49'
 }
 SKProgrammingUICode >> setCode: aCode [
