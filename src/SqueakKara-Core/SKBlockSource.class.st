@@ -44,13 +44,18 @@ SKBlockSource >> mouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/20/2026 09:23'
+	#'squeak_changestamp' : 'FR 5/26/2026 21:42'
 }
 SKBlockSource >> populate [
 	self addMorphBack: (SKActionBlock new label: 'move'; action: ['kara move']; category: #movement; yourself).
 	self addMorphBack: (SKActionBlock new label: 'move';
 		addIntegerPart: 'steps' withDefault: 3;
 		action: [:steps | steps,' timesRepeat: [kara move]']; 
+		category: #movement; yourself).
+	self addMorphBack: (SKActionBlock new label: 'if ';
+		addBooleanPart: 'condition' withDefault: false;
+		addActionPart: 'insert' withDefault: '[]';
+		action: [:condition :insert | condition, 'ifTrue:', insert]; 
 		category: #movement; yourself).
 	self addMorphBack: (SKActionBlock new label: 'turn left'; action: ['kara turn: left']; category: #movement; yourself).
 	self addMorphBack: (SKActionBlock new label: 'turn right'; action: ['kara turn: right']; category: #movement; yourself).

@@ -13,6 +13,15 @@ Class {
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/26/2026 21:41'
+}
+SKBlock >> addActionPart: aLabel withDefault: aDefaultValue [
+
+	self addBlockPart: (SKBlockPart new type: #Action; label: aLabel; value: aDefaultValue; yourself)
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'SLH 5/11/2026 20:50'
 }
 SKBlock >> addBlockPart: aBlockPart [
@@ -147,7 +156,7 @@ SKBlock >> handlesMouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/19/2026 23:15'
+	#'squeak_changestamp' : 'FR 5/26/2026 17:35'
 }
 SKBlock >> initialize [
 	super initialize.
@@ -162,6 +171,7 @@ SKBlock >> initialize [
 		addMorph: self label;
 		listDirection: #rightToLeft;
 		hResizing: #shrinkWrap;
+		vResizing: #shrinkWrap;
 		cellInset: 5@0;
 		layoutInset: 10@5.
 ]
@@ -178,7 +188,7 @@ SKBlock >> justDroppedInto: anObject event: anEvent [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/11/2026 16:33'
+	#'squeak_changestamp' : 'FR 5/26/2026 21:32'
 }
 SKBlock >> label [
 
@@ -187,13 +197,15 @@ SKBlock >> label [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/19/2026 14:43'
+	#'squeak_changestamp' : 'FR 5/26/2026 17:28'
 }
 SKBlock >> label: aString [
 	
 	self label contents: aString.
 	self extent: self label extent+(10@10).
 	self label center: self center.
+	"self label top: self center y."
+	
 ]
 
 {
