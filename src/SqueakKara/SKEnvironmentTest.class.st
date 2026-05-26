@@ -27,11 +27,11 @@ SKEnvironmentTest >> setUp [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'JS 5/26/2026 15:17'
+	#'squeak_changestamp' : 'JS 5/26/2026 16:08'
 }
 SKEnvironmentTest >> tearDown [
 
-	self environment close
+	(self environment) close
 	
 ]
 
