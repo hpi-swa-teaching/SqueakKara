@@ -244,13 +244,13 @@ SKKara >> trunkAhead [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'ND 5/25/2026 20:52'
+	#'squeak_changestamp' : 'LD 5/26/2026 11:55'
 }
 SKKara >> tryToCollectCloverleaf [
 	
 	self neighboursHere do: [ :each | each isCloverleaf ifTrue: [
 			self color = each color ifTrue: [self collectCloverleaf: each ]]].
-	self grid allLeafesCollected ifTrue: [Transcript showln: 'Yippie']
+	self grid allLeafesCollected ifTrue: [self grid spawnWinScreen]
 ]
 
 {

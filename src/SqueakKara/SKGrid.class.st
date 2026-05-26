@@ -338,6 +338,14 @@ SKGrid >> scaleFactor: aNumber [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 5/26/2026 11:44'
+}
+SKGrid >> spawnWinScreen [
+	SKWinScreen newInGrid: self.
+]
+
+{
 	#category : #layout,
 	#'squeak_changestamp' : 'LM 4/27/2026 13:27'
 }
