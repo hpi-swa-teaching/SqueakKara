@@ -27,11 +27,11 @@ SKEnvironmentTest >> setUp [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:44'
+	#'squeak_changestamp' : 'JS 5/26/2026 14:55'
 }
 SKEnvironmentTest >> tearDown [
 
-	self environment close
+	self environment windowManager actionCloseAllWindows
 	
 ]
 
