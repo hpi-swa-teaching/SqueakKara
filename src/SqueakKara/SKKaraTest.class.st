@@ -73,6 +73,21 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 ]
 
 {
+	#category : #testing,
+	#'squeak_changestamp' : 'LD 5/26/2026 11:04'
+}
+SKKaraTest >> testCollectCloverleaf [
+
+	| kara cloverleaf |
+	
+	kara := SKKara newInGrid: self grid.
+	cloverleaf := SKCloverleaf newInGrid: self grid at: 2@1.
+	cloverleaf setColorToKaraColor: kara color.
+	kara move.
+	self assert: self grid allLeafesCollected
+]
+
+{
 	#category : #helper,
 	#'squeak_changestamp' : 'LD 5/21/2026 12:07'
 }
@@ -275,6 +290,20 @@ SKKaraTest >> testOnCloverleaf [
 	SKCloverleaf newInGrid: self grid.
 	self assert: kara onCloverleaf
 
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'LD 5/26/2026 11:04'
+}
+SKKaraTest >> testRejectCloverleaf [
+
+	| kara cloverleaf |
+	
+	kara := SKKara newInGrid: self grid.
+	cloverleaf := SKCloverleaf newInGrid: self grid at: 2@1.
+	kara move.
+	self assert: self grid allLeafesCollected not
 ]
 
 {
