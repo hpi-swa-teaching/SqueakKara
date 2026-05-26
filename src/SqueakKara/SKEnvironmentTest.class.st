@@ -17,21 +17,12 @@ SKEnvironmentTest >> environment [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/26/2026 17:21'
-}
-SKEnvironmentTest >> environment: anObject [
-
- 	environment := anObject
-]
-
-{
 	#category : #setup,
-	#'squeak_changestamp' : 'JS 5/26/2026 17:21'
+	#'squeak_changestamp' : 'JS 5/26/2026 18:00'
 }
 SKEnvironmentTest >> setUp [
 
-	self environment: (SKEnvironment newWithKaraAt: 1 @ 1)
+	environment := (SKEnvironment newWithKaraAt: 1 @ 1)
 ]
 
 {
