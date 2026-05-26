@@ -19,7 +19,7 @@ SKExecuteControlsTest >> environment [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 23:10'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 23:19'
 }
 SKExecuteControlsTest >> setUp [
 

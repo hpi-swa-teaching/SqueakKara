@@ -50,14 +50,14 @@ SKEnvironment >> calculateScaleFactor: aPoint [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:58'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 23:20'
 }
 SKEnvironment >> close [
 
 	self programmingUI close.
 	self grid abandon.
 	self executer terminate.
-	self systemWindow delete
+	self systemWindow ifNotNil:  [self systemWindow delete].
 
 	
 ]
