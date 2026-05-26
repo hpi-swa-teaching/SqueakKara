@@ -285,28 +285,6 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 ]
 
 {
-	#category : #initialization,
-	#'squeak_changestamp' : 'SP 5/15/2026 20:04'
-}
-SKEnvironment >> reset [
-
-	
-	Transcript show: 'we are in beast mode'.
-	self systemWindow close.
-	"my idea was to streight up take self grid and delete it"
-	self grid delete.
-	"and to replace it with a new ,fresh' grid with the original level - aka whatever is down there
-	however deleting doesn't work, and neither does replacement.
- "
-
-
-	"self grid: (SKGrid newWithExtent: 7 @ 7).
-	self kara: self grid challenge1.
-	self systemWindow addMorph: self grid.
-	self kara: self grid challenge1."
-]
-
-{
 	#category : #commands,
 	#'squeak_changestamp' : 'JS 5/17/2026 13:06'
 }
