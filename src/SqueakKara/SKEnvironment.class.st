@@ -318,11 +318,11 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/26/2026 15:07'
+	#'squeak_changestamp' : 'JS 5/26/2026 23:51'
 }
 SKEnvironment >> setSystemWindow [
 	
-	self systemWindow: (SKChallengeWindow new windowManager: self windowManager).
+	self systemWindow: SystemWindow new."(SKChallengeWindow new windowManager: self windowManager)."
 	self systemWindow setLabel: 'Kara'.
 	self systemWindow 
 		extent: self gameWidth @ self gameHeight;
