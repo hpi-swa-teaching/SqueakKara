@@ -27,21 +27,21 @@ SKEnvironmentTest >> setUp [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'JS 5/26/2026 16:08'
+	#'squeak_changestamp' : 'JS 5/26/2026 18:11'
 }
 SKEnvironmentTest >> tearDown [
 
-	(self environment) close
+	environment close
 	
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'SSP 5/25/2026 23:50'
+	#'squeak_changestamp' : 'JS 5/26/2026 18:12'
 }
 SKEnvironmentTest >> testCreation [
 
-	self assert: self environment kara coordinates = (1 @ 1)
+	self assert: environment kara coordinates = (1 @ 1)
 ]
 
 {
