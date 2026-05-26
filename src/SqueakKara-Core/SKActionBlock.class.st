@@ -2,7 +2,8 @@ Class {
 	#name : #SKActionBlock,
 	#superclass : #SKBlock,
 	#instVars : [
-		'action'
+		'action',
+		'isStart'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -58,7 +59,7 @@ SKActionBlock >> command [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/26/2026 17:25'
+	#'squeak_changestamp' : 'FR 5/26/2026 23:16'
 }
 SKActionBlock >> drawOn: aCanvas [
 	| innerBounds borderWidth topEdge bottomEdge pts |
@@ -69,7 +70,7 @@ SKActionBlock >> drawOn: aCanvas [
 	topEdge := innerBounds top.
 	bottomEdge := innerBounds bottom - self tabHeight.
 
-	pts := {
+	pts := self isStart ifFalse:{
 		innerBounds left @ topEdge.
 		(innerBounds left + self tabOffset) @ topEdge. 
 		(innerBounds left + self tabOffset + self slantWidth) @ (topEdge + self tabHeight).
@@ -84,6 +85,16 @@ SKActionBlock >> drawOn: aCanvas [
 		(innerBounds left + self tabOffset + self slantWidth) @ (bottomEdge + self tabHeight).
 		(innerBounds left + self tabOffset) @ bottomEdge.
 		innerBounds left @ bottomEdge.
+	} ifTrue: {
+		innerBounds left @ topEdge.
+		innerBounds right @ topEdge.
+		innerBounds right @ bottomEdge.
+
+		(innerBounds left + self tabOffset + self tabWidth) @ bottomEdge.
+		(innerBounds left + self tabOffset + self tabWidth - self slantWidth) @ (bottomEdge + self tabHeight).
+		(innerBounds left + self tabOffset + self slantWidth) @ (bottomEdge + self tabHeight).
+		(innerBounds left + self tabOffset) @ bottomEdge.
+		innerBounds left @ bottomEdge.
 	}.
 
 	aCanvas 
@@ -91,6 +102,24 @@ SKActionBlock >> drawOn: aCanvas [
 		color: self color 
 		borderWidth: borderWidth 
 		borderColor: self borderColor.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/26/2026 21:41'
+}
+SKActionBlock >> isStart [
+
+	^ isStart ifNil: [isStart := false].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/26/2026 21:40'
+}
+SKActionBlock >> isStart: aBoolean [
+
+	isStart := aBoolean.
 ]
 
 {

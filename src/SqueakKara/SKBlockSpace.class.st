@@ -106,7 +106,7 @@ SKBlockSpace >> handlesMouseOverDragging: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/20/2026 12:59'
+	#'squeak_changestamp' : 'SLH 5/26/2026 21:43'
 }
 SKBlockSpace >> initializeWithKara: aKara [
 
@@ -129,7 +129,7 @@ SKBlockSpace >> initializeWithKara: aKara [
 	minHeight: 500;
 	vResizing: #spaceFill;
 	kara: aKara.
-	self addMorph: (SKActionBlock new label: 'Start of Script').
+	self addMorph: (SKActionBlock new label: 'Start of Script'; isStart: true; yourself).
 	
 	window addMorph: self.
 	window addMorph: SKBlockSource new.
