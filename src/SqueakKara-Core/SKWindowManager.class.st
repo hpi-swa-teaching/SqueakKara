@@ -61,3 +61,11 @@ SKWindowManager >> openWindows [
 SKWindowManager >> openWindows: anObject [
 	openWindows := anObject
 ]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SP 5/15/2026 18:52'
+}
+SKWindowManager >> toDo: aCleanUp [
+	
+]

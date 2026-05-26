@@ -27,13 +27,13 @@ SKCloseConfirmationWindow >> abortButton: anObject [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:54'
+	#'squeak_changestamp' : 'SSP 5/25/2026 23:26'
 }
 SKCloseConfirmationWindow >> buildAbortButton [
 	self buildButtonWithLabel: 'NO' 
 		andWidth: self buttonWidth 
 		andHeight: self buttonHeight 
-		andSelector: 'closeOnlyConfirmationWindow' 
+		andSelector: #closeOnlyConfirmationWindow 
 		andCenterXOffset: self buttonXOffset
 		andCenterYOffset: self buttonYOffset
 ]

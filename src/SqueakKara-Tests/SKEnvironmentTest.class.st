@@ -37,7 +37,7 @@ SKEnvironmentTest >> tearDown [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 11:40'
+	#'squeak_changestamp' : 'SSP 5/25/2026 23:50'
 }
 SKEnvironmentTest >> testCreation [
 
@@ -46,10 +46,9 @@ SKEnvironmentTest >> testCreation [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'NR 7/5/2024 14:00'
+	#'squeak_changestamp' : 'SSP 5/25/2026 23:51'
 }
 SKEnvironmentTest >> testDetectCloverleaf [
-
 	self environment workspace userCode: 'kara onCloverleaf ifTrue: [kara move]'.
 	SKCloverleaf newInGrid: self environment grid at: 1 @ 1.
 	"self environment executer speed: 0."
