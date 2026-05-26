@@ -1,3 +1,6 @@
+"
+SKCloseConfirmationWindow provides a simple window asking for the users confirmation to allow the window manager to close all registered windows.
+"
 Class {
 	#name : #SKCloseConfirmationWindow,
 	#superclass : #SystemWindow,
@@ -6,7 +9,8 @@ Class {
 		'confirmationButton',
 		'abortButton'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JS 5/26/2026 14:51'
 }
 
 {

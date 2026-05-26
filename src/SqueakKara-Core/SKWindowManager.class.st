@@ -1,10 +1,14 @@
+"
+SKWindowManger offers an interface for any window to register itself and be able to be closed together with the others.
+"
 Class {
 	#name : #SKWindowManager,
 	#superclass : #Morph,
 	#instVars : [
 		'openWindows'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'JS 5/26/2026 14:47'
 }
 
 {
