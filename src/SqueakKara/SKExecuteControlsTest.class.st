@@ -9,7 +9,25 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/26/2026 16:14'
+}
+SKExecuteControlsTest >> controls [
+
+ 	^ controls
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/26/2026 16:12'
+}
+SKExecuteControlsTest >> environment [
+
+ 	^ environment
+]
+
+{
+	#category : #setup,
 	#'squeak_changestamp' : 'EB 7/12/2024 11:34'
 }
 SKExecuteControlsTest >> setUp [
@@ -19,57 +37,57 @@ SKExecuteControlsTest >> setUp [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:45'
+	#category : #setup,
+	#'squeak_changestamp' : 'JS 5/26/2026 16:13'
 }
 SKExecuteControlsTest >> tearDown [
 
-	environment close
+	(self environment) close
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:47'
+	#category : #testing,
+	#'squeak_changestamp' : 'JS 5/26/2026 16:14'
 }
 SKExecuteControlsTest >> testRun [
 
-	environment workspace userCode: 'kara move'.
+	self environment workspace userCode: 'kara move'.
 	controls actionRun.
 	environment executer step.
-	self assert: environment kara coordinates = (2 @ 1)
+	self assert: self environment kara coordinates = (2 @ 1)
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:50'
+	#category : #testing,
+	#'squeak_changestamp' : 'JS 5/26/2026 16:14'
 }
 SKExecuteControlsTest >> testRunPause [
 
-	environment workspace userCode: 'kara move. kara move. kara move'.
+	self environment workspace userCode: 'kara move. kara move. kara move'.
 	controls actionRun.
-	environment executer step.
+	self environment executer step.
 	controls actionRun.
 	self assert: environment kara coordinates = (2 @ 1)
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:42'
+	#category : #testing,
+	#'squeak_changestamp' : 'JS 5/26/2026 16:13'
 }
 SKExecuteControlsTest >> testSlider [
 	
 	controls sliderSpeedValueChanged: 10.
-	self assert: environment executer speed = 10.
+	self assert: self environment executer speed = 10.
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:51'
+	#category : #testing,
+	#'squeak_changestamp' : 'JS 5/26/2026 16:14'
 }
 SKExecuteControlsTest >> testStop [
 
-	environment workspace userCode: 'kara move.'.
+	self environment workspace userCode: 'kara move.'.
 	controls actionRun.
 	controls actionStop.
-	self assert: environment executer state = #terminated.
+	self assert: self environment executer state = #terminated.
 ]
