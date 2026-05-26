@@ -78,7 +78,7 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:21'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:47'
 }
 SKExecuter >> execute: aCode [
 
@@ -97,12 +97,10 @@ SKExecuter >> execute: aCode [
 		| context |
 		decorator scheduler: self scheduler.
 		context := SKExecuteContext new kara: decorator.
-		process := self environment programmingConcept buildProcessWithCompiler: self compiler.
-		[ process startWithCode: aCode context: context ] ensure: [
-			scheduler finishActor: decorator ].
-		
-		^ process ]).
-
+		process := self environment programmingConcept buildProcessWithCompiler: (self compiler) scheduler: (self scheduler).
+		process startWithCode: aCode context: context.
+		process ]).
+	
 	self state: #running
 ]
 

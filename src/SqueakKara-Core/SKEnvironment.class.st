@@ -6,7 +6,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'grid',
-		'workspace',
+		'programmingUI',
 		'executer',
 		'karas',
 		'executeControls',
@@ -50,11 +50,11 @@ SKEnvironment >> calculateScaleFactor: aPoint [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:53'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:58'
 }
 SKEnvironment >> close [
 
-	self workspace close.
+	self programmingUI close.
 	self grid abandon.
 	self executer terminate.
 	self systemWindow delete
@@ -189,26 +189,25 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:16'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:49'
 }
 SKEnvironment >> initialize [
 
 	self karas: OrderedCollection new.
 	
 	self programmingConcept: SKProgrammingConceptCode new.
+	self programmingUI: self programmingConcept buildProgrammingUI.
 	
 	super initialize
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:03'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:49'
 }
 SKEnvironment >> initializeObjects [
 
 	self executer: (SKExecuter newWithEnvironment: self).
-	
-	self workspace: (SKWorkspace newWithExecuter: self executer).
 	
 	self executeControls: SKExecuteControls new.
 	self executeControls environment: self.
@@ -343,6 +342,24 @@ SKEnvironment >> programmingConcept: aProgrammingConcept [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:57'
+}
+SKEnvironment >> programmingUI [
+
+	^ programmingUI
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:58'
+}
+SKEnvironment >> programmingUI: aProgrammingUI [
+
+	programmingUI := aProgrammingUI
+]
+
+{
 	#category : #layout,
 	#'squeak_changestamp' : 'LM 4/29/2026 12:26'
 }
@@ -375,13 +392,13 @@ SKEnvironment >> resume [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:16'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:58'
 }
 SKEnvironment >> run [
 
 	| code |
 	
-	code :=  self workspace userCode.
+	code :=  self programmingUI getCode.
 	self executer execute: code
 ]
 

@@ -29,11 +29,11 @@ SKExecuteControlsTest >> tearDown [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LM 5/7/2026 23:11'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKExecuteControlsTest >> testRun [
 
-	environment workspace userCode: 'kara move'.
+	self environment programmingUI setCode: 'kara move'.
 	controls actionRun.
 	
 	"Busy waiting until execution done."
@@ -44,11 +44,11 @@ SKExecuteControlsTest >> testRun [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LM 5/7/2026 23:09'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKExecuteControlsTest >> testRunPause [
 
-	environment workspace userCode: 'kara move. kara move. kara move'.
+	self environment programmingUI setCode: 'kara move. kara move. kara move'.
 
 	controls actionRun.
 	(Delay forMilliseconds: 1) wait.
@@ -72,11 +72,11 @@ SKExecuteControlsTest >> testSlider [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:51'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKExecuteControlsTest >> testStop [
 
-	environment workspace userCode: 'kara move.'.
+	self environment programmingUI setCode: 'kara move.'.
 	controls actionRun.
 	controls actionStop.
 	self assert: environment executer state = #terminated.

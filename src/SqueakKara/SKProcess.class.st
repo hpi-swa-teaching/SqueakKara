@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'compiler',
 		'context',
+		'scheduler',
 		'code'
 	],
 	#category : #'SqueakKara-Core'
@@ -11,12 +12,13 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:08'
+	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:42'
 }
-SKProcess class >> newWithCompiler: aCompiler [
+SKProcess class >> newWithCompiler: aCompiler scheduler: aScheduler [
 
 	^ (self new
 			compiler: aCompiler;
+			scheduler: aScheduler
 			yourself)
 ]
 
@@ -108,6 +110,24 @@ SKProcess >> priority [
 SKProcess >> resume [
 
 	self subclassResponsibility
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:35'
+}
+SKProcess >> scheduler [
+
+	^ scheduler
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:41'
+}
+SKProcess >> scheduler: aScheduler [
+
+	scheduler := aScheduler
 ]
 
 {

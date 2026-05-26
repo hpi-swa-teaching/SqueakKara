@@ -54,7 +54,7 @@ SKProcessCode >> resume [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:14'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:47'
 }
 SKProcessCode >> startWithCode: aCode context: aContext [
 
@@ -64,7 +64,8 @@ SKProcessCode >> startWithCode: aCode context: aContext [
 	self code: aCode;
 		context: aContext.
 		
-	process := [ self compiler evaluate: aCode for: aContext ] forkAt: self priority.
+	process := [[ self compiler evaluate: aCode for: aContext ] ensure: [ 
+			self scheduler finishActor: self context kara ]] forkAt: self priority.
 	self process: process.
 	^ process
 ]

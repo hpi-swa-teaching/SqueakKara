@@ -6,9 +6,9 @@ Class {
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:07'
+	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:36'
 }
-SKProgrammingConcept >> buildProcessWithCompiler: aCompiler [
+SKProgrammingConcept >> buildProcessWithCompiler: aCompiler scheduler: aScheduler [
 
 	self subclassResponsibility
 ]
