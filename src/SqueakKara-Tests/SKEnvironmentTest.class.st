@@ -17,31 +17,40 @@ SKEnvironmentTest >> environment [
 ]
 
 {
-	#category : #setup,
-	#'squeak_changestamp' : 'JS 5/26/2026 18:00'
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/27/2026 00:24'
 }
-SKEnvironmentTest >> setUp [
+SKEnvironmentTest >> environment: anObject [
 
-	environment := (SKEnvironment newWithKaraAt: 1 @ 1)
+ 	environment := anObject
 ]
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'JS 5/26/2026 18:11'
+	#'squeak_changestamp' : 'JS 5/27/2026 00:22'
+}
+SKEnvironmentTest >> setUp [
+
+	self environment: (SKEnvironment newWithKaraAt: 1 @ 1)
+]
+
+{
+	#category : #setup,
+	#'squeak_changestamp' : 'JS 5/27/2026 00:22'
 }
 SKEnvironmentTest >> tearDown [
 
-	environment close
+	(self environment) close
 	
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JS 5/26/2026 18:12'
+	#'squeak_changestamp' : 'JS 5/27/2026 00:25'
 }
 SKEnvironmentTest >> testCreation [
 
-	self assert: environment kara coordinates = (1 @ 1)
+	self assert: self environment kara coordinates = (1 @ 1)
 ]
 
 {
