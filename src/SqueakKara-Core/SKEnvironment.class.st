@@ -21,13 +21,12 @@ Class {
 
 {
 	#category : #'instance creation',
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 22:38'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:23'
 }
 SKEnvironment class >> newWithProgrammingConcept: aConcept [
 
 	^ (self new
 			programmingConcept: aConcept;
-			initializeProgrammingUI;
 			yourself)
 ]
 
@@ -190,9 +189,27 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 22:35'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:40'
+}
+SKEnvironment >> initialize [
+
+	self karas: OrderedCollection new.
+	
+	self programmingConcept: SKProgrammingConceptCode new.
+	
+	self executer: (SKExecuter newWithEnvironment: self).
+	self programmingUI: (self programmingConcept buildProgrammingUI: self executer).
+	
+	super initialize
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:49'
 }
 SKEnvironment >> initializeObjects [
+
+	self executer: (SKExecuter newWithEnvironment: self).
 	
 	self executeControls: SKExecuteControls new.
 	self executeControls environment: self.
@@ -203,17 +220,7 @@ SKEnvironment >> initializeObjects [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 22:38'
-}
-SKEnvironment >> initializeProgrammingUI [
-
-		self executer: (SKExecuter newWithEnvironment: self);
-			programmingUI: (self programmingConcept buildProgrammingUI: self executer).
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:28'
+	#'squeak_changestamp' : 'jawi 5/14/2026 13:16'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
@@ -225,7 +232,7 @@ SKEnvironment >> initializeWithChallenge1 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:28'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:02'
 }
 SKEnvironment >> initializeWithChallenge2 [
 
@@ -269,11 +276,11 @@ SKEnvironment >> initializeWithKaraAt: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 22:34'
+	#'squeak_changestamp' : 'LM 5/7/2026 21:52'
 }
 SKEnvironment >> karas [
 	
-	^ karas ifNil: [karas := OrderedCollection new]
+	^ karas
 ]
 
 {

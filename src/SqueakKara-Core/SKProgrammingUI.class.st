@@ -66,6 +66,15 @@ SKProgrammingUI >> getCode [
 
 {
 	#category : #interface,
+	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 08:53'
+}
+SKProgrammingUI >> open [
+
+	self subclassResponsibility
+]
+
+{
+	#category : #interface,
 	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:43'
 }
 SKProgrammingUI >> setCode: aCode [

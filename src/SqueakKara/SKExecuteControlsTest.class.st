@@ -19,11 +19,12 @@ SKExecuteControlsTest >> environment [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'EB 7/12/2024 11:34'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 23:10'
 }
 SKExecuteControlsTest >> setUp [
 
-	environment := (SKEnvironment newWithKaraAt: 1 @ 1).
+	environment := SKEnvironment newWithProgrammingConcept: (SKProgrammingConceptCode new).
+	environment initializeWithKaraAt: 1 @ 1.
 	controls := environment executeControls.
 ]
 

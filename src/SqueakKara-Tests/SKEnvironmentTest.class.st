@@ -18,11 +18,12 @@ SKEnvironmentTest >> environment [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:02'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 23:10'
 }
 SKEnvironmentTest >> setUp [
 
-	environment := (SKEnvironment newWithKaraAt: 1 @ 1).
+	environment := SKEnvironment newWithProgrammingConcept: (SKProgrammingConceptCode new).
+	environment initializeWithKaraAt: 1 @ 1.
 	environment executer testMode: true
 ]
 
