@@ -15,9 +15,9 @@ SKProgrammingConceptCode >> buildProcessWithCompiler: aCompiler scheduler: aSche
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:55'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:48'
 }
-SKProgrammingConceptCode >> buildProgrammingUI [
+SKProgrammingConceptCode >> buildProgrammingUI: aExecuter [
 	
-	^ SKProgrammingUICode new
+	^ SKProgrammingUICode newWithExecuter: aExecuter
 ]

@@ -2,10 +2,31 @@ Class {
 	#name : #SKProgrammingUI,
 	#superclass : #Object,
 	#instVars : [
-		'code'
+		'executer'
 	],
 	#category : #'SqueakKara-Core'
 }
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:45'
+}
+SKProgrammingUI class >> newWithExecuter: aExecuter [
+
+	^ (self new
+		executer: aExecuter;
+		build;
+		yourself)
+]
+
+{
+	#category : #interface,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:35'
+}
+SKProgrammingUI >> build [
+
+ 	self subclassResponsibility
+]
 
 {
 	#category : #interface,
@@ -18,20 +39,20 @@ SKProgrammingUI >> close [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:05'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:33'
 }
-SKProgrammingUI >> code [
+SKProgrammingUI >> executer [
 
-	^ code
+	^ executer
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:05'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:34'
 }
-SKProgrammingUI >> code: aCode [
+SKProgrammingUI >> executer: aExecuter [
 
-	code := aCode
+	executer := aExecuter
 ]
 
 {

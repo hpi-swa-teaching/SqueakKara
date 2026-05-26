@@ -129,11 +129,11 @@ SKEnvironmentTest >> testMove [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:08'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:17'
 }
 SKEnvironmentTest >> testMoveTwice [
 
-	self environment workspace userCode: 'kara move. kara move'.
+	self environment programmingUI setCode: 'kara move. kara move'.
 	
 	self environment run.
 	

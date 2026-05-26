@@ -50,11 +50,11 @@ SKLandingPage >> actionExample4 [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:01'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:24'
 }
 SKLandingPage >> actionNew [
 
-	SKEnvironment newWithKaraAt: 1 @ 1.
+	SKEnvironment new initializeWithKaraAt: 1 @ 1
 	self delete
 ]
 

@@ -9,7 +9,16 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:20'
+}
+SKExecuteControlsTest >> environment [
+
+	^ environment
+]
+
+{
+	#category : #setup,
 	#'squeak_changestamp' : 'EB 7/12/2024 11:34'
 }
 SKExecuteControlsTest >> setUp [
@@ -19,7 +28,7 @@ SKExecuteControlsTest >> setUp [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #setup,
 	#'squeak_changestamp' : 'EB 7/12/2024 11:45'
 }
 SKExecuteControlsTest >> tearDown [
@@ -28,8 +37,8 @@ SKExecuteControlsTest >> tearDown [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
+	#category : #testing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:18'
 }
 SKExecuteControlsTest >> testRun [
 
@@ -43,7 +52,7 @@ SKExecuteControlsTest >> testRun [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKExecuteControlsTest >> testRunPause [
@@ -61,7 +70,7 @@ SKExecuteControlsTest >> testRunPause [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'EB 7/12/2024 11:42'
 }
 SKExecuteControlsTest >> testSlider [
@@ -71,7 +80,7 @@ SKExecuteControlsTest >> testSlider [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKExecuteControlsTest >> testStop [

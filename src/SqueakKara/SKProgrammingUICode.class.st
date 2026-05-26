@@ -9,49 +9,47 @@ Class {
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:57'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:49'
+}
+SKProgrammingUICode >> build [
+
+	self workspace: (SKWorkspace newWithExecuter: (self executer))
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:17'
 }
 SKProgrammingUICode >> close [
 	
-	self workspace delete
+	self workspace close
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:07'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:48'
 }
 SKProgrammingUICode >> getCode [
 	
-	self workspace ifNotNil: [ self code: self workspace userCode ].
-	^ self code
-]
-
-{
-	#category : #initialize,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:57'
-}
-SKProgrammingUICode >> initialize [
-
-	self workspace: Workspace new
+	^ self workspace userCode
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:05'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:40'
 }
 SKProgrammingUICode >> open [
 	
-	self workspace: Workspace open
+
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:07'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:49'
 }
 SKProgrammingUICode >> setCode: aCode [
 
-	self workspace ifNotNil: [ self workspace userCode: aCode ].
-	self code: aCode
+	self workspace userCode: aCode
 ]
 
 {

@@ -21,13 +21,13 @@ Class {
 
 {
 	#category : #'instance creation',
-	#'squeak_changestamp' : 'LM 5/7/2026 22:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:23'
 }
-SKEnvironment class >> newWithKaraAt: aPoint [
+SKEnvironment class >> newWithProgrammingConcept: aConcept [
 
-	^ self new
-		initializeWithKaraAt: aPoint;
-		yourself
+	^ (self new
+			programmingConcept: aConcept;
+			yourself)
 ]
 
 {
@@ -189,14 +189,16 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:49'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:40'
 }
 SKEnvironment >> initialize [
 
 	self karas: OrderedCollection new.
 	
 	self programmingConcept: SKProgrammingConceptCode new.
-	self programmingUI: self programmingConcept buildProgrammingUI.
+	
+	self executer: (SKExecuter newWithEnvironment: self).
+	self programmingUI: (self programmingConcept buildProgrammingUI: self executer).
 	
 	super initialize
 ]

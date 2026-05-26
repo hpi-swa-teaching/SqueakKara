@@ -15,9 +15,9 @@ SKProgrammingConcept >> buildProcessWithCompiler: aCompiler scheduler: aSchedule
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 08:52'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:30'
 }
-SKProgrammingConcept >> buildProgrammingUI [
+SKProgrammingConcept >> buildProgrammingUI: aExecuter [
 
 	self subclassResponsibility
 ]
