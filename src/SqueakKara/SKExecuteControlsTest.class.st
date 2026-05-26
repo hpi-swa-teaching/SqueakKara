@@ -9,24 +9,6 @@ Class {
 }
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/26/2026 16:14'
-}
-SKExecuteControlsTest >> controls [
-
- 	^ controls
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/26/2026 16:12'
-}
-SKExecuteControlsTest >> environment [
-
- 	^ environment
-]
-
-{
 	#category : #setup,
 	#'squeak_changestamp' : 'EB 7/12/2024 11:34'
 }
@@ -38,56 +20,56 @@ SKExecuteControlsTest >> setUp [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'JS 5/26/2026 16:13'
+	#'squeak_changestamp' : 'JS 5/26/2026 17:24'
 }
 SKExecuteControlsTest >> tearDown [
 
-	(self environment) close
+	environment close
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JS 5/26/2026 16:14'
+	#'squeak_changestamp' : 'JS 5/26/2026 17:25'
 }
 SKExecuteControlsTest >> testRun [
 
-	self environment workspace userCode: 'kara move'.
+	environment workspace userCode: 'kara move'.
 	controls actionRun.
 	environment executer step.
-	self assert: self environment kara coordinates = (2 @ 1)
+	self assert: environment kara coordinates = (2 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JS 5/26/2026 16:14'
+	#'squeak_changestamp' : 'JS 5/26/2026 17:25'
 }
 SKExecuteControlsTest >> testRunPause [
 
-	self environment workspace userCode: 'kara move. kara move. kara move'.
+	environment workspace userCode: 'kara move. kara move. kara move'.
 	controls actionRun.
-	self environment executer step.
+	environment executer step.
 	controls actionRun.
 	self assert: environment kara coordinates = (2 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JS 5/26/2026 16:13'
+	#'squeak_changestamp' : 'JS 5/26/2026 17:24'
 }
 SKExecuteControlsTest >> testSlider [
 	
 	controls sliderSpeedValueChanged: 10.
-	self assert: self environment executer speed = 10.
+	self assert: environment executer speed = 10.
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JS 5/26/2026 16:14'
+	#'squeak_changestamp' : 'JS 5/26/2026 17:24'
 }
 SKExecuteControlsTest >> testStop [
 
-	self environment workspace userCode: 'kara move.'.
+	environment workspace userCode: 'kara move.'.
 	controls actionRun.
 	controls actionStop.
-	self assert: self environment executer state = #terminated.
+	self assert: environment executer state = #terminated.
 ]
