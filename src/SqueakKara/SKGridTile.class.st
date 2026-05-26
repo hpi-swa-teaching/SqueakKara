@@ -13,20 +13,11 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/22/2026 11:51'
+	#'squeak_changestamp' : 'LM 5/26/2026 09:44'
 }
-SKGridTile >> lockFor: anActor [
+SKGridTile >> lockBy: anActor [
 
 	self locked: anActor
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'AB 5/21/2026 19:21'
-}
-SKGridTile >> locked [
-	
-	^ locked
 ]
 
 {
@@ -40,11 +31,20 @@ SKGridTile >> locked: anActor [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'AB 5/21/2026 20:03'
+	#'squeak_changestamp' : 'LM 5/26/2026 09:47'
 }
 SKGridTile >> lockedFor: anActor [
 
-	^ (self locked = anActor or: [ self locked isNil ]) not
+	^ (self lockingActor = anActor or: [ self lockingActor isNil ]) not
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/26/2026 09:46'
+}
+SKGridTile >> lockingActor [
+	
+	^ locked
 ]
 
 {

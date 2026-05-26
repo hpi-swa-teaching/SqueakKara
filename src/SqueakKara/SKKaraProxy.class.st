@@ -42,11 +42,11 @@ SKKaraProxy >> coordinates [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'LM 5/23/2026 13:58'
+	#'squeak_changestamp' : 'LM 5/26/2026 09:50'
 }
 SKKaraProxy >> isLocked: aPoint [
 
-	^ self kara isLocked: aPoint
+	^ self kara ownsLockAt: aPoint
 ]
 
 {

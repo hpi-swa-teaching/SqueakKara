@@ -39,14 +39,16 @@ SKEnvironment >> abondon [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/25/2026 20:13'
+	#'squeak_changestamp' : 'LM 5/26/2026 09:40'
 }
 SKEnvironment >> addKara: aKara [
 
 	| workspace |
 	
-	workspace := SKWorkspace newWithExecuter: (self executer) and: aKara.
-	aKara workspace: workspace; color: aKara findUnusedColor.
+	workspace := SKWorkspace newWithExecuter: self executer and: aKara.
+	aKara
+		workspace: workspace;
+		color: aKara findUnusedColor.
 	
 	self karas add: aKara.
 	
@@ -155,10 +157,11 @@ SKEnvironment >> executionSpeed: aSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/23/2026 14:04'
+	#'squeak_changestamp' : 'LM 5/26/2026 09:41'
 }
 SKEnvironment >> firstWorkspace [
 
+	"Only used for testing"
 	^ self workspaces first
 ]
 
@@ -219,14 +222,13 @@ SKEnvironment >> grid: aGrid [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/23/2026 13:41'
+	#'squeak_changestamp' : 'LM 5/26/2026 09:42'
 }
 SKEnvironment >> initialize [
 
+	super initialize.
 	self executer: (SKExecuter newWithEnvironment: self).
-
-	self karas: OrderedCollection new.
-	super initialize
+	self karas: OrderedCollection new
 ]
 
 {

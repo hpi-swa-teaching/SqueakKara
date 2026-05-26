@@ -107,15 +107,6 @@ SKKara >> isKara [
 ]
 
 {
-	#category : #locking,
-	#'squeak_changestamp' : 'LM 5/23/2026 13:50'
-}
-SKKara >> isLocked: aPoint [
-
-	^ self gridCoordinator isLocked: aPoint for: self
-]
-
-{
 	#category : #'object detection',
 	#'squeak_changestamp' : 'LM 5/10/2026 20:18'
 }
@@ -130,11 +121,11 @@ SKKara >> karaAhead [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'LM 5/23/2026 14:01'
+	#'squeak_changestamp' : 'LM 5/26/2026 09:49'
 }
 SKKara >> lockAt: aPoint [
 
-	(self isLocked: aPoint) ifTrue: [ ^ self ].
+	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
 	(self gridCoordinator lockAt: aPoint for: self) ifTrue: [
 		self unlockAt: self coordinates ]
 ]
@@ -174,6 +165,15 @@ SKKara >> nextField [
 SKKara >> onCloverleaf [
 
 	^ self neighboursHere anySatisfy: [:each | each isCloverleaf]
+]
+
+{
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/26/2026 09:48'
+}
+SKKara >> ownsLockAt: aPoint [
+
+	^ self gridCoordinator isLocked: aPoint for: self
 ]
 
 {

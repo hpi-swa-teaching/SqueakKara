@@ -60,7 +60,7 @@ SKGridCoordinatorTest >> testDeleteObject [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/23/2026 18:37'
+	#'squeak_changestamp' : 'LM 5/26/2026 09:51'
 }
 SKGridCoordinatorTest >> testLockingAndUnlocking [
 
@@ -71,12 +71,12 @@ SKGridCoordinatorTest >> testLockingAndUnlocking [
 	
 	kara lockAt: 2 @ 1.
 	
-	self deny: (kara isLocked: 2 @ 1).
-	self assert: (other isLocked: 2 @ 1).
+	self deny: (kara ownsLockAt: 2 @ 1).
+	self assert: (other ownsLockAt: 2 @ 1).
 	
 	kara unlockAt: 2 @ 1.
 	
-	self deny: (other isLocked: 2 @ 1)
+	self deny: (other ownsLockAt: 2 @ 1)
 ]
 
 {

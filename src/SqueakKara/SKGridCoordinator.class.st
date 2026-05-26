@@ -101,9 +101,10 @@ SKGridCoordinator >> gridMatrix: aMatrix [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/29/2026 18:53'
+	#'squeak_changestamp' : 'LM 5/26/2026 09:45'
 }
 SKGridCoordinator >> initializeForGrid: aGrid [
+
 	self grid: aGrid.
 	self gridMatrix: self createGridMatrix.
 
@@ -123,12 +124,12 @@ SKGridCoordinator >> isLocked: aPoint for: anActor [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/22/2026 11:51'
+	#'squeak_changestamp' : 'LM 5/26/2026 09:44'
 }
 SKGridCoordinator >> lockAt: aPoint for: anActor [
 	
 	(self grid isPointInGridDimensions: aPoint)
-		ifTrue: [(self gridMatrix at: aPoint x at: aPoint y) lockFor: anActor. ^ true ].
+		ifTrue: [(self gridMatrix at: aPoint x at: aPoint y) lockBy: anActor. ^ true ].
 	
 	^ false
 ]
