@@ -41,12 +41,13 @@ SKWindowManager >> buildConfirmationWindow [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/12/2026 19:26'
+	#'squeak_changestamp' : 'JS 5/26/2026 15:13'
 }
 SKWindowManager >> initialize [
 	super initialize.
 	self
 		color: Color transparent;
+		visible: false;
 		openWindows: OrderedCollection new.
 ]
 

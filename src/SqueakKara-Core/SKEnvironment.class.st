@@ -47,15 +47,13 @@ SKEnvironment >> challange: anObject [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:18'
+	#'squeak_changestamp' : 'JS 5/26/2026 15:17'
 }
 SKEnvironment >> close [
 
 	self workspace close.
 	self grid abandon.
 	self systemWindow delete
-
-	
 ]
 
 {
@@ -168,10 +166,11 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/12/2026 18:45'
+	#'squeak_changestamp' : 'JS 5/26/2026 15:06'
 }
 SKEnvironment >> initializeObjects [
 
+	self windowManager: SKWindowManager new.
 	self workspace: (SKWorkspace newWithKara: self kara).
 	self executer: (SKExecuter new).
 	(self executer kara) kara: self kara.
@@ -272,17 +271,6 @@ SKEnvironment >> pause [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/12/2026 19:43'
-}
-SKEnvironment >> positionCloseButton [
-
-	self windowManager center: self grid bounds bottomCenter + (0@self grid pixelPerBlock/2).
-	
-
-]
-
-{
-	#category : #initialization,
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:25'
 }
 SKEnvironment >> positionExecuteControlsAndGrid [
@@ -330,11 +318,10 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/17/2026 12:44'
+	#'squeak_changestamp' : 'JS 5/26/2026 15:07'
 }
 SKEnvironment >> setSystemWindow [
 	
-	self windowManager: SKWindowManager new.
 	self systemWindow: (SKChallengeWindow new windowManager: self windowManager).
 	self systemWindow setLabel: 'Kara'.
 	self systemWindow 
@@ -344,7 +331,6 @@ SKEnvironment >> setSystemWindow [
 		addMorph: self grid;
 		addMorph: self windowManager. 
 	self positionExecuteControlsAndGrid.
-	self positionCloseButton.
 	self windowManager addWindow: self systemWindow.
 ]
 
