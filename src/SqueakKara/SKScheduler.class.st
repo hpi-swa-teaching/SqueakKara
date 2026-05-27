@@ -132,23 +132,27 @@ SKScheduler >> executer: anExecuter [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/8/2026 17:55'
+	#'squeak_changestamp' : 'LM 5/27/2026 21:22'
 }
 SKScheduler >> finishActor: anActor [
 
 	self stepLock critical: [
+		Transcript showln: 'Terminating: ', anActor kara.
 		self activeActors remove: anActor.
 		self releaseLocks removeKey: anActor.
+		self scheduledSteps removeKey: anActor ifAbsent: [].
 		
 		self activeActors isEmpty ifTrue: [
+			self scheduledSteps removeAll.
+			self releaseAll.
 			self executer state: #terminated.
 			self executer onFinish ].
 
-		self scheduledSteps size = self activeActors size ifTrue: [
+		"self scheduledSteps size = self activeActors size ifTrue: [
 			self scheduledSteps isEmpty ifFalse: [
 				self step.
 				self scheduledSteps removeAll.
-				self releaseAll ]]]
+				self releaseAll ]]"]
 ]
 
 {
@@ -181,10 +185,11 @@ SKScheduler >> releaseLocks: aDictionary [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'LM 5/23/2026 14:00'
+	#'squeak_changestamp' : 'LM 5/27/2026 21:04'
 }
 SKScheduler >> scheduleAction: anAction for: anActor [
 
+	Transcript showln: 'Scheduling move for: ', anActor kara.
 	self stepLock critical: [
 		| actions |
 		
@@ -192,8 +197,11 @@ SKScheduler >> scheduleAction: anAction for: anActor [
 		actions add: anAction.
 		(anAction type = #move) ifTrue: [ anActor lockNextField ].
 		self scheduledSteps at: anActor put: actions.
+		Transcript showln: 'Scheduled: ', (self scheduledSteps).
+		Transcript showln: 'Actors:  ', (self activeActors collect: [ :actor | actor kara ]).
 		
 		self scheduledSteps size = self activeActors size ifTrue: [
+			Transcript showln: 'Stepping for: ', anActor kara.
 			self step.
 			self scheduledSteps removeAll.
 			self releaseAll ]]

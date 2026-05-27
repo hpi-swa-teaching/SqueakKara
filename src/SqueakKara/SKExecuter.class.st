@@ -242,25 +242,26 @@ SKExecuter >> suspendExecution [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:43'
+	#'squeak_changestamp' : 'LM 5/27/2026 20:38'
 }
 SKExecuter >> terminate [
 
 	(self state = #terminated) ifTrue: [ ^ self ].
 
-	self processes do: [ :process | process terminate ].
+	self processes keysDo: [ :kara | self terminateFor: kara ].
 	self state: #terminated
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/21/2026 17:07'
+	#'squeak_changestamp' : 'LM 5/27/2026 21:13'
 }
 SKExecuter >> terminateFor: aKara [
 
 	(self state = #terminated or: [(self processes includesKey: aKara) not ]) ifTrue: [ ^ self ].
 
 	(self processes at: aKara) terminate.
+	self processes removeKey: aKara.
 	self environment updateTextures
 ]
 
