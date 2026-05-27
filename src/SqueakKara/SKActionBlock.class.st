@@ -59,48 +59,47 @@ SKActionBlock >> command [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/26/2026 23:16'
+	#'squeak_changestamp' : 'SLH 5/27/2026 10:58'
 }
 SKActionBlock >> drawOn: aCanvas [
-	| innerBounds borderWidth topEdge bottomEdge pts |
+	| innerBounds topEdge bottomEdge pts |
 	
-	borderWidth := self borderWidth max: 1. 
-	innerBounds := self bounds insetBy: borderWidth.
+	innerBounds := self bounds insetBy: self borderWidth / 2.
 
 	topEdge := innerBounds top.
 	bottomEdge := innerBounds bottom - self tabHeight.
 
 	pts := self isStart ifFalse:{
 		innerBounds left @ topEdge.
-		(innerBounds left + self tabOffset) @ topEdge. 
-		(innerBounds left + self tabOffset + self slantWidth) @ (topEdge + self tabHeight).
-		(innerBounds left + self tabOffset + self tabWidth - self slantWidth) @ (topEdge + self tabHeight).
-		(innerBounds left + self tabOffset + self tabWidth) @ topEdge.
+		(innerBounds left + self tabOffsetTop) @ topEdge. 
+		(innerBounds left + self tabOffsetTop + self slantWidth) @ (topEdge + self tabHeight).
+		(innerBounds left + self tabOffsetTop + self tabWidth - self slantWidth) @ (topEdge + self tabHeight).
+		(innerBounds left + self tabOffsetTop + self tabWidth) @ topEdge.
 		innerBounds right @ topEdge.
     
 		innerBounds right @ bottomEdge.
 
-		(innerBounds left + self tabOffset + self tabWidth) @ bottomEdge.
-		(innerBounds left + self tabOffset + self tabWidth - self slantWidth) @ (bottomEdge + self tabHeight).
-		(innerBounds left + self tabOffset + self slantWidth) @ (bottomEdge + self tabHeight).
-		(innerBounds left + self tabOffset) @ bottomEdge.
+		(innerBounds left + self tabOffsetBottom + self tabWidth) @ bottomEdge.
+		(innerBounds left + self tabOffsetBottom + self tabWidth - self slantWidth) @ (bottomEdge + self tabHeight).
+		(innerBounds left + self tabOffsetBottom + self slantWidth) @ (bottomEdge + self tabHeight).
+		(innerBounds left + self tabOffsetBottom) @ bottomEdge.
 		innerBounds left @ bottomEdge.
 	} ifTrue: {
 		innerBounds left @ topEdge.
 		innerBounds right @ topEdge.
 		innerBounds right @ bottomEdge.
 
-		(innerBounds left + self tabOffset + self tabWidth) @ bottomEdge.
-		(innerBounds left + self tabOffset + self tabWidth - self slantWidth) @ (bottomEdge + self tabHeight).
-		(innerBounds left + self tabOffset + self slantWidth) @ (bottomEdge + self tabHeight).
-		(innerBounds left + self tabOffset) @ bottomEdge.
+		(innerBounds left + self tabOffsetTop + self tabWidth) @ bottomEdge.
+		(innerBounds left + self tabOffsetTop + self tabWidth - self slantWidth) @ (bottomEdge + self tabHeight).
+		(innerBounds left + self tabOffsetBottom + self slantWidth) @ (bottomEdge + self tabHeight).
+		(innerBounds left + self tabOffsetBottom) @ bottomEdge.
 		innerBounds left @ bottomEdge.
 	}.
 
 	aCanvas 
 		drawPolygon: pts 
 		color: self color 
-		borderWidth: borderWidth 
+		borderWidth: self borderWidth
 		borderColor: self borderColor.
 ]
 
@@ -164,6 +163,24 @@ SKActionBlock >> tabHeight [
 	#'squeak_changestamp' : 'FR 5/26/2026 17:00'
 }
 SKActionBlock >> tabOffset [
+
+	^ 8.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/27/2026 10:08'
+}
+SKActionBlock >> tabOffsetBottom [
+
+	^ 8.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/27/2026 10:08'
+}
+SKActionBlock >> tabOffsetTop [
 
 	^ 8.
 ]

@@ -156,15 +156,13 @@ SKBlock >> handlesMouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 02:25'
+	#'squeak_changestamp' : 'SLH 5/27/2026 10:50'
 }
 SKBlock >> initialize [
 	
 	super initialize.	
 	
 	self borderColor: self borderColorFromCategory;
-		cornerStyle: #rounded;
-		cornerRadius: 5;
 		color: self colorFromCategory;
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
