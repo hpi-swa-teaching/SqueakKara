@@ -6,13 +6,14 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'grid',
-		'workspace',
+		'programmingUI',
 		'executer',
 		'karas',
 		'executeControls',
 		'gameWidth',
 		'gameHeight',
-		'systemWindow'
+		'systemWindow',
+		'programmingConcept'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
@@ -20,13 +21,13 @@ Class {
 
 {
 	#category : #'instance creation',
-	#'squeak_changestamp' : 'LM 5/7/2026 22:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:23'
 }
-SKEnvironment class >> newWithKaraAt: aPoint [
+SKEnvironment class >> newWithProgrammingConcept: aConcept [
 
-	^ self new
-		initializeWithKaraAt: aPoint;
-		yourself
+	^ (self new
+			programmingConcept: aConcept;
+			yourself)
 ]
 
 {
@@ -65,14 +66,14 @@ SKEnvironment >> calculateScaleFactor: aPoint [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:53'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 23:20'
 }
 SKEnvironment >> close [
 
-	self workspace close.
+	self programmingUI close.
 	self grid abandon.
 	self executer terminate.
-	self systemWindow delete
+	self systemWindow ifNotNil:  [self systemWindow delete].
 
 	
 ]
@@ -204,11 +205,17 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:40'
 }
 SKEnvironment >> initialize [
 
 	self karas: OrderedCollection new.
+	
+	self programmingConcept: SKProgrammingConceptCode new.
+	
+	self executer: (SKExecuter newWithEnvironment: self).
+	self programmingUI: (self programmingConcept buildProgrammingUI: self executer).
+	
 	super initialize
 ]
 
@@ -338,6 +345,42 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:09'
+}
+SKEnvironment >> programmingConcept [
+
+	^ programmingConcept
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:09'
+}
+SKEnvironment >> programmingConcept: aProgrammingConcept [
+
+	programmingConcept := aProgrammingConcept
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:57'
+}
+SKEnvironment >> programmingUI [
+
+	^ programmingUI
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:58'
+}
+SKEnvironment >> programmingUI: aProgrammingUI [
+
+	programmingUI := aProgrammingUI
+]
+
+{
 	#category : #layout,
 	#'squeak_changestamp' : 'LM 4/29/2026 12:26'
 }
@@ -370,13 +413,13 @@ SKEnvironment >> resume [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:16'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:58'
 }
 SKEnvironment >> run [
 
 	| code |
 	
-	code :=  self workspace userCode.
+	code :=  self programmingUI getCode.
 	self executer execute: code
 ]
 
