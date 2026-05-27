@@ -142,12 +142,14 @@ SKPlayGround >> findAllEdgesToNode: aNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:57'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:14'
 }
 SKPlayGround >> findNearestEdge: aPosition [
 
 	"simple but slow implementation O(n) - faster implemetation possible"
 	| currentNearestEdge currentNearestDistance currentDistance |
+	
+	self edges size > 0 ifFalse: [^ nil].
 	
 	self  
 		ifNil: [^ nil]
