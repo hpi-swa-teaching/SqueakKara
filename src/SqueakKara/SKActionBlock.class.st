@@ -18,7 +18,7 @@ SKActionBlock class >> newWithLabel: aLabel andAction: anAction [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 5/11/2026 18:07'
 }
 SKActionBlock >> action [
@@ -27,7 +27,7 @@ SKActionBlock >> action [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 5/11/2026 18:44'
 }
 SKActionBlock >> action: aBlock [
@@ -36,7 +36,7 @@ SKActionBlock >> action: aBlock [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #type,
 	#'squeak_changestamp' : 'SLH 5/13/2026 16:03'
 }
 SKActionBlock >> blockType [
@@ -105,7 +105,7 @@ SKActionBlock >> drawOn: aCanvas [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 5/26/2026 21:41'
 }
 SKActionBlock >> isStart [
@@ -114,7 +114,7 @@ SKActionBlock >> isStart [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 5/26/2026 21:40'
 }
 SKActionBlock >> isStart: aBoolean [
@@ -123,7 +123,7 @@ SKActionBlock >> isStart: aBoolean [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'FR 5/27/2026 02:36'
 }
 SKActionBlock >> layoutInset [
@@ -133,7 +133,7 @@ SKActionBlock >> layoutInset [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'SLH 5/20/2026 00:20'
 }
 SKActionBlock >> minHeight [
@@ -142,7 +142,7 @@ SKActionBlock >> minHeight [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'FR 5/26/2026 17:00'
 }
 SKActionBlock >> slantWidth [
@@ -151,7 +151,7 @@ SKActionBlock >> slantWidth [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'SLH 5/19/2026 23:13'
 }
 SKActionBlock >> tabHeight [
@@ -160,7 +160,7 @@ SKActionBlock >> tabHeight [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'FR 5/26/2026 17:00'
 }
 SKActionBlock >> tabOffset [
@@ -169,7 +169,7 @@ SKActionBlock >> tabOffset [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'FR 5/26/2026 17:00'
 }
 SKActionBlock >> tabWidth [

@@ -43,10 +43,12 @@ SKBlockSpace >> acceptDroppingMorph: aMorph event: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 03:47'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:20'
 }
 SKBlockSpace >> addDropZoneAtIndex: aNumber of: aMorph [
+
 	| dropZone newIndex|
+	
 	(self dropIndex = aNumber or:[aNumber > self submorphCount and:[self dropIndex ~= nil]]) ifFalse:[
 		newIndex := aNumber.
 		(aNumber = 1 and: [self hasStartBlock]) ifTrue:[newIndex:= 2].
@@ -106,25 +108,28 @@ SKBlockSpace >> environment [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 02:38'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:20'
 }
 SKBlockSpace >> handlesMouseMove: anEvent [
-	^true
+
+	^ true
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 02:25'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:20'
 }
 SKBlockSpace >> handlesMouseOver: anEvent [
-	^true
+
+	^ true
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 02:25'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:20'
 }
 SKBlockSpace >> handlesMouseOverDragging: anEvent [
+
 	^true
 ]
 
@@ -210,14 +215,14 @@ SKBlockSpace >> objectHeight [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 04:08'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:21'
 }
 SKBlockSpace >> removeDropZone [
+
 	self dropIndex ifNotNil:[
 		(self submorphs at: self dropIndex) delete.
 		self dropIndex: nil.
-		self layoutChanged
-		]
+		self layoutChanged]
 	
 ]
 
@@ -254,22 +259,23 @@ SKBlockSpace >> startBlockEdit [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:42'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:20'
 }
 SKBlockSpace >> updateCode [
 
 	| code |
+	
 	code:= ''.
-	self flag: #temp.
 	self submorphsBehind: (self firstSubmorph) do: [:each | each action ifNotNil: [code:= code, each command, '.',  String cr]].
 	self controller code: code
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 02:40'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:21'
 }
 SKBlockSpace >> wantsDroppedMorph: aMorph event: anEvent [
+
 	self flag: #toBeExtended.
 	^((aMorph class = SKBlock) or: [aMorph class inheritsFrom: SKBlock]) and: [aMorph blockType = #Action].
 	 

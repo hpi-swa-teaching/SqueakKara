@@ -33,9 +33,10 @@ SKCompoundActionBlock >> command [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 04:05'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:16'
 }
 SKCompoundActionBlock >> initialize [
+
 	|insertWrapper sidebar|
 	
 	super initialize.
