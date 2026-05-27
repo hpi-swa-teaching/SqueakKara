@@ -9,17 +9,27 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:34'
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:20'
+}
+SKExecuteControlsTest >> environment [
+
+	^ environment
+]
+
+{
+	#category : #setup,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 23:19'
 }
 SKExecuteControlsTest >> setUp [
 
-	environment := (SKEnvironment newWithKaraAt: 1 @ 1).
+	environment := SKEnvironment newWithProgrammingConcept: (SKProgrammingConceptCode new).
+	environment initializeWithKaraAt: 1 @ 1.
 	controls := environment executeControls.
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #setup,
 	#'squeak_changestamp' : 'EB 7/12/2024 11:45'
 }
 SKExecuteControlsTest >> tearDown [
@@ -28,12 +38,12 @@ SKExecuteControlsTest >> tearDown [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LM 5/7/2026 23:11'
+	#category : #testing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:18'
 }
 SKExecuteControlsTest >> testRun [
 
-	environment workspace userCode: 'kara move'.
+	self environment programmingUI setCode: 'kara move'.
 	controls actionRun.
 	
 	"Busy waiting until execution done."
@@ -43,12 +53,12 @@ SKExecuteControlsTest >> testRun [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LM 5/7/2026 23:09'
+	#category : #testing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKExecuteControlsTest >> testRunPause [
 
-	environment workspace userCode: 'kara move. kara move. kara move'.
+	self environment programmingUI setCode: 'kara move. kara move. kara move'.
 
 	controls actionRun.
 	(Delay forMilliseconds: 1) wait.
@@ -61,7 +71,7 @@ SKExecuteControlsTest >> testRunPause [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'EB 7/12/2024 11:42'
 }
 SKExecuteControlsTest >> testSlider [
@@ -71,12 +81,12 @@ SKExecuteControlsTest >> testSlider [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:51'
+	#category : #testing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKExecuteControlsTest >> testStop [
 
-	environment workspace userCode: 'kara move.'.
+	self environment programmingUI setCode: 'kara move.'.
 	controls actionRun.
 	controls actionStop.
 	self assert: environment executer state = #terminated.
