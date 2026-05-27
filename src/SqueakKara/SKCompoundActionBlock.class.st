@@ -9,10 +9,10 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/27/2026 10:45'
+	#'squeak_changestamp' : 'SLH 5/27/2026 14:42'
 }
 SKCompoundActionBlock >> actionGap [
-	^ actionGap ifNil: [SKActionGap new].
+	^ actionGap ifNil: [actionGap := SKActionGap new].
 ]
 
 {
