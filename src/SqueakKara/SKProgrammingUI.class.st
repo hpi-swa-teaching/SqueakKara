@@ -2,7 +2,8 @@ Class {
 	#name : #SKProgrammingUI,
 	#superclass : #Object,
 	#instVars : [
-		'executer'
+		'executer',
+		'environment'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -15,6 +16,19 @@ SKProgrammingUI class >> newWithExecuter: aExecuter [
 
 	^ (self new
 		executer: aExecuter;
+		build;
+		yourself)
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:30'
+}
+SKProgrammingUI class >> newWithExecuter: aExecuter andEnvironment: aEnvironment [
+
+	^ (self new
+		executer: aExecuter;
+		environment: aEnvironment;
 		build;
 		yourself)
 ]
@@ -35,6 +49,24 @@ SKProgrammingUI >> build [
 SKProgrammingUI >> close [
 
 	self subclassResponsibility
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:30'
+}
+SKProgrammingUI >> environment [
+
+	^ environment
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:31'
+}
+SKProgrammingUI >> environment: aEnvironment [
+
+	environment := aEnvironment
 ]
 
 {
@@ -60,15 +92,6 @@ SKProgrammingUI >> executer: aExecuter [
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 08:53'
 }
 SKProgrammingUI >> getCode [
-
-	self subclassResponsibility
-]
-
-{
-	#category : #interface,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 08:53'
-}
-SKProgrammingUI >> open [
 
 	self subclassResponsibility
 ]

@@ -310,11 +310,11 @@ SKLandingPage >> conceptSelectionButtonSelectedColor [
 
 {
 	#category : #conceptSelection,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:21'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:35'
 }
 SKLandingPage >> concepts [
 
-	^ { SKProgrammingConceptCode new}
+	^ { SKProgrammingConceptCode new. SKProgrammingConceptBlocks new}
 ]
 
 {

@@ -6,15 +6,16 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 03:45'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:13'
 }
 SKBlockSource >> handlesMouseDown: anEvent [
+
 	^ true
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 04:19'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:12'
 }
 SKBlockSource >> initialize [
 
@@ -28,14 +29,15 @@ SKBlockSource >> initialize [
 	 	vResizing: #spaceFill;
 		cellPositioning: #topLeft;
 		cellGap: 10;
-		populate.
+		populate
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 03:44'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:12'
 }
 SKBlockSource >> mouseDown: anEvent [ 
+
 	(self targetMorphAt: anEvent)
 		ifNotNil: [anEvent hand
 				waitForClicksOrDrag: self
@@ -46,9 +48,10 @@ SKBlockSource >> mouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 04:16'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:13'
 }
 SKBlockSource >> populate [
+
 	self addMorphBack: (SKActionBlock new label: 'move'; action: ['kara move']; category: #movement; yourself).
 	self addMorphBack: (SKActionBlock new label: 'move';
 		addIntegerPart: 'steps' withDefault: 3;
@@ -68,10 +71,12 @@ SKBlockSource >> populate [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 03:47'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:12'
 }
 SKBlockSource >> startDrag: anEvent [
+
 	| hit |
+	
 	(hit := self targetMorphAt: anEvent) ifNil:[^self].
 	anEvent hand grabMorph: (hit duplicate leftSource: true)
 	
@@ -79,10 +84,12 @@ SKBlockSource >> startDrag: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 03:46'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:12'
 }
 SKBlockSource >> targetMorphAt: anEvent [
+
 	| hits |
+	
 	hits := self morphsAt: anEvent cursorPoint.
 	hits := hits select:[:m| m owner == self].
 	(hits isEmpty or:[hits size >1]) ifTrue:[^nil].

@@ -21,12 +21,13 @@ Class {
 
 {
 	#category : #'instance creation',
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:23'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:26'
 }
 SKEnvironment class >> newWithProgrammingConcept: aConcept [
 
 	^ (self new
 			programmingConcept: aConcept;
+			initializeProgrammingUI;
 			yourself)
 ]
 
@@ -205,36 +206,36 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:40'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:35'
 }
 SKEnvironment >> initialize [
 
 	self karas: OrderedCollection new.
-	
-	self programmingConcept: SKProgrammingConceptCode new.
-	
-	self executer: (SKExecuter newWithEnvironment: self).
-	self programmingUI: (self programmingConcept buildProgrammingUI: self executer).
 	
 	super initialize
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 5/27/2026 04:54'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:36'
 }
 SKEnvironment >> initializeObjects [
-
-	self executer: (SKExecuter newWithEnvironment: self).
-	
-	self workspace: (SKWorkspace newWithExecuter: self executer).
-	SKBlockSpace startBlockEdit: self.
 	
 	self executeControls: SKExecuteControls new.
 	self executeControls environment: self.
 	
 	self setSystemWindow.
 	self systemWindow openInHand
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:36'
+}
+SKEnvironment >> initializeProgrammingUI [
+
+		self executer: (SKExecuter newWithEnvironment: self).
+		self programmingUI: (self programmingConcept buildProgrammingUI: (self executer) andEnvironment: self).
 ]
 
 {

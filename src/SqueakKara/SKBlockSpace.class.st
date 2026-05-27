@@ -4,32 +4,37 @@ Class {
 	#instVars : [
 		'kara',
 		'environment',
-		'dropIndex'
+		'dropIndex',
+		'controller'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 04:53'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:41'
 }
-SKBlockSpace class >> startBlockEdit [
-	^ self basicNew startBlockEdit.
+SKBlockSpace class >> newWithController: aController [
+
+	^ self basicNew startBlockEdit;
+		controller: aController
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 04:55'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:40'
 }
 SKBlockSpace class >> startBlockEdit: anEnvironment [
-	^ self basicNew startBlockEdit; environment: anEnvironment.
+
+	^ self basicNew startBlockEdit
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 03:57'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:16'
 }
 SKBlockSpace >> acceptDroppingMorph: aMorph event: anEvent [
+
 	self addMorph: aMorph atIndex: self dropIndex+1.
 	self removeDropZone.
 	self updateCode.
@@ -58,6 +63,24 @@ SKBlockSpace >> addDropZoneAtIndex: aNumber of: aMorph [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:39'
+}
+SKBlockSpace >> controller [
+
+	^ controller
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:39'
+}
+SKBlockSpace >> controller: aController [
+
+	controller := aController
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'FR 5/19/2026 15:39'
 }
 SKBlockSpace >> dropIndex [
@@ -74,18 +97,11 @@ SKBlockSpace >> dropIndex: aNumber [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/5/2026 23:39'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:39'
 }
 SKBlockSpace >> environment [
-	^ environment
-]
 
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/5/2026 23:39'
-}
-SKBlockSpace >> environment: anObject [
-	environment := anObject
+	^ controller environment
 ]
 
 {
@@ -238,15 +254,15 @@ SKBlockSpace >> startBlockEdit [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 04:43'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:42'
 }
 SKBlockSpace >> updateCode [
-	"this is obviously temporary"
+
 	| code |
 	code:= ''.
 	self flag: #temp.
 	self submorphsBehind: (self firstSubmorph) do: [:each | each action ifNotNil: [code:= code, each command, '.',  String cr]].
-	self environment workspace userCode: code.
+	self controller code: code
 ]
 
 {
