@@ -79,18 +79,17 @@ SKKara >> karaAhead [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Gustav Meinshausen 5/23/2026 18:36'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 13:31'
 }
 SKKara >> move [
 
-	(self walkableAhead and: self movementBlocked not)
-		ifTrue: [self coordinates: self coordinates + self viewDirection]
-		ifFalse: [
-			self movementBlocked: true;
-				say: 'I should not walk into things. There might also be a bug in the code!'.
-			^ self]
-			
-			
+	self movementBlocked ifTrue: [^ self].
+	self walkableAhead ifFalse: [
+		self movementBlocked: true;
+			say: 'I should not walk into things. There might also be a bug in the code!'.
+		^ self].
+
+	self coordinates: self coordinates + self viewDirection
 ]
 
 {
@@ -233,12 +232,13 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'Gustav Meinshausen 5/23/2026 18:30'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 13:28'
 }
 SKKara >> turn: aRotation [
-	self movementBlocked ifFalse: [
-		self viewDirection: (SKDirection rotatePosition: self viewDirection by: aRotation).		
-		self scaleToFactor].
+
+	self movementBlocked ifTrue: [^ self].
+	self viewDirection: (SKDirection rotatePosition: self viewDirection by: aRotation).		
+	self scaleToFactor
 	
 	
 
