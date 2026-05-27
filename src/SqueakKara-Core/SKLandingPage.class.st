@@ -70,17 +70,12 @@ SKLandingPage >> actionNew [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'AB 5/24/2026 14:58'
+	#'squeak_changestamp' : 'AB 5/27/2026 15:30'
 }
 SKLandingPage >> addAllButtons [
 
-	self addButton: self buildButtonNew atIndex: 0.
-	
-	self addButton: self buildButtonExample1 atIndex: 1.
-	self addButton: self buildButtonExample2 atIndex: 2.
-	self addButton: self buildButtonExample3 atIndex: 3.
-	self addButton: self buildButtonExample4 atIndex: 4.
-	self addButton: self buildButtonExample5 atIndex: 5
+	self buildAllButtons doWithIndex: [ :button :index |
+		self addButton: button atIndex: index - 1 ]
 ]
 
 {
@@ -100,6 +95,20 @@ SKLandingPage >> addButton: aButton atIndex: anInteger [
 		+ (0 @ 50).
 	
 	aButton position: basePosition + (0 @ yOffset)
+]
+
+{
+	#category : #buttons,
+	#'squeak_changestamp' : 'AB 5/27/2026 15:28'
+}
+SKLandingPage >> buildAllButtons [
+
+	^ Array with: self buildButtonNew
+				with: self buildButtonExample1
+				with: self buildButtonExample2
+				with: self buildButtonExample3
+				with: self buildButtonExample4
+				with: self buildButtonExample5
 ]
 
 {
@@ -248,11 +257,17 @@ SKLandingPage >> buttonNewLabel [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:17'
+	#'squeak_changestamp' : 'AB 5/27/2026 15:34'
 }
 SKLandingPage >> defaultExtent [
 
-	^ 200 px @ 200 px
+	| buttonSlotHeight totalHeight buttonCount |
+    
+	buttonCount := self buildAllButtons size.
+	buttonSlotHeight := self buttonHeight + 10.
+	totalHeight := 50 + (buttonSlotHeight * buttonCount) + 40.
+    
+	^ 300 px @ totalHeight
 ]
 
 {
