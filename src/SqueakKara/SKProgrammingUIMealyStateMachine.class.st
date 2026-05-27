@@ -5,7 +5,8 @@ Class {
 		'playGround',
 		'mode',
 		'selectedNode',
-		'buttons'
+		'buttons',
+		'nodesToDelete'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -121,6 +122,15 @@ SKProgrammingUIMealyStateMachine >> colorAllModeButtonsNormal [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:06'
+}
+SKProgrammingUIMealyStateMachine >> enqueueNodeToDelete: aNode [
+
+	self nodesToDelete remove: aNode
+]
+
+{
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:00'
 }
@@ -153,6 +163,15 @@ SKProgrammingUIMealyStateMachine >> handleEdgeModeNodeClick: aNode [
 		^ nil].
 	
 	self selectedNode: aNode
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:07'
+}
+SKProgrammingUIMealyStateMachine >> hasNodesToDelete [
+
+	^ self nodesToDelete size > 0
 ]
 
 {
@@ -342,6 +361,15 @@ SKProgrammingUIMealyStateMachine >> nodeClicked: aNode [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:05'
+}
+SKProgrammingUIMealyStateMachine >> nodesToDelete [
+
+	^ nodesToDelete ifNil: [nodesToDelete := OrderedCollection new]
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:00'
 }
 SKProgrammingUIMealyStateMachine >> playGround [
@@ -358,6 +386,15 @@ SKProgrammingUIMealyStateMachine >> playGroundClicked: aPosition [
 	self mode caseOf: {
 		[#delete] -> [self findeEdgeToDelete: aPosition]
 	} otherwise: []
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:09'
+}
+SKProgrammingUIMealyStateMachine >> queueNodeToDelete: aNode [
+
+	self nodesToDelete add: aNode
 ]
 
 {
@@ -383,6 +420,27 @@ SKProgrammingUIMealyStateMachine >> selectedNode: aNode [
 ]
 
 {
+	#category : #stepping,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:12'
+}
+SKProgrammingUIMealyStateMachine >> step [
+
+	self hasNodesToDelete ifFalse: [^ self].
+	self nodesToDelete do: [:aNode | 
+		self enqueueNodeToDelete: aNode;
+			actionDeleteNode: aNode]
+]
+
+{
+	#category : #stepping,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:12'
+}
+SKProgrammingUIMealyStateMachine >> stepTime [
+
+	^ 100
+]
+
+{
 	#category : #modes,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:22'
 }
@@ -392,6 +450,15 @@ SKProgrammingUIMealyStateMachine >> toggleMode: aMode [
 		colorAllModeButtonsNormal;
 		markModeButtonSelected: aMode;
 		mode: aMode
+]
+
+{
+	#category : #stepping,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:11'
+}
+SKProgrammingUIMealyStateMachine >> wantsSteps [
+
+	^ true
 ]
 
 {

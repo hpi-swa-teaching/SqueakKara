@@ -77,12 +77,11 @@ SKMealyNode >> isInDrag: aBoolean [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:34'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:06'
 }
 SKMealyNode >> justDroppedInto: newOwner event: anEvent [
 
-	(newOwner isKindOf: SKPlayGround) ifFalse: [
-		Transcript show: 'delete'; cr.].
+	(newOwner isKindOf: SKPlayGround) ifFalse: [controller queueNodeToDelete: self].
 
 	newOwner addMorphFront: self.
 	self isInDrag: false
