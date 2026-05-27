@@ -65,7 +65,7 @@ SKLandingPage >> actionExample4 [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:20'
+	#'squeak_changestamp' : 'JS 5/27/2026 21:50'
 }
 SKLandingPage >> actionNew [
 

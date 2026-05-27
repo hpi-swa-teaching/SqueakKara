@@ -74,10 +74,11 @@ SKExecuteControls >> actionStop [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/27/2026 21:35'
+	#'squeak_changestamp' : 'JS 5/27/2026 21:48'
 }
 SKExecuteControls >> addAllWidgets [
 
+	
 	self loadTextures.
 	
 	self buttonRun: self buildButtonRun.
