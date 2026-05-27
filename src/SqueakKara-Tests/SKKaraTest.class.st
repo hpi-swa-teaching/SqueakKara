@@ -27,7 +27,7 @@ SKKaraTest >> gridSize [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'jt 6/11/2024 11:14'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 21:20'
 }
 SKKaraTest >> setUp [
 
