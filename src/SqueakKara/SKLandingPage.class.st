@@ -4,57 +4,72 @@ SKLandingPage provides a user interface for the user to select either a blank wo
 Class {
 	#name : #SKLandingPage,
 	#superclass : #SystemWindow,
+	#instVars : [
+		'selectedConcept',
+		'conceptButtons'
+	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:01'
 }
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:07'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:17'
+}
+SKLandingPage >> actionConceptSelected: aIndex [
+
+	self selectedConcept: aIndex.
+	self conceptButtons do: [:aButton | aButton color: self conceptSelectionButtonNormalColor].
+	(self conceptButtons at: (self selectedConcept)) color: self conceptSelectionButtonSelectedColor
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:20'
 }
 SKLandingPage >> actionExample1 [
 
-	SKEnvironment new initializeWithChallenge1.
+	self buildEnvironment initializeWithChallenge1.
 	self delete
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:07'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:20'
 }
 SKLandingPage >> actionExample2 [
 
-	SKEnvironment new initializeWithChallenge2.
+	self buildEnvironment initializeWithChallenge2.
 	self delete
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:09'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:20'
 }
 SKLandingPage >> actionExample3 [
 
-	SKEnvironment new initializeWithChallenge3.
+	self buildEnvironment initializeWithChallenge3.
 	self delete
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:15'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:20'
 }
 SKLandingPage >> actionExample4 [
 
-	SKEnvironment new initializeWithChallenge4.
+	self buildEnvironment initializeWithChallenge4.
 	self delete
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:01'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:20'
 }
 SKLandingPage >> actionNew [
 
-	SKEnvironment newWithKaraAt: 1 @ 1.
+	self buildEnvironment initializeWithKaraAt: 1 @ 1.
 	self delete
 ]
 
@@ -74,7 +89,7 @@ SKLandingPage >> addAllButtons [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:20'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:43'
 }
 SKLandingPage >> addButton: aButton atIndex: anInteger [
 
@@ -84,11 +99,20 @@ SKLandingPage >> addButton: aButton atIndex: anInteger [
 	
 	yOffset := (aButton height + 10) * (anInteger - 1).
 	
-	basePosition := self center
+	basePosition := self position
 		- (aButton width / 2)
-		+ (0 @ 50).
+		+ (200 @ 250).
 	
 	aButton position: basePosition + (0 @ yOffset)
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:07'
+}
+SKLandingPage >> addConceptButton: aButton [
+
+	self conceptButtons add: aButton
 ]
 
 {
@@ -162,6 +186,48 @@ SKLandingPage >> buildButtonWithLabel: aLabel andSelector: aSelector andColor: a
 ]
 
 {
+	#category : #conceptSelection,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:17'
+}
+SKLandingPage >> buildConceptButtonFor: aConcept atIndex: aIndex [
+
+	| button |
+	
+	button := self buildButtonWithLabel: aConcept name andSelector: #actionConceptSelected: andColor: self conceptSelectionButtonNormalColor.
+	button arguments: { aIndex };
+		extent: 150 @ self buttonHeight.
+	^ button
+]
+
+{
+	#category : #conceptSelection,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:16'
+}
+SKLandingPage >> buildConceptSelection [
+
+	| container button |
+	
+	container := AlignmentMorph newColumn.
+	container position: (self position + (400 @ 80)).
+	
+	self concepts  withIndexDo: [:concept :i | 
+		button := self buildConceptButtonFor: concept atIndex: i.
+		self addConceptButton: button.
+		container addMorph: button].
+	
+	self addMorph: container
+]
+
+{
+	#category : #conceptSelection,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:19'
+}
+SKLandingPage >> buildEnvironment [ 
+
+	^ SKEnvironment newWithProgrammingConcept: (self concepts at: self selectedConcept)
+]
+
+{
 	#category : #labels,
 	#'squeak_changestamp' : 'LK 6/21/2024 22:53'
 }
@@ -216,17 +282,53 @@ SKLandingPage >> buttonNewLabel [
 ]
 
 {
-	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:17'
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:10'
 }
-SKLandingPage >> defaultExtent [
+SKLandingPage >> conceptButtons [
 
-	^ 200 px @ 200 px
+	^ conceptButtons ifNil: [conceptButtons := OrderedCollection new]
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:06'
+}
+SKLandingPage >> conceptSelectionButtonNormalColor [
+
+	^ Color gray
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:06'
+}
+SKLandingPage >> conceptSelectionButtonSelectedColor [
+
+	^ Color red
+]
+
+{
+	#category : #conceptSelection,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:21'
+}
+SKLandingPage >> concepts [
+
+	^ { SKProgrammingConceptCode new}
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:53'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:42'
+}
+SKLandingPage >> defaultExtent [
+
+	^ 350 px @ 200 px
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:18'
 }
 SKLandingPage >> initialize [
 
@@ -235,7 +337,27 @@ SKLandingPage >> initialize [
 	self setLabel: self windowTitle;
 		openInHand;
 		extent: self defaultExtent;
-		addAllButtons
+		addAllButtons;
+		buildConceptSelection;
+		actionConceptSelected: 1
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:47'
+}
+SKLandingPage >> selectedConcept [
+
+	^ selectedConcept
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:47'
+}
+SKLandingPage >> selectedConcept: aIndex [
+
+	selectedConcept := aIndex
 ]
 
 {

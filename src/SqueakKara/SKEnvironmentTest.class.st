@@ -18,11 +18,12 @@ SKEnvironmentTest >> environment [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:02'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 23:10'
 }
 SKEnvironmentTest >> setUp [
 
-	environment := (SKEnvironment newWithKaraAt: 1 @ 1).
+	environment := SKEnvironment newWithProgrammingConcept: (SKProgrammingConceptCode new).
+	environment initializeWithKaraAt: 1 @ 1.
 	environment executer testMode: true
 ]
 
@@ -47,11 +48,11 @@ SKEnvironmentTest >> testCreation [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:44'
 }
 SKEnvironmentTest >> testDetectCloverleaf [
 
-	self environment workspace userCode: 'kara onCloverleaf ifTrue: [kara move]'.
+	self environment programmingUI setCode: 'kara onCloverleaf ifTrue: [kara move]'.
 	SKCloverleaf newInGrid: self environment grid at: 1 @ 1.
 
 	self environment run.
@@ -64,11 +65,11 @@ SKEnvironmentTest >> testDetectCloverleaf [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:44'
 }
 SKEnvironmentTest >> testDetectNoCloverleaf [
 
-	self environment workspace userCode: 'kara onCloverleaf ifTrue: [kara move]'.
+	self environment programmingUI setCode: 'kara onCloverleaf ifTrue: [kara move]'.
 	
 	self environment run.
 	
@@ -80,11 +81,11 @@ SKEnvironmentTest >> testDetectNoCloverleaf [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:44'
 }
 SKEnvironmentTest >> testDetectNoTrunk [
 
-	self environment workspace userCode: 'kara trunkAhead ifTrue: [kara turn: right. kara move]'.
+	self environment programmingUI setCode: 'kara trunkAhead ifTrue: [kara turn: right. kara move]'.
 	
 	self environment run.
 	
@@ -96,11 +97,11 @@ SKEnvironmentTest >> testDetectNoTrunk [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKEnvironmentTest >> testDetectTrunk [
 
-	self environment workspace userCode: 'kara trunkAhead ifTrue: [kara turn: right. kara move]'.
+	self environment programmingUI setCode: 'kara trunkAhead ifTrue: [kara turn: right. kara move]'.
 	SKTrunk newInGrid: self environment grid at: 2 @ 1.
 	
 	self environment run.
@@ -113,11 +114,11 @@ SKEnvironmentTest >> testDetectTrunk [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKEnvironmentTest >> testMove [
 
-	self environment workspace userCode: 'kara move'.
+	self environment programmingUI setCode: 'kara move'.
 	
 	self environment run.
 	
@@ -129,11 +130,11 @@ SKEnvironmentTest >> testMove [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:08'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:17'
 }
 SKEnvironmentTest >> testMoveTwice [
 
-	self environment workspace userCode: 'kara move. kara move'.
+	self environment programmingUI setCode: 'kara move. kara move'.
 	
 	self environment run.
 	
@@ -145,12 +146,12 @@ SKEnvironmentTest >> testMoveTwice [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:02'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKEnvironmentTest >> testTurnLeftMove [
 
 	self environment karas first coordinates: (2 @ 2).
-	self environment workspace userCode: 'kara turn: left. kara move'.
+	self environment programmingUI setCode: 'kara turn: left. kara move'.
 	
 	self environment run.
 	
@@ -162,11 +163,11 @@ SKEnvironmentTest >> testTurnLeftMove [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:08'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKEnvironmentTest >> testTurnRightMove [
 
-	self environment workspace userCode: 'kara turn: right. kara move'.
+	self environment programmingUI setCode: 'kara turn: right. kara move'.
 	
 	self environment run.
 	
