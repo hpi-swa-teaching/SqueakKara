@@ -1,5 +1,5 @@
 Class {
-	#name : #SKMeelyNode,
+	#name : #SKMealyNode,
 	#superclass : #CircleMorph,
 	#instVars : [
 		'controller',
@@ -12,7 +12,7 @@ Class {
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 11:13'
 }
-SKMeelyNode >> controller [
+SKMealyNode >> controller [
 
 	^ controller
 ]
@@ -21,7 +21,7 @@ SKMeelyNode >> controller [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 11:14'
 }
-SKMeelyNode >> controller: aController [
+SKMealyNode >> controller: aController [
 
 	controller := aController
 ]
@@ -30,7 +30,7 @@ SKMeelyNode >> controller: aController [
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:17'
 }
-SKMeelyNode >> defaultSize [
+SKMealyNode >> defaultSize [
 
 	^ 75 @ 75
 ]
@@ -39,7 +39,7 @@ SKMeelyNode >> defaultSize [
 	#category : #movement,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:55'
 }
-SKMeelyNode >> handlesMouseDown: anEvent [
+SKMealyNode >> handlesMouseDown: anEvent [
 
 	^ true
 ]
@@ -48,7 +48,7 @@ SKMeelyNode >> handlesMouseDown: anEvent [
 	#category : #initialization,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:17'
 }
-SKMeelyNode >> initialize [
+SKMealyNode >> initialize [
 
 	super initialize.
 	
@@ -61,7 +61,7 @@ SKMeelyNode >> initialize [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:41'
 }
-SKMeelyNode >> isInDrag [
+SKMealyNode >> isInDrag [
 
 	^ isInDrag ifNil: [isInDrag := false]
 ]
@@ -70,19 +70,18 @@ SKMeelyNode >> isInDrag [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:33'
 }
-SKMeelyNode >> isInDrag: aBoolean [
+SKMealyNode >> isInDrag: aBoolean [
 
 	isInDrag := aBoolean
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:34'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:06'
 }
-SKMeelyNode >> justDroppedInto: newOwner event: anEvent [
+SKMealyNode >> justDroppedInto: newOwner event: anEvent [
 
-	(newOwner isKindOf: SKPlayGround) ifFalse: [
-		Transcript show: 'delete'; cr.].
+	(newOwner isKindOf: SKPlayGround) ifFalse: [controller queueNodeToDelete: self].
 
 	newOwner addMorphFront: self.
 	self isInDrag: false
@@ -93,7 +92,7 @@ SKMeelyNode >> justDroppedInto: newOwner event: anEvent [
 	#category : #movement,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:58'
 }
-SKMeelyNode >> mouseDown: anEvent [
+SKMealyNode >> mouseDown: anEvent [
 
 	self controller mode = #drag ifTrue: [
 		anEvent hand
@@ -109,7 +108,7 @@ SKMeelyNode >> mouseDown: anEvent [
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:14'
 }
-SKMeelyNode >> normalColor [
+SKMealyNode >> normalColor [
 
 	^ Color fromString: '#df8e1d'
 ]
@@ -118,7 +117,7 @@ SKMeelyNode >> normalColor [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:14'
 }
-SKMeelyNode >> selectNode [
+SKMealyNode >> selectNode [
 
 	self color: self selectedColor
 ]
@@ -127,7 +126,7 @@ SKMeelyNode >> selectNode [
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:14'
 }
-SKMeelyNode >> selectedColor [
+SKMealyNode >> selectedColor [
 
 	^ Color fromString: '#8caaee'
 ]
@@ -136,7 +135,7 @@ SKMeelyNode >> selectedColor [
 	#category : #movement,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:33'
 }
-SKMeelyNode >> startDrag: anEvent [
+SKMealyNode >> startDrag: anEvent [
 
 	self controller mode = #drag ifFalse: [^ nil].
 	self isInDrag: true.
@@ -147,7 +146,7 @@ SKMeelyNode >> startDrag: anEvent [
 	#category : #movement,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:40'
 }
-SKMeelyNode >> step [
+SKMealyNode >> step [
 
 	self isInDrag ifTrue: [self changed: #pos]
 ]
@@ -156,7 +155,7 @@ SKMeelyNode >> step [
 	#category : #movement,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:35'
 }
-SKMeelyNode >> stepTime [
+SKMealyNode >> stepTime [
 
 	^ 20
 ]
@@ -165,7 +164,7 @@ SKMeelyNode >> stepTime [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:14'
 }
-SKMeelyNode >> unselectNode [
+SKMealyNode >> unselectNode [
 
 	self color: self normalColor
 ]

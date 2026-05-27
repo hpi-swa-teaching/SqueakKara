@@ -80,6 +80,40 @@ SKPlayGround >> controller: aController [
 ]
 
 {
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:56'
+}
+SKPlayGround >> distanceFrom: aPoint toEdge: aEdge [
+
+	^ self distanceFrom: aPoint toLineFrom: aEdge fromNode position to: aEdge toNode position
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:58'
+}
+SKPlayGround >> distanceFrom: aPoint toLineFrom: aFromPoint to: aToPoint [
+
+	| lineVector pointVector lineLengthSquared t projection |
+
+	lineVector := aToPoint - aFromPoint.
+	pointVector := aPoint - aFromPoint.
+
+	lineLengthSquared := lineVector dotProduct: lineVector.
+
+	lineLengthSquared = 0 ifTrue: [
+		^ aPoint distanceTo: aFromPoint
+	].
+
+	t := (pointVector dotProduct: lineVector) / lineLengthSquared.
+	t := t max: 0; min: 1.
+
+	projection := aFromPoint + (lineVector * t).
+
+	^ aPoint dist: projection
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:49'
 }
@@ -108,21 +142,23 @@ SKPlayGround >> findAllEdgesToNode: aNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 13:07'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:14'
 }
 SKPlayGround >> findNearestEdge: aPosition [
 
 	"simple but slow implementation O(n) - faster implemetation possible"
 	| currentNearestEdge currentNearestDistance currentDistance |
 	
+	self edges size > 0 ifFalse: [^ nil].
+	
 	self  
 		ifNil: [^ nil]
 		ifNotNil: [
 			currentNearestEdge := self edges first.
-			currentNearestDistance := currentNearestEdge fromNode position dist: aPosition].
+			currentNearestDistance := self distanceFrom: aPosition toEdge: currentNearestEdge].
 	
 	self edges do: [:edge | 
-		currentDistance := edge fromNode position dist: aPosition.
+		currentDistance := self distanceFrom: aPosition toEdge: edge.
 		currentDistance < currentNearestDistance ifTrue: [
 			currentNearestEdge := edge.
 			currentNearestDistance := currentDistance]].

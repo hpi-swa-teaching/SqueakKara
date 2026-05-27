@@ -1,24 +1,25 @@
 Class {
-	#name : #SKProgrammingUIMeelyStateMachine,
+	#name : #SKStateMachineEditor,
 	#superclass : #SystemWindow,
 	#instVars : [
 		'playGround',
 		'mode',
 		'selectedNode',
-		'buttons'
+		'buttons',
+		'nodesToDelete'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:29'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:46'
 }
-SKProgrammingUIMeelyStateMachine >> actionAddEdgeFrom: aNode to: anotherNode [
+SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 
 	| edge |
 
-	edge := SKMeelyEdge newFrom: aNode to: anotherNode.
+	edge := SKMealyEdge newFrom: aNode to: anotherNode.
 	self playGround addEdge: edge.
 	
 	aNode addDependent: edge.
@@ -27,12 +28,12 @@ SKProgrammingUIMeelyStateMachine >> actionAddEdgeFrom: aNode to: anotherNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:57'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:46'
 }
-SKProgrammingUIMeelyStateMachine >> actionCreateNode [
+SKStateMachineEditor >> actionCreateNode [
 
 	| node |
-	node := SKMeelyNode new.
+	node := SKMealyNode new.
 	self playGround addNode: node.
 	node openInHand
 ]
@@ -41,7 +42,7 @@ SKProgrammingUIMeelyStateMachine >> actionCreateNode [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 13:04'
 }
-SKProgrammingUIMeelyStateMachine >> actionDeleteEdge: aEdge [
+SKStateMachineEditor >> actionDeleteEdge: aEdge [
 
 	self playGround removeEdge: aEdge.
 	aEdge delete
@@ -51,7 +52,7 @@ SKProgrammingUIMeelyStateMachine >> actionDeleteEdge: aEdge [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:42'
 }
-SKProgrammingUIMeelyStateMachine >> actionDeleteNode: aNode [
+SKStateMachineEditor >> actionDeleteNode: aNode [
 
 	| belongingEdges |
 	belongingEdges := OrderedCollection new.
@@ -70,7 +71,7 @@ SKProgrammingUIMeelyStateMachine >> actionDeleteNode: aNode [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:52'
 }
-SKProgrammingUIMeelyStateMachine >> addButton: aButton [
+SKStateMachineEditor >> addButton: aButton [
 
 	self buttons add: aButton
 ]
@@ -79,7 +80,7 @@ SKProgrammingUIMeelyStateMachine >> addButton: aButton [
 	#category : #initialization,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:48'
 }
-SKProgrammingUIMeelyStateMachine >> buildButtonForMode: aMode withLabel: aString [
+SKStateMachineEditor >> buildButtonForMode: aMode withLabel: aString [
 
 	^ self buildButtonWithActionSelector: #toggleMode: arguments: { aMode } label: aString
 ]
@@ -88,7 +89,7 @@ SKProgrammingUIMeelyStateMachine >> buildButtonForMode: aMode withLabel: aString
 	#category : #initialization,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:47'
 }
-SKProgrammingUIMeelyStateMachine >> buildButtonWithActionSelector: aActionSelector arguments: aArgumentCollection label: aString [
+SKStateMachineEditor >> buildButtonWithActionSelector: aActionSelector arguments: aArgumentCollection label: aString [
 
 	| button |
 
@@ -106,7 +107,7 @@ SKProgrammingUIMeelyStateMachine >> buildButtonWithActionSelector: aActionSelect
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:52'
 }
-SKProgrammingUIMeelyStateMachine >> buttons [
+SKStateMachineEditor >> buttons [
 
 	^ buttons ifNil: [buttons := OrderedCollection new]
 ]
@@ -115,24 +116,35 @@ SKProgrammingUIMeelyStateMachine >> buttons [
 	#category : #modes,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:19'
 }
-SKProgrammingUIMeelyStateMachine >> colorAllModeButtonsNormal [
+SKStateMachineEditor >> colorAllModeButtonsNormal [
 
 	self buttons do: [:button| button color: self modeButtonNormalColor]
 ]
 
 {
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 13:18'
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:06'
 }
-SKProgrammingUIMeelyStateMachine >> findeEdgeToDelete: aPosition [
+SKStateMachineEditor >> enqueueNodeToDelete: aNode [
+
+	self nodesToDelete remove: aNode
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:15'
+}
+SKStateMachineEditor >> findeEdgeToDelete: aPosition [
 
 	| edge distance limit |
 	
 	"max distance from the line where it will be clicked"
-	limit := 200.
+	limit := 25.
 	
 	edge := self playGround findNearestEdge: aPosition.
-	distance := edge fromNode position dist: aPosition.
+	edge ifNil: [^ nil].
+	
+	distance := self playGround distanceFrom: aPosition toEdge: edge.
 	
 	distance <= limit ifTrue: [self actionDeleteEdge: edge]
 ]
@@ -141,7 +153,7 @@ SKProgrammingUIMeelyStateMachine >> findeEdgeToDelete: aPosition [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:24'
 }
-SKProgrammingUIMeelyStateMachine >> handleEdgeModeNodeClick: aNode [
+SKStateMachineEditor >> handleEdgeModeNodeClick: aNode [
 
 	self selectedNode = aNode ifTrue: [
 		self selectedNode: nil.
@@ -156,14 +168,23 @@ SKProgrammingUIMeelyStateMachine >> handleEdgeModeNodeClick: aNode [
 ]
 
 {
-	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:02'
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:07'
 }
-SKProgrammingUIMeelyStateMachine >> initialize [
+SKStateMachineEditor >> hasNodesToDelete [
+
+	^ self nodesToDelete size > 0
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:44'
+}
+SKStateMachineEditor >> initialize [
 
 	super initialize.
 	
-	self	openInHand; 
+	self	openInWorld; 
 		extent: 1500 @ 1000;
 		paneColor: Color white;
 		setLabel: self windowTitle.
@@ -182,7 +203,7 @@ SKProgrammingUIMeelyStateMachine >> initialize [
 	#category : #initialization,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:01'
 }
-SKProgrammingUIMeelyStateMachine >> initializeButtons [
+SKStateMachineEditor >> initializeButtons [
 	
 	| container |
 	
@@ -200,7 +221,7 @@ SKProgrammingUIMeelyStateMachine >> initializeButtons [
 	#category : #initialization,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:55'
 }
-SKProgrammingUIMeelyStateMachine >> initializeModeButtons [
+SKStateMachineEditor >> initializeModeButtons [
 
 	| container modeLabels button |
 	
@@ -223,7 +244,7 @@ SKProgrammingUIMeelyStateMachine >> initializeModeButtons [
 	#category : #initialization,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:57'
 }
-SKProgrammingUIMeelyStateMachine >> initilazieActionButtons [
+SKStateMachineEditor >> initilazieActionButtons [
 
 	| container |
 	
@@ -239,7 +260,7 @@ SKProgrammingUIMeelyStateMachine >> initilazieActionButtons [
 	#category : #modes,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:24'
 }
-SKProgrammingUIMeelyStateMachine >> markModeButtonSelected: aMode [
+SKStateMachineEditor >> markModeButtonSelected: aMode [
 
 	| selectedButton buttonLabel |
 	
@@ -252,7 +273,7 @@ SKProgrammingUIMeelyStateMachine >> markModeButtonSelected: aMode [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:22'
 }
-SKProgrammingUIMeelyStateMachine >> mode [
+SKStateMachineEditor >> mode [
 
 	^ mode
 ]
@@ -261,7 +282,7 @@ SKProgrammingUIMeelyStateMachine >> mode [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:22'
 }
-SKProgrammingUIMeelyStateMachine >> mode: aMode [
+SKStateMachineEditor >> mode: aMode [
 
 	mode := aMode
 ]
@@ -270,7 +291,7 @@ SKProgrammingUIMeelyStateMachine >> mode: aMode [
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:16'
 }
-SKProgrammingUIMeelyStateMachine >> modeButtonNormalColor [
+SKStateMachineEditor >> modeButtonNormalColor [
 
 	^ Color fromString: '#a6d189'
 ]
@@ -279,7 +300,7 @@ SKProgrammingUIMeelyStateMachine >> modeButtonNormalColor [
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:17'
 }
-SKProgrammingUIMeelyStateMachine >> modeButtonSelectedColor [
+SKStateMachineEditor >> modeButtonSelectedColor [
 
 	^ Color fromString: '#8caaee'
 ]
@@ -288,7 +309,7 @@ SKProgrammingUIMeelyStateMachine >> modeButtonSelectedColor [
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:05'
 }
-SKProgrammingUIMeelyStateMachine >> modeButtonSize [
+SKStateMachineEditor >> modeButtonSize [
 
 	^ 250 @ 69
 ]
@@ -297,7 +318,7 @@ SKProgrammingUIMeelyStateMachine >> modeButtonSize [
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:14'
 }
-SKProgrammingUIMeelyStateMachine >> modeButtonVerticalDistance [
+SKStateMachineEditor >> modeButtonVerticalDistance [
 	
 	^ 10
 ]
@@ -306,7 +327,7 @@ SKProgrammingUIMeelyStateMachine >> modeButtonVerticalDistance [
 	#category : #modes,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:03'
 }
-SKProgrammingUIMeelyStateMachine >> modeLables [
+SKStateMachineEditor >> modeLables [
 
 	| newDict |
 	newDict := Dictionary new.
@@ -322,7 +343,7 @@ SKProgrammingUIMeelyStateMachine >> modeLables [
 	#category : #modes,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:03'
 }
-SKProgrammingUIMeelyStateMachine >> modes [
+SKStateMachineEditor >> modes [
 	
 	"first item is the last item in the list"
 	^ { #edge. #delete. #drag }
@@ -332,7 +353,7 @@ SKProgrammingUIMeelyStateMachine >> modes [
 	#category : #events,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:16'
 }
-SKProgrammingUIMeelyStateMachine >> nodeClicked: aNode [
+SKStateMachineEditor >> nodeClicked: aNode [
 
 	self mode caseOf: {
 		[#delete] -> [self actionDeleteNode: aNode].
@@ -342,9 +363,18 @@ SKProgrammingUIMeelyStateMachine >> nodeClicked: aNode [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:05'
+}
+SKStateMachineEditor >> nodesToDelete [
+
+	^ nodesToDelete ifNil: [nodesToDelete := OrderedCollection new]
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:00'
 }
-SKProgrammingUIMeelyStateMachine >> playGround [
+SKStateMachineEditor >> playGround [
  
 	^ playGround ifNil: [playGround := SKPlayGround newWithController: self]
 ]
@@ -353,7 +383,7 @@ SKProgrammingUIMeelyStateMachine >> playGround [
 	#category : #events,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 13:03'
 }
-SKProgrammingUIMeelyStateMachine >> playGroundClicked: aPosition [
+SKStateMachineEditor >> playGroundClicked: aPosition [
 
 	self mode caseOf: {
 		[#delete] -> [self findeEdgeToDelete: aPosition]
@@ -362,9 +392,18 @@ SKProgrammingUIMeelyStateMachine >> playGroundClicked: aPosition [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:09'
+}
+SKStateMachineEditor >> queueNodeToDelete: aNode [
+
+	self nodesToDelete add: aNode
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:14'
 }
-SKProgrammingUIMeelyStateMachine >> selectedNode [
+SKStateMachineEditor >> selectedNode [
 
 	^ selectedNode
 ]
@@ -373,7 +412,7 @@ SKProgrammingUIMeelyStateMachine >> selectedNode [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:26'
 }
-SKProgrammingUIMeelyStateMachine >> selectedNode: aNode [
+SKStateMachineEditor >> selectedNode: aNode [
 
 	aNode 
 		ifNil: [ selectedNode ifNotNil: [selectedNode unselectNode]]
@@ -383,10 +422,31 @@ SKProgrammingUIMeelyStateMachine >> selectedNode: aNode [
 ]
 
 {
+	#category : #stepping,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:12'
+}
+SKStateMachineEditor >> step [
+
+	self hasNodesToDelete ifFalse: [^ self].
+	self nodesToDelete do: [:aNode | 
+		self enqueueNodeToDelete: aNode;
+			actionDeleteNode: aNode]
+]
+
+{
+	#category : #stepping,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:12'
+}
+SKStateMachineEditor >> stepTime [
+
+	^ 100
+]
+
+{
 	#category : #modes,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:22'
 }
-SKProgrammingUIMeelyStateMachine >> toggleMode: aMode [
+SKStateMachineEditor >> toggleMode: aMode [
 
 	self 
 		colorAllModeButtonsNormal;
@@ -395,10 +455,19 @@ SKProgrammingUIMeelyStateMachine >> toggleMode: aMode [
 ]
 
 {
-	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:41'
+	#category : #stepping,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:11'
 }
-SKProgrammingUIMeelyStateMachine >> windowTitle [
+SKStateMachineEditor >> wantsSteps [
 
-	^ 'Meely Automat'
+	^ true
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:45'
+}
+SKStateMachineEditor >> windowTitle [
+
+	^ 'Mealy Automat'
 ]
