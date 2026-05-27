@@ -1,5 +1,5 @@
 Class {
-	#name : #SKMeelyEdge,
+	#name : #SKMealyEdge,
 	#superclass : #Object,
 	#instVars : [
 		'line',
@@ -14,7 +14,7 @@ Class {
 	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 13:24'
 }
-SKMeelyEdge class >> newFrom: aNode to: anotherNode [
+SKMealyEdge class >> newFrom: aNode to: anotherNode [
 
 	| instance line |
 	instance := self new.
@@ -32,7 +32,7 @@ SKMeelyEdge class >> newFrom: aNode to: anotherNode [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:53'
 }
-SKMeelyEdge >> controller [
+SKMealyEdge >> controller [
 
 	^ controller
 ]
@@ -41,7 +41,7 @@ SKMeelyEdge >> controller [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:53'
 }
-SKMeelyEdge >> controller: aController [
+SKMealyEdge >> controller: aController [
 
 	controller := aController
 ]
@@ -50,7 +50,7 @@ SKMeelyEdge >> controller: aController [
 	#category : #drawing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:38'
 }
-SKMeelyEdge >> delete [
+SKMealyEdge >> delete [
 	
 	self line ifNotNil: [self line delete]
 ]
@@ -59,7 +59,7 @@ SKMeelyEdge >> delete [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:10'
 }
-SKMeelyEdge >> fromNode [
+SKMealyEdge >> fromNode [
 
 	^ fromNode
 ]
@@ -68,7 +68,7 @@ SKMeelyEdge >> fromNode [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:11'
 }
-SKMeelyEdge >> fromNode: aNode [
+SKMealyEdge >> fromNode: aNode [
 	
 	fromNode := aNode
 ]
@@ -77,7 +77,7 @@ SKMeelyEdge >> fromNode: aNode [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:30'
 }
-SKMeelyEdge >> line [
+SKMealyEdge >> line [
 
 	^ line
 ]
@@ -86,7 +86,7 @@ SKMeelyEdge >> line [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:30'
 }
-SKMeelyEdge >> line: aLine [
+SKMealyEdge >> line: aLine [
 
 	line := aLine
 ]
@@ -95,7 +95,7 @@ SKMeelyEdge >> line: aLine [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:11'
 }
-SKMeelyEdge >> toNode [
+SKMealyEdge >> toNode [
 
 	^ toNode
 ]
@@ -104,7 +104,7 @@ SKMeelyEdge >> toNode [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:11'
 }
-SKMeelyEdge >> toNode: aNode [
+SKMealyEdge >> toNode: aNode [
 
 	toNode := aNode
 ]
@@ -113,7 +113,7 @@ SKMeelyEdge >> toNode: aNode [
 	#category : #drawing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 13:28'
 }
-SKMeelyEdge >> update: aValue [
+SKMealyEdge >> update: aValue [
 
 	self line delete.
 	self line: (LineMorph from: self fromNode center to: self toNode center color: (Color fromString: '#8caaee') width: 5).
