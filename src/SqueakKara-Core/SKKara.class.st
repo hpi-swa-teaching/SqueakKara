@@ -5,7 +5,8 @@ Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
 	#instVars : [
-		'viewDirection'
+		'viewDirection',
+		'movementBlocked'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
@@ -78,12 +79,38 @@ SKKara >> karaAhead [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/11/2026 22:18'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 13:31'
 }
 SKKara >> move [
 
-	(self trunkAhead) ifTrue: [ ^ self ].
-	self moveToCoordinates: self coordinates + self viewDirection
+	self movementBlocked ifTrue: [^ self].
+	self walkableAhead ifFalse: [
+		self movementBlocked: true;
+			say: 'I should not walk into things. There might also be a bug in the code!'.
+		^ self].
+
+	self coordinates: self coordinates + self viewDirection
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/23/2026 18:26'
+}
+SKKara >> movementBlocked [
+
+	movementBlocked ifNil: [self movementBlocked: false].
+	^ movementBlocked
+
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/23/2026 18:27'
+}
+SKKara >> movementBlocked: aBoolean [
+
+	movementBlocked := aBoolean
+
 ]
 
 {
@@ -205,10 +232,11 @@ SKKara >> trunkAhead [
 
 {
 	#category : #turning,
-	#'squeak_changestamp' : 'LD 5/21/2026 11:01'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 13:28'
 }
 SKKara >> turn: aRotation [
-								
+
+	self movementBlocked ifTrue: [^ self].
 	self viewDirection: (SKDirection rotatePosition: self viewDirection by: aRotation).		
 	self scaleToFactor
 	
@@ -261,4 +289,16 @@ SKKara >> viewDirection [
 SKKara >> viewDirection: aDirection [
 	
 	^ viewDirection := aDirection
+]
+
+{
+	#category : #'object detection',
+	#'squeak_changestamp' : 'Gustav Meinshausen 5/23/2026 18:33'
+}
+SKKara >> walkableAhead [
+
+	| tileAheadInGrid |
+	tileAheadInGrid := self grid isPointInGridDimensions: self viewDirection + self coordinates.
+
+	^ self trunkAhead not and: tileAheadInGrid
 ]
