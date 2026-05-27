@@ -5,19 +5,21 @@ Class {
 	#name : #SKWorkspace,
 	#superclass : #Workspace,
 	#instVars : [
-		'kara'
+		'executer'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:03'
 }
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'JJG 7/6/2024 17:17'
+	#category : #'instance creation',
+	#'squeak_changestamp' : 'LM 5/7/2026 21:15'
 }
-SKWorkspace class >> newWithKara: aKara [
+SKWorkspace class >> newWithExecuter: anExecuter [
 
-	^ self basicNew initializeWithKara: aKara.
+	^ self new
+		executer: anExecuter;
+		yourself
 ]
 
 {
@@ -30,30 +32,64 @@ SKWorkspace >> close [
 ]
 
 {
+	#category : #commands,
+	#'squeak_changestamp' : 'LM 5/7/2026 21:14'
+}
+SKWorkspace >> evaluateExpression: aCode [
+	self executer execute: aCode
+]
+
+{
 	#category : #accessing,
-	#'squeak_changestamp' : 'NR 7/5/2024 15:14'
+	#'squeak_changestamp' : 'LM 5/7/2026 21:09'
+}
+SKWorkspace >> executer [
+
+	^ executer
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/7/2026 21:10'
+}
+SKWorkspace >> executer: anExecuter [
+
+	executer := anExecuter
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/29/2026 12:01'
 }
 SKWorkspace >> getExampleCode [
-	
 	^ '"
 To solve this challenge use following functions:
 
 COMMANDS: kara
 	move, turn left/right
-		
-SENSOREN: kara
+        
+SENSORS: kara
 	onCloverleaf, trunkAhead
+
+INFO:
+	You might run code by using the <do it> command [CTRL+D]. If you find yourself stuck in an infinite loop (Squeak might get unresponsive), just press [ALT+.] to interrupt the code execution.
 "
 '
+]
 
-
+{
+	#category : #binding,
+	#'squeak_changestamp' : 'LM 5/7/2026 21:17'
+}
+SKWorkspace >> hasBindingOf: aString [
+	^ aString = 'kara' or: [ super hasBindingOf: aString ]
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'EB 7/11/2024 15:19'
+	#'squeak_changestamp' : 'LM 5/7/2026 21:12'
 }
-SKWorkspace >> initializeWithKara: aKara [
+SKWorkspace >> initialize [
 	
 	super initialize.
 	self buildAndOpen.
@@ -61,37 +97,17 @@ SKWorkspace >> initializeWithKara: aKara [
 	
 	self bindings at: #left put: SKDirection rotateLeft.
 	self bindings at: #right put: SKDirection rotateRight.
-	self bindings at: #kara put: aKara.
 	self contents: self getExampleCode
 
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
-}
-SKWorkspace >> kara [
-
-	^ kara
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
-}
-SKWorkspace >> kara: aKara [
-
-	kara := aKara.
-	self bindings at: #kara put: aKara
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:13'
+	#'squeak_changestamp' : 'LM 5/7/2026 16:57'
 }
 SKWorkspace >> userCode [
 	
-	|code|
+	| code |
 	
 	code := self contents.
 	^ code

@@ -34,19 +34,65 @@ SKExecuteContext >> env: aDictonary [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'EB 7/11/2024 15:20'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:38'
 }
 SKExecuteContext >> initialize [
 		
-	left := SKDirection rotateLeft.
-	right := SKDirection rotateRight
+	self
+		left: SKDirection rotateLeft;
+		right: SKDirection rotateRight
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 17:05'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:40'
 }
-SKExecuteContext >> kara: anObject [
+SKExecuteContext >> kara [
+
+	^ kara
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 13:02'
+}
+SKExecuteContext >> kara: aGridObject [
 	
-	kara := anObject
+	kara := aGridObject
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 20:40'
+}
+SKExecuteContext >> left [
+
+	^ left
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 20:40'
+}
+SKExecuteContext >> left: aDirection [
+
+	left := aDirection
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 20:40'
+}
+SKExecuteContext >> right [
+
+	^ right
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 20:40'
+}
+SKExecuteContext >> right: aDirection [
+
+	right := aDirection
 ]
