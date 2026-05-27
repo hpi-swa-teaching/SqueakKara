@@ -261,17 +261,19 @@ SKGrid >> isPointInGridDimensions: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 5/25/2026 20:45'
+	#'squeak_changestamp' : 'LD 5/27/2026 22:49'
 }
 SKGrid >> leafCount [
+
 	^ leafCount
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 5/25/2026 20:45'
+	#'squeak_changestamp' : 'LD 5/27/2026 22:49'
 }
 SKGrid >> leafCount: anObject [
+
 	leafCount := anObject
 ]
 
@@ -339,9 +341,10 @@ SKGrid >> scaleFactor: aNumber [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LD 5/26/2026 11:44'
+	#'squeak_changestamp' : 'LD 5/27/2026 22:49'
 }
 SKGrid >> spawnWinScreen [
+
 	SKWinScreen newInGrid: self.
 ]
 

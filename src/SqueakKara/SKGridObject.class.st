@@ -348,27 +348,27 @@ SKGridObject >> textureFilename [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:49'
+	#'squeak_changestamp' : 'LD 5/27/2026 22:50'
 }
 SKGridObject >> updateColor [
+
 	self updateColorFor: self image
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/22/2026 11:43'
+	#'squeak_changestamp' : 'LD 5/27/2026 22:50'
 }
 SKGridObject >> updateColorFor: aForm [
 	
 	| replacement |
 	
 	replacement := self color.
-	1 to: aForm width do: [:x |
-	  1 to: aForm height do: [:y |
+	1 to: aForm width do: [ :x |
+	  1 to: aForm height do: [ :y |
 		((aForm colorAt: x @ y) = (self defaultColor))
 				ifTrue: [
-	      			aForm colorAt: x @ y put: replacement ].
-	  			]].
+	      			aForm colorAt: x @ y put: replacement ]]].
 	
 	
 	self image: aForm

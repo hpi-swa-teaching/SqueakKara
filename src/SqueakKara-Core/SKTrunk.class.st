@@ -10,11 +10,11 @@ Class {
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LD 5/22/2026 11:35'
+	#'squeak_changestamp' : 'LD 5/27/2026 22:52'
 }
 SKTrunk >> defaultColor [
 
-	^ Color red.
+	^ Color red
 ]
 
 {
@@ -43,9 +43,10 @@ SKTrunk >> position: aPoint [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LD 5/22/2026 11:36'
+	#'squeak_changestamp' : 'LD 5/27/2026 22:52'
 }
 SKTrunk >> setColorToKaraColor: aColor [
+
 	self scaleToFactor
 	
 ]

@@ -63,20 +63,22 @@ SKCloverleaf >> position: aPoint [
 
 {
 	#category : #type,
-	#'squeak_changestamp' : 'LD 5/22/2026 11:50'
+	#'squeak_changestamp' : 'LD 5/27/2026 22:49'
 }
 SKCloverleaf >> scaleToFactor [
+	
 	super scaleToFactor.
-	self updateColor.
+	self updateColor
 ]
 
 {
 	#category : #type,
-	#'squeak_changestamp' : 'LD 5/22/2026 11:50'
+	#'squeak_changestamp' : 'LD 5/27/2026 22:48'
 }
 SKCloverleaf >> setColorToKaraColor: aColor [
+
 	self color: aColor.
-	self scaleToFactor.
+	self scaleToFactor
 ]
 
 {

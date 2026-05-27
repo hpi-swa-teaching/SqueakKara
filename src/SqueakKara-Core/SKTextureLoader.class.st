@@ -40,13 +40,11 @@ SKTextureLoader >> basePath [
 
 {
 	#category : #assessing,
-	#'squeak_changestamp' : 'ND 5/25/2026 20:43'
+	#'squeak_changestamp' : 'LD 5/27/2026 22:52'
 }
 SKTextureLoader >> getAnimatedMorphFromGif: aFilename [
 
 	^ self assetLoader loadAnimatedImageMorph: aFilename
-
-	
 ]
 
 {
