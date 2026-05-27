@@ -27,7 +27,7 @@ SKKaraTest >> gridSize [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'jt 6/11/2024 11:14'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 21:20'
 }
 SKKaraTest >> setUp [
 
@@ -70,6 +70,32 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 	kara move.
 	self assert: kara position = (self grid position + (self grid pixelPerBlock @ 0))
 
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'LD 5/21/2026 12:07'
+}
+SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
+    | kara aForm colorChanged |
+    
+    kara := SKKara newInGrid: self grid.
+    
+    aBoolean ifTrue: [ kara color: Color green ]
+    ifFalse: [ kara fillStyle: Color green ].
+    
+    colorChanged := False.
+        
+    aForm := kara image.
+    1 to: aForm width do: [:x |
+      1 to: aForm height do: [:y |
+            ((aForm colorAt: x @ y) = (Color green))
+                ifTrue: [
+				colorChanged := True ].
+				self assert: (((aForm colorAt: x @ y) = (kara defaultColor)) not)
+                  ]].
+			
+    self assert: (colorChanged = True)
 ]
 
 {
@@ -206,6 +232,15 @@ SKKaraTest >> testMoveWhenTrunkAhead [
 
 {
 	#category : #testing,
+	#'squeak_changestamp' : 'LD 5/21/2026 10:44'
+}
+SKKaraTest >> testNewColorPicker [
+
+	self testColorUsingNewColorPicker: true
+]
+
+{
+	#category : #testing,
 	#'squeak_changestamp' : 'JJG 6/18/2024 18:40'
 }
 SKKaraTest >> testNoTrunkAhead [
@@ -229,6 +264,15 @@ SKKaraTest >> testNotOnCloverleaf [
 	SKCloverleaf newInGrid: self grid at: 2 @ 1.
 	self deny: kara onCloverleaf
 
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'LD 5/21/2026 12:07'
+}
+SKKaraTest >> testOldColorPicker [
+
+	self testColorUsingNewColorPicker: false
 ]
 
 {
