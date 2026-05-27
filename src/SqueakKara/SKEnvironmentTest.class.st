@@ -18,11 +18,13 @@ SKEnvironmentTest >> environment [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'JJG 6/18/2024 11:33'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 23:10'
 }
 SKEnvironmentTest >> setUp [
 
-	environment := (SKEnvironment newWithKaraAt: 1 @ 1)
+	environment := SKEnvironment newWithProgrammingConcept: (SKProgrammingConceptCode new).
+	environment initializeWithKaraAt: 1 @ 1.
+	environment executer testMode: true
 ]
 
 {
@@ -37,123 +39,140 @@ SKEnvironmentTest >> tearDown [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 11:40'
+	#'squeak_changestamp' : 'LM 5/7/2026 22:43'
 }
 SKEnvironmentTest >> testCreation [
 
-	self assert: self environment kara coordinates = (1 @ 1)
+	self assert: self environment karas first coordinates = (1 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'NR 7/5/2024 14:00'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:44'
 }
 SKEnvironmentTest >> testDetectCloverleaf [
 
-	self environment workspace userCode: 'kara onCloverleaf ifTrue: [kara move]'.
+	self environment programmingUI setCode: 'kara onCloverleaf ifTrue: [kara move]'.
 	SKCloverleaf newInGrid: self environment grid at: 1 @ 1.
-	"self environment executer speed: 0."
+
 	self environment run.
-	self environment executer step.
-	self environment executer step.
-	self environment executer step.
-	self assert: (self environment kara coordinates = (2 @ 1))
+	
+	"Busy waiting until execution done."
+	self environment executer waitUntilTerminated.
+	
+	self assert: (self environment karas first coordinates = (2 @ 1))
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:18'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:44'
 }
 SKEnvironmentTest >> testDetectNoCloverleaf [
 
-	self environment workspace userCode: 'kara onCloverleaf ifTrue: [kara move]'.
+	self environment programmingUI setCode: 'kara onCloverleaf ifTrue: [kara move]'.
+	
 	self environment run.
-	self environment executer step.
-	self environment executer step.
-	self environment executer step.
-	self assert: self environment kara coordinates = (1 @ 1)
+	
+	"Busy waiting until execution done."
+	self environment executer waitUntilTerminated.
+	
+	self assert: self environment karas first coordinates = (1 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:21'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:44'
 }
 SKEnvironmentTest >> testDetectNoTrunk [
 
-	self environment workspace userCode: 'kara trunkAhead ifTrue: [kara turn: right. kara move]'.
+	self environment programmingUI setCode: 'kara trunkAhead ifTrue: [kara turn: right. kara move]'.
+	
 	self environment run.
-	self environment executer step.
-	self environment executer step.
-	self environment executer step.
-	self assert: self environment kara coordinates = (1 @ 1)
+	
+	"Busy waiting until execution done."
+	self environment executer waitUntilTerminated.
+	
+	self assert: self environment karas first coordinates = (1 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 19:04'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKEnvironmentTest >> testDetectTrunk [
 
-	self environment workspace userCode: 'kara trunkAhead ifTrue: [kara turn: right. kara move]'.
+	self environment programmingUI setCode: 'kara trunkAhead ifTrue: [kara turn: right. kara move]'.
 	SKTrunk newInGrid: self environment grid at: 2 @ 1.
+	
 	self environment run.
-	self environment executer step.
-	self environment executer step.
-	self environment executer step.
-	self environment executer step.
-	self assert: self environment kara coordinates = (1 @ 2)
+	
+	"Busy waiting until execution done."
+	self environment executer waitUntilTerminated.
+	
+	self assert: self environment karas first coordinates = (1 @ 2)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 12:17'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKEnvironmentTest >> testMove [
 
-	self environment workspace userCode: 'kara move'.
+	self environment programmingUI setCode: 'kara move'.
+	
 	self environment run.
-	self environment executer step.
-	self assert: self environment kara coordinates = (2 @ 1)
+	
+	"Busy waiting until execution done."
+	self environment executer waitUntilTerminated.
+	
+	self assert: self environment karas first coordinates = (2 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 19:06'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:17'
 }
 SKEnvironmentTest >> testMoveTwice [
 
-	self environment workspace userCode: 'kara move. kara move'.
+	self environment programmingUI setCode: 'kara move. kara move'.
+	
 	self environment run.
-	self environment executer step.
-	self environment executer step.
-	self environment executer step.
-	self assert: self environment kara coordinates = (3 @ 1)
+	
+	"Busy waiting until execution done."
+	self environment executer waitUntilTerminated.
+
+	self assert: self environment karas first coordinates = (3 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 19:07'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKEnvironmentTest >> testTurnLeftMove [
 
-	self environment kara coordinates: (2 @ 2).
-	self environment workspace userCode: 'kara turn: left. kara move'.
+	self environment karas first coordinates: (2 @ 2).
+	self environment programmingUI setCode: 'kara turn: left. kara move'.
+	
 	self environment run.
-	self environment executer step.
-	self environment executer step.
-	self environment executer step.
-	self assert: self environment kara coordinates = (2 @ 1)
+	
+	"Busy waiting until execution done."
+	self environment executer waitUntilTerminated.
+	
+	self assert: self environment karas first coordinates = (2 @ 1)
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 12:20'
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
 }
 SKEnvironmentTest >> testTurnRightMove [
 
-	self environment workspace userCode: 'kara turn: right. kara move'.
+	self environment programmingUI setCode: 'kara turn: right. kara move'.
+	
 	self environment run.
-	self environment executer step.
-	self environment executer step.
-	self assert: self environment kara coordinates = (1 @ 2)
+	
+	"Busy waiting until execution done."
+	self environment executer waitUntilTerminated.
+	
+	self assert: self environment karas first coordinates = (1 @ 2)
 ]
