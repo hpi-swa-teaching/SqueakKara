@@ -11,10 +11,18 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/5/2026 15:21'
+	#'squeak_changestamp' : 'FR 5/27/2026 04:53'
 }
-SKBlockSpace class >> newWithKara: aKara [
-	^ self basicNew initializeWithKara: aKara.
+SKBlockSpace class >> startBlockEdit [
+	^ self basicNew startBlockEdit.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/27/2026 04:55'
+}
+SKBlockSpace class >> startBlockEdit: anEnvironment [
+	^ self basicNew startBlockEdit; environment: anEnvironment.
 ]
 
 {
@@ -131,38 +139,6 @@ SKBlockSpace >> initialize [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 02:41'
-}
-SKBlockSpace >> initializeWithKara: aKara [
-
-	| window |
-
-	super initialize.
-	
-	window := RectangleMorph new
-		layoutPolicy: TableLayout new;
-		listDirection: #leftToRight;
-		yourself.
-	
-	self listDirection: #topToBottom;
-	hResizing: #spaceFill;
-	wrapCentering: #center;
-	cellPositioning: #topLeft;
-	cellGap: -10;
-	minWidth: 500;
-	minHeight: 500;
-	vResizing: #spaceFill;
-	kara: aKara.
-	self addMorph: (SKActionBlock new label: 'Start of Script'; isStart: true; yourself).
-	
-	window addMorph: self.
-	window addMorph: SKBlockSource new.
-	window openInWindowLabeled: 'SKBlockSource'
-	
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'FR 5/5/2026 15:17'
 }
@@ -226,6 +202,37 @@ SKBlockSpace >> removeDropZone [
 		self dropIndex: nil.
 		self layoutChanged
 		]
+	
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/27/2026 04:51'
+}
+SKBlockSpace >> startBlockEdit [
+
+	| window |
+
+	super initialize.
+	
+	window := RectangleMorph new
+		layoutPolicy: TableLayout new;
+		listDirection: #leftToRight;
+		yourself.
+	
+	self listDirection: #topToBottom;
+	hResizing: #spaceFill;
+	wrapCentering: #center;
+	cellPositioning: #topLeft;
+	cellGap: -10;
+	minWidth: 500;
+	minHeight: 500;
+	vResizing: #spaceFill.
+	self addMorph: (SKActionBlock new label: 'Start of Script'; isStart: true; yourself).
+	
+	window addMorph: self.
+	window addMorph: SKBlockSource new.
+	window openInWindowLabeled: 'SKBlockSource'
 	
 ]
 

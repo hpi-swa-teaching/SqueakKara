@@ -214,13 +214,14 @@ SKEnvironment >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 5/27/2026 04:46'
+	#'squeak_changestamp' : 'FR 5/27/2026 04:54'
 }
 SKEnvironment >> initializeObjects [
 
 	self executer: (SKExecuter newWithEnvironment: self).
 	
 	self workspace: (SKWorkspace newWithExecuter: self executer).
+	SKBlockSpace startBlockEdit: self.
 	
 	self executeControls: SKExecuteControls new.
 	self executeControls environment: self.
