@@ -122,17 +122,17 @@ SKProgrammingUIMealyStateMachine >> colorAllModeButtonsNormal [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 13:18'
+	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:00'
 }
 SKProgrammingUIMealyStateMachine >> findeEdgeToDelete: aPosition [
 
 	| edge distance limit |
 	
 	"max distance from the line where it will be clicked"
-	limit := 200.
+	limit := 25.
 	
 	edge := self playGround findNearestEdge: aPosition.
-	distance := edge fromNode position dist: aPosition.
+	distance := self playGround distanceFrom: aPosition toEdge: edge.
 	
 	distance <= limit ifTrue: [self actionDeleteEdge: edge]
 ]
