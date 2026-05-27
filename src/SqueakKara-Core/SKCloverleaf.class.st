@@ -14,7 +14,7 @@ Class {
 }
 SKCloverleaf >> defaultColor [
 
-	^   (Color r: 0.027 g: 0.478 b: 0.156) 
+	^ (Color r: 0.027 g: 0.478 b: 0.156) 
 ]
 
 {
