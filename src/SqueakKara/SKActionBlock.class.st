@@ -59,7 +59,7 @@ SKActionBlock >> command [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/26/2026 23:14'
+	#'squeak_changestamp' : 'FR 5/26/2026 23:16'
 }
 SKActionBlock >> drawOn: aCanvas [
 	| innerBounds borderWidth topEdge bottomEdge pts |
@@ -70,7 +70,7 @@ SKActionBlock >> drawOn: aCanvas [
 	topEdge := innerBounds top.
 	bottomEdge := innerBounds bottom - self tabHeight.
 
-	pts := self isStart ifFalse: {
+	pts := self isStart ifFalse:{
 		innerBounds left @ topEdge.
 		(innerBounds left + self tabOffset) @ topEdge. 
 		(innerBounds left + self tabOffset + self slantWidth) @ (topEdge + self tabHeight).
@@ -120,6 +120,16 @@ SKActionBlock >> isStart [
 SKActionBlock >> isStart: aBoolean [
 
 	isStart := aBoolean.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/27/2026 02:36'
+}
+SKActionBlock >> layoutInset [
+	
+	self isStart ifTrue:[^(Rectangle left: 10 right: 10 top: 5 bottom:  self tabHeight + 5)].
+	^(Rectangle left: 8 right: 8 top: self tabHeight bottom:  self tabHeight* 2).
 ]
 
 {

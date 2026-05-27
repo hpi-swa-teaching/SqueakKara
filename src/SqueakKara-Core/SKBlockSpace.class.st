@@ -30,13 +30,13 @@ SKBlockSpace >> acceptDroppingMorph: aMorph event: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 03:55'
+	#'squeak_changestamp' : 'FR 5/27/2026 03:47'
 }
 SKBlockSpace >> addDropZoneAtIndex: aNumber of: aMorph [
 	| dropZone newIndex|
 	(self dropIndex = aNumber or:[aNumber > self submorphCount and:[self dropIndex ~= nil]]) ifFalse:[
 		newIndex := aNumber.
-		aNumber = 1 ifTrue:[newIndex:= 2].
+		(aNumber = 1 and: [self hasStartBlock]) ifTrue:[newIndex:= 2].
 		self removeDropZone.
 		dropZone := aMorph copy.
 		"dropZone submorphs do: [:each | each color: Color gray]."
@@ -106,7 +106,33 @@ SKBlockSpace >> handlesMouseOverDragging: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/26/2026 21:43'
+	#'squeak_changestamp' : 'FR 5/27/2026 03:47'
+}
+SKBlockSpace >> hasStartBlock [
+	
+	^true
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/27/2026 03:13'
+}
+SKBlockSpace >> initialize [
+
+	super initialize.
+	self listDirection: #topToBottom;
+	hResizing: #spaceFill;
+	wrapCentering: #center;
+	cellPositioning: #topLeft;
+	cellGap: -10;
+	minWidth: 50;
+	minHeight: 32;
+	vResizing: #spaceFill.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/27/2026 02:41'
 }
 SKBlockSpace >> initializeWithKara: aKara [
 
@@ -119,12 +145,11 @@ SKBlockSpace >> initializeWithKara: aKara [
 		listDirection: #leftToRight;
 		yourself.
 	
-	super initialize.
 	self listDirection: #topToBottom;
 	hResizing: #spaceFill;
 	wrapCentering: #center;
 	cellPositioning: #topLeft;
-	cellGap: -12;
+	cellGap: -10;
 	minWidth: 500;
 	minHeight: 500;
 	vResizing: #spaceFill;
@@ -155,7 +180,7 @@ SKBlockSpace >> kara: anObject [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/19/2026 16:42'
+	#'squeak_changestamp' : 'FR 5/27/2026 03:28'
 }
 SKBlockSpace >> mouseLeave: anEvent [
 	self removeDropZone.
@@ -171,7 +196,7 @@ SKBlockSpace >> mouseLeaveDragging: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 01:25'
+	#'squeak_changestamp' : 'FR 5/27/2026 02:38'
 }
 SKBlockSpace >> mouseMove: anEvent [
 | grabbedMorph layout |
@@ -193,12 +218,13 @@ SKBlockSpace >> objectHeight [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/19/2026 15:55'
+	#'squeak_changestamp' : 'FR 5/27/2026 04:08'
 }
 SKBlockSpace >> removeDropZone [
 	self dropIndex ifNotNil:[
 		(self submorphs at: self dropIndex) delete.
 		self dropIndex: nil.
+		self layoutChanged
 		]
 	
 ]
@@ -218,10 +244,10 @@ SKBlockSpace >> updateCode [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/19/2026 15:58'
+	#'squeak_changestamp' : 'FR 5/27/2026 02:40'
 }
 SKBlockSpace >> wantsDroppedMorph: aMorph event: anEvent [
 	self flag: #toBeExtended.
-	^((aMorph class = SKBlock) or: [SKBlock subclasses includes: aMorph class]) and: [aMorph blockType = #Action].
+	^((aMorph class = SKBlock) or: [aMorph class inheritsFrom: SKBlock]) and: [aMorph blockType = #Action].
 	 
 ]

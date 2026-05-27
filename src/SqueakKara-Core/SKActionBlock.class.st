@@ -124,6 +124,16 @@ SKActionBlock >> isStart: aBoolean [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 5/27/2026 02:36'
+}
+SKActionBlock >> layoutInset [
+	
+	self isStart ifTrue:[^(Rectangle left: 10 right: 10 top: 5 bottom:  self tabHeight + 5)].
+	^(Rectangle left: 8 right: 8 top: self tabHeight bottom:  self tabHeight* 2).
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'SLH 5/20/2026 00:20'
 }
 SKActionBlock >> minHeight [

@@ -22,14 +22,14 @@ SKBlock >> addActionPart: aLabel withDefault: aDefaultValue [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 20:50'
+	#'squeak_changestamp' : 'FR 5/27/2026 01:48'
 }
 SKBlock >> addBlockPart: aBlockPart [
 
 	self blockParts add: aBlockPart.
 	
 	self addMorph: aBlockPart;
-		addMorph: aBlockPart label.
+			addMorph: aBlockPart label.
 ]
 
 {
@@ -156,24 +156,27 @@ SKBlock >> handlesMouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/26/2026 17:35'
+	#'squeak_changestamp' : 'FR 5/27/2026 02:25'
 }
 SKBlock >> initialize [
-	super initialize.
+	
+	super initialize.	
 	
 	self borderColor: self borderColorFromCategory;
 		cornerStyle: #rounded;
 		cornerRadius: 5;
 		color: self colorFromCategory;
-		borderWidth: 2.
-	
-	self layoutPolicy: TableLayout new;
-		addMorph: self label;
-		listDirection: #rightToLeft;
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
-		cellInset: 5@0;
-		layoutInset: 10@5.
+		borderWidth: 2;
+		layoutPolicy: TableLayout new;
+		listDirection: #rightToLeft;
+		wrapCentering: #center;
+    		cellPositioning: #center;
+		cellInset: 2@0;
+		layoutInset: 5@ 0;
+		addMorph: (Morph new color: Color transparent; height: 24; width: 0);
+		addMorph: self label.
 ]
 
 {
@@ -188,7 +191,7 @@ SKBlock >> justDroppedInto: anObject event: anEvent [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/26/2026 21:32'
+	#'squeak_changestamp' : 'FR 5/27/2026 02:08'
 }
 SKBlock >> label [
 
@@ -197,13 +200,13 @@ SKBlock >> label [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/26/2026 17:28'
+	#'squeak_changestamp' : 'FR 5/27/2026 00:09'
 }
 SKBlock >> label: aString [
 	
 	self label contents: aString.
-	self extent: self label extent+(10@10).
-	self label center: self center.
+	"self extent: self label extent+(10@10).
+	self label center: self center."
 	"self label top: self center y."
 	
 ]

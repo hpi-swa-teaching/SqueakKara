@@ -11,7 +11,7 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 04:48'
+	#'squeak_changestamp' : 'FR 5/27/2026 02:07'
 }
 SKBlockPart >> initialize [
 	super initialize.
@@ -19,22 +19,25 @@ SKBlockPart >> initialize [
 	self borderColor: Color black;
 		color: Color white;
 		borderWidth: 1;
+		layoutPolicy: TableLayout new;
+		listDirection: #topToBottom;
+		wrapCentering: #center;
+		layoutInset: 3;
 		cornerStyle: #rounded;
-		cornerRadius: 20;
+		cornerRadius: 12;
+		value: 00;
 		addMorph: self value;
 		vResizing: #shrinkWrap;
-		layoutInset: 5@0;
-		extent: (self value extent+(10@5));
-		minWidth: self width;
-		hResizing: #shrinkWrap.
-	self value center: self center;
-		minWidth: self width.
-	self value: 3.
+		cellPositioning: #center.
+		
+	self adjustLayoutBounds;
+		minWidth: 30;
+		hResizing: #spaceFill.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 16:50'
+	#'squeak_changestamp' : 'FR 5/27/2026 02:02'
 }
 SKBlockPart >> label [
 
