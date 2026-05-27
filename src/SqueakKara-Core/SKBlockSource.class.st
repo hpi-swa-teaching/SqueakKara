@@ -14,7 +14,7 @@ SKBlockSource >> handlesMouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/26/2026 23:52'
+	#'squeak_changestamp' : 'FR 5/27/2026 04:19'
 }
 SKBlockSource >> initialize [
 
@@ -23,9 +23,11 @@ SKBlockSource >> initialize [
 	self color: Color transparent;
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
+		layoutInset: 10;
 		hResizing: #spaceFill;
 	 	vResizing: #spaceFill;
 		cellPositioning: #topLeft;
+		cellGap: 10;
 		populate.
 ]
 
