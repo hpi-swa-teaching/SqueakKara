@@ -9,7 +9,7 @@ Class {
 }
 
 {
-	#category : #asseccing,
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 21:28'
 }
 SKLogicGraphTest >> executeContext [
@@ -18,7 +18,7 @@ SKLogicGraphTest >> executeContext [
 ]
 
 {
-	#category : #asseccing,
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 21:29'
 }
 SKLogicGraphTest >> executeContext: aExecuteContext [
@@ -27,7 +27,7 @@ SKLogicGraphTest >> executeContext: aExecuteContext [
 ]
 
 {
-	#category : #util,
+	#category : #helper,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:40'
 }
 SKLogicGraphTest >> executeSteps: aNumber [
@@ -36,7 +36,7 @@ SKLogicGraphTest >> executeSteps: aNumber [
 ]
 
 {
-	#category : #asseccing,
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 21:23'
 }
 SKLogicGraphTest >> runner [
@@ -45,7 +45,7 @@ SKLogicGraphTest >> runner [
 ]
 
 {
-	#category : #asseccing,
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 21:24'
 }
 SKLogicGraphTest >> runner: aRunner [
