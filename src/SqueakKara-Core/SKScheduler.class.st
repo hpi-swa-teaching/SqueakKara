@@ -215,15 +215,13 @@ SKScheduler >> scheduledSteps: aDictionary [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/28/2026 10:34'
+	#'squeak_changestamp' : 'LM 5/28/2026 10:35'
 }
 SKScheduler >> step [
 
 	| busyStep |
-	busyStep := false.
 
 	busyStep := self stepForType: #move.
-	
 	busyStep ifTrue: [ self delayStep ]
 ]
 
