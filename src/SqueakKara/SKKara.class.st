@@ -41,7 +41,7 @@ SKKara >> cloverleaf: aCloverleaf [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/28/2026 15:53'
+	#'squeak_changestamp' : 'jawi 5/28/2026 16:11'
 }
 SKKara >> color: aColor [
 		
@@ -88,11 +88,12 @@ SKKara >> environment [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/22/2026 12:03'
+	#'squeak_changestamp' : 'jawi 5/28/2026 16:10'
 }
 SKKara >> fillStyle: aFillStyle [
 			
 		super fillStyle: aFillStyle.
+		self cloverleaf color: aFillStyle.
 		self scaleToFactor
 ]
 
