@@ -3,7 +3,9 @@ Class {
 	#superclass : #SKBlock,
 	#instVars : [
 		'action',
-		'isStart'
+		'isStart',
+		'tabOffsetBottom',
+		'tabOffsetTop'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -169,20 +171,38 @@ SKActionBlock >> tabOffset [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 10:08'
+	#'squeak_changestamp' : 'SLH 5/28/2026 09:38'
 }
 SKActionBlock >> tabOffsetBottom [
 
-	^ 8.
+	^ tabOffsetBottom ifNil: [tabOffsetBottom := 8].
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 10:08'
+	#'squeak_changestamp' : 'SLH 5/28/2026 09:36'
+}
+SKActionBlock >> tabOffsetBottom: anInteger [
+
+	tabOffsetBottom := anInteger.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/28/2026 09:38'
 }
 SKActionBlock >> tabOffsetTop [
 
-	^ 8.
+	^ tabOffsetTop ifNil: [tabOffsetTop := 8].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/28/2026 09:36'
+}
+SKActionBlock >> tabOffsetTop: anInteger [
+
+	tabOffsetTop := anInteger.
 ]
 
 {

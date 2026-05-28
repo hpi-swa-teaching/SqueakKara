@@ -2,7 +2,9 @@ Class {
 	#name : #SKCompoundActionBlock,
 	#superclass : #SKActionBlock,
 	#instVars : [
-		'actionGap'
+		'actionGap',
+		'topBlock',
+		'bottomBlock'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -25,19 +27,42 @@ SKCompoundActionBlock >> actionGap: anObject [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 10:38'
+	#'squeak_changestamp' : 'SLH 5/28/2026 09:49'
 }
-SKCompoundActionBlock >> bottomBlock [
+SKCompoundActionBlock >> addBlockPart: aBlockPart [
 
-	^ SKCompoundActionBlockBottom new hResizing: #spaceFill; yourself.
+	self blockParts add: aBlockPart.
+	
+	self topBlock
+		addMorph: aBlockPart;
+		addMorph: aBlockPart label.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 04:11'
+	#'squeak_changestamp' : 'SLH 5/28/2026 09:50'
+}
+SKCompoundActionBlock >> bottomBlock [
+
+	^ bottomBlock ifNil: [bottomBlock := SKActionBlock new
+		removeAllMorphs;
+		hResizing: #spaceFill;
+		tabOffsetTop: 26;
+		yourself].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 5/28/2026 09:43'
 }
 SKCompoundActionBlock >> command [
-	^'kara trunkAhead ifTrue: [',(self actionGap command),']'
+
+	| args |
+	
+	args := self blockParts collect: [:each | each value contents asString].
+	args addFirst: self actionGap command.
+	
+	^ self action valueWithArguments: args asArray.
 ]
 
 {
@@ -102,9 +127,14 @@ SKCompoundActionBlock >> layoutInset [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 10:38'
+	#'squeak_changestamp' : 'SLH 5/28/2026 09:50'
 }
 SKCompoundActionBlock >> topBlock [
 
-	^ SKCompoundActionBlockTop new addMorph: self label; hResizing: #spaceFill; yourself.
+	^ topBlock ifNil: [topBlock := SKActionBlock new
+		removeAllMorphs;
+		addMorph: self label;
+		hResizing: #spaceFill;
+		tabOffsetBottom: 26;
+		yourself].
 ]

@@ -228,7 +228,7 @@ SKBlockSpace >> removeDropZone [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 04:51'
+	#'squeak_changestamp' : 'SLH 5/28/2026 09:35'
 }
 SKBlockSpace >> startBlockEdit [
 
@@ -253,7 +253,7 @@ SKBlockSpace >> startBlockEdit [
 	
 	window addMorph: self.
 	window addMorph: SKBlockSource new.
-	window openInWindowLabeled: 'SKBlockSource'
+	window openInWindowLabeled: 'Block Editor'
 	
 ]
 

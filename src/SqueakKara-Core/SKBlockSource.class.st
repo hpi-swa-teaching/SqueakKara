@@ -48,23 +48,46 @@ SKBlockSource >> mouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:13'
+	#'squeak_changestamp' : 'SLH 5/28/2026 09:55'
 }
 SKBlockSource >> populate [
 
-	self addMorphBack: (SKActionBlock new label: 'move'; action: ['kara move']; category: #movement; yourself).
-	self addMorphBack: (SKActionBlock new label: 'move';
+	self addMorphBack: (SKActionBlock new
+		label: 'move';
+		action: ['kara move'];
+		category: #movement;
+		yourself).
+
+	self addMorphBack: (SKActionBlock new
+		label: 'move';
 		addIntegerPart: 'steps' withDefault: 3;
 		action: [:steps | steps,' timesRepeat: [kara move]']; 
-		category: #movement; yourself).
-	"self addMorphBack: (SKActionBlock new label: 'if ';
-		addBooleanPart: 'then:' withDefault: false;
-		addActionPart: '' withDefault: '[]';
-		action: [:condition :insert | condition, ' ifTrue: ', insert]; 
-		category: #movement; yourself)."
-	self addMorphBack: (SKActionBlock new label: 'turn left'; action: ['kara turn: left']; category: #movement; yourself).
-	self addMorphBack: (SKActionBlock new label: 'turn right'; action: ['kara turn: right']; category: #movement; yourself).
-	self addMorphBack: (SKCompoundActionBlock new label: 'if trunkAhead'; action: ['uh oh']; yourself).
+		category: #movement;
+		yourself).
+
+	self addMorphBack: (SKActionBlock new
+		label: 'turn left';
+		action: ['kara turn: left'];
+		category: #movement;
+		yourself).
+
+	self addMorphBack: (SKActionBlock new
+		label: 'turn right';
+		action: ['kara turn: right'];
+		category: #movement;
+		yourself).
+
+	self addMorphBack: (SKCompoundActionBlock new
+		label: 'if trunkAhead';
+		action: [:body | 'kara trunkAhead ifTrue: [', body, '].'];
+		yourself).
+
+	self addMorphBack: (SKCompoundActionBlock new
+		label: 'repeat';
+		addIntegerPart: 'times' withDefault: '3';
+		action: [:body :times | times,' timesRepeat: [', body, '].'];
+		yourself).
+
 	"self addMorphBack: (SKValueBlock new label: 'trunk ahead?'; ""type: #Boolean;"" value: ['kara trunkAhead']; category: #sensing; yourself).
 	self addMorphBack: (SKValueBlock new label: 'on cloverleaf?'; ""type: #Boolean;"" value: ['kara onCloverleaf']; category: #sensing; yourself)."
 ]
