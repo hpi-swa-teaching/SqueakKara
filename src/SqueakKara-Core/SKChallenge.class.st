@@ -63,7 +63,7 @@ SKChallenge class >> initializeChallenge1For: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'jawi 5/28/2026 18:32'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:27'
 }
 SKChallenge class >> initializeChallenge1For: aGrid environment: anEnvironment [
 	
@@ -130,7 +130,7 @@ SKChallenge class >> initializeChallenge2For: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'jawi 5/28/2026 18:32'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:27'
 }
 SKChallenge class >> initializeChallenge2For: aGrid environment: anEnvironment [
 
@@ -169,7 +169,7 @@ SKChallenge class >> initializeChallenge3For: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'jawi 5/28/2026 18:32'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:27'
 }
 SKChallenge class >> initializeChallenge3For: aGrid environment: anEnvironment [
 
@@ -208,7 +208,7 @@ SKChallenge class >> initializeChallenge4For: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'jawi 5/28/2026 18:32'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:27'
 }
 SKChallenge class >> initializeChallenge4For: aGrid environment: anEnvironment [
 

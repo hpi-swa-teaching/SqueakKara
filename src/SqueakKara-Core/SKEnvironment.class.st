@@ -39,7 +39,7 @@ SKEnvironment >> abondon [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'jawi 5/28/2026 18:32'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:28'
 }
 SKEnvironment >> addKara: aKara [
 

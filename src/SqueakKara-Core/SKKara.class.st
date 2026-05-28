@@ -51,16 +51,16 @@ SKKara >> cloverleaf: aCloverleaf [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/28/2026 18:34'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:31'
 }
 SKKara >> color: aColor [
 		
 	(aColor notBlack) ifTrue: [
-		super color: aColor.
+        	super color: aColor.
 		self cloverleaf color: aColor.
-		self scaleToFactor ].
-	
-	self workspace ifNotNil: [ self workspace color: self color ]
+        	self scaleToFactor ].
+
+    self workspace ifNotNil: [ self workspace color: self color ]
 ]
 
 {
@@ -102,7 +102,7 @@ SKKara >> environment [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/28/2026 18:34'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:31'
 }
 SKKara >> fillStyle: aFillStyle [
 
