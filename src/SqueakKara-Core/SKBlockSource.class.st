@@ -48,7 +48,7 @@ SKBlockSource >> mouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 09:55'
+	#'squeak_changestamp' : 'SLH 5/28/2026 10:10'
 }
 SKBlockSource >> populate [
 
@@ -78,8 +78,9 @@ SKBlockSource >> populate [
 		yourself).
 
 	self addMorphBack: (SKCompoundActionBlock new
-		label: 'if trunkAhead';
-		action: [:body | 'kara trunkAhead ifTrue: [', body, '].'];
+		label: 'if';
+		addBooleanPart: 'then' withDefault: '';
+		action: [:body :condition | condition,' ifTrue: [', body, '].'];
 		yourself).
 
 	self addMorphBack: (SKCompoundActionBlock new
@@ -88,8 +89,17 @@ SKBlockSource >> populate [
 		action: [:body :times | times,' timesRepeat: [', body, '].'];
 		yourself).
 
-	"self addMorphBack: (SKValueBlock new label: 'trunk ahead?'; ""type: #Boolean;"" value: ['kara trunkAhead']; category: #sensing; yourself).
-	self addMorphBack: (SKValueBlock new label: 'on cloverleaf?'; ""type: #Boolean;"" value: ['kara onCloverleaf']; category: #sensing; yourself)."
+	self addMorphBack: (SKBooleanBlock new
+		label: 'trunk ahead?';
+		value: ['kara trunkAhead'];
+		category: #sensing;
+		yourself).
+
+	self addMorphBack: (SKBooleanBlock new
+		label: 'on cloverleaf?';
+		value: ['kara onCloverleaf'];
+		category: #sensing;
+		yourself).
 ]
 
 {

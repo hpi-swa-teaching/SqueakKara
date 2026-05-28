@@ -193,16 +193,17 @@ SKBlockSpace >> mouseLeaveDragging: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 02:38'
+	#'squeak_changestamp' : 'SLH 5/28/2026 10:02'
 }
 SKBlockSpace >> mouseMove: anEvent [
-| grabbedMorph layout |
-	anEvent hand submorphCount = 1 ifTrue:[
+
+	| grabbedMorph layout |
+
+	anEvent hand submorphCount = 1 ifTrue: [
 		grabbedMorph := anEvent hand firstSubmorph.
 		(self wantsDroppedMorph: grabbedMorph event: anEvent) ifFalse: [^self].
 		layout := self layoutPolicy.
-		self addDropZoneAtIndex: (layout indexForInserting: grabbedMorph at: anEvent position in: self) of: grabbedMorph
-		]
+		self addDropZoneAtIndex: (layout indexForInserting: grabbedMorph at: anEvent position in: self) of: grabbedMorph].
 ]
 
 {

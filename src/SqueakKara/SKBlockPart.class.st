@@ -73,7 +73,7 @@ SKBlockPart >> type: aType [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/26/2026 21:59'
+	#'squeak_changestamp' : 'SLH 5/28/2026 10:28'
 }
 SKBlockPart >> value [
 
