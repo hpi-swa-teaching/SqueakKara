@@ -227,24 +227,24 @@ SKScheduler >> step [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/27/2026 21:38'
+	#'squeak_changestamp' : 'LM 5/28/2026 11:20'
 }
 SKScheduler >> stepForType: aType [
 
 	| gotStatus busyStep result |
 	
 	gotStatus := false.
-	busyStep := true.
+	busyStep := false.
 	
 	self scheduledSteps valuesDo: [ :actions |
 		actions do: [ :action | action type = aType ifTrue: [
 			result := action action value.
-				
+			
 			result isBoolean ifTrue: [
 				gotStatus := true.
-				result ifTrue: [ busyStep := true. ^ busyStep ]]]]].
+				result ifTrue: [ busyStep := true ]]]]].
 	
-	gotStatus ifTrue: [ busyStep := false ].
+	gotStatus ifFalse: [ ^ true ].
 	
 	^ busyStep
 ]

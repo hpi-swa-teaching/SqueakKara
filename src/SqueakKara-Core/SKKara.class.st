@@ -141,14 +141,12 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/27/2026 21:34'
+	#'squeak_changestamp' : 'LM 5/28/2026 11:17'
 }
 SKKara >> move [
 
 	(self trunkAhead) ifTrue: [ ^ false ].
-	self moveToCoordinates: self coordinates + self viewDirection.
-	
-	^ true
+	^ self moveToCoordinates: self coordinates + self viewDirection
 ]
 
 {
