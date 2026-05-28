@@ -187,14 +187,14 @@ SKGridCoordinatorTest >> testNeighboursHereTwoObjects [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'jawi 5/28/2026 17:01'
+	#'squeak_changestamp' : 'jawi 5/28/2026 17:23'
 }
 SKGridCoordinatorTest >> testObjectInsertion [
 
 	| expectedObject receivedSet oldMatrix |
 	oldMatrix := self grid gridCoordinator.
 	expectedObject := SKKara new initializeInGrid: grid at: 2 @ 2 with: 1 @ 1.
-	receivedSet := self grid gridCoordinator getTileAtCoordinates: 2@2.
+	receivedSet := self grid gridCoordinator getTileAtCoordinates: 2 @ 2.
 	
 	self assert: (receivedSet includes: expectedObject)
 ]
