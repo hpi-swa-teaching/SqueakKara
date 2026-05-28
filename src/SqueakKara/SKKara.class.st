@@ -52,15 +52,6 @@ SKKara >> color: aColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/28/2026 15:39'
-}
-SKKara >> colorNotBlack: aColor [
-
-	^ (aColor isSimilarColorTo: (Color black)) not
-]
-
-{
-	#category : #movement,
 	#'squeak_changestamp' : 'jawi 5/28/2026 15:11'
 }
 SKKara >> createCloverleaf: aPoint [
