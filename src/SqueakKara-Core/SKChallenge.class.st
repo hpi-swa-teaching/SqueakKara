@@ -10,7 +10,7 @@ Class {
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/22/2026 11:56'
+	#'squeak_changestamp' : 'LM 5/28/2026 18:58'
 }
 SKChallenge class >> initializeChallenge1For: anEnvironment [
 
@@ -57,13 +57,12 @@ SKChallenge class >> initializeChallenge1For: anEnvironment [
 	SKTrunk newInGrid: grid at: 4 @ 5.
 	SKTrunk newInGrid: grid at: 3 @ 5.
 	
-	SKCloverleaf newInGrid: grid at: 4 @ 4.
-	anEnvironment addKaraAt: 1 @ 2
+	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 2 with: 4 @ 4)
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/22/2026 11:55'
+	#'squeak_changestamp' : 'LM 5/28/2026 18:58'
 }
 SKChallenge class >> initializeChallenge2For: anEnvironment [
 
@@ -75,14 +74,12 @@ SKChallenge class >> initializeChallenge2For: anEnvironment [
 	SKTrunk newInGrid: grid at: 5 @ 2.
 	SKTrunk newInGrid: grid at: 7 @ 2.
 	
-	SKCloverleaf newInGrid: grid at: 9 @ 2.
-	
-	anEnvironment addKaraAt: 1 @ 2
+	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 2 with: 9 @ 2)
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/22/2026 11:56'
+	#'squeak_changestamp' : 'LM 5/28/2026 18:57'
 }
 SKChallenge class >> initializeChallenge3For: anEnvironment [
 
@@ -103,12 +100,12 @@ SKChallenge class >> initializeChallenge3For: anEnvironment [
 	SKTrunk newInGrid: grid at: 8 @ 3.
 	SKTrunk newInGrid: grid at: 9 @ 3.
 	
-	anEnvironment addKaraAt: 1 @ 2 
+	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 2 with: 9 @ 2)
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/22/2026 11:56'
+	#'squeak_changestamp' : 'LM 5/28/2026 18:56'
 }
 SKChallenge class >> initializeChallenge4For: anEnvironment [
 
@@ -116,9 +113,6 @@ SKChallenge class >> initializeChallenge4For: anEnvironment [
 	
 	grid := anEnvironment grid.
 
-	SKCloverleaf newInGrid: grid at: 7 @ 2.
-	SKCloverleaf newInGrid: grid at: 7 @ 4.
-
-	anEnvironment addKaraAt: 1 @ 2.
-	anEnvironment addKaraAt: 1 @ 4
+	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 2 with: 7 @ 2).
+	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 4 with: 7 @ 4)
 ]

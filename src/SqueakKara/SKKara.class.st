@@ -6,7 +6,8 @@ Class {
 	#superclass : #SKGridObject,
 	#instVars : [
 		'viewDirection',
-		'workspace'
+		'workspace',
+		'cloverleaf'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
@@ -22,25 +23,53 @@ SKKara class >> defaultColors [
 ]
 
 {
+	#category : #colors,
+	#'squeak_changestamp' : 'jawi 5/28/2026 16:55'
+}
+SKKara class >> newInGrid: aGrid at: aPoint [
+
+	^ super newInGrid: aGrid at: aPoint with: aGrid gridCoordinator findFreeFields atRandom
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:01'
+}
+SKKara >> cloverleaf [
+	
+	^ cloverleaf
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:01'
+}
+SKKara >> cloverleaf: aCloverleaf [
+	
+	cloverleaf := aCloverleaf
+]
+
+{
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/23/2026 14:08'
+	#'squeak_changestamp' : 'jawi 5/28/2026 19:05'
 }
 SKKara >> color: aColor [
-	
+
 	(aColor notBlack) ifTrue: [
 		super color: aColor.
+		self cloverleaf color: aColor.
 		self scaleToFactor ].
+
 	self workspace ifNotNil: [ self workspace color: self color ]
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 13:27'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:11'
 }
-SKKara >> colorNotBlack: aColor [
-
-	^ (aColor isSimilarColorTo: (Color black)) not
-		
+SKKara >> createCloverleaf: aPoint [
+	
+	self cloverleaf: (SKCloverleaf newInGrid: self grid at: aPoint)
 ]
 
 {
@@ -73,7 +102,7 @@ SKKara >> environment [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 10:57'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:31'
 }
 SKKara >> fillStyle: aFillStyle [
 
@@ -99,6 +128,16 @@ SKKara >> findUnusedColor [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:16'
+}
+SKKara >> initializeInGrid: aGrid at: aKaraPoint with: aCloverleafPoint [
+
+	super initializeInGrid: aGrid at: aKaraPoint.
+	self createCloverleaf: aCloverleafPoint
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 4/29/2026 13:07'
 }
 SKKara >> isKara [
@@ -108,11 +147,12 @@ SKKara >> isKara [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'LM 5/10/2026 20:18'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:28'
 }
 SKKara >> karaAhead [
 
 	| target tileAhead |
+	
 	target := self coordinates + self viewDirection.
 	tileAhead := self gridCoordinator getTileAtCoordinates: target.
 
@@ -283,11 +323,12 @@ SKKara >> textureFilename [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'LM 4/28/2026 19:10'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:28'
 }
 SKKara >> trunkAhead [
 
 	| target tileAhead |
+	
 	target := self coordinates + self viewDirection.
 	tileAhead := self gridCoordinator getTileAtCoordinates: target.
 
@@ -315,34 +356,6 @@ SKKara >> turn: aRotation [
 SKKara >> unlockAt: aPoint [
 
 	self gridCoordinator unlockAt: aPoint
-]
-
-{
-	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:49'
-}
-SKKara >> updateColor [
-	self updateColorFor: self image
-]
-
-{
-	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 09:49'
-}
-SKKara >> updateColorFor: aForm [
-	
-	| replacement |
-	
-	replacement := self color.
-	1 to: aForm width do: [:x |
-	  1 to: aForm height do: [:y |
-		((aForm colorAt: x @ y) = (self defaultColor))
-				ifTrue: [
-	      			aForm colorAt: x @ y put: replacement ].
-	  			]].
-	
-	
-	self image: aForm
 ]
 
 {

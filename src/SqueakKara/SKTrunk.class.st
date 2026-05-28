@@ -9,6 +9,15 @@ Class {
 }
 
 {
+	#category : #appearance,
+	#'squeak_changestamp' : 'jawi 5/28/2026 19:06'
+}
+SKTrunk >> defaultColor [
+
+	^ Color red
+]
+
+{
 	#category : #type,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:01'
 }
