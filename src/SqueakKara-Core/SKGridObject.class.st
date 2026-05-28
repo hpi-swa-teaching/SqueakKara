@@ -371,7 +371,7 @@ SKGridObject >> updateColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/28/2026 15:34'
+	#'squeak_changestamp' : 'jawi 5/28/2026 19:04'
 }
 SKGridObject >> updateColorFor: aForm [
 	
@@ -382,8 +382,7 @@ SKGridObject >> updateColorFor: aForm [
 	  1 to: aForm height do: [:y |
 		((aForm colorAt: x @ y) = (self defaultColor))
 				ifTrue: [
-	      			aForm colorAt: x @ y put: replacement ].
-	  			]].
+	      			aForm colorAt: x @ y put: replacement ]]].
 	
 	self image: aForm
 ]
