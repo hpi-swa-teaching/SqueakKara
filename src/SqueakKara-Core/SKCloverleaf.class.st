@@ -38,11 +38,12 @@ SKCloverleaf >> isCloverleaf [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:59'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:41'
 }
 SKCloverleaf >> position: aPoint [
 
 	| coordinates tile |
+	
 	coordinates := self coordinatesFromPosition: aPoint.
 	tile := self gridCoordinator getTileAtCoordinates: coordinates.
 	

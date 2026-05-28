@@ -80,10 +80,12 @@ SKGridObject >> coordinates: aPoint [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:54'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:41'
 }
 SKGridObject >> coordinatesFromPosition: aPoint [
+	
 	| relativePosition newX newY |
+	
 	relativePosition := self relativePositionFor: aPoint.
 
 	newX := ((relativePosition x / self grid pixelPerBlock) rounded + 1)
@@ -369,7 +371,7 @@ SKGridObject >> updateColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/28/2026 15:32'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:34'
 }
 SKGridObject >> updateColorFor: aForm [
 	
@@ -381,9 +383,7 @@ SKGridObject >> updateColorFor: aForm [
 		((aForm colorAt: x @ y) = (self defaultColor))
 				ifTrue: [
 	      			aForm colorAt: x @ y put: replacement ].
-					Transcript showln: String "test".
 	  			]].
-	
 	
 	self image: aForm
 ]
