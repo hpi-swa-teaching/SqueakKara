@@ -10,6 +10,25 @@ Class {
 
 {
 	#category : #type,
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:10'
+}
+SKCloverleaf >> color: aColor [
+	
+	super color: aColor.
+	self scaleToFactor
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'jawi 5/25/2026 17:11'
+}
+SKCloverleaf >> defaultColor [
+
+	^ (Color r: 0.027 g: 0.478 b: 0.156)
+]
+
+{
+	#category : #type,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:02'
 }
 SKCloverleaf >> isCloverleaf [
@@ -19,11 +38,12 @@ SKCloverleaf >> isCloverleaf [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:59'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:41'
 }
 SKCloverleaf >> position: aPoint [
 
 	| coordinates tile |
+	
 	coordinates := self coordinatesFromPosition: aPoint.
 	tile := self gridCoordinator getTileAtCoordinates: coordinates.
 	
@@ -33,8 +53,18 @@ SKCloverleaf >> position: aPoint [
 ]
 
 {
+	#category : #type,
+	#'squeak_changestamp' : 'jawi 5/25/2026 17:11'
+}
+SKCloverleaf >> scaleToFactor [
+	
+	super scaleToFactor.
+	self updateColor
+]
+
+{
 	#category : #appearance,
-	#'squeak_changestamp' : 'jt 6/11/2024 19:55'
+	#'squeak_changestamp' : 'LD 5/22/2026 11:56'
 }
 SKCloverleaf >> textureFilename [
 

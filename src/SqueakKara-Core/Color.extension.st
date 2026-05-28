@@ -2,7 +2,7 @@ Extension { #name : #Color }
 
 {
 	#category : #'*SqueakKara-Core',
-	#'squeak_changestamp' : 'LD 5/19/2026 13:31'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:49'
 }
 Color >> isSimilarColorTo: anotherColor [
 	
@@ -17,7 +17,7 @@ Color >> isSimilarColorTo: anotherColor [
 
 {
 	#category : #'*SqueakKara-Core',
-	#'squeak_changestamp' : 'LD 5/21/2026 10:57'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:48'
 }
 Color >> notBlack [
 
