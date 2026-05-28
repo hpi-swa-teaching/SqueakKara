@@ -43,12 +43,11 @@ SKTrunk >> position: aPoint [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LD 5/27/2026 22:52'
+	#'squeak_changestamp' : 'LD 5/28/2026 12:08'
 }
 SKTrunk >> setColorToKaraColor: aColor [
 
 	self scaleToFactor
-	
 ]
 
 {
