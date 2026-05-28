@@ -5,7 +5,8 @@ Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
 	#instVars : [
-		'viewDirection'
+		'viewDirection',
+		'cloverleaf'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
@@ -21,12 +22,31 @@ SKKara class >> defaultColors [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:01'
+}
+SKKara >> cloverleaf [
+	
+	^ cloverleaf
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:01'
+}
+SKKara >> cloverleaf: aCloverleaf [
+	
+	cloverleaf := aCloverleaf
+]
+
+{
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/22/2026 11:33'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:10'
 }
 SKKara >> color: aColor [
-
+		
 		super color: aColor.
+		self cloverleaf color: aColor.
 		self scaleToFactor
 ]
 
@@ -42,15 +62,11 @@ SKKara >> colorNotBlack: aColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/25/2026 17:30'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:11'
 }
 SKKara >> createCloverleaf: aPoint [
 	
-	| cloverleaf |
-	
-	cloverleaf := SKCloverleaf newInGrid: self grid at: aPoint.
-	cloverleaf color: self color
-	
+	self cloverleaf: (SKCloverleaf newInGrid: self grid at: aPoint)
 ]
 
 {
@@ -100,16 +116,7 @@ SKKara >> findUnusedColor [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'jawi 5/25/2026 18:02'
-}
-SKKara >> initializeInGrid: aGrid at: aPoint [
-
-	super initializeInGrid: aGrid at: aPoint
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'jawi 5/25/2026 17:49'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:16'
 }
 SKKara >> initializeInGrid: aGrid at: aKaraPoint with: aCloverleafPoint [
 
@@ -128,11 +135,12 @@ SKKara >> isKara [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'LM 5/10/2026 20:18'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:28'
 }
 SKKara >> karaAhead [
 
 	| target tileAhead |
+	
 	target := self coordinates + self viewDirection.
 	tileAhead := self gridCoordinator getTileAtCoordinates: target.
 
@@ -253,11 +261,12 @@ SKKara >> textureFilename [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'LM 4/28/2026 19:10'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:28'
 }
 SKKara >> trunkAhead [
 
 	| target tileAhead |
+	
 	target := self coordinates + self viewDirection.
 	tileAhead := self gridCoordinator getTileAtCoordinates: target.
 

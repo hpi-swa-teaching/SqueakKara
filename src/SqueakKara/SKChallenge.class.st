@@ -10,7 +10,7 @@ Class {
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'jawi 5/25/2026 17:46'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:18'
 }
 SKChallenge class >> initializeChallenge1For: aGrid environment: anEnvironment [
 	
@@ -53,13 +53,12 @@ SKChallenge class >> initializeChallenge1For: aGrid environment: anEnvironment [
 	SKTrunk newInGrid: aGrid at: 4 @ 5.
 	SKTrunk newInGrid: aGrid at: 3 @ 5.
 	
-	SKCloverleaf newInGrid: aGrid at: 4 @ 4.
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2).
+	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2 with: 4 @ 4)
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:59'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:19'
 }
 SKChallenge class >> initializeChallenge2For: aGrid environment: anEnvironment [
 
@@ -67,14 +66,12 @@ SKChallenge class >> initializeChallenge2For: aGrid environment: anEnvironment [
 	SKTrunk newInGrid: aGrid at: 5 @ 2.
 	SKTrunk newInGrid: aGrid at: 7 @ 2.
 	
-	SKCloverleaf newInGrid: aGrid at: 9 @ 2.
-	
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2)
+	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2 with: 9 @ 2)
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:01'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:19'
 }
 SKChallenge class >> initializeChallenge3For: aGrid environment: anEnvironment [
 
@@ -91,18 +88,15 @@ SKChallenge class >> initializeChallenge3For: aGrid environment: anEnvironment [
 	SKTrunk newInGrid: aGrid at: 8 @ 3.
 	SKTrunk newInGrid: aGrid at: 9 @ 3.
 	
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2)
+	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2 with: 9 @ 2)
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'jawi 5/25/2026 18:02'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:20'
 }
 SKChallenge class >> initializeChallenge4For: aGrid environment: anEnvironment [
 
-	SKCloverleaf newInGrid: aGrid at: 7 @ 2.
-	SKCloverleaf newInGrid: aGrid at: 7 @ 4.
-
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2).
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 4)
+	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2 with: 7 @ 2).
+	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 4 with: 7 @ 4)
 ]

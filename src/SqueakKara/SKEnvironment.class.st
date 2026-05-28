@@ -31,9 +31,10 @@ SKEnvironment class >> newWithKaraAt: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 5/21/2026 22:03'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:04'
 }
 SKEnvironment >> addKara: aKara [
+	
 	aKara color: aKara findUnusedColor.
 	self karas add: aKara
 ]

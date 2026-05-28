@@ -60,16 +60,16 @@ SKGridCoordinatorTest >> testDeleteObject [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:40'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:14'
 }
 SKGridCoordinatorTest >> testLogicalConsistencyOnResize [
 
 	| expectedObject receivedSet oldMatrix |
 	oldMatrix := self grid gridCoordinator.
-	expectedObject := SKKara new initializeInGrid: grid at: 2@2.
+	expectedObject := SKKara new initializeInGrid: grid at: 2 @ 2 with: 1 @ 1.
 	expectedObject scaleToFactor.
 	
-	receivedSet := self grid gridCoordinator getTileAtCoordinates: 2@2.
+	receivedSet := self grid gridCoordinator getTileAtCoordinates: 2 @ 2.
 	
 	self assert: (receivedSet includes: expectedObject)
 ]
@@ -187,13 +187,13 @@ SKGridCoordinatorTest >> testNeighboursHereTwoObjects [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 4/28/2026 22:54'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:14'
 }
 SKGridCoordinatorTest >> testObjectInsertion [
 
 	| expectedObject receivedSet oldMatrix |
 	oldMatrix := self grid gridCoordinator.
-	expectedObject := SKKara new initializeInGrid: grid at: 2@2.
+	expectedObject := SKKara new new initializeInGrid: grid at: 2 @ 2 with: 1 @ 1.
 	receivedSet := self grid gridCoordinator getTileAtCoordinates: 2@2.
 	
 	self assert: (receivedSet includes: expectedObject)

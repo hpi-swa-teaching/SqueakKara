@@ -262,17 +262,19 @@ SKGridObject >> notifyGridCoordinator [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/27/2026 20:15'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:23'
 }
 SKGridObject >> originalImage [
+	
 	^ originalImage
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/27/2026 20:15'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:23'
 }
 SKGridObject >> originalImage: aForm [
+	
 	originalImage := aForm
 ]
 
@@ -316,11 +318,12 @@ SKGridObject >> relativePositionFor: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:38'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:23'
 }
 SKGridObject >> scaleToFactor [
 
 	| size |
+	
 	size := self grid pixelPerBlock.
 
 	self image: (self originalImage scaledToSize: size @ size).
@@ -357,15 +360,16 @@ SKGridObject >> textureFilename [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:49'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:22'
 }
 SKGridObject >> updateColor [
+	
 	self updateColorFor: self image
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/22/2026 11:43'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:32'
 }
 SKGridObject >> updateColorFor: aForm [
 	
@@ -377,6 +381,7 @@ SKGridObject >> updateColorFor: aForm [
 		((aForm colorAt: x @ y) = (self defaultColor))
 				ifTrue: [
 	      			aForm colorAt: x @ y put: replacement ].
+					Transcript showln: String "test".
 	  			]].
 	
 	
