@@ -6,33 +6,20 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LD 5/26/2026 11:54'
+	#'squeak_changestamp' : 'LD 5/28/2026 09:46'
 }
 SKWinScreen >> scaleToFactor [
-
-	| size |
-	size := self grid pixelPerBlock * self grid gridWidth.
-
-	self image: (self originalImage scaledToSize: size @ size).
-	self extent: size @ size.
-	super position: self positionFromCoordinates.
-	self changed
+	
+	self scaleToFactorWithSize: self grid pixelPerBlock * self grid gridWidth.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LD 5/26/2026 11:51'
+	#'squeak_changestamp' : 'LD 5/28/2026 09:52'
 }
 SKWinScreen >> setTexture [
 
-	| aTextureLoader aForm |
-	
-	aTextureLoader := SKTextureLoader new.
-	
-	aForm := aTextureLoader
-		getTexture: self textureFilename.
-
-	self image: aForm; originalImage: aForm
+	self setTextureWithScale: (self grid pixelPerBlock * self grid gridWidth)
 ]
 
 {
