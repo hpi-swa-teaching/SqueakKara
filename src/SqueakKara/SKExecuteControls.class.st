@@ -45,10 +45,7 @@ SKExecuteControls >> actionSpawnKara [
 	
 	(freeList isEmpty or: self environment maxNumberOfKaras == karaList size) ifTrue: [ ^ self ].
 	
-	kara := SKKara newInGrid: grid at: (freeList atRandom).
-	kara randomDirection.
-	
-	self environment addKara: kara
+	(self environment addKaraAt: freeList atRandom) randomDirection
 ]
 
 {

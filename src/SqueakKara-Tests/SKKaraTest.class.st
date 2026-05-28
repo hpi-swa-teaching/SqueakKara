@@ -74,7 +74,7 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'LD 5/21/2026 12:07'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:08'
 }
 SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
     | kara aForm colorChanged |
@@ -96,6 +96,29 @@ SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
                   ]].
 			
     self assert: (colorChanged = True)
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'LM 5/23/2026 18:43'
+}
+SKKaraTest >> testKaraDeleteClosesWorkspace [
+
+	| kara workspace executer closed |
+	
+	kara := SKKara newInGrid: self grid at: 1 @ 1.
+	executer := SKExecuter new.
+	workspace := SKWorkspace newWithExecuter: executer and: kara.
+	kara workspace: workspace.
+	
+	closed := false.
+	workspace closeListener: [ closed := true ].
+	
+	kara delete.
+	
+	self assert: closed.
+	self deny: ((self grid gridCoordinator getTileAtCoordinates: 1 @ 1)
+		includes: kara)
 ]
 
 {
@@ -304,4 +327,23 @@ SKKaraTest >> testTrunkAheadAfterTurn [
 	self assert: false = kara trunkAhead.
 	kara turn: SKDirection rotateRight.
 	self assert: true = kara trunkAhead
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'LM 5/23/2026 18:39'
+}
+SKKaraTest >> testWorkspaceCloseDeletesKara [
+
+	| kara workspace executer |
+	
+	kara := SKKara newInGrid: self grid at: 1 @ 1.
+	executer := SKExecuter new.
+	workspace := SKWorkspace newWithExecuter: executer and: kara.
+	kara workspace: workspace.
+	
+	workspace close.
+	
+	self deny: ((self grid gridCoordinator getTileAtCoordinates: 1 @ 1)
+		includes: kara)
 ]

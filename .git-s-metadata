@@ -38,17 +38,18 @@ GSMetadata {
 		GSPlaintextMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
-				'LICENSE'
-			],
-			#encoding : 'TXT'
-		},
-		GSPlaintextMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
 				'src',
 				'.properties'
 			],
 			#encoding : 'TXT'
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'Trunk.png'
+			],
+			#encoding : @5
 		},
 		GSImageMapper {
 			#version : 1,
@@ -66,13 +67,12 @@ GSMetadata {
 			],
 			#encoding : @5
 		},
-		GSImageMapper {
+		GSPlaintextMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
-				'assets',
-				'Trunk.png'
+				'LICENSE'
 			],
-			#encoding : @5
+			#encoding : 'TXT'
 		},
 		GSPlaintextMapper {
 			#version : 1,
