@@ -22,6 +22,15 @@ SKKara class >> defaultColors [
 ]
 
 {
+	#category : #colors,
+	#'squeak_changestamp' : 'jawi 5/28/2026 16:55'
+}
+SKKara class >> newInGrid: aGrid at: aPoint [
+
+	^ super newInGrid: aGrid at: aPoint with: aGrid gridCoordinator findFreeFields atRandom
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'jawi 5/28/2026 15:01'
 }

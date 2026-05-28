@@ -32,7 +32,7 @@ SKExecuteControls >> actionRun [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'jawi 5/25/2026 18:31'
+	#'squeak_changestamp' : 'jawi 5/28/2026 16:47'
 }
 SKExecuteControls >> actionSpawnKara [
 
@@ -41,7 +41,7 @@ SKExecuteControls >> actionSpawnKara [
 	grid := self environment grid.
 	karaList := self environment karas.
 	gridCoordinator := grid gridCoordinator.
-	freeList := gridCoordinator findFreeField.
+	freeList := gridCoordinator findFreeFields.
 	
 	(freeList isEmpty or: self environment maxNumberOfKaras == karaList size) ifTrue: [ ^ self ].
 	

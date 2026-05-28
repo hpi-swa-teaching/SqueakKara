@@ -45,24 +45,28 @@ SKCloverleafTest >> tearDown [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LD 5/22/2026 12:12'
+	#'squeak_changestamp' : 'jawi 5/28/2026 16:38'
 }
 SKCloverleafTest >> testColorUpdate [
-	| cloverleaf aForm colorChanged|
 	
-	cloverleaf := SKCloverleaf newInGrid: self grid.
-	cloverleaf setColorToKaraColor: Color blue.
+	| kara cloverleaf aForm colorChanged |
 	
 	colorChanged := False.
-        
-    aForm := cloverleaf image.
-    1 to: aForm width do: [:x |
-      1 to: aForm height do: [:y |
+	
+	kara := SKKara newInGrid: self grid at: 1 @ 1 with: 1 @ 2.
+	cloverleaf := kara cloverleaf.
+	
+	kara color: Color blue.
+
+	aForm := cloverleaf image.
+	
+	1 to: aForm width do: [ :x |
+		1 to: aForm height do: [ :y |
             ((aForm colorAt: x @ y) = (Color blue))
-                ifTrue: [
+			ifTrue: [
 				colorChanged := True ].
 				self assert: (((aForm colorAt: x @ y) = (cloverleaf defaultColor)) not)
-                  ]].
-			
-    self assert: (colorChanged = True)
+	]].
+		
+	self assert: (colorChanged = True)
 ]

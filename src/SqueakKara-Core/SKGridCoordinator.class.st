@@ -40,14 +40,15 @@ SKGridCoordinator >> createGridMatrix [
 
 {
 	#category : #'object storing',
-	#'squeak_changestamp' : 'jawi 5/25/2026 18:10'
+	#'squeak_changestamp' : 'jawi 5/28/2026 16:48'
 }
-SKGridCoordinator >> findFreeField [
+SKGridCoordinator >> findFreeFields [
 
 	| aSet |
 
 	aSet := Set new.
-	self gridMatrix indicesDo: [ :x :y | ((self getTileAtCoordinates: x @ y) isEmpty) ifTrue: [aSet add: x @ y]].
+	self gridMatrix indicesDo: [ :x :y | ((self getTileAtCoordinates: x @ y) isEmpty) 
+		ifTrue: [ aSet add: x @ y ]].
 	
 	^ aSet
 ]
