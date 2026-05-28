@@ -41,12 +41,11 @@ SKKara >> cloverleaf: aCloverleaf [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/28/2026 15:42'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:53'
 }
 SKKara >> color: aColor [
 		
 		super color: aColor.
-		Transcript showln: aColor.
 		self cloverleaf color: aColor.
 		self scaleToFactor
 ]
