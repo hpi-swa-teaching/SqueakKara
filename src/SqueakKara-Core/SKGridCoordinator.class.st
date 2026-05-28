@@ -40,14 +40,15 @@ SKGridCoordinator >> createGridMatrix [
 
 {
 	#category : #'object storing',
-	#'squeak_changestamp' : 'jawi 5/14/2026 12:24'
+	#'squeak_changestamp' : 'jawi 5/28/2026 16:48'
 }
-SKGridCoordinator >> findFreeField [
+SKGridCoordinator >> findFreeFields [
 
 	| aSet |
 
-	aSet := Set new.	
-	self gridMatrix indicesDo: [ :x :y | ((self getTileAtCoordinates: x @ y) isEmpty) ifTrue: [aSet add: x @ y]].
+	aSet := Set new.
+	self gridMatrix indicesDo: [ :x :y | ((self getTileAtCoordinates: x @ y) isEmpty) 
+		ifTrue: [ aSet add: x @ y ]].
 	
 	^ aSet
 ]
@@ -101,13 +102,37 @@ SKGridCoordinator >> gridMatrix: aMatrix [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/29/2026 18:53'
+	#'squeak_changestamp' : 'LM 5/26/2026 09:45'
 }
 SKGridCoordinator >> initializeForGrid: aGrid [
+
 	self grid: aGrid.
 	self gridMatrix: self createGridMatrix.
 
 	super initialize
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 20:01'
+}
+SKGridCoordinator >> isLocked: aPoint for: anActor [
+	
+	(self grid isPointInGridDimensions: aPoint) ifFalse: [ ^ false ].
+	
+	^ (self gridMatrix at: aPoint x at: aPoint y) lockedFor: anActor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/26/2026 09:44'
+}
+SKGridCoordinator >> lockAt: aPoint for: anActor [
+	
+	(self grid isPointInGridDimensions: aPoint)
+		ifTrue: [(self gridMatrix at: aPoint x at: aPoint y) lockBy: anActor. ^ true ].
+	
+	^ false
 ]
 
 {
@@ -177,4 +202,14 @@ SKGridCoordinator >> storeObject: aGridObject at: aPoint [
 	self privateMove: aGridObject fromTile: currentGridTile to: aPoint
 	
 
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 20:30'
+}
+SKGridCoordinator >> unlockAt: aPoint [
+	
+	(self grid isPointInGridDimensions: aPoint)
+		ifTrue: [(self gridMatrix at: aPoint x at: aPoint y) unlock ]
 ]

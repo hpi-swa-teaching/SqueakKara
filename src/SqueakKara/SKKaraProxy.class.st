@@ -3,10 +3,9 @@ SKKaraDecorator is a decorator for SKKara used to add the necessary step calls t
 "
 Class {
 	#name : #SKKaraProxy,
-	#superclass : #Object,
+	#superclass : #SKScheduleActor,
 	#instVars : [
-		'kara',
-		'scheduler'
+		'kara'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:00'
@@ -34,6 +33,24 @@ SKKaraProxy >> codeContext [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 19:37'
+}
+SKKaraProxy >> coordinates [
+
+	^ self kara coordinates
+]
+
+{
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/26/2026 09:50'
+}
+SKKaraProxy >> isLocked: aPoint [
+
+	^ self kara ownsLockAt: aPoint
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'JJG 6/17/2024 16:34'
 }
 SKKaraProxy >> kara [
@@ -51,13 +68,56 @@ SKKaraProxy >> kara: anObject [
 ]
 
 {
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:57'
+}
+SKKaraProxy >> lockAt: aPoint [
+
+	self kara lockAt: aPoint
+]
+
+{
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:58'
+}
+SKKaraProxy >> lockNextField [
+
+	self kara lockNextField
+]
+
+{
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/7/2026 16:52'
+	#'squeak_changestamp' : 'LM 5/23/2026 13:56'
 }
 SKKaraProxy >> move [
 
-	self scheduler scheduleAction: (SKAction newWithType: #move action: [ self kara move ]) for: self.
+	| action |
+	
+	action := SKAction newWithType: #move action: [ self moveAction ].
+
+	self schedule: action.
 	self scheduler waitFor: self
+]
+
+{
+	#category : #commands,
+	#'squeak_changestamp' : 'LM 5/23/2026 14:01'
+}
+SKKaraProxy >> moveAction [
+
+	(self isLocked: (self nextField)) ifFalse: [
+		| previousPosition |
+		previousPosition := self coordinates.
+		self kara move ]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:51'
+}
+SKKaraProxy >> nextField [
+
+	^ self kara nextField
 ]
 
 {
@@ -67,24 +127,6 @@ SKKaraProxy >> move [
 SKKaraProxy >> onCloverleaf [
 
 	^ self kara onCloverleaf
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 09:40'
-}
-SKKaraProxy >> scheduler [
-
-	^ scheduler
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 09:40'
-}
-SKKaraProxy >> scheduler: aScheduler [
-
-	scheduler := aScheduler
 ]
 
 {
@@ -103,4 +145,22 @@ SKKaraProxy >> trunkAhead [
 SKKaraProxy >> turn: aDirection [
 
 	self kara turn: aDirection
+]
+
+{
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:59'
+}
+SKKaraProxy >> unlockAt: aPoint [
+
+	self kara unlockAt: aPoint
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 19:38'
+}
+SKKaraProxy >> viewDirection [
+
+	^ self kara viewDirection
 ]

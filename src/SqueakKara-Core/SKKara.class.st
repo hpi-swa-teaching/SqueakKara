@@ -5,37 +5,76 @@ Class {
 	#name : #SKKara,
 	#superclass : #SKGridObject,
 	#instVars : [
-		'viewDirection'
+		'viewDirection',
+		'workspace',
+		'cloverleaf'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
 }
 
 {
+	#category : #colors,
+	#'squeak_changestamp' : 'ND 5/21/2026 22:05'
+}
+SKKara class >> defaultColors [
+	
+	^ { Color red. Color green. Color blue. Color magenta } asOrderedCollection
+]
+
+{
+	#category : #colors,
+	#'squeak_changestamp' : 'jawi 5/28/2026 16:55'
+}
+SKKara class >> newInGrid: aGrid at: aPoint [
+
+	^ super newInGrid: aGrid at: aPoint with: aGrid gridCoordinator findFreeFields atRandom
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:01'
+}
+SKKara >> cloverleaf [
+	
+	^ cloverleaf
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:01'
+}
+SKKara >> cloverleaf: aCloverleaf [
+	
+	cloverleaf := aCloverleaf
+]
+
+{
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 10:57'
+	#'squeak_changestamp' : 'jawi 5/28/2026 19:05'
 }
 SKKara >> color: aColor [
-	
+
 	(aColor notBlack) ifTrue: [
 		super color: aColor.
-		self scaleToFactor
-	]
+		self cloverleaf color: aColor.
+		self scaleToFactor ].
+
+	self workspace ifNotNil: [ self workspace color: self color ]
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/19/2026 13:27'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:11'
 }
-SKKara >> colorNotBlack: aColor [
-
-	^ (aColor isSimilarColorTo: (Color black)) not
-		
+SKKara >> createCloverleaf: aPoint [
+	
+	self cloverleaf: (SKCloverleaf newInGrid: self grid at: aPoint)
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/7/2026 18:08'
+	#'squeak_changestamp' : 'AB 5/21/2026 18:22'
 }
 SKKara >> defaultColor [
 
@@ -43,15 +82,58 @@ SKKara >> defaultColor [
 ]
 
 {
+	#category : #'submorphs - add/remove',
+	#'squeak_changestamp' : 'LM 5/23/2026 18:40'
+}
+SKKara >> delete [
+
+	self workspace ifNotNil: [ self workspace superClose ].
+	self superDelete
+]
+
+{
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 10:57'
+	#'squeak_changestamp' : 'ND 5/21/2026 18:49'
+}
+SKKara >> environment [
+	
+	^ self grid environment
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:31'
 }
 SKKara >> fillStyle: aFillStyle [
-		
-		(aFillStyle notBlack) ifTrue: [
-			super fillStyle: aFillStyle.
-			self scaleToFactor
-		]
+
+	self color: aFillStyle
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'ND 5/22/2026 22:05'
+}
+SKKara >> findUnusedColor [
+	
+	| colorList karaList |
+	
+	colorList := SKKara defaultColors.
+	karaList := self environment karas.
+	
+	karaList do: [ :kara | colorList remove: kara color ifAbsent: [] ].
+	colorList isEmpty ifFalse: [ ^ colorList first ].
+	
+	^ Color black
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:16'
+}
+SKKara >> initializeInGrid: aGrid at: aKaraPoint with: aCloverleafPoint [
+
+	super initializeInGrid: aGrid at: aKaraPoint.
+	self createCloverleaf: aCloverleafPoint
 ]
 
 {
@@ -65,11 +147,12 @@ SKKara >> isKara [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'LM 5/10/2026 20:18'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:28'
 }
 SKKara >> karaAhead [
 
 	| target tileAhead |
+	
 	target := self coordinates + self viewDirection.
 	tileAhead := self gridCoordinator getTileAtCoordinates: target.
 
@@ -77,13 +160,44 @@ SKKara >> karaAhead [
 ]
 
 {
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/26/2026 09:49'
+}
+SKKara >> lockAt: aPoint [
+
+	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
+	(self gridCoordinator lockAt: aPoint for: self) ifTrue: [
+		self unlockAt: self coordinates ]
+]
+
+{
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:51'
+}
+SKKara >> lockNextField [
+
+	self lockAt: self nextField
+]
+
+{
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/11/2026 22:18'
+	#'squeak_changestamp' : 'LM 5/27/2026 21:34'
 }
 SKKara >> move [
 
-	(self trunkAhead) ifTrue: [ ^ self ].
-	self moveToCoordinates: self coordinates + self viewDirection
+	(self trunkAhead) ifTrue: [ ^ false ].
+	self moveToCoordinates: self coordinates + self viewDirection.
+	
+	^ true
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:51'
+}
+SKKara >> nextField [
+
+	^ self coordinates + self viewDirection
 ]
 
 {
@@ -96,17 +210,29 @@ SKKara >> onCloverleaf [
 ]
 
 {
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/26/2026 09:48'
+}
+SKKara >> ownsLockAt: aPoint [
+
+	^ self gridCoordinator isLocked: aPoint for: self
+]
+
+{
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:21'
+	#'squeak_changestamp' : 'LM 5/23/2026 17:57'
 }
 SKKara >> position: aPoint [
 
-	| coordinates tile |
-	coordinates := self coordinatesFromPosition: aPoint.
-	tile := self gridCoordinator getTileAtCoordinates: coordinates.
+	| newCoordinates tile |
+	newCoordinates := self coordinatesFromPosition: aPoint.
+	tile := self gridCoordinator getTileAtCoordinates: newCoordinates.
 	
 	(tile anySatisfy: [ :each | each isTrunk or: [ each isKara ] ]) ifTrue: [^ self ].
 
+	self gridCoordinator
+		unlockAt: self coordinates;
+		lockAt: newCoordinates for: self.
 	super position: aPoint
 ]
 
@@ -161,7 +287,7 @@ SKKara >> scaleToFactor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/20/2026 15:52'
+	#'squeak_changestamp' : 'ND 5/22/2026 22:12'
 }
 SKKara >> setTexture [
 
@@ -172,13 +298,20 @@ SKKara >> setTexture [
 	aForm := aTextureLoader
 		getTexture: self textureFilename
 		scaledToWidth: self grid pixelPerBlock.
-
+	
 	self image: aForm.
 	self rotate.
 	self originalImage: aForm.
 	self updateColorFor: aForm
-	
+]
 
+{
+	#category : #'submorphs - add/remove',
+	#'squeak_changestamp' : 'LM 5/23/2026 18:31'
+}
+SKKara >> superDelete [
+
+	super delete
 ]
 
 {
@@ -192,11 +325,12 @@ SKKara >> textureFilename [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'LM 4/28/2026 19:10'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:28'
 }
 SKKara >> trunkAhead [
 
 	| target tileAhead |
+	
 	target := self coordinates + self viewDirection.
 	tileAhead := self gridCoordinator getTileAtCoordinates: target.
 
@@ -218,31 +352,12 @@ SKKara >> turn: aRotation [
 ]
 
 {
-	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:49'
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:49'
 }
-SKKara >> updateColor [
-	self updateColorFor: self image
-]
+SKKara >> unlockAt: aPoint [
 
-{
-	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 09:49'
-}
-SKKara >> updateColorFor: aForm [
-	
-	| replacement |
-	
-	replacement := self color.
-	1 to: aForm width do: [:x |
-	  1 to: aForm height do: [:y |
-		((aForm colorAt: x @ y) = (self defaultColor))
-				ifTrue: [
-	      			aForm colorAt: x @ y put: replacement ].
-	  			]].
-	
-	
-	self image: aForm
+	self gridCoordinator unlockAt: aPoint
 ]
 
 {
@@ -261,4 +376,22 @@ SKKara >> viewDirection [
 SKKara >> viewDirection: aDirection [
 	
 	^ viewDirection := aDirection
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:42'
+}
+SKKara >> workspace [
+
+	^ workspace
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:42'
+}
+SKKara >> workspace: aWorkspace [
+
+	workspace := aWorkspace
 ]
