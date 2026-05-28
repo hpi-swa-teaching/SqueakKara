@@ -127,12 +127,22 @@ SKKara >> findUnusedColor [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'jawi 5/28/2026 15:16'
+	#category : #initialization,
+	#'squeak_changestamp' : 'LM 5/28/2026 19:40'
+}
+SKKara >> initializeInGrid: aGrid at: aPoint [
+
+	aGrid gridCoordinator lockAt: aPoint for: self.
+	super initializeInGrid: aGrid at: aPoint
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'LM 5/28/2026 19:39'
 }
 SKKara >> initializeInGrid: aGrid at: aKaraPoint with: aCloverleafPoint [
 
-	super initializeInGrid: aGrid at: aKaraPoint.
+	self initializeInGrid: aGrid at: aKaraPoint.
 	self createCloverleaf: aCloverleafPoint
 ]
 

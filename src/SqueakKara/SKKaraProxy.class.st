@@ -101,7 +101,7 @@ SKKaraProxy >> move [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/28/2026 11:17'
+	#'squeak_changestamp' : 'LM 5/28/2026 19:36'
 }
 SKKaraProxy >> moveAction [
 
