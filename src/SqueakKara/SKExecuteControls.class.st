@@ -32,7 +32,7 @@ SKExecuteControls >> actionRun [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'jawi 5/28/2026 16:47'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:28'
 }
 SKExecuteControls >> actionSpawnKara [
 

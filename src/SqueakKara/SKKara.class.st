@@ -6,6 +6,7 @@ Class {
 	#superclass : #SKGridObject,
 	#instVars : [
 		'viewDirection',
+		'workspace',
 		'cloverleaf'
 	],
 	#category : #'SqueakKara-Core',
@@ -50,13 +51,16 @@ SKKara >> cloverleaf: aCloverleaf [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/28/2026 16:11'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:31'
 }
 SKKara >> color: aColor [
 		
-		super color: aColor.
+	(aColor notBlack) ifTrue: [
+        	super color: aColor.
 		self cloverleaf color: aColor.
-		self scaleToFactor
+        	self scaleToFactor ].
+
+    self workspace ifNotNil: [ self workspace color: self color ]
 ]
 
 {
@@ -70,11 +74,21 @@ SKKara >> createCloverleaf: aPoint [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/7/2026 18:08'
+	#'squeak_changestamp' : 'AB 5/21/2026 18:22'
 }
 SKKara >> defaultColor [
 
 	^ Color red
+]
+
+{
+	#category : #'submorphs - add/remove',
+	#'squeak_changestamp' : 'LM 5/23/2026 18:40'
+}
+SKKara >> delete [
+
+	self workspace ifNotNil: [ self workspace superClose ].
+	self superDelete
 ]
 
 {
@@ -88,13 +102,11 @@ SKKara >> environment [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/28/2026 16:10'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:31'
 }
 SKKara >> fillStyle: aFillStyle [
-			
-		super fillStyle: aFillStyle.
-		self cloverleaf color: aFillStyle.
-		self scaleToFactor
+
+	self color: aFillStyle
 ]
 
 {
@@ -148,13 +160,44 @@ SKKara >> karaAhead [
 ]
 
 {
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/26/2026 09:49'
+}
+SKKara >> lockAt: aPoint [
+
+	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
+	(self gridCoordinator lockAt: aPoint for: self) ifTrue: [
+		self unlockAt: self coordinates ]
+]
+
+{
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:51'
+}
+SKKara >> lockNextField [
+
+	self lockAt: self nextField
+]
+
+{
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/11/2026 22:18'
+	#'squeak_changestamp' : 'LM 5/27/2026 21:34'
 }
 SKKara >> move [
 
-	(self trunkAhead) ifTrue: [ ^ self ].
-	self moveToCoordinates: self coordinates + self viewDirection
+	(self trunkAhead) ifTrue: [ ^ false ].
+	self moveToCoordinates: self coordinates + self viewDirection.
+	
+	^ true
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:51'
+}
+SKKara >> nextField [
+
+	^ self coordinates + self viewDirection
 ]
 
 {
@@ -167,17 +210,29 @@ SKKara >> onCloverleaf [
 ]
 
 {
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/26/2026 09:48'
+}
+SKKara >> ownsLockAt: aPoint [
+
+	^ self gridCoordinator isLocked: aPoint for: self
+]
+
+{
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:21'
+	#'squeak_changestamp' : 'LM 5/23/2026 17:57'
 }
 SKKara >> position: aPoint [
 
-	| coordinates tile |
-	coordinates := self coordinatesFromPosition: aPoint.
-	tile := self gridCoordinator getTileAtCoordinates: coordinates.
+	| newCoordinates tile |
+	newCoordinates := self coordinatesFromPosition: aPoint.
+	tile := self gridCoordinator getTileAtCoordinates: newCoordinates.
 	
 	(tile anySatisfy: [ :each | each isTrunk or: [ each isKara ] ]) ifTrue: [^ self ].
 
+	self gridCoordinator
+		unlockAt: self coordinates;
+		lockAt: newCoordinates for: self.
 	super position: aPoint
 ]
 
@@ -251,6 +306,15 @@ SKKara >> setTexture [
 ]
 
 {
+	#category : #'submorphs - add/remove',
+	#'squeak_changestamp' : 'LM 5/23/2026 18:31'
+}
+SKKara >> superDelete [
+
+	super delete
+]
+
+{
 	#category : #appearance,
 	#'squeak_changestamp' : 'ND 5/20/2026 15:46'
 }
@@ -288,6 +352,15 @@ SKKara >> turn: aRotation [
 ]
 
 {
+	#category : #locking,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:49'
+}
+SKKara >> unlockAt: aPoint [
+
+	self gridCoordinator unlockAt: aPoint
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
 }
@@ -303,4 +376,22 @@ SKKara >> viewDirection [
 SKKara >> viewDirection: aDirection [
 	
 	^ viewDirection := aDirection
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:42'
+}
+SKKara >> workspace [
+
+	^ workspace
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:42'
+}
+SKKara >> workspace: aWorkspace [
+
+	workspace := aWorkspace
 ]

@@ -5,7 +5,10 @@ Class {
 	#name : #SKWorkspace,
 	#superclass : #Workspace,
 	#instVars : [
-		'executer'
+		'executer',
+		'kara',
+		'color',
+		'closeListener'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:03'
@@ -23,20 +26,80 @@ SKWorkspace class >> newWithExecuter: anExecuter [
 ]
 
 {
-	#category : #commands,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:43'
+	#category : #'instance creation',
+	#'squeak_changestamp' : 'LM 5/21/2026 10:40'
 }
-SKWorkspace >> close [
+SKWorkspace class >> newWithExecuter: anExecuter and: aKara [
 
-	self changed: #close
+	^ self new
+		executer: anExecuter;
+		kara: aKara;
+		yourself
 ]
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:14'
+	#'squeak_changestamp' : 'LM 5/23/2026 18:26'
+}
+SKWorkspace >> close [
+
+	self changed: #close.
+	self kara delete
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 18:42'
+}
+SKWorkspace >> closeListener [
+
+	^ closeListener
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 18:42'
+}
+SKWorkspace >> closeListener: aBlock [
+
+	closeListener := aBlock
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 18:07'
+}
+SKWorkspace >> color [
+	
+	^ color ifNil: [ self defaultColor ]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/23/2026 13:47'
+}
+SKWorkspace >> color: aColor [
+
+	color := aColor.
+	self changed: #windowColorToUse
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 18:24'
+}
+SKWorkspace >> defaultColor [
+
+	^ Color red
+]
+
+{
+	#category : #commands,
+	#'squeak_changestamp' : 'LM 5/21/2026 10:00'
 }
 SKWorkspace >> evaluateExpression: aCode [
-	self executer execute: aCode
+
+	self executer execute: aCode for: self kara
 ]
 
 {
@@ -87,7 +150,7 @@ SKWorkspace >> hasBindingOf: aString [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:12'
+	#'squeak_changestamp' : 'LM 5/21/2026 10:35'
 }
 SKWorkspace >> initialize [
 	
@@ -99,6 +162,34 @@ SKWorkspace >> initialize [
 	self bindings at: #right put: SKDirection rotateRight.
 	self contents: self getExampleCode
 
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/21/2026 09:57'
+}
+SKWorkspace >> kara [
+
+	^ kara
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'AB 5/21/2026 18:13'
+}
+SKWorkspace >> kara: aKara [
+
+	kara := aKara.
+	self color: self kara color
+]
+
+{
+	#category : #closing,
+	#'squeak_changestamp' : 'LM 5/23/2026 18:15'
+}
+SKWorkspace >> superClose [
+
+	self changed: #close
 ]
 
 {
@@ -123,4 +214,24 @@ SKWorkspace >> userCode: aString [
 	
 	self contents: aString
 	
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/21/2026 21:42'
+}
+SKWorkspace >> windowColorToUse [
+
+	 ^ self color
+]
+
+{
+	#category : #closing,
+	#'squeak_changestamp' : 'LM 5/23/2026 18:42'
+}
+SKWorkspace >> windowIsClosing [
+
+	self kara superDelete.
+	"Used for testing only"
+	self closeListener value
 ]

@@ -63,7 +63,7 @@ SKExecuteControlsTest >> testRandomKaraSpawn [
 }
 SKExecuteControlsTest >> testRun [
 
-	environment workspace userCode: 'kara move'.
+	environment firstWorkspace userCode: 'kara move'.
 	controls actionRun.
 	
 	"Busy waiting until execution done."
@@ -74,11 +74,11 @@ SKExecuteControlsTest >> testRun [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LM 5/7/2026 23:09'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:05'
 }
 SKExecuteControlsTest >> testRunPause [
 
-	environment workspace userCode: 'kara move. kara move. kara move'.
+	environment firstWorkspace userCode: 'kara move. kara move. kara move'.
 
 	controls actionRun.
 	(Delay forMilliseconds: 1) wait.
@@ -102,11 +102,11 @@ SKExecuteControlsTest >> testSlider [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:51'
+	#'squeak_changestamp' : 'LM 5/23/2026 14:05'
 }
 SKExecuteControlsTest >> testStop [
 
-	environment workspace userCode: 'kara move.'.
+	environment firstWorkspace userCode: 'kara move.'.
 	controls actionRun.
 	controls actionStop.
 	self assert: environment executer state = #terminated.
