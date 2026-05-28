@@ -69,7 +69,7 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/21/2026 17:00'
+	#'squeak_changestamp' : 'LM 5/28/2026 10:39'
 }
 SKExecuter >> execute: aCode for: aKara [
 
@@ -83,8 +83,8 @@ SKExecuter >> execute: aCode for: aKara [
 	self scheduler addActor: proxy.
 	
 	context := SKExecuteContext new kara: proxy.
-	self processes at: aKara put: ([[ self compiler evaluate: aCode for: context ] ensure: [
-		self scheduler finishActor: proxy ]] forkAt: Processor userBackgroundPriority).
+	self processes at: aKara put: ([[ self compiler evaluate: aCode for: context ]
+		ensure: [ self scheduler finishActor: proxy ]] forkAt: Processor userBackgroundPriority).
 
 	self state: #running
 ]
