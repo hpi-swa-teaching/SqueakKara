@@ -123,7 +123,7 @@ SKLintTest >> writeMatchingMethodsFor: aResult on: aStream [
 
 {
 	#category : #formatting,
-	#'squeak_changestamp' : 'mr 5/29/2026 11:53'
+	#'squeak_changestamp' : 'mr 5/29/2026 11:56'
 }
 SKLintTest >> writeResult: aResult on: aStream [
 	
@@ -136,7 +136,6 @@ SKLintTest >> writeResult: aResult on: aStream [
 	equalsLine := String new: resultText size withAll: $=.
 	
 	aStream
-		nextPutAll: equalsLine; cr;
 		nextPutAll: equalsLine; cr;
 		nextPutAll: resultText; cr;
 		nextPutAll: equalsLine; cr; 
