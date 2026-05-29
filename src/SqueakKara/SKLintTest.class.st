@@ -39,30 +39,38 @@ SKLintTest >> packageName [
 
 {
 	#category : #formatting,
-	#'squeak_changestamp' : 'mr 5/29/2026 11:37'
+	#'squeak_changestamp' : 'mr 5/29/2026 11:50'
 }
 SKLintTest >> resultTextForBoolean: aResult [
-
-	^ aResult testData name, ' in ', aResult testObject name
+	
+	| className lintCaseName |
+	
+	className := aResult testObject name.
+	lintCaseName := aResult testData name.
+	
+	^ lintCaseName, ' in ', className
 ]
 
 {
 	#category : #formatting,
-	#'squeak_changestamp' : 'mr 5/29/2026 11:39'
+	#'squeak_changestamp' : 'mr 5/29/2026 11:51'
 }
 SKLintTest >> resultTextForNumber: aResult [
 
-	| pluralS |
+	| pluralS numberOccurences lintCaseName className |
 	
 	pluralS := aResult value > 1 ifTrue: [ 's' ] ifFalse: [ '' ].
+	lintCaseName := aResult testData name.
+	numberOccurences := aResult value asString.
+	className := aResult testObject name.
 	
-	^  aResult testData name, 
+	^  lintCaseName, 
 		': ', 
-		aResult value asString, 
-		'occurence ', 
+		numberOccurences, 
+		' occurence ', 
 		pluralS , 
 		'in ', 
-		aResult testObject name
+		className
 ]
 
 {
@@ -93,7 +101,7 @@ SKLintTest >> testLinting [
 
 {
 	#category : #formatting,
-	#'squeak_changestamp' : 'mr 5/29/2026 11:40'
+	#'squeak_changestamp' : 'mr 5/29/2026 11:53'
 }
 SKLintTest >> writeMatchingMethodsFor: aResult on: aStream [
 
@@ -101,8 +109,13 @@ SKLintTest >> writeMatchingMethodsFor: aResult on: aStream [
 		method results
 			select: [ :methodResult | methodResult value ]
 			thenDo: [ :methodResult |
+				| className |
+				
+				className := aResult testObject name.
 				aStream
-					nextPutAll: 'In Method >> ';
+					nextPutAll: 'In ';
+					nextPutAll: className;
+					nextPutAll: ' >> ';
 					nextPutAll: method sourceCode;
 					cr; 
 					cr ] ]
@@ -110,22 +123,22 @@ SKLintTest >> writeMatchingMethodsFor: aResult on: aStream [
 
 {
 	#category : #formatting,
-	#'squeak_changestamp' : 'mr 5/29/2026 11:40'
+	#'squeak_changestamp' : 'mr 5/29/2026 11:53'
 }
 SKLintTest >> writeResult: aResult on: aStream [
 	
-	| resultText equalsLine minusLine |
+	| resultText equalsLine |
 	
 	resultText := aResult value isNumber 
 		ifTrue: [ self resultTextForNumber: aResult ] 
 		ifFalse: [ self resultTextForBoolean: aResult ].
 
 	equalsLine := String new: resultText size withAll: $=.
-	minusLine := String new: resultText size withAll: $-.
 	
 	aStream
 		nextPutAll: equalsLine; cr;
+		nextPutAll: equalsLine; cr;
 		nextPutAll: resultText; cr;
-		nextPutAll: minusLine; cr; 
+		nextPutAll: equalsLine; cr; 
 		cr
 ]
