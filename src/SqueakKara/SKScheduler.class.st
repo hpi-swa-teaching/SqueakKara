@@ -132,7 +132,7 @@ SKScheduler >> executer: anExecuter [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/27/2026 21:40'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:55'
 }
 SKScheduler >> finishActor: anActor [
 
@@ -144,7 +144,7 @@ SKScheduler >> finishActor: anActor [
 		self activeActors isEmpty ifTrue: [
 			self scheduledSteps removeAll.
 			self releaseAll.
-			self executer state: #terminated.
+			self executer stateWithUpdate: #terminated.
 			self executer onFinish ].
 
 		self stepOnEnd ]
@@ -282,9 +282,9 @@ SKScheduler >> stepOnEnd [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'LM 5/8/2026 17:56'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:53'
 }
 SKScheduler >> waitFor: anActor [
 
-	(releaseLocks at: anActor) wait
+	(self releaseLocks at: anActor) wait
 ]

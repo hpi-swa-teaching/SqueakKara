@@ -1,7 +1,14 @@
+"
+A SKWinScreen is an image that is used for indicating if the user has completed the level.
+
+Instance Variables
+
+"
 Class {
 	#name : #SKWinScreen,
 	#superclass : #SKGridObject,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'LM 5/29/2026 12:51'
 }
 
 {
