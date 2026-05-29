@@ -6,14 +6,14 @@ Class {
 
 {
 	#category : #formatting,
-	#'squeak_changestamp' : 'mr 5/23/2026 17:32'
+	#'squeak_changestamp' : 'mr 5/29/2026 11:41'
 }
-SKLintTest >> formatResultsReport: results [
+SKLintTest >> formatResultsReport: aCollection [
 	
 	^ String streamContents: [ :stream |
 		stream nextPut: Character cr.
 		
-		results do: [ :result |
+		aCollection do: [ :result |
 			self writeResult: result on: stream.
 			self writeMatchingMethodsFor: result on: stream ] ]
 ]
@@ -35,6 +35,34 @@ SKLintTest >> lintTestCases [
 SKLintTest >> packageName [
 	
 	^ 'SqueakKara-Core'
+]
+
+{
+	#category : #formatting,
+	#'squeak_changestamp' : 'mr 5/29/2026 11:37'
+}
+SKLintTest >> resultTextForBoolean: aResult [
+
+	^ aResult testData name, ' in ', aResult testObject name
+]
+
+{
+	#category : #formatting,
+	#'squeak_changestamp' : 'mr 5/29/2026 11:39'
+}
+SKLintTest >> resultTextForNumber: aResult [
+
+	| pluralS |
+	
+	pluralS := aResult value > 1 ifTrue: [ 's' ] ifFalse: [ '' ].
+	
+	^  aResult testData name, 
+		': ', 
+		aResult value asString, 
+		'occurence ', 
+		pluralS , 
+		'in ', 
+		aResult testObject name
 ]
 
 {
@@ -65,15 +93,15 @@ SKLintTest >> testLinting [
 
 {
 	#category : #formatting,
-	#'squeak_changestamp' : 'mr 5/23/2026 11:48'
+	#'squeak_changestamp' : 'mr 5/29/2026 11:40'
 }
-SKLintTest >> writeMatchingMethodsFor: result on: stream [
+SKLintTest >> writeMatchingMethodsFor: aResult on: aStream [
 
-	result testObject methods do: [ :method |
+	aResult testObject methods do: [ :method |
 		method results
 			select: [ :methodResult | methodResult value ]
 			thenDo: [ :methodResult |
-				stream
+				aStream
 					nextPutAll: 'In Method >> ';
 					nextPutAll: method sourceCode;
 					cr; 
@@ -82,21 +110,20 @@ SKLintTest >> writeMatchingMethodsFor: result on: stream [
 
 {
 	#category : #formatting,
-	#'squeak_changestamp' : 'mr 5/23/2026 17:43'
+	#'squeak_changestamp' : 'mr 5/29/2026 11:40'
 }
-SKLintTest >> writeResult: result on: stream [
+SKLintTest >> writeResult: aResult on: aStream [
 	
-	| pluralS resultText equalsLine minusLine |
+	| resultText equalsLine minusLine |
 	
-	pluralS := result value > 1 ifTrue: [ 's' ] ifFalse: [ '' ].
-	resultText := 
-		result testData name, ': ', 
-		result value, ' occurence', pluralS, ' in ', result testObject name.
-		
+	resultText := aResult value isNumber 
+		ifTrue: [ self resultTextForNumber: aResult ] 
+		ifFalse: [ self resultTextForBoolean: aResult ].
+
 	equalsLine := String new: resultText size withAll: $=.
 	minusLine := String new: resultText size withAll: $-.
 	
-	stream
+	aStream
 		nextPutAll: equalsLine; cr;
 		nextPutAll: resultText; cr;
 		nextPutAll: minusLine; cr; 
