@@ -5,7 +5,7 @@ Instance Variables
 	scheduler:		<SKScheduler>
 
 scheduler
-	- Reference to the scheduler in order to 
+	- Reference to the scheduler in order to schedule new actions.
 
 "
 Class {
@@ -15,7 +15,7 @@ Class {
 		'scheduler'
 	],
 	#category : #'SqueakKara-Core',
-	#'squeak_changestamp' : 'LM 5/29/2026 13:01'
+	#'squeak_changestamp' : 'LM 5/29/2026 13:06'
 }
 
 {
