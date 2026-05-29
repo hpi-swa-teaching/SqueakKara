@@ -21,7 +21,7 @@
 	SquotImageMapper {
 		#path : FSAbsolutePath [
 			'assets',
-			'winscreen.png'
+			'WIN-Screen.png'
 		],
 		#encoding : Class [ #PNGReadWriter ]
 	},
