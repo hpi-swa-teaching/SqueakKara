@@ -125,6 +125,15 @@ SKGridCoordinator >> isLocked: aPoint for: anActor [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/28/2026 11:16'
+}
+SKGridCoordinator >> isPointInGridDimensions: aPoint [
+
+	^ self grid isPointInGridDimensions: aPoint
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/26/2026 09:44'
 }
 SKGridCoordinator >> lockAt: aPoint for: anActor [

@@ -189,14 +189,18 @@ SKGridObject >> isTrunk [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:55'
+	#'squeak_changestamp' : 'LM 5/28/2026 11:17'
 }
 SKGridObject >> moveToCoordinates: aPoint [
+
+	(self gridCoordinator isPointInGridDimensions: aPoint) ifFalse: [ ^ false ].
 
 	self gridCoordinator removeObject: self.
 	self coordinates: aPoint.
 	self notifyGridCoordinator.
-	self changed
+	self changed.
+	
+	^ true
 ]
 
 {
