@@ -51,14 +51,22 @@ SKKara >> cloverleaf: aCloverleaf [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/28/2026 19:05'
+	#'squeak_changestamp' : 'LD 5/29/2026 08:35'
+}
+SKKara >> collectCloverleaf: aCloverleaf [
+
+	aCloverleaf delete
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:39'
 }
 SKKara >> color: aColor [
 
-	(aColor notBlack) ifTrue: [
 		super color: aColor.
 		self cloverleaf color: aColor.
-		self scaleToFactor ].
+		self scaleToFactor.
 
 	self workspace ifNotNil: [ self workspace color: self color ]
 ]
@@ -102,11 +110,12 @@ SKKara >> environment [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/28/2026 18:31'
+	#'squeak_changestamp' : 'LD 5/29/2026 08:36'
 }
 SKKara >> fillStyle: aFillStyle [
 
-	self color: aFillStyle
+	self color: aFillStyle.
+	self scaleToFactor
 ]
 
 {
@@ -346,6 +355,17 @@ SKKara >> trunkAhead [
 	tileAhead := self gridCoordinator getTileAtCoordinates: target.
 
 	^ tileAhead anySatisfy: [ :each | each isTrunk ]
+]
+
+{
+	#category : #'object detection',
+	#'squeak_changestamp' : 'LD 5/29/2026 08:36'
+}
+SKKara >> tryToCollectCloverleaf [
+	
+	self neighboursHere do: [ :each | each isCloverleaf ifTrue: [
+			self color = each color ifTrue: [ self collectCloverleaf: each ]]].
+	self grid allLeafesCollected ifTrue: [ self grid spawnWinScreen ]
 ]
 
 {

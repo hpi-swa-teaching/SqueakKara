@@ -324,13 +324,18 @@ SKGridObject >> relativePositionFor: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'jawi 5/28/2026 15:23'
+	#'squeak_changestamp' : 'LD 5/29/2026 08:33'
 }
 SKGridObject >> scaleToFactor [
 
-	| size |
-	
-	size := self grid pixelPerBlock.
+	self scaleToFactorWithSize: self grid pixelPerBlock
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:33'
+}
+SKGridObject >> scaleToFactorWithSize: size [
 
 	self image: (self originalImage scaledToSize: size @ size).
 	self extent: size @ size.
@@ -340,18 +345,27 @@ SKGridObject >> scaleToFactor [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LM 4/27/2026 20:16'
+	#'squeak_changestamp' : 'LD 5/29/2026 08:34'
 }
 SKGridObject >> setTexture [
 
+	self setTextureWithScale: (self grid pixelPerBlock * self scaleFactor)
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:34'
+}
+SKGridObject >> setTextureWithScale: aScale [
+
 	| aTextureLoader aForm |
-	
+
 	aTextureLoader := SKTextureLoader new.
-	
+
 	aForm := aTextureLoader
 		getTexture: self textureFilename
-		scaledToWidth: self grid pixelPerBlock * self scaleFactor.
-		
+		scaledToWidth: aScale.
+
 	self image: aForm; originalImage: aForm
 ]
 

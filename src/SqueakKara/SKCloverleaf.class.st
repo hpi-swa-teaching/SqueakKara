@@ -28,6 +28,26 @@ SKCloverleaf >> defaultColor [
 ]
 
 {
+	#category : #appearance,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:26'
+}
+SKCloverleaf >> delete [
+
+	super delete.
+	self grid decrementLeafCount
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:26'
+}
+SKCloverleaf >> initializeInGrid: aGrid at: aPoint [
+
+	super initializeInGrid: aGrid at: aPoint.
+	aGrid incrementLeafCount
+]
+
+{
 	#category : #type,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:02'
 }
@@ -60,6 +80,16 @@ SKCloverleaf >> scaleToFactor [
 	
 	super scaleToFactor.
 	self updateColor
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:27'
+}
+SKCloverleaf >> setColorToKaraColor: aColor [
+
+	self color: aColor.
+	self scaleToFactor
 ]
 
 {
