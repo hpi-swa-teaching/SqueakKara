@@ -99,16 +99,16 @@ SKLandingPage >> addButton: aButton atIndex: anInteger [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'AB 5/27/2026 15:28'
+	#'squeak_changestamp' : 'AB 5/29/2026 10:35'
 }
 SKLandingPage >> buildAllButtons [
 
 	^ Array with: self buildButtonNew
-				with: self buildButtonExample1
-				with: self buildButtonExample2
-				with: self buildButtonExample3
-				with: self buildButtonExample4
-				with: self buildButtonExample5
+		with: self buildButtonExample1
+		with: self buildButtonExample2
+		with: self buildButtonExample3
+		with: self buildButtonExample4
+		with: self buildButtonExample5
 ]
 
 {
