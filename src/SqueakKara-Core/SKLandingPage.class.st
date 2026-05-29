@@ -50,6 +50,16 @@ SKLandingPage >> actionExample4 [
 
 {
 	#category : #actions,
+	#'squeak_changestamp' : 'AB 5/24/2026 14:56'
+}
+SKLandingPage >> actionExample5 [
+
+	SKEnvironment new initializeWithChallenge5.
+	self delete
+]
+
+{
+	#category : #actions,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:01'
 }
 SKLandingPage >> actionNew [
@@ -60,16 +70,12 @@ SKLandingPage >> actionNew [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:16'
+	#'squeak_changestamp' : 'AB 5/27/2026 15:30'
 }
 SKLandingPage >> addAllButtons [
 
-	self addButton: self buildButtonNew atIndex: 0.
-	
-	self addButton: self buildButtonExample1 atIndex: 1.
-	self addButton: self buildButtonExample2 atIndex: 2.
-	self addButton: self buildButtonExample3 atIndex: 3.
-	self addButton: self buildButtonExample4 atIndex: 4
+	self buildAllButtons doWithIndex: [ :button :index |
+		self addButton: button atIndex: index - 1 ]
 ]
 
 {
@@ -89,6 +95,20 @@ SKLandingPage >> addButton: aButton atIndex: anInteger [
 		+ (0 @ 50).
 	
 	aButton position: basePosition + (0 @ yOffset)
+]
+
+{
+	#category : #buttons,
+	#'squeak_changestamp' : 'AB 5/29/2026 10:35'
+}
+SKLandingPage >> buildAllButtons [
+
+	^ Array with: self buildButtonNew
+		with: self buildButtonExample1
+		with: self buildButtonExample2
+		with: self buildButtonExample3
+		with: self buildButtonExample4
+		with: self buildButtonExample5
 ]
 
 {
@@ -132,6 +152,17 @@ SKLandingPage >> buildButtonExample4 [
 
 	^ self buildButtonWithLabel: self buttonExample4Label
 		andSelector: #actionExample4
+		andColor: SKStylesheet secondaryColor
+]
+
+{
+	#category : #buttons,
+	#'squeak_changestamp' : 'AB 5/24/2026 14:57'
+}
+SKLandingPage >> buildButtonExample5 [
+
+	^ self buildButtonWithLabel: self buttonExample5Label
+		andSelector: #actionExample5
 		andColor: SKStylesheet secondaryColor
 ]
 
@@ -198,6 +229,15 @@ SKLandingPage >> buttonExample4Label [
 ]
 
 {
+	#category : #labels,
+	#'squeak_changestamp' : 'AB 5/24/2026 14:57'
+}
+SKLandingPage >> buttonExample5Label [
+
+	^ 'Example Project 5'
+]
+
+{
 	#category : #buttons,
 	#'squeak_changestamp' : 'LK 7/4/2024 19:06'
 }
@@ -217,11 +257,17 @@ SKLandingPage >> buttonNewLabel [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:17'
+	#'squeak_changestamp' : 'AB 5/27/2026 15:34'
 }
 SKLandingPage >> defaultExtent [
 
-	^ 200 px @ 200 px
+	| buttonSlotHeight totalHeight buttonCount |
+    
+	buttonCount := self buildAllButtons size.
+	buttonSlotHeight := self buttonHeight + 10.
+	totalHeight := 50 + (buttonSlotHeight * buttonCount) + 40.
+    
+	^ 300 px @ totalHeight
 ]
 
 {

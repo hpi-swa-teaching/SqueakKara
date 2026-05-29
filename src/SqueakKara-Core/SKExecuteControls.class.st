@@ -32,19 +32,24 @@ SKExecuteControls >> actionRun [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JanWein 5/21/2026 13:21'
+	#'squeak_changestamp' : 'jawi 5/28/2026 18:28'
 }
 SKExecuteControls >> actionSpawnKara [
 
-	| grid gridCoordinator freeList kara |
+	| grid gridCoordinator freeList kara karaList karaPosition |
 	
 	grid := self environment grid.
+	karaList := self environment karas.
 	gridCoordinator := grid gridCoordinator.
-	freeList := gridCoordinator findFreeField.
+	freeList := gridCoordinator findFreeFields.
 	
+	(freeList isEmpty or: self environment maxNumberOfKaras == karaList size) ifTrue: [ ^ self ].
+	
+	karaPosition := freeList atRandom.
+	freeList remove: karaPosition.
 	freeList isEmpty ifTrue: [ ^ self ].
 	
-	kara := SKKara newInGrid: grid at: (freeList atRandom).
+	kara := SKKara newInGrid: grid at: karaPosition with: (freeList atRandom).
 	kara randomDirection.
 	
 	self environment addKara: kara

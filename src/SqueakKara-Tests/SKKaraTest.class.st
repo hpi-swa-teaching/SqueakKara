@@ -74,7 +74,22 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'LD 5/21/2026 12:07'
+	#'squeak_changestamp' : 'LD 5/29/2026 08:48'
+}
+SKKaraTest >> testCollectCloverleaf [
+
+	| kara |
+	
+	kara := SKKara new.
+	kara initializeInGrid: self grid at: 1@1 with: 2@1.
+	kara cloverleaf setColorToKaraColor: Color red.
+	kara move.
+	self assert: self grid allLeafesCollected
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'LM 5/23/2026 14:08'
 }
 SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
     | kara aForm colorChanged |
@@ -96,6 +111,29 @@ SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
                   ]].
 			
     self assert: (colorChanged = True)
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'LM 5/23/2026 18:43'
+}
+SKKaraTest >> testKaraDeleteClosesWorkspace [
+
+	| kara workspace executer closed |
+	
+	kara := SKKara newInGrid: self grid at: 1 @ 1.
+	executer := SKExecuter new.
+	workspace := SKWorkspace newWithExecuter: executer and: kara.
+	kara workspace: workspace.
+	
+	closed := false.
+	workspace closeListener: [ closed := true ].
+	
+	kara delete.
+	
+	self assert: closed.
+	self deny: ((self grid gridCoordinator getTileAtCoordinates: 1 @ 1)
+		includes: kara)
 ]
 
 {
@@ -278,6 +316,20 @@ SKKaraTest >> testOnCloverleaf [
 ]
 
 {
+	#category : #helper,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:42'
+}
+SKKaraTest >> testRejectCloverleaf [
+
+	| kara cloverleaf |
+	
+	kara := SKKara newInGrid: self grid.
+	cloverleaf := SKCloverleaf newInGrid: self grid at: 2@1.
+	kara move.
+	self assert: self grid allLeafesCollected not
+]
+
+{
 	#category : #testing,
 	#'squeak_changestamp' : 'JJG 6/18/2024 18:39'
 }
@@ -304,4 +356,23 @@ SKKaraTest >> testTrunkAheadAfterTurn [
 	self assert: false = kara trunkAhead.
 	kara turn: SKDirection rotateRight.
 	self assert: true = kara trunkAhead
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'LM 5/23/2026 18:39'
+}
+SKKaraTest >> testWorkspaceCloseDeletesKara [
+
+	| kara workspace executer |
+	
+	kara := SKKara newInGrid: self grid at: 1 @ 1.
+	executer := SKExecuter new.
+	workspace := SKWorkspace newWithExecuter: executer and: kara.
+	kara workspace: workspace.
+	
+	workspace close.
+	
+	self deny: ((self grid gridCoordinator getTileAtCoordinates: 1 @ 1)
+		includes: kara)
 ]

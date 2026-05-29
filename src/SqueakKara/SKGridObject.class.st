@@ -32,6 +32,15 @@ SKGridObject class >> newInGrid: aGrid at: aPoint [
 ]
 
 {
+	#category : #'instance creation',
+	#'squeak_changestamp' : 'jawi 5/25/2026 17:59'
+}
+SKGridObject class >> newInGrid: aGrid at: aKaraPosition with: aCloverleafPosition [ 
+
+	^ self basicNew initializeInGrid: aGrid at: aKaraPosition with: aCloverleafPosition
+]
+
+{
 	#category : #texture,
 	#'squeak_changestamp' : 'JJG 6/5/2024 16:41'
 }
@@ -71,10 +80,12 @@ SKGridObject >> coordinates: aPoint [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:54'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:41'
 }
 SKGridObject >> coordinatesFromPosition: aPoint [
+	
 	| relativePosition newX newY |
+	
 	relativePosition := self relativePositionFor: aPoint.
 
 	newX := ((relativePosition x / self grid pixelPerBlock) rounded + 1)
@@ -178,14 +189,18 @@ SKGridObject >> isTrunk [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:55'
+	#'squeak_changestamp' : 'LM 5/28/2026 11:17'
 }
 SKGridObject >> moveToCoordinates: aPoint [
+
+	(self gridCoordinator isPointInGridDimensions: aPoint) ifFalse: [ ^ false ].
 
 	self gridCoordinator removeObject: self.
 	self coordinates: aPoint.
 	self notifyGridCoordinator.
-	self changed
+	self changed.
+	
+	^ true
 ]
 
 {
@@ -253,17 +268,19 @@ SKGridObject >> notifyGridCoordinator [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/27/2026 20:15'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:23'
 }
 SKGridObject >> originalImage [
+	
 	^ originalImage
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/27/2026 20:15'
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:23'
 }
 SKGridObject >> originalImage: aForm [
+	
 	originalImage := aForm
 ]
 
@@ -307,12 +324,18 @@ SKGridObject >> relativePositionFor: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:38'
+	#'squeak_changestamp' : 'LD 5/29/2026 08:33'
 }
 SKGridObject >> scaleToFactor [
 
-	| size |
-	size := self grid pixelPerBlock.
+	self scaleToFactorWithSize: self grid pixelPerBlock
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:33'
+}
+SKGridObject >> scaleToFactorWithSize: size [
 
 	self image: (self originalImage scaledToSize: size @ size).
 	self extent: size @ size.
@@ -322,18 +345,27 @@ SKGridObject >> scaleToFactor [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LM 4/27/2026 20:16'
+	#'squeak_changestamp' : 'LD 5/29/2026 08:34'
 }
 SKGridObject >> setTexture [
 
+	self setTextureWithScale: (self grid pixelPerBlock * self scaleFactor)
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:34'
+}
+SKGridObject >> setTextureWithScale: aScale [
+
 	| aTextureLoader aForm |
-	
+
 	aTextureLoader := SKTextureLoader new.
-	
+
 	aForm := aTextureLoader
 		getTexture: self textureFilename
-		scaledToWidth: self grid pixelPerBlock * self scaleFactor.
-		
+		scaledToWidth: aScale.
+
 	self image: aForm; originalImage: aForm
 ]
 
@@ -344,4 +376,31 @@ SKGridObject >> setTexture [
 SKGridObject >> textureFilename [
 
 	^ SubclassResponsibility
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'jawi 5/28/2026 15:22'
+}
+SKGridObject >> updateColor [
+	
+	self updateColorFor: self image
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'jawi 5/28/2026 19:04'
+}
+SKGridObject >> updateColorFor: aForm [
+	
+	| replacement |
+	
+	replacement := self color.
+	1 to: aForm width do: [:x |
+	  1 to: aForm height do: [:y |
+		((aForm colorAt: x @ y) = (self defaultColor))
+				ifTrue: [
+	      			aForm colorAt: x @ y put: replacement ]]].
+	
+	self image: aForm
 ]
