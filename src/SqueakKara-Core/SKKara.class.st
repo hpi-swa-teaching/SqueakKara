@@ -171,11 +171,14 @@ SKKara >> karaAhead [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'LM 5/26/2026 09:49'
+	#'squeak_changestamp' : 'LM 5/29/2026 09:51'
 }
 SKKara >> lockAt: aPoint [
 
 	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
+	
+	(self trunkAhead or: [ self karaAhead ]) ifTrue: [ ^ self ].
+	
 	(self gridCoordinator lockAt: aPoint for: self) ifTrue: [
 		self unlockAt: self coordinates ]
 ]
