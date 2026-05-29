@@ -18,6 +18,13 @@
 		],
 		#encoding : Class [ #PNGReadWriter ]
 	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'WIN-Screen.png'
+		],
+		#encoding : Class [ #PNGReadWriter ]
+	},
 	SquotPlaintextMapper {
 		#path : FSAbsolutePath [
 			'.github',
