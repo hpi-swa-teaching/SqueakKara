@@ -10,73 +10,79 @@ Class {
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'AB 5/27/2026 15:10'
+	#'squeak_changestamp' : 'AB 5/29/2026 10:17'
 }
-SKChallenge class >> initializeChallenge1For: aGrid environment: anEnvironment [
-	
-	1 to: 7 do: [ :x | SKTrunk newInGrid: aGrid at: x @ 1 ].
-	1 to: 7 do: [ :x | SKTrunk newInGrid: aGrid at: x @ 7 ].
-	1 to: 6 do: [ :y | SKTrunk newInGrid: aGrid at: 1 @ y ].
-	1 to: 6 do: [ :y | SKTrunk newInGrid: aGrid at: 7 @ y ].
+SKChallenge class >> initializeChallenge1For: anEnvironment [
 
-	2 to: 5 do: [ :x | SKTrunk newInGrid: aGrid at: x @ 3 ].
-	3 to: 5 do: [ :y | SKTrunk newInGrid: aGrid at: 5 @ y ].
-	3 to: 4 do: [ :x | SKTrunk newInGrid: aGrid at: x @ 5 ].
+	| grid |
 	
-	SKCloverleaf newInGrid: aGrid at: 4 @ 4.
+	grid := anEnvironment grid.
+	
+	1 to: 7 do: [ :x | SKTrunk newInGrid: grid at: x @ 1 ].
+	1 to: 7 do: [ :x | SKTrunk newInGrid: grid at: x @ 7 ].
+	1 to: 6 do: [ :y | SKTrunk newInGrid: grid at: 1 @ y ].
+	1 to: 6 do: [ :y | SKTrunk newInGrid: grid at: 7 @ y ].
 
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2)
+	2 to: 5 do: [ :x | SKTrunk newInGrid: grid at: x @ 3 ].
+	3 to: 5 do: [ :y | SKTrunk newInGrid: grid at: 5 @ y ].
+	3 to: 4 do: [ :x | SKTrunk newInGrid: grid at: x @ 5 ].
+	
+	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 2 with: 4 @ 4)
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'AB 5/25/2026 16:19'
+	#'squeak_changestamp' : 'AB 5/29/2026 10:18'
 }
-SKChallenge class >> initializeChallenge2For: aGrid environment: anEnvironment [
+SKChallenge class >> initializeChallenge2For: anEnvironment [
 
-	SKTrunk newInGrid: aGrid at: 3 @ 2.
-	SKTrunk newInGrid: aGrid at: 5 @ 2.
-	SKTrunk newInGrid: aGrid at: 7 @ 2.
+	| grid |
 	
-	SKCloverleaf newInGrid: aGrid at: 9 @ 2.
+	grid := anEnvironment grid.
 
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2)
+	SKTrunk newInGrid: grid at: 3 @ 2.
+	SKTrunk newInGrid: grid at: 5 @ 2.
+	SKTrunk newInGrid: grid at: 7 @ 2.
+	
+	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 2 with: 9 @ 2)
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'AB 5/27/2026 15:09'
+	#'squeak_changestamp' : 'AB 5/29/2026 10:19'
 }
-SKChallenge class >> initializeChallenge3For: aGrid environment: anEnvironment [
+SKChallenge class >> initializeChallenge3For: anEnvironment [
 
-	2 to: 6 do: [ :x | SKTrunk newInGrid: aGrid at: x @ 1 ].
+	| grid |
 	
-	4 to: 9 do: [ :x | SKTrunk newInGrid: aGrid at: x @ 3 ].
+	grid := anEnvironment grid.
+
+	2 to: 6 do: [ :x | SKTrunk newInGrid: grid at: x @ 1 ].
+	4 to: 9 do: [ :x | SKTrunk newInGrid: grid at: x @ 3 ].
 	
-	SKCloverleaf newInGrid: aGrid at: 10 @ 2.
-	
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2)
+	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 2 with: 9 @ 2)
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'AB 5/27/2026 15:11'
+	#'squeak_changestamp' : 'AB 5/29/2026 10:21'
 }
-SKChallenge class >> initializeChallenge4For: aGrid environment: anEnvironment [
+SKChallenge class >> initializeChallenge4For: anEnvironment [
+
+	| grid |
+	
+	grid := anEnvironment grid.
 
 	1 to: 3 do: [ :x |
 		2 to: 3 do: [ :y |
-			SKTrunk newInGrid: aGrid at: x @ y ]].
+			SKTrunk newInGrid: grid at: x @ y ]].
 	
-	5 to: 6 do: [ :x | SKTrunk newInGrid: aGrid at: x @ 1 ].
+	5 to: 6 do: [ :x | SKTrunk newInGrid: grid at: x @ 1 ].
 	
-	5 to: 6 do: [ :x | SKTrunk newInGrid: aGrid at: x @ 4 ].
-	
-	SKCloverleaf newInGrid: aGrid at: 7 @ 1.
-	SKCloverleaf newInGrid: aGrid at: 7 @ 4.
+	5 to: 6 do: [ :x | SKTrunk newInGrid: grid at: x @ 4 ].
 
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 1).
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 4)
+	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 2 with: 7 @ 2).
+	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 4 with: 7 @ 4)
 ]
 
 {

@@ -60,6 +60,21 @@ SKScheduler class >> newWithActors: aCollection executer: anExecuter [
 ]
 
 {
+	#category : #'class initialization',
+	#'squeak_changestamp' : 'LM 5/21/2026 10:09'
+}
+SKScheduler class >> newWithExecuter: anExecuter [
+
+	^ self new
+		executer: anExecuter;
+		activeActors: OrderedCollection new;
+		releaseLocks: Dictionary new;
+		stepLock: Semaphore forMutualExclusion;
+		scheduledSteps: Dictionary new;
+		yourself
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/8/2026 16:55'
 }
@@ -75,6 +90,16 @@ SKScheduler >> activeActors [
 SKScheduler >> activeActors: aDictionary [
 
 	activeActors := aDictionary
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/21/2026 10:11'
+}
+SKScheduler >> addActor: anActor [
+	
+	self activeActors add: anActor.
+	self releaseLocks at: anActor put: Semaphore new
 ]
 
 {
@@ -107,23 +132,22 @@ SKScheduler >> executer: anExecuter [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/8/2026 17:55'
+	#'squeak_changestamp' : 'LM 5/27/2026 21:40'
 }
 SKScheduler >> finishActor: anActor [
 
 	self stepLock critical: [
 		self activeActors remove: anActor.
 		self releaseLocks removeKey: anActor.
+		self scheduledSteps removeKey: anActor ifAbsent: [].
 		
 		self activeActors isEmpty ifTrue: [
+			self scheduledSteps removeAll.
+			self releaseAll.
 			self executer state: #terminated.
 			self executer onFinish ].
 
-		self scheduledSteps size = self activeActors size ifTrue: [
-			self scheduledSteps isEmpty ifFalse: [
-				self step.
-				self scheduledSteps removeAll.
-				self releaseAll ]]]
+		self stepOnEnd ]
 ]
 
 {
@@ -156,7 +180,7 @@ SKScheduler >> releaseLocks: aDictionary [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:29'
+	#'squeak_changestamp' : 'LM 5/27/2026 21:40'
 }
 SKScheduler >> scheduleAction: anAction for: anActor [
 
@@ -165,12 +189,10 @@ SKScheduler >> scheduleAction: anAction for: anActor [
 		
 		actions := self scheduledSteps at: anActor ifAbsent: [ OrderedCollection new ].
 		actions add: anAction.
+		(anAction type = #move) ifTrue: [ anActor lockNextField ].
 		self scheduledSteps at: anActor put: actions.
 		
-		self scheduledSteps size = self activeActors size ifTrue: [
-			self step.
-			self scheduledSteps removeAll.
-			self releaseAll ]]
+		self stepOnEnd ]
 ]
 
 {
@@ -193,24 +215,38 @@ SKScheduler >> scheduledSteps: aDictionary [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:55'
+	#'squeak_changestamp' : 'LM 5/28/2026 10:35'
 }
 SKScheduler >> step [
 
-	"self delayStep."
-	self stepForType: #move.
-	self delayStep
+	| busyStep |
+
+	busyStep := self stepForType: #move.
+	busyStep ifTrue: [ self delayStep ]
 ]
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/7/2026 10:42'
+	#'squeak_changestamp' : 'LM 5/28/2026 11:20'
 }
 SKScheduler >> stepForType: aType [
 
+	| gotStatus busyStep result |
+	
+	gotStatus := false.
+	busyStep := false.
+	
 	self scheduledSteps valuesDo: [ :actions |
 		actions do: [ :action | action type = aType ifTrue: [
-                action action value ]]]
+			result := action action value.
+			
+			result isBoolean ifTrue: [
+				gotStatus := true.
+				result ifTrue: [ busyStep := true ]]]]].
+	
+	gotStatus ifFalse: [ ^ true ].
+	
+	^ busyStep
 ]
 
 {
@@ -229,6 +265,19 @@ SKScheduler >> stepLock [
 SKScheduler >> stepLock: aSemaphore [
 
 	stepLock := aSemaphore
+]
+
+{
+	#category : #stepping,
+	#'squeak_changestamp' : 'LM 5/27/2026 21:30'
+}
+SKScheduler >> stepOnEnd [
+
+	(self scheduledSteps size = self activeActors size) ifTrue: [
+		self scheduledSteps isEmpty ifFalse: [
+			self step.
+			self scheduledSteps removeAll.
+			self releaseAll ]]
 ]
 
 {
