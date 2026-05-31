@@ -1,10 +1,21 @@
+"
+A SKScheduleActor represents the class that manages locking and provides implementation templates for children.
+
+Instance Variables
+	scheduler:		<SKScheduler>
+
+scheduler
+	- Reference to the scheduler in order to schedule new actions.
+
+"
 Class {
 	#name : #SKScheduleActor,
 	#superclass : #Object,
 	#instVars : [
 		'scheduler'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'LM 5/29/2026 13:06'
 }
 
 {
