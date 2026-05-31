@@ -4,7 +4,7 @@ SKCloverleaf adds the proper texture and a way to identify it as a cloverleaf to
 Class {
 	#name : #SKCloverleaf,
 	#superclass : #SKGridObject,
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:55'
 }
 

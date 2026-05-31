@@ -14,7 +14,7 @@ Class {
 	#instVars : [
 		'scheduler'
 	],
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'LM 5/29/2026 13:06'
 }
 

@@ -34,7 +34,7 @@ Class {
 		'releaseLocks',
 		'scheduledSteps'
 	],
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'LM 5/10/2026 20:31'
 }
 

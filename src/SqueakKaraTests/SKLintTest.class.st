@@ -1,7 +1,7 @@
 Class {
 	#name : #SKLintTest,
 	#superclass : #TestCase,
-	#category : #'SqueakKara-Tests'
+	#category : #SqueakKaraTests
 }
 
 {
