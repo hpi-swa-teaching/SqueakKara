@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'kara'
 	],
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 16:00'
 }
 
@@ -101,14 +101,16 @@ SKKaraProxy >> move [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/23/2026 14:01'
+	#'squeak_changestamp' : 'LM 5/28/2026 19:36'
 }
 SKKaraProxy >> moveAction [
 
-	(self isLocked: (self nextField)) ifFalse: [
-		| previousPosition |
-		previousPosition := self coordinates.
-		self kara move ]
+	^ (self isLocked: (self nextField))
+		ifFalse: [
+			| previousPosition |
+			previousPosition := self coordinates.
+			self kara move ]
+		ifTrue: [ false ]
 ]
 
 {

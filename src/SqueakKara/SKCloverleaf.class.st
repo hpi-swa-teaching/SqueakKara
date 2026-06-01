@@ -4,7 +4,7 @@ SKCloverleaf adds the proper texture and a way to identify it as a cloverleaf to
 Class {
 	#name : #SKCloverleaf,
 	#superclass : #SKGridObject,
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:55'
 }
 
@@ -25,6 +25,26 @@ SKCloverleaf >> color: aColor [
 SKCloverleaf >> defaultColor [
 
 	^ (Color r: 0.027 g: 0.478 b: 0.156)
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:26'
+}
+SKCloverleaf >> delete [
+
+	super delete.
+	self grid decrementLeafCount
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:26'
+}
+SKCloverleaf >> initializeInGrid: aGrid at: aPoint [
+
+	super initializeInGrid: aGrid at: aPoint.
+	aGrid incrementLeafCount
 ]
 
 {
@@ -60,6 +80,16 @@ SKCloverleaf >> scaleToFactor [
 	
 	super scaleToFactor.
 	self updateColor
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:27'
+}
+SKCloverleaf >> setColorToKaraColor: aColor [
+
+	self color: aColor.
+	self scaleToFactor
 ]
 
 {

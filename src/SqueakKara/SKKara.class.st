@@ -9,7 +9,7 @@ Class {
 		'workspace',
 		'cloverleaf'
 	],
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
 }
 
@@ -51,14 +51,22 @@ SKKara >> cloverleaf: aCloverleaf [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/28/2026 19:05'
+	#'squeak_changestamp' : 'LD 5/29/2026 08:35'
+}
+SKKara >> collectCloverleaf: aCloverleaf [
+
+	aCloverleaf delete
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:39'
 }
 SKKara >> color: aColor [
 
-	(aColor notBlack) ifTrue: [
 		super color: aColor.
 		self cloverleaf color: aColor.
-		self scaleToFactor ].
+		self scaleToFactor.
 
 	self workspace ifNotNil: [ self workspace color: self color ]
 ]
@@ -102,11 +110,12 @@ SKKara >> environment [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'jawi 5/28/2026 18:31'
+	#'squeak_changestamp' : 'LD 5/29/2026 08:36'
 }
 SKKara >> fillStyle: aFillStyle [
 
-	self color: aFillStyle
+	self color: aFillStyle.
+	self scaleToFactor
 ]
 
 {
@@ -127,12 +136,22 @@ SKKara >> findUnusedColor [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'jawi 5/28/2026 15:16'
+	#category : #initialization,
+	#'squeak_changestamp' : 'LM 5/28/2026 19:40'
+}
+SKKara >> initializeInGrid: aGrid at: aPoint [
+
+	aGrid gridCoordinator lockAt: aPoint for: self.
+	super initializeInGrid: aGrid at: aPoint
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'LM 5/28/2026 19:39'
 }
 SKKara >> initializeInGrid: aGrid at: aKaraPoint with: aCloverleafPoint [
 
-	super initializeInGrid: aGrid at: aKaraPoint.
+	self initializeInGrid: aGrid at: aKaraPoint.
 	self createCloverleaf: aCloverleafPoint
 ]
 
@@ -161,11 +180,14 @@ SKKara >> karaAhead [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'LM 5/26/2026 09:49'
+	#'squeak_changestamp' : 'LM 5/29/2026 09:51'
 }
 SKKara >> lockAt: aPoint [
 
 	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
+	
+	(self trunkAhead or: [ self karaAhead ]) ifTrue: [ ^ self ].
+	
 	(self gridCoordinator lockAt: aPoint for: self) ifTrue: [
 		self unlockAt: self coordinates ]
 ]
@@ -181,14 +203,15 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/27/2026 21:34'
+	#'squeak_changestamp' : 'LM 5/29/2026 10:04'
 }
 SKKara >> move [
 
 	(self trunkAhead) ifTrue: [ ^ false ].
-	self moveToCoordinates: self coordinates + self viewDirection.
-	
-	^ true
+	(self moveToCoordinates: self coordinates + self viewDirection) ifTrue: [
+		self tryToCollectCloverleaf.
+		^ true ].
+	^ false
 ]
 
 {
@@ -335,6 +358,17 @@ SKKara >> trunkAhead [
 	tileAhead := self gridCoordinator getTileAtCoordinates: target.
 
 	^ tileAhead anySatisfy: [ :each | each isTrunk ]
+]
+
+{
+	#category : #'object detection',
+	#'squeak_changestamp' : 'LD 5/29/2026 08:36'
+}
+SKKara >> tryToCollectCloverleaf [
+	
+	self neighboursHere do: [ :each | each isCloverleaf ifTrue: [
+			self color = each color ifTrue: [ self collectCloverleaf: each ]]].
+	self grid allLeafesCollected ifTrue: [ self grid spawnWinScreen ]
 ]
 
 {

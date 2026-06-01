@@ -10,9 +10,10 @@ Class {
 		'gridCoordinator',
 		'scaleFactor',
 		'gridLines',
-		'environment'
+		'environment',
+		'leafCount'
 	],
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:48'
 }
 
@@ -86,12 +87,30 @@ SKGrid >> addVerticalLineAt: aCoordinate [
 ]
 
 {
+	#category : #layout,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:28'
+}
+SKGrid >> allLeafesCollected [
+	
+	^ self leafCount = 0
+]
+
+{
 	#category : #texture,
 	#'squeak_changestamp' : 'LK 7/4/2024 19:10'
 }
 SKGrid >> backgroundColor [
 
 	 ^ SKStylesheet primaryColor
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:29'
+}
+SKGrid >> decrementLeafCount [
+
+	self leafCount: self leafCount - 1
 ]
 
 {
@@ -190,13 +209,22 @@ SKGrid >> gridWidth: aNumber [
 ]
 
 {
+	#category : #layout,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:29'
+}
+SKGrid >> incrementLeafCount [
+
+	self leafCount: self leafCount + 1
+]
+
+{
 	#category : #initialization,
-	#'squeak_changestamp' : 'jawi 5/14/2026 13:15'
+	#'squeak_changestamp' : 'LD 5/29/2026 08:29'
 }
 SKGrid >> initialize [
 	
 	self gridLines: OrderedCollection new.
-
+	self leafCount: 0.
 	super initialize.
 	self openInWorld;
 		color: self backgroundColor
@@ -229,6 +257,24 @@ SKGrid >> isPointInGridDimensions: aPoint [
 
 	^ (aPoint x between: 1 and: self gridWidth) 
 		and: (aPoint y between: 1 and: self gridHeight) 
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:30'
+}
+SKGrid >> leafCount [
+
+	^ leafCount
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:30'
+}
+SKGrid >> leafCount: anObject [
+
+	leafCount := anObject
 ]
 
 {
@@ -291,6 +337,15 @@ SKGrid >> scaleFactor: aNumber [
 	
 	scaleFactor := aNumber
 	
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 5/29/2026 08:32'
+}
+SKGrid >> spawnWinScreen [
+
+	SKWinScreen newInGrid: self.
 ]
 
 {

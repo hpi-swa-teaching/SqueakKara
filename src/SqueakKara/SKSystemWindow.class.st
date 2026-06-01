@@ -15,7 +15,7 @@ Class {
 		'resizeListener',
 		'closeListener'
 	],
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'LM 4/28/2026 20:16'
 }
 

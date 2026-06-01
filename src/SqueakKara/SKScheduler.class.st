@@ -34,7 +34,7 @@ Class {
 		'releaseLocks',
 		'scheduledSteps'
 	],
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'LM 5/10/2026 20:31'
 }
 
@@ -132,7 +132,7 @@ SKScheduler >> executer: anExecuter [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/27/2026 21:40'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:55'
 }
 SKScheduler >> finishActor: anActor [
 
@@ -144,7 +144,7 @@ SKScheduler >> finishActor: anActor [
 		self activeActors isEmpty ifTrue: [
 			self scheduledSteps removeAll.
 			self releaseAll.
-			self executer state: #terminated.
+			self executer stateWithUpdate: #terminated.
 			self executer onFinish ].
 
 		self stepOnEnd ]
@@ -227,24 +227,24 @@ SKScheduler >> step [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/27/2026 21:38'
+	#'squeak_changestamp' : 'LM 5/28/2026 11:20'
 }
 SKScheduler >> stepForType: aType [
 
 	| gotStatus busyStep result |
 	
 	gotStatus := false.
-	busyStep := true.
+	busyStep := false.
 	
 	self scheduledSteps valuesDo: [ :actions |
 		actions do: [ :action | action type = aType ifTrue: [
 			result := action action value.
-				
+			
 			result isBoolean ifTrue: [
 				gotStatus := true.
-				result ifTrue: [ busyStep := true. ^ busyStep ]]]]].
+				result ifTrue: [ busyStep := true ]]]]].
 	
-	gotStatus ifTrue: [ busyStep := false ].
+	gotStatus ifFalse: [ ^ true ].
 	
 	^ busyStep
 ]
@@ -282,9 +282,9 @@ SKScheduler >> stepOnEnd [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'LM 5/8/2026 17:56'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:53'
 }
 SKScheduler >> waitFor: anActor [
 
-	(releaseLocks at: anActor) wait
+	(self releaseLocks at: anActor) wait
 ]

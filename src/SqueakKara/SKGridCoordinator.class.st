@@ -8,7 +8,7 @@ Class {
 		'grid',
 		'gridMatrix'
 	],
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:57'
 }
 
@@ -121,6 +121,15 @@ SKGridCoordinator >> isLocked: aPoint for: anActor [
 	(self grid isPointInGridDimensions: aPoint) ifFalse: [ ^ false ].
 	
 	^ (self gridMatrix at: aPoint x at: aPoint y) lockedFor: anActor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/28/2026 11:16'
+}
+SKGridCoordinator >> isPointInGridDimensions: aPoint [
+
+	^ self grid isPointInGridDimensions: aPoint
 ]
 
 {

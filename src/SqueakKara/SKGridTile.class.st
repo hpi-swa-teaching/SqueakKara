@@ -5,28 +5,19 @@ Class {
 	#name : #SKGridTile,
 	#superclass : #Set,
 	#instVars : [
-		'locked'
+		'lockingActor'
 	],
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:58'
 }
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/26/2026 09:44'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:52'
 }
 SKGridTile >> lockBy: anActor [
 
-	self locked: anActor
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'AB 5/21/2026 19:43'
-}
-SKGridTile >> locked: anActor [
-	
-	locked := anActor
+	self lockingActor: anActor
 ]
 
 {
@@ -40,18 +31,27 @@ SKGridTile >> lockedFor: anActor [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/26/2026 09:46'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:52'
 }
 SKGridTile >> lockingActor [
 	
-	^ locked
+	^ lockingActor
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/22/2026 09:54'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:52'
+}
+SKGridTile >> lockingActor: anActor [
+	
+	lockingActor := anActor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 5/29/2026 12:52'
 }
 SKGridTile >> unlock [
 
-	self locked: nil
+	self lockingActor: nil
 ]

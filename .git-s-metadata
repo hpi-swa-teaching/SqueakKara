@@ -1,6 +1,6 @@
 GSMetadata {
 	#version : 1,
-	#mappers : [
+	#mappers : OrderedCollection [
 		GSImageMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
@@ -25,15 +25,6 @@ GSMetadata {
 				'pause.png'
 			],
 			#encoding : @5
-		},
-		GSTonelMapper {
-			#version : 1,
-			#package : MCPackage {
-				#name : 'SqueakKara-Tests'
-			},
-			#path : FSAbsolutePath [
-				'src'
-			]
 		},
 		GSPlaintextMapper {
 			#version : 1,
@@ -90,13 +81,6 @@ GSMetadata {
 			],
 			#encoding : 'TXT'
 		},
-		GSTonelMapper {
-			#version : 1,
-			#package : MCPackage {
-				#name : 'SqueakKara-Core'
-			},
-			#path : @12
-		},
 		GSPlaintextMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
@@ -133,7 +117,26 @@ GSMetadata {
 			#package : MCPackage {
 				#name : 'BaselineOfSqueakKara'
 			},
-			#path : @12
+			#path : FSAbsolutePath [
+				'src'
+			]
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'WIN-Screen.png'
+			],
+			#encoding : @5
+		},
+		GSTonelMapper {
+			#version : 1,
+			#package : MCPackage {
+				#name : 'SqueakKaraTests'
+			},
+			#path : FSAbsolutePath [
+				'src'
+			]
 		}
 	],
 	#name : 'SqueakKara'

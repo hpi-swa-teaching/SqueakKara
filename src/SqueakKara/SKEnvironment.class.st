@@ -13,7 +13,7 @@ Class {
 		'gameHeight',
 		'systemWindow'
 	],
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
 }
 
@@ -286,6 +286,17 @@ SKEnvironment >> initializeWithChallenge4 [
 
 	self grid: (SKGrid newWithExtent: 7 @ 4).
 	SKChallenge initializeChallenge4For: self.
+	self initializeObjects
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'AB 5/25/2026 15:47'
+}
+SKEnvironment >> initializeWithChallenge5 [
+
+	self grid: (SKGrid newWithExtent: 11 @ 11).
+	SKChallenge initializeChallenge5For: self grid environment: self.
 	self initializeObjects
 ]
 

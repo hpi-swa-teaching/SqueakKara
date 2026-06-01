@@ -14,20 +14,20 @@ Class {
 		'scheduler',
 		'testMode'
 	],
-	#category : #'SqueakKara-Core',
+	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:45'
 }
 
 {
 	#category : #'class initialization',
-	#'squeak_changestamp' : 'LM 5/7/2026 22:59'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:53'
 }
 SKExecuter class >> newWithEnvironment: anEnvironment [
 	
 	^ self new
 		testMode: false;
 		environment: anEnvironment;
-		stateWithoutUpdate: #terminated;
+		state: #terminated;
 		yourself
 ]
 
@@ -69,7 +69,7 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/28/2026 10:39'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:54'
 }
 SKExecuter >> execute: aCode for: aKara [
 
@@ -86,7 +86,7 @@ SKExecuter >> execute: aCode for: aKara [
 	self processes at: aKara put: ([[ self compiler evaluate: aCode for: context ]
 		ensure: [ self scheduler finishActor: proxy ]] forkAt: Processor userBackgroundPriority).
 
-	self state: #running
+	self stateWithUpdate: #running
 ]
 
 {
@@ -132,12 +132,12 @@ SKExecuter >> processes: aDictionary [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/21/2026 17:01'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:54'
 }
 SKExecuter >> resumeExecution [
 	
 	self processes valuesDo: [ :process | process isTerminated ifFalse: [ process resume ]].
-	self state: #running
+	self stateWithUpdate: #running
 ]
 
 {
@@ -190,21 +190,21 @@ SKExecuter >> state [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:29'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:53'
 }
 SKExecuter >> state: aSymbol [
 
-	state := aSymbol.
-	self environment updateTextures
+	state := aSymbol
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:34'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:53'
 }
-SKExecuter >> stateWithoutUpdate: aSymbol [
+SKExecuter >> stateWithUpdate: aSymbol [
 
-	state := aSymbol
+	self state: aSymbol.
+	self environment updateTextures
 ]
 
 {
@@ -230,26 +230,26 @@ SKExecuter >> stepTime [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/21/2026 17:01'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:55'
 }
 SKExecuter >> suspendExecution [
 
 	self processes valuesDo: [ :process |
 		((process isTerminated not) and: (process isSuspended not)) ifTrue: [ process suspend ]].
 	
-	self state: #suspended
+	self stateWithUpdate: #suspended
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/27/2026 20:38'
+	#'squeak_changestamp' : 'LM 5/29/2026 12:55'
 }
 SKExecuter >> terminate [
 
 	(self state = #terminated) ifTrue: [ ^ self ].
 
 	self processes keysDo: [ :kara | self terminateFor: kara ].
-	self state: #terminated
+	self stateWithUpdate: #terminated
 ]
 
 {
