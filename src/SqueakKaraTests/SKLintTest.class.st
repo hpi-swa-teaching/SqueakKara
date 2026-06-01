@@ -1,7 +1,7 @@
 Class {
 	#name : #SKLintTest,
 	#superclass : #TestCase,
-	#category : #'SqueakKara-Tests'
+	#category : #SqueakKaraTests
 }
 
 {
@@ -30,11 +30,11 @@ SKLintTest >> lintTestCases [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'mr 5/22/2026 23:05'
+	#'squeak_changestamp' : 'mr 5/31/2026 20:44'
 }
 SKLintTest >> packageName [
 	
-	^ 'SqueakKara-Core'
+	^ 'SqueakKara'
 ]
 
 {

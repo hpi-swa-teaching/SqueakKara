@@ -7,7 +7,7 @@ Class {
 		'kara',
 		'scheduler'
 	],
-	#category : #'SqueakKara-Tests'
+	#category : #SqueakKaraTests
 }
 
 {
