@@ -9,13 +9,13 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 10:14'
+	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
 }
-SKValueGap >> command [
+SKValueGap >> getCode [
 	| code |
 	code:= ''.
 	self flag: #temp.
-	self submorphs do: [:each | each action ifNotNil: [code:= code, each command, '.',  String cr]].
+	self submorphs do: [:each | each action ifNotNil: [code:= code, each getCode, '.',  String cr]].
 	^code
 ]
 

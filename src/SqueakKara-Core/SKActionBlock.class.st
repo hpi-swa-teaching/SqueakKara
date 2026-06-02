@@ -48,19 +48,6 @@ SKActionBlock >> blockType [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 19:06'
-}
-SKActionBlock >> command [
-
-	| args |
-	
-	args := self blockParts collect: [:each | each value contents asString].
-	
-	^ self action valueWithArguments: args asArray.
-]
-
-{
-	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'SLH 5/27/2026 10:58'
 }
 SKActionBlock >> drawOn: aCanvas [
@@ -103,6 +90,19 @@ SKActionBlock >> drawOn: aCanvas [
 		color: self color 
 		borderWidth: self borderWidth
 		borderColor: self borderColor.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
+}
+SKActionBlock >> getCode [
+
+	| args |
+	
+	args := self blockParts collect: [:each | each value contents asString].
+	
+	^ self action valueWithArguments: args asArray.
 ]
 
 {
