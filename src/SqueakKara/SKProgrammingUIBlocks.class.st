@@ -2,45 +2,43 @@ Class {
 	#name : #SKProgrammingUIBlocks,
 	#superclass : #SKProgrammingUI,
 	#instVars : [
-		'code'
+		'blockSpace'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/2/2026 16:14'
+}
+SKProgrammingUIBlocks >> blockSpace [
+	^ blockSpace
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/2/2026 16:14'
+}
+SKProgrammingUIBlocks >> blockSpace: aBlockSpace [
+	blockSpace := aBlockSpace
+]
+
+{
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:41'
+	#'squeak_changestamp' : 'FR 6/2/2026 16:14'
 }
 SKProgrammingUIBlocks >> build [
 
-	SKBlockSpace newWithController: self
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:19'
-}
-SKProgrammingUIBlocks >> code [
-
-	^ code
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:19'
-}
-SKProgrammingUIBlocks >> code: aCode [
-
-	code := aCode
+	self blockSpace: (SKBlockSpace newWithController: self)
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:20'
+	#'squeak_changestamp' : 'FR 6/2/2026 16:15'
 }
 SKProgrammingUIBlocks >> getCode [
 
-	^ code
+	^ self blockSpace command
 ]
 
 {

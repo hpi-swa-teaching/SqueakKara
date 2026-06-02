@@ -31,13 +31,12 @@ SKBlockSpace class >> startBlockEdit: anEnvironment [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:16'
+	#'squeak_changestamp' : 'FR 6/2/2026 16:10'
 }
 SKBlockSpace >> acceptDroppingMorph: aMorph event: anEvent [
 
 	self addMorph: aMorph atIndex: self dropIndex+1.
 	self removeDropZone.
-	self updateCode.
 	
 ]
 
@@ -61,6 +60,19 @@ SKBlockSpace >> addDropZoneAtIndex: aNumber of: aMorph [
 		self dropIndex: newIndex;
 			privateAddMorph: dropZone
 				atIndex: (newIndex).]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/2/2026 16:10'
+}
+SKBlockSpace >> command [
+
+	| code |
+	
+	code:= ''.
+	self submorphs do: [:each | each action ifNotNil: [code:= code, each command, '.',  String cr]].
+	^code
 ]
 
 {
@@ -256,19 +268,6 @@ SKBlockSpace >> startBlockEdit [
 	window addMorph: SKBlockSource new.
 	window openInWindowLabeled: 'Block Editor'
 	
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:20'
-}
-SKBlockSpace >> updateCode [
-
-	| code |
-	
-	code:= ''.
-	self submorphsBehind: (self firstSubmorph) do: [:each | each action ifNotNil: [code:= code, each command, '.',  String cr]].
-	self controller code: code
 ]
 
 {

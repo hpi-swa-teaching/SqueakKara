@@ -9,18 +9,6 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 03:58'
-}
-SKActionGap >> command [
-	| code |
-	code:= ''.
-	self flag: #temp.
-	self submorphs do: [:each | each action ifNotNil: [code:= code, each command, '.',  String cr]].
-	^code
-]
-
-{
-	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'FR 5/27/2026 03:47'
 }
 SKActionGap >> hasStartBlock [
@@ -62,12 +50,4 @@ SKActionGap >> mouseMove: anEvent [
 
 	(self ownerThatIsA: SKBlockSpace) ifNotNil: [(self ownerThatIsA: SKBlockSpace) removeDropZone].
 	^super mouseMove: anEvent.
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 03:51'
-}
-SKActionGap >> updateCode [
-	(self ownerThatIsA: SKBlockSpace) ifNotNil: [(self ownerThatIsA: SKBlockSpace) updateCode]
 ]
