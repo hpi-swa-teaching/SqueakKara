@@ -98,7 +98,7 @@ SKLogicRunner >> executeContext: aExecuteContext [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:55'
 }
 SKLogicRunner >> executeStep [
 	
@@ -110,7 +110,7 @@ SKLogicRunner >> executeStep [
 	nextEdge := self findNextEdge: self currentNode. 
 	nextEdge ifNil: [^ nil].
 	
-	self	executeCode: nextEdge getCode; 
+	self	executeCode: nextEdge command; 
 		traverseEdge: nextEdge
 ]
 

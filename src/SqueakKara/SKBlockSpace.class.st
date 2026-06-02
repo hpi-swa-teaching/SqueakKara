@@ -64,6 +64,19 @@ SKBlockSpace >> addDropZoneAtIndex: aNumber of: aMorph [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/2/2026 16:10'
+}
+SKBlockSpace >> command [
+
+	| code |
+	
+	code:= ''.
+	self submorphs do: [:each | each action ifNotNil: [code:= code, each command, '.',  String cr]].
+	^code
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:39'
 }
 SKBlockSpace >> controller [
@@ -103,19 +116,6 @@ SKBlockSpace >> dropIndex: aNumber [
 SKBlockSpace >> environment [
 
 	^ controller environment
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
-}
-SKBlockSpace >> getCode [
-
-	| code |
-	
-	code:= ''.
-	self submorphs do: [:each | each action ifNotNil: [code:= code, each getCode, '.',  String cr]].
-	^code
 ]
 
 {

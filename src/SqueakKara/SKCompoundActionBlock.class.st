@@ -53,14 +53,14 @@ SKCompoundActionBlock >> bottomBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
+	#'squeak_changestamp' : 'SLH 5/28/2026 09:43'
 }
-SKCompoundActionBlock >> getCode [
+SKCompoundActionBlock >> command [
 
 	| args |
 	
 	args := self blockParts collect: [:each | each value contents asString].
-	args addFirst: self actionGap getCode.
+	args addFirst: self actionGap command.
 	
 	^ self action valueWithArguments: args asArray.
 ]

@@ -52,6 +52,15 @@ SKLogicEdge class >> newWithfromNode: aLogicNode toNode: anotherLogicNode [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:24'
+}
+SKLogicEdge >> command [
+
+	^ command ifNil: [ command := '' ]
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:22'
 }
 SKLogicEdge >> command: aString [
@@ -94,15 +103,6 @@ SKLogicEdge >> fromNode [
 SKLogicEdge >> fromNode: aLogicNode [
 
 	fromNode := aLogicNode
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
-}
-SKLogicEdge >> getCode [
-
-	^ command ifNil: [ command := '' ]
 ]
 
 {
