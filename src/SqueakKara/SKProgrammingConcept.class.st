@@ -10,7 +10,43 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #concepts,
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 10:33'
+}
+SKProgrammingConcept class >> blocks [
+
+	^ self 
+		newWithName: 'Blocks' 
+		programmingUIClass: SKProgrammingUIBlocks 
+		processClass: SKProcessCode
+]
+
+{
+	#category : #concepts,
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 10:13'
+}
+SKProgrammingConcept class >> code [
+
+	^ self 
+		newWithName: 'Code' 
+		programmingUIClass: SKProgrammingUICode 
+		processClass: SKProcessCode
+]
+
+{
+	#category : #concepts,
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 10:33'
+}
+SKProgrammingConcept class >> mealy [
+
+	^ self 
+		newWithName: 'Mealy' 
+		programmingUIClass: SKProgrammingUIMealy 
+		processClass: SKProcessCode
+]
+
+{
+	#category : #constructor,
 	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 10:04'
 }
 SKProgrammingConcept class >> newWithName: aString programmingUIClass: aClass processClass: anotherClass [
