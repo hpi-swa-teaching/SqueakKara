@@ -103,11 +103,11 @@ SKGrid >> blankProject [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'JS 5/15/2026 20:11'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:37'
 }
 SKGrid >> clear [
 	self submorphsDo: [:cell | cell delete.].
-	self addTexture.
+	self drawTexture.
 ]
 
 {

@@ -25,12 +25,12 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/15/2026 22:12'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:43'
 }
 SKExecuteControls >> actionReset [
 	self environment stop.
-	self buttonRunSetTexture: self runTextureFilename.
-	self environment reset: currentChallenge.
+	self updateTextures.
+	self environment reset: currentChallenge
 ]
 
 {

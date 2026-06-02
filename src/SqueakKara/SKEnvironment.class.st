@@ -235,19 +235,15 @@ SKEnvironment >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 14:14'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:36'
 }
 SKEnvironment >> initializeObjects [
 
-	"self windowManager: SKWindowManager new."
-	"self workspace: (SKWorkspace newWithKara: self karas)."
-	self executer: (SKExecuter new).
-	"(self executer kara) kara: self karas."
+
 	self executeControls: SKExecuteControls new.
 	self executeControls environment: self.
 	
 	self setSystemWindow.
-	"self windowManager addWindow: self workspace."
 	self systemWindow openInHand
 ]
 
@@ -264,66 +260,63 @@ SKEnvironment >> initializeProgrammingUI [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/27/2026 22:07'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:48'
 }
 SKEnvironment >> initializeWithBlankProject [
 
 	self grid: (SKGrid newWithExtent: 7 @ 7).
-	self karas: (SKKara newInGrid: self grid at: 1 @ 1).
+	SKChallenge initializeBlankProjectFor: self grid environment: self.
 	self initializeObjects.
-	self executeControls currentChallenge: 'blankProject'
+	self executeControls currentChallenge: 'BlankProject'
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/27/2026 22:14'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:39'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
 	self grid: (SKGrid newWithExtent: 7 @ 7).
-	"self karas: self grid challenge1."
 	SKChallenge initializeChallenge1For: self grid environment: self.
 	self initializeObjects.
-	self executeControls currentChallenge: 'challenge1'.
+	self executeControls currentChallenge: 'Challenge1'.
 
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/27/2026 22:14'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:40'
 }
 SKEnvironment >> initializeWithChallenge2 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 2).
-	self karas: self grid challenge2.
 	SKChallenge initializeChallenge2For: self grid environment: self.
 	self initializeObjects.
-	self executeControls currentChallenge: 'challenge2'.
+	self executeControls currentChallenge: 'Challenge2'.
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/27/2026 22:15'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:40'
 }
 SKEnvironment >> initializeWithChallenge3 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 3).
-	self karas: self grid challenge3.
 	SKChallenge initializeChallenge3For: self grid environment: self.
 	self initializeObjects.
-	self executeControls currentChallenge: 'challenge3'.
+	self executeControls currentChallenge: 'Challenge3'.
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/27/2026 22:15'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:41'
 }
 SKEnvironment >> initializeWithChallenge4 [
 
 	self grid: (SKGrid newWithExtent: 7 @ 4).
 	SKChallenge initializeChallenge4For: self grid environment: self.
-	self initializeObjects
-	self executeControls currentChallenge: 'challenge4'.
+	self initializeObjects.
+	self executeControls currentChallenge: 'Challenge4'.
 ]
 
 {
@@ -426,13 +419,11 @@ SKEnvironment >> programmingUI: aProgrammingUI [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'JS 5/17/2026 13:06'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:39'
 }
 SKEnvironment >> reset: aChallenge [
 	self grid clear.
-	self kara: (self grid perform: aChallenge asSymbol).
-	self workspace resetKara: self kara.
-	self executer kara: self kara.
+	SKChallenge perform: ('initialize', aChallenge, 'For:environment:') asSymbol withArguments:{self grid. self}.
 ]
 
 {
