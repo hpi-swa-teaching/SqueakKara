@@ -116,3 +116,28 @@ SKChallenge class >> initializeChallenge5For: aGrid environment: anEnvironment [
 	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 11 with: 6 @ 11).
 	anEnvironment addKara: (SKKara newInGrid: grid at: 11 @ 11 with: 11 @ 6)
 ]
+
+{
+	#category : #challenges,
+	#'squeak_changestamp' : 'AB 6/2/2026 14:51'
+}
+SKChallenge class >> initializeChallenge6For: aGrid environment: anEnvironment [
+	
+	| grid |
+	
+	grid := anEnvironment grid.
+
+	1 to: 9 do: [ :x |
+		x = 4 ifFalse: [ SKTrunk newInGrid: grid at: x @ 2 ] ].
+
+	1 to: 9 do: [ :x |
+		x = 7 ifFalse: [ SKTrunk newInGrid: grid at: x @ 4 ] ].
+
+	1 to: 9 do: [ :x |
+		x = 2 ifFalse: [ SKTrunk newInGrid: grid at: x @ 6 ] ].
+
+	1 to: 9 do: [ :x |
+		x = 5 ifFalse: [ SKTrunk newInGrid: grid at: x @ 8 ] ].
+
+	anEnvironment addKara: (SKKara newInGrid: grid at: 5 @ 9 with: 5 @ 1).
+]
