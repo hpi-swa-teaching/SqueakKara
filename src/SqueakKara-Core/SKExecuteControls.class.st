@@ -631,10 +631,10 @@ SKExecuteControls >> toggleExecutionState [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:29'
+	#'squeak_changestamp' : 'JS 6/2/2026 14:44'
 }
 SKExecuteControls >> updateTextures [
 
 	self buttonRunSetTexture: self currentRunButtonTexture.
-	self buttonStopSetTexture
+	self buttonStopSetTexture: self stopTexture.
 ]
