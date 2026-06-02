@@ -235,12 +235,12 @@ SKEnvironment >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/27/2026 22:09'
+	#'squeak_changestamp' : 'JS 6/2/2026 11:07'
 }
 SKEnvironment >> initializeObjects [
 
 	self windowManager: SKWindowManager new.
-	self workspace: (SKWorkspace newWithKara: self karas).
+	"self workspace: (SKWorkspace newWithKara: self karas)."
 	self executer: (SKExecuter new).
 	"(self executer kara) kara: self karas."
 	self executeControls: SKExecuteControls new.

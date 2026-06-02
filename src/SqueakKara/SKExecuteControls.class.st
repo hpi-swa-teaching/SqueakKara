@@ -13,6 +13,7 @@ Class {
 		'runTexture',
 		'pauseTexture',
 		'karaTexture',
+		'resetTexture',
 		'sliderSpeed',
 		'scaleFactor',
 		'buttonReset',
@@ -74,7 +75,7 @@ SKExecuteControls >> actionStop [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/27/2026 21:48'
+	#'squeak_changestamp' : 'JS 6/2/2026 12:44'
 }
 SKExecuteControls >> addAllWidgets [
 
@@ -86,9 +87,9 @@ SKExecuteControls >> addAllWidgets [
 	self buttonStop: self buildButtonStop.
 	self buttonReset: self buildButtonReset.
 	self buttonSpawnKara: self buildButtonSpawnKara.
-	self buttonRunSetTexture: self runTextureFilename.
-	self buttonResetSetTexture: self resetTextureFilename.
-	self buttonStopSetTexture.
+	self buttonRunSetTexture: self runTexture.
+	self buttonResetSetTexture: self resetTexture.
+	self buttonStopSetTexture: self stopTexture.
 	self buttonSpawnKaraSetTexture: self karaTexture.
 	
 	self addMorphBack: self buttonRun.
@@ -202,11 +203,11 @@ SKExecuteControls >> buttonReset: anObject [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'JS 5/15/2026 22:38'
+	#'squeak_changestamp' : 'JS 6/2/2026 12:43'
 }
-SKExecuteControls >> buttonResetSetTexture: aFilename [
+SKExecuteControls >> buttonResetSetTexture: aForm [
 
-	self buttonReset labelGraphic: (self getTexture: aFilename)	
+	self buttonReset labelGraphic: aForm
 ]
 
 {
@@ -229,7 +230,7 @@ SKExecuteControls >> buttonRun: aMorph [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:19'
+	#'squeak_changestamp' : 'JS 6/2/2026 12:43'
 }
 SKExecuteControls >> buttonRunSetTexture: aForm [
 
@@ -256,7 +257,7 @@ SKExecuteControls >> buttonSpawnKara: aMorph [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'jawi 5/14/2026 12:34'
+	#'squeak_changestamp' : 'JS 6/2/2026 12:44'
 }
 SKExecuteControls >> buttonSpawnKaraSetTexture: aForm [
 
@@ -283,11 +284,11 @@ SKExecuteControls >> buttonStop: aMorph [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:15'
+	#'squeak_changestamp' : 'JS 6/2/2026 12:44'
 }
-SKExecuteControls >> buttonStopSetTexture [
+SKExecuteControls >> buttonStopSetTexture: aForm [
 
-	self buttonStop labelGraphic: self stopTexture
+	self buttonStop labelGraphic: aForm
 ]
 
 {
@@ -424,7 +425,7 @@ SKExecuteControls >> karaTextureFilename [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'jawi 5/14/2026 13:16'
+	#'squeak_changestamp' : 'JS 6/2/2026 12:43'
 }
 SKExecuteControls >> loadTextures [
 	
@@ -432,6 +433,7 @@ SKExecuteControls >> loadTextures [
 		stopTexture: (self getTexture: self stopTextureFilename);
 		runTexture: (self getTexture: self runTextureFilename);
 		pauseTexture: (self getTexture: self pauseTextureFilename);
+		resetTexture: (self getTexture: self resetTextureFilename);
 		karaTexture: (self getTexture: self karaTextureFilename)
 ]
 
@@ -460,6 +462,22 @@ SKExecuteControls >> pauseTexture: aForm [
 SKExecuteControls >> pauseTextureFilename [
 
 	^ 'pause.png'
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/2/2026 12:43'
+}
+SKExecuteControls >> resetTexture [
+	^ resetTexture
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/2/2026 12:43'
+}
+SKExecuteControls >> resetTexture: anObject [
+	resetTexture := anObject
 ]
 
 {
