@@ -235,11 +235,11 @@ SKEnvironment >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 11:07'
+	#'squeak_changestamp' : 'JS 6/2/2026 14:14'
 }
 SKEnvironment >> initializeObjects [
 
-	self windowManager: SKWindowManager new.
+	"self windowManager: SKWindowManager new."
 	"self workspace: (SKWorkspace newWithKara: self karas)."
 	self executer: (SKExecuter new).
 	"(self executer kara) kara: self karas."
@@ -247,16 +247,17 @@ SKEnvironment >> initializeObjects [
 	self executeControls environment: self.
 	
 	self setSystemWindow.
-	self windowManager addWindow: self workspace.
+	"self windowManager addWindow: self workspace."
 	self systemWindow openInHand
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:36'
+	#'squeak_changestamp' : 'JS 6/2/2026 14:02'
 }
 SKEnvironment >> initializeProgrammingUI [
 
+		self windowManager: SKWindowManager new.
 		self executer: (SKExecuter newWithEnvironment: self).
 		self programmingUI: (self programmingConcept buildProgrammingUI: (self executer) andEnvironment: self).
 ]
@@ -479,13 +480,13 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/27/2026 21:30'
+	#'squeak_changestamp' : 'JS 6/2/2026 12:52'
 }
 SKEnvironment >> setSystemWindow [
 	
 | container |
 
-	self systemWindow: (SKChallengeWindow new windowManager: self windowManager).
+	self systemWindow: (SKSystemWindow new windowManager: self windowManager).
 	self systemWindow setLabel: 'Kara'.
 	
 	container := self containerMorph
