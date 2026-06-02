@@ -11,7 +11,7 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 02:07'
+	#'squeak_changestamp' : 'FR 6/2/2026 17:55'
 }
 SKBlockPart >> initialize [
 	super initialize.
@@ -25,13 +25,13 @@ SKBlockPart >> initialize [
 		layoutInset: 3;
 		cornerStyle: #rounded;
 		cornerRadius: 12;
-		value: 00;
+		value: 30;
 		addMorph: self value;
 		vResizing: #shrinkWrap;
 		cellPositioning: #center.
 		
 	self adjustLayoutBounds;
-		minWidth: 30;
+		minWidth: self value width + 12;
 		hResizing: #spaceFill.
 ]
 

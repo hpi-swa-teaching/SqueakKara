@@ -131,9 +131,9 @@ SKBlock >> colorFromCategory [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 09:50'
+	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
 }
-SKBlock >> command [
+SKBlock >> getCode [
 
 	^ SubclassResponsibility.
 ]
