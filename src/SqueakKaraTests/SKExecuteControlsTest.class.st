@@ -20,10 +20,10 @@ SKExecuteControlsTest >> setUp [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:45'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:17'
 }
 SKExecuteControlsTest >> tearDown [
-
+	
 	environment close
 ]
 
@@ -44,17 +44,22 @@ SKExecuteControlsTest >> testMaxNumberRandomKaraSpawn [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'jawi 6/3/2026 19:39'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:19'
 }
 SKExecuteControlsTest >> testNextChallenge [
 	
-	environment initializeWithChallenge1.
+	| world testEnvironment testEnvironmentNew |
 	
-	self halt.
+	testEnvironment := SKEnvironment new initializeWithChallenge1.
+	world := testEnvironment systemWindow owner.
 	
-	environment executeControls actionNextChallenge.
+	self assert: (world submorphs includes: (testEnvironment systemWindow)).
 	
-	self assert: environment isNil
+	testEnvironmentNew := testEnvironment executeControls actionNextChallenge.
+	
+	self deny: (world submorphs includes: (testEnvironment systemWindow)).
+	
+	testEnvironmentNew close
 ]
 
 {

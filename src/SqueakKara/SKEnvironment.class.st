@@ -449,7 +449,7 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jawi 6/3/2026 19:44'
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:53'
 }
 SKEnvironment >> setSystemWindow [
 	
@@ -467,7 +467,7 @@ SKEnvironment >> setSystemWindow [
 		extent: self gameWidth @ self gameHeight;
 		setWindowColor: self grid backgroundColor;
 		resizeListener: [ self resize ];
-		closeListener: [ "self abandon" ];
+		closeListener: [ self abandon ];
 		addMorph: container fullFrame: (LayoutFrame fractions: (0@0 corner: 1@1)).
 	self positionExecuteControlsAndGrid.
 	
