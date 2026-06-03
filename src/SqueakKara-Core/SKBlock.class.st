@@ -167,7 +167,7 @@ SKBlock >> handlesMouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/3/2026 03:06'
+	#'squeak_changestamp' : 'FR 6/3/2026 03:13'
 }
 SKBlock >> initialize [
 	
@@ -183,8 +183,8 @@ SKBlock >> initialize [
 		listCentering: #topRight;
 		wrapCentering: #center;
     		cellPositioning: #center;
-		cellInset: "self label height*0.25"SKBlockStyle hInset // 3@0;
-		layoutInset:" self label height * 0.75"0@ 0;
+		cellInset: SKBlockStyle hInset // 3@0;
+		layoutInset: (Rectangle left: 0 right: SKBlockStyle hInset // 3 top: 0 bottom:  0);
 		addSpacing;
 		addMorph: self label.
 ]
@@ -239,11 +239,11 @@ SKBlock >> leftSource: aBoolean [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/2/2026 21:23'
+	#'squeak_changestamp' : 'FR 6/3/2026 03:56'
 }
 SKBlock >> minHeight [
 
-	^ 0
+	^ SKBlockStyle blockPartHeight
 ]
 
 {

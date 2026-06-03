@@ -48,7 +48,7 @@ SKBlockSource >> mouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 10:10'
+	#'squeak_changestamp' : 'FR 6/3/2026 03:18'
 }
 SKBlockSource >> populate [
 
@@ -79,13 +79,13 @@ SKBlockSource >> populate [
 
 	self addMorphBack: (SKCompoundActionBlock new
 		label: 'if';
-		addBooleanPart: 'then' withDefault: '';
-		action: [:body :condition | condition,' ifTrue: [', body, '].'];
+		addBooleanPart: 'then' withDefault: 'trunkAhead';
+		action: [:body :condition | 'kara ',condition,' ifTrue: [', body, '].'];
 		yourself).
 
 	self addMorphBack: (SKCompoundActionBlock new
 		label: 'repeat';
-		addIntegerPart: 'times' withDefault: '3';
+		addIntegerPart: 'times' withDefault: '17';
 		action: [:body :times | times,' timesRepeat: [', body, '].'];
 		yourself).
 

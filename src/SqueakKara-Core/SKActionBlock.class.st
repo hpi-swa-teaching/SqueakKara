@@ -135,11 +135,11 @@ SKActionBlock >> layoutInset [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'SLH 5/20/2026 00:20'
+	#'squeak_changestamp' : 'FR 6/3/2026 04:11'
 }
 SKActionBlock >> minHeight [
 
-	^ super minHeight + self tabHeight.
+	^ (super minHeight + self tabHeight)
 ]
 
 {
@@ -153,11 +153,11 @@ SKActionBlock >> slantWidth [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/2/2026 23:13'
+	#'squeak_changestamp' : 'FR 6/3/2026 03:21'
 }
 SKActionBlock >> tabHeight [
 
-	^ self label height//3.
+	^ SKBlockStyle tabHeight.
 ]
 
 {

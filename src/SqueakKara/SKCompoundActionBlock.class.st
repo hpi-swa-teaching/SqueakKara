@@ -40,7 +40,7 @@ SKCompoundActionBlock >> addBlockPart: aBlockPart [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/2/2026 23:33'
+	#'squeak_changestamp' : 'FR 6/3/2026 04:12'
 }
 SKCompoundActionBlock >> bottomBlock [
 
@@ -48,6 +48,7 @@ SKCompoundActionBlock >> bottomBlock [
 		removeAllMorphs;
 		tabOffsetTop: 26;
 		width: 26 + self tabWidth + self tabWidth;
+		height: self minHeight;
 		yourself].
 ]
 
@@ -67,7 +68,7 @@ SKCompoundActionBlock >> getCode [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/2/2026 23:43'
+	#'squeak_changestamp' : 'FR 6/3/2026 04:44'
 }
 SKCompoundActionBlock >> initialize [
 
@@ -76,7 +77,9 @@ SKCompoundActionBlock >> initialize [
 	super initialize.
 	self listDirection: #topToBottom;
     		cellPositioning: #topLeft;
-		cellGap: -10;
+		cellInset: 0;
+		cellGap: -1*SKBlockStyle tabHeight-(SKBlockStyle borderWidth//2)-1;
+		
 		color: Color transparent;
 		borderWidth: 0;
 		blockParts: OrderedCollection new;
@@ -87,19 +90,23 @@ SKCompoundActionBlock >> initialize [
 		layoutPolicy: TableLayout new;
 		listDirection: #leftToRight;
 		cellPositioning: #topLeft;
+		cellGap: 0;
+		cellInset: 0;
+		height: self minHeight;
 		minWidth: 50;
-		minHeight: 32;
+		minHeight: self minHeight;
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap).
 	sidebar := (Morph new
-		vResizing: #spaceFill; "somehow removing this gets rid of the resizing bug for submorphCount>1"
 		width: 16;
+		height: self minHeight;
+		vResizing: #spaceFill;
 		color: self colorFromCategory;
 		borderColor: self borderColorFromCategory;
-		borderWidth: 2).
+		borderWidth: SKBlockStyle borderWidth).
 	
 	insertWrapper addMorphBack: sidebar.
-	insertWrapper addMorphBack: self actionGap.
+	insertWrapper addMorphBack: (self actionGap height: self minHeight).
 	
 	self addMorphBack: self topBlock;
 		addMorphBack: insertWrapper;
@@ -118,11 +125,11 @@ SKCompoundActionBlock >> label: aString [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/2/2026 23:37'
+	#'squeak_changestamp' : 'FR 6/3/2026 03:39'
 }
 SKCompoundActionBlock >> layoutInset [
 	
-	^(Rectangle left: -2 right: -2 top: -2 bottom: -2).
+	^0
 ]
 
 {

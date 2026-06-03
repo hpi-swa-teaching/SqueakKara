@@ -31,10 +31,13 @@ SKBlockSpace class >> startBlockEdit: anEnvironment [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/2/2026 16:10'
+	#'squeak_changestamp' : 'FR 6/3/2026 04:54'
 }
 SKBlockSpace >> acceptDroppingMorph: aMorph event: anEvent [
 
+	self dropIndex ifNil:[
+		self addDropZoneAtIndex: (self layoutPolicy indexForInserting: aMorph at: aMorph position in: self) of: aMorph.
+		self acceptDroppingMorph: aMorph event: anEvent].
 	self addMorph: aMorph atIndex: self dropIndex+1.
 	self removeDropZone.
 	
@@ -153,7 +156,7 @@ SKBlockSpace >> hasStartBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/2/2026 23:39'
+	#'squeak_changestamp' : 'FR 6/3/2026 04:26'
 }
 SKBlockSpace >> initialize [
 
@@ -163,9 +166,10 @@ SKBlockSpace >> initialize [
 	hResizing: #spaceFill;
 	wrapCentering: #center;
 	cellPositioning: #topLeft;
-	cellGap: -10;
+	cellGap: -1*SKBlockStyle tabHeight+(SKBlockStyle borderWidth//2)-1;
 	minWidth: 50;
-	minHeight: 32;
+	minHeight: SKBlockStyle blockPartHeight;
+	height: SKBlockStyle blockPartHeight;
 	vResizing: #spaceFill.
 ]
 
@@ -226,14 +230,15 @@ SKBlockSpace >> objectHeight [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/3/2026 02:43'
+	#'squeak_changestamp' : 'FR 6/3/2026 04:41'
 }
 SKBlockSpace >> removeDropZone [
 
 	self dropIndex ifNotNil:[
 		(self submorphs at: self dropIndex) delete.
 		self dropIndex: nil.
-		"self adjustLayoutBounds;
+		self owner height: 1. "<- this line is magic"
+		"self (owner) adjustLayoutBounds;
 			changed;
 			redraw;
 			layoutChanged.""<- all dont work here"]
@@ -243,7 +248,7 @@ SKBlockSpace >> removeDropZone [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/2/2026 23:41'
+	#'squeak_changestamp' : 'FR 6/3/2026 03:59'
 }
 SKBlockSpace >> startBlockEdit [
 
@@ -260,7 +265,7 @@ SKBlockSpace >> startBlockEdit [
 	hResizing: #spaceFill;
 	wrapCentering: #center;
 	cellPositioning: #topLeft;
-	cellGap: -10;
+	cellGap: -1*SKBlockStyle tabHeight+(SKBlockStyle borderWidth//2)-1;
 	minWidth: 500;
 	minHeight: 500;
 	vResizing: #spaceFill.
