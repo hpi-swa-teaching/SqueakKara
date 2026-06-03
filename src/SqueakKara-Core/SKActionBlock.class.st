@@ -153,29 +153,20 @@ SKActionBlock >> slantWidth [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/3/2026 03:21'
+	#'squeak_changestamp' : 'FR 6/3/2026 05:04'
 }
 SKActionBlock >> tabHeight [
 
-	^ SKBlockStyle tabHeight.
-]
-
-{
-	#category : #layout,
-	#'squeak_changestamp' : 'FR 5/26/2026 17:00'
-}
-SKActionBlock >> tabOffset [
-
-	^ 8.
+	^ SKBlockStyle tabHeight
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 09:38'
+	#'squeak_changestamp' : 'FR 6/3/2026 05:05'
 }
 SKActionBlock >> tabOffsetBottom [
 
-	^ tabOffsetBottom ifNil: [tabOffsetBottom := 8].
+	^ tabOffsetBottom ifNil: [tabOffsetBottom := SKBlockStyle tabOffset].
 ]
 
 {
@@ -189,11 +180,11 @@ SKActionBlock >> tabOffsetBottom: anInteger [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 09:38'
+	#'squeak_changestamp' : 'FR 6/3/2026 05:06'
 }
 SKActionBlock >> tabOffsetTop [
 
-	^ tabOffsetTop ifNil: [tabOffsetTop := 8].
+	^ tabOffsetTop ifNil: [tabOffsetTop := SKBlockStyle tabOffset].
 ]
 
 {

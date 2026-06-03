@@ -156,7 +156,7 @@ SKBlockSpace >> hasStartBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/3/2026 04:26'
+	#'squeak_changestamp' : 'FR 6/3/2026 05:27'
 }
 SKBlockSpace >> initialize [
 
@@ -166,7 +166,8 @@ SKBlockSpace >> initialize [
 	hResizing: #spaceFill;
 	wrapCentering: #center;
 	cellPositioning: #topLeft;
-	cellGap: -1*SKBlockStyle tabHeight+(SKBlockStyle borderWidth//2)-1;
+	layoutInset: 0;
+	cellGap: -1*SKBlockStyle tabHeight;
 	minWidth: 50;
 	minHeight: SKBlockStyle blockPartHeight;
 	height: SKBlockStyle blockPartHeight;
@@ -187,6 +188,16 @@ SKBlockSpace >> kara [
 }
 SKBlockSpace >> kara: anObject [
 	kara := anObject
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 6/3/2026 05:32'
+}
+SKBlockSpace >> layoutChanged [
+	
+	self owner ifNotNil: [self owner height: 1]. 
+	super layoutChanged
 ]
 
 {
@@ -230,14 +241,15 @@ SKBlockSpace >> objectHeight [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/3/2026 04:41'
+	#'squeak_changestamp' : 'FR 6/3/2026 05:31'
 }
 SKBlockSpace >> removeDropZone [
 
 	self dropIndex ifNotNil:[
 		(self submorphs at: self dropIndex) delete.
 		self dropIndex: nil.
-		self owner height: 1. "<- this line is magic"
+		self layoutChanged
+		"self owner height: 1. ""<- this line is magic"
 		"self (owner) adjustLayoutBounds;
 			changed;
 			redraw;
@@ -248,7 +260,7 @@ SKBlockSpace >> removeDropZone [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/3/2026 03:59'
+	#'squeak_changestamp' : 'FR 6/3/2026 05:12'
 }
 SKBlockSpace >> startBlockEdit [
 
@@ -265,7 +277,7 @@ SKBlockSpace >> startBlockEdit [
 	hResizing: #spaceFill;
 	wrapCentering: #center;
 	cellPositioning: #topLeft;
-	cellGap: -1*SKBlockStyle tabHeight+(SKBlockStyle borderWidth//2)-1;
+	cellGap: -1*SKBlockStyle tabHeight;
 	minWidth: 500;
 	minHeight: 500;
 	vResizing: #spaceFill.

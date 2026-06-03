@@ -39,3 +39,12 @@ SKBlockStyle class >> tabHeight [
 
 	^TextStyle defaultFont height //5*2
 ]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 6/3/2026 05:05'
+}
+SKBlockStyle class >> tabOffset [
+
+	^TextStyle defaultFont height //5*3
+]

@@ -40,14 +40,14 @@ SKCompoundActionBlock >> addBlockPart: aBlockPart [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/3/2026 04:12'
+	#'squeak_changestamp' : 'FR 6/3/2026 05:22'
 }
 SKCompoundActionBlock >> bottomBlock [
 
 	^ bottomBlock ifNil: [bottomBlock := SKActionBlock new
 		removeAllMorphs;
-		tabOffsetTop: 26;
-		width: 26 + self tabWidth + self tabWidth;
+		tabOffsetTop: SKBlockStyle tabOffset + self sidebarWidth;
+		width: SKBlockStyle tabOffset + self sidebarWidth + (2*self tabWidth);
 		height: self minHeight;
 		yourself].
 ]
@@ -68,7 +68,7 @@ SKCompoundActionBlock >> getCode [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/3/2026 04:44'
+	#'squeak_changestamp' : 'FR 6/3/2026 05:27'
 }
 SKCompoundActionBlock >> initialize [
 
@@ -77,13 +77,12 @@ SKCompoundActionBlock >> initialize [
 	super initialize.
 	self listDirection: #topToBottom;
     		cellPositioning: #topLeft;
-		cellInset: 0;
-		cellGap: -1*SKBlockStyle tabHeight-(SKBlockStyle borderWidth//2)-1;
-		
+		cellInset: 0;		
 		color: Color transparent;
 		borderWidth: 0;
 		blockParts: OrderedCollection new;
-		removeAllMorphs.
+		removeAllMorphs;
+		cellGap: -1*SKBlockStyle tabHeight "border should have no effect".
 	
 	insertWrapper := (Morph new
 		color: Color transparent;
@@ -92,13 +91,14 @@ SKCompoundActionBlock >> initialize [
 		cellPositioning: #topLeft;
 		cellGap: 0;
 		cellInset: 0;
+		borderWidth: 0;
 		height: self minHeight;
 		minWidth: 50;
 		minHeight: self minHeight;
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap).
 	sidebar := (Morph new
-		width: 16;
+		width: self sidebarWidth;
 		height: self minHeight;
 		vResizing: #spaceFill;
 		color: self colorFromCategory;
@@ -134,7 +134,16 @@ SKCompoundActionBlock >> layoutInset [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/2/2026 21:36'
+	#'squeak_changestamp' : 'FR 6/3/2026 05:08'
+}
+SKCompoundActionBlock >> sidebarWidth [
+
+	^SKBlockStyle tabOffset + (SKBlockStyle tabHeight)
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 6/3/2026 05:22'
 }
 SKCompoundActionBlock >> topBlock [
 
@@ -143,6 +152,6 @@ SKCompoundActionBlock >> topBlock [
 		addSpacing;
 		addMorph: self label;
 		hResizing: #shrinkWrap;
-		tabOffsetBottom: 26;
+		tabOffsetBottom: SKBlockStyle tabOffset + self sidebarWidth;
 		yourself].
 ]
