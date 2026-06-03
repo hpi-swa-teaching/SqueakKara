@@ -2,89 +2,34 @@ Class {
 	#name : #SKBlockPart,
 	#superclass : #Morph,
 	#instVars : [
-		'label',
-		'type',
-		'value'
+		'block'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/2/2026 17:55'
+	#'squeak_changestamp' : 'SLH 6/3/2026 03:09'
 }
-SKBlockPart >> initialize [
-	super initialize.
-	
-	self borderColor: Color black;
-		color: Color white;
-		borderWidth: 1;
-		layoutPolicy: TableLayout new;
-		listDirection: #topToBottom;
-		wrapCentering: #center;
-		layoutInset: 3;
-		cornerStyle: #rounded;
-		cornerRadius: 12;
-		value: 30;
-		addMorph: self value;
-		vResizing: #shrinkWrap;
-		cellPositioning: #center.
-		
-	self adjustLayoutBounds;
-		minWidth: self value width + 12;
-		hResizing: #spaceFill.
+SKBlockPart >> block [
+
+	^ block.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 02:02'
+	#'squeak_changestamp' : 'SLH 6/3/2026 03:09'
 }
-SKBlockPart >> label [
+SKBlockPart >> block: aBlock [
 
-	^ label ifNil: [label := StringMorph new contents: 'Placeholder'].
+	block := aBlock.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 16:50'
-}
-SKBlockPart >> label: aLabel [
-	
-	self label contents: aLabel.
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 16:00'
+	#'squeak_changestamp' : 'SLH 6/3/2026 03:07'
 }
 SKBlockPart >> type [
 
-	^ type.
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 16:00'
-}
-SKBlockPart >> type: aType [
-
-	type := aType.
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 10:28'
-}
-SKBlockPart >> value [
-
-	^ value ifNil: [value := SKTextEntry new contents: 10 asString].
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/20/2026 04:27'
-}
-SKBlockPart >> value: aValue [
-
-	self value contents: (aValue asString).
+	^ SubclassResponsibility.
 ]

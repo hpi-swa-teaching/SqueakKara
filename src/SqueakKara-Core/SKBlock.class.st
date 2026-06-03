@@ -12,51 +12,89 @@ Class {
 }
 
 {
+	#category : #'dropping/grabbing',
+	#'squeak_changestamp' : 'SLH 6/3/2026 00:09'
+}
+SKBlock >> aboutToBeGrabbedBy: aHand [
+
+	super aboutToBeGrabbedBy: aHand.
+	
+	self detachFromControllingBlock.
+]
+
+{
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/26/2026 21:41'
+	#'squeak_changestamp' : 'SLH 6/3/2026 02:56'
 }
 SKBlock >> addActionPart: aLabel withDefault: aDefaultValue [
 
-	self addBlockPart: (SKBlockPart new type: #Action; label: aLabel; value: aDefaultValue; yourself)
+	self addBlockPart: (SKBlockPartOld new type: #Action; label: aLabel; value: aDefaultValue; yourself)
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 01:48'
+	#'squeak_changestamp' : 'SLH 6/3/2026 04:16'
 }
 SKBlock >> addBlockPart: aBlockPart [
 
+	aBlockPart block: self.
 	self blockParts add: aBlockPart.
 	
-	self addMorph: aBlockPart;
-			addMorph: aBlockPart label.
+	self addMorphBack: aBlockPart.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 15:59'
+	#'squeak_changestamp' : 'SLH 6/3/2026 03:31'
+}
+SKBlock >> addBooleanPart [
+	
+	self addBlockPart: (SKBooleanSlotPart new).
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 03:04'
 }
 SKBlock >> addBooleanPart: aLabel withDefault: aDefaultValue [
 
-	self addBlockPart: (SKBlockPart new type: #Boolean; label: aLabel; value: aDefaultValue; yourself)
+	"self addBlockPart: (SKBlockPartOld new type: #Boolean; label: aLabel; value: aDefaultValue; yourself)"
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 15:59'
+	#'squeak_changestamp' : 'SLH 6/3/2026 04:06'
+}
+SKBlock >> addIntegerPart [
+	
+	self addBlockPart: (SKIntegerSlotPart new).
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 03:04'
 }
 SKBlock >> addIntegerPart: aLabel withDefault: aDefaultValue [
 
-	self addBlockPart: (SKBlockPart new type: #Integer; label: aLabel; value: aDefaultValue; yourself)
+	"self addBlockPart: (SKBlockPartOld new type: #Integer; label: aLabel; value: aDefaultValue; yourself)"
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 16:00'
+	#'squeak_changestamp' : 'SLH 6/3/2026 03:15'
+}
+SKBlock >> addLabel: aString [
+	
+	self addBlockPart: (SKLabelPart new label: aString).
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 03:04'
 }
 SKBlock >> addStringPart: aLabel withDefault: aDefaultValue [
 
-	self addBlockPart: (SKBlockPart new type: #String; label: aLabel; value: aDefaultValue; yourself)
+	"self addBlockPart: (SKBlockPartOld new type: #String; label: aLabel; value: aDefaultValue; yourself)"
 ]
 
 {
@@ -131,6 +169,44 @@ SKBlock >> colorFromCategory [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 00:09'
+}
+SKBlock >> detachFromControllingBlock [
+
+	^ SubclassResponsibility.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 04:24'
+}
+SKBlock >> doLayoutIn: layoutBounds [
+	| oldBounds |
+	
+	"1. Snapshot the exact screen footprint BEFORE the layout engine moves anything"
+	oldBounds := self fullBounds copy.
+	
+	"2. Let the TableLayout calculate the new widths and physically push the labels"
+	super doLayoutIn: layoutBounds.
+	
+	"3. Force the BlockEditor to explicitly wipe the old footprint and draw the new one"
+	self owner ifNotNil: [
+		self owner invalidRect: oldBounds.
+		self owner invalidRect: self fullBounds.
+	].
+]
+
+{
+	#category : #'dropping/grabbing',
+	#'squeak_changestamp' : 'SLH 6/2/2026 23:05'
+}
+SKBlock >> findClosestSnapTargetIn: anObject [
+
+	^ SubclassResponsibility.
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
 }
 SKBlock >> getCode [
@@ -148,15 +224,15 @@ SKBlock >> handlesKeyboard: anEvent [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'FR 5/5/2026 23:08'
+	#'squeak_changestamp' : 'SLH 6/3/2026 00:30'
 }
 SKBlock >> handlesMouseDown: anEvent [
-	^self leftSource.
+	^ self leftSource.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 10:50'
+	#'squeak_changestamp' : 'SLH 6/3/2026 04:15'
 }
 SKBlock >> initialize [
 	
@@ -168,23 +244,33 @@ SKBlock >> initialize [
 		vResizing: #shrinkWrap;
 		borderWidth: 2;
 		layoutPolicy: TableLayout new;
-		listDirection: #rightToLeft;
+		listDirection: #leftToRight;
 		wrapCentering: #center;
     		cellPositioning: #center;
 		cellInset: 2@0;
 		layoutInset: 5@ 0;
-		addMorph: (Morph new color: Color transparent; height: 24; width: 0);
-		addMorph: self label.
+		addMorph: (Morph new color: Color transparent; height: 24; width: 0).
 ]
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 5/20/2026 01:43'
+	#'squeak_changestamp' : 'SLH 6/2/2026 23:26'
 }
 SKBlock >> justDroppedInto: anObject event: anEvent [
-	super justDroppedInto: anObject event: anEvent.
-	anObject == World ifTrue:[self delete].
 
+	| snapTarget |
+
+	super justDroppedInto: anObject event: anEvent.
+	
+	anObject == World ifTrue: [self delete. ^ self].
+	
+	Transcript show: '',self,' was just dropped into ', anObject, String cr.
+	
+	snapTarget := self findClosestSnapTargetIn: anObject.
+	
+	Transcript show: 'Snap target: ', snapTarget, String cr.
+	
+	snapTarget ifNotNil: [self snapToTarget: snapTarget].
 ]
 
 {
@@ -255,6 +341,15 @@ SKBlock >> rejectDropMorphEvent: anEvent [
 	h := anEvent hand.
 	WorldState addDeferredUIMessage: [h grabMorph: self].
 	anEvent wasHandled: true.
+]
+
+{
+	#category : #'dropping/grabbing',
+	#'squeak_changestamp' : 'SLH 6/2/2026 23:17'
+}
+SKBlock >> snapToTarget: aBlock [
+
+	^ SubclassResponsibility.
 ]
 
 {

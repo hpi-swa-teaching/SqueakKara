@@ -5,7 +5,9 @@ Class {
 		'action',
 		'isStart',
 		'tabOffsetBottom',
-		'tabOffsetTop'
+		'tabOffsetTop',
+		'nextBlock',
+		'previousBlock'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -30,11 +32,11 @@ SKActionBlock >> action [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/11/2026 18:44'
+	#'squeak_changestamp' : 'SLH 6/3/2026 01:54'
 }
 SKActionBlock >> action: aBlock [
 
-	^ action := aBlock.
+	action := aBlock.
 ]
 
 {
@@ -44,6 +46,27 @@ SKActionBlock >> action: aBlock [
 SKActionBlock >> blockType [
 
 	^ #Action.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/2/2026 22:46'
+}
+SKActionBlock >> bottomConnectionPoint [
+
+	^ self bottomLeft + ((self tabOffsetBottom + self slantWidth + (self tabWidth / 2)) @ 0).
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 00:35'
+}
+SKActionBlock >> detachFromControllingBlock [
+
+	self previousBlock ifNotNil: [
+		Transcript show: 'Detaching ', self, ' from ', self previousBlock, String cr.
+		self previousBlock nextBlock: nil.
+		self previousBlock: nil].
 ]
 
 {
@@ -90,6 +113,34 @@ SKActionBlock >> drawOn: aCanvas [
 		color: self color 
 		borderWidth: self borderWidth
 		borderColor: self borderColor.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 01:44'
+}
+SKActionBlock >> findClosestSnapTargetIn: anObject [
+
+	| closestBlock shortestDistance currentDistance |
+
+	shortestDistance := 20.
+	closestBlock := nil.
+
+	anObject allMorphsDo: [:each |
+		((each isKindOf: SKActionBlock) 
+			and: [each ~= self 
+			and: [(each hasOwner: self) not]]) ifTrue: [
+
+			currentDistance := self topConnectionPoint dist: each bottomConnectionPoint.
+
+			currentDistance < shortestDistance ifTrue: [
+				shortestDistance := currentDistance.
+				closestBlock := each.
+			].
+		].
+	].
+
+	^ closestBlock
 ]
 
 {
@@ -143,12 +194,75 @@ SKActionBlock >> minHeight [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/2/2026 23:51'
+}
+SKActionBlock >> nextBlock [
+
+	^ nextBlock.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/3/2026 01:54'
+}
+SKActionBlock >> nextBlock: aBlock [
+
+	nextBlock := aBlock.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/2/2026 23:52'
+}
+SKActionBlock >> previousBlock [
+
+	^ previousBlock.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/3/2026 01:54'
+}
+SKActionBlock >> previousBlock: aBlock [
+
+	previousBlock := aBlock.
+]
+
+{
 	#category : #layout,
 	#'squeak_changestamp' : 'FR 5/26/2026 17:00'
 }
 SKActionBlock >> slantWidth [
 
 	^ 8.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 01:12'
+}
+SKActionBlock >> snapToTarget: aBlock [
+
+	self isStart ifTrue: [Transcript show: 'Snapping disabled for start blocks', String cr. ^ self].
+
+	Transcript show: 'Snapping to ', aBlock, String cr.
+	self align: self topConnectionPoint with: aBlock bottomConnectionPoint.
+	
+	self previousBlock: aBlock.
+	aBlock nextBlock: self.
+	
+	self disableTableLayout: true.
+	aBlock vResizing: #rigid; hResizing: #rigid.
+	aBlock addMorph: self.
+	
+	"Recursively tell all parent blocks to recalculate their fullBounds and redraw"
+	self withAllOwnersDo: [ :each | 
+		(each isKindOf: Morph) ifTrue: [
+			each layoutChanged.
+			each changed.
+		].
+	].
 ]
 
 {
@@ -212,4 +326,13 @@ SKActionBlock >> tabOffsetTop: anInteger [
 SKActionBlock >> tabWidth [
 
 	^ 32.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/2/2026 23:37'
+}
+SKActionBlock >> topConnectionPoint [
+
+	^ self topLeft + ((self tabOffsetTop + self slantWidth + (self tabWidth / 2)) @ (self tabHeight)).
 ]
