@@ -105,6 +105,17 @@ SKGrid >> backgroundColor [
 ]
 
 {
+	#category : #texture,
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:12'
+}
+SKGrid >> checkWinCondition [
+
+	self allLeafesCollected ifTrue: [ 
+		self spawnWinScreen. 
+		self executeControls addButtonNextChallenge ]
+]
+
+{
 	#category : #layout,
 	#'squeak_changestamp' : 'LD 5/29/2026 08:29'
 }
@@ -141,6 +152,15 @@ SKGrid >> environment [
 SKGrid >> environment: anEnvironment [
 
 	environment := anEnvironment
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'jawi 6/3/2026 18:59'
+}
+SKGrid >> executeControls [
+
+	^ self environment executeControls
 ]
 
 {
@@ -346,6 +366,16 @@ SKGrid >> scaleFactor: aNumber [
 SKGrid >> spawnWinScreen [
 
 	SKWinScreen newInGrid: self.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 6/3/2026 18:45'
+}
+SKGrid >> test [	
+	
+	SKEnvironment new perform: self environment nextChallenge.
+	self environment systemWindow delete
 ]
 
 {

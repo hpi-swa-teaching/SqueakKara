@@ -9,16 +9,28 @@ Class {
 		'buttonRun',
 		'buttonStop',
 		'buttonSpawnKara',
+		'buttonNextChallenge',
 		'stopTexture',
 		'runTexture',
 		'pauseTexture',
 		'karaTexture',
 		'sliderSpeed',
-		'scaleFactor'
+		'scaleFactor',
+		'nextChallengeTexture'
 	],
 	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:42'
 }
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:43'
+}
+SKExecuteControls >> actionNextChallenge [
+
+	SKEnvironment new perform: self environment nextChallenge.
+	self environment close
+]
 
 {
 	#category : #widgets,
@@ -67,27 +79,71 @@ SKExecuteControls >> actionStop [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'jawi 5/14/2026 12:39'
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:11'
 }
 SKExecuteControls >> addAllWidgets [
 
 	self loadTextures.
 	
-	self buttonRun: self buildButtonRun.
-	self sliderSpeed: self buildSliderSpeed.
-	self buttonStop: self buildButtonStop.
-	self buttonSpawnKara: self buildButtonSpawnKara.
-	
-	self buttonRunSetTexture: self runTexture.
-	self buttonStopSetTexture.
-	self buttonSpawnKaraSetTexture: self karaTexture.
-	
-	self addMorphBack: self buttonRun.
-	self addMorphBack: self sliderSpeed.
-	self addMorphBack: self buttonStop.
-	self addMorphBack: self buttonSpawnKara.
+	self addButtonRun.
+	self addSliderSpeed.
+	self addButtonStop.
+	self addButtonSpawnKara.
+	self createButtonNextChallenge.
 	
 	self layoutChanged
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:11'
+}
+SKExecuteControls >> addButtonNextChallenge [
+
+	self addMorphBack: self buttonNextChallenge
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:03'
+}
+SKExecuteControls >> addButtonRun [
+
+	self buttonRun: self buildButtonRun.
+	self buttonRunSetTexture: self runTexture.
+	self addMorphBack: self buttonRun
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:05'
+}
+SKExecuteControls >> addButtonSpawnKara [
+
+	self buttonSpawnKara: self buildButtonSpawnKara.
+	self buttonSpawnKaraSetTexture: self karaTexture.
+	self addMorphBack: self buttonSpawnKara
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:04'
+}
+SKExecuteControls >> addButtonStop [
+
+	self buttonStop: self buildButtonStop.
+	self buttonStopSetTexture.
+	self addMorphBack: self buttonStop
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:04'
+}
+SKExecuteControls >> addSliderSpeed [
+
+	self sliderSpeed: self buildSliderSpeed.
+	self addMorphBack: self sliderSpeed
 ]
 
 {
@@ -104,6 +160,19 @@ SKExecuteControls >> addWidgetCentered: aWidget atXPosition: aXValue [
 	aWidget position: (aXValue @ (verticalCenter - widgetCenter)).
 	
 	^ aXValue + aWidget extent x
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'jawi 6/3/2026 18:54'
+}
+SKExecuteControls >> buildButtonNextChallenge [
+	
+	^ IconicButton new
+		target: self;
+		actionSelector: #actionNextChallenge;
+		color: SKStylesheet secondaryColor;
+		yourself
 ]
 
 {
@@ -160,6 +229,33 @@ SKExecuteControls >> buildSliderSpeed [
 		target: self;
 		actionSelector: #sliderSpeedValueChanged:;
 		yourself
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 6/3/2026 18:52'
+}
+SKExecuteControls >> buttonNextChallenge [
+	
+	^ buttonNextChallenge
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 6/3/2026 18:52'
+}
+SKExecuteControls >> buttonNextChallenge: aMorph [
+	
+	buttonNextChallenge := aMorph
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:22'
+}
+SKExecuteControls >> buttonNextChallengeSetTexture: aForm [
+
+	self buttonNextChallenge labelGraphic: aForm
 ]
 
 {
@@ -244,12 +340,23 @@ SKExecuteControls >> buttonStopSetTexture [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:25'
+}
+SKExecuteControls >> createButtonNextChallenge [
+
+	self buttonNextChallenge: self buildButtonNextChallenge.
+	self buttonNextChallengeSetTexture: self nextChallengeTexture
+]
+
+{
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:33'
+	#'squeak_changestamp' : 'jawi 6/3/2026 18:11'
 }
 SKExecuteControls >> currentRunButtonTexture [
 
 	| iconSize |
+	
 	iconSize := (self defaultIconicButtonSize - (10@10)) * self scaleFactor.
 
 	self environment executerState = #running
@@ -278,9 +385,10 @@ SKExecuteControls >> defaultIconicButtonSize [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:43'
+	#'squeak_changestamp' : 'jawi 6/3/2026 18:11'
 }
 SKExecuteControls >> defaultSliderSize [
+	
 	^ 100 @ 20
 ]
 
@@ -361,7 +469,7 @@ SKExecuteControls >> karaTextureFilename [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'jawi 5/14/2026 13:16'
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:27'
 }
 SKExecuteControls >> loadTextures [
 	
@@ -369,7 +477,35 @@ SKExecuteControls >> loadTextures [
 		stopTexture: (self getTexture: self stopTextureFilename);
 		runTexture: (self getTexture: self runTextureFilename);
 		pauseTexture: (self getTexture: self pauseTextureFilename);
-		karaTexture: (self getTexture: self karaTextureFilename)
+		karaTexture: (self getTexture: self karaTextureFilename);
+		nextChallengeTexture: (self getTexture: self nextChallengeTextureFilename)
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:25'
+}
+SKExecuteControls >> nextChallengeTexture [
+	
+	^ nextChallengeTexture
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:25'
+}
+SKExecuteControls >> nextChallengeTexture: aForm [
+	
+	nextChallengeTexture := aForm
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:33'
+}
+SKExecuteControls >> nextChallengeTextureFilename [
+
+	^ 'arrow_next_challenge.png'
 ]
 
 {
@@ -401,11 +537,12 @@ SKExecuteControls >> pauseTextureFilename [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'jawi 5/15/2026 09:20'
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:30'
 }
 SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
 	| buttonSize iconSize controlSize sliderSize |
+	
 	controlSize := self defaultBounds extent * aNumber.
 	buttonSize := self defaultIconicButtonSize * aNumber.
 	iconSize := (self defaultIconicButtonSize - (10@10)) * aNumber.
@@ -421,6 +558,9 @@ SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
 	self buttonSpawnKara extent: buttonSize.
 	self buttonSpawnKara labelGraphic: (self karaTexture scaledToSize: iconSize).
+	
+	self buttonNextChallenge extent: buttonSize.
+	self buttonNextChallenge labelGraphic: (self nextChallengeTexture scaledToSize: iconSize).
 	
 	self sliderSpeed extent: sliderSize
 ]
@@ -463,11 +603,12 @@ SKExecuteControls >> scaleFactor [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:42'
+	#'squeak_changestamp' : 'jawi 6/3/2026 18:11'
 }
 SKExecuteControls >> scaleFactor: aNumber [
 
 	self resizeWidgetByFactor: aNumber.
+	
 	^ scaleFactor := aNumber
 ]
 
@@ -527,11 +668,12 @@ SKExecuteControls >> stopTextureFilename [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:41'
+	#'squeak_changestamp' : 'jawi 6/3/2026 18:11'
 }
 SKExecuteControls >> toggleExecutionState [
 
 	| state |
+	
 	state := self environment executerState.
 
 	state = #terminated ifTrue: [ self environment run. ^ self ].

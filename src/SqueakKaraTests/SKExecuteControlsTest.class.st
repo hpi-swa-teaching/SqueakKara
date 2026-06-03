@@ -44,6 +44,21 @@ SKExecuteControlsTest >> testMaxNumberRandomKaraSpawn [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:39'
+}
+SKExecuteControlsTest >> testNextChallenge [
+	
+	environment initializeWithChallenge1.
+	
+	self halt.
+	
+	environment executeControls actionNextChallenge.
+	
+	self assert: environment isNil
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'ND 5/25/2026 18:16'
 }
 SKExecuteControlsTest >> testRandomKaraSpawn [
