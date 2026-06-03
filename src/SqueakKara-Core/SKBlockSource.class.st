@@ -48,12 +48,20 @@ SKBlockSource >> mouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 04:07'
+	#'squeak_changestamp' : 'SLH 6/3/2026 13:22'
 }
 SKBlockSource >> populate [
 
 	self addMorphBack: (SKActionBlock new
 		addLabel: 'move';
+		action: ['kara move'];
+		category: #movement;
+		yourself).
+		
+	self addMorphBack: (SKActionBlock new
+		addLabel: 'move';
+		addBlockRow: (SKBlockRow new);
+		addLabel: 'move 2';
 		action: ['kara move'];
 		category: #movement;
 		yourself).
@@ -74,29 +82,30 @@ SKBlockSource >> populate [
 		yourself).
 
 	self addMorphBack: (SKActionBlock new
-		label: 'turn left';
+		addLabel: 'turn left';
 		action: ['kara turn: left'];
 		category: #movement;
 		yourself).
 
 	self addMorphBack: (SKActionBlock new
-		label: 'turn right';
+		addLabel: 'turn right';
 		action: ['kara turn: right'];
 		category: #movement;
 		yourself).
 
-	self addMorphBack: (SKCompoundActionBlock new
-		label: 'if';
-		addBooleanPart: 'then' withDefault: '';
+	"self addMorphBack: (SKCompoundActionBlock new
+		addLabel: 'if';
+		addBooleanPart;
+		addLabel: 'then';
 		action: [:body :condition | condition,' ifTrue: [', body, '].'];
 		yourself).
 
 	self addMorphBack: (SKCompoundActionBlock new
 		addLabel: 'repeat';
-		addIntegerPart: 'times' withDefault: '3';
+		addIntegerPart;
 		addLabel: 'times';
 		action: [:body :times | times,' timesRepeat: [', body, '].'];
-		yourself).
+		yourself)."
 
 	self addMorphBack: (SKBooleanBlock new
 		addLabel: 'trunk ahead?';

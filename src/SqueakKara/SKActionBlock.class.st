@@ -7,7 +7,8 @@ Class {
 		'tabOffsetBottom',
 		'tabOffsetTop',
 		'nextBlock',
-		'previousBlock'
+		'previousBlock',
+		'blockGaps'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -19,6 +20,19 @@ Class {
 SKActionBlock class >> newWithLabel: aLabel andAction: anAction [
 
 	SKActionBlock basicNew initializeWithLabel: aLabel andAction: anAction.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 11:27'
+}
+SKActionBlock >> acceptActionBlock: anActionBlock atConnectionPoint: aConnectionPointName [
+
+	| snapConnectionPoint |
+	
+	snapConnectionPoint := (self availableSnapConnectionPoints detect: [:assoc | 
+		assoc key = aConnectionPointName value]) value.
+	
 ]
 
 {
@@ -40,6 +54,15 @@ SKActionBlock >> action: aBlock [
 ]
 
 {
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 13:01'
+}
+SKActionBlock >> addBlockGap [
+
+	self addBlockRow: SKBlockRow new.
+]
+
+{
 	#category : #type,
 	#'squeak_changestamp' : 'SLH 5/13/2026 16:03'
 }
@@ -50,11 +73,20 @@ SKActionBlock >> blockType [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/2/2026 22:46'
+	#'squeak_changestamp' : 'SLH 6/3/2026 13:21'
 }
-SKActionBlock >> bottomConnectionPoint [
+SKActionBlock >> connectionPointBottom [
 
-	^ self bottomLeft + ((self tabOffsetBottom + self slantWidth + (self tabWidth / 2)) @ 0).
+	^ self bottomLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ 0).
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/3/2026 13:21'
+}
+SKActionBlock >> connectionPointTop [
+
+	^ self topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ (self tabHeight)).
 ]
 
 {
@@ -71,32 +103,43 @@ SKActionBlock >> detachFromControllingBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 10:58'
+	#'squeak_changestamp' : 'SLH 6/3/2026 13:41'
 }
 SKActionBlock >> drawOn: aCanvas [
 	| innerBounds topEdge bottomEdge pts |
 	
-	innerBounds := self bounds insetBy: self borderWidth / 2.
+	"innerBounds := self blockRows first bounds expandBy: (self blockRows first layoutInset insetBy: self borderWidth)."
+	innerBounds := self bounds insetBy: (self borderWidth / 2).
 
 	topEdge := innerBounds top.
 	bottomEdge := innerBounds bottom - self tabHeight.
 
-	pts := self isStart ifFalse:{
-		innerBounds left @ topEdge.
-		(innerBounds left + self tabOffsetTop) @ topEdge. 
-		(innerBounds left + self tabOffsetTop + self slantWidth) @ (topEdge + self tabHeight).
-		(innerBounds left + self tabOffsetTop + self tabWidth - self slantWidth) @ (topEdge + self tabHeight).
-		(innerBounds left + self tabOffsetTop + self tabWidth) @ topEdge.
-		innerBounds right @ topEdge.
+	pts := OrderedCollection new.
+	pts add: innerBounds left @ topEdge.
+	
+	self isStart ifFalse: [pts addAll: {
+		(innerBounds left + self tabOffsetOuter) @ topEdge. 
+		(innerBounds left + self tabOffsetOuter + self slantWidth) @ (topEdge + self tabHeight).
+		(innerBounds left + self tabOffsetOuter + self tabWidth - self slantWidth) @ (topEdge + self tabHeight).
+		(innerBounds left + self tabOffsetOuter + self tabWidth) @ topEdge.}].
+		
+		
+	pts add: innerBounds right @ topEdge.
+	
+	"for each blockrow: ..."
     
+	pts addAll: ({
 		innerBounds right @ bottomEdge.
-
-		(innerBounds left + self tabOffsetBottom + self tabWidth) @ bottomEdge.
-		(innerBounds left + self tabOffsetBottom + self tabWidth - self slantWidth) @ (bottomEdge + self tabHeight).
-		(innerBounds left + self tabOffsetBottom + self slantWidth) @ (bottomEdge + self tabHeight).
-		(innerBounds left + self tabOffsetBottom) @ bottomEdge.
+		(innerBounds left + self tabOffsetOuter + self tabWidth) @ bottomEdge.
+		(innerBounds left + self tabOffsetOuter + self tabWidth - self slantWidth) @ (bottomEdge + self tabHeight).
+		(innerBounds left + self tabOffsetOuter + self slantWidth) @ (bottomEdge + self tabHeight).
+		(innerBounds left + self tabOffsetOuter) @ bottomEdge.
 		innerBounds left @ bottomEdge.
-	} ifTrue: {
+	}).
+
+		
+	
+	"ifTrue: {
 		innerBounds left @ topEdge.
 		innerBounds right @ topEdge.
 		innerBounds right @ bottomEdge.
@@ -106,7 +149,7 @@ SKActionBlock >> drawOn: aCanvas [
 		(innerBounds left + self tabOffsetBottom + self slantWidth) @ (bottomEdge + self tabHeight).
 		(innerBounds left + self tabOffsetBottom) @ bottomEdge.
 		innerBounds left @ bottomEdge.
-	}.
+	}."
 
 	aCanvas 
 		drawPolygon: pts 
@@ -117,28 +160,26 @@ SKActionBlock >> drawOn: aCanvas [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 01:44'
+	#'squeak_changestamp' : 'SLH 6/3/2026 13:18'
 }
 SKActionBlock >> findClosestSnapTargetIn: anObject [
 
-	| closestBlock shortestDistance currentDistance |
+	| closestBlock closestType shortestDistance currentDistance |
 
 	shortestDistance := 20.
 	closestBlock := nil.
+	closestType := nil.
 
 	anObject allMorphsDo: [:each |
 		((each isKindOf: SKActionBlock) 
 			and: [each ~= self 
 			and: [(each hasOwner: self) not]]) ifTrue: [
 
-			currentDistance := self topConnectionPoint dist: each bottomConnectionPoint.
+			currentDistance := self connectionPointTop dist: each connectionPointBottom.
 
-			currentDistance < shortestDistance ifTrue: [
-				shortestDistance := currentDistance.
-				closestBlock := each.
-			].
-		].
-	].
+				currentDistance < shortestDistance ifTrue: [
+					shortestDistance := currentDistance.
+					closestBlock := each]]].
 
 	^ closestBlock
 ]
@@ -176,12 +217,11 @@ SKActionBlock >> isStart: aBoolean [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 5/27/2026 02:36'
+	#'squeak_changestamp' : 'SLH 6/3/2026 13:23'
 }
 SKActionBlock >> layoutInset [
 	
-	self isStart ifTrue:[^(Rectangle left: 10 right: 10 top: 5 bottom:  self tabHeight + 5)].
-	^(Rectangle left: 8 right: 8 top: self tabHeight bottom:  self tabHeight* 2).
+	^(Rectangle left: 0 right: 0 top: 0 bottom: 8).
 ]
 
 {
@@ -240,14 +280,31 @@ SKActionBlock >> slantWidth [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 01:12'
+	#'squeak_changestamp' : 'SLH 6/3/2026 13:29'
 }
 SKActionBlock >> snapToTarget: aBlock [
 
+	"| snapBlock snapConnectionPoint |
+	
+	snapBlock := aSnapTarget key.
+	snapConnectionPoint := (snapBlock availableSnapConnectionPoints detect: [:assoc | 
+		assoc key = aSnapTarget value]) value.
+
 	self isStart ifTrue: [Transcript show: 'Snapping disabled for start blocks', String cr. ^ self].
 
+	Transcript show: 'Snapping to ', snapBlock, String cr.
+	self align: self topConnectionPoint with: snapConnectionPoint.
+	
+	self previousBlock: snapBlock.
+	""snapBlock nextBlock: self.""
+	
+	self disableTableLayout: true.
+	snapBlock vResizing: #rigid; hResizing: #rigid.
+	snapBlock addMorph: self."
+	
+	self isStart ifTrue: [Transcript show: 'Snapping disabled for start blocks', String cr. ^ self].
 	Transcript show: 'Snapping to ', aBlock, String cr.
-	self align: self topConnectionPoint with: aBlock bottomConnectionPoint.
+	self align: self connectionPointTop with: aBlock connectionPointBottom.
 	
 	self previousBlock: aBlock.
 	aBlock nextBlock: self.
@@ -276,47 +333,29 @@ SKActionBlock >> tabHeight [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 5/26/2026 17:00'
+	#'squeak_changestamp' : 'SLH 6/3/2026 12:12'
 }
 SKActionBlock >> tabOffset [
 
+	^ self tabOffsetOuter.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 12:13'
+}
+SKActionBlock >> tabOffsetInner [
+
+	^ 26.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 12:11'
+}
+SKActionBlock >> tabOffsetOuter [
+
 	^ 8.
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 09:38'
-}
-SKActionBlock >> tabOffsetBottom [
-
-	^ tabOffsetBottom ifNil: [tabOffsetBottom := 8].
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 09:36'
-}
-SKActionBlock >> tabOffsetBottom: anInteger [
-
-	tabOffsetBottom := anInteger.
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 09:38'
-}
-SKActionBlock >> tabOffsetTop [
-
-	^ tabOffsetTop ifNil: [tabOffsetTop := 8].
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 09:36'
-}
-SKActionBlock >> tabOffsetTop: anInteger [
-
-	tabOffsetTop := anInteger.
 ]
 
 {
@@ -326,13 +365,4 @@ SKActionBlock >> tabOffsetTop: anInteger [
 SKActionBlock >> tabWidth [
 
 	^ 32.
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/2/2026 23:37'
-}
-SKActionBlock >> topConnectionPoint [
-
-	^ self topLeft + ((self tabOffsetTop + self slantWidth + (self tabWidth / 2)) @ (self tabHeight)).
 ]

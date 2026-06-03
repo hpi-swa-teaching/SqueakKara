@@ -39,11 +39,12 @@ SKBlockPartOld >> connectionPoint [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/2/2026 17:55'
+	#'squeak_changestamp' : 'SLH 6/3/2026 04:51'
 }
 SKBlockPartOld >> initialize [
+
 	super initialize.
-	
+
 	self borderColor: Color black;
 		color: Color white;
 		borderWidth: 1;
@@ -57,10 +58,12 @@ SKBlockPartOld >> initialize [
 		addMorph: self value;
 		vResizing: #shrinkWrap;
 		cellPositioning: #center.
-		
+
 	self adjustLayoutBounds;
 		minWidth: self value width + 12;
-		hResizing: #spaceFill.
+		hResizing: #spaceFill. 
+
+
 ]
 
 {

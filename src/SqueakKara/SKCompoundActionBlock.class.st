@@ -2,40 +2,33 @@ Class {
 	#name : #SKCompoundActionBlock,
 	#superclass : #SKActionBlock,
 	#instVars : [
-		'actionGap',
 		'topBlock',
-		'bottomBlock'
+		'bottomBlock',
+		'innerNextBlock'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/27/2026 14:42'
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 10:33'
 }
-SKCompoundActionBlock >> actionGap [
-	^ actionGap ifNil: [actionGap := SKActionGap new].
-]
+SKCompoundActionBlock >> addBlockPart: aBlockPart [
 
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/27/2026 03:55'
-}
-SKCompoundActionBlock >> actionGap: anObject [
-	actionGap := anObject
+	aBlockPart block: self.
+	self blockParts add: aBlockPart.
+	
+	self topBlock addMorphBack: aBlockPart.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 09:49'
+	#'squeak_changestamp' : 'SLH 6/3/2026 11:18'
 }
-SKCompoundActionBlock >> addBlockPart: aBlockPart [
+SKCompoundActionBlock >> availableSnapConnectionPoints [
 
-	self blockParts add: aBlockPart.
-	
-	self topBlock
-		addMorph: aBlockPart;
-		addMorph: aBlockPart label.
+	^ {#bottom -> self bottomConnectionPoint.
+		#inner -> self innerConnectionPoint}.
 ]
 
 {
@@ -67,7 +60,7 @@ SKCompoundActionBlock >> getCode [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 11:11'
+	#'squeak_changestamp' : 'SLH 6/3/2026 12:00'
 }
 SKCompoundActionBlock >> initialize [
 
@@ -79,7 +72,6 @@ SKCompoundActionBlock >> initialize [
 		cellGap: -10;
 		color: Color transparent;
 		borderWidth: 0;
-		blockParts: OrderedCollection new;
 		removeAllMorphs.
 	
 	insertWrapper := (Morph new
@@ -108,12 +100,11 @@ SKCompoundActionBlock >> initialize [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 10:22'
+	#'squeak_changestamp' : 'SLH 6/3/2026 10:46'
 }
-SKCompoundActionBlock >> label: aString [
-	
-	self label contents: aString.
-	
+SKCompoundActionBlock >> innerConnectionPoint [
+
+	^ self topLeft + ((self topBlock tabOffsetBottom + self slantWidth + (self tabWidth / 2)) @ (self topBlock height)).
 ]
 
 {
@@ -127,13 +118,12 @@ SKCompoundActionBlock >> layoutInset [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 09:50'
+	#'squeak_changestamp' : 'SLH 6/3/2026 05:12'
 }
 SKCompoundActionBlock >> topBlock [
 
 	^ topBlock ifNil: [topBlock := SKActionBlock new
 		removeAllMorphs;
-		addMorph: self label;
 		hResizing: #spaceFill;
 		tabOffsetBottom: 26;
 		yourself].

@@ -15,39 +15,26 @@ SKIntegerSlotPart >> defaultValue [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 04:23'
+	#'squeak_changestamp' : 'SLH 6/3/2026 05:09'
 }
 SKIntegerSlotPart >> initialize [
+	
 	super initialize.
 	
-	"self color: Color white;
-		borderWidth: 1;
-		cornerStyle: #rounded;
-		cornerRadius: 20;
-		hResizing: #shrinkWrap;
-		vResizing: #shrinkWrap."
-		
 	self color: Color white;
 		layoutPolicy: TableLayout new;
-		listDirection: #topToBottom;
+		listDirection: #leftToRight;
 		wrapCentering: #center;
-		layoutInset: 3;
+		cellPositioning: #center;
+		layoutInset: 4@2;
 		cornerStyle: #rounded;
 		cornerRadius: 12;
-		vResizing: #shrinkWrap;
-		cellPositioning: #center.
-		
-	self adjustLayoutBounds;
-		minWidth: 24;
-		hResizing: #shrinkWrap.
+		hResizing: #shrinkWrap;
+		vResizing: #shrinkWrap.
 		
 	self defaultUI: (TextMorph new contents: '3').
 	
-	self addMorphBack: defaultUI.
-	
-	
-	
-	
+	self addMorphBack: self defaultUI.
 ]
 
 {

@@ -4,8 +4,7 @@ Class {
 	#instVars : [
 		'text',
 		'leftSource',
-		'blockParts',
-		'label',
+		'blockRows',
 		'category'
 	],
 	#category : #'SqueakKara-Core'
@@ -33,14 +32,24 @@ SKBlock >> addActionPart: aLabel withDefault: aDefaultValue [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 04:16'
+	#'squeak_changestamp' : 'SLH 6/3/2026 12:46'
 }
 SKBlock >> addBlockPart: aBlockPart [
 
 	aBlockPart block: self.
-	self blockParts add: aBlockPart.
-	
-	self addMorphBack: aBlockPart.
+	self blockRows ifEmpty: [self addBlockRow: SKBlockRow new].
+	self lastBlockRow addBlockPart: aBlockPart.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 12:33'
+}
+SKBlock >> addBlockRow: aBlockRow [
+
+	aBlockRow block: self.
+	self blockRows add: aBlockRow.
+	self addMorphBack: aBlockRow
 ]
 
 {
@@ -99,20 +108,11 @@ SKBlock >> addStringPart: aLabel withDefault: aDefaultValue [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/11/2026 18:40'
+	#'squeak_changestamp' : 'SLH 6/3/2026 12:33'
 }
-SKBlock >> blockParts [
+SKBlock >> blockRows [
 
-	^ blockParts ifNil: [blockParts := OrderedCollection new].
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/11/2026 18:40'
-}
-SKBlock >> blockParts: anOrderedCollection [
-
-	blockParts := anOrderedCollection.
+	^ blockRows ifNil: [blockRows := OrderedCollection new].
 ]
 
 {
@@ -177,26 +177,6 @@ SKBlock >> detachFromControllingBlock [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 04:24'
-}
-SKBlock >> doLayoutIn: layoutBounds [
-	| oldBounds |
-	
-	"1. Snapshot the exact screen footprint BEFORE the layout engine moves anything"
-	oldBounds := self fullBounds copy.
-	
-	"2. Let the TableLayout calculate the new widths and physically push the labels"
-	super doLayoutIn: layoutBounds.
-	
-	"3. Force the BlockEditor to explicitly wipe the old footprint and draw the new one"
-	self owner ifNotNil: [
-		self owner invalidRect: oldBounds.
-		self owner invalidRect: self fullBounds.
-	].
-]
-
-{
 	#category : #'dropping/grabbing',
 	#'squeak_changestamp' : 'SLH 6/2/2026 23:05'
 }
@@ -232,7 +212,7 @@ SKBlock >> handlesMouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 04:15'
+	#'squeak_changestamp' : 'SLH 6/3/2026 12:31'
 }
 SKBlock >> initialize [
 	
@@ -244,12 +224,11 @@ SKBlock >> initialize [
 		vResizing: #shrinkWrap;
 		borderWidth: 2;
 		layoutPolicy: TableLayout new;
-		listDirection: #leftToRight;
+		listDirection: #topToBottom;
 		wrapCentering: #center;
     		cellPositioning: #center;
 		cellInset: 2@0;
-		layoutInset: 5@ 0;
-		addMorph: (Morph new color: Color transparent; height: 24; width: 0).
+		layoutInset: 5@ 0.
 ]
 
 {
@@ -275,24 +254,11 @@ SKBlock >> justDroppedInto: anObject event: anEvent [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/27/2026 02:08'
+	#'squeak_changestamp' : 'SLH 6/3/2026 12:04'
 }
-SKBlock >> label [
+SKBlock >> lastBlockRow [
 
-	^ label ifNil: [label := StringMorph new contents: 'Placeholder'].
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/27/2026 00:09'
-}
-SKBlock >> label: aString [
-	
-	self label contents: aString.
-	"self extent: self label extent+(10@10).
-	self label center: self center."
-	"self label top: self center y."
-	
+	^ self blockRows ifEmpty: [nil] ifNotEmpty: [self blockRows last].
 ]
 
 {

@@ -47,6 +47,18 @@ SKValueBlock >> containingBlockPart: aBlockPart [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 10:37'
+}
+SKValueBlock >> detachFromControllingBlock [
+	Transcript show: 'Trying to detach ', self, ' from ', self containingBlockPart, String cr.
+	self containingBlockPart ifNotNil: [
+		Transcript show: 'Detaching ', self, ' from ', self containingBlockPart, String cr.
+		self containingBlockPart restoreDefault.
+		self containingBlockPart: nil].
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'SLH 6/3/2026 03:49'
 }
 SKValueBlock >> findClosestSnapTargetIn: anObject [
@@ -76,7 +88,7 @@ SKValueBlock >> findClosestSnapTargetIn: anObject [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:50'
+	#'squeak_changestamp' : 'SLH 6/3/2026 10:38'
 }
 SKValueBlock >> snapToTarget: anInputSlotPart [
 
@@ -84,8 +96,8 @@ SKValueBlock >> snapToTarget: anInputSlotPart [
 	self align: self connectionPoint with: anInputSlotPart connectionPoint.
 	anInputSlotPart acceptValueBlock: self.
 	
-	"self containingBlockPart: aBlockPart.
-	aBlockPart value: self.
+	self containingBlockPart: anInputSlotPart.
+	"aBlockPart value: self.
 	
 	self disableTableLayout: true.
 	aBlockPart block vResizing: #rigid; hResizing: #rigid.

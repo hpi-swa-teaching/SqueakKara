@@ -79,13 +79,13 @@ SKInputSlotPart >> defaultValue [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:25'
+	#'squeak_changestamp' : 'SLH 6/3/2026 10:38'
 }
 SKInputSlotPart >> restoreDefault [
 
 	self attachedBlock: nil.
 	self addMorph: self defaultUI.
-	""self block updateLayout.""
+	"self block updateLayout."
 ]
 
 {
