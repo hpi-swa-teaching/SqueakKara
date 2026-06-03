@@ -10,16 +10,16 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 04:04'
+	#'squeak_changestamp' : 'SLH 6/3/2026 19:41'
 }
-SKInputSlotPart >> acceptValueBlock: aValueBlock [
+SKInputSlotPart >> acceptBlock: aBlock [
 
-	self attachedBlock: aValueBlock.
+	self attachedBlock: aBlock.
 	
 	self removeMorph: self defaultUI.
+	aBlock disableTableLayout: false.
 	
-	""aValueBlock disableTableLayout: false.""
-	self addMorph: aValueBlock.
+	self addMorph: aBlock.
 	
 ]
 

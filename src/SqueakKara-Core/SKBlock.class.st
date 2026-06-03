@@ -5,7 +5,8 @@ Class {
 		'text',
 		'leftSource',
 		'blockRows',
-		'category'
+		'category',
+		'snapConnectionPoints'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -63,29 +64,11 @@ SKBlock >> addBooleanPart [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:04'
-}
-SKBlock >> addBooleanPart: aLabel withDefault: aDefaultValue [
-
-	"self addBlockPart: (SKBlockPartOld new type: #Boolean; label: aLabel; value: aDefaultValue; yourself)"
-]
-
-{
-	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'SLH 6/3/2026 04:06'
 }
 SKBlock >> addIntegerPart [
 	
 	self addBlockPart: (SKIntegerSlotPart new).
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:04'
-}
-SKBlock >> addIntegerPart: aLabel withDefault: aDefaultValue [
-
-	"self addBlockPart: (SKBlockPartOld new type: #Integer; label: aLabel; value: aDefaultValue; yourself)"
 ]
 
 {
@@ -98,12 +81,12 @@ SKBlock >> addLabel: aString [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:04'
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/3/2026 22:39'
 }
-SKBlock >> addStringPart: aLabel withDefault: aDefaultValue [
+SKBlock >> addSnapConnectionPoint: aPoint [
 
-	"self addBlockPart: (SKBlockPartOld new type: #String; label: aLabel; value: aDefaultValue; yourself)"
+	self snapConnectionPoints add: aPoint.
 ]
 
 {
@@ -212,7 +195,7 @@ SKBlock >> handlesMouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 12:31'
+	#'squeak_changestamp' : 'SLH 6/3/2026 20:03'
 }
 SKBlock >> initialize [
 	
@@ -226,7 +209,7 @@ SKBlock >> initialize [
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
 		wrapCentering: #center;
-    		cellPositioning: #center;
+    		cellPositioning: #topLeft;
 		cellInset: 2@0;
 		layoutInset: 5@ 0.
 ]
@@ -307,6 +290,15 @@ SKBlock >> rejectDropMorphEvent: anEvent [
 	h := anEvent hand.
 	WorldState addDeferredUIMessage: [h grabMorph: self].
 	anEvent wasHandled: true.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/3/2026 22:38'
+}
+SKBlock >> snapConnectionPoints [
+
+	^ snapConnectionPoints ifNil: [snapConnectionPoints := OrderedCollection new].
 ]
 
 {

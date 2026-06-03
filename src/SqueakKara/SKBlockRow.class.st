@@ -3,7 +3,8 @@ Class {
 	#superclass : #Morph,
 	#instVars : [
 		'block',
-		'blockParts'
+		'blockParts',
+		'gap'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -58,21 +59,37 @@ SKBlockRow >> connectionPoint [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 13:12'
+	#'squeak_changestamp' : 'SLH 6/3/2026 19:32'
+}
+SKBlockRow >> gap [
+
+	^ gap ifNil: [gap := false].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 19:31'
+}
+SKBlockRow >> gap: aBoolean [
+
+	gap := aBoolean.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 20:01'
 }
 SKBlockRow >> initialize [
 	
 	super initialize.	
 	
-	self hResizing: #shrinkWrap;
+	self hResizing: #spaceFill;
 		vResizing: #shrinkWrap;
 		layoutPolicy: TableLayout new;
 		listDirection: #leftToRight;
 		wrapCentering: #center;
     		cellPositioning: #center;
-		cellInset: 2@0;
-		layoutInset: 5@ 0;
-		color: Color transparent.
+		color: Color green.
 ]
 
 {

@@ -55,10 +55,17 @@ SKActionBlock >> action: aBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 13:01'
+	#'squeak_changestamp' : 'SLH 6/3/2026 22:41'
 }
 SKActionBlock >> addBlockGap [
 
+	| actionSlotPart |
+	
+	actionSlotPart := SKActionSlotPart new.
+
+	self addBlockRow: (SKBlockRow new gap: true; yourself).
+	self addBlockPart: actionSlotPart.
+	self addSnapConnectionPoint: actionSlotPart connectionPoint.
 	self addBlockRow: SKBlockRow new.
 ]
 
@@ -160,7 +167,7 @@ SKActionBlock >> drawOn: aCanvas [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 13:18'
+	#'squeak_changestamp' : 'SLH 6/3/2026 20:08'
 }
 SKActionBlock >> findClosestSnapTargetIn: anObject [
 
@@ -173,13 +180,12 @@ SKActionBlock >> findClosestSnapTargetIn: anObject [
 	anObject allMorphsDo: [:each |
 		((each isKindOf: SKActionBlock) 
 			and: [each ~= self 
-			and: [(each hasOwner: self) not]]) ifTrue: [
-
-			currentDistance := self connectionPointTop dist: each connectionPointBottom.
-
-				currentDistance < shortestDistance ifTrue: [
-					shortestDistance := currentDistance.
-					closestBlock := each]]].
+				and: [(each hasOwner: self) not
+					and: [each nextBlock isNil]]]) ifTrue: [
+						currentDistance := self connectionPointTop dist: each connectionPointBottom.
+						currentDistance < shortestDistance ifTrue: [
+							shortestDistance := currentDistance.
+							closestBlock := each]]].
 
 	^ closestBlock
 ]
@@ -195,6 +201,17 @@ SKActionBlock >> getCode [
 	args := self blockParts collect: [:each | each value contents asString].
 	
 	^ self action valueWithArguments: args asArray.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 22:43'
+}
+SKActionBlock >> initialize [
+
+	super initialize.
+	
+	self addSnapConnectionPoint: self connectionPointBottom.
 ]
 
 {
@@ -280,7 +297,7 @@ SKActionBlock >> slantWidth [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 13:29'
+	#'squeak_changestamp' : 'SLH 6/3/2026 14:54'
 }
 SKActionBlock >> snapToTarget: aBlock [
 
@@ -365,4 +382,34 @@ SKActionBlock >> tabOffsetOuter [
 SKActionBlock >> tabWidth [
 
 	^ 32.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/3/2026 22:30'
+}
+SKActionBlock >> validSnapConnectionsIn: anObject [
+
+	| validConnections snapRadius |
+
+	validConnections := Collection new.
+	snapRadius := 20.
+
+	"anObject allMorphsDo: [:each |
+		(each isKindOf: SKActionBlock) ifTrue: [
+			(((self connectionPointTop dist: each connectionPointBottom) < 20) and: [
+				each nextBlock isNil not and: [
+					each ~= self]]) ifTrue: [
+						validConnections add: ].
+			] ifFalse: [].
+			and: [((self connectionPointTop dist: each connectionPointBottom) < 20)
+				and: [each nextBlock isNil not
+					and: [(each hasOwner: self) not
+						and: [each ~= self]] ifTrue: [
+							currentDistance := self connectionPointTop dist: each connectionPointBottom.
+							currentDistance < shortestDistance ifTrue: [
+								shortestDistance := currentDistance.
+								closestBlock := each]]]."
+
+	^ validConnections
 ]

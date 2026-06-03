@@ -88,13 +88,13 @@ SKValueBlock >> findClosestSnapTargetIn: anObject [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 10:38'
+	#'squeak_changestamp' : 'SLH 6/3/2026 19:58'
 }
 SKValueBlock >> snapToTarget: anInputSlotPart [
 
 	Transcript show: 'Snapping to ', anInputSlotPart block, ' at ', anInputSlotPart, String cr.
 	self align: self connectionPoint with: anInputSlotPart connectionPoint.
-	anInputSlotPart acceptValueBlock: self.
+	anInputSlotPart acceptBlock: self.
 	
 	self containingBlockPart: anInputSlotPart.
 	"aBlockPart value: self.
