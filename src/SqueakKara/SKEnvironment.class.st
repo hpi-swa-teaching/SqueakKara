@@ -256,14 +256,14 @@ SKEnvironment >> initializeObjects [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jawi 6/3/2026 18:44'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
 	self grid: (SKGrid newWithExtent: 7 @ 7).
 	SKChallenge initializeChallenge1For: self.
 	
-	nextChallenge := #initializeWithChallenge2.
+	self nextChallenge: #initializeWithChallenge2.
 	
 	self initializeObjects
 
@@ -271,56 +271,56 @@ SKEnvironment >> initializeWithChallenge1 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jawi 6/3/2026 18:44'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge2 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 2).
 	SKChallenge initializeChallenge2For: self.
 	
-	nextChallenge := #initializeWithChallenge3.
+	self nextChallenge: #initializeWithChallenge3.
 	
 	self initializeObjects
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jawi 6/3/2026 18:44'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge3 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 3).
 	SKChallenge initializeChallenge3For: self.
 	
-	nextChallenge := #initializeWithChallenge4.
+	self nextChallenge: #initializeWithChallenge4.
 	
 	self initializeObjects
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jawi 6/3/2026 18:44'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge4 [
 
 	self grid: (SKGrid newWithExtent: 7 @ 4).
 	SKChallenge initializeChallenge4For: self.
 	
-	nextChallenge := #initializeWithChallenge5.
+	self nextChallenge: #initializeWithChallenge5.
 	
 	self initializeObjects
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jawi 6/3/2026 18:47'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge5 [
 
 	self grid: (SKGrid newWithExtent: 11 @ 11).
 	SKChallenge initializeChallenge5For: self.
 	
-	nextChallenge := #initializeLandingPage.
+	self nextChallenge: #initializeLandingPage.
 	
 	self initializeObjects
 ]
@@ -370,6 +370,15 @@ SKEnvironment >> maxNumberOfKaras [
 SKEnvironment >> nextChallenge [
 	
 	^ nextChallenge
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:35'
+}
+SKEnvironment >> nextChallenge: aChallenge [
+	
+	nextChallenge := aChallenge
 ]
 
 {

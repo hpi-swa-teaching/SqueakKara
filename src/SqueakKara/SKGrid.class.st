@@ -106,13 +106,13 @@ SKGrid >> backgroundColor [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'jawi 6/3/2026 19:12'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:32'
 }
 SKGrid >> checkWinCondition [
 
 	self allLeafesCollected ifTrue: [ 
 		self spawnWinScreen. 
-		self executeControls addButtonNextChallenge ]
+		self environment ifNotNil: [ self executeControls addButtonNextChallenge ]]
 ]
 
 {
