@@ -9,11 +9,11 @@ Class {
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:41'
+	#'squeak_changestamp' : 'JS 6/2/2026 14:26'
 }
 SKProgrammingUIBlocks >> build [
 
-	SKBlockSpace newWithController: self
+	self environment windowManager addWindow: ((SKBlockSpace newWithController: self) window)
 ]
 
 {

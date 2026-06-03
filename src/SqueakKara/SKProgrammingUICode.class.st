@@ -9,11 +9,12 @@ Class {
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:49'
+	#'squeak_changestamp' : 'JS 6/2/2026 14:14'
 }
 SKProgrammingUICode >> build [
 
-	self workspace: (SKWorkspace newWithExecuter: (self executer))
+	self workspace: (SKWorkspace newWithExecuter: (self executer)).
+	self environment windowManager addWindow: self workspace
 ]
 
 {

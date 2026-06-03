@@ -10,6 +10,15 @@ Class {
 
 {
 	#category : #challenges,
+	#'squeak_changestamp' : 'JS 6/2/2026 15:49'
+}
+SKChallenge class >> initializeBlankProjectFor: aGrid environment: anEnvironment [
+	
+	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 1)
+]
+
+{
+	#category : #challenges,
 	#'squeak_changestamp' : 'LM 5/7/2026 21:49'
 }
 SKChallenge class >> initializeChallenge1For: aGrid environment: anEnvironment [

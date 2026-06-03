@@ -13,7 +13,9 @@ Class {
 		'gameWidth',
 		'gameHeight',
 		'systemWindow',
-		'programmingConcept'
+		'programmingConcept',
+		'windowManager',
+		'challange'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
@@ -66,8 +68,24 @@ SKEnvironment >> calculateScaleFactor: aPoint [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/15/2026 20:18'
+}
+SKEnvironment >> challange [
+	^ challange
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/15/2026 20:18'
+}
+SKEnvironment >> challange: anObject [
+	challange := anObject
+]
+
+{
 	#category : #commands,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 23:20'
+	#'squeak_changestamp' : 'JS 5/27/2026 21:22'
 }
 SKEnvironment >> close [
 
@@ -217,10 +235,11 @@ SKEnvironment >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:36'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:36'
 }
 SKEnvironment >> initializeObjects [
-	
+
+
 	self executeControls: SKExecuteControls new.
 	self executeControls environment: self.
 	
@@ -230,57 +249,74 @@ SKEnvironment >> initializeObjects [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:36'
+	#'squeak_changestamp' : 'JS 6/2/2026 14:02'
 }
 SKEnvironment >> initializeProgrammingUI [
 
+		self windowManager: SKWindowManager new.
 		self executer: (SKExecuter newWithEnvironment: self).
 		self programmingUI: (self programmingConcept buildProgrammingUI: (self executer) andEnvironment: self).
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jawi 5/14/2026 13:16'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:48'
+}
+SKEnvironment >> initializeWithBlankProject [
+
+	self grid: (SKGrid newWithExtent: 7 @ 7).
+	SKChallenge initializeBlankProjectFor: self grid environment: self.
+	self initializeObjects.
+	self executeControls currentChallenge: 'BlankProject'
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'JS 6/2/2026 15:39'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
 	self grid: (SKGrid newWithExtent: 7 @ 7).
 	SKChallenge initializeChallenge1For: self grid environment: self.
-	self initializeObjects
+	self initializeObjects.
+	self executeControls currentChallenge: 'Challenge1'.
 
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:02'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:40'
 }
 SKEnvironment >> initializeWithChallenge2 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 2).
 	SKChallenge initializeChallenge2For: self grid environment: self.
-	self initializeObjects
+	self initializeObjects.
+	self executeControls currentChallenge: 'Challenge2'.
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:02'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:40'
 }
 SKEnvironment >> initializeWithChallenge3 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 3).
 	SKChallenge initializeChallenge3For: self grid environment: self.
-	self initializeObjects
+	self initializeObjects.
+	self executeControls currentChallenge: 'Challenge3'.
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:24'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:41'
 }
 SKEnvironment >> initializeWithChallenge4 [
 
 	self grid: (SKGrid newWithExtent: 7 @ 4).
 	SKChallenge initializeChallenge4For: self grid environment: self.
-	self initializeObjects
+	self initializeObjects.
+	self executeControls currentChallenge: 'Challenge4'.
 ]
 
 {
@@ -382,6 +418,16 @@ SKEnvironment >> programmingUI: aProgrammingUI [
 ]
 
 {
+	#category : #commands,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:19'
+}
+SKEnvironment >> reset: aChallenge [
+
+	self grid clear.
+	SKChallenge perform: ('initialize', aChallenge, 'For:environment:') asSymbol withArguments:{self grid. self}
+]
+
+{
 	#category : #layout,
 	#'squeak_changestamp' : 'LM 4/29/2026 12:26'
 }
@@ -426,27 +472,29 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/29/2026 18:06'
+	#'squeak_changestamp' : 'JS 6/2/2026 12:52'
 }
 SKEnvironment >> setSystemWindow [
 	
-	| container |
-	
-	self systemWindow: SKSystemWindow new.
+| container |
+
+	self systemWindow: (SKSystemWindow new windowManager: self windowManager).
 	self systemWindow setLabel: 'Kara'.
 	
 	container := self containerMorph
 		addMorph: self grid;
 		addMorph: self executeControls;
+		addMorph: self windowManager;
 		yourself.
 	
 	self systemWindow
 		extent: self gameWidth @ self gameHeight;
-		setWindowColor: self grid backgroundColor;
+		setWindowColor: self grid backgroundColor; 
 		resizeListener: [ self resize ];
 		addMorph: container fullFrame: (LayoutFrame fractions: (0@0 corner: 1@1)).
+		
+	self windowManager addWindow: self systemWindow.	
 	self positionExecuteControlsAndGrid.
-	
 	self resize
 ]
 
@@ -484,6 +532,22 @@ SKEnvironment >> systemWindow: anObject [
 SKEnvironment >> updateTextures [
 
 	self executeControls updateTextures
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/12/2026 18:24'
+}
+SKEnvironment >> windowManager [
+	^ windowManager
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/12/2026 18:24'
+}
+SKEnvironment >> windowManager: anObject [
+	windowManager := anObject
 ]
 
 {
