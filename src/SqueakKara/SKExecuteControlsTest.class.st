@@ -30,7 +30,7 @@ SKExecuteControlsTest >> setUp [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'EB 7/12/2024 11:45'
+	#'squeak_changestamp' : 'JS 5/26/2026 17:24'
 }
 SKExecuteControlsTest >> tearDown [
 
@@ -39,7 +39,7 @@ SKExecuteControlsTest >> tearDown [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:18'
+	#'squeak_changestamp' : 'JS 5/27/2026 21:12'
 }
 SKExecuteControlsTest >> testRun [
 
@@ -54,7 +54,7 @@ SKExecuteControlsTest >> testRun [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
+	#'squeak_changestamp' : 'JS 5/27/2026 21:12'
 }
 SKExecuteControlsTest >> testRunPause [
 
@@ -72,7 +72,7 @@ SKExecuteControlsTest >> testRunPause [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'EB 7/12/2024 11:42'
+	#'squeak_changestamp' : 'JS 5/26/2026 17:24'
 }
 SKExecuteControlsTest >> testSlider [
 	
@@ -82,7 +82,7 @@ SKExecuteControlsTest >> testSlider [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 18:45'
+	#'squeak_changestamp' : 'JS 5/27/2026 21:12'
 }
 SKExecuteControlsTest >> testStop [
 

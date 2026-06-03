@@ -33,6 +33,15 @@ SKWorkspace >> close [
 
 {
 	#category : #commands,
+	#'squeak_changestamp' : 'JS 5/12/2026 19:01'
+}
+SKWorkspace >> delete [
+
+	self changed: #close
+]
+
+{
+	#category : #commands,
 	#'squeak_changestamp' : 'LM 5/7/2026 21:14'
 }
 SKWorkspace >> evaluateExpression: aCode [
@@ -99,6 +108,14 @@ SKWorkspace >> initialize [
 	self bindings at: #right put: SKDirection rotateRight.
 	self contents: self getExampleCode
 
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/15/2026 22:23'
+}
+SKWorkspace >> resetKara: aKara [
+	self bindings at: #kara put: aKara.
 ]
 
 {

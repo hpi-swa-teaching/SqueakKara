@@ -5,7 +5,8 @@ Class {
 		'kara',
 		'environment',
 		'dropIndex',
-		'controller'
+		'controller',
+		'window'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -228,7 +229,7 @@ SKBlockSpace >> removeDropZone [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 04:51'
+	#'squeak_changestamp' : 'JS 6/2/2026 14:26'
 }
 SKBlockSpace >> startBlockEdit [
 
@@ -253,7 +254,7 @@ SKBlockSpace >> startBlockEdit [
 	
 	window addMorph: self.
 	window addMorph: SKBlockSource new.
-	window openInWindowLabeled: 'SKBlockSource'
+	self window: (window openInWindowLabeled: 'SKBlockSource')
 	
 ]
 
@@ -279,4 +280,20 @@ SKBlockSpace >> wantsDroppedMorph: aMorph event: anEvent [
 	self flag: #toBeExtended.
 	^((aMorph class = SKBlock) or: [aMorph class inheritsFrom: SKBlock]) and: [aMorph blockType = #Action].
 	 
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/2/2026 14:24'
+}
+SKBlockSpace >> window [
+	^ window
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/2/2026 14:24'
+}
+SKBlockSpace >> window: anObject [
+	window := anObject
 ]

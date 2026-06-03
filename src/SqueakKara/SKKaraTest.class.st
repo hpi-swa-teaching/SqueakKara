@@ -45,7 +45,7 @@ SKKaraTest >> tearDown [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:41'
+	#'squeak_changestamp' : 'SSP 5/25/2026 23:59'
 }
 SKKaraTest >> testAbsolutePositionAfterMoveWithChangedDirection [
 
@@ -60,7 +60,7 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithChangedDirection [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:41'
+	#'squeak_changestamp' : 'SSP 5/26/2026 00:00'
 }
 SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 
@@ -201,6 +201,18 @@ SKKaraTest >> testKaraTurnRightTwice [
 	kara turn: SKDirection rotateRight.
 	self assert: kara viewDirection = SKDirection left
 
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'SSP 5/26/2026 13:32'
+}
+SKKaraTest >> testMissionImpossible [
+
+
+	self assert: 1 = 1.
+
+	
 ]
 
 {

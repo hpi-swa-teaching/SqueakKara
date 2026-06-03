@@ -12,11 +12,20 @@ Class {
 	#name : #SKSystemWindow,
 	#superclass : #SystemWindow,
 	#instVars : [
-		'resizeListener'
+		'resizeListener',
+		'windowManager'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'LM 4/28/2026 20:16'
 }
+
+{
+	#category : #'open/close',
+	#'squeak_changestamp' : 'JS 6/2/2026 12:51'
+}
+SKSystemWindow >> closeBoxHit [
+	self windowManager buildConfirmationWindow.
+]
 
 {
 	#category : #geometry,
@@ -53,4 +62,20 @@ SKSystemWindow >> resizeListener [
 SKSystemWindow >> resizeListener: aBlock [
 
 	resizeListener := aBlock
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/2/2026 12:51'
+}
+SKSystemWindow >> windowManager [
+	^ windowManager
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/2/2026 12:51'
+}
+SKSystemWindow >> windowManager: anObject [
+	windowManager := anObject
 ]
