@@ -48,12 +48,12 @@ SKActionBlock >> blockType [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 10:58'
+	#'squeak_changestamp' : 'FR 6/3/2026 01:30'
 }
 SKActionBlock >> drawOn: aCanvas [
 	| innerBounds topEdge bottomEdge pts |
 	
-	innerBounds := self bounds insetBy: self borderWidth / 2.
+	innerBounds := self bounds insetBy: self borderWidth // 2.
 
 	topEdge := innerBounds top.
 	bottomEdge := innerBounds bottom - self tabHeight.
@@ -125,12 +125,12 @@ SKActionBlock >> isStart: aBoolean [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 5/27/2026 02:36'
+	#'squeak_changestamp' : 'FR 6/2/2026 21:40'
 }
 SKActionBlock >> layoutInset [
 	
-	self isStart ifTrue:[^(Rectangle left: 10 right: 10 top: 5 bottom:  self tabHeight + 5)].
-	^(Rectangle left: 8 right: 8 top: self tabHeight bottom:  self tabHeight* 2).
+	self isStart ifTrue:[^(Rectangle left: 0 right: 4 top: 5 bottom:  self tabHeight + 5)].
+	^(Rectangle left: 0 right: 4 top: self tabHeight bottom:  self tabHeight* 2).
 ]
 
 {
@@ -144,20 +144,20 @@ SKActionBlock >> minHeight [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 5/26/2026 17:00'
+	#'squeak_changestamp' : 'FR 6/2/2026 23:15'
 }
 SKActionBlock >> slantWidth [
 
-	^ 8.
+	^ self tabWidth//4.
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'SLH 5/19/2026 23:13'
+	#'squeak_changestamp' : 'FR 6/2/2026 23:13'
 }
 SKActionBlock >> tabHeight [
 
-	^ 8.
+	^ self label height//3.
 ]
 
 {
@@ -207,9 +207,9 @@ SKActionBlock >> tabOffsetTop: anInteger [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 5/26/2026 17:00'
+	#'squeak_changestamp' : 'FR 6/2/2026 23:15'
 }
 SKActionBlock >> tabWidth [
 
-	^ 32.
+	^ self tabHeight*4.
 ]

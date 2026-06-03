@@ -11,28 +11,29 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/2/2026 17:55'
+	#'squeak_changestamp' : 'FR 6/3/2026 02:57'
 }
 SKBlockPart >> initialize [
 	super initialize.
 	
 	self borderColor: Color black;
 		color: Color white;
-		borderWidth: 1;
+		borderWidth: SKBlockStyle borderWidth//2;
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
 		wrapCentering: #center;
-		layoutInset: 3;
+		cellPositioning: #center;
+		layoutInset: SKBlockStyle hInset @ (TextStyle defaultFont height //6);
 		cornerStyle: #rounded;
-		cornerRadius: 12;
+		cornerRadius: SKBlockStyle blockPartHeight // 2;
 		value: 30;
 		addMorph: self value;
 		vResizing: #shrinkWrap;
-		cellPositioning: #center.
-		
-	self adjustLayoutBounds;
-		minWidth: self value width + 12;
-		hResizing: #spaceFill.
+		hResizing: #shrinkWrap;
+		adjustLayoutBounds;
+		minWidth: self width;
+		addMorph: (Morph new extent: self value width@0).
+		Transcript show: self width.
 ]
 
 {
@@ -73,11 +74,11 @@ SKBlockPart >> type: aType [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 10:28'
+	#'squeak_changestamp' : 'FR 6/3/2026 02:44'
 }
 SKBlockPart >> value [
 
-	^ value ifNil: [value := SKTextEntry new contents: 10 asString].
+	^ value ifNil: [value := SKTextEntry new contents: 10 asString; centered].
 ]
 
 {

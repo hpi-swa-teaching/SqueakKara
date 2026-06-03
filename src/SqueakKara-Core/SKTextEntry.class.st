@@ -23,11 +23,12 @@ SKTextEntry >> initialize [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/26/2026 22:15'
+	#'squeak_changestamp' : 'FR 6/3/2026 02:21'
 }
 SKTextEntry >> keyStroke: anEvent [
 	anEvent keyCharacter = Character cr ifTrue: [
 		anEvent hand releaseKeyboardFocus: self.
+		self changed.
 		^ self
 	].
 

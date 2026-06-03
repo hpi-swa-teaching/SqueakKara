@@ -17,11 +17,14 @@ SKActionGap >> hasStartBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 09:46'
+	#'squeak_changestamp' : 'FR 6/2/2026 20:57'
 }
 SKActionGap >> initialize [
 	super initialize.
-	self color: Color transparent.
+	self color: Color transparent;
+		wrapCentering: #left;
+		vResizing: #shrinkWrap;
+		minHeight: 20.
 ]
 
 {

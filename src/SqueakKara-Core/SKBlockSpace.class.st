@@ -42,7 +42,7 @@ SKBlockSpace >> acceptDroppingMorph: aMorph event: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:20'
+	#'squeak_changestamp' : 'FR 6/3/2026 00:57'
 }
 SKBlockSpace >> addDropZoneAtIndex: aNumber of: aMorph [
 
@@ -52,11 +52,8 @@ SKBlockSpace >> addDropZoneAtIndex: aNumber of: aMorph [
 		newIndex := aNumber.
 		(aNumber = 1 and: [self hasStartBlock]) ifTrue:[newIndex:= 2].
 		self removeDropZone.
-		dropZone := aMorph copy.
-		"dropZone submorphs do: [:each | each color: Color gray]."
-		dropZone submorphCount timesRepeat: [dropZone firstSubmorph delete]. "may not work with compound blocks but looks nicer for now"
-		dropZone color: Color gray;
-			borderColor: Color gray.
+		dropZone := ImageMorph new image: aMorph shadowForm.
+		dropZone color: Color gray.
 		self dropIndex: newIndex;
 			privateAddMorph: dropZone
 				atIndex: (newIndex).]
@@ -156,11 +153,12 @@ SKBlockSpace >> hasStartBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 03:13'
+	#'squeak_changestamp' : 'FR 6/2/2026 23:39'
 }
 SKBlockSpace >> initialize [
 
 	super initialize.
+	self flag: #absoluteValues.
 	self listDirection: #topToBottom;
 	hResizing: #spaceFill;
 	wrapCentering: #center;
@@ -228,27 +226,31 @@ SKBlockSpace >> objectHeight [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:21'
+	#'squeak_changestamp' : 'FR 6/3/2026 02:43'
 }
 SKBlockSpace >> removeDropZone [
 
 	self dropIndex ifNotNil:[
 		(self submorphs at: self dropIndex) delete.
 		self dropIndex: nil.
-		self layoutChanged]
+		"self adjustLayoutBounds;
+			changed;
+			redraw;
+			layoutChanged.""<- all dont work here"]
+	
 	
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 09:35'
+	#'squeak_changestamp' : 'FR 6/2/2026 23:41'
 }
 SKBlockSpace >> startBlockEdit [
 
 	| window |
 
 	super initialize.
-	
+	self flag: #duplicateCode. "with initialize"
 	window := RectangleMorph new
 		layoutPolicy: TableLayout new;
 		listDirection: #leftToRight;

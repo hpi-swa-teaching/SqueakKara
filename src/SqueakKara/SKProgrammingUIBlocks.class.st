@@ -34,10 +34,11 @@ SKProgrammingUIBlocks >> build [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
+	#'squeak_changestamp' : 'FR 6/3/2026 01:02'
 }
 SKProgrammingUIBlocks >> getCode [
 
+	Transcript show: self blockSpace getCode.
 	^ self blockSpace getCode
 ]
 

@@ -52,6 +52,17 @@ SKBlock >> addIntegerPart: aLabel withDefault: aDefaultValue [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'FR 6/3/2026 02:13'
+}
+SKBlock >> addSpacing [
+
+	self flag: #ugly.
+	"falls jemand den Nerv hat sich mit layoutPolicy rumzuschlagen go ahead und mach schöner."
+	self addMorph: (Morph new color: Color red; height: SKBlockStyle blockPartHeight; width: 0). "this makes the layout in blocks without blockParts behave the same way"
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'SLH 5/13/2026 16:00'
 }
 SKBlock >> addStringPart: aLabel withDefault: aDefaultValue [
@@ -156,7 +167,7 @@ SKBlock >> handlesMouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 10:50'
+	#'squeak_changestamp' : 'FR 6/3/2026 03:06'
 }
 SKBlock >> initialize [
 	
@@ -166,14 +177,15 @@ SKBlock >> initialize [
 		color: self colorFromCategory;
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
-		borderWidth: 2;
+		borderWidth: (SKBlockStyle borderWidth);
 		layoutPolicy: TableLayout new;
 		listDirection: #rightToLeft;
+		listCentering: #topRight;
 		wrapCentering: #center;
     		cellPositioning: #center;
-		cellInset: 2@0;
-		layoutInset: 5@ 0;
-		addMorph: (Morph new color: Color transparent; height: 24; width: 0);
+		cellInset: "self label height*0.25"SKBlockStyle hInset // 3@0;
+		layoutInset:" self label height * 0.75"0@ 0;
+		addSpacing;
 		addMorph: self label.
 ]
 
@@ -189,7 +201,7 @@ SKBlock >> justDroppedInto: anObject event: anEvent [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/27/2026 02:08'
+	#'squeak_changestamp' : 'FR 6/2/2026 20:18'
 }
 SKBlock >> label [
 
@@ -227,11 +239,11 @@ SKBlock >> leftSource: aBoolean [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/20/2026 00:22'
+	#'squeak_changestamp' : 'FR 6/2/2026 21:23'
 }
 SKBlock >> minHeight [
 
-	^ 35
+	^ 0
 ]
 
 {
@@ -259,9 +271,11 @@ SKBlock >> rejectDropMorphEvent: anEvent [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 5/5/2026 23:10'
+	#'squeak_changestamp' : 'FR 6/2/2026 20:37'
 }
 SKBlock >> startDrag: anEvent [
+	
+	"self owner changed."
 	anEvent hand grabMorph: self
 ]
 

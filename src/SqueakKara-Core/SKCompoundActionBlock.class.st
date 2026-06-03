@@ -40,14 +40,14 @@ SKCompoundActionBlock >> addBlockPart: aBlockPart [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 09:50'
+	#'squeak_changestamp' : 'FR 6/2/2026 23:33'
 }
 SKCompoundActionBlock >> bottomBlock [
 
 	^ bottomBlock ifNil: [bottomBlock := SKActionBlock new
 		removeAllMorphs;
-		hResizing: #spaceFill;
 		tabOffsetTop: 26;
+		width: 26 + self tabWidth + self tabWidth;
 		yourself].
 ]
 
@@ -67,7 +67,7 @@ SKCompoundActionBlock >> getCode [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 11:11'
+	#'squeak_changestamp' : 'FR 6/2/2026 23:43'
 }
 SKCompoundActionBlock >> initialize [
 
@@ -92,7 +92,7 @@ SKCompoundActionBlock >> initialize [
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap).
 	sidebar := (Morph new
-		vResizing: #spaceFill;
+		vResizing: #spaceFill; "somehow removing this gets rid of the resizing bug for submorphCount>1"
 		width: 16;
 		color: self colorFromCategory;
 		borderColor: self borderColorFromCategory;
@@ -108,33 +108,34 @@ SKCompoundActionBlock >> initialize [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 10:22'
+	#'squeak_changestamp' : 'FR 6/2/2026 23:28'
 }
 SKCompoundActionBlock >> label: aString [
 	
-	self label contents: aString.
+	self label contents: aString
 	
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 11:05'
+	#'squeak_changestamp' : 'FR 6/2/2026 23:37'
 }
 SKCompoundActionBlock >> layoutInset [
 	
-	^(Rectangle left: -2 right: -2 top: 0 bottom: 0).
+	^(Rectangle left: -2 right: -2 top: -2 bottom: -2).
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/28/2026 09:50'
+	#'squeak_changestamp' : 'FR 6/2/2026 21:36'
 }
 SKCompoundActionBlock >> topBlock [
 
 	^ topBlock ifNil: [topBlock := SKActionBlock new
 		removeAllMorphs;
+		addSpacing;
 		addMorph: self label;
-		hResizing: #spaceFill;
+		hResizing: #shrinkWrap;
 		tabOffsetBottom: 26;
 		yourself].
 ]
