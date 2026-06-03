@@ -419,11 +419,12 @@ SKEnvironment >> programmingUI: aProgrammingUI [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'JS 6/2/2026 15:39'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:19'
 }
 SKEnvironment >> reset: aChallenge [
+
 	self grid clear.
-	SKChallenge perform: ('initialize', aChallenge, 'For:environment:') asSymbol withArguments:{self grid. self}.
+	SKChallenge perform: ('initialize', aChallenge, 'For:environment:') asSymbol withArguments:{self grid. self}
 ]
 
 {

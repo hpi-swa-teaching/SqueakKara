@@ -25,9 +25,10 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 6/2/2026 15:43'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:15'
 }
 SKExecuteControls >> actionReset [
+
 	self environment stop.
 	self updateTextures.
 	self environment reset: currentChallenge
@@ -75,30 +76,48 @@ SKExecuteControls >> actionStop [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 6/2/2026 12:44'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:17'
+}
+SKExecuteControls >> addAllButtons [
+
+	self
+		buttonRun: self buildButtonRun;
+		sliderSpeed: self buildSliderSpeed;
+		buttonStop: self buildButtonStop;
+		buttonReset: self buildButtonReset;
+		buttonSpawnKara: self buildButtonSpawnKara;
+		buttonRunSetTexture: self runTexture;
+		buttonResetSetTexture: self resetTexture; 
+		buttonStopSetTexture: self stopTexture;
+		buttonSpawnKaraSetTexture: self karaTexture
+
+	
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:18'
+}
+SKExecuteControls >> addAllMorphs [
+
+	self
+		addMorphBack: self buttonRun;
+		addMorphBack: self sliderSpeed;
+		addMorphBack: self buttonStop;
+		addMorphBack: self buttonReset;
+		addMorphBack: self buttonSpawnKara
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:18'
 }
 SKExecuteControls >> addAllWidgets [
 
-	
-	self loadTextures.
-	
-	self buttonRun: self buildButtonRun.
-	self sliderSpeed: self buildSliderSpeed.
-	self buttonStop: self buildButtonStop.
-	self buttonReset: self buildButtonReset.
-	self buttonSpawnKara: self buildButtonSpawnKara.
-	self buttonRunSetTexture: self runTexture.
-	self buttonResetSetTexture: self resetTexture.
-	self buttonStopSetTexture: self stopTexture.
-	self buttonSpawnKaraSetTexture: self karaTexture.
-	
-	self addMorphBack: self buttonRun.
-	self addMorphBack: self sliderSpeed.
-	self addMorphBack: self buttonStop.
-	self addMorphBack: self buttonReset.
-	self addMorphBack: self buttonSpawnKara.
-	
-	self layoutChanged
+	self loadTextures;
+		addAllButtons;
+		addAllMorphs;
+		layoutChanged
 ]
 
 {
@@ -187,17 +206,19 @@ SKExecuteControls >> buildSliderSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/15/2026 22:35'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:14'
 }
 SKExecuteControls >> buttonReset [
+
 	^ buttonReset
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/15/2026 22:35'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:14'
 }
 SKExecuteControls >> buttonReset: anObject [
+
 	buttonReset := anObject
 ]
 
@@ -293,17 +314,19 @@ SKExecuteControls >> buttonStopSetTexture: aForm [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/15/2026 22:13'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:15'
 }
 SKExecuteControls >> currentChallenge [
+
 	^ currentChallenge
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/15/2026 22:13'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:15'
 }
 SKExecuteControls >> currentChallenge: anObject [
+
 	currentChallenge := anObject
 ]
 
@@ -342,9 +365,10 @@ SKExecuteControls >> defaultIconicButtonSize [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:43'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:15'
 }
 SKExecuteControls >> defaultSliderSize [
+
 	^ 100 @ 20
 ]
 
@@ -466,18 +490,20 @@ SKExecuteControls >> pauseTextureFilename [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/2/2026 12:43'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:15'
 }
 SKExecuteControls >> resetTexture [
+
 	^ resetTexture
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/2/2026 12:43'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:15'
 }
-SKExecuteControls >> resetTexture: anObject [
-	resetTexture := anObject
+SKExecuteControls >> resetTexture: anObjects [
+
+	resetTexture := anObjects
 ]
 
 {
@@ -617,7 +643,7 @@ SKExecuteControls >> stopTextureFilename [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:41'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:18'
 }
 SKExecuteControls >> toggleExecutionState [
 
@@ -626,7 +652,7 @@ SKExecuteControls >> toggleExecutionState [
 
 	state = #terminated ifTrue: [ self environment run. ^ self ].
 	state = #suspended ifTrue: [ self environment resume. ^ self ].
-	state = #running ifTrue: [ self environment pause. ^ self ].
+	state = #running ifTrue: [ self environment pause. ^ self ]
 ]
 
 {

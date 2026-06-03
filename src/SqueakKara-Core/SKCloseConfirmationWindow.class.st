@@ -15,271 +15,301 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:17'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
 }
 SKCloseConfirmationWindow >> abortButton [
+
 	^ abortButton
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:17'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
 }
 SKCloseConfirmationWindow >> abortButton: anObject [
+
 	abortButton := anObject
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'SSP 5/25/2026 23:26'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:13'
 }
 SKCloseConfirmationWindow >> buildAbortButton [
+
 	self buildButtonWithLabel: 'NO' 
-		andWidth: self buttonWidth 
-		andHeight: self buttonHeight 
-		andSelector: #closeOnlyConfirmationWindow 
-		andCenterXOffset: self buttonXOffset
-		andCenterYOffset: self buttonYOffset
+		selector: #closeOnlyConfirmationWindow 
+		centerXOffset: self buttonXOffset
+		centerYOffset: self buttonYOffset
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:53'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:13'
 }
-SKCloseConfirmationWindow >> buildButtonWithLabel: aLabel andWidth: aWidth andHeight: aHeight andSelector: aSelector andCenterXOffset: aXOffset andCenterYOffset: aYOffset [
+SKCloseConfirmationWindow >> buildButtonWithLabel: aLabel selector: aSelector centerXOffset: aXOffset centerYOffset: aYOffset [
+
 	self confirmationButton: (SimpleButtonMorph new
 		label: aLabel;
 		target: self;
 		actionSelector: aSelector;
 		color: SKStylesheet secondaryColor;
-		width: aWidth;
-		height: aHeight).
+		width: self buttonWidth;
+		height: self buttonHeight).
 	self addMorph: self confirmationButton.
-	self confirmationButton center:  (self center x + aXOffset) @ (self center y + aYOffset).
+	self confirmationButton center:  (self center x + aXOffset) @ (self center y + aYOffset)
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:55'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:13'
 }
 SKCloseConfirmationWindow >> buildConfirmationButton [
+
 	self buildButtonWithLabel: 'YES' 
-		andWidth: self buttonWidth 
-		andHeight: self buttonHeight 
-		andSelector: 'closeAllWindows' 
-		andCenterXOffset: (self buttonXOffset * -1)
-		andCenterYOffset: self buttonYOffset
+		selector: 'closeAllWindows' 
+		centerXOffset: (self buttonXOffset * -1)
+		centerYOffset: self buttonYOffset
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/17/2026 12:13'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:12'
 }
 SKCloseConfirmationWindow >> buildMessage [
+
 	self buildMessageWithText: self messageFirstLine 
-		andColour: Color black 
-		andFontSize:  self messageFontSize 
-		andCenter:  self center x @ (self center y - self messageYOffset).
+		center:  self center x @ (self center y - self messageYOffset).
 	self buildMessageWithText: self messageSecondLine 
-		andColour: Color black 
-		andFontSize:  self messageFontSize 
-		andCenter:  self center x @ (self center y - (self messageYOffset - self messageTextSpacing)).
+		center:  self center x @ (self center y - (self messageYOffset - self messageTextSpacing))
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/17/2026 12:11'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:11'
 }
-SKCloseConfirmationWindow >> buildMessageWithText: aText andColour: aColor andFontSize: aSize andCenter: aCenter [
+SKCloseConfirmationWindow >> buildMessageWithText: aText center: aCenter [
+
 	self addMorph: (StringMorph new 
 		contents: aText;
-		color: aColor;
+		color: self messageColor;
 		emphasis: TextEmphasis bold emphasisCode;
-		font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: aSize);
+		font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: self messageFontSize);
 		center: aCenter)
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/17/2026 11:55'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:14'
 }
 SKCloseConfirmationWindow >> buildWidgets [
+
 	self scaleWindow; 
 		centerWindowInWorld;
 		buildMessage;
 		buildConfirmationButton;
-		buildAbortButton.
+		buildAbortButton
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:46'
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
 }
 SKCloseConfirmationWindow >> buttonHeight [
+
 	^ 30
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:46'
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
 }
 SKCloseConfirmationWindow >> buttonWidth [
+
 	^ 100
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:54'
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
 }
 SKCloseConfirmationWindow >> buttonXOffset [
+
 	^ 75
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:54'
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
 }
 SKCloseConfirmationWindow >> buttonYOffset [
+
 	^ 30
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:08'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:14'
 }
 SKCloseConfirmationWindow >> centerWindowInWorld [
-	self center: self owner center.
+
+	self center: self owner center
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:30'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:14'
 }
 SKCloseConfirmationWindow >> closeAllWindows [
+
 	self windowManager actionCloseAllWindows
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:30'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:14'
 }
 SKCloseConfirmationWindow >> closeOnlyConfirmationWindow [
+
 	self delete
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:17'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
 }
 SKCloseConfirmationWindow >> confirmationButton [
+
 	^ confirmationButton
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:17'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
 }
 SKCloseConfirmationWindow >> confirmationButton: anObject [
+
 	confirmationButton := anObject
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:26'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
 }
 SKCloseConfirmationWindow >> initialize [
+
 	super initialize.
 	self 
 		setLabel: self windowLabel;
-		setWindowColor: SKStylesheet primaryColor.
+		setWindowColor: SKStylesheet primaryColor
 
 
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/17/2026 12:06'
+	#category : #messages,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:12'
+}
+SKCloseConfirmationWindow >> messageColor [
+
+	^ Color black
+]
+
+{
+	#category : #messages,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:10'
 }
 SKCloseConfirmationWindow >> messageFirstLine [
-	^ 'All you progress will be lost.'
+
+	^ 'All your progress will be lost.'
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/17/2026 12:00'
+	#category : #messages,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:10'
 }
 SKCloseConfirmationWindow >> messageFontSize [
+
 	^ 12
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/17/2026 12:06'
+	#category : #messages,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:10'
 }
 SKCloseConfirmationWindow >> messageSecondLine [
+
 	^ 'Are you sure you want to close all windows?'
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/17/2026 12:04'
+	#category : #messages,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:10'
 }
 SKCloseConfirmationWindow >> messageTextSpacing [
+
 	^ self messageFontSize + 6
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/17/2026 12:01'
+	#category : #messages,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:10'
 }
 SKCloseConfirmationWindow >> messageYOffset [
+
 	^ 30
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:31'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:14'
 }
 SKCloseConfirmationWindow >> scaleWindow [
+
 	self extent: self windowWidth @ self windowHeight
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:26'
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:10'
 }
 SKCloseConfirmationWindow >> windowHeight [
+
 	^ 180
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/16/2026 11:55'
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:10'
 }
 SKCloseConfirmationWindow >> windowLabel [
+
 	^ 'Confirmation'
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/16/2026 11:46'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
 }
 SKCloseConfirmationWindow >> windowManager [
+
 	^ windowManager
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/16/2026 11:46'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
 }
 SKCloseConfirmationWindow >> windowManager: anObject [
+
 	windowManager := anObject
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/16/2026 12:26'
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:10'
 }
 SKCloseConfirmationWindow >> windowWidth [
+
 	^ 360
 ]

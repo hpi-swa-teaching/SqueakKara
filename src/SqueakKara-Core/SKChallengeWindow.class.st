@@ -13,32 +13,36 @@ Class {
 
 {
 	#category : #'open/close',
-	#'squeak_changestamp' : 'JS 5/17/2026 12:42'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:08'
 }
 SKChallengeWindow >> closeBoxHit [
-	self windowManager buildConfirmationWindow.
+
+	self windowManager buildConfirmationWindow
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 5/17/2026 12:22'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:08'
 }
 SKChallengeWindow >> initialize [
-	super initialize.
+
+	super initialize
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/17/2026 12:41'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:07'
 }
 SKChallengeWindow >> windowManager [
+
 	^ windowManager
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/17/2026 12:41'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:08'
 }
 SKChallengeWindow >> windowManager: anObject [
+
 	windowManager := anObject
 ]
