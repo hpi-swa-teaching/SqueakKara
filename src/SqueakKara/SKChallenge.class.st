@@ -119,7 +119,7 @@ SKChallenge class >> initializeChallenge5For: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'JanWein 6/4/2026 09:41'
+	#'squeak_changestamp' : 'JanWein 6/4/2026 10:32'
 }
 SKChallenge class >> initializeChallenge6For: anEnvironment [
 	
@@ -139,7 +139,7 @@ SKChallenge class >> initializeChallenge6For: anEnvironment [
 	1 to: 9 do: [ :x |
 		x = 5 ifFalse: [ SKTrunk newInGrid: grid at: x @ 8 ] ].
 
-	anEnvironment addKara: (SKKara newInGrid: grid at: 5 @ 9 with: 5 @ 1).
+	anEnvironment addKaraAt: 5 @ 9
 ]
 
 {
