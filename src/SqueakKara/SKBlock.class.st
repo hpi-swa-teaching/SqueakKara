@@ -185,7 +185,7 @@ SKBlock >> detachFromControllingBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 10:46'
+	#'squeak_changestamp' : 'SLH 6/4/2026 17:23'
 }
 SKBlock >> findClosestSnapTargetIn: anObject [
 
@@ -193,22 +193,12 @@ SKBlock >> findClosestSnapTargetIn: anObject [
 
 	shortestDistance := 20.
 	closestConnectionPoint := nil.
-	"Transcript show: 'valid connections: ', (self validSnapConnectionsIn: anObject), String cr."
 	
 	(self validSnapConnectionsIn: anObject) do: [:each |
 		currentDistance := self snapAnchor dist: each.
 		currentDistance < shortestDistance ifTrue: [
 			shortestDistance := currentDistance.
 			closestConnectionPoint := each]].
-	"anObject allMorphsDo: [:each |
-		((each isKindOf: SKActionBlock) 
-			and: [each ~= self 
-				and: [(each hasOwner: self) not
-					and: [each nextBlock isNil]]]) ifTrue: [
-						currentDistance := self connectionPointTop dist: each connectionPointBottom.
-						currentDistance < shortestDistance ifTrue: [
-							shortestDistance := currentDistance.
-							closestBlock := each]]]."
 
 	^ closestConnectionPoint.
 ]
@@ -361,6 +351,15 @@ SKBlock >> snapToTarget: aConnectionPoint [
 }
 SKBlock >> startDrag: anEvent [
 	anEvent hand grabMorph: self
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 17:24'
+}
+SKBlock >> validSnapConnectionsIn: anObject [
+
+	^ SubclassResponsibility.
 ]
 
 {

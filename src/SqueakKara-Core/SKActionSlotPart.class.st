@@ -28,7 +28,7 @@ SKActionSlotPart >> defaultValue [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 16:51'
+	#'squeak_changestamp' : 'SLH 6/4/2026 17:12'
 }
 SKActionSlotPart >> initialize [
 	
@@ -36,10 +36,20 @@ SKActionSlotPart >> initialize [
 	
 	self "color: Color blue;"
 		color: Color transparent;
+		"borderColor: Color red;
+		borderWidth: 1;"
 		hResizing: #spaceFill;
 		vResizing: #shrinkWrap.
 		
-	self defaultUI: (RectangleMorph new "color: Color red; borderColor: Color orange;" color: Color transparent; borderColor: Color transparent; hResizing: #spaceFill).
+	self defaultUI: (Morph new
+		"color: Color red;
+		borderColor: Color orange;"
+		color: Color transparent;
+		"borderColor: Color black;
+		borderWidth: 1;"
+		hResizing: #spaceFill;
+		vResizing: #shrinkWrap;
+		height: 15).
 	
 	self addMorphBack: self defaultUI.
 ]

@@ -67,11 +67,10 @@ SKBlockConnectionPoint >> connectedBlock: anSKBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 15:48'
+	#'squeak_changestamp' : 'SLH 6/4/2026 17:27'
 }
 SKBlockConnectionPoint >> dist: anotherBlockConnectionPoint [
 
-	Transcript show: 'dist: ', (self positionCalculation value dist: anotherBlockConnectionPoint positionCalculation value), String cr.
 	^ self positionCalculation value dist: (anotherBlockConnectionPoint positionCalculation value).
 ]
 

@@ -46,7 +46,7 @@ SKBlockRow >> connectionPoint [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 15:50'
+	#'squeak_changestamp' : 'SLH 6/4/2026 17:06'
 }
 SKBlockRow >> initialize [
 	
@@ -58,7 +58,8 @@ SKBlockRow >> initialize [
 		listDirection: #leftToRight;
 		wrapCentering: #center;
     		cellPositioning: #center;
-		color: Color transparent.
+		color: Color transparent;
+		height: 30.
 ]
 
 {

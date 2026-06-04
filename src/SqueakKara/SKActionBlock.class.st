@@ -105,7 +105,7 @@ SKActionBlock >> detachFromControllingBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 16:57'
+	#'squeak_changestamp' : 'SLH 6/4/2026 17:14'
 }
 SKActionBlock >> drawOn: aCanvas [
 	| bounds pts top bottom left right y |
@@ -140,57 +140,23 @@ SKActionBlock >> drawOn: aCanvas [
 		
 		pts add: leftTop@y.
 		
-		row isGap ifFalse: [pts addAll: {
-			(leftTop+tabOffsetTop)@y.
-			(leftTop+tabOffsetTop+self slantWidth)@(y+self tabHeight).
-			(leftTop+tabOffsetTop+self tabWidth - self slantWidth)@(y+self tabHeight).
-			(leftTop+tabOffsetTop+self tabWidth)@y.
-			right@y.
-			right@yNew.
-			(leftBot+tabOffsetBot+self tabWidth)@yNew.
-			(leftBot+tabOffsetBot+self tabWidth-self slantWidth)@(yNew+self tabHeight).
-			(leftBot+tabOffsetBot+self slantWidth)@(yNew+self tabHeight).
-			(leftBot+tabOffsetBot)@yNew}].
+		row isGap ifFalse: [
+			self isStart ifFalse: [pts addAll: {
+				(leftTop+tabOffsetTop)@y.
+				(leftTop+tabOffsetTop+self slantWidth)@(y+self tabHeight).
+				(leftTop+tabOffsetTop+self tabWidth - self slantWidth)@(y+self tabHeight).
+				(leftTop+tabOffsetTop+self tabWidth)@y.}].
+			pts addAll: {
+				right@y.
+				right@yNew.
+				(leftBot+tabOffsetBot+self tabWidth)@yNew.
+				(leftBot+tabOffsetBot+self tabWidth-self slantWidth)@(yNew+self tabHeight).
+				(leftBot+tabOffsetBot+self slantWidth)@(yNew+self tabHeight).
+				(leftBot+tabOffsetBot)@yNew}].
 			
 		y := yNew].
 	
 	pts add: left@bottom.
-	
-	"pts add: left@top.
-	
-	self isStart ifFalse: [pts addAll: {
-		(left + self tabOffsetOuter)@top. 
-		(left + self tabOffsetOuter + self slantWidth)@(top + self tabHeight).
-		(left + self tabOffsetOuter + self tabWidth - self slantWidth)@(top + self tabHeight).
-		(left + self tabOffsetOuter + self tabWidth)@top.}].
-		
-		
-	pts add: right@top."
-	
-	"for each blockrow: ..."
-    
-	"pts addAll: ({
-		right@bottom.
-		(left + self tabOffsetOuter + self tabWidth)@bottom.
-		(left + self tabOffsetOuter + self tabWidth - self slantWidth)@(bottom + self tabHeight).
-		(left + self tabOffsetOuter + self slantWidth)@(bottom + self tabHeight).
-		(left + self tabOffsetOuter)@bottom.
-		left@bottom.
-	})."
-
-		
-	
-	"ifTrue: {
-		innerBounds left @ topEdge.
-		innerBounds right @ topEdge.
-		innerBounds right @ bottomEdge.
-
-		(innerBounds left + self tabOffsetTop + self tabWidth) @ bottomEdge.
-		(innerBounds left + self tabOffsetTop + self tabWidth - self slantWidth) @ (bottomEdge + self tabHeight).
-		(innerBounds left + self tabOffsetBottom + self slantWidth) @ (bottomEdge + self tabHeight).
-		(innerBounds left + self tabOffsetBottom) @ bottomEdge.
-		innerBounds left @ bottomEdge.
-	}."
 
 	aCanvas 
 		drawPolygon: pts 
@@ -261,20 +227,20 @@ SKActionBlock >> minHeight [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/2/2026 23:51'
+	#'squeak_changestamp' : 'SLH 6/4/2026 17:20'
 }
 SKActionBlock >> nextBlock [
 
-	^ nextBlock.
+	^ connectionPointBottom connectedBlock.
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 01:54'
+	#'squeak_changestamp' : 'SLH 6/4/2026 17:21'
 }
 SKActionBlock >> nextBlock: aBlock [
 
-	nextBlock := aBlock.
+	connectionPointBottom connectedBlock: aBlock.
 ]
 
 {
@@ -315,7 +281,7 @@ SKActionBlock >> snapAnchor [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 11:28'
+	#'squeak_changestamp' : 'SLH 6/4/2026 17:21'
 }
 SKActionBlock >> snapToTarget: aConnectionPoint [
 
@@ -328,7 +294,7 @@ SKActionBlock >> snapToTarget: aConnectionPoint [
 	self align: (self snapAnchor position) with: (aConnectionPoint position).
 	
 	self previousBlock: block.
-	block nextBlock: self.
+	aConnectionPoint connectedBlock: self.
 	
 	self disableTableLayout: true.
 	block vResizing: #rigid; hResizing: #rigid.
@@ -390,7 +356,7 @@ SKActionBlock >> tabWidth [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 10:51'
+	#'squeak_changestamp' : 'SLH 6/4/2026 17:27'
 }
 SKActionBlock >> validSnapConnectionsIn: anObject [
 
@@ -408,6 +374,8 @@ SKActionBlock >> validSnapConnectionsIn: anObject [
 					validConnections addAll: (each actionConnectionPoints select: [:connection |
 						((connection dist: self snapAnchor) < 20) and: [
 							connection connectedBlock isNil]])]].
+
+	Transcript show: 'own connection points: ', (self actionConnectionPoints collect: [:x | x position]), String cr.
 
 	Transcript show: 'valid connections: ', validConnections, String cr.
 	^ validConnections
