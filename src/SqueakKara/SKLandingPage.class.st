@@ -80,6 +80,16 @@ SKLandingPage >> actionExample7 [
 
 {
 	#category : #actions,
+	#'squeak_changestamp' : 'JanWein 6/4/2026 10:39'
+}
+SKLandingPage >> actionExample8 [
+
+	SKEnvironment new initializeWithChallenge8.
+	self delete
+]
+
+{
+	#category : #actions,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:01'
 }
 SKLandingPage >> actionNew [
@@ -119,7 +129,7 @@ SKLandingPage >> addButton: aButton atIndex: anInteger [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'JanWein 6/4/2026 10:11'
+	#'squeak_changestamp' : 'JanWein 6/4/2026 10:39'
 }
 SKLandingPage >> buildAllButtons [
 
@@ -131,7 +141,8 @@ SKLandingPage >> buildAllButtons [
 		self buildButtonExample4.
 		self buildButtonExample5.
 		self buildButtonExample6.
-		self buildButtonExample7.}
+		self buildButtonExample7.
+		self buildButtonExample8.}
 ]
 
 {
@@ -208,6 +219,17 @@ SKLandingPage >> buildButtonExample7 [
 
 	^ self buildButtonWithLabel: self buttonExample7Label
 		andSelector: #actionExample7
+		andColor: SKStylesheet secondaryColor
+]
+
+{
+	#category : #buttons,
+	#'squeak_changestamp' : 'JanWein 6/4/2026 10:39'
+}
+SKLandingPage >> buildButtonExample8 [
+
+	^ self buildButtonWithLabel: self buttonExample8Label
+		andSelector: #actionExample8
 		andColor: SKStylesheet secondaryColor
 ]
 
@@ -301,6 +323,15 @@ SKLandingPage >> buttonExample7Label [
 ]
 
 {
+	#category : #labels,
+	#'squeak_changestamp' : 'JanWein 6/4/2026 10:38'
+}
+SKLandingPage >> buttonExample8Label [
+
+	^ 'Example Project 8'
+]
+
+{
 	#category : #buttons,
 	#'squeak_changestamp' : 'LK 7/4/2024 19:06'
 }
@@ -320,14 +351,14 @@ SKLandingPage >> buttonNewLabel [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'AB 6/2/2026 20:31'
+	#'squeak_changestamp' : 'JanWein 6/4/2026 15:47'
 }
 SKLandingPage >> defaultExtent [
 
 	| buttonSlotHeight totalHeight buttonCount |
     
 	buttonCount := self buildAllButtons size.
-	buttonSlotHeight := self buttonHeight + 10.
+	buttonSlotHeight := self buttonHeight + 30.
 	totalHeight := 50 + (buttonSlotHeight * buttonCount) + 60.
     
 	^ 300 px @ totalHeight
