@@ -137,6 +137,14 @@ GSMetadata {
 			#path : FSAbsolutePath [
 				'src'
 			]
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'arrow_next_challenge.png'
+			],
+			#encoding : @5
 		}
 	],
 	#name : 'SqueakKara'

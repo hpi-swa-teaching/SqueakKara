@@ -324,7 +324,7 @@ SKGridObject >> relativePositionFor: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LD 5/29/2026 08:33'
+	#'squeak_changestamp' : 'jawi 6/3/2026 18:05'
 }
 SKGridObject >> scaleToFactor [
 

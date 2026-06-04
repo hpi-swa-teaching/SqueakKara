@@ -20,7 +20,7 @@ SKExecuteControlsTest >> setUp [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:45'
+	#'squeak_changestamp' : 'LM 6/4/2026 09:25'
 }
 SKExecuteControlsTest >> tearDown [
 
@@ -40,6 +40,26 @@ SKExecuteControlsTest >> testMaxNumberRandomKaraSpawn [
 	SKKara defaultColors size + 5 timesRepeat: [ controls actionSpawnKara ].
 
 	self assert: environment karas size == (environment maxNumberOfKaras)
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:19'
+}
+SKExecuteControlsTest >> testNextChallenge [
+	
+	| world testEnvironment testEnvironmentNew |
+	
+	testEnvironment := SKEnvironment new initializeWithChallenge1.
+	world := testEnvironment systemWindow owner.
+	
+	self assert: (world submorphs includes: (testEnvironment systemWindow)).
+	
+	testEnvironmentNew := testEnvironment executeControls actionNextChallenge.
+	
+	self deny: (world submorphs includes: (testEnvironment systemWindow)).
+	
+	testEnvironmentNew close
 ]
 
 {

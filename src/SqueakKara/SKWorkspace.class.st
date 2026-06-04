@@ -38,6 +38,15 @@ SKWorkspace class >> newWithExecuter: anExecuter and: aKara [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 6/4/2026 09:20'
+}
+SKWorkspace >> canDiscardEdits [
+
+	^ true
+]
+
+{
 	#category : #commands,
 	#'squeak_changestamp' : 'LM 5/23/2026 18:26'
 }
