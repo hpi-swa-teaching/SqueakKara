@@ -87,9 +87,9 @@ SKChallenge class >> initializeChallenge4For: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'AB 5/29/2026 10:29'
+	#'squeak_changestamp' : 'JanWein 6/4/2026 09:41'
 }
-SKChallenge class >> initializeChallenge5For: aGrid environment: anEnvironment [
+SKChallenge class >> initializeChallenge5For: anEnvironment [
 	
 	| grid |
 	
@@ -119,9 +119,9 @@ SKChallenge class >> initializeChallenge5For: aGrid environment: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'AB 6/2/2026 14:51'
+	#'squeak_changestamp' : 'JanWein 6/4/2026 09:41'
 }
-SKChallenge class >> initializeChallenge6For: aGrid environment: anEnvironment [
+SKChallenge class >> initializeChallenge6For: anEnvironment [
 	
 	| grid |
 	

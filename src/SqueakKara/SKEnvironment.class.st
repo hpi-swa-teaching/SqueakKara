@@ -291,23 +291,23 @@ SKEnvironment >> initializeWithChallenge4 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'AB 5/25/2026 15:47'
+	#'squeak_changestamp' : 'JanWein 6/4/2026 09:46'
 }
 SKEnvironment >> initializeWithChallenge5 [
 
 	self grid: (SKGrid newWithExtent: 11 @ 11).
-	SKChallenge initializeChallenge5For: self grid environment: self.
+	SKChallenge initializeChallenge5For: self.
 	self initializeObjects
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'AB 6/2/2026 15:05'
+	#'squeak_changestamp' : 'JanWein 6/4/2026 09:46'
 }
 SKEnvironment >> initializeWithChallenge6 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 9).
-	SKChallenge initializeChallenge6For: self grid environment: self.
+	SKChallenge initializeChallenge6For: self.
 	self initializeObjects
 ]
 
