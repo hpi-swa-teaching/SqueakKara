@@ -60,6 +60,36 @@ SKLandingPage >> actionExample5 [
 
 {
 	#category : #actions,
+	#'squeak_changestamp' : 'AB 6/2/2026 14:44'
+}
+SKLandingPage >> actionExample6 [
+
+	SKEnvironment new initializeWithChallenge6.
+	self delete
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'JanWein 6/4/2026 10:10'
+}
+SKLandingPage >> actionExample7 [
+
+	SKEnvironment new initializeWithChallenge7.
+	self delete
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'JanWein 6/4/2026 10:39'
+}
+SKLandingPage >> actionExample8 [
+
+	SKEnvironment new initializeWithChallenge8.
+	self delete
+]
+
+{
+	#category : #actions,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:01'
 }
 SKLandingPage >> actionNew [
@@ -99,16 +129,20 @@ SKLandingPage >> addButton: aButton atIndex: anInteger [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'AB 5/29/2026 10:35'
+	#'squeak_changestamp' : 'JanWein 6/4/2026 10:39'
 }
 SKLandingPage >> buildAllButtons [
 
-	^ Array with: self buildButtonNew
-		with: self buildButtonExample1
-		with: self buildButtonExample2
-		with: self buildButtonExample3
-		with: self buildButtonExample4
-		with: self buildButtonExample5
+	^ OrderedCollection newFrom: {
+		self buildButtonNew.
+		self buildButtonExample1.
+		self buildButtonExample2.
+		self buildButtonExample3.
+		self buildButtonExample4.
+		self buildButtonExample5.
+		self buildButtonExample6.
+		self buildButtonExample7.
+		self buildButtonExample8.}
 ]
 
 {
@@ -163,6 +197,39 @@ SKLandingPage >> buildButtonExample5 [
 
 	^ self buildButtonWithLabel: self buttonExample5Label
 		andSelector: #actionExample5
+		andColor: SKStylesheet secondaryColor
+]
+
+{
+	#category : #buttons,
+	#'squeak_changestamp' : 'AB 6/2/2026 14:43'
+}
+SKLandingPage >> buildButtonExample6 [
+
+	^ self buildButtonWithLabel: self buttonExample6Label
+		andSelector: #actionExample6
+		andColor: SKStylesheet secondaryColor
+]
+
+{
+	#category : #buttons,
+	#'squeak_changestamp' : 'JanWein 6/4/2026 10:12'
+}
+SKLandingPage >> buildButtonExample7 [
+
+	^ self buildButtonWithLabel: self buttonExample7Label
+		andSelector: #actionExample7
+		andColor: SKStylesheet secondaryColor
+]
+
+{
+	#category : #buttons,
+	#'squeak_changestamp' : 'JanWein 6/4/2026 10:39'
+}
+SKLandingPage >> buildButtonExample8 [
+
+	^ self buildButtonWithLabel: self buttonExample8Label
+		andSelector: #actionExample8
 		andColor: SKStylesheet secondaryColor
 ]
 
@@ -238,6 +305,33 @@ SKLandingPage >> buttonExample5Label [
 ]
 
 {
+	#category : #labels,
+	#'squeak_changestamp' : 'AB 6/2/2026 14:43'
+}
+SKLandingPage >> buttonExample6Label [
+
+	^ 'Example Project 6'
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'JanWein 6/4/2026 10:12'
+}
+SKLandingPage >> buttonExample7Label [
+
+	^ 'Example Project 7'
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'JanWein 6/4/2026 10:38'
+}
+SKLandingPage >> buttonExample8Label [
+
+	^ 'Example Project 8'
+]
+
+{
 	#category : #buttons,
 	#'squeak_changestamp' : 'LK 7/4/2024 19:06'
 }
@@ -257,22 +351,22 @@ SKLandingPage >> buttonNewLabel [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'AB 5/27/2026 15:34'
+	#'squeak_changestamp' : 'JanWein 6/4/2026 15:47'
 }
 SKLandingPage >> defaultExtent [
 
 	| buttonSlotHeight totalHeight buttonCount |
     
 	buttonCount := self buildAllButtons size.
-	buttonSlotHeight := self buttonHeight + 10.
-	totalHeight := 50 + (buttonSlotHeight * buttonCount) + 40.
+	buttonSlotHeight := self buttonHeight + 30.
+	totalHeight := 50 + (buttonSlotHeight * buttonCount) + 60.
     
 	^ 300 px @ totalHeight
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:53'
+	#'squeak_changestamp' : 'AB 6/2/2026 20:28'
 }
 SKLandingPage >> initialize [
 
