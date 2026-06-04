@@ -3,21 +3,17 @@ Class {
 	#superclass : #Morph,
 	#instVars : [
 		'block',
-		'blockParts',
-		'gap'
+		'isGap'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 11:57'
+	#'squeak_changestamp' : 'SLH 6/4/2026 09:15'
 }
 SKBlockRow >> addBlockPart: aBlockPart [
 
-	aBlockPart block: self block.
-	self blockParts add: aBlockPart.
-	
 	self addMorphBack: aBlockPart.
 ]
 
@@ -41,15 +37,6 @@ SKBlockRow >> block: aBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 11:55'
-}
-SKBlockRow >> blockParts [
-
-	^ blockParts ifNil: [blockParts := OrderedCollection new].
-]
-
-{
-	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'SLH 6/3/2026 12:25'
 }
 SKBlockRow >> connectionPoint [
@@ -59,25 +46,7 @@ SKBlockRow >> connectionPoint [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 19:32'
-}
-SKBlockRow >> gap [
-
-	^ gap ifNil: [gap := false].
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 19:31'
-}
-SKBlockRow >> gap: aBoolean [
-
-	gap := aBoolean.
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 20:01'
+	#'squeak_changestamp' : 'SLH 6/4/2026 15:50'
 }
 SKBlockRow >> initialize [
 	
@@ -89,7 +58,25 @@ SKBlockRow >> initialize [
 		listDirection: #leftToRight;
 		wrapCentering: #center;
     		cellPositioning: #center;
-		color: Color green.
+		color: Color transparent.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 11:36'
+}
+SKBlockRow >> isGap [
+
+	^ isGap ifNil: [isGap := false].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 11:36'
+}
+SKBlockRow >> isGap: aBoolean [
+
+	isGap := aBoolean.
 ]
 
 {

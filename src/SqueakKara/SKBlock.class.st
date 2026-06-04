@@ -4,9 +4,11 @@ Class {
 	#instVars : [
 		'text',
 		'leftSource',
+		'blockParts',
 		'blockRows',
 		'category',
-		'snapConnectionPoints'
+		'actionConnectionPoints',
+		'valueConnectionPoints'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -23,27 +25,28 @@ SKBlock >> aboutToBeGrabbedBy: aHand [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 02:56'
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/4/2026 09:40'
 }
-SKBlock >> addActionPart: aLabel withDefault: aDefaultValue [
+SKBlock >> actionConnectionPoints [
 
-	self addBlockPart: (SKBlockPartOld new type: #Action; label: aLabel; value: aDefaultValue; yourself)
+	^ actionConnectionPoints ifNil: [actionConnectionPoints := OrderedCollection new].
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 12:46'
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/4/2026 10:19'
 }
 SKBlock >> addBlockPart: aBlockPart [
 
 	aBlockPart block: self.
 	self blockRows ifEmpty: [self addBlockRow: SKBlockRow new].
 	self lastBlockRow addBlockPart: aBlockPart.
+	self blockParts add: aBlockPart.
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 12:33'
 }
 SKBlock >> addBlockRow: aBlockRow [
@@ -54,25 +57,46 @@ SKBlock >> addBlockRow: aBlockRow [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:31'
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/4/2026 10:19'
 }
 SKBlock >> addBooleanPart [
 	
-	self addBlockPart: (SKBooleanSlotPart new).
+	self addInputSlotPart: (SKBooleanSlotPart new).
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 04:06'
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/4/2026 09:47'
+}
+SKBlock >> addConnectionPoint: aBlockConnectionPoint [
+
+	(aBlockConnectionPoint type = #Action) ifTrue: [
+		self actionConnectionPoints add: aBlockConnectionPoint] ifFalse: [
+			self valueConnectionPoints add: aBlockConnectionPoint].
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/4/2026 10:19'
+}
+SKBlock >> addInputSlotPart: anInputSlotPart [
+
+	self addBlockPart: anInputSlotPart.
+	self addConnectionPoint: anInputSlotPart connectionPoint.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/4/2026 10:19'
 }
 SKBlock >> addIntegerPart [
 	
-	self addBlockPart: (SKIntegerSlotPart new).
+	self addInputSlotPart: (SKIntegerSlotPart new).
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 03:15'
 }
 SKBlock >> addLabel: aString [
@@ -82,11 +106,11 @@ SKBlock >> addLabel: aString [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 22:39'
+	#'squeak_changestamp' : 'SLH 6/4/2026 09:14'
 }
-SKBlock >> addSnapConnectionPoint: aPoint [
+SKBlock >> blockParts [
 
-	self snapConnectionPoints add: aPoint.
+	^ blockParts ifNil: [blockParts := OrderedCollection new].
 ]
 
 {
@@ -99,7 +123,7 @@ SKBlock >> blockRows [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 5/13/2026 16:02'
 }
 SKBlock >> blockType [
@@ -160,16 +184,37 @@ SKBlock >> detachFromControllingBlock [
 ]
 
 {
-	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 6/2/2026 23:05'
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 10:46'
 }
 SKBlock >> findClosestSnapTargetIn: anObject [
 
-	^ SubclassResponsibility.
+	| closestConnectionPoint shortestDistance currentDistance |
+
+	shortestDistance := 20.
+	closestConnectionPoint := nil.
+	"Transcript show: 'valid connections: ', (self validSnapConnectionsIn: anObject), String cr."
+	
+	(self validSnapConnectionsIn: anObject) do: [:each |
+		currentDistance := self snapAnchor dist: each.
+		currentDistance < shortestDistance ifTrue: [
+			shortestDistance := currentDistance.
+			closestConnectionPoint := each]].
+	"anObject allMorphsDo: [:each |
+		((each isKindOf: SKActionBlock) 
+			and: [each ~= self 
+				and: [(each hasOwner: self) not
+					and: [each nextBlock isNil]]]) ifTrue: [
+						currentDistance := self connectionPointTop dist: each connectionPointBottom.
+						currentDistance < shortestDistance ifTrue: [
+							shortestDistance := currentDistance.
+							closestBlock := each]]]."
+
+	^ closestConnectionPoint.
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
 }
 SKBlock >> getCode [
@@ -293,19 +338,19 @@ SKBlock >> rejectDropMorphEvent: anEvent [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 22:38'
+	#category : #'dropping/grabbing',
+	#'squeak_changestamp' : 'SLH 6/4/2026 10:45'
 }
-SKBlock >> snapConnectionPoints [
+SKBlock >> snapAnchor [
 
-	^ snapConnectionPoints ifNil: [snapConnectionPoints := OrderedCollection new].
+	^ SubclassResponsibility.
 ]
 
 {
-	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 6/2/2026 23:17'
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 11:26'
 }
-SKBlock >> snapToTarget: aBlock [
+SKBlock >> snapToTarget: aConnectionPoint [
 
 	^ SubclassResponsibility.
 ]
@@ -316,6 +361,15 @@ SKBlock >> snapToTarget: aBlock [
 }
 SKBlock >> startDrag: anEvent [
 	anEvent hand grabMorph: self
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/4/2026 09:41'
+}
+SKBlock >> valueConnectionPoints [
+
+	^ valueConnectionPoints ifNil: [valueConnectionPoints := OrderedCollection new].
 ]
 
 {

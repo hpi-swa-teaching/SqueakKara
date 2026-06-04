@@ -6,9 +6,11 @@ Class {
 		'isStart',
 		'tabOffsetBottom',
 		'tabOffsetTop',
-		'nextBlock',
 		'previousBlock',
-		'blockGaps'
+		'nextBlock',
+		'blockGaps',
+		'connectionPointTop',
+		'connectionPointBottom'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -20,19 +22,6 @@ Class {
 SKActionBlock class >> newWithLabel: aLabel andAction: anAction [
 
 	SKActionBlock basicNew initializeWithLabel: aLabel andAction: anAction.
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 11:27'
-}
-SKActionBlock >> acceptActionBlock: anActionBlock atConnectionPoint: aConnectionPointName [
-
-	| snapConnectionPoint |
-	
-	snapConnectionPoint := (self availableSnapConnectionPoints detect: [:assoc | 
-		assoc key = aConnectionPointName value]) value.
-	
 ]
 
 {
@@ -55,7 +44,7 @@ SKActionBlock >> action: aBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 22:41'
+	#'squeak_changestamp' : 'SLH 6/4/2026 11:37'
 }
 SKActionBlock >> addBlockGap [
 
@@ -63,9 +52,9 @@ SKActionBlock >> addBlockGap [
 	
 	actionSlotPart := SKActionSlotPart new.
 
-	self addBlockRow: (SKBlockRow new gap: true; yourself).
+	self addBlockRow: (SKBlockRow new isGap: true; yourself).
 	self addBlockPart: actionSlotPart.
-	self addSnapConnectionPoint: actionSlotPart connectionPoint.
+	self addConnectionPoint: actionSlotPart connectionPoint.
 	self addBlockRow: SKBlockRow new.
 ]
 
@@ -80,20 +69,26 @@ SKActionBlock >> blockType [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 13:21'
+	#'squeak_changestamp' : 'SLH 6/4/2026 10:35'
 }
 SKActionBlock >> connectionPointBottom [
 
-	^ self bottomLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ 0).
+	^ connectionPointBottom ifNil: [connectionPointBottom := SKBlockConnectionPoint new 
+		block: self;
+		type: #Action;
+		positionCalculation: [self bottomLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ 0)]].
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 13:21'
+	#'squeak_changestamp' : 'SLH 6/4/2026 10:35'
 }
 SKActionBlock >> connectionPointTop [
 
-	^ self topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ (self tabHeight)).
+	^ connectionPointTop ifNil: [connectionPointTop := SKBlockConnectionPoint new 
+		block: self;
+		type: #Action;
+		positionCalculation: [self topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ (self tabHeight))]].
 ]
 
 {
@@ -110,39 +105,78 @@ SKActionBlock >> detachFromControllingBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 13:41'
+	#'squeak_changestamp' : 'SLH 6/4/2026 16:57'
 }
 SKActionBlock >> drawOn: aCanvas [
-	| innerBounds topEdge bottomEdge pts |
+	| bounds pts top bottom left right y |
 	
 	"innerBounds := self blockRows first bounds expandBy: (self blockRows first layoutInset insetBy: self borderWidth)."
-	innerBounds := self bounds insetBy: (self borderWidth / 2).
+	bounds := self bounds insetBy: (self borderWidth/2).
 
-	topEdge := innerBounds top.
-	bottomEdge := innerBounds bottom - self tabHeight.
+	top := bounds top.
+	bottom := bounds bottom - self tabHeight.
+	left := bounds left.
+	right := bounds right.
 
 	pts := OrderedCollection new.
-	pts add: innerBounds left @ topEdge.
+
+	y := top.
+	
+	self blockRows doWithIndex: [:row :index |
+		| leftTop leftBot tabOffsetTop tabOffsetBot yNew |
+		
+		yNew := y+row height.
+		tabOffsetTop := self tabOffsetOuter.
+		tabOffsetBot := self tabOffsetOuter.
+		leftTop := left+20.
+		leftBot := left+20.
+		(index = 1) ifTrue: [
+			tabOffsetTop := self tabOffsetOuter.
+			leftTop := left].
+		 (index = self blockRows size) ifTrue: [
+			tabOffsetBot := self tabOffsetOuter.
+			leftBot := left.
+			yNew := bottom].
+		
+		pts add: leftTop@y.
+		
+		row isGap ifFalse: [pts addAll: {
+			(leftTop+tabOffsetTop)@y.
+			(leftTop+tabOffsetTop+self slantWidth)@(y+self tabHeight).
+			(leftTop+tabOffsetTop+self tabWidth - self slantWidth)@(y+self tabHeight).
+			(leftTop+tabOffsetTop+self tabWidth)@y.
+			right@y.
+			right@yNew.
+			(leftBot+tabOffsetBot+self tabWidth)@yNew.
+			(leftBot+tabOffsetBot+self tabWidth-self slantWidth)@(yNew+self tabHeight).
+			(leftBot+tabOffsetBot+self slantWidth)@(yNew+self tabHeight).
+			(leftBot+tabOffsetBot)@yNew}].
+			
+		y := yNew].
+	
+	pts add: left@bottom.
+	
+	"pts add: left@top.
 	
 	self isStart ifFalse: [pts addAll: {
-		(innerBounds left + self tabOffsetOuter) @ topEdge. 
-		(innerBounds left + self tabOffsetOuter + self slantWidth) @ (topEdge + self tabHeight).
-		(innerBounds left + self tabOffsetOuter + self tabWidth - self slantWidth) @ (topEdge + self tabHeight).
-		(innerBounds left + self tabOffsetOuter + self tabWidth) @ topEdge.}].
+		(left + self tabOffsetOuter)@top. 
+		(left + self tabOffsetOuter + self slantWidth)@(top + self tabHeight).
+		(left + self tabOffsetOuter + self tabWidth - self slantWidth)@(top + self tabHeight).
+		(left + self tabOffsetOuter + self tabWidth)@top.}].
 		
 		
-	pts add: innerBounds right @ topEdge.
+	pts add: right@top."
 	
 	"for each blockrow: ..."
     
-	pts addAll: ({
-		innerBounds right @ bottomEdge.
-		(innerBounds left + self tabOffsetOuter + self tabWidth) @ bottomEdge.
-		(innerBounds left + self tabOffsetOuter + self tabWidth - self slantWidth) @ (bottomEdge + self tabHeight).
-		(innerBounds left + self tabOffsetOuter + self slantWidth) @ (bottomEdge + self tabHeight).
-		(innerBounds left + self tabOffsetOuter) @ bottomEdge.
-		innerBounds left @ bottomEdge.
-	}).
+	"pts addAll: ({
+		right@bottom.
+		(left + self tabOffsetOuter + self tabWidth)@bottom.
+		(left + self tabOffsetOuter + self tabWidth - self slantWidth)@(bottom + self tabHeight).
+		(left + self tabOffsetOuter + self slantWidth)@(bottom + self tabHeight).
+		(left + self tabOffsetOuter)@bottom.
+		left@bottom.
+	})."
 
 		
 	
@@ -167,31 +201,6 @@ SKActionBlock >> drawOn: aCanvas [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 20:08'
-}
-SKActionBlock >> findClosestSnapTargetIn: anObject [
-
-	| closestBlock closestType shortestDistance currentDistance |
-
-	shortestDistance := 20.
-	closestBlock := nil.
-	closestType := nil.
-
-	anObject allMorphsDo: [:each |
-		((each isKindOf: SKActionBlock) 
-			and: [each ~= self 
-				and: [(each hasOwner: self) not
-					and: [each nextBlock isNil]]]) ifTrue: [
-						currentDistance := self connectionPointTop dist: each connectionPointBottom.
-						currentDistance < shortestDistance ifTrue: [
-							shortestDistance := currentDistance.
-							closestBlock := each]]].
-
-	^ closestBlock
-]
-
-{
-	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
 }
 SKActionBlock >> getCode [
@@ -205,13 +214,13 @@ SKActionBlock >> getCode [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 22:43'
+	#'squeak_changestamp' : 'SLH 6/4/2026 09:49'
 }
 SKActionBlock >> initialize [
 
 	super initialize.
 	
-	self addSnapConnectionPoint: self connectionPointBottom.
+	self addConnectionPoint: self connectionPointBottom.
 ]
 
 {
@@ -296,39 +305,34 @@ SKActionBlock >> slantWidth [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 14:54'
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/4/2026 10:46'
 }
-SKActionBlock >> snapToTarget: aBlock [
+SKActionBlock >> snapAnchor [
 
-	"| snapBlock snapConnectionPoint |
-	
-	snapBlock := aSnapTarget key.
-	snapConnectionPoint := (snapBlock availableSnapConnectionPoints detect: [:assoc | 
-		assoc key = aSnapTarget value]) value.
+	^ self connectionPointTop.
+]
 
-	self isStart ifTrue: [Transcript show: 'Snapping disabled for start blocks', String cr. ^ self].
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 11:28'
+}
+SKActionBlock >> snapToTarget: aConnectionPoint [
 
-	Transcript show: 'Snapping to ', snapBlock, String cr.
-	self align: self topConnectionPoint with: snapConnectionPoint.
+	| block |
 	
-	self previousBlock: snapBlock.
-	""snapBlock nextBlock: self.""
-	
-	self disableTableLayout: true.
-	snapBlock vResizing: #rigid; hResizing: #rigid.
-	snapBlock addMorph: self."
+	block := aConnectionPoint block.
 	
 	self isStart ifTrue: [Transcript show: 'Snapping disabled for start blocks', String cr. ^ self].
-	Transcript show: 'Snapping to ', aBlock, String cr.
-	self align: self connectionPointTop with: aBlock connectionPointBottom.
+	Transcript show: 'Snapping to ', block, ' at ', aConnectionPoint, String cr.
+	self align: (self snapAnchor position) with: (aConnectionPoint position).
 	
-	self previousBlock: aBlock.
-	aBlock nextBlock: self.
+	self previousBlock: block.
+	block nextBlock: self.
 	
 	self disableTableLayout: true.
-	aBlock vResizing: #rigid; hResizing: #rigid.
-	aBlock addMorph: self.
+	block vResizing: #rigid; hResizing: #rigid.
+	block addMorph: self.
 	
 	"Recursively tell all parent blocks to recalculate their fullBounds and redraw"
 	self withAllOwnersDo: [ :each | 
@@ -386,30 +390,25 @@ SKActionBlock >> tabWidth [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 22:30'
+	#'squeak_changestamp' : 'SLH 6/4/2026 10:51'
 }
 SKActionBlock >> validSnapConnectionsIn: anObject [
 
 	| validConnections snapRadius |
 
-	validConnections := Collection new.
+	validConnections := OrderedCollection new.
 	snapRadius := 20.
 
-	"anObject allMorphsDo: [:each |
-		(each isKindOf: SKActionBlock) ifTrue: [
-			(((self connectionPointTop dist: each connectionPointBottom) < 20) and: [
-				each nextBlock isNil not and: [
-					each ~= self]]) ifTrue: [
-						validConnections add: ].
-			] ifFalse: [].
-			and: [((self connectionPointTop dist: each connectionPointBottom) < 20)
-				and: [each nextBlock isNil not
-					and: [(each hasOwner: self) not
-						and: [each ~= self]] ifTrue: [
-							currentDistance := self connectionPointTop dist: each connectionPointBottom.
-							currentDistance < shortestDistance ifTrue: [
-								shortestDistance := currentDistance.
-								closestBlock := each]]]."
+	anObject allMorphsDo: [:each |
+		((each isKindOf: SKActionBlock) and: [
+			((each hasOwner: self) not) and: [
+				each ~= self]]) ifTrue: [
+					Transcript show: 'connection points for ', each, ': ', (each actionConnectionPoints select: [:connection |
+						((connection dist: self snapAnchor) < 20)]), String cr.
+					validConnections addAll: (each actionConnectionPoints select: [:connection |
+						((connection dist: self snapAnchor) < 20) and: [
+							connection connectedBlock isNil]])]].
 
+	Transcript show: 'valid connections: ', validConnections, String cr.
 	^ validConnections
 ]

@@ -3,7 +3,8 @@ Class {
 	#superclass : #SKBlockPart,
 	#instVars : [
 		'defaultUI',
-		'attachedBlock'
+		'attachedBlock',
+		'connectionPoint'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -43,11 +44,15 @@ SKInputSlotPart >> attachedBlock: aValueBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:37'
+	#'squeak_changestamp' : 'SLH 6/4/2026 15:48'
 }
 SKInputSlotPart >> connectionPoint [
 
-	^ self leftCenter.
+	^ connectionPoint ifNil: [connectionPoint := SKBlockConnectionPoint new 
+		block: self block;
+		blockPart: self;
+		type: (self type);
+		positionCalculation: [self leftCenter]].
 ]
 
 {

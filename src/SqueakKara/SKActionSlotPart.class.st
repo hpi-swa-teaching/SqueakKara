@@ -6,11 +6,15 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 19:45'
+	#'squeak_changestamp' : 'SLH 6/4/2026 15:49'
 }
 SKActionSlotPart >> connectionPoint [
 
-	^ self topCenter + self block tabOffsetInner.
+	^ connectionPoint ifNil: [connectionPoint := SKBlockConnectionPoint new 
+		block: self block;
+		blockPart: self;
+		type: #Action;
+		positionCalculation: [self topCenter + self block tabOffsetInner]].
 ]
 
 {
@@ -24,17 +28,18 @@ SKActionSlotPart >> defaultValue [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 20:07'
+	#'squeak_changestamp' : 'SLH 6/4/2026 16:51'
 }
 SKActionSlotPart >> initialize [
 	
 	super initialize.
 	
-	self color: Color blue;
+	self "color: Color blue;"
+		color: Color transparent;
 		hResizing: #spaceFill;
 		vResizing: #shrinkWrap.
 		
-	self defaultUI: (RectangleMorph new color: Color red; borderColor: Color orange; hResizing: #spaceFill).
+	self defaultUI: (RectangleMorph new "color: Color red; borderColor: Color orange;" color: Color transparent; borderColor: Color transparent; hResizing: #spaceFill).
 	
 	self addMorphBack: self defaultUI.
 ]

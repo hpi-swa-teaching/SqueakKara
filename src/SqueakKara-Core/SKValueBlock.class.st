@@ -4,10 +4,23 @@ Class {
 	#instVars : [
 		'value',
 		'type',
-		'containingBlockPart'
+		'containingBlockPart',
+		'connectionPoint'
 	],
 	#category : #'SqueakKara-Core'
 }
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 11:34'
+}
+SKValueBlock >> attachToAnchor: aConnectionPoint [
+
+	self containingBlockPart ifNotNil: [
+		Transcript show: 'Detaching ', self, ' from ', self containingBlockPart, String cr.
+		self containingBlockPart restoreDefault.
+		self containingBlockPart: nil].
+]
 
 {
 	#category : #'as yet unclassified',
@@ -20,11 +33,14 @@ SKValueBlock >> blockType [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 01:48'
+	#'squeak_changestamp' : 'SLH 6/4/2026 10:53'
 }
 SKValueBlock >> connectionPoint [
 
-	^ self leftCenter.
+	^ connectionPoint ifNil: [connectionPoint := SKBlockConnectionPoint new
+		block: self;
+		type: (self type);
+		positionCalculation: [self leftCenter]].
 ]
 
 {
@@ -47,10 +63,10 @@ SKValueBlock >> containingBlockPart: aBlockPart [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 10:37'
+	#'squeak_changestamp' : 'SLH 6/4/2026 11:29'
 }
 SKValueBlock >> detachFromControllingBlock [
-	Transcript show: 'Trying to detach ', self, ' from ', self containingBlockPart, String cr.
+
 	self containingBlockPart ifNotNil: [
 		Transcript show: 'Detaching ', self, ' from ', self containingBlockPart, String cr.
 		self containingBlockPart restoreDefault.
@@ -59,51 +75,36 @@ SKValueBlock >> detachFromControllingBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:49'
+	#'squeak_changestamp' : 'SLH 6/4/2026 10:46'
 }
-SKValueBlock >> findClosestSnapTargetIn: anObject [
+SKValueBlock >> snapAnchor [
 
-	| closestBlockPart shortestDistance currentDistance |
-
-	shortestDistance := 20.
-	closestBlockPart := nil.
-
-	anObject allMorphsDo: [:each |
-		(each isKindOf: SKInputSlotPart) ifTrue: [Transcript show: 'input found: ', each, ' with type: ', each type, String cr].
-		((each isKindOf: SKInputSlotPart) 
-			and: [each type = self type
-				and: [each attachedBlock isNil
-					and: [(each hasOwner: self) not]]]) ifTrue: [
-						Transcript show: 'Candidate found: ', each, String cr.
-						currentDistance := self connectionPoint dist: each connectionPoint.
-						currentDistance < shortestDistance ifTrue: [
-							shortestDistance := currentDistance.
-							closestBlockPart := each]]].
-	
-	
-	Transcript show: 'Done. found: ', closestBlockPart, String cr.
-
-	^ closestBlockPart
+	^ self connectionPoint.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 19:58'
+	#'squeak_changestamp' : 'SLH 6/4/2026 15:49'
 }
-SKValueBlock >> snapToTarget: anInputSlotPart [
+SKValueBlock >> snapToTarget: aConnectionPoint [
 
-	Transcript show: 'Snapping to ', anInputSlotPart block, ' at ', anInputSlotPart, String cr.
-	self align: self connectionPoint with: anInputSlotPart connectionPoint.
-	anInputSlotPart acceptBlock: self.
+	| block blockPart |
 	
-	self containingBlockPart: anInputSlotPart.
-	"aBlockPart value: self.
+	block := aConnectionPoint block.
+	blockPart := aConnectionPoint blockPart.
+	
+	"((self type = #Action) and: [self isStart]) ifTrue: [Transcript show: 'Snapping disabled for start blocks', String cr. ^ self]."
+	Transcript show: 'Snapping to ', block, ' at ', aConnectionPoint, String cr.
+	self align: (self snapAnchor position) with: (aConnectionPoint position).
+	
+	self containingBlockPart: blockPart.
+	blockPart attachedBlock: self.
 	
 	self disableTableLayout: true.
-	aBlockPart block vResizing: #rigid; hResizing: #rigid.
-	aBlockPart addMorph: self.
+	block vResizing: #rigid; hResizing: #rigid.
+	block addMorph: self.
 	
-	""Recursively tell all parent blocks to recalculate their fullBounds and redraw"
+	"Recursively tell all parent blocks to recalculate their fullBounds and redraw"
 	self withAllOwnersDo: [ :each | 
 		(each isKindOf: Morph) ifTrue: [
 			each layoutChanged.
@@ -119,6 +120,31 @@ SKValueBlock >> snapToTarget: anInputSlotPart [
 SKValueBlock >> type [
 
 	^ SubclassResponsibility.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 10:51'
+}
+SKValueBlock >> validSnapConnectionsIn: anObject [
+
+	| validConnections snapRadius |
+
+	validConnections := OrderedCollection new.
+	snapRadius := 20.
+
+	anObject allMorphsDo: [:each |
+		((each isKindOf: SKActionBlock) and: [
+			((each hasOwner: self) not) and: [
+				each ~= self]]) ifTrue: [
+					Transcript show: 'connection points for ', each, ': ', (each valueConnectionPoints select: [:connection |
+						((connection dist: self snapAnchor) < 20)]), String cr.
+					validConnections addAll: (each valueConnectionPoints select: [:connection |
+						((connection dist: self snapAnchor) < 20) and: [
+							connection connectedBlock isNil]])]].
+
+	Transcript show: 'valid connections: ', validConnections, String cr.
+	^ validConnections
 ]
 
 {

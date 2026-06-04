@@ -48,7 +48,7 @@ SKBlockSource >> mouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 19:52'
+	#'squeak_changestamp' : 'SLH 6/4/2026 16:52'
 }
 SKBlockSource >> populate [
 
@@ -70,6 +70,16 @@ SKBlockSource >> populate [
 		addLabel: 'if';
 		addBooleanPart;
 		addLabel: 'then';
+		addBlockGap;
+		action: [:body :condition | condition,' ifTrue: [', body, '].'];
+		yourself).
+	
+	self addMorphBack: (SKActionBlock new
+		addLabel: 'if';
+		addBooleanPart;
+		addLabel: 'then';
+		addBlockGap;
+		addLabel: 'else';
 		addBlockGap;
 		action: [:body :condition | condition,' ifTrue: [', body, '].'];
 		yourself).
