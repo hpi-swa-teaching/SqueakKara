@@ -313,6 +313,17 @@ SKEnvironment >> initializeWithChallenge6 [
 
 {
 	#category : #initialization,
+	#'squeak_changestamp' : 'JanWein 6/4/2026 10:05'
+}
+SKEnvironment >> initializeWithChallenge7 [
+
+	self grid: (SKGrid newWithExtent: 8 @ 8).
+	SKChallenge initializeChallenge7For: self.
+	self initializeObjects
+]
+
+{
+	#category : #initialization,
 	#'squeak_changestamp' : 'LM 5/21/2026 10:32'
 }
 SKEnvironment >> initializeWithKaraAt: aPoint [
