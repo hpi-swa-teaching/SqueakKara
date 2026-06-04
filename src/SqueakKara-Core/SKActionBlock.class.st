@@ -4,13 +4,7 @@ Class {
 	#instVars : [
 		'action',
 		'isStart',
-		'tabOffsetBottom',
-		'tabOffsetTop',
-		'previousBlock',
-		'nextBlock',
-		'blockGaps',
-		'connectionPointTop',
-		'connectionPointBottom'
+		'connectionPoint'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -44,17 +38,12 @@ SKActionBlock >> action: aBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 11:37'
+	#'squeak_changestamp' : 'SLH 6/4/2026 20:14'
 }
 SKActionBlock >> addBlockGap [
 
-	| actionSlotPart |
-	
-	actionSlotPart := SKActionSlotPart new.
-
 	self addBlockRow: (SKBlockRow new isGap: true; yourself).
-	self addBlockPart: actionSlotPart.
-	self addConnectionPoint: actionSlotPart connectionPoint.
+	self addInputSlotPart: SKActionSlotPart new.
 	self addBlockRow: SKBlockRow new.
 ]
 
@@ -69,38 +58,25 @@ SKActionBlock >> blockType [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 10:35'
+	#'squeak_changestamp' : 'SLH 6/4/2026 20:59'
 }
-SKActionBlock >> connectionPointBottom [
+SKActionBlock >> connectionPoint [
 
-	^ connectionPointBottom ifNil: [connectionPointBottom := SKBlockConnectionPoint new 
-		block: self;
-		type: #Action;
-		positionCalculation: [self bottomLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ 0)]].
+	^ connectionPoint ifNil: [connectionPoint := SKBlockConnectionPoint new 
+		uiDelegate: self;
+		type: #Action].
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 10:35'
+	#'squeak_changestamp' : 'SLH 6/4/2026 20:44'
 }
-SKActionBlock >> connectionPointTop [
+SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 
-	^ connectionPointTop ifNil: [connectionPointTop := SKBlockConnectionPoint new 
-		block: self;
-		type: #Action;
-		positionCalculation: [self topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ (self tabHeight))]].
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 00:35'
-}
-SKActionBlock >> detachFromControllingBlock [
-
-	self previousBlock ifNotNil: [
-		Transcript show: 'Detaching ', self, ' from ', self previousBlock, String cr.
-		self previousBlock nextBlock: nil.
-		self previousBlock: nil].
+	(aConnectionPointType = #Action) ifTrue: [
+		^ self bottomLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ 0)].
+	
+	^ self topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ (self tabHeight)).
 ]
 
 {
@@ -167,6 +143,19 @@ SKActionBlock >> drawOn: aCanvas [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 22:40'
+}
+SKActionBlock >> embedVisualBlock: anActionBlock [
+	
+	anActionBlock align: (anActionBlock anchorPoint position) with: (self connectionPoint position).
+	self addMorph: anActionBlock.
+	self vResizing: #rigid; hResizing: #rigid.
+	
+	self recalculateParentsRecursively.
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
 }
 SKActionBlock >> getCode [
@@ -180,13 +169,13 @@ SKActionBlock >> getCode [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 09:49'
+	#'squeak_changestamp' : 'SLH 6/4/2026 21:59'
 }
 SKActionBlock >> initialize [
 
 	super initialize.
 	
-	self addConnectionPoint: self connectionPointBottom.
+	self addConnectionPoint: self connectionPoint.
 ]
 
 {
@@ -226,39 +215,17 @@ SKActionBlock >> minHeight [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 17:20'
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 23:37'
 }
-SKActionBlock >> nextBlock [
-
-	^ connectionPointBottom connectedBlock.
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 17:21'
-}
-SKActionBlock >> nextBlock: aBlock [
-
-	connectionPointBottom connectedBlock: aBlock.
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/2/2026 23:52'
-}
-SKActionBlock >> previousBlock [
-
-	^ previousBlock.
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 01:54'
-}
-SKActionBlock >> previousBlock: aBlock [
-
-	previousBlock := aBlock.
+SKActionBlock >> resolveConflictingBlockEmbeddingFor: anActionBlock [
+	
+	| oldEmbeddedBlock |
+	
+	self connectionPoint isConnected ifFalse: [^ self].
+	
+	oldEmbeddedBlock := self connectionPoint connectedPoint uiDelegate.
+	oldEmbeddedBlock snapToTarget: anActionBlock connectionPoint.
 ]
 
 {
@@ -268,45 +235,6 @@ SKActionBlock >> previousBlock: aBlock [
 SKActionBlock >> slantWidth [
 
 	^ 8.
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 10:46'
-}
-SKActionBlock >> snapAnchor [
-
-	^ self connectionPointTop.
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 17:21'
-}
-SKActionBlock >> snapToTarget: aConnectionPoint [
-
-	| block |
-	
-	block := aConnectionPoint block.
-	
-	self isStart ifTrue: [Transcript show: 'Snapping disabled for start blocks', String cr. ^ self].
-	Transcript show: 'Snapping to ', block, ' at ', aConnectionPoint, String cr.
-	self align: (self snapAnchor position) with: (aConnectionPoint position).
-	
-	self previousBlock: block.
-	aConnectionPoint connectedBlock: self.
-	
-	self disableTableLayout: true.
-	block vResizing: #rigid; hResizing: #rigid.
-	block addMorph: self.
-	
-	"Recursively tell all parent blocks to recalculate their fullBounds and redraw"
-	self withAllOwnersDo: [ :each | 
-		(each isKindOf: Morph) ifTrue: [
-			each layoutChanged.
-			each changed.
-		].
-	].
 ]
 
 {
@@ -356,7 +284,7 @@ SKActionBlock >> tabWidth [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 17:27'
+	#'squeak_changestamp' : 'SLH 6/4/2026 22:01'
 }
 SKActionBlock >> validSnapConnectionsIn: anObject [
 
@@ -370,13 +298,13 @@ SKActionBlock >> validSnapConnectionsIn: anObject [
 			((each hasOwner: self) not) and: [
 				each ~= self]]) ifTrue: [
 					Transcript show: 'connection points for ', each, ': ', (each actionConnectionPoints select: [:connection |
-						((connection dist: self snapAnchor) < 20)]), String cr.
+						((connection dist: self anchorPoint) < 20)]), String cr.
 					validConnections addAll: (each actionConnectionPoints select: [:connection |
-						((connection dist: self snapAnchor) < 20) and: [
-							connection connectedBlock isNil]])]].
+						((connection dist: self anchorPoint) < 20)])]].
 
-	Transcript show: 'own connection points: ', (self actionConnectionPoints collect: [:x | x position]), String cr.
-
+	Transcript show: 'own connection points: ', (self actionConnectionPoints collect: [:x | '',x position,' - ', x type]), String cr.
+	Transcript show: 'own anchor point: ', self anchorPoint position, ' - ', self anchorPoint type, String cr.
 	Transcript show: 'valid connections: ', validConnections, String cr.
+	
 	^ validConnections
 ]

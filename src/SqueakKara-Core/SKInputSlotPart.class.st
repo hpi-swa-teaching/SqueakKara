@@ -44,15 +44,22 @@ SKInputSlotPart >> attachedBlock: aValueBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 15:48'
+	#'squeak_changestamp' : 'SLH 6/4/2026 20:57'
 }
 SKInputSlotPart >> connectionPoint [
 
 	^ connectionPoint ifNil: [connectionPoint := SKBlockConnectionPoint new 
-		block: self block;
-		blockPart: self;
-		type: (self type);
-		positionCalculation: [self leftCenter]].
+		uiDelegate: self;
+		type: (self type)].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 20:38'
+}
+SKInputSlotPart >> connectionPointPositionForType: aConnectionPointType [
+
+	^ self leftCenter.
 ]
 
 {
@@ -80,6 +87,48 @@ SKInputSlotPart >> defaultUI: aMorph [
 SKInputSlotPart >> defaultValue [
 
 	^ SubclassResponsibility.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 22:44'
+}
+SKInputSlotPart >> embedVisualBlock: anSKBlock [
+	
+	anSKBlock align: (anSKBlock anchorPoint position) with: (self connectionPoint position).
+	self addMorph: anSKBlock.
+	"self vResizing: #rigid; hResizing: #rigid."
+	
+	self recalculateParentsRecursively.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 22:44'
+}
+SKInputSlotPart >> recalculateParentsRecursively [
+
+self withAllOwnersDo: [ :each | 
+	(each isKindOf: Morph) ifTrue: [
+		each layoutChanged.
+		each changed]].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 23:36'
+}
+SKInputSlotPart >> resolveConflictingBlockEmbeddingFor: anSKBlock [
+	
+	"| oldEmbeddedBlock |"
+	
+	self connectionPoint isConnected ifFalse: [^ self].
+	
+	^ nil.
+	
+	"oldEmbeddedBlock := self connectionPoint connectedPoint uiDelegate.
+	oldEmbeddedBlock detachFromSnapAnchor.
+	oldEmbeddedBlock position: oldEmbeddedBlock position+(25@25)."
 ]
 
 {

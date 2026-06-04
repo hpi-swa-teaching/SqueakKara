@@ -2,11 +2,11 @@ Class {
 	#name : #SKBlock,
 	#superclass : #Morph,
 	#instVars : [
-		'text',
 		'leftSource',
 		'blockParts',
 		'blockRows',
 		'category',
+		'anchorPoint',
 		'actionConnectionPoints',
 		'valueConnectionPoints'
 	],
@@ -15,18 +15,18 @@ Class {
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 6/3/2026 00:09'
+	#'squeak_changestamp' : 'SLH 6/4/2026 23:37'
 }
 SKBlock >> aboutToBeGrabbedBy: aHand [
 
 	super aboutToBeGrabbedBy: aHand.
 	
-	self detachFromControllingBlock.
+	self anchorPoint disconnect.
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 09:40'
+	#'squeak_changestamp' : 'SLH 6/4/2026 21:14'
 }
 SKBlock >> actionConnectionPoints [
 
@@ -67,13 +67,13 @@ SKBlock >> addBooleanPart [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 09:47'
+	#'squeak_changestamp' : 'SLH 6/4/2026 21:29'
 }
-SKBlock >> addConnectionPoint: aBlockConnectionPoint [
+SKBlock >> addConnectionPoint: aConnectionPoint [
 
-	(aBlockConnectionPoint type = #Action) ifTrue: [
-		self actionConnectionPoints add: aBlockConnectionPoint] ifFalse: [
-			self valueConnectionPoints add: aBlockConnectionPoint].
+	(aConnectionPoint type = #Action) ifTrue: [
+		self actionConnectionPoints add: aConnectionPoint] ifFalse: [
+			self valueConnectionPoints add: aConnectionPoint].
 ]
 
 {
@@ -102,6 +102,17 @@ SKBlock >> addIntegerPart [
 SKBlock >> addLabel: aString [
 	
 	self addBlockPart: (SKLabelPart new label: aString).
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/4/2026 20:57'
+}
+SKBlock >> anchorPoint [
+
+	^ anchorPoint ifNil: [anchorPoint := SKBlockConnectionPoint new
+		uiDelegate: self;
+		type: #Anchor].
 ]
 
 {
@@ -176,16 +187,16 @@ SKBlock >> colorFromCategory [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 00:09'
+	#'squeak_changestamp' : 'SLH 6/4/2026 20:47'
 }
-SKBlock >> detachFromControllingBlock [
+SKBlock >> connectionPointPositionForType: aConnectionPointType [
 
 	^ SubclassResponsibility.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 17:23'
+	#'squeak_changestamp' : 'SLH 6/4/2026 18:55'
 }
 SKBlock >> findClosestSnapTargetIn: anObject [
 
@@ -195,7 +206,7 @@ SKBlock >> findClosestSnapTargetIn: anObject [
 	closestConnectionPoint := nil.
 	
 	(self validSnapConnectionsIn: anObject) do: [:each |
-		currentDistance := self snapAnchor dist: each.
+		currentDistance := self anchorPoint dist: each.
 		currentDistance < shortestDistance ifTrue: [
 			shortestDistance := currentDistance.
 			closestConnectionPoint := each]].
@@ -230,7 +241,7 @@ SKBlock >> handlesMouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 20:03'
+	#'squeak_changestamp' : 'SLH 6/4/2026 22:02'
 }
 SKBlock >> initialize [
 	
@@ -251,7 +262,7 @@ SKBlock >> initialize [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 6/2/2026 23:26'
+	#'squeak_changestamp' : 'SLH 6/4/2026 23:14'
 }
 SKBlock >> justDroppedInto: anObject event: anEvent [
 
@@ -261,13 +272,11 @@ SKBlock >> justDroppedInto: anObject event: anEvent [
 	
 	anObject == World ifTrue: [self delete. ^ self].
 	
-	Transcript show: '',self,' was just dropped into ', anObject, String cr.
-	
 	snapTarget := self findClosestSnapTargetIn: anObject.
 	
-	Transcript show: 'Snap target: ', snapTarget, String cr.
-	
 	snapTarget ifNotNil: [self snapToTarget: snapTarget].
+	
+	Transcript show: 'count: ', self submorphs size, ', morphs: ', self submorphs, String cr.
 ]
 
 {
@@ -281,18 +290,20 @@ SKBlock >> lastBlockRow [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/5/2026 23:07'
+	#'squeak_changestamp' : 'SLH 6/4/2026 22:05'
 }
 SKBlock >> leftSource [
-	^ leftSource ifNil: [^false]
+
+	^ leftSource ifNil: [leftSource := false].
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/19/2026 13:57'
+	#'squeak_changestamp' : 'SLH 6/4/2026 22:05'
 }
 SKBlock >> leftSource: aBoolean [
-	leftSource := aBoolean
+
+	leftSource := aBoolean.
 ]
 
 {
@@ -317,6 +328,18 @@ SKBlock >> mouseDown: anEvent [
 ]
 
 {
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 18:59'
+}
+SKBlock >> recalculateParentsRecursively [
+
+self withAllOwnersDo: [ :each | 
+	(each isKindOf: Morph) ifTrue: [
+		each layoutChanged.
+		each changed]].
+]
+
+{
 	#category : #'dropping/grabbing',
 	#'squeak_changestamp' : 'FR 5/20/2026 01:33'
 }
@@ -328,26 +351,27 @@ SKBlock >> rejectDropMorphEvent: anEvent [
 ]
 
 {
-	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 6/4/2026 10:45'
-}
-SKBlock >> snapAnchor [
-
-	^ SubclassResponsibility.
-]
-
-{
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 11:26'
+	#'squeak_changestamp' : 'SLH 6/4/2026 23:36'
 }
 SKBlock >> snapToTarget: aConnectionPoint [
-
-	^ SubclassResponsibility.
+	
+	((self blockType = #Action) and: [self isStart]) ifTrue: [Transcript show: 'Snapping disabled for start blocks', String cr. ^ self].
+	
+	aConnectionPoint isConnected ifTrue: [
+		(aConnectionPoint uiDelegate resolveConflictingBlockEmbeddingFor: self) ifNil: [^ self]].
+	
+	Transcript show: 'Snapping to ', aConnectionPoint, String cr.
+	
+	self anchorPoint connectTo: aConnectionPoint.
+	
+	self disableTableLayout: true.
+	aConnectionPoint uiDelegate embedVisualBlock: self.
 ]
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 5/5/2026 23:10'
+	#'squeak_changestamp' : 'SLH 6/4/2026 18:43'
 }
 SKBlock >> startDrag: anEvent [
 	anEvent hand grabMorph: self
@@ -364,7 +388,7 @@ SKBlock >> validSnapConnectionsIn: anObject [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 09:41'
+	#'squeak_changestamp' : 'SLH 6/4/2026 21:15'
 }
 SKBlock >> valueConnectionPoints [
 

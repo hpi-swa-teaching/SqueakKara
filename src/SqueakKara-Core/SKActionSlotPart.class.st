@@ -6,15 +6,11 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 15:49'
+	#'squeak_changestamp' : 'SLH 6/4/2026 20:51'
 }
-SKActionSlotPart >> connectionPoint [
+SKActionSlotPart >> connectionPointPositionForType: aConnectionPointType [
 
-	^ connectionPoint ifNil: [connectionPoint := SKBlockConnectionPoint new 
-		block: self block;
-		blockPart: self;
-		type: #Action;
-		positionCalculation: [self topCenter + self block tabOffsetInner]].
+	^ self topCenter + self block tabOffsetInner.
 ]
 
 {
@@ -52,6 +48,20 @@ SKActionSlotPart >> initialize [
 		height: 15).
 	
 	self addMorphBack: self defaultUI.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/4/2026 23:37'
+}
+SKActionSlotPart >> resolveConflictingBlockEmbeddingFor: anActionBlock [
+	
+	| oldEmbeddedBlock |
+	
+	self connectionPoint isConnected ifFalse: [^ self].
+	
+	oldEmbeddedBlock := self connectionPoint connectedPoint uiDelegate.
+	oldEmbeddedBlock snapToTarget: anActionBlock.
 ]
 
 {
