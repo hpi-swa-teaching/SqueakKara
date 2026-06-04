@@ -11,7 +11,8 @@ Class {
 		'executeControls',
 		'gameWidth',
 		'gameHeight',
-		'systemWindow'
+		'systemWindow',
+		'nextChallenge'
 	],
 	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
@@ -30,9 +31,9 @@ SKEnvironment class >> newWithKaraAt: aPoint [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/23/2026 18:29'
+	#'squeak_changestamp' : 'jawi 6/3/2026 18:34'
 }
-SKEnvironment >> abondon [
+SKEnvironment >> abandon [
 
 	self workspaces do: [ :workspace | workspace superClose ]
 ]
@@ -233,6 +234,15 @@ SKEnvironment >> initialize [
 
 {
 	#category : #initialization,
+	#'squeak_changestamp' : 'jawi 6/3/2026 18:49'
+}
+SKEnvironment >> initializeLandingPage [
+	
+	SKLandingPage new
+]
+
+{
+	#category : #initialization,
 	#'squeak_changestamp' : 'LM 5/21/2026 10:46'
 }
 SKEnvironment >> initializeObjects [
@@ -246,46 +256,58 @@ SKEnvironment >> initializeObjects [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:21'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
 	self grid: (SKGrid newWithExtent: 7 @ 7).
 	SKChallenge initializeChallenge1For: self.
+	
+	self nextChallenge: #initializeWithChallenge2.
+	
 	self initializeObjects
 
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:25'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge2 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 2).
 	SKChallenge initializeChallenge2For: self.
+	
+	self nextChallenge: #initializeWithChallenge3.
+	
 	self initializeObjects
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:25'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge3 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 3).
 	SKChallenge initializeChallenge3For: self.
+	
+	self nextChallenge: #initializeWithChallenge4.
+	
 	self initializeObjects
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:25'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge4 [
 
 	self grid: (SKGrid newWithExtent: 7 @ 4).
 	SKChallenge initializeChallenge4For: self.
+	
+	self nextChallenge: #initializeWithChallenge5.
+	
 	self initializeObjects
 ]
 
@@ -330,6 +352,9 @@ SKEnvironment >> initializeWithChallenge8 [
 
 	self grid: (SKGrid newWithExtent: 10 @ 11).
 	SKChallenge initializeChallenge8For: self.
+	
+	self nextChallenge: #initializeLandingPage.
+	
 	self initializeObjects
 ]
 
@@ -369,6 +394,24 @@ SKEnvironment >> karas: aCollection [
 SKEnvironment >> maxNumberOfKaras [
 
 	^ SKKara defaultColors size
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 6/3/2026 18:43'
+}
+SKEnvironment >> nextChallenge [
+	
+	^ nextChallenge
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:35'
+}
+SKEnvironment >> nextChallenge: aChallenge [
+	
+	nextChallenge := aChallenge
 ]
 
 {
@@ -448,7 +491,7 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/23/2026 13:43'
+	#'squeak_changestamp' : 'jawi 6/3/2026 19:53'
 }
 SKEnvironment >> setSystemWindow [
 	
@@ -466,7 +509,7 @@ SKEnvironment >> setSystemWindow [
 		extent: self gameWidth @ self gameHeight;
 		setWindowColor: self grid backgroundColor;
 		resizeListener: [ self resize ];
-		closeListener: [ self abondon ];
+		closeListener: [ self abandon ];
 		addMorph: container fullFrame: (LayoutFrame fractions: (0@0 corner: 1@1)).
 	self positionExecuteControlsAndGrid.
 	
