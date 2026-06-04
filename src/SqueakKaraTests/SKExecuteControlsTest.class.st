@@ -20,10 +20,10 @@ SKExecuteControlsTest >> setUp [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'jawi 6/3/2026 20:17'
+	#'squeak_changestamp' : 'LM 6/4/2026 09:25'
 }
 SKExecuteControlsTest >> tearDown [
-	
+
 	environment close
 ]
 

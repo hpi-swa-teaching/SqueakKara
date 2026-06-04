@@ -24,7 +24,7 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'jawi 6/3/2026 20:08'
+	#'squeak_changestamp' : 'LM 6/4/2026 09:24'
 }
 SKExecuteControls >> actionNextChallenge [
 
@@ -33,7 +33,7 @@ SKExecuteControls >> actionNextChallenge [
 	oldEnvironment := SKEnvironment new perform: self environment nextChallenge.
 	self environment close.
 	
-	^  oldEnvironment
+	^ oldEnvironment
 ]
 
 {
