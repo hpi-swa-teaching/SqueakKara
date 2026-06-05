@@ -9,7 +9,7 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:13'
+	#'squeak_changestamp' : 'SLH 6/5/2026 21:53'
 }
 SKLabelPart >> initialize [
 
@@ -18,6 +18,8 @@ SKLabelPart >> initialize [
 	self hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
 		color: Color transparent;
+		borderWidth: 1;
+		borderColor: Color green;
 		addMorph: self label.
 ]
 

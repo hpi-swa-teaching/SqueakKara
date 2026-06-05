@@ -6,11 +6,11 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 20:51'
+	#'squeak_changestamp' : 'SLH 6/5/2026 22:16'
 }
 SKActionSlotPart >> connectionPointPositionForType: aConnectionPointType [
 
-	^ self topCenter + self block tabOffsetInner.
+	^ self topLeft + ((self block tabOffsetInner + self block slantWidth + (self block tabWidth / 2)-self block borderWidth-2) @ 0).
 ]
 
 {
@@ -24,35 +24,33 @@ SKActionSlotPart >> defaultValue [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 17:12'
+	#'squeak_changestamp' : 'SLH 6/5/2026 22:14'
 }
 SKActionSlotPart >> initialize [
 	
 	super initialize.
 	
-	self "color: Color blue;"
-		color: Color transparent;
+	self color: Color transparent;
 		"borderColor: Color red;
 		borderWidth: 1;"
 		hResizing: #spaceFill;
-		vResizing: #shrinkWrap.
+		vResizing: #shrinkWrap;
+		height: 15.
 		
-	self defaultUI: (Morph new
-		"color: Color red;
-		borderColor: Color orange;"
+	"self defaultUI: (Morph new
 		color: Color transparent;
-		"borderColor: Color black;
-		borderWidth: 1;"
+		borderColor: Color blue;
+		borderWidth: 1;
 		hResizing: #spaceFill;
 		vResizing: #shrinkWrap;
 		height: 15).
 	
-	self addMorphBack: self defaultUI.
+	self addMorphBack: self defaultUI."
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 23:37'
+	#'squeak_changestamp' : 'SLH 6/5/2026 22:17'
 }
 SKActionSlotPart >> resolveConflictingBlockEmbeddingFor: anActionBlock [
 	
@@ -61,7 +59,7 @@ SKActionSlotPart >> resolveConflictingBlockEmbeddingFor: anActionBlock [
 	self connectionPoint isConnected ifFalse: [^ self].
 	
 	oldEmbeddedBlock := self connectionPoint connectedPoint uiDelegate.
-	oldEmbeddedBlock snapToTarget: anActionBlock.
+	oldEmbeddedBlock snapToTarget: anActionBlock connectionPoint.
 ]
 
 {

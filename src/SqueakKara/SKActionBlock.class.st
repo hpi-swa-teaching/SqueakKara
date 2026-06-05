@@ -81,7 +81,7 @@ SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 17:14'
+	#'squeak_changestamp' : 'SLH 6/5/2026 22:12'
 }
 SKActionBlock >> drawOn: aCanvas [
 	| bounds pts top bottom left right y |
@@ -99,18 +99,17 @@ SKActionBlock >> drawOn: aCanvas [
 	y := top.
 	
 	self blockRows doWithIndex: [:row :index |
-		| leftTop leftBot tabOffsetTop tabOffsetBot yNew |
+		| leftTop leftBot tabOffset yNew |
 		
 		yNew := y+row height.
-		tabOffsetTop := self tabOffsetOuter.
-		tabOffsetBot := self tabOffsetOuter.
-		leftTop := left+20.
-		leftBot := left+20.
+		tabOffset := self tabOffsetOuter.
+		leftTop := left+self tabOffsetInner-self tabOffsetOuter.
+		leftBot := left+self tabOffsetInner-self tabOffsetOuter.
 		(index = 1) ifTrue: [
-			tabOffsetTop := self tabOffsetOuter.
+			"tabOffsetTop := self tabOffsetOuter."
 			leftTop := left].
 		 (index = self blockRows size) ifTrue: [
-			tabOffsetBot := self tabOffsetOuter.
+			"tabOffsetBot := self tabOffsetOuter."
 			leftBot := left.
 			yNew := bottom].
 		
@@ -118,17 +117,17 @@ SKActionBlock >> drawOn: aCanvas [
 		
 		row isGap ifFalse: [
 			self isStart ifFalse: [pts addAll: {
-				(leftTop+tabOffsetTop)@y.
-				(leftTop+tabOffsetTop+self slantWidth)@(y+self tabHeight).
-				(leftTop+tabOffsetTop+self tabWidth - self slantWidth)@(y+self tabHeight).
-				(leftTop+tabOffsetTop+self tabWidth)@y.}].
+				(leftTop+tabOffset)@y.
+				(leftTop+tabOffset+self slantWidth)@(y+self tabHeight).
+				(leftTop+tabOffset+self tabWidth - self slantWidth)@(y+self tabHeight).
+				(leftTop+tabOffset+self tabWidth)@y.}].
 			pts addAll: {
 				right@y.
 				right@yNew.
-				(leftBot+tabOffsetBot+self tabWidth)@yNew.
-				(leftBot+tabOffsetBot+self tabWidth-self slantWidth)@(yNew+self tabHeight).
-				(leftBot+tabOffsetBot+self slantWidth)@(yNew+self tabHeight).
-				(leftBot+tabOffsetBot)@yNew}].
+				(leftBot+tabOffset+self tabWidth)@yNew.
+				(leftBot+tabOffset+self tabWidth-self slantWidth)@(yNew+self tabHeight).
+				(leftBot+tabOffset+self slantWidth)@(yNew+self tabHeight).
+				(leftBot+tabOffset)@yNew}].
 			
 		y := yNew].
 	
@@ -143,15 +142,16 @@ SKActionBlock >> drawOn: aCanvas [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 22:40'
+	#'squeak_changestamp' : 'SLH 6/5/2026 23:53'
 }
 SKActionBlock >> embedVisualBlock: anActionBlock [
 	
 	anActionBlock align: (anActionBlock anchorPoint position) with: (self connectionPoint position).
 	self addMorph: anActionBlock.
-	self vResizing: #rigid; hResizing: #rigid.
+	"self vResizing: #rigid; hResizing: #rigid."
+	self updateLayout.
 	
-	self recalculateParentsRecursively.
+	"self recalculateParentsRecursively."
 ]
 
 {
@@ -257,11 +257,11 @@ SKActionBlock >> tabOffset [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 12:13'
+	#'squeak_changestamp' : 'SLH 6/5/2026 22:07'
 }
 SKActionBlock >> tabOffsetInner [
 
-	^ 26.
+	^ 24.
 ]
 
 {

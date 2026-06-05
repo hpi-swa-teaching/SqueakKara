@@ -35,7 +35,7 @@ SKBlock >> actionConnectionPoints [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 10:19'
+	#'squeak_changestamp' : 'SLH 6/5/2026 23:57'
 }
 SKBlock >> addBlockPart: aBlockPart [
 
@@ -241,16 +241,14 @@ SKBlock >> handlesMouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 22:02'
+	#'squeak_changestamp' : 'SLH 6/5/2026 23:32'
 }
 SKBlock >> initialize [
 	
-	super initialize.	
+	super initialize.
 	
 	self borderColor: self borderColorFromCategory;
 		color: self colorFromCategory;
-		hResizing: #shrinkWrap;
-		vResizing: #shrinkWrap;
 		borderWidth: 2;
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
@@ -262,7 +260,7 @@ SKBlock >> initialize [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 6/4/2026 23:14'
+	#'squeak_changestamp' : 'SLH 6/6/2026 00:17'
 }
 SKBlock >> justDroppedInto: anObject event: anEvent [
 
@@ -274,9 +272,11 @@ SKBlock >> justDroppedInto: anObject event: anEvent [
 	
 	snapTarget := self findClosestSnapTargetIn: anObject.
 	
+	Transcript show: 'action connection points: ', (self actionConnectionPoints collect: [:x | x position]), String cr.
+	
 	snapTarget ifNotNil: [self snapToTarget: snapTarget].
 	
-	Transcript show: 'count: ', self submorphs size, ', morphs: ', self submorphs, String cr.
+	self updateLayout.
 ]
 
 {
@@ -352,6 +352,16 @@ SKBlock >> rejectDropMorphEvent: anEvent [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/6/2026 00:24'
+}
+SKBlock >> removedMorph: aMorph [
+	super removedMorph: aMorph.
+
+	self updateLayout.
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'SLH 6/4/2026 23:36'
 }
 SKBlock >> snapToTarget: aConnectionPoint [
@@ -375,6 +385,29 @@ SKBlock >> snapToTarget: aConnectionPoint [
 }
 SKBlock >> startDrag: anEvent [
 	anEvent hand grabMorph: self
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/6/2026 00:00'
+}
+SKBlock >> updateLayout [
+
+	| totalHeight maxWidth |
+	
+	Transcript show: 'Update layout for ', self, String cr.
+	
+	totalHeight := (self blockRows collect: #height) sum.
+	maxWidth := (self blockRows collect: #width) max.
+	
+	self extent: maxWidth@totalHeight.
+	
+	Transcript show: 'height: ', totalHeight, ', width: ', maxWidth, String cr.
+	
+	Transcript show: 'attempting to bubble up layout update ', self anchorPoint isConnected, String cr.
+	self anchorPoint isConnected ifTrue: [
+		Transcript show: 'bubbling up layout update', String cr.
+		self anchorPoint connectedPoint uiDelegate updateLayout].
 ]
 
 {

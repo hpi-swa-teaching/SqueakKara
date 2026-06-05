@@ -33,3 +33,12 @@ SKBlockPart >> type [
 
 	^ SubclassResponsibility.
 ]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/5/2026 23:55'
+}
+SKBlockPart >> updateLayout [
+
+	self block updateLayout.
+]

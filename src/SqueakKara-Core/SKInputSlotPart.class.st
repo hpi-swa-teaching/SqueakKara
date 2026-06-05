@@ -91,15 +91,17 @@ SKInputSlotPart >> defaultValue [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 22:44'
+	#'squeak_changestamp' : 'SLH 6/5/2026 23:23'
 }
 SKInputSlotPart >> embedVisualBlock: anSKBlock [
 	
 	anSKBlock align: (anSKBlock anchorPoint position) with: (self connectionPoint position).
+	self block vResizing: #shrinkWrap; hResizing: #shrinkWrap.
 	self addMorph: anSKBlock.
-	"self vResizing: #rigid; hResizing: #rigid."
+	"self block vResizing: #rigid; hResizing: #rigid."
 	
 	self recalculateParentsRecursively.
+	self block vResizing: #rigid; hResizing: #rigid.
 ]
 
 {
@@ -112,6 +114,16 @@ self withAllOwnersDo: [ :each |
 	(each isKindOf: Morph) ifTrue: [
 		each layoutChanged.
 		each changed]].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/6/2026 00:27'
+}
+SKInputSlotPart >> removedMorph: aMorph [
+	super removedMorph: aMorph.
+
+	self block updateLayout.
 ]
 
 {

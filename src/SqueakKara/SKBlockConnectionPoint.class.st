@@ -3,50 +3,11 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'uiDelegate',
-		'block',
-		'blockPart',
-		'positionCalculation',
 		'connectedPoint',
 		'type'
 	],
 	#category : #'SqueakKara-Core'
 }
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 09:35'
-}
-SKBlockConnectionPoint >> block [
-
-	^ block.
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 09:35'
-}
-SKBlockConnectionPoint >> block: anSKBlock [
-
-	block := anSKBlock.
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 09:35'
-}
-SKBlockConnectionPoint >> blockPart [
-
-	^ blockPart.
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 09:35'
-}
-SKBlockConnectionPoint >> blockPart: aBlockPart [
-
-	blockPart := aBlockPart.
-]
 
 {
 	#category : #'as yet unclassified',

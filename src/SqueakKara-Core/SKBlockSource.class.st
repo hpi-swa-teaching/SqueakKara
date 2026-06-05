@@ -48,7 +48,7 @@ SKBlockSource >> mouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 16:52'
+	#'squeak_changestamp' : 'SLH 6/6/2026 00:28'
 }
 SKBlockSource >> populate [
 
@@ -56,6 +56,7 @@ SKBlockSource >> populate [
 		addLabel: 'move';
 		action: ['kara move'];
 		category: #movement;
+		updateLayout;
 		yourself).
 		
 	self addMorphBack: (SKActionBlock new

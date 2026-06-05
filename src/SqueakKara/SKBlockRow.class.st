@@ -46,19 +46,21 @@ SKBlockRow >> connectionPoint [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 17:06'
+	#'squeak_changestamp' : 'SLH 6/6/2026 00:25'
 }
 SKBlockRow >> initialize [
 	
 	super initialize.	
 	
-	self hResizing: #spaceFill;
+	self hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
 		layoutPolicy: TableLayout new;
 		listDirection: #leftToRight;
 		wrapCentering: #center;
     		cellPositioning: #center;
 		color: Color transparent;
+		borderWidth: 1;
+		borderColor: Color black;
 		height: 30.
 ]
 
@@ -82,9 +84,9 @@ SKBlockRow >> isGap: aBoolean [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 13:13'
+	#'squeak_changestamp' : 'SLH 6/5/2026 21:54'
 }
 SKBlockRow >> layoutInset [
 	
-	^(Rectangle left: 8 right: 8 top: 8 bottom: 8).
+	^self isGap ifTrue: [0] ifFalse: [(Rectangle left: 8 right: 8 top: 8 bottom: 8)].
 ]
