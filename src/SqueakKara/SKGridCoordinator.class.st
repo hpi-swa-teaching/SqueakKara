@@ -102,12 +102,12 @@ SKGridCoordinator >> gridMatrix: aMatrix [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/26/2026 09:45'
+	#'squeak_changestamp' : 'LM 6/5/2026 12:44'
 }
 SKGridCoordinator >> initializeForGrid: aGrid [
 
-	self grid: aGrid.
-	self gridMatrix: self createGridMatrix.
+	self grid: aGrid;
+		gridMatrix: self createGridMatrix.
 
 	super initialize
 ]
@@ -134,14 +134,34 @@ SKGridCoordinator >> isPointInGridDimensions: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/26/2026 09:44'
+	#'squeak_changestamp' : 'LM 6/5/2026 13:19'
 }
 SKGridCoordinator >> lockAt: aPoint for: anActor [
 	
 	(self grid isPointInGridDimensions: aPoint)
-		ifTrue: [(self gridMatrix at: aPoint x at: aPoint y) lockBy: anActor. ^ true ].
+		ifTrue: [
+			| tile criticalSection |
+			
+			(self gridMatrix at: aPoint x at: aPoint y) lockBy: anActor.
+			tile := self getTileAtCoordinates: aPoint.
+			criticalSection := tile detect: [ :gameObject | gameObject isCriticalSection ].
+			
+			^ true ].
 	
 	^ false
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 6/5/2026 13:22'
+}
+SKGridCoordinator >> lockGroup: aSymbol [
+
+	self gridMatrix indicesDo: [ :x :y |
+		| tile |
+		
+		tile := self getTileAtCoordinates: x @ y.
+		]
 ]
 
 {

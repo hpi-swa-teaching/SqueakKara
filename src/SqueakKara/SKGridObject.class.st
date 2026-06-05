@@ -171,6 +171,15 @@ SKGridObject >> isCloverleaf [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'LM 6/5/2026 13:16'
+}
+SKGridObject >> isCriticalSection [
+
+	^ false
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 4/29/2026 13:07'
 }
 SKGridObject >> isKara [

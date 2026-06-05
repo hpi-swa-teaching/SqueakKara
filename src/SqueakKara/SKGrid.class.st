@@ -126,14 +126,14 @@ SKGrid >> decrementLeafCount [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/27/2026 11:27'
+	#'squeak_changestamp' : 'LM 6/5/2026 12:42'
 }
 SKGrid >> drawTexture [
 
 	1 to: self gridHeight - 1 do: [:anInteger |
 		self addHorizontalLineAt: anInteger].
 	1 to: self gridWidth - 1 do: [:anInteger |
-		self addVerticalLineAt: anInteger].
+		self addVerticalLineAt: anInteger]
 ]
 
 {
@@ -330,12 +330,12 @@ SKGrid >> pixelPerBlock [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:40'
+	#'squeak_changestamp' : 'LM 6/5/2026 12:42'
 }
 SKGrid >> redrawTexture [
 
 	self gridLines do: [:gridLine | self removeMorph: gridLine ].
-	self submorphsDo: [:submorph | submorph scaleToFactor].
+	self submorphsDo: [:submorph | submorph scaleToFactor ].
 	
 	self drawTexture
 ]
