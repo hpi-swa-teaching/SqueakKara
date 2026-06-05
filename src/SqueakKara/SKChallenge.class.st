@@ -10,6 +10,19 @@ Class {
 
 {
 	#category : #challenges,
+	#'squeak_changestamp' : 'mr 6/5/2026 13:13'
+}
+SKChallenge class >> initializeBlankProjectChallengeFor: anEnvironment [
+
+	| grid |
+	
+	grid := anEnvironment grid.
+	
+	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 1)
+]
+
+{
+	#category : #challenges,
 	#'squeak_changestamp' : 'AB 5/29/2026 10:31'
 }
 SKChallenge class >> initializeChallenge1For: anEnvironment [
