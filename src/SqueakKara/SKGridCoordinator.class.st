@@ -134,7 +134,7 @@ SKGridCoordinator >> isPointInGridDimensions: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 6/5/2026 13:43'
+	#'squeak_changestamp' : 'LM 6/5/2026 22:45'
 }
 SKGridCoordinator >> lockAt: aPoint for: anActor [
 	
@@ -145,7 +145,7 @@ SKGridCoordinator >> lockAt: aPoint for: anActor [
 			(self gridMatrix at: aPoint x at: aPoint y) lockBy: anActor.
 			tile := self getTileAtCoordinates: aPoint.
 			tile detect: [ :gameObject | gameObject isCriticalSection ]
-				ifFound: [ :criticalSection | self lockGroup: criticalSection group for: anActor ].
+				ifFound: [ :criticalSection | self lockGroup: criticalSection group for: anActor. ^ false ].
 			^ true ].
 	
 	^ false
