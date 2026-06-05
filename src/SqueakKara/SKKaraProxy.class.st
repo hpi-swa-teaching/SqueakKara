@@ -32,6 +32,15 @@ SKKaraProxy >> codeContext [
 ]
 
 {
+	#category : #commands,
+	#'squeak_changestamp' : 'mr 6/5/2026 12:14'
+}
+SKKaraProxy >> collectCloverleaf [
+	
+	self kara collectCloverleaf
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'AB 5/21/2026 19:37'
 }
