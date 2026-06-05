@@ -57,7 +57,7 @@ SKKara >> collectCloverleaf [
 
 	(self neighboursHere 
 		select: [ :neighbor | neighbor isCloverleaf and: [ neighbor color = self color ] ])
-		do: [ :cloverleaf | cloverleaf delete. ].
+		do: [ :cloverleaf | cloverleaf delete ].
 	self grid checkWinCondition
 ]
 
