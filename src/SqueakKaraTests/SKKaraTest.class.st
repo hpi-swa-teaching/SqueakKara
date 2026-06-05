@@ -74,7 +74,7 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'LD 5/29/2026 08:48'
+	#'squeak_changestamp' : 'mr 6/5/2026 12:27'
 }
 SKKaraTest >> testCollectCloverleaf [
 
@@ -84,6 +84,7 @@ SKKaraTest >> testCollectCloverleaf [
 	kara initializeInGrid: self grid at: 1@1 with: 2@1.
 	kara cloverleaf setColorToKaraColor: Color red.
 	kara move.
+	kara collectCloverleaf.
 	self assert: self grid allLeafesCollected
 ]
 

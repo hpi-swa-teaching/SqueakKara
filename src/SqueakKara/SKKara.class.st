@@ -50,12 +50,15 @@ SKKara >> cloverleaf: aCloverleaf [
 ]
 
 {
-	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/29/2026 08:35'
+	#category : #'object detection',
+	#'squeak_changestamp' : 'mr 6/5/2026 12:22'
 }
-SKKara >> collectCloverleaf: aCloverleaf [
+SKKara >> collectCloverleaf [
 
-	aCloverleaf delete
+	(self neighboursHere 
+		select: [ :neighbor | neighbor isCloverleaf and: [ neighbor color  = self color ] ])
+		do: [ :cloverleaf | cloverleaf delete. ].
+	self grid checkWinCondition
 ]
 
 {
@@ -203,15 +206,12 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 5/29/2026 10:04'
+	#'squeak_changestamp' : 'mr 6/5/2026 12:16'
 }
 SKKara >> move [
 
 	(self trunkAhead) ifTrue: [ ^ false ].
-	(self moveToCoordinates: self coordinates + self viewDirection) ifTrue: [
-		self tryToCollectCloverleaf.
-		^ true ].
-	^ false
+	^ (self moveToCoordinates: self coordinates + self viewDirection)
 ]
 
 {
@@ -358,17 +358,6 @@ SKKara >> trunkAhead [
 	tileAhead := self gridCoordinator getTileAtCoordinates: target.
 
 	^ tileAhead anySatisfy: [ :each | each isTrunk ]
-]
-
-{
-	#category : #'object detection',
-	#'squeak_changestamp' : 'jawi 6/3/2026 18:19'
-}
-SKKara >> tryToCollectCloverleaf [
-	
-	self neighboursHere do: [ :each | each isCloverleaf ifTrue: [
-			self color = each color ifTrue: [ self collectCloverleaf: each ]]].
-	self grid checkWinCondition
 ]
 
 {
