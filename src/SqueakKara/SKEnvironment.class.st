@@ -256,6 +256,21 @@ SKEnvironment >> initializeObjects [
 
 {
 	#category : #initialization,
+	#'squeak_changestamp' : 'mr 6/5/2026 13:13'
+}
+SKEnvironment >> initializeWithBlankProject [
+
+	self grid: (SKGrid newWithExtent: 7 @ 7).
+	SKChallenge initializeBlankProjectChallengeFor: self.
+	
+	self nextChallenge: #initializeWithChallenge1.
+	
+	self initializeObjects
+
+]
+
+{
+	#category : #initialization,
 	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge1 [
