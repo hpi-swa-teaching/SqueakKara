@@ -10,7 +10,7 @@ Class {
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 6/5/2026 12:59'
+	#'squeak_changestamp' : 'LM 6/5/2026 13:47'
 }
 SKChallenge class >> initializeChallenge1For: anEnvironment [
 
@@ -28,7 +28,8 @@ SKChallenge class >> initializeChallenge1For: anEnvironment [
 	3 to: 4 do: [ :x | SKTrunk newInGrid: grid at: x @ 5 ].
 	
 	anEnvironment addKara: (SKKara newInGrid: grid at: 2 @ 2 with: 4 @ 4).
-	(SKCriticalSection newInGrid: grid at: 3 @ 2) group: #group1
+	(SKCriticalSection newInGrid: grid at: 3 @ 2) group: #group1.
+	(SKCriticalSection newInGrid: grid at: 5 @ 2) group: #group1.
 	
 	
 ]

@@ -45,6 +45,16 @@ SKCriticalSection >> group: aSymbol [
 ]
 
 {
+	#category : #initialization,
+	#'squeak_changestamp' : 'LM 6/5/2026 13:41'
+}
+SKCriticalSection >> initialize [
+
+	super initialize.
+	self color: Color green
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 6/5/2026 13:16'
 }
