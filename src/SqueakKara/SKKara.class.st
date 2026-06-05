@@ -51,12 +51,12 @@ SKKara >> cloverleaf: aCloverleaf [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'mr 6/5/2026 12:22'
+	#'squeak_changestamp' : 'mr 6/5/2026 12:40'
 }
 SKKara >> collectCloverleaf [
 
 	(self neighboursHere 
-		select: [ :neighbor | neighbor isCloverleaf and: [ neighbor color  = self color ] ])
+		select: [ :neighbor | neighbor isCloverleaf and: [ neighbor color = self color ] ])
 		do: [ :cloverleaf | cloverleaf delete. ].
 	self grid checkWinCondition
 ]
