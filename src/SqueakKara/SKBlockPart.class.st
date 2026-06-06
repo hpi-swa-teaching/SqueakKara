@@ -8,7 +8,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 03:09'
 }
 SKBlockPart >> block [
@@ -17,7 +17,7 @@ SKBlockPart >> block [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 03:09'
 }
 SKBlockPart >> block: aBlock [
@@ -26,16 +26,16 @@ SKBlockPart >> block: aBlock [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:07'
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:59'
 }
 SKBlockPart >> type [
 
-	^ SubclassResponsibility.
+	self subclassResponsibility.
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'SLH 6/5/2026 23:55'
 }
 SKBlockPart >> updateLayout [

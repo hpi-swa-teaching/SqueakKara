@@ -8,7 +8,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 5/13/2026 16:03'
 }
 SKValueBlock >> blockType [
@@ -17,7 +17,7 @@ SKValueBlock >> blockType [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/4/2026 20:47'
 }
 SKValueBlock >> connectionPointPositionForType: aConnectionPointType [
@@ -26,7 +26,7 @@ SKValueBlock >> connectionPointPositionForType: aConnectionPointType [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/6/2026 11:35'
 }
 SKValueBlock >> getCode [
@@ -39,16 +39,16 @@ SKValueBlock >> getCode [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 18:02'
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:59'
 }
 SKValueBlock >> type [
 
-	^ SubclassResponsibility.
+	self subclassResponsibility.
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #snapping,
 	#'squeak_changestamp' : 'SLH 6/6/2026 02:01'
 }
 SKValueBlock >> validSnapConnectionsIn: anObject [
@@ -69,7 +69,7 @@ SKValueBlock >> validSnapConnectionsIn: anObject [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 5/13/2026 12:41'
 }
 SKValueBlock >> value [
@@ -78,7 +78,7 @@ SKValueBlock >> value [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/6/2026 11:11'
 }
 SKValueBlock >> value: aBlockClosure [

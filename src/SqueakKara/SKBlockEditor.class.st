@@ -2,42 +2,23 @@ Class {
 	#name : #SKBlockEditor,
 	#superclass : #Morph,
 	#instVars : [
-		'kara',
-		'environment',
-		'dropIndex',
-		'controller',
-		'startBlock'
+		'startBlock',
+		'window'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 00:52'
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:37'
 }
-SKBlockEditor class >> open [
-	| editor window |
-	
-	editor := self new.
-	
-	window := RectangleMorph new
-		layoutPolicy: TableLayout new;
-		listDirection: #leftToRight;
-		yourself.
+SKBlockEditor >> getCode [
 
-	window
-		addMorph: editor;
-		addMorph: SKBlockSource new.
-
-	window openInWindowLabeled: 'Block Editor'.
-
-	editor startBlock
-		align: editor startBlock topCenter
-		with: editor topCenter + (0 @ 10).
+	^ self startBlock getCode.
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #initialization,
 	#'squeak_changestamp' : 'SLH 6/6/2026 00:56'
 }
 SKBlockEditor >> initialize [
@@ -55,6 +36,32 @@ SKBlockEditor >> initialize [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/6/2026 15:23'
+}
+SKBlockEditor >> open [
+	| window |
+	
+	window := RectangleMorph new
+		layoutPolicy: TableLayout new;
+		listDirection: #leftToRight;
+		yourself.
+
+	window
+		addMorph: self;
+		addMorph: SKBlockSource new.
+
+	self window: (window openInWindowLabeled: 'Block Editor').
+
+	self startBlock
+		fullBounds;
+		align: self startBlock topCenter
+		with: self topCenter + (0 @ 10).
+		
+	^ self window.
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/6/2026 00:56'
 }
 SKBlockEditor >> startBlock [
@@ -67,10 +74,28 @@ SKBlockEditor >> startBlock [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'dropping/grabbing',
 	#'squeak_changestamp' : 'SLH 6/2/2026 20:51'
 }
 SKBlockEditor >> wantsDroppedMorph: aMorph event: anEvent [
 
 	^ ((aMorph class = SKBlock) or: [aMorph class inheritsFrom: SKBlock]).
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:44'
+}
+SKBlockEditor >> window [
+
+	^ window.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:44'
+}
+SKBlockEditor >> window: aWindow [
+
+	window := aWindow.
 ]

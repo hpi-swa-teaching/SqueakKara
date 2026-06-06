@@ -135,11 +135,11 @@ SKBlock >> blockRows [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/13/2026 16:02'
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:57'
 }
 SKBlock >> blockType [
 
-	^ SubclassResponsibility.
+	self subclassResponsibility.
 ]
 
 {
@@ -186,16 +186,16 @@ SKBlock >> colorFromCategory [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 20:47'
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:57'
 }
 SKBlock >> connectionPointPositionForType: aConnectionPointType [
 
-	^ SubclassResponsibility.
+	self subclassResponsibility.
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #snapping,
 	#'squeak_changestamp' : 'SLH 6/4/2026 18:55'
 }
 SKBlock >> findClosestSnapTargetIn: anObject [
@@ -216,31 +216,33 @@ SKBlock >> findClosestSnapTargetIn: anObject [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:57'
 }
 SKBlock >> getCode [
 
-	^ SubclassResponsibility.
+	self subclassResponsibility.
 ]
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'FR 5/5/2026 21:15'
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:57'
 }
 SKBlock >> handlesKeyboard: anEvent [
-	^false
+
+	^ false.
 ]
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'SLH 6/3/2026 00:30'
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:57'
 }
 SKBlock >> handlesMouseDown: anEvent [
+
 	^ self leftSource.
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #initialization,
 	#'squeak_changestamp' : 'SLH 6/6/2026 01:25'
 }
 SKBlock >> initialize [
@@ -258,7 +260,7 @@ SKBlock >> initialize [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 6/6/2026 11:26'
+	#'squeak_changestamp' : 'SLH 6/6/2026 15:31'
 }
 SKBlock >> justDroppedInto: anObject event: anEvent [
 
@@ -270,12 +272,9 @@ SKBlock >> justDroppedInto: anObject event: anEvent [
 	
 	snapTarget := self findClosestSnapTargetIn: anObject.
 	
-	Transcript show: 'action connection points: ', (self actionConnectionPoints collect: [:x | x position]), String cr.
-	
 	snapTarget ifNotNil: [self snapToTarget: snapTarget].
 	
 	self updateLayout.
-	Transcript show: 'Code:', String cr, '<---------->', String cr, self getCode, String cr, '</---------->', String cr.
 ]
 
 {
@@ -307,7 +306,7 @@ SKBlock >> leftSource: aBoolean [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'SLH 5/20/2026 00:22'
 }
 SKBlock >> minHeight [
@@ -328,50 +327,37 @@ SKBlock >> mouseDown: anEvent [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 18:59'
-}
-SKBlock >> recalculateParentsRecursively [
-
-self withAllOwnersDo: [ :each | 
-	(each isKindOf: Morph) ifTrue: [
-		each layoutChanged.
-		each changed]].
-]
-
-{
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 5/20/2026 01:33'
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:58'
 }
 SKBlock >> rejectDropMorphEvent: anEvent [
-| h |
+
+	| h |
+	
 	h := anEvent hand.
 	WorldState addDeferredUIMessage: [h grabMorph: self].
 	anEvent wasHandled: true.
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 00:24'
+	#category : #'submorphs - callbacks',
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:58'
 }
 SKBlock >> removedMorph: aMorph [
+
 	super removedMorph: aMorph.
 
 	self updateLayout.
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 01:12'
+	#category : #snapping,
+	#'squeak_changestamp' : 'SLH 6/6/2026 15:37'
 }
 SKBlock >> snapToTarget: aConnectionPoint [
 	
-	((self blockType = #Action) and: [self isStart]) ifTrue: [Transcript show: 'Snapping disabled for start blocks', String cr. ^ self].
-	
 	aConnectionPoint isConnected ifTrue: [
 		(aConnectionPoint uiDelegate resolveConflictingBlockEmbeddingFor: self) ifNil: [^ self]].
-	
-	Transcript show: 'Snapping to ', aConnectionPoint, String cr.
 	
 	self anchorPoint connectTo: aConnectionPoint.
 	
@@ -380,10 +366,11 @@ SKBlock >> snapToTarget: aConnectionPoint [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 6/4/2026 18:43'
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:58'
 }
 SKBlock >> startDrag: anEvent [
-	anEvent hand grabMorph: self
+
+	anEvent hand grabMorph: self.
 ]
 
 {
@@ -396,8 +383,8 @@ SKBlock >> tabHeight [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 09:53'
+	#category : #layout,
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:58'
 }
 SKBlock >> updateLayout [
 
@@ -405,8 +392,6 @@ SKBlock >> updateLayout [
 	
 	self fullBounds.
 
-	Transcript show: 'Update layout for ', self, String cr.
-	
 	width := (self blockRows collect: #width) max+(self borderWidth*2).
 	height := (self blockRows collect: #height) sum+self tabHeight+(self borderWidth*2).
 	
@@ -419,12 +404,12 @@ SKBlock >> updateLayout [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 17:24'
+	#category : #snapping,
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:58'
 }
 SKBlock >> validSnapConnectionsIn: anObject [
 
-	^ SubclassResponsibility.
+	self subclassResponsibility.
 ]
 
 {
@@ -438,8 +423,9 @@ SKBlock >> valueConnectionPoints [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'FR 5/5/2026 21:15'
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:58'
 }
 SKBlock >> wantsKeyboardFocus [
-	^false
+
+	^ false.
 ]

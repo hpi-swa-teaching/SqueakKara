@@ -9,7 +9,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/4/2026 09:15'
 }
 SKBlockRow >> addBlockPart: aBlockPart [
@@ -18,7 +18,7 @@ SKBlockRow >> addBlockPart: aBlockPart [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 11:57'
 }
 SKBlockRow >> block [
@@ -27,7 +27,7 @@ SKBlockRow >> block [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 11:57'
 }
 SKBlockRow >> block: aBlock [
@@ -36,7 +36,7 @@ SKBlockRow >> block: aBlock [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 12:25'
 }
 SKBlockRow >> connectionPoint [
@@ -45,8 +45,8 @@ SKBlockRow >> connectionPoint [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 02:09'
+	#category : #initialization,
+	#'squeak_changestamp' : 'SLH 6/6/2026 15:13'
 }
 SKBlockRow >> initialize [
 	
@@ -58,6 +58,7 @@ SKBlockRow >> initialize [
 		listDirection: #leftToRight;
 		wrapCentering: #center;
     		cellPositioning: #center;
+		cellGap: 8;
 		color: Color transparent;
 		"borderWidth: 1;
 		borderColor: Color black;"
@@ -65,7 +66,7 @@ SKBlockRow >> initialize [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/4/2026 11:36'
 }
 SKBlockRow >> isGap [
@@ -74,7 +75,7 @@ SKBlockRow >> isGap [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/4/2026 11:36'
 }
 SKBlockRow >> isGap: aBoolean [
@@ -83,7 +84,7 @@ SKBlockRow >> isGap: aBoolean [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'SLH 6/5/2026 21:54'
 }
 SKBlockRow >> layoutInset [

@@ -37,7 +37,7 @@ SKActionBlock >> action: aBlockClosure [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/4/2026 20:14'
 }
 SKActionBlock >> addBlockGap [
@@ -80,7 +80,7 @@ SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #drawing,
 	#'squeak_changestamp' : 'SLH 6/6/2026 02:53'
 }
 SKActionBlock >> drawOn: aCanvas [
@@ -142,7 +142,7 @@ SKActionBlock >> drawOn: aCanvas [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #snapping,
 	#'squeak_changestamp' : 'SLH 6/6/2026 01:09'
 }
 SKActionBlock >> embedVisualBlock: anActionBlock [
@@ -153,7 +153,7 @@ SKActionBlock >> embedVisualBlock: anActionBlock [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/6/2026 11:38'
 }
 SKActionBlock >> getCode [
@@ -172,7 +172,7 @@ SKActionBlock >> getCode [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #initialization,
 	#'squeak_changestamp' : 'SLH 6/4/2026 21:59'
 }
 SKActionBlock >> initialize [
@@ -210,7 +210,7 @@ SKActionBlock >> minHeight [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #snapping,
 	#'squeak_changestamp' : 'SLH 6/4/2026 23:37'
 }
 SKActionBlock >> resolveConflictingBlockEmbeddingFor: anActionBlock [
@@ -233,8 +233,19 @@ SKActionBlock >> slantWidth [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 02:06'
+	#category : #snapping,
+	#'squeak_changestamp' : 'SLH 6/6/2026 15:37'
+}
+SKActionBlock >> snapToTarget: aConnectionPoint [
+	
+	self isStart ifTrue: [^ self].
+	
+	super snapToTarget: aConnectionPoint.
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'SLH 6/6/2026 15:31'
 }
 SKActionBlock >> stackExtent [
 
@@ -253,8 +264,6 @@ SKActionBlock >> stackExtent [
 			currentBlock := currentBlock connectionPoint connectedPoint uiDelegate.
 			(currentBlock class inheritsFrom: SKBlock) ifFalse: [currentBlock := nil]] ifFalse: [
 			currentBlock := nil]].
-	
-	Transcript show: 'Stack extent of ', self, ' is: ', (maxWidth@totalHeight), String cr.
 
 	^ maxWidth @ totalHeight
 ]
@@ -278,7 +287,7 @@ SKActionBlock >> tabOffset [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'SLH 6/6/2026 01:28'
 }
 SKActionBlock >> tabOffsetInner [
@@ -287,7 +296,7 @@ SKActionBlock >> tabOffsetInner [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'SLH 6/3/2026 12:11'
 }
 SKActionBlock >> tabOffsetOuter [
@@ -305,7 +314,7 @@ SKActionBlock >> tabWidth [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'SLH 6/6/2026 01:23'
 }
 SKActionBlock >> updateLayout [
@@ -319,7 +328,7 @@ SKActionBlock >> updateLayout [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #snapping,
 	#'squeak_changestamp' : 'SLH 6/6/2026 02:01'
 }
 SKActionBlock >> validSnapConnectionsIn: anObject [

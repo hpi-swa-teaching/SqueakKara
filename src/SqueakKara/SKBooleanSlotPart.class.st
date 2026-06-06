@@ -5,7 +5,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 03:30'
 }
 SKBooleanSlotPart >> defaultValue [
@@ -14,7 +14,7 @@ SKBooleanSlotPart >> defaultValue [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #drawing,
 	#'squeak_changestamp' : 'SLH 6/6/2026 02:13'
 }
 SKBooleanSlotPart >> drawOn: aCanvas [
@@ -40,7 +40,7 @@ SKBooleanSlotPart >> drawOn: aCanvas [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #initialization,
 	#'squeak_changestamp' : 'SLH 6/5/2026 21:50'
 }
 SKBooleanSlotPart >> initialize [
@@ -52,7 +52,7 @@ SKBooleanSlotPart >> initialize [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 03:49'
 }
 SKBooleanSlotPart >> type [

@@ -24,7 +24,7 @@ SKInputSlotPart >> acceptBlock: aBlock [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 03:22'
 }
 SKInputSlotPart >> attachedBlock [
@@ -33,7 +33,7 @@ SKInputSlotPart >> attachedBlock [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 03:22'
 }
 SKInputSlotPart >> attachedBlock: aValueBlock [
@@ -42,7 +42,7 @@ SKInputSlotPart >> attachedBlock: aValueBlock [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/4/2026 20:57'
 }
 SKInputSlotPart >> connectionPoint [
@@ -62,7 +62,7 @@ SKInputSlotPart >> connectionPointPositionForType: aConnectionPointType [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 03:22'
 }
 SKInputSlotPart >> defaultUI [
@@ -71,7 +71,7 @@ SKInputSlotPart >> defaultUI [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 03:23'
 }
 SKInputSlotPart >> defaultUI: aMorph [
@@ -80,12 +80,12 @@ SKInputSlotPart >> defaultUI: aMorph [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:26'
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:59'
 }
 SKInputSlotPart >> defaultValue [
 
-	^ SubclassResponsibility.
+	self subclassResponsibility.
 ]
 
 {
@@ -99,10 +99,11 @@ SKInputSlotPart >> embedVisualBlock: anSKBlock [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 02:08'
+	#category : #'submorphs - callbacks',
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:59'
 }
 SKInputSlotPart >> removedMorph: aMorph [
+
 	super removedMorph: aMorph.
 
 	self updateLayout.
@@ -137,7 +138,7 @@ SKInputSlotPart >> restoreDefault [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/6/2026 11:30'
 }
 SKInputSlotPart >> value [

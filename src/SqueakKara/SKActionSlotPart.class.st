@@ -14,7 +14,7 @@ SKActionSlotPart >> connectionPointPositionForType: aConnectionPointType [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 19:49'
 }
 SKActionSlotPart >> defaultValue [
@@ -23,7 +23,7 @@ SKActionSlotPart >> defaultValue [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #initialization,
 	#'squeak_changestamp' : 'SLH 6/6/2026 02:02'
 }
 SKActionSlotPart >> initialize [
@@ -61,7 +61,7 @@ SKActionSlotPart >> resolveConflictingBlockEmbeddingFor: anActionBlock [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 19:37'
 }
 SKActionSlotPart >> type [
@@ -70,7 +70,7 @@ SKActionSlotPart >> type [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'SLH 6/6/2026 09:54'
 }
 SKActionSlotPart >> updateLayout [

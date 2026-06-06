@@ -5,7 +5,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 04:05'
 }
 SKIntegerSlotPart >> defaultValue [
@@ -14,7 +14,7 @@ SKIntegerSlotPart >> defaultValue [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #initialization,
 	#'squeak_changestamp' : 'SLH 6/3/2026 05:09'
 }
 SKIntegerSlotPart >> initialize [
@@ -38,7 +38,7 @@ SKIntegerSlotPart >> initialize [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 04:06'
 }
 SKIntegerSlotPart >> type [

@@ -10,7 +10,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #connecting,
 	#'squeak_changestamp' : 'SLH 6/4/2026 19:43'
 }
 SKBlockConnectionPoint >> connectTo: aConnectionPoint [
@@ -44,7 +44,7 @@ SKBlockConnectionPoint >> connectedPoint: aConnectionPoint [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #connecting,
 	#'squeak_changestamp' : 'SLH 6/4/2026 23:20'
 }
 SKBlockConnectionPoint >> disconnect [
@@ -59,7 +59,7 @@ SKBlockConnectionPoint >> disconnect [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/4/2026 23:09'
 }
 SKBlockConnectionPoint >> dist: anotherBlockConnectionPoint [

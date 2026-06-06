@@ -8,7 +8,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #initialization,
 	#'squeak_changestamp' : 'SLH 6/6/2026 02:09'
 }
 SKLabelPart >> initialize [
@@ -24,7 +24,7 @@ SKLabelPart >> initialize [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 03:01'
 }
 SKLabelPart >> label [
@@ -33,7 +33,7 @@ SKLabelPart >> label [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 03:01'
 }
 SKLabelPart >> label: aString [
@@ -42,7 +42,7 @@ SKLabelPart >> label: aString [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/3/2026 03:07'
 }
 SKLabelPart >> type [

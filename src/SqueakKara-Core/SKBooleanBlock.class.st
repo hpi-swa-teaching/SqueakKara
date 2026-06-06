@@ -5,7 +5,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #drawing,
 	#'squeak_changestamp' : 'SLH 5/13/2026 13:02'
 }
 SKBooleanBlock >> drawOn: aCanvas [
@@ -31,7 +31,7 @@ SKBooleanBlock >> drawOn: aCanvas [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 5/13/2026 18:02'
 }
 SKBooleanBlock >> type [

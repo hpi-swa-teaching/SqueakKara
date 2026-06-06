@@ -5,7 +5,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #initialization,
 	#'squeak_changestamp' : 'SLH 5/13/2026 12:54'
 }
 SKIntegerBlock >> initialize [
@@ -17,7 +17,7 @@ SKIntegerBlock >> initialize [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 5/13/2026 18:03'
 }
 SKIntegerBlock >> type [

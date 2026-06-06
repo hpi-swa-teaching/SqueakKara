@@ -5,7 +5,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:13'
 }
 SKBlockSource >> handlesMouseDown: anEvent [
@@ -14,7 +14,7 @@ SKBlockSource >> handlesMouseDown: anEvent [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #initialization,
 	#'squeak_changestamp' : 'SLH 6/6/2026 00:54'
 }
 SKBlockSource >> initialize [
@@ -33,7 +33,7 @@ SKBlockSource >> initialize [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:12'
 }
 SKBlockSource >> mouseDown: anEvent [ 
@@ -139,7 +139,7 @@ SKBlockSource >> populate [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'SLH 6/6/2026 01:13'
 }
 SKBlockSource >> startDrag: anEvent [
