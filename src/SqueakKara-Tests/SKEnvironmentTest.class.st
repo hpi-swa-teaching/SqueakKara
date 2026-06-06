@@ -17,29 +17,39 @@ SKEnvironmentTest >> environment [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 5/27/2026 00:24'
+}
+SKEnvironmentTest >> environment: anObject [
+
+ 	environment := anObject
+]
+
+{
 	#category : #setup,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 23:10'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:50'
 }
 SKEnvironmentTest >> setUp [
 
 	environment := SKEnvironment newWithProgrammingConcept: (SKProgrammingConceptCode new).
-	environment initializeWithKaraAt: 1 @ 1.
+	environment initializeWithBlankProject.
 	environment executer testMode: true
 ]
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:44'
+	#'squeak_changestamp' : 'JS 5/27/2026 00:39'
 }
 SKEnvironmentTest >> tearDown [
 
-	self environment close
+	(self environment) ifNotNil: [:environment | environment close].
+	super tearDown
 	
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:43'
+	#'squeak_changestamp' : 'JS 5/27/2026 21:12'
 }
 SKEnvironmentTest >> testCreation [
 

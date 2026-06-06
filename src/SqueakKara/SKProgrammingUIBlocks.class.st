@@ -25,11 +25,11 @@ SKProgrammingUIBlocks >> blockSpace: aBlockSpace [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'FR 6/2/2026 16:14'
+	#'squeak_changestamp' : 'JS 6/2/2026 14:26'
 }
 SKProgrammingUIBlocks >> build [
 
-	self blockSpace: (SKBlockSpace newWithController: self)
+	self environment windowManager addWindow: ((SKBlockSpace newWithController: self) window)
 ]
 
 {

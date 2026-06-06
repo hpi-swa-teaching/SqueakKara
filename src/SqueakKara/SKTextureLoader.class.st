@@ -31,7 +31,7 @@ SKTextureLoader >> assetLoader: aGitAssetLoader [
 
 {
 	#category : #configuration,
-	#'squeak_changestamp' : 'JJG 6/5/2024 17:08'
+	#'squeak_changestamp' : 'JS 6/2/2026 11:44'
 }
 SKTextureLoader >> basePath [
 
