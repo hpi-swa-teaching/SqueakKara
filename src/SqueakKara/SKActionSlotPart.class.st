@@ -71,14 +71,12 @@ SKActionSlotPart >> type [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 02:00'
+	#'squeak_changestamp' : 'SLH 6/6/2026 09:54'
 }
 SKActionSlotPart >> updateLayout [
 
 	self connectionPoint isConnected ifTrue: [
-	Transcript show: '----- updating based on connected stack', String cr..
 		self extent: self connectionPoint connectedPoint uiDelegate stackExtent] ifFalse: [
-			Transcript show: '----- updating to default', String cr.
 			self extent: 30@15].
 
 	super updateLayout.

@@ -29,11 +29,11 @@ SKActionBlock >> action [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 01:54'
+	#'squeak_changestamp' : 'SLH 6/6/2026 11:11'
 }
-SKActionBlock >> action: aBlock [
+SKActionBlock >> action: aBlockClosure [
 
-	action := aBlock.
+	action := aBlockClosure.
 ]
 
 {
@@ -154,15 +154,21 @@ SKActionBlock >> embedVisualBlock: anActionBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
+	#'squeak_changestamp' : 'SLH 6/6/2026 11:38'
 }
 SKActionBlock >> getCode [
 
-	| args |
+	| nextBlockCode args code |
 	
-	args := self blockParts collect: [:each | each value contents asString].
+	nextBlockCode := self connectionPoint isConnected ifTrue: [
+		self connectionPoint connectedPoint uiDelegate getCode] ifFalse: [nil].
 	
-	^ self action valueWithArguments: args asArray.
+	args := (self blockParts select: [:each | each type ~~ #Label]) collect: [:each | each value asString].
+	
+	code := (self action valueWithArguments: args asArray) asString.
+	nextBlockCode isNil not ifTrue: [code := code, '.', String cr, nextBlockCode].
+	
+	^ code.
 ]
 
 {

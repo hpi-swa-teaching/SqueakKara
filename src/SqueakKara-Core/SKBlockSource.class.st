@@ -48,7 +48,7 @@ SKBlockSource >> mouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 01:10'
+	#'squeak_changestamp' : 'SLH 6/6/2026 11:43'
 }
 SKBlockSource >> populate [
 	
@@ -56,35 +56,6 @@ SKBlockSource >> populate [
 		addLabel: 'move';
 		action: ['kara move'];
 		category: #movement;
-		updateLayout;
-		yourself).
-		
-	self addMorphBack: (SKActionBlock new
-		addLabel: 'move';
-		addBlockRow: (SKBlockRow new);
-		addLabel: 'move 2';
-		action: ['kara move'];
-		category: #movement;
-		updateLayout;
-		yourself).
-		
-	self addMorphBack: (SKActionBlock new
-		addLabel: 'if';
-		addBooleanPart;
-		addLabel: 'then';
-		addBlockGap;
-		action: [:body :condition | condition,' ifTrue: [', body, '].'];
-		updateLayout;
-		yourself).
-	
-	self addMorphBack: (SKActionBlock new
-		addLabel: 'if';
-		addBooleanPart;
-		addLabel: 'then';
-		addBlockGap;
-		addLabel: 'else';
-		addBlockGap;
-		action: [:body :condition | condition,' ifTrue: [', body, '].'];
 		updateLayout;
 		yourself).
 
@@ -110,20 +81,47 @@ SKBlockSource >> populate [
 		category: #movement;
 		updateLayout;
 		yourself).
-
-	"self addMorphBack: (SKCompoundActionBlock new
+		
+	self addMorphBack: (SKActionBlock new
 		addLabel: 'if';
 		addBooleanPart;
 		addLabel: 'then';
-		action: [:body :condition | condition,' ifTrue: [', body, '].'];
+		addBlockGap;
+		action: [:condition :trueBranch |
+			'(', condition,') ifTrue: [', String cr, trueBranch, ']'];
+		updateLayout;
+		yourself).
+	
+	self addMorphBack: (SKActionBlock new
+		addLabel: 'if';
+		addBooleanPart;
+		addLabel: 'then';
+		addBlockGap;
+		addLabel: 'else';
+		addBlockGap;
+		action: [:condition :trueBranch :falseBranch |
+			'(', condition,') ifTrue: [', String cr, trueBranch, '] ifFalse: [', String cr, falseBranch, ']'];
+		updateLayout;
 		yourself).
 
-	self addMorphBack: (SKCompoundActionBlock new
+	self addMorphBack: (SKActionBlock new
 		addLabel: 'repeat';
 		addIntegerPart;
 		addLabel: 'times';
-		action: [:body :times | times,' timesRepeat: [', body, '].'];
-		yourself)."
+		addBlockGap;
+		action: [:repetitions :trueBranch |
+			'(', repetitions,') timesRepeat: [', String cr, trueBranch, ']'];
+		updateLayout;
+		yourself).
+	
+	self addMorphBack: (SKActionBlock new
+		addLabel: 'repeat until';
+		addBooleanPart;
+		addBlockGap;
+		action: [:condition :loopBranch |
+			'[', condition,'] whileFalse: [', String cr, loopBranch, ']'];
+		updateLayout;
+		yourself).
 
 	self addMorphBack: (SKBooleanBlock new
 		addLabel: 'trunk ahead';

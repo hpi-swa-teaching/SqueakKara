@@ -138,10 +138,10 @@ SKInputSlotPart >> restoreDefault [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:26'
+	#'squeak_changestamp' : 'SLH 6/6/2026 11:30'
 }
 SKInputSlotPart >> value [
 
-	attachedBlock ifNotNil: [^ attachedBlock value].
-	^ self defaultValue.
+	self connectionPoint isConnected ifFalse: [^ self defaultValue].
+	^ self connectionPoint connectedPoint uiDelegate getCode.
 ]

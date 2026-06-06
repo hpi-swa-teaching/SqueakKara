@@ -27,6 +27,19 @@ SKValueBlock >> connectionPointPositionForType: aConnectionPointType [
 
 {
 	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/6/2026 11:35'
+}
+SKValueBlock >> getCode [
+
+	| args |
+	
+	args := (self blockParts select: [:each | each type ~~ #Label]) collect: [:each | each value asString].
+	
+	^ self value valueWithArguments: args asArray.
+]
+
+{
+	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'SLH 5/13/2026 18:02'
 }
 SKValueBlock >> type [
@@ -66,9 +79,9 @@ SKValueBlock >> value [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 12:43'
+	#'squeak_changestamp' : 'SLH 6/6/2026 11:11'
 }
-SKValueBlock >> value: aString [
+SKValueBlock >> value: aBlockClosure [
 
-	value := aString.
+	value := aBlockClosure.
 ]

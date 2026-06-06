@@ -258,7 +258,7 @@ SKBlock >> initialize [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 6/6/2026 00:17'
+	#'squeak_changestamp' : 'SLH 6/6/2026 11:26'
 }
 SKBlock >> justDroppedInto: anObject event: anEvent [
 
@@ -275,6 +275,7 @@ SKBlock >> justDroppedInto: anObject event: anEvent [
 	snapTarget ifNotNil: [self snapToTarget: snapTarget].
 	
 	self updateLayout.
+	Transcript show: 'Code:', String cr, '<---------->', String cr, self getCode, String cr, '</---------->', String cr.
 ]
 
 {
@@ -396,7 +397,7 @@ SKBlock >> tabHeight [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 01:36'
+	#'squeak_changestamp' : 'SLH 6/6/2026 09:53'
 }
 SKBlock >> updateLayout [
 
@@ -411,9 +412,7 @@ SKBlock >> updateLayout [
 	
 	self extent: width@height.
 	
-	Transcript show: 'attempting to bubble up layout update ', self anchorPoint isConnected, String cr.
 	self anchorPoint isConnected ifTrue: [
-		Transcript show: 'bubbling up layout update', String cr.
 		self anchorPoint connectedPoint uiDelegate layoutChanged.
 		self anchorPoint connectedPoint uiDelegate changed.
 		self anchorPoint connectedPoint uiDelegate updateLayout].
