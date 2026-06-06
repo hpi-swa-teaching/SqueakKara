@@ -139,6 +139,14 @@ SKKara >> position: aPoint [
 
 {
 	#category : #movement,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/6/2026 16:29'
+}
+SKKara >> push [
+
+]
+
+{
+	#category : #movement,
 	#'squeak_changestamp' : 'JanWein 5/21/2026 13:24'
 }
 SKKara >> randomDirection [
