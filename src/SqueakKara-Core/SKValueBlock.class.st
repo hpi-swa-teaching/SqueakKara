@@ -36,7 +36,7 @@ SKValueBlock >> type [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 22:42'
+	#'squeak_changestamp' : 'SLH 6/6/2026 02:01'
 }
 SKValueBlock >> validSnapConnectionsIn: anObject [
 
@@ -49,12 +49,9 @@ SKValueBlock >> validSnapConnectionsIn: anObject [
 		((each isKindOf: SKActionBlock) and: [
 			((each hasOwner: self) not) and: [
 				each ~= self]]) ifTrue: [
-					Transcript show: 'connection points for ', each, ': ', (each valueConnectionPoints select: [:connection |
-						((connection dist: self anchorPoint) < 20)]), String cr.
 					validConnections addAll: (each valueConnectionPoints select: [:connection |
 						((connection dist: self anchorPoint) < 20)])]].
 
-	Transcript show: 'valid connections: ', validConnections, String cr.
 	^ validConnections
 ]
 

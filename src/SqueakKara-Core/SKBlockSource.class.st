@@ -15,7 +15,7 @@ SKBlockSource >> handlesMouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:12'
+	#'squeak_changestamp' : 'SLH 6/6/2026 00:54'
 }
 SKBlockSource >> initialize [
 
@@ -29,7 +29,7 @@ SKBlockSource >> initialize [
 	 	vResizing: #spaceFill;
 		cellPositioning: #topLeft;
 		cellGap: 10;
-		populate
+		populate.
 ]
 
 {
@@ -48,10 +48,10 @@ SKBlockSource >> mouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 00:28'
+	#'squeak_changestamp' : 'SLH 6/6/2026 01:10'
 }
 SKBlockSource >> populate [
-
+	
 	self addMorphBack: (SKActionBlock new
 		addLabel: 'move';
 		action: ['kara move'];
@@ -65,6 +65,7 @@ SKBlockSource >> populate [
 		addLabel: 'move 2';
 		action: ['kara move'];
 		category: #movement;
+		updateLayout;
 		yourself).
 		
 	self addMorphBack: (SKActionBlock new
@@ -73,6 +74,7 @@ SKBlockSource >> populate [
 		addLabel: 'then';
 		addBlockGap;
 		action: [:body :condition | condition,' ifTrue: [', body, '].'];
+		updateLayout;
 		yourself).
 	
 	self addMorphBack: (SKActionBlock new
@@ -83,6 +85,7 @@ SKBlockSource >> populate [
 		addLabel: 'else';
 		addBlockGap;
 		action: [:body :condition | condition,' ifTrue: [', body, '].'];
+		updateLayout;
 		yourself).
 
 	self addMorphBack: (SKActionBlock new
@@ -91,18 +94,21 @@ SKBlockSource >> populate [
 		addLabel: 'steps';
 		action: [:steps | steps,' timesRepeat: [kara move]']; 
 		category: #movement;
+		updateLayout;
 		yourself).
 
 	self addMorphBack: (SKActionBlock new
 		addLabel: 'turn left';
 		action: ['kara turn: left'];
 		category: #movement;
+		updateLayout;
 		yourself).
 
 	self addMorphBack: (SKActionBlock new
 		addLabel: 'turn right';
 		action: ['kara turn: right'];
 		category: #movement;
+		updateLayout;
 		yourself).
 
 	"self addMorphBack: (SKCompoundActionBlock new
@@ -123,18 +129,20 @@ SKBlockSource >> populate [
 		addLabel: 'trunk ahead';
 		value: ['kara trunkAhead'];
 		category: #sensing;
+		updateLayout;
 		yourself).
 
 	self addMorphBack: (SKBooleanBlock new
 		addLabel: 'on cloverleaf';
 		value: ['kara onCloverleaf'];
 		category: #sensing;
+		updateLayout;
 		yourself).
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:12'
+	#'squeak_changestamp' : 'SLH 6/6/2026 01:13'
 }
 SKBlockSource >> startDrag: anEvent [
 

@@ -6,11 +6,11 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/5/2026 22:16'
+	#'squeak_changestamp' : 'SLH 6/6/2026 02:49'
 }
 SKActionSlotPart >> connectionPointPositionForType: aConnectionPointType [
 
-	^ self topLeft + ((self block tabOffsetInner + self block slantWidth + (self block tabWidth / 2)-self block borderWidth-2) @ 0).
+	^ self topLeft+((self block tabOffsetInner+self block slantWidth+(self block tabWidth/2)-self block borderWidth)@(self block tabHeight)).
 ]
 
 {
@@ -24,7 +24,7 @@ SKActionSlotPart >> defaultValue [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/5/2026 22:14'
+	#'squeak_changestamp' : 'SLH 6/6/2026 02:02'
 }
 SKActionSlotPart >> initialize [
 	
@@ -33,8 +33,6 @@ SKActionSlotPart >> initialize [
 	self color: Color transparent;
 		"borderColor: Color red;
 		borderWidth: 1;"
-		hResizing: #spaceFill;
-		vResizing: #shrinkWrap;
 		height: 15.
 		
 	"self defaultUI: (Morph new
@@ -69,4 +67,19 @@ SKActionSlotPart >> resolveConflictingBlockEmbeddingFor: anActionBlock [
 SKActionSlotPart >> type [
 
 	^ #Action.
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/6/2026 02:00'
+}
+SKActionSlotPart >> updateLayout [
+
+	self connectionPoint isConnected ifTrue: [
+	Transcript show: '----- updating based on connected stack', String cr..
+		self extent: self connectionPoint connectedPoint uiDelegate stackExtent] ifFalse: [
+			Transcript show: '----- updating to default', String cr.
+			self extent: 30@15].
+
+	super updateLayout.
 ]

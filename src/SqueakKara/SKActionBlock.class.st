@@ -69,25 +69,26 @@ SKActionBlock >> connectionPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 20:44'
+	#'squeak_changestamp' : 'SLH 6/6/2026 02:16'
 }
 SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 
 	(aConnectionPointType = #Action) ifTrue: [
 		^ self bottomLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ 0)].
 	
-	^ self topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ (self tabHeight)).
+	^ self topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ (self tabHeight + (self borderWidth/2))).
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/5/2026 22:12'
+	#'squeak_changestamp' : 'SLH 6/6/2026 02:53'
 }
 SKActionBlock >> drawOn: aCanvas [
-	| bounds pts top bottom left right y |
+	| bounds pts top bottom left right y halfBW |
 	
 	"innerBounds := self blockRows first bounds expandBy: (self blockRows first layoutInset insetBy: self borderWidth)."
-	bounds := self bounds insetBy: (self borderWidth/2).
+	halfBW := self borderWidth/2.
+	bounds := self bounds insetBy: halfBW.
 
 	top := bounds top.
 	bottom := bounds bottom - self tabHeight.
@@ -117,10 +118,10 @@ SKActionBlock >> drawOn: aCanvas [
 		
 		row isGap ifFalse: [
 			self isStart ifFalse: [pts addAll: {
-				(leftTop+tabOffset)@y.
-				(leftTop+tabOffset+self slantWidth)@(y+self tabHeight).
-				(leftTop+tabOffset+self tabWidth - self slantWidth)@(y+self tabHeight).
-				(leftTop+tabOffset+self tabWidth)@y.}].
+				(leftTop+tabOffset-halfBW)@y.
+				(leftTop+tabOffset-halfBW+self slantWidth)@(y+self tabHeight).
+				(leftTop+tabOffset+halfBW+self tabWidth - self slantWidth)@(y+self tabHeight).
+				(leftTop+tabOffset+halfBW+self tabWidth)@y.}].
 			pts addAll: {
 				right@y.
 				right@yNew.
@@ -142,16 +143,13 @@ SKActionBlock >> drawOn: aCanvas [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/5/2026 23:53'
+	#'squeak_changestamp' : 'SLH 6/6/2026 01:09'
 }
 SKActionBlock >> embedVisualBlock: anActionBlock [
 	
 	anActionBlock align: (anActionBlock anchorPoint position) with: (self connectionPoint position).
 	self addMorph: anActionBlock.
-	"self vResizing: #rigid; hResizing: #rigid."
 	self updateLayout.
-	
-	"self recalculateParentsRecursively."
 ]
 
 {
@@ -198,15 +196,6 @@ SKActionBlock >> isStart: aBoolean [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'SLH 6/3/2026 13:23'
-}
-SKActionBlock >> layoutInset [
-	
-	^(Rectangle left: 0 right: 0 top: 0 bottom: 8).
-]
-
-{
-	#category : #layout,
 	#'squeak_changestamp' : 'SLH 5/20/2026 00:20'
 }
 SKActionBlock >> minHeight [
@@ -238,6 +227,33 @@ SKActionBlock >> slantWidth [
 ]
 
 {
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/6/2026 02:06'
+}
+SKActionBlock >> stackExtent [
+
+	| currentBlock maxWidth totalHeight notchOverlap |
+	
+	currentBlock := self.
+	maxWidth := 0.
+	totalHeight := 0.
+	notchOverlap := self tabHeight.
+	
+	[currentBlock notNil] whileTrue: [
+		maxWidth := maxWidth max: currentBlock width.
+		totalHeight := totalHeight + currentBlock height - notchOverlap.
+		
+		currentBlock connectionPoint isConnected ifTrue: [
+			currentBlock := currentBlock connectionPoint connectedPoint uiDelegate.
+			(currentBlock class inheritsFrom: SKBlock) ifFalse: [currentBlock := nil]] ifFalse: [
+			currentBlock := nil]].
+	
+	Transcript show: 'Stack extent of ', self, ' is: ', (maxWidth@totalHeight), String cr.
+
+	^ maxWidth @ totalHeight
+]
+
+{
 	#category : #layout,
 	#'squeak_changestamp' : 'SLH 5/19/2026 23:13'
 }
@@ -257,7 +273,7 @@ SKActionBlock >> tabOffset [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/5/2026 22:07'
+	#'squeak_changestamp' : 'SLH 6/6/2026 01:28'
 }
 SKActionBlock >> tabOffsetInner [
 
@@ -284,7 +300,21 @@ SKActionBlock >> tabWidth [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 22:01'
+	#'squeak_changestamp' : 'SLH 6/6/2026 01:23'
+}
+SKActionBlock >> updateLayout [
+
+	super updateLayout.
+	
+	self connectionPoint isConnected ifTrue: [
+		self connectionPoint connectedPoint uiDelegate
+			align: (self connectionPoint connectedPoint uiDelegate anchorPoint position)
+			with: (self connectionPoint position)].
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'SLH 6/6/2026 02:01'
 }
 SKActionBlock >> validSnapConnectionsIn: anObject [
 
@@ -297,14 +327,8 @@ SKActionBlock >> validSnapConnectionsIn: anObject [
 		((each isKindOf: SKActionBlock) and: [
 			((each hasOwner: self) not) and: [
 				each ~= self]]) ifTrue: [
-					Transcript show: 'connection points for ', each, ': ', (each actionConnectionPoints select: [:connection |
-						((connection dist: self anchorPoint) < 20)]), String cr.
 					validConnections addAll: (each actionConnectionPoints select: [:connection |
 						((connection dist: self anchorPoint) < 20)])]].
-
-	Transcript show: 'own connection points: ', (self actionConnectionPoints collect: [:x | '',x position,' - ', x type]), String cr.
-	Transcript show: 'own anchor point: ', self anchorPoint position, ' - ', self anchorPoint type, String cr.
-	Transcript show: 'valid connections: ', validConnections, String cr.
 	
 	^ validConnections
 ]

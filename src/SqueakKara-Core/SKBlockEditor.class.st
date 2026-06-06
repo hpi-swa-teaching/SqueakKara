@@ -38,7 +38,7 @@ SKBlockEditor class >> open [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 00:56'
+	#'squeak_changestamp' : 'SLH 6/6/2026 00:56'
 }
 SKBlockEditor >> initialize [
 	super initialize.
@@ -50,15 +50,20 @@ SKBlockEditor >> initialize [
 		color: (Color r: 0.8 g: 1 b: 0.8).
 
 	self addMorph: self startBlock.
+	self startBlock updateLayout.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:09'
+	#'squeak_changestamp' : 'SLH 6/6/2026 00:56'
 }
 SKBlockEditor >> startBlock [
 
-	^ startBlock ifNil: [startBlock := SKActionBlock new addLabel: 'Start of Script'; isStart: true; leftSource: true; yourself].
+	^ startBlock ifNil: [startBlock := SKActionBlock new
+		addLabel: 'Start of Script';
+		isStart: true;
+		leftSource: true;
+		yourself].
 ]
 
 {

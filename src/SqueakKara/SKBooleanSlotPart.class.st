@@ -15,12 +15,12 @@ SKBooleanSlotPart >> defaultValue [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:54'
+	#'squeak_changestamp' : 'SLH 6/6/2026 02:13'
 }
 SKBooleanSlotPart >> drawOn: aCanvas [
 	| b p1 p2 p3 p4 p5 p6 pts indent borderWidth |
 	
-	borderWidth := 0.
+	borderWidth := 2.
 	b := self bounds insetBy: borderWidth.
 	
 	indent := 16. 

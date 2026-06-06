@@ -11,14 +11,13 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 19:41'
+	#'squeak_changestamp' : 'SLH 6/6/2026 01:15'
 }
 SKInputSlotPart >> acceptBlock: aBlock [
 
 	self attachedBlock: aBlock.
 	
 	self removeMorph: self defaultUI.
-	aBlock disableTableLayout: false.
 	
 	self addMorph: aBlock.
 	
@@ -91,38 +90,22 @@ SKInputSlotPart >> defaultValue [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/5/2026 23:23'
+	#'squeak_changestamp' : 'SLH 6/6/2026 01:18'
 }
 SKInputSlotPart >> embedVisualBlock: anSKBlock [
 	
 	anSKBlock align: (anSKBlock anchorPoint position) with: (self connectionPoint position).
-	self block vResizing: #shrinkWrap; hResizing: #shrinkWrap.
 	self addMorph: anSKBlock.
-	"self block vResizing: #rigid; hResizing: #rigid."
-	
-	self recalculateParentsRecursively.
-	self block vResizing: #rigid; hResizing: #rigid.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 22:44'
-}
-SKInputSlotPart >> recalculateParentsRecursively [
-
-self withAllOwnersDo: [ :each | 
-	(each isKindOf: Morph) ifTrue: [
-		each layoutChanged.
-		each changed]].
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 00:27'
+	#'squeak_changestamp' : 'SLH 6/6/2026 02:08'
 }
 SKInputSlotPart >> removedMorph: aMorph [
 	super removedMorph: aMorph.
 
+	self updateLayout.
 	self block updateLayout.
 ]
 
@@ -145,13 +128,12 @@ SKInputSlotPart >> resolveConflictingBlockEmbeddingFor: anSKBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/3/2026 10:38'
+	#'squeak_changestamp' : 'SLH 6/6/2026 01:19'
 }
 SKInputSlotPart >> restoreDefault [
 
 	self attachedBlock: nil.
 	self addMorph: self defaultUI.
-	"self block updateLayout."
 ]
 
 {

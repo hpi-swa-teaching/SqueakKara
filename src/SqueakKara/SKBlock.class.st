@@ -241,7 +241,7 @@ SKBlock >> handlesMouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/5/2026 23:32'
+	#'squeak_changestamp' : 'SLH 6/6/2026 01:25'
 }
 SKBlock >> initialize [
 	
@@ -253,9 +253,7 @@ SKBlock >> initialize [
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
 		wrapCentering: #center;
-    		cellPositioning: #topLeft;
-		cellInset: 2@0;
-		layoutInset: 5@ 0.
+    		cellPositioning: #topLeft.
 ]
 
 {
@@ -299,11 +297,12 @@ SKBlock >> leftSource [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 22:05'
+	#'squeak_changestamp' : 'SLH 6/6/2026 01:14'
 }
 SKBlock >> leftSource: aBoolean [
 
 	leftSource := aBoolean.
+	aBoolean ifTrue: [self disableTableLayout: true].
 ]
 
 {
@@ -362,7 +361,7 @@ SKBlock >> removedMorph: aMorph [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 23:36'
+	#'squeak_changestamp' : 'SLH 6/6/2026 01:12'
 }
 SKBlock >> snapToTarget: aConnectionPoint [
 	
@@ -375,7 +374,6 @@ SKBlock >> snapToTarget: aConnectionPoint [
 	
 	self anchorPoint connectTo: aConnectionPoint.
 	
-	self disableTableLayout: true.
 	aConnectionPoint uiDelegate embedVisualBlock: self.
 ]
 
@@ -388,25 +386,36 @@ SKBlock >> startDrag: anEvent [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/6/2026 01:35'
+}
+SKBlock >> tabHeight [
+
+	^ 0.
+]
+
+{
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 00:00'
+	#'squeak_changestamp' : 'SLH 6/6/2026 01:36'
 }
 SKBlock >> updateLayout [
 
-	| totalHeight maxWidth |
+	| width height |
 	
+	self fullBounds.
+
 	Transcript show: 'Update layout for ', self, String cr.
 	
-	totalHeight := (self blockRows collect: #height) sum.
-	maxWidth := (self blockRows collect: #width) max.
+	width := (self blockRows collect: #width) max+(self borderWidth*2).
+	height := (self blockRows collect: #height) sum+self tabHeight+(self borderWidth*2).
 	
-	self extent: maxWidth@totalHeight.
-	
-	Transcript show: 'height: ', totalHeight, ', width: ', maxWidth, String cr.
+	self extent: width@height.
 	
 	Transcript show: 'attempting to bubble up layout update ', self anchorPoint isConnected, String cr.
 	self anchorPoint isConnected ifTrue: [
 		Transcript show: 'bubbling up layout update', String cr.
+		self anchorPoint connectedPoint uiDelegate layoutChanged.
+		self anchorPoint connectedPoint uiDelegate changed.
 		self anchorPoint connectedPoint uiDelegate updateLayout].
 ]
 
