@@ -357,13 +357,13 @@ SKGridObject >> textureFilename [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 01:26'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 01:37'
 }
 SKGridObject >> walkable: aDirection [
 	
 	| target tile |
 	target := self coordinates + aDirection.
-	[self grid isPointInGridDimensions: target] ifFalse: [ ^ false ].
+	(self grid isPointInGridDimensions: target) ifFalse: [ ^ false ].
 
 	tile := self gridCoordinator getTileAtCoordinates: target.
 	^ tile noneSatisfy: [ :each | each isTrunk or: [each isMushroom]].
