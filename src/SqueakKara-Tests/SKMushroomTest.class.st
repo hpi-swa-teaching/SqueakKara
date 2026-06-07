@@ -45,61 +45,61 @@ SKMushroomTest >> tearDown [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 20:45'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 01:53'
 }
 SKMushroomTest >> testMushroomPushedDown [
 		
-	| mushroom |
+	| mushroom kara |
 	
 	mushroom := SKMushroom newInGrid: self grid at: 3 @ 4.
-	SKKara newInGrid: self grid at: 3 @ 3;
-		viewDirection: SKDirection below;
+	kara := SKKara newInGrid: self grid at: 3 @ 3.
+	kara viewDirection: SKDirection below;
 		push.
 	self assert: mushroom coordinates equals: 3 @ 5.
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 20:45'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 01:53'
 }
 SKMushroomTest >> testMushroomPushedIntoTrunk [
 		
-	| mushroom |
+	| mushroom kara |
 	
 	mushroom := SKMushroom newInGrid: self grid at: 4 @ 3.
 	SKMushroom newInGrid: self grid at: 5 @ 3.
-	SKKara newInGrid: self grid at: 3 @ 3;
-		viewDirection: SKDirection right;
+	kara := SKKara newInGrid: self grid at: 3 @ 3.
+	kara viewDirection: SKDirection right;
 		push.
 	self assert: mushroom coordinates equals: 4 @ 3.
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 20:45'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 01:53'
 }
 SKMushroomTest >> testMushroomPushedLeft [
 		
-	| mushroom |
+	| mushroom kara |
 	
 	mushroom := SKMushroom newInGrid: self grid at: 2 @ 3.
-	SKKara newInGrid: self grid at: 3 @ 3;
-		viewDirection: SKDirection left;
+	kara := SKKara newInGrid: self grid at: 3 @ 3.
+	kara viewDirection: SKDirection left;
 		push.
 	self assert: mushroom coordinates equals: 1 @ 3.
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 20:45'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 01:52'
 }
 SKMushroomTest >> testMushroomPushedOutOfBounds [
 		
-	| mushroom |
+	| mushroom kara |
 	
 	mushroom := SKMushroom newInGrid: self grid at: 1 @ 3.
-	SKKara newInGrid: self grid at: 2 @ 3;
-		viewDirection: SKDirection left;
+	kara := SKKara newInGrid: self grid at: 2 @ 3.
+	kara viewDirection: SKDirection left;
 		push.
 	self assert: mushroom coordinates equals: 1 @ 3.
 ]
@@ -140,15 +140,15 @@ SKMushroomTest >> testMushroomPushedRight [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 20:45'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 01:52'
 }
 SKMushroomTest >> testMushroomPushedUp [
 		
-	| mushroom |
+	| mushroom kara |
 	
 	mushroom := SKMushroom newInGrid: self grid at: 3 @ 2.
-	SKKara newInGrid: self grid at: 3 @ 3;
-		viewDirection: SKDirection above;
+	kara := SKKara newInGrid: self grid at: 3 @ 3.
+	kara viewDirection: SKDirection above;
 		push.
 	self assert: mushroom coordinates equals: 3 @ 1.
 ]
