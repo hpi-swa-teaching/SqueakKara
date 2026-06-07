@@ -62,11 +62,29 @@ SKKaraProxy >> move [
 
 {
 	#category : #commands,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 23:14'
+}
+SKKaraProxy >> mushroomAhead [
+
+	^ self kara mushroomAhead
+]
+
+{
+	#category : #commands,
 	#'squeak_changestamp' : 'LM 5/6/2026 21:57'
 }
 SKKaraProxy >> onCloverleaf [
 
 	^ self kara onCloverleaf
+]
+
+{
+	#category : #commands,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 20:55'
+}
+SKKaraProxy >> push [
+
+	self kara push.
 ]
 
 {

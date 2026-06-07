@@ -52,7 +52,7 @@ SKGridObject >> addToGrid [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/28/2026 18:49'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 00:34'
 }
 SKGridObject >> coordinates [
 
@@ -61,7 +61,7 @@ SKGridObject >> coordinates [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:44'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 00:41'
 }
 SKGridObject >> coordinates: aPoint [
 
@@ -187,7 +187,7 @@ SKGridObject >> isTrunk [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:55'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 00:43'
 }
 SKGridObject >> moveToCoordinates: aPoint [
 
@@ -278,7 +278,7 @@ SKGridObject >> originalImage: aForm [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/29/2026 13:12'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 00:43'
 }
 SKGridObject >> position: aPoint [
 
@@ -353,4 +353,18 @@ SKGridObject >> setTexture [
 SKGridObject >> textureFilename [
 
 	^ SubclassResponsibility
+]
+
+{
+	#category : #'object detection',
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 01:26'
+}
+SKGridObject >> walkable: aDirection [
+	
+	| target tile |
+	target := self coordinates + aDirection.
+	[self grid isPointInGridDimensions: target] ifFalse: [ ^ false ].
+
+	tile := self gridCoordinator getTileAtCoordinates: target.
+	^ tile noneSatisfy: [ :each | each isTrunk or: [each isMushroom]].
 ]

@@ -83,11 +83,11 @@ SKChallenge class >> initializeChallenge2For: aGrid environment: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:01'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 20:51'
 }
 SKChallenge class >> initializeChallenge3For: aGrid environment: anEnvironment [
 
-	SKTrunk newInGrid: aGrid at: 2 @ 1.
+	SKMushroom newInGrid: aGrid at: 2 @ 2.
 	SKTrunk newInGrid: aGrid at: 3 @ 1.
 	SKTrunk newInGrid: aGrid at: 4 @ 1.
 	SKTrunk newInGrid: aGrid at: 5 @ 1.

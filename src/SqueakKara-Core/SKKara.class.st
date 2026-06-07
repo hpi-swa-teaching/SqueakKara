@@ -79,7 +79,7 @@ SKKara >> karaAhead [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 13:31'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 23:36'
 }
 SKKara >> move [
 
@@ -137,7 +137,7 @@ SKKara >> onCloverleaf [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:21'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 00:27'
 }
 SKKara >> position: aPoint [
 
@@ -146,16 +146,39 @@ SKKara >> position: aPoint [
 	tile := self gridCoordinator getTileAtCoordinates: coordinates.
 	
 	(tile anySatisfy: [ :each | each isTrunk or: [ each isKara ] ]) ifTrue: [^ self ].
-
+	
 	super position: aPoint
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/6/2026 16:29'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 23:05'
 }
 SKKara >> push [
+	
+	self movementBlocked ifTrue: [^ self].
+	self mushroomAhead ifFalse: [
+		self movementBlocked: true;
+			say: 'I can not push that'.
+		^ self].
+	self pushMushroomAhead.
+	
+]
 
+{
+	#category : #'object detection',
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 23:09'
+}
+SKKara >> pushMushroomAhead [
+
+    | target tileAhead |
+
+    target := self coordinates + self viewDirection.
+    tileAhead := self gridCoordinator getTileAtCoordinates: target.
+
+    tileAhead do: [ :each |
+        each isMushroom ifTrue: [
+            each move: self viewDirection ] ].
 ]
 
 {
@@ -314,12 +337,9 @@ SKKara >> viewDirection: aDirection [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'Gustav Meinshausen 5/23/2026 18:33'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 01:31'
 }
 SKKara >> walkableAhead [
 
-	| tileAheadInGrid |
-	tileAheadInGrid := self grid isPointInGridDimensions: self viewDirection + self coordinates.
-
-	^ self trunkAhead not and: tileAheadInGrid
+	^ self walkable: self viewDirection.
 ]
