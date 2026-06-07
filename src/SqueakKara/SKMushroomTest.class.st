@@ -106,7 +106,7 @@ SKMushroomTest >> testMushroomPushedOutOfBounds [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 19:47'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 01:57'
 }
 SKMushroomTest >> testMushroomPushedOverCloverleaf [
 		
@@ -114,8 +114,8 @@ SKMushroomTest >> testMushroomPushedOverCloverleaf [
 	
 	SKMushroom newInGrid: self grid at: 4 @ 3.
 	SKCloverleaf newInGrid: self grid at: 5 @ 3.
-	kara := SKKara newInGrid: self grid at: 3 @ 3;
-		viewDirection: SKDirection right;
+	kara := SKKara newInGrid: self grid at: 3 @ 3.
+	kara viewDirection: SKDirection right;
 		push;
 		move;
 		push;
