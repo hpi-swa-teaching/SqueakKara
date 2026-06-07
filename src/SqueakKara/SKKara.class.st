@@ -180,7 +180,7 @@ SKKara >> karaAhead [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'LM 5/29/2026 09:51'
+	#'squeak_changestamp' : 'LM 6/7/2026 16:28'
 }
 SKKara >> lockAt: aPoint [
 
@@ -188,7 +188,7 @@ SKKara >> lockAt: aPoint [
 	
 	(self trunkAhead or: [ self karaAhead ]) ifTrue: [ ^ self ].
 	
-	(self gridCoordinator lockAt: aPoint for: self) ifTrue: [
+	((self gridCoordinator lockAt: aPoint for: self) and: [ self onCriticalSection not ]) ifTrue: [
 		self unlockAt: self coordinates ]
 ]
 
@@ -225,11 +225,20 @@ SKKara >> nextField [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'jt 6/11/2024 13:21'
+	#'squeak_changestamp' : 'LM 6/7/2026 16:24'
 }
 SKKara >> onCloverleaf [
 
-	^ self neighboursHere anySatisfy: [:each | each isCloverleaf]
+	^ self neighboursHere anySatisfy: [:each | each isCloverleaf ]
+]
+
+{
+	#category : #'object detection',
+	#'squeak_changestamp' : 'LM 6/7/2026 16:29'
+}
+SKKara >> onCriticalSection [
+
+	^ self neighboursHere anySatisfy: [:each | each isCriticalSection ]
 ]
 
 {
@@ -243,7 +252,7 @@ SKKara >> ownsLockAt: aPoint [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 5/23/2026 17:57'
+	#'squeak_changestamp' : 'LM 6/7/2026 16:30'
 }
 SKKara >> position: aPoint [
 
@@ -251,7 +260,8 @@ SKKara >> position: aPoint [
 	newCoordinates := self coordinatesFromPosition: aPoint.
 	tile := self gridCoordinator getTileAtCoordinates: newCoordinates.
 	
-	(tile anySatisfy: [ :each | each isTrunk or: [ each isKara ] ]) ifTrue: [^ self ].
+	(tile anySatisfy: [ :each | each isTrunk ]) ifTrue: [^ self ].
+	(self gridCoordinator isLocked: newCoordinates for: self) ifTrue: [ ^ self ].
 
 	self gridCoordinator
 		unlockAt: self coordinates;
