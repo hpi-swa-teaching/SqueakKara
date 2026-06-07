@@ -159,11 +159,20 @@ SKGridObject >> isCloverleaf [
 ]
 
 {
-	#category : #accessing,
+	#category : #type,
 	#'squeak_changestamp' : 'LM 4/29/2026 13:07'
 }
 SKGridObject >> isKara [
 
+	^ false
+]
+
+{
+	#category : #type,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/6/2026 20:11'
+}
+SKGridObject >> isMushroom [
+	
 	^ false
 ]
 

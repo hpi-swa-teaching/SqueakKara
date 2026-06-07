@@ -232,6 +232,35 @@ SKKaraTest >> testMoveWhenTrunkAhead [
 
 {
 	#category : #testing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 17:26'
+}
+SKKaraTest >> testMushroomAhead [
+
+	| kara |
+	
+	kara := SKKara newInGrid: self grid.
+	SKMushroom newInGrid: self grid at: 2 @ 1.
+	self assert: kara mushroomAhead
+
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 17:27'
+}
+SKKaraTest >> testMushroomAheadAfterTurn [
+
+	| kara trunk |
+	
+	kara := SKKara newInGrid: self grid.
+	trunk := SKMushroom newInGrid: self grid at: 1 @ 2.
+	self assert: false = kara mushroomAhead.
+	kara turn: SKDirection rotateRight.
+	self assert: true = kara mushroomAhead
+]
+
+{
+	#category : #testing,
 	#'squeak_changestamp' : 'LD 5/21/2026 10:44'
 }
 SKKaraTest >> testNewColorPicker [

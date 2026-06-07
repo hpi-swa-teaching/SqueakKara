@@ -115,6 +115,19 @@ SKKara >> movementBlocked: aBoolean [
 
 {
 	#category : #'object detection',
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/6/2026 20:13'
+}
+SKKara >> mushroomAhead [
+
+	| target tileAhead |
+	target := self coordinates + self viewDirection.
+	tileAhead := self gridCoordinator getTileAtCoordinates: target.
+
+	^ tileAhead anySatisfy: [ :each | each isMushroom ]
+]
+
+{
+	#category : #'object detection',
 	#'squeak_changestamp' : 'jt 6/11/2024 13:21'
 }
 SKKara >> onCloverleaf [
