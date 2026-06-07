@@ -5,7 +5,7 @@ Class {
 		'playGround',
 		'mode',
 		'selectedNode',
-		'buttons',
+		'modeStack',
 		'nodesToDelete'
 	],
 	#category : #'SqueakKara-Core'
@@ -78,11 +78,52 @@ SKStateMachineEditor >> addButton: aButton [
 
 {
 	#category : #initialization,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+}
+SKStateMachineEditor >> buildActionButtonStack [
+
+	| stack |
+	
+	stack := SKButtonStack new
+		cellInset: self modeButtonVerticalDistance;
+		buttonExtent: self modeButtonSize;
+		yourself.
+	stack
+		addButtonWithLabel: 'Create Node'
+		target: self
+		selector: #actionCreateNode
+		color: self modeButtonNormalColor.
+	^ stack
+]
+
+{
+	#category : #initialization,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:48'
 }
 SKStateMachineEditor >> buildButtonForMode: aMode withLabel: aString [
 
 	^ self buildButtonWithActionSelector: #toggleMode: arguments: { aMode } label: aString
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+}
+SKStateMachineEditor >> buildButtonPanel [
+
+	| panel |
+	
+	panel := AlignmentMorph newColumn
+		color: Color transparent;
+		cellInset: self modeButtonVerticalDistance;
+		hResizing: #shrinkWrap;
+		vResizing: #shrinkWrap;
+		yourself.
+	panel
+		addMorphBack: self buildActionButtonStack;
+		addMorphBack: self buildModeButtonStack.
+	self addMorph: panel.
+	panel position: self playGround topRight + (self buttonPanelOffset @ 0)
 ]
 
 {
@@ -101,6 +142,39 @@ SKStateMachineEditor >> buildButtonWithActionSelector: aActionSelector arguments
 		actionSelector: aActionSelector;
 		arguments: aArgumentCollection.
 	^ button
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+}
+SKStateMachineEditor >> buildModeButtonStack [
+
+	| stack |
+	
+	stack := SKButtonStack new
+		cellInset: self modeButtonVerticalDistance;
+		buttonExtent: self modeButtonSize;
+		selectedColor: self modeButtonSelectedColor;
+		yourself.
+	self modes do: [:aMode |
+		stack
+			addButtonWithLabel: (self modeLables at: aMode)
+			target: self
+			selector: #toggleMode:
+			arguments: { aMode }
+			color: self modeButtonNormalColor].
+	self modeStack: stack.
+	^ stack
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+}
+SKStateMachineEditor >> buttonPanelOffset [
+
+	^ 20
 ]
 
 {
@@ -178,7 +252,7 @@ SKStateMachineEditor >> hasNodesToDelete [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:44'
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
 }
 SKStateMachineEditor >> initialize [
 
@@ -195,26 +269,46 @@ SKStateMachineEditor >> initialize [
 			position: (self position + (50@100)).
 	self addMorph: self playGround.
 			
-	self initializeButtons.
+	self buildButtonPanel.
 	self toggleMode: #drag
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:01'
+	#'squeak_changestamp' : 'SSP 6/7/2026 13:50'
 }
 SKStateMachineEditor >> initializeButtons [
 	
-	| container |
+	| container actionStack |
+	
+	actionStack := SKButtonStack new.
+	actionStack addButtonWithLabel: 'Create Node'
+		target: self
+		selector: #actionCreateNode.
+	actionStack buttons last extent: self modeButtonSize.
+	
+	self modeStack: (SKButtonStack new
+		normalColor: self modeButtonNormalColor;
+		selectedColor: self modeButtonSelectedColor;
+		yourself).
+	self modes do: [:mode |
+		self modeStack addButtonWithLabel: (self modeLables at: mode)
+			target: self
+			selector: #toggleMode:
+			arguments: {mode}.
+		self modeStack buttons last extent: self modeButtonSize].
 	
 	container := AlignmentMorph newColumn.
-	container 
-		position: (self position + (1100 @ 50));
-		cellInset: self modeButtonVerticalDistance.
 	container
-		addMorph: self initilazieActionButtons;
-		addMorph: self initializeModeButtons.
-	self addMorph: container
+		hResizing: #shrinkWrap;
+		vResizing: #shrinkWrap;
+		cellInset: self modeButtonVerticalDistance;
+		color: Color transparent.
+	container addMorphBack: actionStack;
+		addMorphBack: self modeStack.
+	self addMorph: container.
+	container fullBounds.
+	container position: self topRight - (container fullBounds extent + (20 @ -50))
 ]
 
 {
@@ -340,6 +434,24 @@ SKStateMachineEditor >> modeLables [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+}
+SKStateMachineEditor >> modeStack [
+
+	^ modeStack
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+}
+SKStateMachineEditor >> modeStack: aStack [
+
+	modeStack := aStack
+]
+
+{
 	#category : #modes,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:03'
 }
@@ -444,14 +556,15 @@ SKStateMachineEditor >> stepTime [
 
 {
 	#category : #modes,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:22'
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
 }
 SKStateMachineEditor >> toggleMode: aMode [
 
-	self 
-		colorAllModeButtonsNormal;
-		markModeButtonSelected: aMode;
-		mode: aMode
+	| label button |
+	self mode: aMode.
+	label := self modeLables at: aMode.
+	button := self modeStack buttons detect: [:b | b label = label].
+	self modeStack select: button
 ]
 
 {
