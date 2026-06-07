@@ -125,15 +125,15 @@ SKMushroomTest >> testMushroomPushedOverCloverleaf [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 20:45'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 01:49'
 }
 SKMushroomTest >> testMushroomPushedRight [
 		
-	| mushroom |
+	| mushroom kara |
 	
 	mushroom := SKMushroom newInGrid: self grid at: 4 @ 3.
-	SKKara newInGrid: self grid at: 3 @ 3;
-		viewDirection: SKDirection right;
+	kara := SKKara newInGrid: self grid at: 3 @ 3.
+	kara viewDirection: SKDirection right;
 		push.
 	self assert: mushroom coordinates equals: 5 @ 3.
 ]
