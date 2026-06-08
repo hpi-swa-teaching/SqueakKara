@@ -105,7 +105,7 @@ SKKara >> defaultColor [
 
 {
 	#category : #'submorphs - add/remove',
-	#'squeak_changestamp' : 'LM 5/23/2026 18:40'
+	#'squeak_changestamp' : 'LM 6/8/2026 22:26'
 }
 SKKara >> delete [
 
@@ -368,11 +368,12 @@ SKKara >> setTexture [
 
 {
 	#category : #'submorphs - add/remove',
-	#'squeak_changestamp' : 'LM 5/23/2026 18:31'
+	#'squeak_changestamp' : 'LM 6/8/2026 22:26'
 }
 SKKara >> superDelete [
 
-	super delete
+	super delete.
+	self cloverleaf delete
 ]
 
 {
