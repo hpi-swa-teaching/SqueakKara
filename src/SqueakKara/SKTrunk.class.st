@@ -27,6 +27,15 @@ SKTrunk >> isTrunk [
 ]
 
 {
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 6/8/2026 22:19'
+}
+SKTrunk >> order [
+
+	^ 2
+]
+
+{
 	#category : #geometry,
 	#'squeak_changestamp' : 'LM 4/29/2026 13:13'
 }

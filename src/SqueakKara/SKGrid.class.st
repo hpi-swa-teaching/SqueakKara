@@ -37,11 +37,11 @@ SKGrid class >> newWithExtent: aPoint andScale: aFloat [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:35'
+	#'squeak_changestamp' : 'LM 6/8/2026 22:20'
 }
 SKGrid >> addGridLine: aMorph [
 
-	self addMorph: aMorph.
+	super addMorph: aMorph.
 	self gridLines add: aMorph
 ]
 
@@ -64,6 +64,16 @@ SKGrid >> addHorizontalLineAt: aCoordinate [
 
 
 	
+]
+
+{
+	#category : #'submorphs - add/remove',
+	#'squeak_changestamp' : 'LM 6/8/2026 22:21'
+}
+SKGrid >> addMorph: aMorph [
+
+	super addMorph: aMorph.
+	self redrawTexture
 ]
 
 {
@@ -126,14 +136,14 @@ SKGrid >> decrementLeafCount [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 6/5/2026 12:42'
+	#'squeak_changestamp' : 'LM 6/8/2026 22:20'
 }
 SKGrid >> drawTexture [
 
 	1 to: self gridHeight - 1 do: [:anInteger |
 		self addHorizontalLineAt: anInteger].
 	1 to: self gridWidth - 1 do: [:anInteger |
-		self addVerticalLineAt: anInteger]
+		self addVerticalLineAt: anInteger ]
 ]
 
 {
@@ -330,12 +340,18 @@ SKGrid >> pixelPerBlock [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 6/5/2026 12:42'
+	#'squeak_changestamp' : 'LM 6/8/2026 22:19'
 }
 SKGrid >> redrawTexture [
 
+	| sortedMorphs |
+
 	self gridLines do: [:gridLine | self removeMorph: gridLine ].
-	self submorphsDo: [:submorph | submorph scaleToFactor ].
+	
+	sortedMorphs := self submorphs asSortedCollection: [ :a :b | a order <= b order ].
+	
+	sortedMorphs do: [ :each | self removeMorph: each ].
+	sortedMorphs do: [ :each | super addMorph: each. each scaleToFactor ].
 	
 	self drawTexture
 ]
@@ -366,16 +382,6 @@ SKGrid >> scaleFactor: aNumber [
 SKGrid >> spawnWinScreen [
 
 	SKWinScreen newInGrid: self.
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'jawi 6/3/2026 18:45'
-}
-SKGrid >> test [	
-	
-	SKEnvironment new perform: self environment nextChallenge.
-	self environment systemWindow delete
 ]
 
 {

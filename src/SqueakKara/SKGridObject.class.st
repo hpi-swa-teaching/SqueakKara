@@ -138,17 +138,17 @@ SKGridObject >> gridCoordinator [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:40'
+	#'squeak_changestamp' : 'LM 6/8/2026 22:24'
 }
 SKGridObject >> initializeInGrid: aGrid at: aPoint [
 
 	self grid: aGrid.
 	super initialize.
 
-	self coordinates: aPoint.
-	self addToGrid.
-	self setTexture.
-	self scaleToFactor
+	self coordinates: aPoint;
+		setTexture;
+		addToGrid;
+		scaleToFactor
 ]
 
 {
@@ -273,6 +273,15 @@ SKGridObject >> neighboursRight [
 SKGridObject >> notifyGridCoordinator [
 
 	self gridCoordinator storeObject: self at: self coordinates
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 6/8/2026 22:19'
+}
+SKGridObject >> order [
+
+	^ 100
 ]
 
 {

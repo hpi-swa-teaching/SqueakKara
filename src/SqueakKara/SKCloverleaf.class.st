@@ -57,6 +57,15 @@ SKCloverleaf >> isCloverleaf [
 ]
 
 {
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 6/8/2026 22:19'
+}
+SKCloverleaf >> order [
+
+	^ 1
+]
+
+{
 	#category : #geometry,
 	#'squeak_changestamp' : 'jawi 5/28/2026 15:41'
 }
