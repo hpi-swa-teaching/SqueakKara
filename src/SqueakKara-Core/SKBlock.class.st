@@ -61,38 +61,38 @@ SKBlock >> addStringPart: aLabel withDefault: aDefaultValue [
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:43'
+	#'squeak_changestamp' : 'JS 6/9/2026 00:11'
 }
 SKBlock >> blockDefaultBorderColor [
 
-	^ self colorOrange
+	^ SKStylesheet colorOrange
 ]
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:43'
+	#'squeak_changestamp' : 'JS 6/9/2026 00:11'
 }
 SKBlock >> blockDefaultColor [
 
-	^ self colorBeige
+	^ SKStylesheet colorBeige
 ]
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:43'
+	#'squeak_changestamp' : 'JS 6/9/2026 00:11'
 }
 SKBlock >> blockMovementBorderColor [
 
-	^ self colorBlue
+	^ SKStylesheet colorBlue
 ]
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:43'
+	#'squeak_changestamp' : 'JS 6/9/2026 00:12'
 }
 SKBlock >> blockMovementColor [
 
-	^ self colorLightBlue
+	^ SKStylesheet colorLightBlue
 ]
 
 {
@@ -115,21 +115,21 @@ SKBlock >> blockParts: anOrderedCollection [
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:43'
+	#'squeak_changestamp' : 'JS 6/9/2026 00:12'
 }
 SKBlock >> blockSensingBorderColor [
 
-	^self colorGreen
+	^ SKStylesheet colorGreen
 
 ]
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:43'
+	#'squeak_changestamp' : 'JS 6/9/2026 00:12'
 }
 SKBlock >> blockSensingColor [
 
-	^ self colorLightGreen
+	^ SKStylesheet colorLightGreen
 ]
 
 {
