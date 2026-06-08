@@ -62,6 +62,17 @@ SKLogicGraph >> addNodeWithName: aString [
 ]
 
 {
+	#category : #construction,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:47'
+}
+SKLogicGraph >> deleteNodeWithNoEdge: aNode [
+
+	aNode edges size <= 0 ifTrue: [^ false].
+	self removeNode: aNode.
+	^ true
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:11'
 }
@@ -83,12 +94,31 @@ SKLogicGraph >> getNodeByName: aString [
 ]
 
 {
+	#category : #check,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 12:01'
+}
+SKLogicGraph >> isValid [
+
+	self startingNode ifNil: [^ false].
+	^ true
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:08'
 }
 SKLogicGraph >> nodes [
 
 	^ nodes ifNil: [nodes := Dictionary new]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:46'
+}
+SKLogicGraph >> removeNode: aNode [
+
+	self nodes remove: aNode
 ]
 
 {

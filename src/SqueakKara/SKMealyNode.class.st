@@ -3,7 +3,8 @@ Class {
 	#superclass : #CircleMorph,
 	#instVars : [
 		'controller',
-		'isInDrag'
+		'isInDrag',
+		'isStartingNode'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -73,6 +74,24 @@ SKMealyNode >> isInDrag [
 SKMealyNode >> isInDrag: aBoolean [
 
 	isInDrag := aBoolean
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:25'
+}
+SKMealyNode >> isStartingNode [
+
+	^ isStartingNode
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:25'
+}
+SKMealyNode >> isStartingNode: aBoolean [
+
+	isStartingNode := aBoolean
 ]
 
 {

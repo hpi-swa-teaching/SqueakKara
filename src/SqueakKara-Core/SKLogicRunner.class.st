@@ -98,6 +98,18 @@ SKLogicRunner >> executeContext: aExecuteContext [
 
 {
 	#category : #execution,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 12:51'
+}
+SKLogicRunner >> executeLogicGraph [
+
+	| hasNextStep |
+	
+	hasNextStep := true.
+	hasNextStep whileTrue: [self executeStep ifNil: [hasNextStep := false]]
+]
+
+{
+	#category : #execution,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:55'
 }
 SKLogicRunner >> executeStep [

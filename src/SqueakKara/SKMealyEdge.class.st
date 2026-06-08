@@ -5,7 +5,9 @@ Class {
 		'line',
 		'fromNode',
 		'toNode',
-		'controller'
+		'controller',
+		'condition',
+		'command'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -26,6 +28,42 @@ SKMealyEdge class >> newFrom: aNode to: anotherNode [
 	aNode controller playGround addMorph: line.
 	
 	^ instance
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:24'
+}
+SKMealyEdge >> command [
+
+	^command
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:23'
+}
+SKMealyEdge >> command: aCommand [
+
+	command := aCommand
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:23'
+}
+SKMealyEdge >> condition [
+
+	^ condition
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:23'
+}
+SKMealyEdge >> condition: aCondition [
+
+	condition := aCondition
 ]
 
 {
