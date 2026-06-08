@@ -81,6 +81,20 @@ SKKara >> createCloverleaf: aPoint [
 ]
 
 {
+	#category : #'object detection',
+	#'squeak_changestamp' : 'LM 6/8/2026 17:53'
+}
+SKKara >> criticalSectionAhead [
+
+	| target tileAhead |
+	
+	target := self coordinates + self viewDirection.
+	tileAhead := self gridCoordinator getTileAtCoordinates: target.
+	
+	^ tileAhead anySatisfy: [ :each | each isCriticalSection ]
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'AB 5/21/2026 18:22'
 }
@@ -180,15 +194,20 @@ SKKara >> karaAhead [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'LM 6/7/2026 16:28'
+	#'squeak_changestamp' : 'LM 6/8/2026 18:00'
 }
 SKKara >> lockAt: aPoint [
+
+	| lockSuccessful staysInCriticalSection |
 
 	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
 	
 	(self trunkAhead or: [ self karaAhead ]) ifTrue: [ ^ self ].
 	
-	((self gridCoordinator lockAt: aPoint for: self) and: [ self onCriticalSection not ]) ifTrue: [
+	lockSuccessful := (self gridCoordinator lockAt: aPoint for: self).
+	staysInCriticalSection := self onCriticalSection and: [ self criticalSectionAhead ].
+	
+	(lockSuccessful and: [ staysInCriticalSection not ]) ifTrue: [
 		self unlockAt: self coordinates ]
 ]
 
