@@ -98,9 +98,9 @@ SKGrid >> addVerticalLineAt: aCoordinate [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LD 5/29/2026 08:28'
+	#'squeak_changestamp' : 'mr 6/5/2026 13:00'
 }
-SKGrid >> allLeafesCollected [
+SKGrid >> allLeavesCollected [
 	
 	^ self leafCount = 0
 ]
@@ -116,11 +116,11 @@ SKGrid >> backgroundColor [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'jawi 6/3/2026 20:32'
+	#'squeak_changestamp' : 'mr 6/5/2026 13:00'
 }
 SKGrid >> checkWinCondition [
 
-	self allLeafesCollected ifTrue: [ 
+	self allLeavesCollected ifTrue: [ 
 		self spawnWinScreen. 
 		self environment ifNotNil: [ self executeControls addButtonNextChallenge ]]
 ]

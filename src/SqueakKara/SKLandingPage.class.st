@@ -10,6 +10,16 @@ Class {
 
 {
 	#category : #actions,
+	#'squeak_changestamp' : 'mr 6/5/2026 13:13'
+}
+SKLandingPage >> actionBlankProject [
+
+	SKEnvironment new initializeWithBlankProject.
+	self delete
+]
+
+{
+	#category : #actions,
 	#'squeak_changestamp' : 'LM 5/7/2026 22:07'
 }
 SKLandingPage >> actionExample1 [
@@ -257,12 +267,12 @@ SKLandingPage >> buildButtonExample9 [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
+	#'squeak_changestamp' : 'mr 6/5/2026 13:12'
 }
 SKLandingPage >> buildButtonNew [
 
 	^ self buildButtonWithLabel: self buttonNewLabel
-		andSelector: #actionNew
+		andSelector: #actionBlankProject
 		andColor: SKStylesheet primaryColor
 ]
 
