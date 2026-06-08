@@ -1,6 +1,6 @@
 GSMetadata {
 	#version : 1,
-	#mappers : [
+	#mappers : OrderedCollection [
 		GSImageMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
@@ -134,6 +134,14 @@ GSMetadata {
 				#name : 'BaselineOfSqueakKara'
 			},
 			#path : @12
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'reset.png'
+			],
+			#encoding : @5
 		}
 	],
 	#name : 'SqueakKara'
