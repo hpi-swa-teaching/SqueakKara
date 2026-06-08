@@ -217,7 +217,7 @@ SKChallenge class >> initializeChallenge8For: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'JanWein 6/5/2026 14:24'
+	#'squeak_changestamp' : 'LM 6/8/2026 22:44'
 }
 SKChallenge class >> initializeChallenge9For: anEnvironment [
 	
@@ -226,14 +226,14 @@ SKChallenge class >> initializeChallenge9For: anEnvironment [
 	grid := anEnvironment grid.
 	
 	
-	SKChallenge treeSquarePositions do: [:aPoint | SKTrunk newInGrid: grid at: aPoint + (3 @ 3)].
-	SKChallenge treeSquarePositions do: [:aPoint | SKTrunk newInGrid: grid at: aPoint + (7 @ 3)].
+	SKChallenge treeSquarePositions do: [ :aPoint | SKTrunk newInGrid: grid at: aPoint + (3 @ 3)].
+	SKChallenge treeSquarePositions do: [ :aPoint | SKTrunk newInGrid: grid at: aPoint + (7 @ 3)].
 	
 	
 	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 1 with: 4 @ 5).
 	anEnvironment addKara: (SKKara newInGrid: grid at: 8 @ 1 with: 7 @ 1).
 	
-	1 to: 5 do: [:y | (SKCriticalSection newInGrid: grid at: 5 @ y) group: #group1] 
+	1 to: 5 do: [ :y | (SKCriticalSection newInGrid: grid at: 5 @ y) group: #group1; color: Color green ]
 ]
 
 {

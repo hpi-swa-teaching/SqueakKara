@@ -153,7 +153,7 @@ SKGridCoordinator >> lockAt: aPoint for: anActor [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 6/5/2026 13:44'
+	#'squeak_changestamp' : 'LM 6/8/2026 22:40'
 }
 SKGridCoordinator >> lockGroup: aSymbol for: anActor [
 
@@ -161,7 +161,7 @@ SKGridCoordinator >> lockGroup: aSymbol for: anActor [
 		| tile |
 		
 		tile := self getTileAtCoordinates: x @ y.
-		tile do: [ :gameObject | gameObject isCriticalSection ifTrue: [
+		tile do: [ :gameObject | (gameObject isCriticalSection and: [ gameObject group = aSymbol ]) ifTrue: [
 			tile lockBy: anActor.
 			gameObject color: Color red ]]]
 ]
@@ -253,7 +253,7 @@ SKGridCoordinator >> unlockAt: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 6/5/2026 13:44'
+	#'squeak_changestamp' : 'LM 6/8/2026 22:40'
 }
 SKGridCoordinator >> unlockGroup: aSymbol [
 
@@ -261,7 +261,7 @@ SKGridCoordinator >> unlockGroup: aSymbol [
 		| tile |
 		
 		tile := self getTileAtCoordinates: x @ y.
-		tile do: [ :gameObject | gameObject isCriticalSection ifTrue: [
+		tile do: [ :gameObject | (gameObject isCriticalSection and: [ gameObject group = aSymbol ]) ifTrue: [
 			tile unlock.
 			gameObject color: Color green ]]]
 ]
