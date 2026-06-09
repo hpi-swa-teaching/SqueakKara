@@ -88,11 +88,11 @@ SKBlock >> addInputSlotPart: anInputSlotPart [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
+	#'squeak_changestamp' : 'FR 6/9/2026 18:55'
 }
 SKBlock >> addIntegerPart [
 	
-	self addInputSlotPart: (SKIntegerSlotPart new)
+	self addInputSlotPart: (SKTextSlotPart new type: #Integer)
 ]
 
 {
@@ -102,6 +102,15 @@ SKBlock >> addIntegerPart [
 SKBlock >> addLabel: aString [
 	
 	self addBlockPart: (SKLabelPart new label: aString)
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 19:21'
+}
+SKBlock >> addStringPart [
+	
+	self addInputSlotPart: (SKTextSlotPart new setDefaultUIEntry: 'message 1')
 ]
 
 {

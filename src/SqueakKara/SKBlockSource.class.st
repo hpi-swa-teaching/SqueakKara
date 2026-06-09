@@ -6,7 +6,7 @@ Class {
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:25'
+	#'squeak_changestamp' : 'FR 6/9/2026 19:13'
 }
 SKBlockSource >> addControlBlocks [
 		
@@ -14,6 +14,8 @@ SKBlockSource >> addControlBlocks [
 	self addMorphBack: self ifElseBlock.
 	self addMorphBack: self forLoop.
 	self addMorphBack: self untilLoop.
+	self addMorphBack: self functionCall.
+	self addMorphBack: self functionStart.
 ]
 
 {
@@ -68,6 +70,35 @@ SKBlockSource >> forLoop [
 		addBlockGap;
 		action: [:repetitions :trueBranch |
 			'(', repetitions,') timesRepeat: [', String cr, trueBranch, ']'];
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - control',
+	#'squeak_changestamp' : 'FR 6/9/2026 19:13'
+}
+SKBlockSource >> functionCall [
+
+	^ SKActionBlock new
+		addLabel: 'send';
+		addStringPart;
+		action: 'send ohoh';
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - control',
+	#'squeak_changestamp' : 'FR 6/9/2026 19:12'
+}
+SKBlockSource >> functionStart [
+
+	^ SKActionBlock new
+		addLabel: 'when I receive';
+		addStringPart;
+		isStart: true;
+		action: 'ohoh';
 		updateLayout;
 		yourself
 ]

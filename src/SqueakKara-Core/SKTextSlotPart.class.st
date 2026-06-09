@@ -1,23 +1,28 @@
 Class {
-	#name : #SKIntegerSlotPart,
+	#name : #SKTextSlotPart,
 	#superclass : #SKInputSlotPart,
+	#instVars : [
+		'type'
+	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 01:34'
+	#'squeak_changestamp' : 'FR 6/9/2026 18:56'
 }
-SKIntegerSlotPart >> defaultValue [
+SKTextSlotPart >> defaultValue [
 
-	^ defaultUI firstSubmorph contents string asInteger
+	type = #Integer ifTrue: [^ defaultUI firstSubmorph contents string asInteger].
+	^ defaultUI firstSubmorph contents string
+	
 ]
 
 {
 	#category : #initialization,
 	#'squeak_changestamp' : 'FR 6/9/2026 01:20'
 }
-SKIntegerSlotPart >> initialize [
+SKTextSlotPart >> initialize [
 	
 	
 	super initialize.
@@ -43,9 +48,9 @@ SKIntegerSlotPart >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 17:02'
+	#'squeak_changestamp' : 'FR 6/9/2026 19:02'
 }
-SKIntegerSlotPart >> makeDefaultUI [
+SKTextSlotPart >> makeDefaultUI [
 
 	| defaultEntry entryContainer |
 	
@@ -59,7 +64,7 @@ SKIntegerSlotPart >> makeDefaultUI [
 		vResizing: #shrinkWrap;
 		color: Color transparent.
 	
-	defaultEntry := SKTextEntry new contents: '30'.
+	defaultEntry := SKTextEntry new contents: '30'; numericOnly: (self type = #Integer).
 	defaultEntry on: #keyStroke send: #updateLayout to: self.
 	
 	entryContainer addMorphFront: defaultEntry;
@@ -73,10 +78,38 @@ SKIntegerSlotPart >> makeDefaultUI [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:06'
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/9/2026 19:20'
 }
-SKIntegerSlotPart >> type [
+SKTextSlotPart >> setDefaultUIEntry: aString [
 
-	^ #Integer
+	self defaultUI firstSubmorph contents: aString; adjustLayoutBounds.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 18:55'
+}
+SKTextSlotPart >> type [
+
+	^ type ifNil: [type := #String. ^ #String]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 19:06'
+}
+SKTextSlotPart >> type: anObject [
+
+	type := anObject.
+	self updateUIType
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/9/2026 19:07'
+}
+SKTextSlotPart >> updateUIType [
+
+	self defaultUI firstSubmorph numericOnly: (self type = #Integer).
 ]
