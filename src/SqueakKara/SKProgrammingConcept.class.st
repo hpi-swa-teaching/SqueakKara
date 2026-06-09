@@ -35,14 +35,38 @@ SKProgrammingConcept class >> code [
 
 {
 	#category : #concepts,
-	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 10:33'
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 13:12'
+}
+SKProgrammingConcept class >> codeTest [
+
+	^ self 
+		newWithName: 'CodeTest' 
+		programmingUIClass: SKProgrammingUITest
+		processClass: SKProcessCode
+]
+
+{
+	#category : #concepts,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 13:19'
+}
+SKProgrammingConcept class >> logicGraphTest [
+
+	^ self 
+		newWithName: 'LogicGraphTest' 
+		programmingUIClass: SKProgrammingUITest 
+		processClass: SKProcessLogicGraph
+]
+
+{
+	#category : #concepts,
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 10:41'
 }
 SKProgrammingConcept class >> mealy [
 
 	^ self 
 		newWithName: 'Mealy' 
 		programmingUIClass: SKProgrammingUIMealy 
-		processClass: SKProcessCode
+		processClass: SKProcessLogicGraph
 ]
 
 {

@@ -19,8 +19,17 @@ SKProgrammingUIMealy >> build [
 ]
 
 {
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 10:36'
+}
+SKProgrammingUIMealy >> close [
+
+	self editor delete
+]
+
+{
 	#category : #compile,
-	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:56'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 14:17'
 }
 SKProgrammingUIMealy >> compileToLogicGraph: aNodeCollection edges: aEdgeCollection [
 
@@ -29,22 +38,10 @@ SKProgrammingUIMealy >> compileToLogicGraph: aNodeCollection edges: aEdgeCollect
 	self logicGraph: SKLogicGraph new.
 	
 	aNodeCollection do: [:aNode | self logicGraph addNodeWithName: aNode name].
-	aEdgeCollection do: [:aEdge | self logicGraph addEdgeFrom: aEdge fromNode name to: aEdge toNode name command: aEdge command condition: aEdge command].
+	aEdgeCollection do: [:aEdge | self logicGraph addEdgeFrom: (aEdge fromNode name) to: (aEdge toNode name) command: aEdge command condition: aEdge condition].
 
-	startingNodeName := aNodeCollection detect: [:aNode | aNode isStartingNode].
-	self logicGraph startingNode: (self logicGraph getNodeByName: startingNodeName).
-
-	self deleteUselessNodes
-]
-
-{
-	#category : #compile,
-	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:55'
-}
-SKProgrammingUIMealy >> deleteUselessNodes [
-
-	logicGraph nodes do: [:aNode | (aNode hasEdge and: (aNode <> self logicGraph startingNode)) ifTrue: [
-		logicGraph deleteNodeWithNoEdge: aNode]]
+	startingNodeName := (aNodeCollection detect: [:aNode | aNode isStartingNode]) name.
+	self logicGraph setStartNode: startingNodeName
 ]
 
 {
@@ -67,11 +64,11 @@ SKProgrammingUIMealy >> editor: aEditor [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 12:03'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 10:31'
 }
 SKProgrammingUIMealy >> getCode [
 
-	self compileToLogicGraph: self editor nodes edges: self editor nodes.
+	self compileToLogicGraph: self editor nodes edges: self editor edges.
 	self logicGraph isValid ifFalse: [self inform: 'Der Automat ist nicht valide!'].
 	^ self logicGraph
 ]

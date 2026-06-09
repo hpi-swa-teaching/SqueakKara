@@ -78,7 +78,7 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:47'
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 16:50'
 }
 SKExecuter >> execute: aCode [
 

@@ -13,15 +13,15 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:19'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 13:23'
 }
 SKLogicEdge class >> newWithCommand: aString condition: anotherString fromNode: aLogicNode toNode: anotherLogicNode [
 
 	^(self new
 		command: aString;
 		condition: anotherString;
-		outNode: aLogicNode;
-		inNode: anotherLogicNode;
+		toNode: aLogicNode;
+		fromNode: anotherLogicNode;
 		yourself)
 ]
 

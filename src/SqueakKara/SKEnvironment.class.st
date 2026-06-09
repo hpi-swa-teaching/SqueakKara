@@ -460,12 +460,11 @@ SKEnvironment >> resume [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:58'
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 16:30'
 }
 SKEnvironment >> run [
 
 	| code |
-	
 	code :=  self programmingUI getCode.
 	self executer execute: code
 ]
