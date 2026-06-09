@@ -13,7 +13,7 @@ Class {
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:46'
+	#'squeak_changestamp' : 'LP 6/9/2026 13:49'
 }
 SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 
@@ -24,6 +24,7 @@ SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 	
 	aNode addDependent: edge.
 	anotherNode addDependent: edge.
+	edge update: #unusedValue. 
 ]
 
 {

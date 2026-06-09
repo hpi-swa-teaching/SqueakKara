@@ -7,14 +7,16 @@ Class {
 		'toNode',
 		'controller',
 		'popUpActive',
-		'edgeMorph'
+		'edgeMorph',
+		'arrowhead',
+		'edgePopUp'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LP 6/8/2026 20:37'
+	#'squeak_changestamp' : 'LP 6/9/2026 13:48'
 }
 SKMealyEdge class >> newFrom: aNode to: anotherNode [
 
@@ -29,6 +31,25 @@ SKMealyEdge class >> newFrom: aNode to: anotherNode [
 	aNode controller playGround addMorph: line.
 	
 	^ instance
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LP 6/9/2026 14:40'
+}
+SKMealyEdge >> arrowhead [
+	(arrowhead = nil) ifTrue: [self arrowhead:  (PolygonMorph
+		vertices: (self getArrowheadPoints)
+		color: Color red borderWidth: 1 borderColor: Color black). ].
+	^ arrowhead
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LP 6/9/2026 14:09'
+}
+SKMealyEdge >> arrowhead: anObject [
+	arrowhead := anObject
 ]
 
 {
@@ -77,30 +98,12 @@ SKMealyEdge >> delete [
 ]
 
 {
-	#category : #drawing,
-	#'squeak_changestamp' : 'LP 6/3/2026 01:16'
-}
-SKMealyEdge >> drawArrowhead [
-
-	self line addMorph: (PolygonMorph
-		vertices: (self getArrowheadPoints)
-		color: Color red borderWidth: 1 borderColor: Color black).
-]
-
-{
-	#category : #drawing,
-	#'squeak_changestamp' : 'LP 6/9/2026 12:51'
-}
-SKMealyEdge >> drawEdgePopUp [
-
-(self popUpActive) ifTrue:[self edgeMorph: SKSelectionPopUpWrapper new.  self line addMorph: self edgeMorph. self popUpActive: false. self updateEdgeMorphPosition ] ifFalse: [self edgeMorph bringChildrenToFront.   self line addMorph: self edgeMorph. self popUpActive: false. self updateEdgeMorphPosition]. "this cannot be good"
-]
-
-{
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/8/2026 20:40'
+	#'squeak_changestamp' : 'LP 6/9/2026 14:43'
 }
 SKMealyEdge >> edgeMorph [
+
+	(edgeMorph = nil) ifTrue: [self edgeMorph: SKSelectionPopUpWrapper new. ].
 	^ edgeMorph
 ]
 
@@ -110,6 +113,22 @@ SKMealyEdge >> edgeMorph [
 }
 SKMealyEdge >> edgeMorph: anObject [
 	edgeMorph := anObject
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LP 6/9/2026 14:09'
+}
+SKMealyEdge >> edgePopUp [
+	^ edgePopUp
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LP 6/9/2026 14:09'
+}
+SKMealyEdge >> edgePopUp: anObject [
+	edgePopUp := anObject
 ]
 
 {
@@ -261,17 +280,27 @@ SKMealyEdge >> toNode: aNode [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'LP 6/8/2026 20:55'
+	#'squeak_changestamp' : 'LP 6/9/2026 14:15'
 }
 SKMealyEdge >> update: aValue [
 
+	self updateLine. 
+	self updateArrowhead. 
+	self updateEdgePopUp. 
 	
-	self line delete.
-	self line: (LineMorph from: self fromNode center to: self toNode center color: (Color fromString: '#8caaee') width: 5).
-	self drawArrowhead. 
-	self drawEdgePopUp. 
+	self controller playGround addComponent: self line.
+	self controller playGround addComponent: self arrowhead.
+	self controller playGround addComponent: self edgeMorph.
 	
-	self controller playGround addComponent: self line
+]
+
+{
+	#category : #drawing,
+	#'squeak_changestamp' : 'LP 6/9/2026 14:41'
+}
+SKMealyEdge >> updateArrowhead [
+	
+	self arrowhead setVertices: (self getArrowheadPoints).  
 ]
 
 {
@@ -281,4 +310,27 @@ SKMealyEdge >> update: aValue [
 SKMealyEdge >> updateEdgeMorphPosition [
 
 self edgeMorph position: (self getPointBetween: (self getPointsWithoutNodesOverlapping) interpolatedBy: 0.5). 
+]
+
+{
+	#category : #drawing,
+	#'squeak_changestamp' : 'LP 6/9/2026 14:43'
+}
+SKMealyEdge >> updateEdgePopUp [
+
+(self edgeMorph) ifNotNil:[self edgeMorph delete. ].
+
+self edgeMorph bringChildrenToFront. 
+self popUpActive: false.
+self updateEdgeMorphPosition
+]
+
+{
+	#category : #drawing,
+	#'squeak_changestamp' : 'LP 6/9/2026 14:17'
+}
+SKMealyEdge >> updateLine [
+	
+	(self line) ifNotNil:[self line delete. ].
+	self line: (LineMorph from: self fromNode center to: self toNode center color: (Color fromString: '#8caaee') width: 5). 
 ]
