@@ -368,12 +368,13 @@ SKKara >> setTexture [
 
 {
 	#category : #'submorphs - add/remove',
-	#'squeak_changestamp' : 'LM 6/8/2026 22:26'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:26'
 }
 SKKara >> superDelete [
 
 	super delete.
-	self cloverleaf delete
+	self cloverleaf delete.
+	self unlockAt: self coordinates
 ]
 
 {
