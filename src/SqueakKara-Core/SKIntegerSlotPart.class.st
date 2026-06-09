@@ -6,18 +6,19 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 04:05'
+	#'squeak_changestamp' : 'FR 6/9/2026 01:34'
 }
 SKIntegerSlotPart >> defaultValue [
 
-	^ defaultUI contents string asInteger
+	^ defaultUI firstSubmorph contents string asInteger
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/3/2026 05:09'
+	#'squeak_changestamp' : 'FR 6/9/2026 01:20'
 }
 SKIntegerSlotPart >> initialize [
+	
 	
 	super initialize.
 	
@@ -25,23 +26,66 @@ SKIntegerSlotPart >> initialize [
 		layoutPolicy: TableLayout new;
 		listDirection: #leftToRight;
 		wrapCentering: #center;
+		borderWidth: SKBlockStyle borderWidth // 2;
 		cellPositioning: #center;
-		layoutInset: 4@2;
+		layoutInset: SKBlockStyle unit * 3 @ SKBlockStyle unit;
 		cornerStyle: #rounded;
-		cornerRadius: 12;
+		cornerRadius: SKBlockStyle blockPartHeight // 2;
 		hResizing: #shrinkWrap;
-		vResizing: #shrinkWrap.
-		
-	self defaultUI: (TextMorph new contents: '3').
+		vResizing: #shrinkWrap;
+		defaultUI: self makeDefaultUI;
+		addMorphBack: self defaultUI;
+		adjustLayoutBounds;
+		minWidth: self width
 	
-	self addMorphBack: self defaultUI.
+	
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/9/2026 01:10'
+}
+SKIntegerSlotPart >> keyStroke [
+
+	self updateLayout
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/9/2026 01:50'
+}
+SKIntegerSlotPart >> makeDefaultUI [
+
+	| defaultEntry entryContainer |
+	
+	entryContainer := Morph new layoutPolicy: TableLayout new;
+		listDirection: #topToBottom;
+		listCentering: #center;
+		wrapCentering: #center;
+		cellPositioning: #center;
+		layoutInset: 0;
+		hResizing: #shrinkWrap;
+		vResizing: #shrinkWrap;
+		color: Color transparent.
+	
+	defaultEntry := SKTextEntry new contents: '30'.
+	defaultEntry on: #keyStroke send: #keyStroke to: self.
+	
+	entryContainer addMorphFront: defaultEntry;
+		addMorphBack: (Morph new extent: defaultEntry width @ 0);
+		adjustLayoutBounds.
+		
+	defaultEntry contents: '5'.
+	^ entryContainer
+	
+	
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 04:06'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:06'
 }
 SKIntegerSlotPart >> type [
 
-	^ #Integer.
+	^ #Integer
 ]

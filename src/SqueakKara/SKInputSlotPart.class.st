@@ -11,108 +11,106 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 01:15'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKInputSlotPart >> acceptBlock: aBlock [
 
 	self attachedBlock: aBlock.
-	
 	self removeMorph: self defaultUI.
-	
-	self addMorph: aBlock.
+	self addMorph: aBlock
 	
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:22'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> attachedBlock [
 
-	^ attachedBlock.
+	^ attachedBlock
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:22'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> attachedBlock: aValueBlock [
 
-	attachedBlock := aValueBlock.
+	attachedBlock := aValueBlock
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 20:57'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> connectionPoint [
 
 	^ connectionPoint ifNil: [connectionPoint := SKBlockConnectionPoint new 
 		uiDelegate: self;
-		type: (self type)].
+		type: (self type)]
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 20:38'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> connectionPointPositionForType: aConnectionPointType [
 
-	^ self leftCenter.
+	^ self leftCenter
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:22'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> defaultUI [
 
-	^ defaultUI.
+	^ defaultUI
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:23'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> defaultUI: aMorph [
 
-	defaultUI := aMorph.
+	defaultUI := aMorph
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 14:59'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> defaultValue [
 
-	self subclassResponsibility.
+	self subclassResponsibility
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 01:18'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> embedVisualBlock: anSKBlock [
 	
 	anSKBlock align: (anSKBlock anchorPoint position) with: (self connectionPoint position).
-	self addMorph: anSKBlock.
+	self addMorph: anSKBlock
 ]
 
 {
 	#category : #'submorphs - callbacks',
-	#'squeak_changestamp' : 'SLH 6/6/2026 14:59'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> removedMorph: aMorph [
 
 	super removedMorph: aMorph.
 
 	self updateLayout.
-	self block updateLayout.
+	self block updateLayout
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/4/2026 23:36'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> resolveConflictingBlockEmbeddingFor: anSKBlock [
 	
@@ -120,7 +118,7 @@ SKInputSlotPart >> resolveConflictingBlockEmbeddingFor: anSKBlock [
 	
 	self connectionPoint isConnected ifFalse: [^ self].
 	
-	^ nil.
+	^ nil
 	
 	"oldEmbeddedBlock := self connectionPoint connectedPoint uiDelegate.
 	oldEmbeddedBlock detachFromSnapAnchor.
@@ -129,20 +127,20 @@ SKInputSlotPart >> resolveConflictingBlockEmbeddingFor: anSKBlock [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 01:19'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> restoreDefault [
 
 	self attachedBlock: nil.
-	self addMorph: self defaultUI.
+	self addMorph: self defaultUI
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 11:30'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> value [
 
 	self connectionPoint isConnected ifFalse: [^ self defaultValue].
-	^ self connectionPoint connectedPoint uiDelegate getCode.
+	^ self connectionPoint connectedPoint uiDelegate getCode
 ]

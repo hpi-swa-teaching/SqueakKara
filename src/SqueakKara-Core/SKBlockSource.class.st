@@ -15,7 +15,7 @@ SKBlockSource >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/6/2026 00:54'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:08'
 }
 SKBlockSource >> initialize [
 
@@ -29,7 +29,7 @@ SKBlockSource >> initialize [
 	 	vResizing: #spaceFill;
 		cellPositioning: #topLeft;
 		cellGap: 10;
-		populate.
+		populate
 ]
 
 {
@@ -48,7 +48,7 @@ SKBlockSource >> mouseDown: anEvent [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 11:43'
+	#'squeak_changestamp' : 'FR 6/9/2026 01:51'
 }
 SKBlockSource >> populate [
 	
@@ -122,6 +122,15 @@ SKBlockSource >> populate [
 			'[', condition,'] whileFalse: [', String cr, loopBranch, ']'];
 		updateLayout;
 		yourself).
+		
+	"self addMorphBack: (SKBooleanBlock new
+		addBooleanPart;
+		addLabel: 'and';
+		addBooleanPart;
+		value: [:bool1 :bool2 | '(',bool1,' and:[',bool2,'])'];
+		category: #sensing;
+		updateLayout;
+		yourself)."
 
 	self addMorphBack: (SKBooleanBlock new
 		addLabel: 'trunk ahead';
@@ -135,7 +144,7 @@ SKBlockSource >> populate [
 		value: ['kara onCloverleaf'];
 		category: #sensing;
 		updateLayout;
-		yourself).
+		yourself)
 ]
 
 {

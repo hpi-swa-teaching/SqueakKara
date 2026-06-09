@@ -6,21 +6,21 @@ Class {
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 5/13/2026 12:54'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKIntegerBlock >> initialize [
 
 	super initialize.
 	
 	self cornerStyle: #rounded.
-	self cornerRadius: 20.
+	self cornerRadius: 20
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/13/2026 18:03'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKIntegerBlock >> type [
 
-	^ #Integer.
+	^ #Integer
 ]

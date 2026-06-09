@@ -9,25 +9,25 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/13/2026 16:03'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKValueBlock >> blockType [
 
-	^ #Value.
+	^ #Value
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 20:47'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKValueBlock >> connectionPointPositionForType: aConnectionPointType [
 
-	^ self leftCenter.
+	^ self leftCenter
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 11:35'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKValueBlock >> getCode [
 
@@ -35,53 +35,52 @@ SKValueBlock >> getCode [
 	
 	args := (self blockParts select: [:each | each type ~~ #Label]) collect: [:each | each value asString].
 	
-	^ self value valueWithArguments: args asArray.
+	^ self value valueWithArguments: args asArray
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 14:59'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKValueBlock >> type [
 
-	self subclassResponsibility.
+	self subclassResponsibility
 ]
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'SLH 6/6/2026 02:01'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:16'
 }
 SKValueBlock >> validSnapConnectionsIn: anObject [
 
-	| validConnections snapRadius |
+	| validConnections |
 
 	validConnections := OrderedCollection new.
-	snapRadius := 20.
 
 	anObject allMorphsDo: [:each |
 		((each isKindOf: SKActionBlock) and: [
 			((each hasOwner: self) not) and: [
 				each ~= self]]) ifTrue: [
 					validConnections addAll: (each valueConnectionPoints select: [:connection |
-						((connection dist: self anchorPoint) < 20)])]].
+						((connection dist: self anchorPoint) < self snapRadius)])]].
 
 	^ validConnections
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/13/2026 12:41'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKValueBlock >> value [
 
-	^ value.
+	^ value
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 11:11'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKValueBlock >> value: aBlockClosure [
 
-	value := aBlockClosure.
+	value := aBlockClosure
 ]

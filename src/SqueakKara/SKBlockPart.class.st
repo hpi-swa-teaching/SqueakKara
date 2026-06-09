@@ -9,36 +9,36 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:09'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockPart >> block [
 
-	^ block.
+	^ block
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:09'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockPart >> block: aBlock [
 
-	block := aBlock.
+	block := aBlock
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 14:59'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockPart >> type [
 
-	self subclassResponsibility.
+	self subclassResponsibility
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'SLH 6/5/2026 23:55'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockPart >> updateLayout [
 
-	self block updateLayout.
+	self block updateLayout
 ]

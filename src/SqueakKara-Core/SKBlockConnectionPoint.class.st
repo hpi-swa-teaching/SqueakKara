@@ -11,7 +11,7 @@ Class {
 
 {
 	#category : #connecting,
-	#'squeak_changestamp' : 'SLH 6/4/2026 19:43'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKBlockConnectionPoint >> connectTo: aConnectionPoint [
 
@@ -22,30 +22,30 @@ SKBlockConnectionPoint >> connectTo: aConnectionPoint [
 	aConnectionPoint disconnect.
 	
 	self connectedPoint: aConnectionPoint.
-	aConnectionPoint connectedPoint: self.
+	aConnectionPoint connectedPoint: self
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 19:08'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKBlockConnectionPoint >> connectedPoint [
 
-	^ connectedPoint.
+	^ connectedPoint
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 19:08'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKBlockConnectionPoint >> connectedPoint: aConnectionPoint [
 
-	connectedPoint := aConnectionPoint.
+	connectedPoint := aConnectionPoint
 ]
 
 {
 	#category : #connecting,
-	#'squeak_changestamp' : 'SLH 6/4/2026 23:20'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKBlockConnectionPoint >> disconnect [
 
@@ -55,68 +55,68 @@ SKBlockConnectionPoint >> disconnect [
 	
 	oldConnectedPoint := self connectedPoint.
 	self connectedPoint: nil.
-	oldConnectedPoint disconnect.
+	oldConnectedPoint disconnect
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 23:09'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKBlockConnectionPoint >> dist: anotherBlockConnectionPoint [
 
-	^ self position dist: (anotherBlockConnectionPoint position).
+	^ self position dist: (anotherBlockConnectionPoint position)
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 19:10'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKBlockConnectionPoint >> isConnected [
 
-	^ connectedPoint isNil not.
+	^ connectedPoint isNil not
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 21:02'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKBlockConnectionPoint >> position [
 
-	^ self uiDelegate connectionPointPositionForType: self type.
+	^ self uiDelegate connectionPointPositionForType: self type
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 09:37'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockConnectionPoint >> type [
 
-	^ type.
+	^ type
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 09:38'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockConnectionPoint >> type: aType [
 
-	type := aType.
+	type := aType
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 20:49'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockConnectionPoint >> uiDelegate [
 
-	^ uiDelegate.
+	^ uiDelegate
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 20:49'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockConnectionPoint >> uiDelegate: aMorph [
 
-	uiDelegate := aMorph.
+	uiDelegate := aMorph
 ]

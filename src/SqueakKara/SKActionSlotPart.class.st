@@ -6,49 +6,38 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 02:49'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:04'
 }
 SKActionSlotPart >> connectionPointPositionForType: aConnectionPointType [
 
-	^ self topLeft+((self block tabOffsetInner+self block slantWidth+(self block tabWidth/2)-self block borderWidth)@(self block tabHeight)).
+	^ self topLeft+((self block tabOffsetInner+self block slantWidth+(self block tabWidth//2)-self block borderWidth)@(self block tabHeight))
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 19:49'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:04'
 }
 SKActionSlotPart >> defaultValue [
 
-	^ nil.
+	^ nil
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/6/2026 02:02'
+	#'squeak_changestamp' : 'FR 6/9/2026 01:50'
 }
 SKActionSlotPart >> initialize [
 	
 	super initialize.
 	
 	self color: Color transparent;
-		"borderColor: Color red;
-		borderWidth: 1;"
-		height: 15.
+		height: SKBlockStyle blockPartHeight.
 		
-	"self defaultUI: (Morph new
-		color: Color transparent;
-		borderColor: Color blue;
-		borderWidth: 1;
-		hResizing: #spaceFill;
-		vResizing: #shrinkWrap;
-		height: 15).
-	
-	self addMorphBack: self defaultUI."
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/5/2026 22:17'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:05'
 }
 SKActionSlotPart >> resolveConflictingBlockEmbeddingFor: anActionBlock [
 	
@@ -57,27 +46,27 @@ SKActionSlotPart >> resolveConflictingBlockEmbeddingFor: anActionBlock [
 	self connectionPoint isConnected ifFalse: [^ self].
 	
 	oldEmbeddedBlock := self connectionPoint connectedPoint uiDelegate.
-	oldEmbeddedBlock snapToTarget: anActionBlock connectionPoint.
+	oldEmbeddedBlock snapToTarget: anActionBlock connectionPoint
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 19:37'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:05'
 }
 SKActionSlotPart >> type [
 
-	^ #Action.
+	^ #Action
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'SLH 6/6/2026 09:54'
+	#'squeak_changestamp' : 'FR 6/9/2026 01:05'
 }
 SKActionSlotPart >> updateLayout [
 
 	self connectionPoint isConnected ifTrue: [
 		self extent: self connectionPoint connectedPoint uiDelegate stackExtent] ifFalse: [
-			self extent: 30@15].
+			self extent: SKBlockStyle blockPartHeight * 2 @ SKBlockStyle blockPartHeight].
 
-	super updateLayout.
+	super updateLayout
 ]

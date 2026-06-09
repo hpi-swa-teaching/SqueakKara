@@ -20,74 +20,75 @@ SKActionBlock class >> newWithLabel: aLabel andAction: anAction [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/11/2026 18:07'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:12'
 }
 SKActionBlock >> action [
 
-	^ action.
+	^ action
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 11:11'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:12'
 }
 SKActionBlock >> action: aBlockClosure [
 
-	action := aBlockClosure.
+	action := aBlockClosure
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 20:14'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:12'
 }
 SKActionBlock >> addBlockGap [
 
 	self addBlockRow: (SKBlockRow new isGap: true; yourself).
 	self addInputSlotPart: SKActionSlotPart new.
-	self addBlockRow: SKBlockRow new.
+	self addBlockRow: SKBlockRow new
 ]
 
 {
 	#category : #type,
-	#'squeak_changestamp' : 'SLH 5/13/2026 16:03'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:12'
 }
 SKActionBlock >> blockType [
 
-	^ #Action.
+	^ #Action
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 20:59'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:12'
 }
 SKActionBlock >> connectionPoint [
 
 	^ connectionPoint ifNil: [connectionPoint := SKBlockConnectionPoint new 
 		uiDelegate: self;
-		type: #Action].
+		type: #Action]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 02:16'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:12'
 }
 SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 
 	(aConnectionPointType = #Action) ifTrue: [
-		^ self bottomLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ 0)].
+		^ self bottomLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth // 2)) @ 0)].
 	
-	^ self topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth / 2)) @ (self tabHeight + (self borderWidth/2))).
+	^ self topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth // 2)) @ (self tabHeight "+ (self borderWidth/2)"))
 ]
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 02:53'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:12'
 }
 SKActionBlock >> drawOn: aCanvas [
 	| bounds pts top bottom left right y halfBW |
 	
 	"innerBounds := self blockRows first bounds expandBy: (self blockRows first layoutInset insetBy: self borderWidth)."
-	halfBW := self borderWidth/2.
+	
+	halfBW := self borderWidth//2.
 	bounds := self bounds insetBy: halfBW.
 
 	top := bounds top.
@@ -138,23 +139,23 @@ SKActionBlock >> drawOn: aCanvas [
 		drawPolygon: pts 
 		color: self color 
 		borderWidth: self borderWidth
-		borderColor: self borderColor.
+		borderColor: self borderColor
 ]
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'SLH 6/6/2026 01:09'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
 SKActionBlock >> embedVisualBlock: anActionBlock [
 	
 	anActionBlock align: (anActionBlock anchorPoint position) with: (self connectionPoint position).
 	self addMorph: anActionBlock.
-	self updateLayout.
+	self updateLayout
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 11:38'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
 SKActionBlock >> getCode [
 
@@ -168,50 +169,50 @@ SKActionBlock >> getCode [
 	code := (self action valueWithArguments: args asArray) asString.
 	nextBlockCode isNil not ifTrue: [code := code, '.', String cr, nextBlockCode].
 	
-	^ code.
+	^ code
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/4/2026 21:59'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
 SKActionBlock >> initialize [
 
 	super initialize.
 	
-	self addConnectionPoint: self connectionPoint.
+	self addConnectionPoint: self connectionPoint
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/26/2026 21:41'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
 SKActionBlock >> isStart [
 
-	^ isStart ifNil: [isStart := false].
+	^ isStart ifNil: [isStart := false]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/26/2026 21:40'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
 SKActionBlock >> isStart: aBoolean [
 
-	isStart := aBoolean.
+	isStart := aBoolean
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'SLH 5/20/2026 00:20'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
 SKActionBlock >> minHeight [
 
-	^ super minHeight + self tabHeight.
+	^ super minHeight + self tabHeight
 ]
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'SLH 6/4/2026 23:37'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
 SKActionBlock >> resolveConflictingBlockEmbeddingFor: anActionBlock [
 	
@@ -220,27 +221,27 @@ SKActionBlock >> resolveConflictingBlockEmbeddingFor: anActionBlock [
 	self connectionPoint isConnected ifFalse: [^ self].
 	
 	oldEmbeddedBlock := self connectionPoint connectedPoint uiDelegate.
-	oldEmbeddedBlock snapToTarget: anActionBlock connectionPoint.
+	oldEmbeddedBlock snapToTarget: anActionBlock connectionPoint
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 5/26/2026 17:00'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
 SKActionBlock >> slantWidth [
 
-	^ 8.
+	^ self tabWidth//4
 ]
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'SLH 6/6/2026 15:37'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
 SKActionBlock >> snapToTarget: aConnectionPoint [
 	
 	self isStart ifTrue: [^ self].
 	
-	super snapToTarget: aConnectionPoint.
+	super snapToTarget: aConnectionPoint
 ]
 
 {
@@ -270,52 +271,52 @@ SKActionBlock >> stackExtent [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'SLH 5/19/2026 23:13'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
 SKActionBlock >> tabHeight [
 
-	^ 8.
+	^ SKBlockStyle tabHeight
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'SLH 6/3/2026 12:12'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
 SKActionBlock >> tabOffset [
 
-	^ self tabOffsetOuter.
+	^ self tabOffsetOuter
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'SLH 6/6/2026 01:28'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
 SKActionBlock >> tabOffsetInner [
 
-	^ 24.
+	^ 4 * self tabOffsetOuter
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'SLH 6/3/2026 12:11'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
 SKActionBlock >> tabOffsetOuter [
 
-	^ 8.
+	^ SKBlockStyle tabOffset
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 5/26/2026 17:00'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:14'
 }
 SKActionBlock >> tabWidth [
 
-	^ 32.
+	^ self tabHeight * 4
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'SLH 6/6/2026 01:23'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:14'
 }
 SKActionBlock >> updateLayout [
 
@@ -324,26 +325,25 @@ SKActionBlock >> updateLayout [
 	self connectionPoint isConnected ifTrue: [
 		self connectionPoint connectedPoint uiDelegate
 			align: (self connectionPoint connectedPoint uiDelegate anchorPoint position)
-			with: (self connectionPoint position)].
+			with: (self connectionPoint position)]
 ]
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'SLH 6/6/2026 02:01'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:15'
 }
 SKActionBlock >> validSnapConnectionsIn: anObject [
 
-	| validConnections snapRadius |
+	| validConnections |
 
 	validConnections := OrderedCollection new.
-	snapRadius := 20.
 
 	anObject allMorphsDo: [:each |
 		((each isKindOf: SKActionBlock) and: [
 			((each hasOwner: self) not) and: [
 				each ~= self]]) ifTrue: [
 					validConnections addAll: (each actionConnectionPoints select: [:connection |
-						((connection dist: self anchorPoint) < 20)])]].
+						((connection dist: self anchorPoint) < self snapRadius)])]].
 	
 	^ validConnections
 ]

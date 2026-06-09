@@ -9,7 +9,7 @@ Class {
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/6/2026 02:09'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:06'
 }
 SKLabelPart >> initialize [
 
@@ -20,32 +20,32 @@ SKLabelPart >> initialize [
 		color: Color transparent;
 		"borderWidth: 1;
 		borderColor: Color green;"
-		addMorph: self label.
+		addMorph: self label
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:01'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:06'
 }
 SKLabelPart >> label [
 
-	^ label ifNil: [label := StringMorph new contents: 'Placeholder'].
+	^ label ifNil: [label := StringMorph new contents: 'Placeholder']
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:01'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:06'
 }
 SKLabelPart >> label: aString [
 
-	self label contents: aString.
+	self label contents: aString
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:07'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:06'
 }
 SKLabelPart >> type [
 
-	^ #Label.
+	^ #Label
 ]

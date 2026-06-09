@@ -6,24 +6,24 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:30'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:05'
 }
 SKBooleanSlotPart >> defaultValue [
 
-	^ false.
+	^ false
 ]
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 02:13'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:05'
 }
 SKBooleanSlotPart >> drawOn: aCanvas [
 	| b p1 p2 p3 p4 p5 p6 pts indent borderWidth |
 	
-	borderWidth := 2.
+	borderWidth := SKBlockStyle borderWidth.
 	b := self bounds insetBy: borderWidth.
 	
-	indent := 16. 
+	indent := self height // 2. 
 	
 	p1 := b left @ b center y.
 	p2 := (b left + indent) @ b top.
@@ -36,26 +36,26 @@ SKBooleanSlotPart >> drawOn: aCanvas [
 	aCanvas drawPolygon: pts
 		color: self block borderColor
 		borderWidth: 0
-		borderColor: self block borderColor.
+		borderColor: self block borderColor
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/5/2026 21:50'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:24'
 }
 SKBooleanSlotPart >> initialize [
 	super initialize.
 	
-	self defaultUI: (Morph new color: Color transparent; extent: 50@25).
+	self defaultUI: (Morph new color: Color transparent; extent: SKBlockStyle blockPartHeight * 2 @SKBlockStyle blockPartHeight).
 	self hResizing: #shrinkWrap; vResizing: #shrinkWrap.
-	self addMorphBack: defaultUI.
+	self addMorphBack: defaultUI
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 03:49'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:06'
 }
 SKBooleanSlotPart >> type [
 
-	^ #Boolean.
+	^ #Boolean
 ]

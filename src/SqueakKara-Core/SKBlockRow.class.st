@@ -10,43 +10,43 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 09:15'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:07'
 }
 SKBlockRow >> addBlockPart: aBlockPart [
 
-	self addMorphBack: aBlockPart.
+	self addMorphBack: aBlockPart
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 11:57'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:07'
 }
 SKBlockRow >> block [
 
-	^ block.
+	^ block
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 11:57'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:07'
 }
 SKBlockRow >> block: aBlock [
 
-	block := aBlock.
+	block := aBlock
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/3/2026 12:25'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:07'
 }
 SKBlockRow >> connectionPoint [
 
-	^ self bottomLeft + ((self block tabOffsetOuter + self block slantWidth + (self block tabWidth / 2)) @ 0).
+	^ self bottomLeft + ((self block tabOffsetOuter + self block slantWidth + (self block tabWidth / 2)) @ 0)
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/6/2026 15:13'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:07'
 }
 SKBlockRow >> initialize [
 	
@@ -58,36 +58,40 @@ SKBlockRow >> initialize [
 		listDirection: #leftToRight;
 		wrapCentering: #center;
     		cellPositioning: #center;
-		cellGap: 8;
+		cellGap: SKBlockStyle unit * 3;
 		color: Color transparent;
 		"borderWidth: 1;
 		borderColor: Color black;"
-		height: 20.
+		height: SKBlockStyle tabHeight * 3
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 11:36'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:07'
 }
 SKBlockRow >> isGap [
 
-	^ isGap ifNil: [isGap := false].
+	^ isGap ifNil: [isGap := false]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/4/2026 11:36'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:07'
 }
 SKBlockRow >> isGap: aBoolean [
 
-	isGap := aBoolean.
+	isGap := aBoolean
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'SLH 6/5/2026 21:54'
+	#'squeak_changestamp' : 'FR 6/9/2026 01:48'
 }
 SKBlockRow >> layoutInset [
+
+	| hInset vInset |
 	
-	^self isGap ifTrue: [0] ifFalse: [(Rectangle left: 8 right: 8 top: 8 bottom: 8)].
+	hInset := SKBlockStyle unit * 4 + SKBlockStyle borderWidth.
+	vInset := SKBlockStyle tabHeight + SKBlockStyle borderWidth.
+	^ self isGap ifTrue: [0] ifFalse: [(Rectangle left: hInset right: hInset top: vInset bottom: vInset)]
 ]

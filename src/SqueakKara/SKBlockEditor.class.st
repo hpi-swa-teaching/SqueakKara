@@ -10,16 +10,16 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 14:37'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockEditor >> getCode [
 
-	^ self startBlock getCode.
+	^ self startBlock getCode
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/6/2026 00:56'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockEditor >> initialize [
 	super initialize.
@@ -31,12 +31,12 @@ SKBlockEditor >> initialize [
 		color: (Color r: 0.8 g: 1 b: 0.8).
 
 	self addMorph: self startBlock.
-	self startBlock updateLayout.
+	self startBlock updateLayout
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 6/6/2026 15:23'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockEditor >> open [
 	| window |
@@ -57,12 +57,12 @@ SKBlockEditor >> open [
 		align: self startBlock topCenter
 		with: self topCenter + (0 @ 10).
 		
-	^ self window.
+	^ self window
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 00:56'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockEditor >> startBlock [
 
@@ -70,32 +70,32 @@ SKBlockEditor >> startBlock [
 		addLabel: 'Start of Script';
 		isStart: true;
 		leftSource: true;
-		yourself].
+		yourself]
 ]
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 6/2/2026 20:51'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockEditor >> wantsDroppedMorph: aMorph event: anEvent [
 
-	^ ((aMorph class = SKBlock) or: [aMorph class inheritsFrom: SKBlock]).
+	^ ((aMorph class = SKBlock) or: [aMorph class inheritsFrom: SKBlock])
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 14:44'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockEditor >> window [
 
-	^ window.
+	^ window
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/6/2026 14:44'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockEditor >> window: aWindow [
 
-	window := aWindow.
+	window := aWindow
 ]
