@@ -5,7 +5,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:40'
 }
 SKBlockStyle class >> blockPartHeight [
@@ -14,7 +14,7 @@ SKBlockStyle class >> blockPartHeight [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:40'
 }
 SKBlockStyle class >> borderWidth [
@@ -23,7 +23,7 @@ SKBlockStyle class >> borderWidth [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:40'
 }
 SKBlockStyle class >> tabHeight [
@@ -32,7 +32,7 @@ SKBlockStyle class >> tabHeight [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:40'
 }
 SKBlockStyle class >> tabOffset [
@@ -41,7 +41,7 @@ SKBlockStyle class >> tabOffset [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:40'
 }
 SKBlockStyle class >> unit [

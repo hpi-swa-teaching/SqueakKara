@@ -43,16 +43,7 @@ SKIntegerSlotPart >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 01:10'
-}
-SKIntegerSlotPart >> keyStroke [
-
-	self updateLayout
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 01:50'
+	#'squeak_changestamp' : 'FR 6/9/2026 17:02'
 }
 SKIntegerSlotPart >> makeDefaultUI [
 
@@ -69,7 +60,7 @@ SKIntegerSlotPart >> makeDefaultUI [
 		color: Color transparent.
 	
 	defaultEntry := SKTextEntry new contents: '30'.
-	defaultEntry on: #keyStroke send: #keyStroke to: self.
+	defaultEntry on: #keyStroke send: #updateLayout to: self.
 	
 	entryContainer addMorphFront: defaultEntry;
 		addMorphBack: (Morph new extent: defaultEntry width @ 0);

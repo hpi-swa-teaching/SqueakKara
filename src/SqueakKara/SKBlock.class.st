@@ -199,7 +199,7 @@ SKBlock >> blockType [
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:30'
+	#'squeak_changestamp' : 'FR 6/9/2026 18:16'
 }
 SKBlock >> borderColorFromCategory [
 
@@ -231,7 +231,7 @@ SKBlock >> category: aCategory [
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:30'
+	#'squeak_changestamp' : 'FR 6/9/2026 18:16'
 }
 SKBlock >> colorFromCategory [
 
@@ -404,11 +404,11 @@ SKBlock >> removedMorph: aMorph [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:32'
+	#'squeak_changestamp' : 'FR 6/9/2026 18:17'
 }
 SKBlock >> snapRadius [
 
-	^ SKBlockStyle unit * 15
+	^SKBlockStyle unit * 20.
 ]
 
 {

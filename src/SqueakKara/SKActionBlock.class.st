@@ -81,24 +81,19 @@ SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:33'
+	#'squeak_changestamp' : 'FR 6/9/2026 18:16'
 }
 SKActionBlock >> drawOn: aCanvas [
 
 	| bounds pts top bottom left right y halfBW |
 	
-	"innerBounds := self blockRows first bounds expandBy: (self blockRows first layoutInset insetBy: self borderWidth)."
-	
-	halfBW := self borderWidth//2.
+	halfBW := self borderWidth // 2.
 	bounds := self bounds insetBy: halfBW.
-
 	top := bounds top.
 	bottom := bounds bottom - self tabHeight.
 	left := bounds left.
 	right := bounds right.
-
 	pts := OrderedCollection new.
-
 	y := top.
 	
 	self blockRows doWithIndex: [:row :index |
@@ -106,34 +101,19 @@ SKActionBlock >> drawOn: aCanvas [
 		
 		yNew := y+row height.
 		tabOffset := self tabOffsetOuter.
-		leftTop := left+self tabOffsetInner-self tabOffsetOuter.
-		leftBot := left+self tabOffsetInner-self tabOffsetOuter.
+		leftTop := left + self tabOffsetInner - self tabOffsetOuter.
+		leftBot := left + self tabOffsetInner - self tabOffsetOuter.
 		(index = 1) ifTrue: [
-			"tabOffsetTop := self tabOffsetOuter."
 			leftTop := left].
 		 (index = self blockRows size) ifTrue: [
-			"tabOffsetBot := self tabOffsetOuter."
 			leftBot := left.
 			yNew := bottom].
-		
 		pts add: leftTop@y.
-		
 		row isGap ifFalse: [
-			self isStart ifFalse: [pts addAll: {
-				(leftTop+tabOffset-halfBW)@y.
-				(leftTop+tabOffset-halfBW+self slantWidth)@(y+self tabHeight).
-				(leftTop+tabOffset+halfBW+self tabWidth - self slantWidth)@(y+self tabHeight).
-				(leftTop+tabOffset+halfBW+self tabWidth)@y.}].
-			pts addAll: {
-				right@y.
-				right@yNew.
-				(leftBot+tabOffset+self tabWidth)@yNew.
-				(leftBot+tabOffset+self tabWidth-self slantWidth)@(yNew+self tabHeight).
-				(leftBot+tabOffset+self slantWidth)@(yNew+self tabHeight).
-				(leftBot+tabOffset)@yNew}].
-			
+			self isStart ifFalse: [pts addAll: (self getTopTabPointsFromLeft: leftTop atY: y).].
+			pts add: right @ y.
+			pts addAll: (self getBottomTabPointsFromLeft: leftBot toRight: right atY: yNew).].
 		y := yNew].
-	
 	pts add: left@bottom.
 
 	aCanvas 
@@ -155,6 +135,24 @@ SKActionBlock >> embedVisualBlock: anActionBlock [
 ]
 
 {
+	#category : #drawing,
+	#'squeak_changestamp' : 'FR 6/9/2026 17:51'
+}
+SKActionBlock >> getBottomTabPointsFromLeft: left toRight: right atY: y [
+
+	| halfBW leftBot |
+	
+	halfBW := SKBlockStyle borderWidth // 2.
+	leftBot := left.
+	
+	^ {	right @ y.
+		(left + self tabOffset + self tabWidth) @ y.
+		(left + self tabOffset + self tabWidth - self slantWidth) @ (y + self tabHeight).
+		(left + self tabOffset + self slantWidth) @ (y + self tabHeight).
+		(left + self tabOffset) @ y}
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
 }
@@ -171,6 +169,22 @@ SKActionBlock >> getCode [
 	nextBlockCode isNil not ifTrue: [code := code, '.', String cr, nextBlockCode].
 	
 	^ code
+]
+
+{
+	#category : #drawing,
+	#'squeak_changestamp' : 'FR 6/9/2026 17:52'
+}
+SKActionBlock >> getTopTabPointsFromLeft: left atY: y [
+
+	| halfBW |
+	
+	halfBW := SKBlockStyle borderWidth // 2.
+	
+	^ {(left + self tabOffset - halfBW) @ y.
+		(left + self tabOffset - halfBW + self slantWidth) @ (y + self tabHeight).
+		(left + self tabOffset + halfBW + self tabWidth - self slantWidth) @ (y + self tabHeight).
+		(left + self tabOffset + halfBW + self tabWidth) @ y}
 ]
 
 {

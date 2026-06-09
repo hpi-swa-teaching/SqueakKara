@@ -10,14 +10,14 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
+	#category : #attaching,
+	#'squeak_changestamp' : 'FR 6/9/2026 17:06'
 }
-SKInputSlotPart >> acceptBlock: aBlock [
+SKInputSlotPart >> acceptBlock: anSKBlock [
 
-	self attachedBlock: aBlock.
+	self attachedBlock: anSKBlock.
 	self removeMorph: self defaultUI.
-	self addMorph: aBlock
+	self addMorph: anSKBlock
 	
 ]
 
@@ -51,7 +51,7 @@ SKInputSlotPart >> connectionPoint [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #attaching,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> connectionPointPositionForType: aConnectionPointType [
@@ -87,7 +87,7 @@ SKInputSlotPart >> defaultValue [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #attaching,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> embedVisualBlock: anSKBlock [
@@ -97,7 +97,7 @@ SKInputSlotPart >> embedVisualBlock: anSKBlock [
 ]
 
 {
-	#category : #'submorphs - callbacks',
+	#category : #detaching,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> removedMorph: aMorph [
@@ -109,7 +109,7 @@ SKInputSlotPart >> removedMorph: aMorph [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #attaching,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> resolveConflictingBlockEmbeddingFor: anSKBlock [
@@ -126,7 +126,7 @@ SKInputSlotPart >> resolveConflictingBlockEmbeddingFor: anSKBlock [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #detaching,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
 }
 SKInputSlotPart >> restoreDefault [

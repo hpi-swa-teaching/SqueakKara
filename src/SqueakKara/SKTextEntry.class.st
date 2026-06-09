@@ -5,7 +5,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'FR 6/9/2026 00:28'
 }
 SKTextEntry >> keyStroke: anEvent [

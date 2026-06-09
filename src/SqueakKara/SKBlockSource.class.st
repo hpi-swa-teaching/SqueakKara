@@ -5,6 +5,121 @@ Class {
 }
 
 {
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/9/2026 18:05'
+}
+SKBlockSource >> addControlBlocks [
+		
+	self addMorphBack: (SKActionBlock new
+		addLabel: 'if';
+		addBooleanPart;
+		addLabel: 'then';
+		addBlockGap;
+		action: [:condition :trueBranch |
+			'(', condition,') ifTrue: [', String cr, trueBranch, ']'];
+		updateLayout;
+		yourself).
+	
+	self addMorphBack: (SKActionBlock new
+		addLabel: 'if';
+		addBooleanPart;
+		addLabel: 'then';
+		addBlockGap;
+		addLabel: 'else';
+		addBlockGap;
+		action: [:condition :trueBranch :falseBranch |
+			'(', condition,') ifTrue: [', String cr, trueBranch, '] ifFalse: [', String cr, falseBranch, ']'];
+		updateLayout;
+		yourself).
+
+	self addMorphBack: (SKActionBlock new
+		addLabel: 'repeat';
+		addIntegerPart;
+		addLabel: 'times';
+		addBlockGap;
+		action: [:repetitions :trueBranch |
+			'(', repetitions,') timesRepeat: [', String cr, trueBranch, ']'];
+		updateLayout;
+		yourself).
+	
+	self addMorphBack: (SKActionBlock new
+		addLabel: 'repeat until';
+		addBooleanPart;
+		addBlockGap;
+		action: [:condition :loopBranch |
+			'[', condition,'] whileFalse: [', String cr, loopBranch, ']'];
+		updateLayout;
+		yourself).
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/9/2026 18:04'
+}
+SKBlockSource >> addMovementBlocks [
+	
+	self addMorphBack: (SKActionBlock new
+		addLabel: 'move';
+		action: ['kara move'];
+		category: #movement;
+		updateLayout;
+		yourself).
+
+	self addMorphBack: (SKActionBlock new
+		addLabel: 'move';
+		addIntegerPart;
+		addLabel: 'steps';
+		action: [:steps | steps,' timesRepeat: [kara move]']; 
+		category: #movement;
+		updateLayout;
+		yourself).
+
+	self addMorphBack: (SKActionBlock new
+		addLabel: 'turn left';
+		action: ['kara turn: left'];
+		category: #movement;
+		updateLayout;
+		yourself).
+
+	self addMorphBack: (SKActionBlock new
+		addLabel: 'turn right';
+		action: ['kara turn: right'];
+		category: #movement;
+		updateLayout;
+		yourself).
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/9/2026 18:06'
+}
+SKBlockSource >> addSensingBlocks [
+		
+	"self addMorphBack: (SKBooleanBlock new
+		addBooleanPart;
+		addLabel: 'and';
+		addBooleanPart;
+		value: [:bool1 :bool2 | '(',bool1,' and:[',bool2,'])'];
+		category: #sensing;
+		updateLayout;
+		yourself)."
+
+	self addMorphBack: (SKBooleanBlock new
+		addLabel: 'trunk ahead';
+		value: ['kara trunkAhead'];
+		category: #sensing;
+		updateLayout;
+		yourself).
+
+	self addMorphBack: (SKBooleanBlock new
+		addLabel: 'on cloverleaf';
+		value: ['kara onCloverleaf'];
+		category: #sensing;
+		updateLayout;
+		yourself)
+]
+
+{
 	#category : #'event handling',
 	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:13'
 }
@@ -47,104 +162,14 @@ SKBlockSource >> mouseDown: anEvent [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/9/2026 01:51'
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/9/2026 18:06'
 }
 SKBlockSource >> populate [
 	
-	self addMorphBack: (SKActionBlock new
-		addLabel: 'move';
-		action: ['kara move'];
-		category: #movement;
-		updateLayout;
-		yourself).
-
-	self addMorphBack: (SKActionBlock new
-		addLabel: 'move';
-		addIntegerPart;
-		addLabel: 'steps';
-		action: [:steps | steps,' timesRepeat: [kara move]']; 
-		category: #movement;
-		updateLayout;
-		yourself).
-
-	self addMorphBack: (SKActionBlock new
-		addLabel: 'turn left';
-		action: ['kara turn: left'];
-		category: #movement;
-		updateLayout;
-		yourself).
-
-	self addMorphBack: (SKActionBlock new
-		addLabel: 'turn right';
-		action: ['kara turn: right'];
-		category: #movement;
-		updateLayout;
-		yourself).
-		
-	self addMorphBack: (SKActionBlock new
-		addLabel: 'if';
-		addBooleanPart;
-		addLabel: 'then';
-		addBlockGap;
-		action: [:condition :trueBranch |
-			'(', condition,') ifTrue: [', String cr, trueBranch, ']'];
-		updateLayout;
-		yourself).
-	
-	self addMorphBack: (SKActionBlock new
-		addLabel: 'if';
-		addBooleanPart;
-		addLabel: 'then';
-		addBlockGap;
-		addLabel: 'else';
-		addBlockGap;
-		action: [:condition :trueBranch :falseBranch |
-			'(', condition,') ifTrue: [', String cr, trueBranch, '] ifFalse: [', String cr, falseBranch, ']'];
-		updateLayout;
-		yourself).
-
-	self addMorphBack: (SKActionBlock new
-		addLabel: 'repeat';
-		addIntegerPart;
-		addLabel: 'times';
-		addBlockGap;
-		action: [:repetitions :trueBranch |
-			'(', repetitions,') timesRepeat: [', String cr, trueBranch, ']'];
-		updateLayout;
-		yourself).
-	
-	self addMorphBack: (SKActionBlock new
-		addLabel: 'repeat until';
-		addBooleanPart;
-		addBlockGap;
-		action: [:condition :loopBranch |
-			'[', condition,'] whileFalse: [', String cr, loopBranch, ']'];
-		updateLayout;
-		yourself).
-		
-	"self addMorphBack: (SKBooleanBlock new
-		addBooleanPart;
-		addLabel: 'and';
-		addBooleanPart;
-		value: [:bool1 :bool2 | '(',bool1,' and:[',bool2,'])'];
-		category: #sensing;
-		updateLayout;
-		yourself)."
-
-	self addMorphBack: (SKBooleanBlock new
-		addLabel: 'trunk ahead';
-		value: ['kara trunkAhead'];
-		category: #sensing;
-		updateLayout;
-		yourself).
-
-	self addMorphBack: (SKBooleanBlock new
-		addLabel: 'on cloverleaf';
-		value: ['kara onCloverleaf'];
-		category: #sensing;
-		updateLayout;
-		yourself)
+	self addMovementBlocks.
+	self addControlBlocks.
+	self addSensingBlocks.
 ]
 
 {
@@ -161,7 +186,7 @@ SKBlockSource >> startDrag: anEvent [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:12'
 }
 SKBlockSource >> targetMorphAt: anEvent [

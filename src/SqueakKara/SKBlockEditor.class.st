@@ -36,7 +36,7 @@ SKBlockEditor >> initialize [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #initialization,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
 }
 SKBlockEditor >> open [
