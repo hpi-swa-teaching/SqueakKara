@@ -89,11 +89,11 @@ SKMealyEdge >> drawArrowhead [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'LP 6/8/2026 20:57'
+	#'squeak_changestamp' : 'LP 6/9/2026 12:51'
 }
 SKMealyEdge >> drawEdgePopUp [
 
-(self popUpActive) ifTrue:[self edgeMorph: SKSelectionPopUp new.  self line addMorph: self edgeMorph. self popUpActive: false. self updateEdgeMorphPosition ] ifFalse: [(self edgeMorph notNil) ifTrue: [self updateEdgeMorphPosition]].
+(self popUpActive) ifTrue:[self edgeMorph: SKSelectionPopUpWrapper new.  self line addMorph: self edgeMorph. self popUpActive: false. self updateEdgeMorphPosition ] ifFalse: [self edgeMorph bringChildrenToFront.   self line addMorph: self edgeMorph. self popUpActive: false. self updateEdgeMorphPosition]. "this cannot be good"
 ]
 
 {
@@ -276,9 +276,9 @@ SKMealyEdge >> update: aValue [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/8/2026 20:51'
+	#'squeak_changestamp' : 'LP 6/8/2026 21:11'
 }
 SKMealyEdge >> updateEdgeMorphPosition [
 
-self edgeMorph position: (self getPointBetween: (self getPointsWithoutNodesOverlapping) interpolatedBy: 0.5)
+self edgeMorph position: (self getPointBetween: (self getPointsWithoutNodesOverlapping) interpolatedBy: 0.5). 
 ]

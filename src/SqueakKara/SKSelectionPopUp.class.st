@@ -1,48 +1,37 @@
 Class {
 	#name : #SKSelectionPopUp,
-	#superclass : #PluggableMultiColumnListMorph,
+	#superclass : #PluggableListMorph,
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LP 6/8/2026 20:34'
+	#'squeak_changestamp' : 'LP 6/9/2026 12:40'
 }
-SKSelectionPopUp >> handlesMouseDown: anEvent [ 
+SKSelectionPopUp >> handlesMouseDown: aEvent [ 
 
- ^ true. 
-
-
-
-
-
+^ true 
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LP 6/8/2026 20:56'
+	#'squeak_changestamp' : 'LP 6/9/2026 12:41'
 }
 SKSelectionPopUp >> initialize [
 
 super initialize. 
+
 self getListElementSelector.
-self updateList: #(#(#hallo #pls ) #(#ha #wha #as) #(#what #the #hell)).
-self updateListMorph. 
-self updateColumns.  "for now everything gets truncated to one length wtf dude apparantly its the length of the first one "
-
-
-
-
-
+self updateList: #(#hallo #test #well #no #squeak).
+self updateListMorph.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LP 6/8/2026 20:35'
+	#'squeak_changestamp' : 'LP 6/9/2026 12:41'
 }
-SKSelectionPopUp >> mouseDown: anEvent [ 
+SKSelectionPopUp >> mouseDown: aEvent [ 
 
-	Transcript show: 'button pressed'. 
-
-
+#todo
+.
 ]
