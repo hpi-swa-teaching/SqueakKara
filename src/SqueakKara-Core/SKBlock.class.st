@@ -116,6 +116,42 @@ SKBlock >> anchorPoint [
 ]
 
 {
+	#category : #colors,
+	#'squeak_changestamp' : 'JS 6/9/2026 00:11'
+}
+SKBlock >> blockDefaultBorderColor [
+
+	^ SKStylesheet colorOrange
+]
+
+{
+	#category : #colors,
+	#'squeak_changestamp' : 'JS 6/9/2026 00:11'
+}
+SKBlock >> blockDefaultColor [
+
+	^ SKStylesheet colorBeige
+]
+
+{
+	#category : #colors,
+	#'squeak_changestamp' : 'JS 6/9/2026 00:11'
+}
+SKBlock >> blockMovementBorderColor [
+
+	^ SKStylesheet colorBlue
+]
+
+{
+	#category : #colors,
+	#'squeak_changestamp' : 'JS 6/9/2026 00:12'
+}
+SKBlock >> blockMovementColor [
+
+	^ SKStylesheet colorLightBlue
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
@@ -134,6 +170,25 @@ SKBlock >> blockRows [
 ]
 
 {
+	#category : #colors,
+	#'squeak_changestamp' : 'JS 6/9/2026 00:12'
+}
+SKBlock >> blockSensingBorderColor [
+
+	^ SKStylesheet colorGreen
+
+]
+
+{
+	#category : #colors,
+	#'squeak_changestamp' : 'JS 6/9/2026 00:12'
+}
+SKBlock >> blockSensingColor [
+
+	^ SKStylesheet colorLightGreen
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
@@ -144,13 +199,13 @@ SKBlock >> blockType [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:44'
 }
 SKBlock >> borderColorFromCategory [
 
-	^ Color fromString: ((Dictionary new at: #default put: '#df8e1d';
-		at: #movement put: '#1e66f5';
-		at: #sensing put: '#40a02b'; yourself) at: self category)
+	^((Dictionary new at: #default put: self blockDefaultBorderColor;
+		at: #movement put: self blockMovementBorderColor;
+		at: #sensing put: self blockSensingBorderColor; yourself) at: self category).
 ]
 
 {
@@ -176,13 +231,13 @@ SKBlock >> category: aCategory [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:44'
 }
 SKBlock >> colorFromCategory [
 
-	^ Color fromString: ((Dictionary new at: #default put: '#e5c890';
-		at: #movement put: '#8caaee';
-		at: #sensing put: '#a6d189'; yourself) at: self category)
+	^ (Dictionary new at: #default put: self blockDefaultColor;
+		at: #movement put: self blockMovementColor;
+		at: #sensing put: self blockSensingColor; yourself) at: self category.
 ]
 
 {

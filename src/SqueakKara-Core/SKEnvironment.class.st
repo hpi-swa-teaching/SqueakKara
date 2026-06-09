@@ -249,7 +249,7 @@ SKEnvironment >> initializeObjects [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 14:02'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:31'
 }
 SKEnvironment >> initializeProgrammingUI [
 
