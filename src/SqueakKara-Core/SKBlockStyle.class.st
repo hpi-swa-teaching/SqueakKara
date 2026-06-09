@@ -6,45 +6,45 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/8/2026 01:15'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:40'
 }
 SKBlockStyle class >> blockPartHeight [
 	
-	^TextStyle defaultFont lineGrid + ((TextStyle defaultFont height //6)*2) + ((SKBlockStyle borderWidth//2)*2)
+	^ TextStyle defaultFont lineGrid + ((TextStyle defaultFont height // 6) * 2) + ((SKBlockStyle borderWidth // 2) * 2)
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/8/2026 01:18'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:40'
 }
 SKBlockStyle class >> borderWidth [
 
-	^SKBlockStyle unit
+	^ SKBlockStyle unit
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/8/2026 01:15'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:40'
 }
 SKBlockStyle class >> tabHeight [
 
-	^TextStyle defaultFont height //5*2
+	^ TextStyle defaultFont height // 5 * 2
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/8/2026 01:16'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:40'
 }
 SKBlockStyle class >> tabOffset [
 
-	^TextStyle defaultFont height //5*3
+	^ TextStyle defaultFont height // 5 * 3
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/8/2026 01:16'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:40'
 }
 SKBlockStyle class >> unit [
 	
-	^TextStyle defaultFont height//6
+	^ TextStyle defaultFont height // 6
 ]

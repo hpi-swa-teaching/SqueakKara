@@ -198,14 +198,14 @@ SKBlock >> blockType [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:44'
+	#category : #colors,
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:30'
 }
 SKBlock >> borderColorFromCategory [
 
 	^((Dictionary new at: #default put: self blockDefaultBorderColor;
 		at: #movement put: self blockMovementBorderColor;
-		at: #sensing put: self blockSensingBorderColor; yourself) at: self category).
+		at: #sensing put: self blockSensingBorderColor; yourself) at: self category)
 ]
 
 {
@@ -230,14 +230,14 @@ SKBlock >> category: aCategory [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:44'
+	#category : #colors,
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:30'
 }
 SKBlock >> colorFromCategory [
 
 	^ (Dictionary new at: #default put: self blockDefaultColor;
 		at: #movement put: self blockMovementColor;
-		at: #sensing put: self blockSensingColor; yourself) at: self category.
+		at: #sensing put: self blockSensingColor; yourself) at: self category
 ]
 
 {
@@ -367,9 +367,10 @@ SKBlock >> minHeight [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'FR 5/5/2026 23:09'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:30'
 }
 SKBlock >> mouseDown: anEvent [
+
 	anEvent hand
 				waitForClicksOrDrag: self
 				event: anEvent
@@ -403,11 +404,11 @@ SKBlock >> removedMorph: aMorph [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:14'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:32'
 }
 SKBlock >> snapRadius [
 
-	^SKBlockStyle unit * 15.
+	^ SKBlockStyle unit * 15
 ]
 
 {
@@ -444,7 +445,7 @@ SKBlock >> tabHeight [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:32'
 }
 SKBlock >> updateLayout [
 
@@ -452,15 +453,16 @@ SKBlock >> updateLayout [
 	
 	self fullBounds.
 
-	width := (self blockRows collect: #width) max+(self borderWidth*2).
-	height := (self blockRows collect: #height) sum+self tabHeight+(self borderWidth*2).
+	width := (self blockRows collect: #width) max + (self borderWidth * 2).
+	height := (self blockRows collect: #height) sum + self tabHeight + (self borderWidth * 2).
 	
 	self extent: width@height.
 	
 	self anchorPoint isConnected ifTrue: [
-		self anchorPoint connectedPoint uiDelegate layoutChanged.
-		self anchorPoint connectedPoint uiDelegate changed.
-		self anchorPoint connectedPoint uiDelegate updateLayout]
+		self anchorPoint connectedPoint uiDelegate 
+			layoutChanged;
+			changed;
+			updateLayout]
 ]
 
 {

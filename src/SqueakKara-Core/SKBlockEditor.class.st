@@ -19,7 +19,7 @@ SKBlockEditor >> getCode [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:15'
 }
 SKBlockEditor >> initialize [
 	super initialize.
@@ -28,7 +28,8 @@ SKBlockEditor >> initialize [
 		minHeight: 500;
 		hResizing: #spaceFill;
 		vResizing: #spaceFill;
-		color: (Color r: 0.8 g: 1 b: 0.8).
+		"color: (Color r: 0.8 g: 1 b: 0.8)."
+		color: (Color fromString: '#CCFFCC').
 
 	self addMorph: self startBlock.
 	self startBlock updateLayout

@@ -6,11 +6,11 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 6/9/2026 00:04'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:37'
 }
 SKActionSlotPart >> connectionPointPositionForType: aConnectionPointType [
 
-	^ self topLeft+((self block tabOffsetInner+self block slantWidth+(self block tabWidth//2)-self block borderWidth)@(self block tabHeight))
+	^ self topLeft + ((self block tabOffsetInner + self block slantWidth + (self block tabWidth // 2) - self block borderWidth) @ (self block tabHeight))
 ]
 
 {
@@ -24,14 +24,14 @@ SKActionSlotPart >> defaultValue [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 01:50'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:37'
 }
 SKActionSlotPart >> initialize [
 	
 	super initialize.
 	
 	self color: Color transparent;
-		height: SKBlockStyle blockPartHeight.
+		height: SKBlockStyle blockPartHeight
 		
 ]
 

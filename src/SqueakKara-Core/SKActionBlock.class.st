@@ -11,11 +11,11 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 14:12'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:42'
 }
 SKActionBlock class >> newWithLabel: aLabel andAction: anAction [
 
-	SKActionBlock basicNew initializeWithLabel: aLabel andAction: anAction.
+	SKActionBlock basicNew initializeWithLabel: aLabel andAction: anAction
 ]
 
 {
@@ -69,21 +69,22 @@ SKActionBlock >> connectionPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:12'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:33'
 }
 SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 
 	(aConnectionPointType = #Action) ifTrue: [
 		^ self bottomLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth // 2)) @ 0)].
 	
-	^ self topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth // 2)) @ (self tabHeight "+ (self borderWidth/2)"))
+	^ self topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth // 2)) @ (self tabHeight))
 ]
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:12'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:33'
 }
 SKActionBlock >> drawOn: aCanvas [
+
 	| bounds pts top bottom left right y halfBW |
 	
 	"innerBounds := self blockRows first bounds expandBy: (self blockRows first layoutInset insetBy: self borderWidth)."
@@ -226,11 +227,11 @@ SKActionBlock >> resolveConflictingBlockEmbeddingFor: anActionBlock [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:34'
 }
 SKActionBlock >> slantWidth [
 
-	^ self tabWidth//4
+	^ self tabWidth // 4
 ]
 
 {
