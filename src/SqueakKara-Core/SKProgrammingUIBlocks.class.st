@@ -37,7 +37,7 @@ SKProgrammingUIBlocks >> build [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'SLH 6/6/2026 15:09'
+	#'squeak_changestamp' : 'FR 6/10/2026 00:08'
 }
 SKProgrammingUIBlocks >> getCode [
 

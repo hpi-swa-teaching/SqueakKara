@@ -76,29 +76,31 @@ SKBlockSource >> forLoop [
 
 {
 	#category : #'block definitions - control',
-	#'squeak_changestamp' : 'FR 6/9/2026 19:13'
+	#'squeak_changestamp' : 'FR 6/9/2026 23:27'
 }
 SKBlockSource >> functionCall [
 
-	^ SKActionBlock new
+	| newBlock |
+
+	newBlock := SKActionBlock new
 		addLabel: 'send';
-		addStringPart;
-		action: 'send ohoh';
+		addStringPartWithText: 'Message 1';
+		action: [:input | ((self ownerThatIsA: SKBlockEditor) functionStarts at: input) value];
 		updateLayout;
-		yourself
+		yourself.
+	newBlock action: [:input | ((newBlock ownerThatIsA: SKBlockEditor) functionStarts at: input) value].
+	^ newBlock
 ]
 
 {
 	#category : #'block definitions - control',
-	#'squeak_changestamp' : 'FR 6/9/2026 19:12'
+	#'squeak_changestamp' : 'FR 6/9/2026 22:39'
 }
 SKBlockSource >> functionStart [
 
-	^ SKActionBlock new
-		addLabel: 'when I receive';
-		addStringPart;
+	^ SKFunctionStart new
 		isStart: true;
-		action: 'ohoh';
+		action: '';
 		updateLayout;
 		yourself
 ]

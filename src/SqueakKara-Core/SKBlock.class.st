@@ -58,11 +58,11 @@ SKBlock >> addBlockRow: aBlockRow [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
+	#'squeak_changestamp' : 'FR 6/9/2026 19:39'
 }
 SKBlock >> addBooleanPart [
 	
-	self addInputSlotPart: (SKBooleanSlotPart new)
+	^ self addInputSlotPart: (SKBooleanSlotPart new)
 ]
 
 {
@@ -78,21 +78,22 @@ SKBlock >> addConnectionPoint: aConnectionPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
+	#'squeak_changestamp' : 'FR 6/9/2026 19:39'
 }
 SKBlock >> addInputSlotPart: anInputSlotPart [
 
 	self addBlockPart: anInputSlotPart.
-	self addConnectionPoint: anInputSlotPart connectionPoint
+	self addConnectionPoint: anInputSlotPart connectionPoint.
+	^ anInputSlotPart
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:55'
+	#'squeak_changestamp' : 'FR 6/9/2026 19:39'
 }
 SKBlock >> addIntegerPart [
 	
-	self addInputSlotPart: (SKTextSlotPart new type: #Integer)
+	^ self addInputSlotPart: (SKTextSlotPart new type: #Integer)
 ]
 
 {
@@ -106,11 +107,20 @@ SKBlock >> addLabel: aString [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 19:21'
+	#'squeak_changestamp' : 'FR 6/9/2026 19:48'
 }
 SKBlock >> addStringPart [
 	
-	self addInputSlotPart: (SKTextSlotPart new setDefaultUIEntry: 'message 1')
+	^ self addInputSlotPart: (SKTextSlotPart new setDefaultUIText: 'Placeholder')
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 22:45'
+}
+SKBlock >> addStringPartWithText: aString [
+	
+	^ self addInputSlotPart: (SKTextSlotPart new setDefaultUIText: aString)
 ]
 
 {

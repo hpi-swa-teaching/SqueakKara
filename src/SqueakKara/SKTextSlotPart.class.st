@@ -8,13 +8,22 @@ Class {
 }
 
 {
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/9/2026 19:47'
+}
+SKTextSlotPart >> defaultUIEntry [
+
+	^ self defaultUI firstSubmorph
+]
+
+{
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:56'
+	#'squeak_changestamp' : 'FR 6/9/2026 19:48'
 }
 SKTextSlotPart >> defaultValue [
 
-	type = #Integer ifTrue: [^ defaultUI firstSubmorph contents string asInteger].
-	^ defaultUI firstSubmorph contents string
+	type = #Integer ifTrue: [^ self defaultUIEntry contents string asInteger].
+	^ self defaultUIEntry contents string
 	
 ]
 
@@ -78,12 +87,12 @@ SKTextSlotPart >> makeDefaultUI [
 ]
 
 {
-	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 19:20'
+	#category : #updating,
+	#'squeak_changestamp' : 'FR 6/9/2026 19:48'
 }
-SKTextSlotPart >> setDefaultUIEntry: aString [
+SKTextSlotPart >> setDefaultUIText: aString [
 
-	self defaultUI firstSubmorph contents: aString; adjustLayoutBounds.
+	self defaultUIEntry contents: aString; adjustLayoutBounds.
 ]
 
 {
@@ -106,10 +115,10 @@ SKTextSlotPart >> type: anObject [
 ]
 
 {
-	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 19:07'
+	#category : #updating,
+	#'squeak_changestamp' : 'FR 6/9/2026 19:49'
 }
 SKTextSlotPart >> updateUIType [
 
-	self defaultUI firstSubmorph numericOnly: (self type = #Integer).
+	self defaultUIEntry numericOnly: (self type = #Integer).
 ]

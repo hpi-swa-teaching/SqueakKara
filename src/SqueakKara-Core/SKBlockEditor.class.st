@@ -3,10 +3,20 @@ Class {
 	#superclass : #Morph,
 	#instVars : [
 		'startBlock',
-		'window'
+		'window',
+		'functionStarts'
 	],
 	#category : #'SqueakKara-Core'
 }
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 20:03'
+}
+SKBlockEditor >> functionStarts [
+
+	^ functionStarts ifNil: [functionStarts := Dictionary new. ^functionStarts]
+]
 
 {
 	#category : #accessing,
@@ -33,6 +43,23 @@ SKBlockEditor >> initialize [
 
 	self addMorph: self startBlock.
 	self startBlock updateLayout
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 23:09'
+}
+SKBlockEditor >> nextAvailableFunctionNameFor: aString [
+
+	| counter newKey |
+	
+	counter := 1.
+	newKey := aString, ' ', counter asString.
+	[self functionStarts includesKey: newKey] whileTrue: [
+		counter := counter + 1.
+		newKey := aString, ' ', counter asString.
+	].
+	^ newKey
 ]
 
 {
