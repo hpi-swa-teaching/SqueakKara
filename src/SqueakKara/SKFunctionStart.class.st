@@ -4,28 +4,37 @@ Class {
 	#instVars : [
 		'functionNameSlot',
 		'functionName',
-		'haveSpawned'
+		'caller'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 22:50'
+	#'squeak_changestamp' : 'FR 6/10/2026 00:22'
 }
 SKFunctionStart >> caller [
 
-	^ self owner
+	^ caller
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/10/2026 00:22'
+}
+SKFunctionStart >> caller: anObject [
+
+	caller := anObject
 ]
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'FR 6/9/2026 23:40'
+	#'squeak_changestamp' : 'FR 6/10/2026 00:28'
 }
 SKFunctionStart >> delete [
 
-	self removeCall.
-	super delete.
+	self caller ifNotNil: [self removeCall].
+	super delete
 ]
 
 {
@@ -96,7 +105,7 @@ SKFunctionStart >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 22:57'
+	#'squeak_changestamp' : 'FR 6/10/2026 00:22'
 }
 SKFunctionStart >> justDroppedInto: anObject event: anEvent [
 
@@ -106,20 +115,21 @@ SKFunctionStart >> justDroppedInto: anObject event: anEvent [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'FR 6/10/2026 00:00'
+	#'squeak_changestamp' : 'FR 6/10/2026 00:27'
 }
 SKFunctionStart >> removeCall [
 
-	(self caller functionStarts at: self functionName ifAbsent: [^ self]) value = [self getCode] value ifTrue:[self caller functionStarts removeKey: self functionName].
+	(self caller functionStarts at: self functionName ifAbsent: [^ self]) value = [self getCode] value ifTrue:[self caller functionStarts removeKey: self functionName]
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 23:59'
+	#'squeak_changestamp' : 'FR 6/10/2026 00:24'
 }
 SKFunctionStart >> spawn [
 
-	self haveSpawned ifTrue: [(self caller functionStarts includesKey: self functionName) ifTrue: [^ self]].
+	(self caller notNil and:[self caller == self owner]) ifTrue: [^ self].
+	self caller: self owner.
 	self functionName: (self caller nextAvailableFunctionNameFor: self functionName).
 	self functionNameSlot contents: self functionName.
 	self updateLayout.
