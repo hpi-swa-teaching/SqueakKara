@@ -206,12 +206,16 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/5/2026 12:16'
+	#'squeak_changestamp' : 'LD 6/9/2026 19:17'
 }
 SKKara >> move [
-
-	(self trunkAhead) ifTrue: [ ^ false ].
-	^ (self moveToCoordinates: self coordinates + self viewDirection)
+	
+	self stopSayingOrThinking.
+	(self trunkAhead) ifTrue: [ self sayMessageForSomeTime: 'Aua! Ich bin gegen einen Baumstumpf gelaufen D:'.
+		^ false ].
+	(self moveToCoordinates: self coordinates + self viewDirection) ifTrue: [
+		^ true ]
+		ifFalse: [self sayMessageForSomeTime: 'Aua! Da darf ich nicht hinlaufen D:' ]
 ]
 
 {
@@ -291,6 +295,18 @@ SKKara >> rotate [
 	}.
 	
 	^ image
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 6/9/2026 19:22'
+}
+SKKara >> sayMessageForSomeTime: aString [
+	| delayTime |
+	delayTime := 3.
+	self say: aString.
+	(Delay forSeconds: delayTime) wait.
+	self stopSayingOrThinking.
 ]
 
 {
