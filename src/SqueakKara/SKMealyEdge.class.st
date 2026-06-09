@@ -8,8 +8,7 @@ Class {
 		'controller',
 		'popUpActive',
 		'edgeMorph',
-		'arrowhead',
-		'edgePopUp'
+		'arrowhead'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -90,10 +89,12 @@ SKMealyEdge >> controller: aController [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:38'
+	#'squeak_changestamp' : 'LP 6/9/2026 16:30'
 }
 SKMealyEdge >> delete [
-	
+
+	self arrowhead ifNotNil:[self arrowhead delete]. 
+	self edgeMorph ifNotNil:  [self edgeMorph delete]. 
 	self line ifNotNil: [self line delete]
 ]
 
@@ -113,22 +114,6 @@ SKMealyEdge >> edgeMorph [
 }
 SKMealyEdge >> edgeMorph: anObject [
 	edgeMorph := anObject
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 14:09'
-}
-SKMealyEdge >> edgePopUp [
-	^ edgePopUp
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 14:09'
-}
-SKMealyEdge >> edgePopUp: anObject [
-	edgePopUp := anObject
 ]
 
 {
@@ -314,15 +299,14 @@ self edgeMorph position: (self getPointBetween: (self getPointsWithoutNodesOverl
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'LP 6/9/2026 14:43'
+	#'squeak_changestamp' : 'LP 6/9/2026 14:44'
 }
 SKMealyEdge >> updateEdgePopUp [
 
 (self edgeMorph) ifNotNil:[self edgeMorph delete. ].
-
 self edgeMorph bringChildrenToFront. 
-self popUpActive: false.
-self updateEdgeMorphPosition
+self updateEdgeMorphPosition.
+
 ]
 
 {

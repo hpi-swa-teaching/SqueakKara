@@ -24,10 +24,7 @@ Class {
 	#name : #SKSelectionPopUpWrapper,
 	#superclass : #Morph,
 	#instVars : [
-		'left',
-		'right',
-		'isLeftSelected',
-		'isRightSelected'
+		'selectionWindows'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'LP 6/9/2026 13:16'
@@ -35,31 +32,43 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 12:52'
+	#'squeak_changestamp' : 'LP 6/9/2026 15:32'
 }
 SKSelectionPopUpWrapper >> bringChildrenToFront [
 
-self right comeToFront.
-self left comeToFront. 
+self selectionWindows do: [:each | each comeToFront].
+
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LP 6/9/2026 13:40'
+	#'squeak_changestamp' : 'LP 6/9/2026 15:26'
+}
+SKSelectionPopUpWrapper >> drawSelectionWindows [
+
+self selectionWindows do: [:each | self addMorph: each].
+
+
+
+
+
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'LP 6/9/2026 16:07'
 }
 SKSelectionPopUpWrapper >> initialize [
 
 super initialize. 
 
-self left: SKSelectionPopUp new. 
-self right: SKSelectionPopUp new.
-self addMorph: self left.
-self addMorph: self right. 
-self left index: 0.
-self right index: 1. 
-self right position: (self left extent x@0).
-self extent: (self left extent x + self right extent x @ (self left extent y max: self right extent y))
 
+self selectionWindows add: SKSelectionPopUp new. 
+self selectionWindows add: SKSelectionPopUp new. 
+
+self drawSelectionWindows. 
+
+self updatePositionsOfChildren. 
 
 
 
@@ -70,76 +79,48 @@ self extent: (self left extent x + self right extent x @ (self left extent y max
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 12:43'
+	#'squeak_changestamp' : 'LP 6/9/2026 15:22'
 }
-SKSelectionPopUpWrapper >> isLeftSelected [
-	^ isLeftSelected
+SKSelectionPopUpWrapper >> selectionWindows [
+	(selectionWindows) ifNil:[self selectionWindows: OrderedCollection new]. 
+	^ selectionWindows
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 12:43'
+	#'squeak_changestamp' : 'LP 6/9/2026 15:21'
 }
-SKSelectionPopUpWrapper >> isLeftSelected: anObject [
-	isLeftSelected := anObject
+SKSelectionPopUpWrapper >> selectionWindows: anObject [
+	selectionWindows := anObject
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 12:43'
+	#'squeak_changestamp' : 'LP 6/9/2026 16:13'
 }
-SKSelectionPopUpWrapper >> isRightSelected [
-	^ isRightSelected
+SKSelectionPopUpWrapper >> switchToSelectedText: aSelectionPopUp [ 
+
+|selectedValue oldPos|
+
+oldPos := self position. 
+self selectionWindows do: [:each |(each == aSelectionPopUp)ifTrue: [selectedValue := each selectedValue.  self replaceSubmorph: each by: (PluggableTextMorph new setText: selectedValue).]]. 
+self position: oldPos. 
+self updatePositionsOfChildren. 
+
+
+
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 12:43'
+	#'squeak_changestamp' : 'LP 6/9/2026 16:06'
 }
-SKSelectionPopUpWrapper >> isRightSelected: anObject [
-	isRightSelected := anObject
+SKSelectionPopUpWrapper >> updatePositionsOfChildren [
+|newX newY|
+
+(selectionWindows size =1 ) ifFalse: [
+	1 to: (self selectionWindows size -1) do: [:each | newX:= ((self selectionWindows at: each) position x)+((self selectionWindows at: (each)) extent x). newY:= (self selectionWindows at: each) position y.  self selectionWindows at: (each+1) put: ((self selectionWindows at:(each+1)) position:(newX@newY))] "this is very idiomatic squeak code"
 ]
 
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 12:43'
-}
-SKSelectionPopUpWrapper >> left [
-	^ left
-]
 
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 12:43'
-}
-SKSelectionPopUpWrapper >> left: anObject [
-	left := anObject
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 12:43'
-}
-SKSelectionPopUpWrapper >> right [
-	^ right
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 12:43'
-}
-SKSelectionPopUpWrapper >> right: anObject [
-	right := anObject
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 13:43'
-}
-SKSelectionPopUpWrapper >> switchToSelectedText: aIndex [ 
-"we need to replace the pane of the text morph with a text morph containing the selectedValue of that Selection Pop UP "
-|selectedValue |
-
-(aIndex ==0) ifTrue:[selectedValue := self left selectedValue. ].
-(aIndex == 1) ifTrue:[selectedValue := self right selectedValue. ]
 ]

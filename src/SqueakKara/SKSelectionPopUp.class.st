@@ -18,22 +18,6 @@ SKSelectionPopUp >> handlesMouseDown: aEvent [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 13:39'
-}
-SKSelectionPopUp >> index [
-	^ index
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 13:39'
-}
-SKSelectionPopUp >> index: anObject [
-	index := anObject
-]
-
-{
 	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'LP 6/9/2026 12:41'
 }
@@ -48,14 +32,14 @@ self updateListMorph.
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LP 6/9/2026 13:39'
+	#'squeak_changestamp' : 'LP 6/9/2026 15:33'
 }
 SKSelectionPopUp >> mouseDown: anEvent [
 
 	|itemClicked|
 	
 	itemClicked := self itemAt: (self rowAtLocation: anEvent position). 
-	 [itemClicked] ifNotNil: [self selectedValue: itemClicked. self owner switchToSelectedText: self index.].
+	 [itemClicked] ifNotNil: [self selectedValue: itemClicked. self owner switchToSelectedText: self].
 ]
 
 {
