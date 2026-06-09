@@ -138,14 +138,15 @@ SKGridObject >> gridCoordinator [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 6/8/2026 22:24'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:47'
 }
 SKGridObject >> initializeInGrid: aGrid at: aPoint [
 
 	self grid: aGrid.
 	super initialize.
 
-	self coordinates: aPoint;
+	self
+		coordinates: aPoint;
 		setTexture;
 		addToGrid;
 		scaleToFactor

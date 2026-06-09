@@ -30,10 +30,11 @@ SKCriticalSection >> color: aColor [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LM 6/5/2026 13:12'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:46'
 }
 SKCriticalSection >> defaultColor [
 
+	"Color of texture lines with transparency"
 	^ (Color white alpha: 199 / 255)
 ]
 

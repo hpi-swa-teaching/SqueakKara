@@ -244,20 +244,20 @@ SKKara >> nextField [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'LM 6/7/2026 16:24'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:47'
 }
 SKKara >> onCloverleaf [
 
-	^ self neighboursHere anySatisfy: [:each | each isCloverleaf ]
+	^ self neighboursHere anySatisfy: [ :each | each isCloverleaf ]
 ]
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'LM 6/7/2026 16:29'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:48'
 }
 SKKara >> onCriticalSection [
 
-	^ self neighboursHere anySatisfy: [:each | each isCriticalSection ]
+	^ self neighboursHere anySatisfy: [ :each | each isCriticalSection ]
 ]
 
 {
@@ -280,7 +280,7 @@ SKKara >> ownsLockAt: aPoint [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 6/7/2026 16:30'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:50'
 }
 SKKara >> position: aPoint [
 
@@ -288,7 +288,7 @@ SKKara >> position: aPoint [
 	newCoordinates := self coordinatesFromPosition: aPoint.
 	tile := self gridCoordinator getTileAtCoordinates: newCoordinates.
 	
-	(tile anySatisfy: [ :each | each isTrunk ]) ifTrue: [^ self ].
+	(tile anySatisfy: [ :each | each isTrunk ]) ifTrue: [ ^ self ].
 	(self gridCoordinator isLocked: newCoordinates for: self) ifTrue: [ ^ self ].
 
 	self gridCoordinator
