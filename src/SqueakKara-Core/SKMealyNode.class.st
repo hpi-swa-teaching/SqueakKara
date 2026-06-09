@@ -4,19 +4,11 @@ Class {
 	#instVars : [
 		'controller',
 		'isInDrag',
-		'nodeType'
+		'nodeType',
+		'stateMachineEditor'
 	],
 	#category : #'SqueakKara-Core'
 }
-
-{
-	#category : #layout,
-	#'squeak_changestamp' : 'JS 6/9/2026 02:41'
-}
-SKMealyNode >> addStartArrow [
-
-	self addMorph: (SKMealyEdge newFrom: self toPosition: (self center x - 50 @ self center y))
-]
 
 {
 	#category : #accessing,
@@ -69,15 +61,6 @@ SKMealyNode >> initialize [
 ]
 
 {
-	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/9/2026 02:38'
-}
-SKMealyNode >> isEnd [
-	
-	^ (self nodeType = 'end')
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:41'
 }
@@ -106,15 +89,15 @@ SKMealyNode >> isStart [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:06'
+	#'squeak_changestamp' : 'JS 6/9/2026 13:24'
 }
 SKMealyNode >> justDroppedInto: newOwner event: anEvent [
 
 	(newOwner isKindOf: SKPlayGround) ifFalse: [controller queueNodeToDelete: self].
 
 	newOwner addMorphFront: self.
-	self isInDrag: false
-
+	self isInDrag: false.
+	self visualiseNodeType
 ]
 
 {
@@ -189,15 +172,6 @@ SKMealyNode >> setToBasicNode [
 	#category : #actions,
 	#'squeak_changestamp' : 'JS 6/9/2026 02:15'
 }
-SKMealyNode >> setToEndNode [
-	
-	self nodeType: 'end'
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/9/2026 02:15'
-}
 SKMealyNode >> setToStartNode [
 	
 	self nodeType: 'start'
@@ -212,6 +186,22 @@ SKMealyNode >> startDrag: anEvent [
 	self controller mode = #drag ifFalse: [^ nil].
 	self isInDrag: true.
 	anEvent hand grabMorph: self
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/9/2026 13:23'
+}
+SKMealyNode >> stateMachineEditor [
+	^ stateMachineEditor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/9/2026 13:23'
+}
+SKMealyNode >> stateMachineEditor: anObject [
+	stateMachineEditor := anObject
 ]
 
 {
@@ -239,4 +229,21 @@ SKMealyNode >> stepTime [
 SKMealyNode >> unselectNode [
 
 	self color: self normalColor
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'JS 6/9/2026 17:18'
+}
+SKMealyNode >> visualiseNodeType [
+
+|hasStartEdge|
+
+	self isStart ifTrue: [
+		hasStartEdge := false.
+		(self stateMachineEditor playGround findAllEdgesToNode: self) do: [:edge |
+				edge fromNode == nil ifTrue: 
+					[hasStartEdge := true]].
+		hasStartEdge ifFalse: [
+			self stateMachineEditor actionAddEdgeFromPosition: self center -100 toNode: self]]
 ]

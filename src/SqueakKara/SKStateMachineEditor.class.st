@@ -29,13 +29,14 @@ SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/9/2026 01:54'
+	#'squeak_changestamp' : 'JS 6/9/2026 15:28'
 }
-SKStateMachineEditor >> actionAddEdgeFrom: aNode toPosition: aPosition [
+SKStateMachineEditor >> actionAddEdgeFromPosition: aPosition toNode: aNode [
 
 	| edge |
 
-	edge := SKMealyEdge newFrom: aNode toPosition: aPosition.
+	edge := SKMealyEdge newFromPosition: aPosition toNode: aNode.
+	edge fromPosition: aPosition. 
 	self playGround addEdge: edge.
 	
 	aNode addDependent: edge.
@@ -43,26 +44,29 @@ SKStateMachineEditor >> actionAddEdgeFrom: aNode toPosition: aPosition [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/9/2026 02:40'
+	#'squeak_changestamp' : 'JS 6/9/2026 13:24'
 }
 SKStateMachineEditor >> actionCreateNode [
 
 	| node |
+	
 	node := SKMealyNode new.
 	self playGround isNodeEmpty ifTrue: [
-		node nodeType: 'start'. 
-		node addStartArrow].
+		node nodeType: 'start'.].
 	self playGround addNode: node.
+	node stateMachineEditor: self.
 	node openInHand
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 13:04'
+	#'squeak_changestamp' : 'JS 6/9/2026 15:45'
 }
 SKStateMachineEditor >> actionDeleteEdge: aEdge [
 
 	self playGround removeEdge: aEdge.
+	aEdge fromNode ifNil: [
+		aEdge toNode setToBasicNode].
 	aEdge delete
 ]
 
@@ -169,7 +173,7 @@ SKStateMachineEditor >> findeEdgeToDelete: aPosition [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/9/2026 02:38'
+	#'squeak_changestamp' : 'JS 6/9/2026 14:58'
 }
 SKStateMachineEditor >> handleEdgeModeNodeClick: aNode [
 
@@ -185,12 +189,13 @@ SKStateMachineEditor >> handleEdgeModeNodeClick: aNode [
 	self selectedNode: aNode.
 	self startEdgePosition ifNotNil:[
 		aNode isStart ifTrue:[
-			(self playGround findAllEdgesToNode: aNode) do: [:edge | 
-				Transcript show: 'Fuck'.
-				edge fromNode == nil ifTrue: [edge delete]]]
+			(self playGround findAllEdgesToNode: aNode) do: [:edge |
+				edge fromNode == nil ifTrue: [
+					self playGround removeEdge: edge.
+					edge delete]]]
 		ifFalse: [
 			aNode setToStartNode.].
-		self actionAddEdgeFrom: aNode toPosition: self startEdgePosition.
+		self actionAddEdgeFromPosition: self startEdgePosition toNode: aNode.
 		self startEdgePosition: nil.
 		self selectedNode: nil].
 						
