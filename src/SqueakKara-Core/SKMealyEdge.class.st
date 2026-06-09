@@ -15,7 +15,7 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LP 6/9/2026 13:48'
+	#'squeak_changestamp' : 'LP 6/9/2026 16:45'
 }
 SKMealyEdge class >> newFrom: aNode to: anotherNode [
 
@@ -25,8 +25,7 @@ SKMealyEdge class >> newFrom: aNode to: anotherNode [
 	instance 
 		line: line;
 		fromNode: aNode;
-		toNode: anotherNode;
-		popUpActive: true.
+		toNode: anotherNode.
 	aNode controller playGround addMorph: line.
 	
 	^ instance
@@ -52,21 +51,21 @@ SKMealyEdge >> arrowhead: anObject [
 ]
 
 {
-	#category : #drawing,
-	#'squeak_changestamp' : 'LP 6/3/2026 01:10'
+	#category : #accessing,
+	#'squeak_changestamp' : 'LP 6/9/2026 16:35'
 }
 SKMealyEdge >> arrowheadLength [
   
-	^ 10
+	^ 20
 ]
 
 {
-	#category : #drawing,
-	#'squeak_changestamp' : 'LP 6/3/2026 01:10'
+	#category : #accessing,
+	#'squeak_changestamp' : 'LP 6/9/2026 16:35'
 }
 SKMealyEdge >> arrowheadWidth [
   
-	^ 10
+	^ 20
 ]
 
 {
@@ -135,7 +134,7 @@ SKMealyEdge >> fromNode: aNode [
 ]
 
 {
-	#category : #accessing,
+	#category : #vectorHelpFunctions,
 	#'squeak_changestamp' : 'LP 6/3/2026 01:17'
 }
 SKMealyEdge >> getArrowheadPoints [
@@ -159,12 +158,13 @@ SKMealyEdge >> getArrowheadPoints [
 ]
 
 {
-	#category : #drawing,
-	#'squeak_changestamp' : 'LP 6/8/2026 20:49'
+	#category : #vectorHelpFunctions,
+	#'squeak_changestamp' : 'LP 6/9/2026 16:39'
 }
 SKMealyEdge >> getPointBetween: twoPoints interpolatedBy: aNumber [
 
 	|fromPoint toPoint vectorBetween|
+	
 	fromPoint := twoPoints first.
 	toPoint := twoPoints second. 
 	vectorBetween := toPoint -fromPoint. 
@@ -175,7 +175,7 @@ SKMealyEdge >> getPointBetween: twoPoints interpolatedBy: aNumber [
 ]
 
 {
-	#category : #drawing,
+	#category : #vectorHelpFunctions,
 	#'squeak_changestamp' : 'LP 6/3/2026 00:59'
 }
 SKMealyEdge >> getPointsWithoutNodesOverlapping [
@@ -194,7 +194,7 @@ SKMealyEdge >> getPointsWithoutNodesOverlapping [
 ]
 
 {
-	#category : #drawing,
+	#category : #vectorHelpFunctions,
 	#'squeak_changestamp' : 'LP 6/3/2026 00:27'
 }
 SKMealyEdge >> getVectorBetweenNodeCenters [
@@ -203,7 +203,7 @@ SKMealyEdge >> getVectorBetweenNodeCenters [
 ]
 
 {
-	#category : #accessing,
+	#category : #vectorHelpFunctions,
 	#'squeak_changestamp' : 'LP 6/3/2026 00:47'
 }
 SKMealyEdge >> lengthOfVector: aVector [
@@ -231,22 +231,6 @@ SKMealyEdge >> line: aLine [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/8/2026 20:37'
-}
-SKMealyEdge >> popUpActive [
-	^ popUpActive
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/8/2026 20:37'
-}
-SKMealyEdge >> popUpActive: anObject [
-	popUpActive := anObject
-]
-
-{
-	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:11'
 }
 SKMealyEdge >> toNode [
@@ -264,7 +248,7 @@ SKMealyEdge >> toNode: aNode [
 ]
 
 {
-	#category : #drawing,
+	#category : #updating,
 	#'squeak_changestamp' : 'LP 6/9/2026 14:15'
 }
 SKMealyEdge >> update: aValue [
@@ -280,7 +264,7 @@ SKMealyEdge >> update: aValue [
 ]
 
 {
-	#category : #drawing,
+	#category : #updating,
 	#'squeak_changestamp' : 'LP 6/9/2026 14:41'
 }
 SKMealyEdge >> updateArrowhead [
@@ -289,7 +273,7 @@ SKMealyEdge >> updateArrowhead [
 ]
 
 {
-	#category : #accessing,
+	#category : #updating,
 	#'squeak_changestamp' : 'LP 6/8/2026 21:11'
 }
 SKMealyEdge >> updateEdgeMorphPosition [
@@ -298,7 +282,7 @@ self edgeMorph position: (self getPointBetween: (self getPointsWithoutNodesOverl
 ]
 
 {
-	#category : #drawing,
+	#category : #updating,
 	#'squeak_changestamp' : 'LP 6/9/2026 14:44'
 }
 SKMealyEdge >> updateEdgePopUp [
@@ -310,7 +294,7 @@ self updateEdgeMorphPosition.
 ]
 
 {
-	#category : #drawing,
+	#category : #updating,
 	#'squeak_changestamp' : 'LP 6/9/2026 14:17'
 }
 SKMealyEdge >> updateLine [

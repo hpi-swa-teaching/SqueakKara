@@ -31,7 +31,7 @@ Class {
 }
 
 {
-	#category : #accessing,
+	#category : #drawing,
 	#'squeak_changestamp' : 'LP 6/9/2026 15:32'
 }
 SKSelectionPopUpWrapper >> bringChildrenToFront [
@@ -41,7 +41,7 @@ self selectionWindows do: [:each | each comeToFront].
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #drawing,
 	#'squeak_changestamp' : 'LP 6/9/2026 15:26'
 }
 SKSelectionPopUpWrapper >> drawSelectionWindows [
@@ -55,7 +55,7 @@ self selectionWindows do: [:each | self addMorph: each].
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #initialization,
 	#'squeak_changestamp' : 'LP 6/9/2026 16:07'
 }
 SKSelectionPopUpWrapper >> initialize [
@@ -95,15 +95,15 @@ SKSelectionPopUpWrapper >> selectionWindows: anObject [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 16:13'
+	#category : #updating,
+	#'squeak_changestamp' : 'LP 6/9/2026 16:52'
 }
 SKSelectionPopUpWrapper >> switchToSelectedText: aSelectionPopUp [ 
 
 |selectedValue oldPos|
 
 oldPos := self position. 
-self selectionWindows do: [:each |(each == aSelectionPopUp)ifTrue: [selectedValue := each selectedValue.  self replaceSubmorph: each by: (PluggableTextMorph new setText: selectedValue).]]. 
+self selectionWindows do: [:each |(each == aSelectionPopUp)ifTrue: [selectedValue := each selectedValue.  self replaceSubmorph: each by: (PluggableTextMorph new setText: selectedValue). ]]. 
 self position: oldPos. 
 self updatePositionsOfChildren. 
 
@@ -112,7 +112,7 @@ self updatePositionsOfChildren.
 ]
 
 {
-	#category : #accessing,
+	#category : #updating,
 	#'squeak_changestamp' : 'LP 6/9/2026 16:06'
 }
 SKSelectionPopUpWrapper >> updatePositionsOfChildren [

@@ -9,7 +9,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #inputHandling,
 	#'squeak_changestamp' : 'LP 6/9/2026 13:26'
 }
 SKSelectionPopUp >> handlesMouseDown: aEvent [ 
@@ -18,7 +18,7 @@ SKSelectionPopUp >> handlesMouseDown: aEvent [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #initialization,
 	#'squeak_changestamp' : 'LP 6/9/2026 12:41'
 }
 SKSelectionPopUp >> initialize [
@@ -31,7 +31,7 @@ self updateListMorph.
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #inputHandling,
 	#'squeak_changestamp' : 'LP 6/9/2026 15:33'
 }
 SKSelectionPopUp >> mouseDown: anEvent [
