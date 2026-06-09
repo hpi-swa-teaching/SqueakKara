@@ -261,15 +261,6 @@ SKKara >> onCriticalSection [
 ]
 
 {
-	#category : #appearance,
-	#'squeak_changestamp' : 'LM 6/8/2026 22:19'
-}
-SKKara >> order [
-
-	^ 3
-]
-
-{
 	#category : #locking,
 	#'squeak_changestamp' : 'LM 5/26/2026 09:48'
 }
@@ -457,4 +448,13 @@ SKKara >> workspace [
 SKKara >> workspace: aWorkspace [
 
 	workspace := aWorkspace
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
+}
+SKKara >> zLayer [
+
+	^ 3
 ]

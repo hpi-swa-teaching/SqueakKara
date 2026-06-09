@@ -67,15 +67,6 @@ SKCriticalSection >> isCriticalSection [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LM 6/8/2026 22:19'
-}
-SKCriticalSection >> order [
-
-	^ 0
-]
-
-{
-	#category : #appearance,
 	#'squeak_changestamp' : 'LM 6/5/2026 13:12'
 }
 SKCriticalSection >> scaleToFactor [
@@ -91,4 +82,13 @@ SKCriticalSection >> scaleToFactor [
 SKCriticalSection >> textureFilename [
 
 	^ 'critical-section.png'
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
+}
+SKCriticalSection >> zLayer [
+
+	^ 0
 ]

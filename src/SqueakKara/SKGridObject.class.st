@@ -277,15 +277,6 @@ SKGridObject >> notifyGridCoordinator [
 ]
 
 {
-	#category : #appearance,
-	#'squeak_changestamp' : 'LM 6/8/2026 22:19'
-}
-SKGridObject >> order [
-
-	^ 100
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'jawi 5/28/2026 15:23'
 }
@@ -422,4 +413,13 @@ SKGridObject >> updateColorFor: aForm [
 	      			aForm colorAt: x @ y put: replacement ]]].
 	
 	self image: aForm
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
+}
+SKGridObject >> zLayer [
+
+	^ 100
 ]

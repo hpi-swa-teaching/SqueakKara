@@ -57,15 +57,6 @@ SKCloverleaf >> isCloverleaf [
 ]
 
 {
-	#category : #appearance,
-	#'squeak_changestamp' : 'LM 6/8/2026 22:19'
-}
-SKCloverleaf >> order [
-
-	^ 1
-]
-
-{
 	#category : #geometry,
 	#'squeak_changestamp' : 'jawi 5/28/2026 15:41'
 }
@@ -108,4 +99,13 @@ SKCloverleaf >> setColorToKaraColor: aColor [
 SKCloverleaf >> textureFilename [
 
 	^ 'Cloverleaf.png'
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
+}
+SKCloverleaf >> zLayer [
+
+	^ 1
 ]

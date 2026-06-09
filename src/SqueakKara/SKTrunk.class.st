@@ -27,15 +27,6 @@ SKTrunk >> isTrunk [
 ]
 
 {
-	#category : #appearance,
-	#'squeak_changestamp' : 'LM 6/8/2026 22:19'
-}
-SKTrunk >> order [
-
-	^ 2
-]
-
-{
 	#category : #geometry,
 	#'squeak_changestamp' : 'LM 4/29/2026 13:13'
 }
@@ -57,4 +48,13 @@ SKTrunk >> position: aPoint [
 SKTrunk >> textureFilename [
 
 	^ 'Trunk.png'
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
+}
+SKTrunk >> zLayer [
+
+	^ 2
 ]

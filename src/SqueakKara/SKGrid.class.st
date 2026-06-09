@@ -340,7 +340,7 @@ SKGrid >> pixelPerBlock [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 6/8/2026 22:19'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:56'
 }
 SKGrid >> redrawTexture [
 
@@ -348,7 +348,7 @@ SKGrid >> redrawTexture [
 
 	self gridLines do: [:gridLine | self removeMorph: gridLine ].
 	
-	sortedMorphs := self submorphs asSortedCollection: [ :a :b | a order <= b order ].
+	sortedMorphs := self submorphs asSortedCollection: [ :a :b | a zLayer <= b zLayer ].
 	
 	sortedMorphs do: [ :each | self removeMorph: each ].
 	sortedMorphs do: [ :each | super addMorph: each. each scaleToFactor ].
