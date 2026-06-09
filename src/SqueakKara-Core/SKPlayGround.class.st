@@ -176,6 +176,15 @@ SKPlayGround >> handlesMouseDown: anEvent [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/9/2026 01:01'
+}
+SKPlayGround >> isNodeEmpty [
+
+	^ self nodes isEmpty
+]
+
+{
 	#category : #clicking,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 12:57'
 }

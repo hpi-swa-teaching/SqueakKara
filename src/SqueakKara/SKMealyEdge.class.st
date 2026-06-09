@@ -12,7 +12,7 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 13:24'
+	#'squeak_changestamp' : 'JS 6/9/2026 02:18'
 }
 SKMealyEdge class >> newFrom: aNode to: anotherNode [
 
@@ -23,6 +23,24 @@ SKMealyEdge class >> newFrom: aNode to: anotherNode [
 		line: line;
 		fromNode: aNode;
 		toNode: anotherNode.
+	aNode controller playGround addMorph: line.
+	
+	^ instance
+]
+
+{
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'JS 6/9/2026 02:18'
+}
+SKMealyEdge class >> newFrom: aNode toPosition: aPosition [
+"TODO: Stylesheet"
+	| instance line |
+	instance := self new.
+	line := LineMorph from: aNode center to: aPosition color: (Color fromString: '#8caaee') width: 5.
+	instance 
+		line: line;
+		fromNode: nil;
+		toNode: aNode.
 	aNode controller playGround addMorph: line.
 	
 	^ instance
@@ -111,10 +129,10 @@ SKMealyEdge >> toNode: aNode [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 13:28'
+	#'squeak_changestamp' : 'JS 6/9/2026 01:34'
 }
 SKMealyEdge >> update: aValue [
-
+"TODO: Change colour"
 	self line delete.
 	self line: (LineMorph from: self fromNode center to: self toNode center color: (Color fromString: '#8caaee') width: 5).
 	self controller playGround addComponent: self line

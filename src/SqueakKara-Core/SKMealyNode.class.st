@@ -3,10 +3,20 @@ Class {
 	#superclass : #CircleMorph,
 	#instVars : [
 		'controller',
-		'isInDrag'
+		'isInDrag',
+		'nodeType'
 	],
 	#category : #'SqueakKara-Core'
 }
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'JS 6/9/2026 02:41'
+}
+SKMealyNode >> addStartArrow [
+
+	self addMorph: (SKMealyEdge newFrom: self toPosition: (self center x - 50 @ self center y))
+]
 
 {
 	#category : #accessing,
@@ -46,7 +56,7 @@ SKMealyNode >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:17'
+	#'squeak_changestamp' : 'JS 6/9/2026 02:35'
 }
 SKMealyNode >> initialize [
 
@@ -54,7 +64,17 @@ SKMealyNode >> initialize [
 	
 	self extent: self defaultSize;
 		color: self normalColor;
-		borderWidth: 3
+		borderWidth: 3;
+		setToBasicNode
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'JS 6/9/2026 02:38'
+}
+SKMealyNode >> isEnd [
+	
+	^ (self nodeType = 'end')
 ]
 
 {
@@ -73,6 +93,15 @@ SKMealyNode >> isInDrag [
 SKMealyNode >> isInDrag: aBoolean [
 
 	isInDrag := aBoolean
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'JS 6/9/2026 02:38'
+}
+SKMealyNode >> isStart [
+	
+	^ self nodeType = 'start'
 ]
 
 {
@@ -105,11 +134,27 @@ SKMealyNode >> mouseDown: anEvent [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/9/2026 00:43'
+}
+SKMealyNode >> nodeType [
+	^ nodeType
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/9/2026 00:43'
+}
+SKMealyNode >> nodeType: anObject [
+	nodeType := anObject
+]
+
+{
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:14'
+	#'squeak_changestamp' : 'JS 6/9/2026 00:37'
 }
 SKMealyNode >> normalColor [
-
+	"Use stylesheet, design should be discussed with customer"
 	^ Color fromString: '#df8e1d'
 ]
 
@@ -129,6 +174,33 @@ SKMealyNode >> selectNode [
 SKMealyNode >> selectedColor [
 
 	^ Color fromString: '#8caaee'
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'JS 6/9/2026 02:15'
+}
+SKMealyNode >> setToBasicNode [
+	
+	self nodeType: 'basic'
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'JS 6/9/2026 02:15'
+}
+SKMealyNode >> setToEndNode [
+	
+	self nodeType: 'end'
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'JS 6/9/2026 02:15'
+}
+SKMealyNode >> setToStartNode [
+	
+	self nodeType: 'start'
 ]
 
 {
