@@ -49,3 +49,12 @@ SKTrunk >> textureFilename [
 
 	^ 'Trunk.png'
 ]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
+}
+SKTrunk >> zLayer [
+
+	^ 2
+]

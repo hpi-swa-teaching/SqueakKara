@@ -23,7 +23,7 @@ SKChallenge class >> initializeBlankProjectChallengeFor: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'AB 5/29/2026 10:31'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:44'
 }
 SKChallenge class >> initializeChallenge1For: anEnvironment [
 
@@ -222,4 +222,35 @@ SKChallenge class >> initializeChallenge8For: anEnvironment [
 	
 	
 	anEnvironment addKaraAt: 4 @ 2
+]
+
+{
+	#category : #challenges,
+	#'squeak_changestamp' : 'LM 6/9/2026 18:44'
+}
+SKChallenge class >> initializeChallenge9For: anEnvironment [
+	
+	| grid |
+	
+	grid := anEnvironment grid.
+	
+	SKChallenge treeSquarePositions do: [ :aPoint | SKTrunk newInGrid: grid at: aPoint + (3 @ 3)].
+	SKChallenge treeSquarePositions do: [ :aPoint | SKTrunk newInGrid: grid at: aPoint + (7 @ 3)].
+	
+	
+	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 1 with: 4 @ 5).
+	anEnvironment addKara: (SKKara newInGrid: grid at: 8 @ 1 with: 7 @ 1).
+	
+	1 to: 5 do: [ :y | (SKCriticalSection newInGrid: grid at: 5 @ y) group: #group1; color: Color green ]
+]
+
+{
+	#category : #positions,
+	#'squeak_changestamp' : 'JanWein 6/5/2026 14:14'
+}
+SKChallenge class >> treeSquarePositions [
+
+	^ {(-1 @ -1). (-1 @ 0). (-1 @ 1). 
+		(0 @ -1). (0 @ 0). (0 @ 1).
+		(1 @ -1). (1 @ 0). (1 @ 1).}
 ]

@@ -84,6 +84,20 @@ SKKara >> createCloverleaf: aPoint [
 ]
 
 {
+	#category : #'object detection',
+	#'squeak_changestamp' : 'LM 6/8/2026 17:53'
+}
+SKKara >> criticalSectionAhead [
+
+	| target tileAhead |
+	
+	target := self coordinates + self viewDirection.
+	tileAhead := self gridCoordinator getTileAtCoordinates: target.
+	
+	^ tileAhead anySatisfy: [ :each | each isCriticalSection ]
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'AB 5/21/2026 18:22'
 }
@@ -94,7 +108,7 @@ SKKara >> defaultColor [
 
 {
 	#category : #'submorphs - add/remove',
-	#'squeak_changestamp' : 'LM 5/23/2026 18:40'
+	#'squeak_changestamp' : 'LM 6/8/2026 22:26'
 }
 SKKara >> delete [
 
@@ -183,15 +197,20 @@ SKKara >> karaAhead [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'LM 5/29/2026 09:51'
+	#'squeak_changestamp' : 'LM 6/8/2026 18:00'
 }
 SKKara >> lockAt: aPoint [
+
+	| lockSuccessful staysInCriticalSection |
 
 	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
 	
 	(self trunkAhead or: [ self karaAhead ]) ifTrue: [ ^ self ].
 	
-	(self gridCoordinator lockAt: aPoint for: self) ifTrue: [
+	lockSuccessful := (self gridCoordinator lockAt: aPoint for: self).
+	staysInCriticalSection := self onCriticalSection and: [ self criticalSectionAhead ].
+	
+	(lockSuccessful and: [ staysInCriticalSection not ]) ifTrue: [
 		self unlockAt: self coordinates ]
 ]
 
@@ -225,11 +244,20 @@ SKKara >> nextField [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'jt 6/11/2024 13:21'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:47'
 }
 SKKara >> onCloverleaf [
 
-	^ self neighboursHere anySatisfy: [:each | each isCloverleaf]
+	^ self neighboursHere anySatisfy: [ :each | each isCloverleaf ]
+]
+
+{
+	#category : #'object detection',
+	#'squeak_changestamp' : 'LM 6/9/2026 18:48'
+}
+SKKara >> onCriticalSection [
+
+	^ self neighboursHere anySatisfy: [ :each | each isCriticalSection ]
 ]
 
 {
@@ -243,7 +271,7 @@ SKKara >> ownsLockAt: aPoint [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 5/23/2026 17:57'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:50'
 }
 SKKara >> position: aPoint [
 
@@ -251,7 +279,8 @@ SKKara >> position: aPoint [
 	newCoordinates := self coordinatesFromPosition: aPoint.
 	tile := self gridCoordinator getTileAtCoordinates: newCoordinates.
 	
-	(tile anySatisfy: [ :each | each isTrunk or: [ each isKara ] ]) ifTrue: [^ self ].
+	(tile anySatisfy: [ :each | each isTrunk ]) ifTrue: [ ^ self ].
+	(self gridCoordinator isLocked: newCoordinates for: self) ifTrue: [ ^ self ].
 
 	self gridCoordinator
 		unlockAt: self coordinates;
@@ -330,11 +359,13 @@ SKKara >> setTexture [
 
 {
 	#category : #'submorphs - add/remove',
-	#'squeak_changestamp' : 'LM 5/23/2026 18:31'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:26'
 }
 SKKara >> superDelete [
 
-	super delete
+	super delete.
+	self cloverleaf delete.
+	self unlockAt: self coordinates
 ]
 
 {
@@ -417,4 +448,13 @@ SKKara >> workspace [
 SKKara >> workspace: aWorkspace [
 
 	workspace := aWorkspace
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
+}
+SKKara >> zLayer [
+
+	^ 3
 ]

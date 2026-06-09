@@ -138,17 +138,18 @@ SKGridObject >> gridCoordinator [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:40'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:47'
 }
 SKGridObject >> initializeInGrid: aGrid at: aPoint [
 
 	self grid: aGrid.
 	super initialize.
 
-	self coordinates: aPoint.
-	self addToGrid.
-	self setTexture.
-	self scaleToFactor
+	self
+		coordinates: aPoint;
+		setTexture;
+		addToGrid;
+		scaleToFactor
 ]
 
 {
@@ -165,6 +166,15 @@ SKGridObject >> isBlocking [
 	#'squeak_changestamp' : 'jt 6/11/2024 13:18'
 }
 SKGridObject >> isCloverleaf [
+
+	^ false
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 6/5/2026 13:16'
+}
+SKGridObject >> isCriticalSection [
 
 	^ false
 ]
@@ -403,4 +413,13 @@ SKGridObject >> updateColorFor: aForm [
 	      			aForm colorAt: x @ y put: replacement ]]].
 	
 	self image: aForm
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
+}
+SKGridObject >> zLayer [
+
+	^ 100
 ]

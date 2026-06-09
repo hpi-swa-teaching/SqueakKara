@@ -100,3 +100,12 @@ SKCloverleaf >> textureFilename [
 
 	^ 'Cloverleaf.png'
 ]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
+}
+SKCloverleaf >> zLayer [
+
+	^ 1
+]

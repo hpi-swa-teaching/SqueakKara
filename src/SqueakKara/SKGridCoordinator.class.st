@@ -102,12 +102,13 @@ SKGridCoordinator >> gridMatrix: aMatrix [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/26/2026 09:45'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:57'
 }
 SKGridCoordinator >> initializeForGrid: aGrid [
 
-	self grid: aGrid.
-	self gridMatrix: self createGridMatrix.
+	self
+		grid: aGrid;
+		gridMatrix: self createGridMatrix.
 
 	super initialize
 ]
@@ -134,14 +135,36 @@ SKGridCoordinator >> isPointInGridDimensions: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/26/2026 09:44'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:47'
 }
 SKGridCoordinator >> lockAt: aPoint for: anActor [
 	
 	(self grid isPointInGridDimensions: aPoint)
-		ifTrue: [(self gridMatrix at: aPoint x at: aPoint y) lockBy: anActor. ^ true ].
+		ifTrue: [
+			| tile |
+			
+			(self gridMatrix at: aPoint x at: aPoint y) lockBy: anActor.
+			tile := self getTileAtCoordinates: aPoint.
+			tile detect: [ :gridObject | gridObject isCriticalSection ]
+				ifFound: [ :criticalSection | self lockGroup: criticalSection group for: anActor ].
+			^ true ].
 	
 	^ false
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 6/8/2026 22:40'
+}
+SKGridCoordinator >> lockGroup: aSymbol for: anActor [
+
+	self gridMatrix indicesDo: [ :x :y |
+		| tile |
+		
+		tile := self getTileAtCoordinates: x @ y.
+		tile do: [ :gameObject | (gameObject isCriticalSection and: [ gameObject group = aSymbol ]) ifTrue: [
+			tile lockBy: anActor.
+			gameObject color: Color red ]]]
 ]
 
 {
@@ -215,10 +238,31 @@ SKGridCoordinator >> storeObject: aGridObject at: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'AB 5/21/2026 20:30'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:57'
 }
 SKGridCoordinator >> unlockAt: aPoint [
 	
 	(self grid isPointInGridDimensions: aPoint)
-		ifTrue: [(self gridMatrix at: aPoint x at: aPoint y) unlock ]
+		ifTrue: [
+			| tile |
+			
+			(self gridMatrix at: aPoint x at: aPoint y) unlock.
+			tile := self getTileAtCoordinates: aPoint.
+			tile detect: [ :gridObject | gridObject isCriticalSection ]
+				ifFound: [ :criticalSection | self unlockGroup: criticalSection group ]]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 6/9/2026 18:57'
+}
+SKGridCoordinator >> unlockGroup: aSymbol [
+
+	self gridMatrix indicesDo: [ :x :y |
+		| tile |
+		
+		tile := self getTileAtCoordinates: x @ y.
+		tile do: [ :gridObject | (gridObject isCriticalSection and: [ gridObject group = aSymbol ]) ifTrue: [
+			tile unlock.
+			gridObject color: Color green ]]]
 ]
