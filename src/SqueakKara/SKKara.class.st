@@ -299,14 +299,15 @@ SKKara >> rotate [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 6/9/2026 19:22'
+	#'squeak_changestamp' : 'LD 6/9/2026 21:19'
 }
 SKKara >> sayMessageForSomeTime: aString [
+	
 	| delayTime |
 	delayTime := 3.
 	self say: aString.
 	(Delay forSeconds: delayTime) wait.
-	self stopSayingOrThinking.
+	self stopSayingOrThinking
 ]
 
 {
