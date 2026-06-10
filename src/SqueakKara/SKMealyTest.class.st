@@ -140,7 +140,7 @@ SKMealyTest >> tearDown [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 10:39'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 12:17'
 }
 SKMealyTest >> testIntegration [
 
@@ -155,6 +155,7 @@ SKMealyTest >> testIntegration [
 		addNode: node1;
 		addNode: node2;
 		addEdge: edge1.
+	self environment programmingUI testMode: true.
 	self environment run.
 	
 	(Delay forMilliseconds: 500) wait.
@@ -164,7 +165,7 @@ SKMealyTest >> testIntegration [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 14:05'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 12:17'
 }
 SKMealyTest >> testNormalCompile [
 
@@ -178,6 +179,7 @@ SKMealyTest >> testNormalCompile [
 		addNode: node1;
 		addNode: node2;
 		addEdge: edge1.
+	self environment programmingUI testMode: true.
 	logicGraph := self environment programmingUI getCode.
 	
 	self assert: logicGraph nodes size = 2.

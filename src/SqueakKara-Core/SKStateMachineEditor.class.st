@@ -6,14 +6,15 @@ Class {
 		'mode',
 		'selectedNode',
 		'buttons',
-		'nodesToDelete'
+		'nodesToDelete',
+		'nodeCounter'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:46'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:13'
 }
 SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 
@@ -24,16 +25,22 @@ SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 	
 	aNode addDependent: edge.
 	anotherNode addDependent: edge.
+	edge update: #unusedValue. 
+	self actionSelectEdge: edge
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:46'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:38'
 }
 SKStateMachineEditor >> actionCreateNode [
 
 	| node |
-	node := SKMealyNode new.
+	node := SKMealyNode newWithName: self nodeCounter asString.
+	
+	nodeCounter = 0 ifTrue: [node isStartingNode: true].
+	
+	self nodeCounterPP.
 	self playGround addNode: node.
 	node openInHand
 ]
@@ -65,6 +72,25 @@ SKStateMachineEditor >> actionDeleteNode: aNode [
 		
 	self playGround removeNode: aNode.
 	aNode delete
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:44'
+}
+SKStateMachineEditor >> actionDeselectEdge: aEdge [
+
+	aEdge gotDeselected
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:43'
+}
+SKStateMachineEditor >> actionSelectEdge: aEdge [
+
+	self deselectAllEdges.
+	aEdge gotSelected
 ]
 
 {
@@ -122,6 +148,15 @@ SKStateMachineEditor >> colorAllModeButtonsNormal [
 ]
 
 {
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:43'
+}
+SKStateMachineEditor >> deselectAllEdges [
+
+	self playGround edges do: [:aEdge | self actionDeselectEdge: aEdge]
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:57'
 }
@@ -140,29 +175,24 @@ SKStateMachineEditor >> enqueueNodeToDelete: aNode [
 ]
 
 {
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:15'
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:20'
 }
-SKStateMachineEditor >> findeEdgeToDelete: aPosition [
+SKStateMachineEditor >> handleDeleteModePlayGroundClicked: aPosition [
 
-	| edge distance limit |
+	| edge |
 	
-	"max distance from the line where it will be clicked"
-	limit := 25.
-	
-	edge := self playGround findNearestEdge: aPosition.
-	edge ifNil: [^ nil].
-	
-	distance := self playGround distanceFrom: aPosition toEdge: edge.
-	
-	distance <= limit ifTrue: [self actionDeleteEdge: edge]
+	edge := self selectEdgeNear: aPosition.
+	edge ifNil: [^ self].
+	self actionDeleteEdge: edge
+
 ]
 
 {
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:24'
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:20'
 }
-SKStateMachineEditor >> handleEdgeModeNodeClick: aNode [
+SKStateMachineEditor >> handleEdgeModeNodeClicked: aNode [
 
 	self selectedNode = aNode ifTrue: [
 		self selectedNode: nil.
@@ -174,6 +204,21 @@ SKStateMachineEditor >> handleEdgeModeNodeClick: aNode [
 		^ nil].
 	
 	self selectedNode: aNode
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:25'
+}
+SKStateMachineEditor >> handleSelectModePlayGroundClicked: aPosition [
+
+	| edge |
+	
+	edge := self selectEdgeNear: aPosition.
+	edge ifNil: [^ self].
+	self actionSelectEdge: edge
+	
+	
 ]
 
 {
@@ -334,7 +379,7 @@ SKStateMachineEditor >> modeButtonVerticalDistance [
 
 {
 	#category : #modes,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:03'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:13'
 }
 SKStateMachineEditor >> modeLables [
 
@@ -343,31 +388,50 @@ SKStateMachineEditor >> modeLables [
 	newDict
 		at: #drag put: 'Drag Mode';
 		at: #edge put: 'Edge Mode';
-		at: #delete put: 'Delete Mode'.
+		at: #delete put: 'Delete Mode';
+		at: #select put: 'Select Mode'.
 		
 	^ newDict
 ]
 
 {
 	#category : #modes,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:03'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:13'
 }
 SKStateMachineEditor >> modes [
 	
 	"first item is the last item in the list"
-	^ { #edge. #delete. #drag }
+	^ { #edge. #delete. #drag. #select }
 ]
 
 {
 	#category : #events,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:16'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:20'
 }
 SKStateMachineEditor >> nodeClicked: aNode [
 
 	self mode caseOf: {
 		[#delete] -> [self actionDeleteNode: aNode].
-		[#edge]   -> [self handleEdgeModeNodeClick: aNode]
+		[#edge]   -> [self handleEdgeModeNodeClicked: aNode]
 	} otherwise: []
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:34'
+}
+SKStateMachineEditor >> nodeCounter [
+
+	^ nodeCounter ifNil: [nodeCounter := 0]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:35'
+}
+SKStateMachineEditor >> nodeCounterPP [
+
+	nodeCounter := nodeCounter + 1
 ]
 
 {
@@ -399,12 +463,13 @@ SKStateMachineEditor >> playGround [
 
 {
 	#category : #events,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 13:03'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:20'
 }
 SKStateMachineEditor >> playGroundClicked: aPosition [
 
 	self mode caseOf: {
-		[#delete] -> [self findeEdgeToDelete: aPosition]
+		[#delete] -> [self handleDeleteModePlayGroundClicked: aPosition]. 
+		[#select] -> [self handleSelectModePlayGroundClicked: aPosition]
 	} otherwise: []
 ]
 
@@ -415,6 +480,27 @@ SKStateMachineEditor >> playGroundClicked: aPosition [
 SKStateMachineEditor >> queueNodeToDelete: aNode [
 
 	self nodesToDelete add: aNode
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:45'
+}
+SKStateMachineEditor >> selectEdgeNear: aPosition [
+
+	| edge distance limit |
+	
+	"max distance from the line where it will be clicked"
+	limit := 50.
+	
+	edge := self playGround findNearestEdge: aPosition.
+	edge ifNil: [^ nil].
+	
+	distance := self playGround distanceFrom: aPosition toEdge: edge.
+	distance := distance abs.
+	
+	distance <= limit ifFalse: [^ nil].
+	^ edge
 ]
 
 {
@@ -462,13 +548,14 @@ SKStateMachineEditor >> stepTime [
 
 {
 	#category : #modes,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:22'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:43'
 }
 SKStateMachineEditor >> toggleMode: aMode [
 
 	self 
 		colorAllModeButtonsNormal;
 		markModeButtonSelected: aMode;
+		deselectAllEdges;
 		mode: aMode
 ]
 
