@@ -2,61 +2,136 @@ Class {
 	#name : #SKBlock,
 	#superclass : #Morph,
 	#instVars : [
-		'text',
 		'leftSource',
 		'blockParts',
-		'label',
-		'category'
+		'blockRows',
+		'category',
+		'anchorPoint',
+		'actionConnectionPoints',
+		'valueConnectionPoints'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/26/2026 21:41'
+	#category : #'dropping/grabbing',
+	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
-SKBlock >> addActionPart: aLabel withDefault: aDefaultValue [
+SKBlock >> aboutToBeGrabbedBy: aHand [
 
-	self addBlockPart: (SKBlockPart new type: #Action; label: aLabel; value: aDefaultValue; yourself)
+	super aboutToBeGrabbedBy: aHand.
+	
+	self anchorPoint disconnect
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'FR 5/27/2026 01:48'
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
+}
+SKBlock >> actionConnectionPoints [
+
+	^ actionConnectionPoints ifNil: [actionConnectionPoints := OrderedCollection new]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
 SKBlock >> addBlockPart: aBlockPart [
 
-	self blockParts add: aBlockPart.
+	aBlockPart block: self.
+	self blockRows ifEmpty: [self addBlockRow: SKBlockRow new].
+	self lastBlockRow addBlockPart: aBlockPart.
+	self blockParts add: aBlockPart
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/3/2026 12:33'
+}
+SKBlock >> addBlockRow: aBlockRow [
+
+	aBlockRow block: self.
+	self blockRows add: aBlockRow.
+	self addMorphBack: aBlockRow
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 19:39'
+}
+SKBlock >> addBooleanPart [
 	
-	self addMorph: aBlockPart;
-			addMorph: aBlockPart label.
+	^ self addInputSlotPart: (SKBooleanSlotPart new)
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 15:59'
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
-SKBlock >> addBooleanPart: aLabel withDefault: aDefaultValue [
+SKBlock >> addConnectionPoint: aConnectionPoint [
 
-	self addBlockPart: (SKBlockPart new type: #Boolean; label: aLabel; value: aDefaultValue; yourself)
+	(aConnectionPoint type = #Action) ifTrue: [
+		self actionConnectionPoints add: aConnectionPoint] ifFalse: [
+			self valueConnectionPoints add: aConnectionPoint]
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 15:59'
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 19:39'
 }
-SKBlock >> addIntegerPart: aLabel withDefault: aDefaultValue [
+SKBlock >> addInputSlotPart: anInputSlotPart [
 
-	self addBlockPart: (SKBlockPart new type: #Integer; label: aLabel; value: aDefaultValue; yourself)
+	self addBlockPart: anInputSlotPart.
+	self addConnectionPoint: anInputSlotPart connectionPoint.
+	^ anInputSlotPart
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 16:00'
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 19:39'
 }
-SKBlock >> addStringPart: aLabel withDefault: aDefaultValue [
+SKBlock >> addIntegerPart [
+	
+	^ self addInputSlotPart: (SKTextSlotPart new type: #Integer)
+]
 
-	self addBlockPart: (SKBlockPart new type: #String; label: aLabel; value: aDefaultValue; yourself)
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
+}
+SKBlock >> addLabel: aString [
+	
+	self addBlockPart: (SKLabelPart new label: aString)
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 19:48'
+}
+SKBlock >> addStringPart [
+	
+	^ self addInputSlotPart: (SKTextSlotPart new setDefaultUIText: 'Placeholder')
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 22:45'
+}
+SKBlock >> addStringPartWithText: aString [
+	
+	^ self addInputSlotPart: (SKTextSlotPart new setDefaultUIText: aString)
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
+}
+SKBlock >> anchorPoint [
+
+	^ anchorPoint ifNil: [anchorPoint := SKBlockConnectionPoint new
+		uiDelegate: self;
+		type: #Anchor]
 ]
 
 {
@@ -97,20 +172,20 @@ SKBlock >> blockMovementColor [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/11/2026 18:40'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
 SKBlock >> blockParts [
 
-	^ blockParts ifNil: [blockParts := OrderedCollection new].
+	^ blockParts ifNil: [blockParts := OrderedCollection new]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/11/2026 18:40'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
-SKBlock >> blockParts: anOrderedCollection [
+SKBlock >> blockRows [
 
-	blockParts := anOrderedCollection.
+	^ blockRows ifNil: [blockRows := OrderedCollection new]
 ]
 
 {
@@ -133,167 +208,188 @@ SKBlock >> blockSensingColor [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 16:02'
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
 SKBlock >> blockType [
 
-	^ SubclassResponsibility.
+	self subclassResponsibility
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:44'
+	#category : #colors,
+	#'squeak_changestamp' : 'FR 6/9/2026 18:16'
 }
 SKBlock >> borderColorFromCategory [
 
 	^((Dictionary new at: #default put: self blockDefaultBorderColor;
 		at: #movement put: self blockMovementBorderColor;
-		at: #sensing put: self blockSensingBorderColor; yourself) at: self category).
+		at: #sensing put: self blockSensingBorderColor; yourself) at: self category)
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/13/2026 12:31'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
 SKBlock >> category [
 
-	^ category ifNil: [category := #default].
+	^ category ifNil: [category := #default]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 5/13/2026 12:34'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
 SKBlock >> category: aCategory [
 
 	category := aCategory.
 	
 	self color: self colorFromCategory;
-		borderColor: self borderColorFromCategory.
+		borderColor: self borderColorFromCategory
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:44'
+	#category : #colors,
+	#'squeak_changestamp' : 'FR 6/9/2026 18:16'
 }
 SKBlock >> colorFromCategory [
 
 	^ (Dictionary new at: #default put: self blockDefaultColor;
 		at: #movement put: self blockMovementColor;
-		at: #sensing put: self blockSensingColor; yourself) at: self category.
+		at: #sensing put: self blockSensingColor; yourself) at: self category
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/11/2026 09:50'
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
 }
-SKBlock >> command [
+SKBlock >> connectionPointPositionForType: aConnectionPointType [
 
-	^ SubclassResponsibility.
+	self subclassResponsibility
+]
+
+{
+	#category : #snapping,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
+}
+SKBlock >> findClosestSnapTargetIn: anObject [
+
+	| closestConnectionPoint shortestDistance currentDistance |
+
+	shortestDistance := 20.
+	closestConnectionPoint := nil.
+	
+	(self validSnapConnectionsIn: anObject) do: [:each |
+		currentDistance := self anchorPoint dist: each.
+		currentDistance < shortestDistance ifTrue: [
+			shortestDistance := currentDistance.
+			closestConnectionPoint := each]].
+
+	^ closestConnectionPoint
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
+}
+SKBlock >> getCode [
+
+	self subclassResponsibility
 ]
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'FR 5/5/2026 21:15'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
 }
 SKBlock >> handlesKeyboard: anEvent [
-	^false
+
+	^ false
 ]
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'FR 5/5/2026 23:08'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
 }
 SKBlock >> handlesMouseDown: anEvent [
-	^self leftSource.
+
+	^ self leftSource
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/27/2026 10:50'
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:58'
 }
 SKBlock >> initialize [
 	
-	super initialize.	
+	super initialize.
 	
 	self borderColor: self borderColorFromCategory;
 		color: self colorFromCategory;
-		hResizing: #shrinkWrap;
-		vResizing: #shrinkWrap;
-		borderWidth: 2;
+		borderWidth: SKBlockStyle borderWidth;
 		layoutPolicy: TableLayout new;
-		listDirection: #rightToLeft;
+		listDirection: #topToBottom;
 		wrapCentering: #center;
-    		cellPositioning: #center;
-		cellInset: 2@0;
-		layoutInset: 5@ 0;
-		addMorph: (Morph new color: Color transparent; height: 24; width: 0);
-		addMorph: self label.
+    		cellPositioning: #topLeft
 ]
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 5/20/2026 01:43'
+	#'squeak_changestamp' : 'FR 6/8/2026 16:54'
 }
 SKBlock >> justDroppedInto: anObject event: anEvent [
+
+	| snapTarget |
+
 	super justDroppedInto: anObject event: anEvent.
-	anObject == World ifTrue:[self delete].
-
+	anObject == World ifTrue: [self delete. ^ self].
+	snapTarget := self findClosestSnapTargetIn: anObject.
+	snapTarget ifNotNil: [self snapToTarget: snapTarget].
+	self updateLayout
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/27/2026 02:08'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
 }
-SKBlock >> label [
+SKBlock >> lastBlockRow [
 
-	^ label ifNil: [label := StringMorph new contents: 'Placeholder'].
+	^ self blockRows ifEmpty: [nil] ifNotEmpty: [self blockRows last]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/27/2026 00:09'
-}
-SKBlock >> label: aString [
-	
-	self label contents: aString.
-	"self extent: self label extent+(10@10).
-	self label center: self center."
-	"self label top: self center y."
-	
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/5/2026 23:07'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
 }
 SKBlock >> leftSource [
-	^ leftSource ifNil: [^false]
+
+	^ leftSource ifNil: [leftSource := false]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/19/2026 13:57'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
 }
 SKBlock >> leftSource: aBoolean [
-	leftSource := aBoolean
+
+	leftSource := aBoolean.
+	aBoolean ifTrue: [self disableTableLayout: true]
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/20/2026 00:22'
+	#category : #layout,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
 }
 SKBlock >> minHeight [
 
-	^ 35
+	^ SKBlockStyle blockPartHeight
 ]
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'FR 5/5/2026 23:09'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:30'
 }
 SKBlock >> mouseDown: anEvent [
+
 	anEvent hand
 				waitForClicksOrDrag: self
 				event: anEvent
@@ -303,27 +399,114 @@ SKBlock >> mouseDown: anEvent [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 5/20/2026 01:33'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
 }
 SKBlock >> rejectDropMorphEvent: anEvent [
-| h |
+
+	| h |
+	
 	h := anEvent hand.
 	WorldState addDeferredUIMessage: [h grabMorph: self].
-	anEvent wasHandled: true.
+	anEvent wasHandled: true
+]
+
+{
+	#category : #'submorphs - callbacks',
+	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
+}
+SKBlock >> removedMorph: aMorph [
+
+	super removedMorph: aMorph.
+
+	self updateLayout
+]
+
+{
+	#category : #snapping,
+	#'squeak_changestamp' : 'FR 6/9/2026 18:17'
+}
+SKBlock >> snapRadius [
+
+	^SKBlockStyle unit * 20.
+]
+
+{
+	#category : #snapping,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
+}
+SKBlock >> snapToTarget: aConnectionPoint [
+	
+	aConnectionPoint isConnected ifTrue: [
+		(aConnectionPoint uiDelegate resolveConflictingBlockEmbeddingFor: self) ifNil: [^ self]].
+	
+	self anchorPoint connectTo: aConnectionPoint.
+	
+	aConnectionPoint uiDelegate embedVisualBlock: self
 ]
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 5/5/2026 23:10'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
 }
 SKBlock >> startDrag: anEvent [
+
 	anEvent hand grabMorph: self
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
+}
+SKBlock >> tabHeight [
+
+	^ 0
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:32'
+}
+SKBlock >> updateLayout [
+
+	| width height |
+	
+	self fullBounds.
+
+	width := (self blockRows collect: #width) max + (self borderWidth * 2).
+	height := (self blockRows collect: #height) sum + self tabHeight + (self borderWidth * 2).
+	
+	self extent: width@height.
+	
+	self anchorPoint isConnected ifTrue: [
+		self anchorPoint connectedPoint uiDelegate 
+			layoutChanged;
+			changed;
+			updateLayout]
+]
+
+{
+	#category : #snapping,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
+}
+SKBlock >> validSnapConnectionsIn: anObject [
+
+	self subclassResponsibility
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:12'
+}
+SKBlock >> valueConnectionPoints [
+
+	^ valueConnectionPoints ifNil: [valueConnectionPoints := OrderedCollection new]
+]
+
+{
 	#category : #'event handling',
-	#'squeak_changestamp' : 'FR 5/5/2026 21:15'
+	#'squeak_changestamp' : 'FR 6/9/2026 00:12'
 }
 SKBlock >> wantsKeyboardFocus [
-	^false
+
+	^ false
 ]

@@ -2,44 +2,85 @@ Class {
 	#name : #SKValueBlock,
 	#superclass : #SKBlock,
 	#instVars : [
-		'value',
-		'type'
+		'value'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 16:03'
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKValueBlock >> blockType [
 
-	^ #Value.
+	^ #Value
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 18:02'
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
+}
+SKValueBlock >> connectionPointPositionForType: aConnectionPointType [
+
+	^ self leftCenter
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
+}
+SKValueBlock >> getCode [
+
+	| args |
+	
+	args := (self blockParts select: [:each | each type ~~ #Label]) collect: [:each | each value asString].
+	
+	^ self value valueWithArguments: args asArray
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKValueBlock >> type [
 
-	^ SubclassResponsibility.
+	self subclassResponsibility
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 12:41'
+	#category : #snapping,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:16'
+}
+SKValueBlock >> validSnapConnectionsIn: anObject [
+
+	| validConnections |
+
+	validConnections := OrderedCollection new.
+
+	anObject allMorphsDo: [:each |
+		((each isKindOf: SKActionBlock) and: [
+			((each hasOwner: self) not) and: [
+				each ~= self]]) ifTrue: [
+					validConnections addAll: (each valueConnectionPoints select: [:connection |
+						((connection dist: self anchorPoint) < self snapRadius)])]].
+
+	^ validConnections
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKValueBlock >> value [
 
-	^ value.
+	^ value
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 12:43'
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
-SKValueBlock >> value: aString [
+SKValueBlock >> value: aBlockClosure [
 
-	value := aString.
+	value := aBlockClosure
 ]
