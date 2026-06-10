@@ -5,22 +5,22 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 12:54'
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKIntegerBlock >> initialize [
 
 	super initialize.
 	
 	self cornerStyle: #rounded.
-	self cornerRadius: 20.
+	self cornerRadius: 20
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 18:03'
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKIntegerBlock >> type [
 
-	^ #Integer.
+	^ #Integer
 ]

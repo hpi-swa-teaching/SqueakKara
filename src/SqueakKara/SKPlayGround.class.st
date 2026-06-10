@@ -208,7 +208,7 @@ SKPlayGround >> nodes [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:04'
+	#'squeak_changestamp' : 'LP 6/9/2026 16:28'
 }
 SKPlayGround >> removeEdge: aEdge [
 

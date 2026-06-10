@@ -4,11 +4,23 @@ Class {
 	#instVars : [
 		'controller',
 		'isInDrag',
-		'nodeType',
+		'isStartingNode',
+		'name',
 		'stateMachineEditor'
 	],
 	#category : #'SqueakKara-Core'
 }
+
+{
+	#category : #constructor,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:36'
+}
+SKMealyNode class >> newWithName: aString [
+
+	^ (self new
+		name: aString;
+		yourself)
+]
 
 {
 	#category : #accessing,
@@ -88,6 +100,24 @@ SKMealyNode >> isStart [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 10:13'
+}
+SKMealyNode >> isStartingNode [
+
+	^ isStartingNode ifNil: [isStartingNode := false]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:25'
+}
+SKMealyNode >> isStartingNode: aBoolean [
+
+	isStartingNode := aBoolean
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'JS 6/9/2026 13:24'
 }
@@ -114,6 +144,24 @@ SKMealyNode >> mouseDown: anEvent [
 		threshold: HandMorph dragThreshold].
 	self controller nodeClicked: self
 
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 10:06'
+}
+SKMealyNode >> name [
+
+	^ name
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 10:06'
+}
+SKMealyNode >> name: aString [
+
+	name := aString
 ]
 
 {

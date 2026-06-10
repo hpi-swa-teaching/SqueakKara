@@ -83,12 +83,31 @@ SKLogicGraph >> getNodeByName: aString [
 ]
 
 {
+	#category : #check,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 12:01'
+}
+SKLogicGraph >> isValid [
+
+	self startingNode ifNil: [^ false].
+	^ true
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:08'
 }
 SKLogicGraph >> nodes [
 
 	^ nodes ifNil: [nodes := Dictionary new]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 14:13'
+}
+SKLogicGraph >> removeNode: aNode [
+
+	self nodes removeKey: aNode name
 ]
 
 {
