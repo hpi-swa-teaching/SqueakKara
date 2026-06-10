@@ -60,7 +60,7 @@ SKMealyNode >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/9/2026 02:35'
+	#'squeak_changestamp' : 'JS 6/10/2026 12:59'
 }
 SKMealyNode >> initialize [
 
@@ -69,7 +69,7 @@ SKMealyNode >> initialize [
 	self extent: self defaultSize;
 		color: self normalColor;
 		borderWidth: 3;
-		setToBasicNode
+		isStartingNode: false
 ]
 
 {
@@ -88,15 +88,6 @@ SKMealyNode >> isInDrag [
 SKMealyNode >> isInDrag: aBoolean [
 
 	isInDrag := aBoolean
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/9/2026 02:38'
-}
-SKMealyNode >> isStart [
-	
-	^ self nodeType = 'start'
 ]
 
 {
@@ -165,22 +156,6 @@ SKMealyNode >> name: aString [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:43'
-}
-SKMealyNode >> nodeType [
-	^ nodeType
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:43'
-}
-SKMealyNode >> nodeType: anObject [
-	nodeType := anObject
-]
-
-{
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:45'
 }
@@ -205,24 +180,6 @@ SKMealyNode >> selectNode [
 SKMealyNode >> selectedColor [
 
 	^ SKStylesheet colorRed
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/9/2026 02:15'
-}
-SKMealyNode >> setToBasicNode [
-	
-	self nodeType: 'basic'
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/9/2026 02:15'
-}
-SKMealyNode >> setToStartNode [
-	
-	self nodeType: 'start'
 ]
 
 {
@@ -281,13 +238,13 @@ SKMealyNode >> unselectNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/9/2026 17:18'
+	#'squeak_changestamp' : 'JS 6/10/2026 12:58'
 }
 SKMealyNode >> visualiseNodeType [
 
 |hasStartEdge|
 
-	self isStart ifTrue: [
+	self isStartingNode ifTrue: [
 		hasStartEdge := false.
 		(self stateMachineEditor playGround findAllEdgesToNode: self) do: [:edge |
 				edge fromNode == nil ifTrue: 

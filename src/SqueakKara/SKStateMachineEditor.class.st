@@ -47,13 +47,13 @@ SKStateMachineEditor >> actionAddEdgeFromPosition: aPosition toNode: aNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:38'
+	#'squeak_changestamp' : 'JS 6/10/2026 13:07'
 }
 SKStateMachineEditor >> actionCreateNode [
 
 	| node |
 	node := SKMealyNode newWithName: self nodeCounter asString.
-	
+	node stateMachineEditor: self.
 	nodeCounter = 0 ifTrue: [node isStartingNode: true].
 	
 	self nodeCounterPP.
@@ -63,13 +63,13 @@ SKStateMachineEditor >> actionCreateNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/9/2026 15:45'
+	#'squeak_changestamp' : 'JS 6/10/2026 13:02'
 }
 SKStateMachineEditor >> actionDeleteEdge: aEdge [
 
 	self playGround removeEdge: aEdge.
 	aEdge fromNode ifNil: [
-		aEdge toNode setToBasicNode].
+		aEdge toNode isStartingNode: false].
 	aEdge delete
 ]
 
@@ -208,7 +208,7 @@ SKStateMachineEditor >> handleDeleteModePlayGroundClicked: aPosition [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/9/2026 14:58'
+	#'squeak_changestamp' : 'JS 6/10/2026 13:01'
 }
 SKStateMachineEditor >> handleEdgeModeNodeClick: aNode [
 
@@ -223,13 +223,13 @@ SKStateMachineEditor >> handleEdgeModeNodeClick: aNode [
 	
 	self selectedNode: aNode.
 	self startEdgePosition ifNotNil:[
-		aNode isStart ifTrue:[
+		aNode isStartingNode ifTrue:[
 			(self playGround findAllEdgesToNode: aNode) do: [:edge |
 				edge fromNode == nil ifTrue: [
 					self playGround removeEdge: edge.
 					edge delete]]]
 		ifFalse: [
-			aNode setToStartNode.].
+			aNode isStartingNode: true.].
 		self actionAddEdgeFromPosition: self startEdgePosition toNode: aNode.
 		self startEdgePosition: nil.
 		self selectedNode: nil].
@@ -237,8 +237,8 @@ SKStateMachineEditor >> handleEdgeModeNodeClick: aNode [
 ]
 
 {
-	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:20'
+	#category : #actions,
+	#'squeak_changestamp' : 'JS 6/10/2026 13:13'
 }
 SKStateMachineEditor >> handleEdgeModeNodeClicked: aNode [
 
@@ -251,7 +251,19 @@ SKStateMachineEditor >> handleEdgeModeNodeClicked: aNode [
 		self selectedNode: nil.
 		^ nil].
 	
-	self selectedNode: aNode
+	self selectedNode: aNode.
+	self startEdgePosition ifNotNil:[
+		aNode isStartingNode ifTrue:[
+			(self playGround findAllEdgesToNode: aNode) do: [:edge |
+				edge fromNode == nil ifTrue: [
+					self playGround removeEdge: edge.
+					edge delete]]]
+		ifFalse: [
+			aNode isStartingNode: true.].
+		self actionAddEdgeFromPosition: self startEdgePosition toNode: aNode.
+		self startEdgePosition: nil.
+		self selectedNode: nil].
+						
 ]
 
 {
@@ -511,12 +523,13 @@ SKStateMachineEditor >> playGround [
 
 {
 	#category : #events,
-	#'squeak_changestamp' : 'JS 6/10/2026 12:53'
+	#'squeak_changestamp' : 'JS 6/10/2026 13:09'
 }
 SKStateMachineEditor >> playGroundClicked: aPosition [
 
 	self mode caseOf: {
-		[#delete] -> [self handleDeleteModePlayGroundClicked: aPosition]. 		[#edge]   -> [self startEdgePosition: aPosition].
+		[#delete] -> [self handleDeleteModePlayGroundClicked: aPosition]. 
+		[#edge]   -> [self startEdgePosition: aPosition].
 		[#select] -> [self handleSelectModePlayGroundClicked: aPosition]
 	} otherwise: []
 ]

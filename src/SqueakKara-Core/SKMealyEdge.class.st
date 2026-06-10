@@ -5,8 +5,8 @@ Class {
 		'line',
 		'fromNode',
 		'toNode',
-		'controller',
 		'fromPosition',
+		'controller',
 		'popUpActive',
 		'edgeMorph',
 		'arrowhead',
@@ -269,7 +269,7 @@ SKMealyEdge >> getPointBetween: twoPoints interpolatedBy: aNumber [
 
 {
 	#category : #vectorHelpFunctions,
-	#'squeak_changestamp' : 'LP 6/3/2026 00:59'
+	#'squeak_changestamp' : 'JS 6/10/2026 13:23'
 }
 SKMealyEdge >> getPointsWithoutNodesOverlapping [
 
@@ -277,9 +277,12 @@ SKMealyEdge >> getPointsWithoutNodesOverlapping [
 	
 	vectorBetweenNodes := self getVectorBetweenNodeCenters.
 	length := self lengthOfVector:(vectorBetweenNodes). 
-	centerToBorder := self fromNode defaultSize x/2.
+	centerToBorder := self toNode defaultSize x/2.
 	
-	firstPoint := fromNode center + (vectorBetweenNodes * (centerToBorder/length)).
+	fromNode ifNotNil: [
+		firstPoint := fromNode center  + (vectorBetweenNodes * (centerToBorder/length)).]
+	ifNil: 
+		[firstPoint := fromPosition + (vectorBetweenNodes * (centerToBorder/length))].
 	seccondPoint := toNode center  - (vectorBetweenNodes * (centerToBorder/length)).
 	
 	^ {firstPoint. seccondPoint}
@@ -288,11 +291,12 @@ SKMealyEdge >> getPointsWithoutNodesOverlapping [
 
 {
 	#category : #vectorHelpFunctions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:47'
+	#'squeak_changestamp' : 'JS 6/10/2026 13:20'
 }
 SKMealyEdge >> getVectorBetweenNodeCenters [
 
- 	^ self toNode center - self fromNode center 
+ 	self fromNode ifNotNil: [^ self toNode center - self fromNode center]
+		ifNil: [^ self toNode center - self fromPosition]
 ]
 
 {

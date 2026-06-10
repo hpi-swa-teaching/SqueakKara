@@ -49,10 +49,10 @@ SKMealyNodeTest >> testNodeSize [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JS 6/9/2026 17:40'
+	#'squeak_changestamp' : 'JS 6/10/2026 13:00'
 }
 SKMealyNodeTest >> testNodeType [
 
-	node setToStartNode.
-	self assert: node nodeType =  'start'
+	node isStartingNode: true.
+	self assert: node isStartingNode
 ]
