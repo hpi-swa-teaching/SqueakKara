@@ -136,5 +136,12 @@
 			'Kara-FacingDown.png'
 		],
 		#encoding : @8
+	},
+	SquotImageMapper {
+		#path : FSAbsolutePath [
+			'assets',
+			'Kara-reset.png'
+		],
+		#encoding : @8
 	}
 ]
