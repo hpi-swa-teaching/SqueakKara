@@ -23,15 +23,6 @@ SKBlockSpace class >> newWithController: aController [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:40'
-}
-SKBlockSpace class >> startBlockEdit: anEnvironment [
-
-	^ self basicNew startBlockEdit
-]
-
-{
-	#category : #'as yet unclassified',
 	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:16'
 }
 SKBlockSpace >> acceptDroppingMorph: aMorph event: anEvent [

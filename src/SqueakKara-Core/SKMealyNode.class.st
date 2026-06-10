@@ -134,11 +134,11 @@ SKMealyNode >> nodeType: anObject [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:37'
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:45'
 }
 SKMealyNode >> normalColor [
-	"Use stylesheet, design should be discussed with customer"
-	^ Color fromString: '#df8e1d'
+
+	^ SKStylesheet colorOrange
 ]
 
 {
@@ -152,11 +152,11 @@ SKMealyNode >> selectNode [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:14'
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:45'
 }
 SKMealyNode >> selectedColor [
 
-	^ Color fromString: '#8caaee'
+	^ SKStylesheet colorRed
 ]
 
 {

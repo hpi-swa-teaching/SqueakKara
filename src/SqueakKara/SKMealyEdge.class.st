@@ -13,13 +13,13 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'JS 6/9/2026 02:18'
+	#'squeak_changestamp' : 'JS 6/10/2026 10:09'
 }
 SKMealyEdge class >> newFrom: aNode to: anotherNode [
 
 	| instance line |
 	instance := self new.
-	line := LineMorph from: aNode center to: anotherNode center color: (Color fromString: '#8caaee') width: 5.
+	line := LineMorph from: aNode center to: anotherNode center color: instance normalColor width: 5.
 	instance 
 		line: line;
 		fromNode: aNode;
@@ -128,6 +128,15 @@ SKMealyEdge >> line: aLine [
 ]
 
 {
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:46'
+}
+SKMealyEdge >> normalColor [
+
+	^ SKStylesheet colorLightBlue
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:11'
 }
@@ -147,16 +156,16 @@ SKMealyEdge >> toNode: aNode [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'JS 6/9/2026 15:28'
+	#'squeak_changestamp' : 'JS 6/10/2026 10:11'
 }
 SKMealyEdge >> update: aValue [
 "TODO: Change colour"
 	
 	self line delete.
 	self fromNode ifNotNil:[
-		self line: (LineMorph from: self fromNode center to: self toNode center color: (Color fromString: '#8caaee') width: 5)]
+		self line: (LineMorph from: self fromNode center to: self toNode center color: self normalColor width: 5)]
 		ifNil:[
-			self line: (LineMorph from: self fromPosition to: self toNode center color: (Color fromString: '#8caaee') width: 5)].
+			self line: (LineMorph from: self fromPosition to: self toNode center color: self normalColor width: 5)].
 	
 	self controller playGround addComponent: self line
 ]

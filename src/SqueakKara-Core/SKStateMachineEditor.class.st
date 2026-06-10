@@ -323,20 +323,20 @@ SKStateMachineEditor >> mode: aMode [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:16'
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:48'
 }
 SKStateMachineEditor >> modeButtonNormalColor [
 
-	^ Color fromString: '#a6d189'
+	^ SKStylesheet colorLightGreen
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:17'
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:48'
 }
 SKStateMachineEditor >> modeButtonSelectedColor [
 
-	^ Color fromString: '#8caaee'
+	^ SKStylesheet colorYellow
 ]
 
 {
