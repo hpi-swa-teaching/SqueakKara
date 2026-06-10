@@ -140,7 +140,7 @@
 	SquotImageMapper {
 		#path : FSAbsolutePath [
 			'assets',
-			'Kara-reset.png'
+			'reset.png'
 		],
 		#encoding : @8
 	}
