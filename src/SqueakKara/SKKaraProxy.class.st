@@ -110,7 +110,7 @@ SKKaraProxy >> move [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LD 6/9/2026 19:16'
+	#'squeak_changestamp' : 'LD 6/10/2026 14:49'
 }
 SKKaraProxy >> moveAction [
 
@@ -120,7 +120,7 @@ SKKaraProxy >> moveAction [
 			previousPosition := self coordinates.
 			self kara move ]
 		ifTrue: [ 
-			self kara sayMessageForSomeTime: 'Hey, auf dem Feld ist bereits eine Kara!'.
+			self kara sayMessageForThreeSeconds: 'Hey, auf dem Feld ist bereits eine Kara!'.
 			false ]
 ]
 
