@@ -3,7 +3,9 @@ Class {
 	#superclass : #CircleMorph,
 	#instVars : [
 		'controller',
-		'isInDrag'
+		'isInDrag',
+		'isStartingNode',
+		'name'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -76,6 +78,24 @@ SKMealyNode >> isInDrag: aBoolean [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 10:13'
+}
+SKMealyNode >> isStartingNode [
+
+	^ isStartingNode ifNil: [isStartingNode := false]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:25'
+}
+SKMealyNode >> isStartingNode: aBoolean [
+
+	isStartingNode := aBoolean
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:06'
 }
@@ -102,6 +122,24 @@ SKMealyNode >> mouseDown: anEvent [
 		threshold: HandMorph dragThreshold].
 	self controller nodeClicked: self
 
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 10:06'
+}
+SKMealyNode >> name [
+
+	^ name
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 10:06'
+}
+SKMealyNode >> name: aString [
+
+	name := aString
 ]
 
 {

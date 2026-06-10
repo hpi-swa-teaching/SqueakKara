@@ -3,10 +3,29 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'runner',
-		'executeContext'
+		'executeContext',
+		'environment'
 	],
 	#category : #'SqueakKara-Tests'
 }
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 16:07'
+}
+SKLogicGraphTest >> environment [
+
+	^ environment
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 16:10'
+}
+SKLogicGraphTest >> environment: aEnvironment [
+
+	environment := aEnvironment
+]
 
 {
 	#category : #accessing,
@@ -55,12 +74,23 @@ SKLogicGraphTest >> runner: aRunner [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:33'
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 16:19'
 }
 SKLogicGraphTest >> setUp [
 
 	self executeContext: (SKExecuteContext new).
-	self runner: (SKLogicRunner newWithExecutionContext: self executeContext)
+	self runner: (SKLogicRunner newWithExecutionContext: self executeContext).
+	self environment: (SKEnvironment newWithProgrammingConcept: (SKProgrammingConcept logicGraphTest)).
+	self environment initializeWithKaraAt: 1 @ 1
+]
+
+{
+	#category : #setup,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 16:08'
+}
+SKLogicGraphTest >> tearDown [
+
+	self environment close
 ]
 
 {
@@ -157,6 +187,51 @@ SKLogicGraphTest >> testDefaultEdge [
 	self executeSteps: 1.
 	
 	self assert: (env at: #test)
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 16:54'
+}
+SKLogicGraphTest >> testExecutionThrouthTheExecuter [
+
+	| kara graph |
+	
+	self environment.
+	kara := self environment karas first.
+	
+	graph := SKLogicGraph new.
+	graph
+		addNodeWithName: 'node1';
+		addNodeWithName: 'node2'.
+	graph addEdgeFrom: 'node1' to: 'node2' command: 'kara turn: left' condition: 'true'.
+	graph setStartNode: 'node1'.
+	
+	self environment programmingUI setCode: graph.
+	self environment run.
+	(Delay forMilliseconds: 500) wait.
+	
+	self assert: kara viewDirection = (0 @ -1)
+
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 09:57'
+}
+SKLogicGraphTest >> testIsValidCheck [
+
+	| graph |
+	
+	graph := SKLogicGraph new.
+	graph
+		addNodeWithName: 'node1';
+		addNodeWithName: 'node2'.
+	graph addEdgeFrom: 'node1' to: 'node2' command: 'env at: #test put: true' condition: ''.
+	self assert: graph isValid = false.
+	
+	graph setStartNode: 'node1'.
+	self assert: graph isValid = true
 ]
 
 {

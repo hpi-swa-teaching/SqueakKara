@@ -153,6 +153,15 @@ SKStateMachineEditor >> deselectAllEdges [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:57'
+}
+SKStateMachineEditor >> edges [
+
+	^ self playGround edges
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:06'
 }
 SKStateMachineEditor >> enqueueNodeToDelete: aNode [
@@ -400,6 +409,15 @@ SKStateMachineEditor >> nodeClicked: aNode [
 		[#delete] -> [self actionDeleteNode: aNode].
 		[#edge]   -> [self handleEdgeModeNodeClicked: aNode]
 	} otherwise: []
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:57'
+}
+SKStateMachineEditor >> nodes [
+
+	^ self playGround nodes
 ]
 
 {

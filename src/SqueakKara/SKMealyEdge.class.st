@@ -82,16 +82,16 @@ SKMealyEdge >> arrowheadWidth [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:57'
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:24'
 }
 SKMealyEdge >> command [
 
-	^ command
+	^command
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:57'
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:23'
 }
 SKMealyEdge >> command: aCommand [
 
@@ -100,7 +100,7 @@ SKMealyEdge >> command: aCommand [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:57'
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:23'
 }
 SKMealyEdge >> condition [
 
@@ -109,7 +109,7 @@ SKMealyEdge >> condition [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:58'
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:23'
 }
 SKMealyEdge >> condition: aCondition [
 
