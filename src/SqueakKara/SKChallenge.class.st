@@ -83,7 +83,7 @@ SKChallenge class >> initializeChallenge2For: aGrid environment: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 20:51'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 14:28'
 }
 SKChallenge class >> initializeChallenge3For: aGrid environment: anEnvironment [
 

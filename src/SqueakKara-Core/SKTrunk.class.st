@@ -18,6 +18,15 @@ SKTrunk >> isTrunk [
 ]
 
 {
+	#category : #appearance,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 17:07'
+}
+SKTrunk >> isWalkable [
+
+	^ false
+]
+
+{
 	#category : #geometry,
 	#'squeak_changestamp' : 'LM 4/29/2026 13:13'
 }

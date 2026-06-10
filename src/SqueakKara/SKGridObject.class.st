@@ -142,7 +142,7 @@ SKGridObject >> initializeInGrid: aGrid at: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/29/2026 13:09'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 16:58'
 }
 SKGridObject >> isBlocking [
 
@@ -183,6 +183,15 @@ SKGridObject >> isMushroom [
 SKGridObject >> isTrunk [
 	
 	^ false
+]
+
+{
+	#category : #'object detection',
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 17:06'
+}
+SKGridObject >> isWalkable [
+
+	self subclassResponsibility
 ]
 
 {
@@ -316,11 +325,12 @@ SKGridObject >> relativePositionFor: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:38'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 17:30'
 }
 SKGridObject >> scaleToFactor [
 
 	| size |
+	
 	size := self grid pixelPerBlock.
 
 	self image: (self originalImage scaledToSize: size @ size).
@@ -357,14 +367,15 @@ SKGridObject >> textureFilename [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 01:37'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 17:30'
 }
-SKGridObject >> walkable: aDirection [
+SKGridObject >> walkableIn: aDirection [
 	
 	| target tile |
+	
 	target := self coordinates + aDirection.
 	(self grid isPointInGridDimensions: target) ifFalse: [ ^ false ].
 
 	tile := self gridCoordinator getTileAtCoordinates: target.
-	^ tile noneSatisfy: [ :each | each isTrunk or: [each isMushroom]].
+	^ tile allSatisfy: [ :each | each isWalkable]
 ]

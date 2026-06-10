@@ -14,13 +14,21 @@ SKMushroom >> isMushroom [
 ]
 
 {
+	#category : #appearance,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 17:07'
+}
+SKMushroom >> isWalkable [
+
+	^ false
+]
+
+{
 	#category : #movement,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 01:36'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 17:02'
 }
 SKMushroom >> move: aDirection [
 	
-	(self walkable: aDirection) ifFalse: [
-		self say: 'I got pushed into something :('.
+	(self walkableIn: aDirection) ifFalse: [
 		^ self].
 	self  moveToCoordinates: self coordinates + aDirection
 	
