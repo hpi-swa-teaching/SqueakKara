@@ -152,13 +152,13 @@ SKSelectionPopUpWrapper >> commandList [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:20'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:51'
 }
 SKSelectionPopUpWrapper >> conditionList [
 
 	^ #(
 		'kara onCloverleaf'
-		'kara isTrunkAhead'
+		'kara trunkAhead'
 		'None'
 	)
 ]
@@ -179,7 +179,7 @@ SKSelectionPopUpWrapper >> drawSelectionWindows [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:21'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:43'
 }
 SKSelectionPopUpWrapper >> getValueByType: aType [
 	
@@ -187,7 +187,7 @@ SKSelectionPopUpWrapper >> getValueByType: aType [
 	
 	commandWindow := self selectionWindows detect: [:aSelectionWindow | aSelectionWindow type = aType].
 	commandWindow selectedValue ifNil: [^ ''].
-	commandWindow = 'None' ifTrue: [^ ''].
+	commandWindow selectedValue = 'None' ifTrue: [^ ''].
 	^ commandWindow selectedValue
 ]
 

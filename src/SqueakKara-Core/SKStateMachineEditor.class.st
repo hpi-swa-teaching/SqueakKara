@@ -6,7 +6,8 @@ Class {
 		'mode',
 		'selectedNode',
 		'buttons',
-		'nodesToDelete'
+		'nodesToDelete',
+		'nodeCounter'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -30,12 +31,16 @@ SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:46'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:38'
 }
 SKStateMachineEditor >> actionCreateNode [
 
 	| node |
-	node := SKMealyNode new.
+	node := SKMealyNode newWithName: self nodeCounter asString.
+	
+	nodeCounter = 0 ifTrue: [node isStartingNode: true].
+	
+	self nodeCounterPP.
 	self playGround addNode: node.
 	node openInHand
 ]
@@ -409,6 +414,24 @@ SKStateMachineEditor >> nodeClicked: aNode [
 		[#delete] -> [self actionDeleteNode: aNode].
 		[#edge]   -> [self handleEdgeModeNodeClicked: aNode]
 	} otherwise: []
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:34'
+}
+SKStateMachineEditor >> nodeCounter [
+
+	^ nodeCounter ifNil: [nodeCounter := 0]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:35'
+}
+SKStateMachineEditor >> nodeCounterPP [
+
+	nodeCounter := nodeCounter + 1
 ]
 
 {

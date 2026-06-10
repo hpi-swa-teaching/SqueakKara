@@ -11,6 +11,17 @@ Class {
 }
 
 {
+	#category : #constructor,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:36'
+}
+SKMealyNode class >> newWithName: aString [
+
+	^ (self new
+		name: aString;
+		yourself)
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 11:13'
 }

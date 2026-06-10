@@ -22,11 +22,11 @@ SKLogicRunner class >> newWithExecutionContext: aExecutionContext [
 
 {
 	#category : #initialize,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 21:45'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:47'
 }
 SKLogicRunner >> attachToGraph: aLogicGraph [
 
-	Transcript show: '[LogicRunner] Attacht to startingNode: ' , aLogicGraph startingNode name; cr.
+"	Transcript show: '[LogicRunner] Attacht to startingNode: ' , aLogicGraph startingNode name; cr."
 
 	self executeContext env: (SKContextVariables new).
 	self compiler: (Compiler new);
@@ -98,16 +98,14 @@ SKLogicRunner >> executeContext: aExecuteContext [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 16:35'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:47'
 }
 SKLogicRunner >> executeLogicGraph [
 
 	| hasNextStep |
 	
-	Transcript show: 'Start'; cr.
 	hasNextStep := true.
-	[hasNextStep] whileTrue: [self executeStep ifNil: [hasNextStep := false]. 
-	Transcript show: 'Step'; cr.]
+	[hasNextStep] whileTrue: [self executeStep ifNil: [hasNextStep := false]]
 ]
 
 {
@@ -150,11 +148,11 @@ SKLogicRunner >> findNextEdge: aLogicNode [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 16:45'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:48'
 }
 SKLogicRunner >> traverseEdge: aLogicEdge [
 
-	Transcript show: ('[LogicRunner] ' , aLogicEdge fromNode name, ' --> ', aLogicEdge toNode name); cr.
+"	Transcript show: ('[LogicRunner] ' , aLogicEdge fromNode name, ' --> ', aLogicEdge toNode name); cr."
 
 	self currentNode: aLogicEdge toNode
 	

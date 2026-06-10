@@ -29,7 +29,7 @@ SKProgrammingUIMealy >> close [
 
 {
 	#category : #compile,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 14:17'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:43'
 }
 SKProgrammingUIMealy >> compileToLogicGraph: aNodeCollection edges: aEdgeCollection [
 
@@ -64,11 +64,16 @@ SKProgrammingUIMealy >> editor: aEditor [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 10:31'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:33'
 }
 SKProgrammingUIMealy >> getCode [
 
-	self compileToLogicGraph: self editor nodes edges: self editor edges.
+	| edges |
+	
+	edges := self editor edges.
+	edges do: [:aEdge| aEdge updateValues].
+	
+	self compileToLogicGraph: self editor nodes edges: edges.
 	self logicGraph isValid ifFalse: [self inform: 'Der Automat ist nicht valide!'].
 	^ self logicGraph
 ]
