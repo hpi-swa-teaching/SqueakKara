@@ -44,14 +44,13 @@ SKMealyEdge >> arrowColor [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:38'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:27'
 }
 SKMealyEdge >> arrowhead [
 
-	(arrowhead = nil) ifTrue: [self arrowhead:  (PolygonMorph
+	^ arrowhead ifNil: [arrowhead := (PolygonMorph
 		vertices: (self getArrowheadPoints)
-		color: self arrowColor borderWidth: 1 borderColor: Color black). ].
-	^ arrowhead
+		color: self arrowColor borderWidth: 1 borderColor: Color black)]
 ]
 
 {

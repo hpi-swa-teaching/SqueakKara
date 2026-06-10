@@ -245,16 +245,18 @@ SKSelectionPopUpWrapper >> selectionWindows: anObject [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:01'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:24'
 }
 SKSelectionPopUpWrapper >> switchToSelectedText: aSelectionPopUp [ 
 
 	|selectedValue oldPos|
 	
 	oldPos := self position. 
-	self selectionWindows do: [:each |(each == aSelectionPopUp)ifTrue: [selectedValue := each selectedValue.  self replaceSubmorph: each by: (PluggableTextMorph new setText: selectedValue). ]]. 
-	self position: oldPos. 
-	self updatePositionsOfChildren
+	self selectionWindows do: [:each |(each == aSelectionPopUp) ifTrue: [
+			selectedValue := each selectedValue.  
+			self replaceSubmorph: each by: (PluggableTextMorph new setText: selectedValue)]]. 
+	self position: oldPos;
+		updatePositionsOfChildren
 
 
 
@@ -262,14 +264,17 @@ SKSelectionPopUpWrapper >> switchToSelectedText: aSelectionPopUp [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'LP 6/9/2026 16:06'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:26'
 }
 SKSelectionPopUpWrapper >> updatePositionsOfChildren [
-|newX newY|
 
-(selectionWindows size =1 ) ifFalse: [
-	1 to: (self selectionWindows size -1) do: [:each | newX:= ((self selectionWindows at: each) position x)+((self selectionWindows at: (each)) extent x). newY:= (self selectionWindows at: each) position y.  self selectionWindows at: (each+1) put: ((self selectionWindows at:(each+1)) position:(newX@newY))] "this is very idiomatic squeak code"
-]
+	|newX newY|
+	
+	(selectionWindows size =1 ) ifFalse: [
+		1 to: (self selectionWindows size -1) do: [:each | 
+			newX:= ((self selectionWindows at: each) position x) + ((self selectionWindows at: each) extent x). 
+			newY:= (self selectionWindows at: each) position y.  
+			self selectionWindows at: (each + 1) put: ((self selectionWindows at: (each + 1)) position: (newX @ newY))]]
 
 
 ]
