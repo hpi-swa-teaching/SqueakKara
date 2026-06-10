@@ -27,11 +27,11 @@ SKEnvironmentTest >> environment: anObject [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 10:34'
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 13:13'
 }
 SKEnvironmentTest >> setUp [
 
-	environment := SKEnvironment newWithProgrammingConcept: (SKProgrammingConcept code).
+	environment := SKEnvironment newWithProgrammingConcept: (SKProgrammingConcept codeTest).
 	environment initializeWithKaraAt: 1 @ 1.
 	environment executer testMode: true
 ]
