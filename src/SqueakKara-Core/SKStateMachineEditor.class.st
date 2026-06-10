@@ -13,7 +13,7 @@ Class {
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'LP 6/9/2026 13:49'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:13'
 }
 SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 
@@ -25,6 +25,7 @@ SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 	aNode addDependent: edge.
 	anotherNode addDependent: edge.
 	edge update: #unusedValue. 
+	self actionSelectEdge: edge
 ]
 
 {
@@ -70,11 +71,21 @@ SKStateMachineEditor >> actionDeleteNode: aNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:24'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:44'
+}
+SKStateMachineEditor >> actionDeselectEdge: aEdge [
+
+	aEdge gotDeselected
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:43'
 }
 SKStateMachineEditor >> actionSelectEdge: aEdge [
 
-	aEdge showPopUp
+	self deselectAllEdges.
+	aEdge gotSelected
 ]
 
 {
@@ -129,6 +140,15 @@ SKStateMachineEditor >> buttons [
 SKStateMachineEditor >> colorAllModeButtonsNormal [
 
 	self buttons do: [:button| button color: self modeButtonNormalColor]
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:43'
+}
+SKStateMachineEditor >> deselectAllEdges [
+
+	self playGround edges do: [:aEdge | self actionDeselectEdge: aEdge]
 ]
 
 {
@@ -423,14 +443,14 @@ SKStateMachineEditor >> queueNodeToDelete: aNode [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:28'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:45'
 }
 SKStateMachineEditor >> selectEdgeNear: aPosition [
 
 	| edge distance limit |
 	
 	"max distance from the line where it will be clicked"
-	limit := 25.
+	limit := 50.
 	
 	edge := self playGround findNearestEdge: aPosition.
 	edge ifNil: [^ nil].
@@ -487,13 +507,14 @@ SKStateMachineEditor >> stepTime [
 
 {
 	#category : #modes,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:22'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:43'
 }
 SKStateMachineEditor >> toggleMode: aMode [
 
 	self 
 		colorAllModeButtonsNormal;
 		markModeButtonSelected: aMode;
+		deselectAllEdges;
 		mode: aMode
 ]
 

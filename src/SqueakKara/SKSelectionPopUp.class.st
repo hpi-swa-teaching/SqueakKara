@@ -3,10 +3,34 @@ Class {
 	#superclass : #PluggableListMorph,
 	#instVars : [
 		'selectedValue',
-		'index'
+		'index',
+		'type'
 	],
 	#category : #'SqueakKara-Core'
 }
+
+{
+	#category : #constructor,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:54'
+}
+SKSelectionPopUp class >> newWithType: aType [
+
+	^ (self new
+		type: aType;
+		yourself)
+]
+
+{
+	#category : #constructor,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:16'
+}
+SKSelectionPopUp class >> newWithType: aType listItems: aListItemArray [
+
+	^ (self new
+		type: aType;
+		updateList: aListItemArray;
+		yourself)
+]
 
 {
 	#category : #inputHandling,
@@ -19,14 +43,13 @@ SKSelectionPopUp >> handlesMouseDown: aEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:56'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:16'
 }
 SKSelectionPopUp >> initialize [
 
 	super initialize. 
 	
 	self getListElementSelector.
-	self updateList: #(#hallo #test #well #no #squeak).
 	self updateListMorph
 ]
 
@@ -44,16 +67,36 @@ SKSelectionPopUp >> mouseDown: anEvent [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 13:34'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:51'
 }
 SKSelectionPopUp >> selectedValue [
+
 	^ selectedValue
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 13:34'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:51'
 }
 SKSelectionPopUp >> selectedValue: anObject [
+
 	selectedValue := anObject
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:48'
+}
+SKSelectionPopUp >> type [
+	
+	^ type
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:48'
+}
+SKSelectionPopUp >> type: aType [
+
+	type := aType
 ]
