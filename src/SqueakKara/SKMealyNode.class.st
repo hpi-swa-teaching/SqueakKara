@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'controller',
 		'isInDrag',
+		'stateMachineEditor',
 		'isStartingNode',
 		'name'
 	],
@@ -59,7 +60,7 @@ SKMealyNode >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:17'
+	#'squeak_changestamp' : 'JS 6/10/2026 12:59'
 }
 SKMealyNode >> initialize [
 
@@ -67,7 +68,8 @@ SKMealyNode >> initialize [
 	
 	self extent: self defaultSize;
 		color: self normalColor;
-		borderWidth: 3
+		borderWidth: 3;
+		isStartingNode: false
 ]
 
 {
@@ -108,15 +110,15 @@ SKMealyNode >> isStartingNode: aBoolean [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:06'
+	#'squeak_changestamp' : 'JS 6/9/2026 13:24'
 }
 SKMealyNode >> justDroppedInto: newOwner event: anEvent [
 
 	(newOwner isKindOf: SKPlayGround) ifFalse: [controller queueNodeToDelete: self].
 
 	newOwner addMorphFront: self.
-	self isInDrag: false
-
+	self isInDrag: false.
+	self visualiseNodeType
 ]
 
 {
@@ -192,6 +194,22 @@ SKMealyNode >> startDrag: anEvent [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/9/2026 13:23'
+}
+SKMealyNode >> stateMachineEditor [
+	^ stateMachineEditor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/9/2026 13:23'
+}
+SKMealyNode >> stateMachineEditor: anObject [
+	stateMachineEditor := anObject
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:40'
 }
@@ -216,4 +234,21 @@ SKMealyNode >> stepTime [
 SKMealyNode >> unselectNode [
 
 	self color: self normalColor
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'JS 6/10/2026 12:58'
+}
+SKMealyNode >> visualiseNodeType [
+
+|hasStartEdge|
+
+	self isStartingNode ifTrue: [
+		hasStartEdge := false.
+		(self stateMachineEditor playGround findAllEdgesToNode: self) do: [:edge |
+				edge fromNode == nil ifTrue: 
+					[hasStartEdge := true]].
+		hasStartEdge ifFalse: [
+			self stateMachineEditor actionAddEdgeFromPosition: self center -100 toNode: self]]
 ]

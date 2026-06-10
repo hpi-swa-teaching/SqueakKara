@@ -81,11 +81,15 @@ SKPlayGround >> controller: aController [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:56'
+	#'squeak_changestamp' : 'JS 6/9/2026 15:39'
 }
 SKPlayGround >> distanceFrom: aPoint toEdge: aEdge [
 
-	^ self distanceFrom: aPoint toLineFrom: aEdge fromNode position to: aEdge toNode position
+	aEdge fromNode 
+		ifNotNil: [
+			^self distanceFrom: aPoint toLineFrom: aEdge fromNode position to: aEdge toNode position]
+		ifNil: [
+			^self distanceFrom: aPoint toLineFrom: aEdge fromPosition to: aEdge toNode position]
 ]
 
 {
@@ -173,6 +177,15 @@ SKPlayGround >> findNearestEdge: aPosition [
 SKPlayGround >> handlesMouseDown: anEvent [
 
 	^ true
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/9/2026 01:01'
+}
+SKPlayGround >> isNodeEmpty [
+
+	^ self nodes isEmpty
 ]
 
 {
