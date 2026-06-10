@@ -52,6 +52,14 @@ SKLogicEdge class >> newWithfromNode: aLogicNode toNode: anotherLogicNode [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'LP 6/10/2026 11:11'
+}
+SKLogicEdge >> command [
+	^ command
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:22'
 }
 SKLogicEdge >> command: aString [

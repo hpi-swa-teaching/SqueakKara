@@ -9,10 +9,10 @@ Class {
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 13:59'
+	#'squeak_changestamp' : 'LP 6/10/2026 11:07'
 }
 SKMealyTest >> checkEqualityForEdge: aEdge and: anotherEdge [
-	
+	self halt. 
 	aEdge command = anotherEdge command ifFalse: [^ false].
 	aEdge condition = anotherEdge condition ifFalse: [^ false].
 	
