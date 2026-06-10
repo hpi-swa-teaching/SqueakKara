@@ -124,7 +124,7 @@ SKLogicRunner >> executeStep [
 	nextEdge := self findNextEdge: self currentNode. 
 	nextEdge ifNil: [^ nil].
 	
-	self	executeCode: nextEdge command; 
+	self	executeCode: nextEdge getCode; 
 		traverseEdge: nextEdge
 ]
 
