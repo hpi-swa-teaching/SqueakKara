@@ -24,29 +24,58 @@ Class {
 	#name : #SKSelectionPopUpWrapper,
 	#superclass : #Morph,
 	#instVars : [
-		'selectionWindows'
+		'selectionWindows',
+		'closeButton'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'LP 6/9/2026 13:16'
 }
 
 {
-	#category : #drawing,
-	#'squeak_changestamp' : 'LP 6/9/2026 15:32'
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:11'
 }
-SKSelectionPopUpWrapper >> bringChildrenToFront [
+SKSelectionPopUpWrapper >> actionClose [
 
-self selectionWindows do: [:each | each comeToFront].
-
+	self visible: false
 ]
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'LP 6/9/2026 15:26'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:58'
+}
+SKSelectionPopUpWrapper >> bringChildrenToFront [
+
+	self selectionWindows do: [:each | each comeToFront].
+	self closeButton comeToFront
+
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:58'
+}
+SKSelectionPopUpWrapper >> closeButton [
+
+	^ closeButton
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:58'
+}
+SKSelectionPopUpWrapper >> closeButton: aButton [
+
+	closeButton := aButton
+]
+
+{
+	#category : #drawing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:00'
 }
 SKSelectionPopUpWrapper >> drawSelectionWindows [
 
-self selectionWindows do: [:each | self addMorph: each].
+	self selectionWindows do: [:each | self addMorph: each]
 
 
 
@@ -56,19 +85,27 @@ self selectionWindows do: [:each | self addMorph: each].
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LP 6/9/2026 16:07'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:11'
 }
 SKSelectionPopUpWrapper >> initialize [
 
-super initialize. 
+	| closeButton |
 
-
-self selectionWindows add: SKSelectionPopUp new. 
-self selectionWindows add: SKSelectionPopUp new. 
-
-self drawSelectionWindows. 
-
-self updatePositionsOfChildren. 
+	super initialize. 
+	
+	self selectionWindows add: SKSelectionPopUp new. 
+	self selectionWindows add: SKSelectionPopUp new. 
+	
+	self drawSelectionWindows. 
+	
+	self updatePositionsOfChildren. 
+		
+	closeButton := SimpleButtonMorph new.
+	closeButton
+		target: self;
+		actionSelector: #actionClose.
+	self closeButton: closeButton;
+		addMorph: closeButton
 
 
 
@@ -78,34 +115,45 @@ self updatePositionsOfChildren.
 ]
 
 {
+	#category : #drawing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:22'
+}
+SKSelectionPopUpWrapper >> makeVisible [
+
+	self visible: true
+]
+
+{
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 15:22'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:59'
 }
 SKSelectionPopUpWrapper >> selectionWindows [
+
 	(selectionWindows) ifNil:[self selectionWindows: OrderedCollection new]. 
 	^ selectionWindows
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 15:21'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:59'
 }
 SKSelectionPopUpWrapper >> selectionWindows: anObject [
+
 	selectionWindows := anObject
 ]
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'LP 6/9/2026 16:52'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:01'
 }
 SKSelectionPopUpWrapper >> switchToSelectedText: aSelectionPopUp [ 
 
-|selectedValue oldPos|
-
-oldPos := self position. 
-self selectionWindows do: [:each |(each == aSelectionPopUp)ifTrue: [selectedValue := each selectedValue.  self replaceSubmorph: each by: (PluggableTextMorph new setText: selectedValue). ]]. 
-self position: oldPos. 
-self updatePositionsOfChildren. 
+	|selectedValue oldPos|
+	
+	oldPos := self position. 
+	self selectionWindows do: [:each |(each == aSelectionPopUp)ifTrue: [selectedValue := each selectedValue.  self replaceSubmorph: each by: (PluggableTextMorph new setText: selectedValue). ]]. 
+	self position: oldPos. 
+	self updatePositionsOfChildren
 
 
 

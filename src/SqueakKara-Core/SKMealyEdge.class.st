@@ -33,9 +33,10 @@ SKMealyEdge class >> newFrom: aNode to: anotherNode [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 14:40'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:52'
 }
 SKMealyEdge >> arrowhead [
+
 	(arrowhead = nil) ifTrue: [self arrowhead:  (PolygonMorph
 		vertices: (self getArrowheadPoints)
 		color: Color red borderWidth: 1 borderColor: Color black). ].
@@ -44,9 +45,10 @@ SKMealyEdge >> arrowhead [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 14:09'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:52'
 }
 SKMealyEdge >> arrowhead: anObject [
+
 	arrowhead := anObject
 ]
 
@@ -99,19 +101,19 @@ SKMealyEdge >> delete [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/9/2026 14:43'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:51'
 }
 SKMealyEdge >> edgeMorph [
 
-	(edgeMorph = nil) ifTrue: [self edgeMorph: SKSelectionPopUpWrapper new. ].
-	^ edgeMorph
+	^ edgeMorph ifNil: [edgeMorph := SKSelectionPopUpWrapper new]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/8/2026 20:40'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:52'
 }
 SKMealyEdge >> edgeMorph: anObject [
+
 	edgeMorph := anObject
 ]
 
@@ -195,20 +197,29 @@ SKMealyEdge >> getPointsWithoutNodesOverlapping [
 
 {
 	#category : #vectorHelpFunctions,
-	#'squeak_changestamp' : 'LP 6/3/2026 00:27'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:47'
 }
 SKMealyEdge >> getVectorBetweenNodeCenters [
 
- ^ self toNode center - self fromNode center 
+ 	^ self toNode center - self fromNode center 
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:29'
+}
+SKMealyEdge >> gotSelected [
+
+	self edgeMorph makeVisible
 ]
 
 {
 	#category : #vectorHelpFunctions,
-	#'squeak_changestamp' : 'LP 6/3/2026 00:47'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:47'
 }
 SKMealyEdge >> lengthOfVector: aVector [
 
-^ (aVector x squared + aVector y squared) sqrt
+	^ (aVector x squared + aVector y squared) sqrt
 ]
 
 {
@@ -249,56 +260,56 @@ SKMealyEdge >> toNode: aNode [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'LP 6/9/2026 14:15'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:50'
 }
 SKMealyEdge >> update: aValue [
 
-	self updateLine. 
-	self updateArrowhead. 
-	self updateEdgePopUp. 
+	self updateLine;
+		updateArrowhead;
+		updateEdgePopUp. 
 	
-	self controller playGround addComponent: self line.
-	self controller playGround addComponent: self arrowhead.
-	self controller playGround addComponent: self edgeMorph.
+	self controller playGround addComponent: self line;
+	 	addComponent: self arrowhead;
+		addComponent: self edgeMorph
 	
 ]
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'LP 6/9/2026 14:41'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:49'
 }
 SKMealyEdge >> updateArrowhead [
 	
-	self arrowhead setVertices: (self getArrowheadPoints).  
+	self arrowhead setVertices: (self getArrowheadPoints)
 ]
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'LP 6/8/2026 21:11'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:49'
 }
 SKMealyEdge >> updateEdgeMorphPosition [
 
-self edgeMorph position: (self getPointBetween: (self getPointsWithoutNodesOverlapping) interpolatedBy: 0.5). 
+	self edgeMorph position: (self getPointBetween: (self getPointsWithoutNodesOverlapping) interpolatedBy: 0.5)
 ]
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'LP 6/9/2026 14:44'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:48'
 }
 SKMealyEdge >> updateEdgePopUp [
 
-(self edgeMorph) ifNotNil:[self edgeMorph delete. ].
-self edgeMorph bringChildrenToFront. 
-self updateEdgeMorphPosition.
+	(self edgeMorph) ifNotNil:[self edgeMorph delete. ].
+	self edgeMorph bringChildrenToFront. 
+	self updateEdgeMorphPosition
 
 ]
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'LP 6/9/2026 14:17'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:49'
 }
 SKMealyEdge >> updateLine [
 	
 	(self line) ifNotNil:[self line delete. ].
-	self line: (LineMorph from: self fromNode center to: self toNode center color: (Color fromString: '#8caaee') width: 5). 
+	self line: (LineMorph from: self fromNode center to: self toNode center color: (Color fromString: '#8caaee') width: 5)
 ]
