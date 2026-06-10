@@ -106,11 +106,11 @@ SKMealyNode >> mouseDown: anEvent [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:14'
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:45'
 }
 SKMealyNode >> normalColor [
 
-	^ Color fromString: '#df8e1d'
+	^ SKStylesheet colorOrange
 ]
 
 {
@@ -124,11 +124,11 @@ SKMealyNode >> selectNode [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:14'
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:45'
 }
 SKMealyNode >> selectedColor [
 
-	^ Color fromString: '#8caaee'
+	^ SKStylesheet colorRed
 ]
 
 {

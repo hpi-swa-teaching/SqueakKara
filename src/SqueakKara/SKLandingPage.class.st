@@ -65,11 +65,11 @@ SKLandingPage >> actionExample4 [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:20'
+	#'squeak_changestamp' : 'JS 6/2/2026 15:45'
 }
 SKLandingPage >> actionNew [
 
-	self buildEnvironment initializeWithKaraAt: 1 @ 1.
+	self buildEnvironment initializeWithBlankProject.
 	self delete
 ]
 
@@ -310,11 +310,11 @@ SKLandingPage >> conceptSelectionButtonSelectedColor [
 
 {
 	#category : #conceptSelection,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:42'
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 10:15'
 }
 SKLandingPage >> concepts [
 
-	^ { SKProgrammingConceptCode new. SKProgrammingConceptBlocks new. SKProgrammingConceptMealy new}
+	^ { SKProgrammingConcept code.  SKProgrammingConcept blocks. SKProgrammingConcept mealy }
 ]
 
 {

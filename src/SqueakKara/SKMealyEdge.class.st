@@ -15,13 +15,13 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LP 6/9/2026 16:45'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:31'
 }
 SKMealyEdge class >> newFrom: aNode to: anotherNode [
 
 	| instance line |
 	instance := self new.
-	line := LineMorph from: aNode center to: anotherNode center color: (Color fromString: '#8caaee') width: 5.
+	line := LineMorph from: aNode center to: anotherNode center color: instance normalColor width: 5.
 	instance 
 		line: line;
 		fromNode: aNode;
@@ -238,6 +238,15 @@ SKMealyEdge >> line [
 SKMealyEdge >> line: aLine [
 
 	line := aLine
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:46'
+}
+SKMealyEdge >> normalColor [
+
+	^ SKStylesheet colorLightBlue
 ]
 
 {

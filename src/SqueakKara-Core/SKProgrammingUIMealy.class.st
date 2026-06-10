@@ -6,11 +6,11 @@ Class {
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:44'
+	#'squeak_changestamp' : 'JS 6/2/2026 14:18'
 }
 SKProgrammingUIMealy >> build [
 
-	SKStateMachineEditor new 
+	self environment windowManager addWindow: SKStateMachineEditor new
 ]
 
 {

@@ -94,6 +94,23 @@ SKGrid >> backgroundColor [
 ]
 
 {
+	#category : #challenges,
+	#'squeak_changestamp' : 'JS 5/17/2026 13:01'
+}
+SKGrid >> blankProject [	
+	^SKKara newInGrid: self at: 1 @ 1.
+]
+
+{
+	#category : #texture,
+	#'squeak_changestamp' : 'JS 6/2/2026 15:37'
+}
+SKGrid >> clear [
+	self submorphsDo: [:cell | cell delete.].
+	self drawTexture.
+]
+
+{
 	#category : #texture,
 	#'squeak_changestamp' : 'LM 4/27/2026 11:27'
 }

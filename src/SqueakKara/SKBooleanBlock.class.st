@@ -5,16 +5,16 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 13:02'
+	#category : #drawing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKBooleanBlock >> drawOn: aCanvas [
 	| b p1 p2 p3 p4 p5 p6 pts indent borderWidth |
 	
-	borderWidth := 2.
+	borderWidth := SKBlockStyle borderWidth.
 	b := self bounds insetBy: borderWidth.
 	
-	indent := 16. 
+	indent := self height // 2. 
 	
 	p1 := b left @ b center y.
 	p2 := (b left + indent) @ b top.
@@ -26,15 +26,15 @@ SKBooleanBlock >> drawOn: aCanvas [
 	
 	aCanvas drawPolygon: pts
 		color: self color
-		borderWidth: 2
-		borderColor: self borderColor.
+		borderWidth: borderWidth
+		borderColor: self borderColor
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'SLH 5/13/2026 18:02'
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
 }
 SKBooleanBlock >> type [
 
-	^ #Boolean.
+	^ #Boolean
 ]
