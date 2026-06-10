@@ -3,7 +3,8 @@ Class {
 	#superclass : #SKProgrammingUI,
 	#instVars : [
 		'logicGraph',
-		'editor'
+		'editor',
+		'testMode'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -64,14 +65,14 @@ SKProgrammingUIMealy >> editor: aEditor [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:33'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 12:16'
 }
 SKProgrammingUIMealy >> getCode [
 
 	| edges |
 	
 	edges := self editor edges.
-	edges do: [:aEdge| aEdge updateValues].
+	self testMode ifFalse: [edges do: [:aEdge| aEdge updateValues]].
 	
 	self compileToLogicGraph: self editor nodes edges: edges.
 	self logicGraph isValid ifFalse: [self inform: 'Der Automat ist nicht valide!'].
@@ -103,4 +104,22 @@ SKProgrammingUIMealy >> logicGraph: aLogicGraph [
 SKProgrammingUIMealy >> setCode: aCode [
 
 	
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 12:15'
+}
+SKProgrammingUIMealy >> testMode [
+
+	^ testMode ifNil: [testMode := false]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 12:15'
+}
+SKProgrammingUIMealy >> testMode: aBoolean [
+
+	testMode := aBoolean
 ]
