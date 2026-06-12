@@ -349,27 +349,6 @@ SKKara >> randomDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 12:08'
-}
-SKKara >> rotate [
-	
-	| centerWidth centerHeight image |
-	
-	centerWidth := self image width / 2.
-	centerHeight := self image height / 2.
-	image := self originalImage.
-	self viewDirection caseOf: {
-		[SKDirection right] -> [image := self image rotateBy: #right centerAt: centerWidth @ centerHeight].
-		[SKDirection below] -> [image := self image rotateBy: #pi centerAt: centerWidth @ centerHeight].
-		[SKDirection left] -> [image := self image rotateBy: #left centerAt: centerWidth @ centerHeight].
-		[SKDirection above] -> [image := self image rotateBy: #none centerAt: centerWidth @ centerHeight].
-	}.
-	
-	^ image
-]
-
-{
-	#category : #movement,
 	#'squeak_changestamp' : 'LD 6/10/2026 14:49'
 }
 SKKara >> sayMessageForThreeSeconds: aString [
@@ -384,7 +363,7 @@ SKKara >> sayMessageForThreeSeconds: aString [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 12:08'
+	#'squeak_changestamp' : 'mr 6/12/2026 20:23'
 }
 SKKara >> scaleToFactor [
 
@@ -393,13 +372,13 @@ SKKara >> scaleToFactor [
 	super scaleToFactor.
 	self updateColor.
 	
-	image := self rotate.
+	image := self rotateTowards: self viewDirection.
 	self image: image
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/22/2026 22:12'
+	#'squeak_changestamp' : 'mr 6/12/2026 20:23'
 }
 SKKara >> setTexture [
 
@@ -412,7 +391,7 @@ SKKara >> setTexture [
 		scaledToWidth: self grid pixelPerBlock.
 	
 	self image: aForm.
-	self rotate.
+	self rotateTowards: self viewDirection.
 	self originalImage: aForm.
 	self updateColorFor: aForm
 ]

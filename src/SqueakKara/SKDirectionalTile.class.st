@@ -10,19 +10,22 @@ Class {
 
 {
 	#category : #'instance creation',
-	#'squeak_changestamp' : 'mr 6/12/2026 19:41'
+	#'squeak_changestamp' : 'mr 6/12/2026 20:25'
 }
 SKDirectionalTile class >> newInGrid: aGrid at: aPoint direction: aDirection isEntrance: aBoolean [
 
-	| directionalTileDirection |
+	| directionalTile directionalTileDirection |
 	
 	directionalTileDirection := aBoolean
 		ifTrue: [ SKDirection mirror: aDirection ]
 		ifFalse: [ aDirection ].
 
-	^ (super newInGrid: aGrid at: aPoint)
+	directionalTile := SKDirectionalTile basicNew.
+	directionalTile
 		direction: directionalTileDirection;
-		isEntrance: aBoolean
+		isEntrance: aBoolean.
+
+	^ directionalTile initializeInGrid: aGrid at: aPoint
 ]
 
 {
@@ -80,12 +83,24 @@ SKDirectionalTile >> matchesDirection: aDirection [
 ]
 
 {
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'mr 6/12/2026 20:24'
+}
+SKDirectionalTile >> scaleToFactor [
+
+	super scaleToFactor.
+	self image: (self rotateTowards: self direction)
+]
+
+{
 	#category : #appearance,
-	#'squeak_changestamp' : 'mr 6/12/2026 18:55'
+	#'squeak_changestamp' : 'mr 6/12/2026 20:27'
 }
 SKDirectionalTile >> textureFilename [
 	
-	^ 'entrance-up.png'
+	^	self isEntrance 
+			ifTrue: [ 'entrance-up.png' ]
+			ifFalse: [ 'exit-up.png' ]
 ]
 
 {

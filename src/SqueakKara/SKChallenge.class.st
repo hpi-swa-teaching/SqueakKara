@@ -226,7 +226,7 @@ SKChallenge class >> initializeChallenge8For: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'mr 6/12/2026 19:41'
+	#'squeak_changestamp' : 'mr 6/12/2026 20:27'
 }
 SKChallenge class >> initializeChallenge9For: anEnvironment [
 	
@@ -238,6 +238,7 @@ SKChallenge class >> initializeChallenge9For: anEnvironment [
 	SKChallenge treeSquarePositions do: [ :aPoint | SKTrunk newInGrid: grid at: aPoint + (7 @ 3)].
 	
 	SKDirectionalTile newInGrid: grid at: (2 @ 1) direction: SKDirection left isEntrance: true.
+	SKDirectionalTile newInGrid: grid at: (2 @ 1) direction: SKDirection right isEntrance: false.
 	
 	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 1 with: 4 @ 5).
 	anEnvironment addKara: (SKKara newInGrid: grid at: 8 @ 1 with: 7 @ 1).
