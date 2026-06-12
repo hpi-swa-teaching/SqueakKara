@@ -1,10 +1,21 @@
+"
+A SKDirectionalTile is a grid object that can hinder karas movement depending on its direction.
+
+Instance Variables
+	direction:		<Point>
+
+direction
+	- direction of possible movement
+
+"
 Class {
 	#name : #SKDirectionalTile,
 	#superclass : #SKGridObject,
 	#instVars : [
 		'direction'
 	],
-	#category : #SqueakKara
+	#category : #SqueakKara,
+	#'squeak_changestamp' : 'mr 6/12/2026 20:56'
 }
 
 {
