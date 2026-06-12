@@ -32,6 +32,27 @@ SKKara class >> newInGrid: aGrid at: aPoint [
 ]
 
 {
+	#category : #movement,
+	#'squeak_changestamp' : 'mr 6/12/2026 19:33'
+}
+SKKara >> canMoveTo: aDirection [
+
+	| neighboursHere neighboursNext |
+
+	(self trunkAhead) ifTrue: [ ^ false ].
+		
+	neighboursHere := self neighboursHere.
+	(self hasBlockingDirectionalTileIn: neighboursHere direction: aDirection isEntrance: false)
+		ifTrue: [ ^ false ].
+		
+	neighboursNext := self neighboursAt: aDirection.
+	(self hasBlockingDirectionalTileIn: neighboursNext direction: aDirection isEntrance: true)
+		ifTrue: [ ^ false ].
+		
+	 ^ true
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'jawi 5/28/2026 15:01'
 }
@@ -153,6 +174,22 @@ SKKara >> findUnusedColor [
 ]
 
 {
+	#category : #movement,
+	#'squeak_changestamp' : 'mr 6/12/2026 19:34'
+}
+SKKara >> hasBlockingDirectionalTileIn: aNeighborCollection direction: aDirection isEntrance: aBoolean [
+	
+	| directionalTiles |
+	
+	directionalTiles := (aNeighborCollection 
+		select: [ :neighbor | neighbor isDirectionalTile and: [ neighbor isEntrance = aBoolean ] ]).
+	
+	directionalTiles isEmpty ifTrue: [ ^false ].
+		
+	^ (directionalTiles anySatisfy: [ :directionalTile | directionalTile matchesDirection: aDirection ]) not
+]
+
+{
 	#category : #initialization,
 	#'squeak_changestamp' : 'LM 5/28/2026 19:40'
 }
@@ -225,14 +262,16 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 6/10/2026 15:57'
+	#'squeak_changestamp' : 'mr 6/12/2026 19:23'
 }
 SKKara >> move [
 	
 	self stopSayingOrThinking.
-	(self trunkAhead) ifTrue: [ 
-		self sayMessageForThreeSeconds: 'Aua! Ich bin gegen einen Baumstumpf gelaufen D:'.
+
+	(self canMoveTo: self viewDirection) ifFalse: [
+		self sayMessageForThreeSeconds: 'Aua! Ich bin gegen ein Hindernis gelaufen D:'.
 		^ false ].
+
 	(self moveToCoordinates: self coordinates + self viewDirection) ifTrue: [
 		^ true ]
 		ifFalse: [ 
@@ -473,9 +512,9 @@ SKKara >> workspace: aWorkspace [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
+	#'squeak_changestamp' : 'mr 6/12/2026 19:00'
 }
 SKKara >> zLayer [
 
-	^ 3
+	^ 4
 ]

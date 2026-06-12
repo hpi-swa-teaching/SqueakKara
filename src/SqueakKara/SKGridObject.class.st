@@ -181,6 +181,24 @@ SKGridObject >> isCriticalSection [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'mr 6/12/2026 19:08'
+}
+SKGridObject >> isDirectionTile [
+	
+	^ false
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 6/12/2026 19:10'
+}
+SKGridObject >> isDirectionalTile [
+	
+	^ false
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 4/29/2026 13:07'
 }
 SKGridObject >> isKara [
