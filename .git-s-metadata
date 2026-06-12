@@ -158,15 +158,7 @@ GSMetadata {
 			#version : 1,
 			#path : FSAbsolutePath [
 				'assets',
-				'entrance-up.png'
-			],
-			#encoding : @5
-		},
-		GSImageMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'assets',
-				'exit-up.png'
+				'directional-tile.png'
 			],
 			#encoding : @5
 		}
