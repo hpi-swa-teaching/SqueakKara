@@ -10,12 +10,18 @@ Class {
 
 {
 	#category : #'instance creation',
-	#'squeak_changestamp' : 'mr 6/12/2026 18:57'
+	#'squeak_changestamp' : 'mr 6/12/2026 19:41'
 }
 SKDirectionalTile class >> newInGrid: aGrid at: aPoint direction: aDirection isEntrance: aBoolean [
 
+	| directionalTileDirection |
+	
+	directionalTileDirection := aBoolean
+		ifTrue: [ SKDirection mirror: aDirection ]
+		ifFalse: [ aDirection ].
+
 	^ (super newInGrid: aGrid at: aPoint)
-		direction: aDirection;
+		direction: directionalTileDirection;
 		isEntrance: aBoolean
 ]
 
