@@ -17,12 +17,12 @@ Class {
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+	#'squeak_changestamp' : 'SSP 6/13/2026 13:10'
 }
 SKButtonStack >> addButton: aButton [
 
 	self buttons add: aButton.
-	buttonColors at: aButton put: aButton color.
+	self buttonColors at: aButton put: aButton color.
 	self buttonExtent ifNotNil: [:e | aButton extent: e].
 	self addMorphBack: aButton.
 	^ aButton
@@ -79,6 +79,15 @@ SKButtonStack >> addButtonWithLabel: aLabel target: aTarget selector: aSelector 
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'SSP 6/13/2026 13:10'
+}
+SKButtonStack >> buttonColors [
+
+	^ buttonColors ifNil: [buttonColors := IdentityDictionary new]
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
 }
 SKButtonStack >> buttonExtent [
@@ -97,11 +106,11 @@ SKButtonStack >> buttonExtent: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+	#'squeak_changestamp' : 'SSP 6/13/2026 13:10'
 }
 SKButtonStack >> buttons [
 
-	^ buttons
+	^ buttons ifNil: [buttons := OrderedCollection new]
 ]
 
 {
@@ -124,7 +133,7 @@ SKButtonStack >> horizontal [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+	#'squeak_changestamp' : 'SSP 6/13/2026 13:10'
 }
 SKButtonStack >> initialize [
 
@@ -137,15 +146,12 @@ SKButtonStack >> initialize [
 		color: Color transparent;
 		borderWidth: 0;
 		cellInset: self defaultSpacing;
-		layoutInset: self defaultSpacing.
-	buttons := OrderedCollection new.
-	buttonColors := IdentityDictionary new.
-	selectedColor := SKStylesheet primaryColor
+		layoutInset: self defaultSpacing
 ]
 
 {
 	#category : #selection,
-	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+	#'squeak_changestamp' : 'SSP 6/13/2026 13:10'
 }
 SKButtonStack >> select: aButton [
 
@@ -153,7 +159,7 @@ SKButtonStack >> select: aButton [
 	self buttons do: [:b |
 		b color: (b == aButton
 			ifTrue: [self selectedColor]
-			ifFalse: [buttonColors at: b ifAbsent: [b color]])]
+			ifFalse: [self buttonColors at: b ifAbsent: [b color]])]
 ]
 
 {
@@ -184,11 +190,11 @@ SKButtonStack >> selectedButton [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+	#'squeak_changestamp' : 'SSP 6/13/2026 13:10'
 }
 SKButtonStack >> selectedColor [
 
-	^ selectedColor
+	^ selectedColor ifNil: [selectedColor := SKStylesheet primaryColor]
 ]
 
 {
