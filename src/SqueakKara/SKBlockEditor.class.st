@@ -10,6 +10,29 @@ Class {
 }
 
 {
+	#category : #initialization,
+	#'squeak_changestamp' : 'SSP 6/13/2026 14:00'
+}
+SKBlockEditor >> buildSourcePane [
+
+	"Return a vertically scrollable container around a fresh SKBlockSource so the
+	palette stays usable even when the list of available blocks grows beyond
+	the visible area."
+	
+	| pane source |
+	source := SKBlockSource new.
+	pane := ScrollPane new
+		color: Color transparent;
+		borderWidth: 0;
+		hResizing: #rigid;
+		vResizing: #spaceFill;
+		extent: self sourcePaneWidth @ self minHeight;
+		yourself.
+	pane scroller addMorph: source.
+	^ pane
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 20:03'
 }
@@ -64,7 +87,7 @@ SKBlockEditor >> nextAvailableFunctionNameFor: aString [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
+	#'squeak_changestamp' : 'SSP 6/13/2026 14:00'
 }
 SKBlockEditor >> open [
 	| window |
@@ -76,7 +99,7 @@ SKBlockEditor >> open [
 
 	window
 		addMorph: self;
-		addMorph: SKBlockSource new.
+		addMorph: self buildSourcePane.
 
 	self window: (window openInWindowLabeled: 'Block Editor').
 
@@ -86,6 +109,15 @@ SKBlockEditor >> open [
 		with: self topCenter + (0 @ 10).
 		
 	^ self window
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'SSP 6/13/2026 14:00'
+}
+SKBlockEditor >> sourcePaneWidth [
+
+	^ 260
 ]
 
 {
