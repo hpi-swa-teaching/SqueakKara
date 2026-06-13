@@ -9,18 +9,28 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:34'
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:20'
+}
+SKExecuteControlsTest >> environment [
+
+	^ environment
+]
+
+{
+	#category : #setup,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 13:13'
 }
 SKExecuteControlsTest >> setUp [
 
-	environment := (SKEnvironment newWithKaraAt: 1 @ 1).
+	environment := SKEnvironment newWithProgrammingConcept: (SKProgrammingConcept codeTest).
+	environment initializeWithKaraAt: 1 @ 1.
 	controls := environment executeControls.
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:45'
+	#category : #setup,
+	#'squeak_changestamp' : 'JS 5/26/2026 17:24'
 }
 SKExecuteControlsTest >> tearDown [
 
@@ -28,33 +38,41 @@ SKExecuteControlsTest >> tearDown [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:47'
+	#category : #testing,
+	#'squeak_changestamp' : 'JS 5/27/2026 21:12'
 }
 SKExecuteControlsTest >> testRun [
 
-	environment workspace userCode: 'kara move'.
+	self environment programmingUI setCode: 'kara move'.
 	controls actionRun.
-	environment executer step.
-	self assert: environment kara coordinates = (2 @ 1)
+	
+	"Busy waiting until execution done."
+	environment executer waitUntilTerminated.
+	
+	self assert: environment karas first coordinates = (2 @ 1)
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:50'
+	#category : #testing,
+	#'squeak_changestamp' : 'JS 5/27/2026 21:12'
 }
 SKExecuteControlsTest >> testRunPause [
 
-	environment workspace userCode: 'kara move. kara move. kara move'.
+	self environment programmingUI setCode: 'kara move. kara move. kara move'.
+
 	controls actionRun.
-	environment executer step.
+	(Delay forMilliseconds: 1) wait.
+
 	controls actionRun.
-	self assert: environment kara coordinates = (2 @ 1)
+
+	self assert: environment executer state = #suspended.
+	self assert: (environment executer processes anySatisfy: [ :process |
+		process isSuspended ])
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:42'
+	#category : #testing,
+	#'squeak_changestamp' : 'JS 5/26/2026 17:24'
 }
 SKExecuteControlsTest >> testSlider [
 	
@@ -63,12 +81,12 @@ SKExecuteControlsTest >> testSlider [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:51'
+	#category : #testing,
+	#'squeak_changestamp' : 'JS 5/27/2026 21:12'
 }
 SKExecuteControlsTest >> testStop [
 
-	environment workspace userCode: 'kara move.'.
+	self environment programmingUI setCode: 'kara move.'.
 	controls actionRun.
 	controls actionStop.
 	self assert: environment executer state = #terminated.

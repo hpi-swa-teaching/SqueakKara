@@ -13,16 +13,25 @@ Class {
 
 {
 	#category : #assessing,
-	#'squeak_changestamp' : 'JJG 6/5/2024 17:11'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:54'
 }
 SKTextureLoader >> assetLoader [
 
-	^ assetLoader ifNil: [assetLoader := GitAssetLoader for: self repositoryName basePath: self basePath]
+	^ assetLoader ifNil: [ self assetLoader: (GitAssetLoader for: self repositoryName basePath: self basePath)]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/28/2026 20:54'
+}
+SKTextureLoader >> assetLoader: aGitAssetLoader [
+
+	^ assetLoader := aGitAssetLoader
 ]
 
 {
 	#category : #configuration,
-	#'squeak_changestamp' : 'JJG 6/5/2024 17:08'
+	#'squeak_changestamp' : 'JS 6/2/2026 11:44'
 }
 SKTextureLoader >> basePath [
 

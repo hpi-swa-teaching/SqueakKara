@@ -5,7 +5,9 @@ Class {
 	#name : #SKGridObject,
 	#superclass : #ImageMorph,
 	#instVars : [
-		'grid'
+		'grid',
+		'originalImage',
+		'coordinates'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:54'
@@ -40,99 +42,54 @@ SKGridObject class >> textureDimension [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:56'
+	#'squeak_changestamp' : 'LM 4/28/2026 19:08'
 }
 SKGridObject >> addToGrid [
 
-	self grid addMorph: self
-]
-
-{
-	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:54'
-}
-SKGridObject >> alignToGrid [
-
-	self coordinateX: self coordinateX;
-		coordinateY: self coordinateY
-]
-
-{
-	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:46'
-}
-SKGridObject >> coordinateX [
-
-	^ 1 + (self relativePosition x / self grid pixelPerBlock) rounded
-		clampLow: 1
-		high: self grid gridWidth
-]
-
-{
-	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/24/2024 11:11'
-}
-SKGridObject >> coordinateX: aNumber [
-	
-	| anotherNumber aPoint |
-	
-	anotherNumber := (aNumber clampLow: 1 high: self grid gridWidth) - 1.
-	aPoint := anotherNumber * self grid pixelPerBlock @ self relativePosition y.
-	
-	super position: self grid position + aPoint.
-	
+	self grid addMorph: self.
 	self notifyGridCoordinator
 ]
 
 {
-	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:45'
-}
-SKGridObject >> coordinateY [
-
-	^ 1 + (self relativePosition y / self grid pixelPerBlock) rounded
-		clampLow: 1
-		high: self grid gridHeight
-]
-
-{
-	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/24/2024 11:11'
-}
-SKGridObject >> coordinateY: aNumber [
-	
-	| anotherNumber aPoint |
-	
-	anotherNumber := (aNumber clampLow: 1 high: self grid gridHeight) - 1.
-	aPoint := self relativePosition x @ (anotherNumber * self grid pixelPerBlock).
-	
-	super position: self grid position + aPoint.
-	
-	self notifyGridCoordinator
-]
-
-{
-	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/22/2024 16:50'
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/28/2026 18:49'
 }
 SKGridObject >> coordinates [
 
-	^ self coordinateX @ self coordinateY
+	^ coordinates
 ]
 
 {
-	#category : #positioning,
-	#'squeak_changestamp' : 'KD 6/11/2024 11:31'
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/29/2026 12:44'
 }
 SKGridObject >> coordinates: aPoint [
 
-	self coordinateX: aPoint x;
-		coordinateY: aPoint y.
-		
+	coordinates := (aPoint x clampLow: 1 high: self grid gridWidth) @ (aPoint y clampLow: 1 high: self grid gridHeight).
+	super position: self positionFromCoordinates
 ]
 
 {
-	#category : #deletion,
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/29/2026 12:54'
+}
+SKGridObject >> coordinatesFromPosition: aPoint [
+	| relativePosition newX newY |
+	relativePosition := self relativePositionFor: aPoint.
+
+	newX := ((relativePosition x / self grid pixelPerBlock) rounded + 1)
+		clampLow: 1
+		high: self grid gridWidth.
+
+	newY := ((relativePosition y / self grid pixelPerBlock) rounded + 1)
+		clampLow: 1
+		high: self grid gridHeight.
+	
+	^ newX @ newY
+]
+
+{
+	#category : #'submorphs - add/remove',
 	#'squeak_changestamp' : 'LK 5/24/2024 11:14'
 }
 SKGridObject >> delete [
@@ -170,18 +127,26 @@ SKGridObject >> gridCoordinator [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JJG 6/5/2024 17:23'
+	#'squeak_changestamp' : 'ND 5/20/2026 14:40'
 }
 SKGridObject >> initializeInGrid: aGrid at: aPoint [
 
-	self grid: aGrid. 
+	self grid: aGrid.
 	super initialize.
-	
-	self coordinates: aPoint;
-		addToGrid;
-		height: self grid pixelPerBlock;
-		width: self grid pixelPerBlock;
-		setTexture
+
+	self coordinates: aPoint.
+	self addToGrid.
+	self setTexture.
+	self scaleToFactor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/29/2026 13:09'
+}
+SKGridObject >> isBlocking [
+
+	^ self isKara or: [ self isCloverleaf ] or: [ self isTrunk ]
 ]
 
 {
@@ -194,12 +159,33 @@ SKGridObject >> isCloverleaf [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/29/2026 13:07'
+}
+SKGridObject >> isKara [
+
+	^ false
+]
+
+{
 	#category : #type,
 	#'squeak_changestamp' : 'jt 6/11/2024 13:18'
 }
 SKGridObject >> isTrunk [
 	
 	^ false
+]
+
+{
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/28/2026 20:55'
+}
+SKGridObject >> moveToCoordinates: aPoint [
+
+	self gridCoordinator removeObject: self.
+	self coordinates: aPoint.
+	self notifyGridCoordinator.
+	self changed
 ]
 
 {
@@ -257,8 +243,8 @@ SKGridObject >> neighboursRight [
 ]
 
 {
-	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/24/2024 11:10'
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/28/2026 19:15'
 }
 SKGridObject >> notifyGridCoordinator [
 
@@ -266,19 +252,43 @@ SKGridObject >> notifyGridCoordinator [
 ]
 
 {
-	#category : #positioning,
-	#'squeak_changestamp' : 'LK 5/22/2024 17:00'
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/27/2026 20:15'
 }
-SKGridObject >> position: aPoint [
-	"overwritten position method forces blocks to stay aligned when moving
-	them with the halo"
-	
-	super position: aPoint.
-	self alignToGrid
+SKGridObject >> originalImage [
+	^ originalImage
 ]
 
 {
-	#category : #positioning,
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/27/2026 20:15'
+}
+SKGridObject >> originalImage: aForm [
+	originalImage := aForm
+]
+
+{
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/29/2026 13:12'
+}
+SKGridObject >> position: aPoint [
+
+	self moveToCoordinates: (self coordinatesFromPosition: aPoint)
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 4/29/2026 12:45'
+}
+SKGridObject >> positionFromCoordinates [
+
+	^ self grid position
+		+ (((self coordinates x - 1) * self grid pixelPerBlock)
+		@ ((self coordinates y - 1) * self grid pixelPerBlock))
+]
+
+{
+	#category : #geometry,
 	#'squeak_changestamp' : 'LK 5/22/2024 16:53'
 }
 SKGridObject >> relativePosition [
@@ -287,8 +297,32 @@ SKGridObject >> relativePosition [
 ]
 
 {
+	#category : #geometry,
+	#'squeak_changestamp' : 'LM 4/29/2026 12:51'
+}
+SKGridObject >> relativePositionFor: aPoint [
+
+	^ aPoint - self grid position
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 5/20/2026 14:38'
+}
+SKGridObject >> scaleToFactor [
+
+	| size |
+	size := self grid pixelPerBlock.
+
+	self image: (self originalImage scaledToSize: size @ size).
+	self extent: size @ size.
+	super position: self positionFromCoordinates.
+	self changed
+]
+
+{
 	#category : #appearance,
-	#'squeak_changestamp' : 'JJG 6/5/2024 17:25'
+	#'squeak_changestamp' : 'LM 4/27/2026 20:16'
 }
 SKGridObject >> setTexture [
 
@@ -298,9 +332,9 @@ SKGridObject >> setTexture [
 	
 	aForm := aTextureLoader
 		getTexture: self textureFilename
-		scaledToWidth: self grid pixelPerBlock.
+		scaledToWidth: self grid pixelPerBlock * self scaleFactor.
 		
-	self image: aForm
+	self image: aForm; originalImage: aForm
 ]
 
 {
