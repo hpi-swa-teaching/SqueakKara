@@ -30,9 +30,10 @@ SKButtonStack >> addButton: aButton [
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'SSP 6/7/2026 13:50'
+	#'squeak_changestamp' : 'SSP 6/13/2026 12:29'
 }
 SKButtonStack >> addButtonWithLabel: aLabel target: aTarget selector: aSelector [
+
 	^ self addButton: (SimpleButtonMorph new
 		label: aLabel;
 		target: aTarget;
@@ -41,9 +42,10 @@ SKButtonStack >> addButtonWithLabel: aLabel target: aTarget selector: aSelector 
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'SSP 6/7/2026 13:50'
+	#'squeak_changestamp' : 'SSP 6/13/2026 12:29'
 }
 SKButtonStack >> addButtonWithLabel: aLabel target: aTarget selector: aSelector arguments: anArray [
+
 	^ self addButton: (SimpleButtonMorph new
 		label: aLabel;
 		target: aTarget;
@@ -139,34 +141,6 @@ SKButtonStack >> initialize [
 	buttons := OrderedCollection new.
 	buttonColors := IdentityDictionary new.
 	selectedColor := SKStylesheet primaryColor
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SSP 6/7/2026 13:50'
-}
-SKButtonStack >> normalColor [
-	^ normalColor
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SSP 6/7/2026 13:50'
-}
-SKButtonStack >> normalColor: aColor [
-	normalColor := aColor.
-	self refreshColors.
-	^ self
-]
-
-{
-	#category : #selection,
-	#'squeak_changestamp' : 'SSP 6/7/2026 13:50'
-}
-SKButtonStack >> refreshColors [
-	buttons ifNil: [^ self].
-	buttons do: [:b |
-		b color: (b == selectedButton ifTrue: [selectedColor] ifFalse: [normalColor])]
 ]
 
 {

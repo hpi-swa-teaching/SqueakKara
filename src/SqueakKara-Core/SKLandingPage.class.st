@@ -364,15 +364,6 @@ SKLandingPage >> conceptButtons [
 ]
 
 {
-	#category : #actions,
-	#'squeak_changestamp' : 'SSP 6/7/2026 13:50'
-}
-SKLandingPage >> conceptSelectedAt: anIndex [
-	self selectedConcept: anIndex.
-	self conceptStack selectIndex: anIndex
-]
-
-{
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:06'
 }
