@@ -14,10 +14,6 @@ Class {
 	#'squeak_changestamp' : 'SSP 6/13/2026 14:00'
 }
 SKBlockEditor >> buildSourcePane [
-
-	"Return a vertically scrollable container around a fresh SKBlockSource so the
-	palette stays usable even when the list of available blocks grows beyond
-	the visible area."
 	
 	| pane source |
 	source := SKBlockSource new.

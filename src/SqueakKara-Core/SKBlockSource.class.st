@@ -240,15 +240,16 @@ SKBlockSource >> populate [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'SLH 6/6/2026 01:13'
+	#'squeak_changestamp' : 'SSP 6/13/2026 14:25'
 }
 SKBlockSource >> startDrag: anEvent [
 
-	| hit |
+	| hit duplicate |
 	
-	(hit := self targetMorphAt: anEvent) ifNil:[^self].
-	anEvent hand grabMorph: (hit duplicate leftSource: true)
-	
+	(hit := self targetMorphAt: anEvent) ifNil: [^ self].
+	duplicate := hit duplicate leftSource: true.
+	duplicate position: anEvent hand position - (hit extent // 2).
+	anEvent hand grabMorph: duplicate
 ]
 
 {
