@@ -58,6 +58,23 @@ SKBlockSource >> andBlock [
 ]
 
 {
+	#category : #initialization,
+	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+}
+SKBlockSource >> controlCategory [
+
+	^ SKBlockCategory new
+		title: 'Control';
+		addBlock: self ifBlock;
+		addBlock: self ifElseBlock;
+		addBlock: self forLoop;
+		addBlock: self untilLoop;
+		addBlock: self functionCall;
+		addBlock: self functionStart;
+		yourself
+]
+
+{
 	#category : #'block definitions - control',
 	#'squeak_changestamp' : 'FR 6/9/2026 18:24'
 }
@@ -214,6 +231,21 @@ SKBlockSource >> moveStepsBlock [
 ]
 
 {
+	#category : #initialization,
+	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+}
+SKBlockSource >> movementCategory [
+
+	^ SKBlockCategory new
+		title: 'Movement';
+		addBlock: self moveBlock;
+		addBlock: self moveStepsBlock;
+		addBlock: self turnLeftBlock;
+		addBlock: self turnRightBlock;
+		yourself
+]
+
+{
 	#category : #'block definitions - sensing',
 	#'squeak_changestamp' : 'FR 6/9/2026 18:32'
 }
@@ -229,13 +261,26 @@ SKBlockSource >> onCloverleafBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:06'
+	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
 }
 SKBlockSource >> populate [
+
+	self addMorphBack: self movementCategory;
+		addMorphBack: self controlCategory;
+		addMorphBack: self sensingCategory
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+}
+SKBlockSource >> sensingCategory [
 	
-	self addMovementBlocks.
-	self addControlBlocks.
-	self addSensingBlocks.
+	^ SKBlockCategory new
+		title: 'Sensing';
+		addBlock: self trunkAheadBlock;
+		addBlock: self onCloverleafBlock;
+		yourself
 ]
 
 {
@@ -254,17 +299,13 @@ SKBlockSource >> startDrag: anEvent [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:12'
+	#'squeak_changestamp' : 'SS 6/14/2026 17:32'
 }
 SKBlockSource >> targetMorphAt: anEvent [
-
-	| hits |
 	
-	hits := self morphsAt: anEvent cursorPoint.
-	hits := hits select:[:m| m owner == self].
-	(hits isEmpty or:[hits size >1]) ifTrue:[^nil].
-	^hits first
-
+	^ (self morphsAt: anEvent cursorPoint)
+		detect: [:m | m isKindOf: SKBlock]
+		ifNone: [nil]
 ]
 
 {
