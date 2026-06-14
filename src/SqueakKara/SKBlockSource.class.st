@@ -128,7 +128,7 @@ SKBlockSource >> functionStart [
 }
 SKBlockSource >> handlesMouseDown: anEvent [
 
-	^ true 
+	^ true
 ]
 
 {
