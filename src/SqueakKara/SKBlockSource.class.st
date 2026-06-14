@@ -124,11 +124,11 @@ SKBlockSource >> functionStart [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:13'
+	#'squeak_changestamp' : 'SS 6/14/2026 17:35'
 }
 SKBlockSource >> handlesMouseDown: anEvent [
 
-	^ true
+	^ true 
 ]
 
 {
