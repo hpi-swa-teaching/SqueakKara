@@ -76,17 +76,19 @@ SKMealyNode >> initialize [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/16/2026 19:24'
+	#'squeak_changestamp' : 'LP 6/17/2026 00:47'
 }
 SKMealyNode >> isDraggable [
+
 	^ isDraggable
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/16/2026 19:24'
+	#'squeak_changestamp' : 'LP 6/17/2026 00:47'
 }
 SKMealyNode >> isDraggable: anObject [
+
 	isDraggable := anObject
 ]
 

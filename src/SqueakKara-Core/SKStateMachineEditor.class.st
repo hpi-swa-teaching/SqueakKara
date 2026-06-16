@@ -297,7 +297,7 @@ SKStateMachineEditor >> initializeModeButtons [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/16/2026 19:27'
+	#'squeak_changestamp' : 'LP 6/17/2026 00:48'
 }
 SKStateMachineEditor >> initializePlayground [
 
@@ -322,7 +322,7 @@ SKStateMachineEditor >> initializePlayground [
 	self playGround addNode: startingNode.
 	self playGround addMorph: startingNode.
 	
-	startingNode center: self playGround center.
+	startingNode center: self playGround center
 	
 
 ]
