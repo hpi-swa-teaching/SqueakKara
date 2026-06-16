@@ -199,12 +199,11 @@ SKExecuter >> state: aSymbol [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/29/2026 12:53'
+	#'squeak_changestamp' : 'ND 6/17/2026 00:06'
 }
 SKExecuter >> stateWithUpdate: aSymbol [
 
 	self state: aSymbol.
-	self environment updateTextures
 ]
 
 {
@@ -254,7 +253,7 @@ SKExecuter >> terminate [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/27/2026 21:13'
+	#'squeak_changestamp' : 'ND 6/17/2026 00:07'
 }
 SKExecuter >> terminateFor: aKara [
 
@@ -262,7 +261,7 @@ SKExecuter >> terminateFor: aKara [
 
 	(self processes at: aKara) terminate.
 	self processes removeKey: aKara.
-	self environment updateTextures
+
 ]
 
 {

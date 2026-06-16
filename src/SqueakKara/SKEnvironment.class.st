@@ -453,11 +453,11 @@ SKEnvironment >> nextChallenge: aChallenge [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/4/2026 12:56'
+	#'squeak_changestamp' : 'ND 6/17/2026 00:11'
 }
 SKEnvironment >> onFinish [
 
-	self executeControls actionStop
+	self executeControls buttonStop action
 ]
 
 {
