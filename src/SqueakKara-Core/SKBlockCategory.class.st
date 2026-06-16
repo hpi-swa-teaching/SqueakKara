@@ -9,8 +9,7 @@ Class {
 		'titleLabel',
 		'expanded'
 	],
-	#category : #'SqueakKara-Core',
-	#'squeak_changestamp' : 'SS 6/14/2026 17:31'
+	#category : #'SqueakKara-Core'
 }
 
 {
