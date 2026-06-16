@@ -43,7 +43,7 @@ SKTrunk >> position: aPoint [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'jt 6/11/2024 19:54'
+	#'squeak_changestamp' : 'JS 6/16/2026 16:14'
 }
 SKTrunk >> textureFilename [
 

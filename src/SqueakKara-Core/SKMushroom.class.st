@@ -36,9 +36,9 @@ SKMushroom >> move: aDirection [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 20:47'
+	#'squeak_changestamp' : 'JS 6/16/2026 16:07'
 }
 SKMushroom >> textureFilename [
 
-	^ 'Cloverleaf.png'
+	^ 'Mushrooms.png'
 ]
