@@ -181,15 +181,6 @@ SKGridObject >> isCriticalSection [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'mr 6/12/2026 19:08'
-}
-SKGridObject >> isDirectionTile [
-	
-	^ false
-]
-
-{
-	#category : #accessing,
 	#'squeak_changestamp' : 'mr 6/12/2026 19:10'
 }
 SKGridObject >> isDirectionalTile [

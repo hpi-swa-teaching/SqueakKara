@@ -10,12 +10,12 @@ Class {
 
 {
 	#category : #build,
-	#'squeak_changestamp' : 'mr 6/12/2026 20:41'
+	#'squeak_changestamp' : 'mr 6/16/2026 12:33'
 }
 SKChallenge class >> directionalTileFor: aGrid at: aPoint entrances: aCollectionEntrances exits: aCollectionExits [
 
-	aCollectionEntrances do: [ :entranceDirection | SKDirectionalTile newInGrid: aGrid at: aPoint direction: entranceDirection ].
-	aCollectionExits do: [ :exitDirection | SKDirectionalTile newInGrid: aGrid at: (aPoint + exitDirection) direction: (SKDirection mirror: exitDirection) ].
+	aCollectionEntrances do: [ :entranceDirection | SKDirectionalTile newInGrid: aGrid at: aPoint enterFrom: entranceDirection ].
+	aCollectionExits do: [ :exitDirection | SKDirectionalTile newInGrid: aGrid at: (aPoint + exitDirection) enterFrom: (SKDirection mirror: exitDirection) ].
 ]
 
 {
@@ -236,7 +236,7 @@ SKChallenge class >> initializeChallenge8For: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'mr 6/12/2026 20:34'
+	#'squeak_changestamp' : 'mr 6/16/2026 12:32'
 }
 SKChallenge class >> initializeChallenge9For: anEnvironment [
 	
@@ -246,8 +246,6 @@ SKChallenge class >> initializeChallenge9For: anEnvironment [
 	
 	SKChallenge treeSquarePositions do: [ :aPoint | SKTrunk newInGrid: grid at: aPoint + (3 @ 3)].
 	SKChallenge treeSquarePositions do: [ :aPoint | SKTrunk newInGrid: grid at: aPoint + (7 @ 3)].
-	
-	self directionalTileFor: grid at: ( 2 @ 1 ) entrances: { SKDirection left } exits: { SKDirection right . SKDirection left }.
 	
 	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 1 with: 4 @ 5).
 	anEnvironment addKara: (SKKara newInGrid: grid at: 8 @ 1 with: 7 @ 1).

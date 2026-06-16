@@ -33,7 +33,7 @@ SKKara class >> newInGrid: aGrid at: aPoint [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/12/2026 20:53'
+	#'squeak_changestamp' : 'mr 6/16/2026 12:38'
 }
 SKKara >> canMoveTo: aDirection [
 
@@ -42,7 +42,7 @@ SKKara >> canMoveTo: aDirection [
 	(self trunkAhead) ifTrue: [ ^ false ].
 
 	neighboursNext := self neighboursAt: aDirection.
-	(self hasBlockingDirectionalTileIn: neighboursNext direction: aDirection ) ifTrue: [ ^ false ].
+	(self hasBlockingDirectionalTileIn: neighboursNext direction: aDirection) ifTrue: [ ^ false ].
 		
 	 ^ true
 ]
@@ -170,7 +170,7 @@ SKKara >> findUnusedColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/12/2026 20:37'
+	#'squeak_changestamp' : 'mr 6/16/2026 12:39'
 }
 SKKara >> hasBlockingDirectionalTileIn: aNeighborCollection direction: aDirection [
 	
@@ -179,7 +179,7 @@ SKKara >> hasBlockingDirectionalTileIn: aNeighborCollection direction: aDirectio
 	directionalTiles := (aNeighborCollection 
 		select: [ :neighbor | neighbor isDirectionalTile ]).
 	
-	directionalTiles isEmpty ifTrue: [ ^false ].
+	directionalTiles isEmpty ifTrue: [ ^ false ].
 		
 	^ (directionalTiles anySatisfy: [ :directionalTile | directionalTile matchesDirection: aDirection ]) not
 ]

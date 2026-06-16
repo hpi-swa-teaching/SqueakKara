@@ -20,9 +20,9 @@ Class {
 
 {
 	#category : #'instance creation',
-	#'squeak_changestamp' : 'mr 6/12/2026 20:37'
+	#'squeak_changestamp' : 'mr 6/16/2026 12:33'
 }
-SKDirectionalTile class >> newInGrid: aGrid at: aPoint direction: aDirection [
+SKDirectionalTile class >> newInGrid: aGrid at: aPoint enterFrom: aDirection [
 
 	| directionalTile directionalTileDirection |
 	
@@ -62,7 +62,7 @@ SKDirectionalTile >> isDirectionalTile [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #direction,
 	#'squeak_changestamp' : 'mr 6/12/2026 19:01'
 }
 SKDirectionalTile >> matchesDirection: aDirection [
@@ -71,7 +71,7 @@ SKDirectionalTile >> matchesDirection: aDirection [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'mr 6/12/2026 20:24'
 }
 SKDirectionalTile >> scaleToFactor [
