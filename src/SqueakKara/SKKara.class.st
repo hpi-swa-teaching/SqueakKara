@@ -33,16 +33,19 @@ SKKara class >> newInGrid: aGrid at: aPoint [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/16/2026 12:38'
+	#'squeak_changestamp' : 'mr 6/16/2026 13:50'
 }
-SKKara >> canMoveTo: aDirection [
+SKKara >> canMoveAhead [
 
-	| neighboursNext |
+	| neighboursNext movementDirection |
 
 	(self trunkAhead) ifTrue: [ ^ false ].
-
-	neighboursNext := self neighboursAt: aDirection.
-	(self hasBlockingDirectionalTileIn: neighboursNext direction: aDirection) ifTrue: [ ^ false ].
+	(self karaAhead) ifTrue: [ ^ false ].
+	
+	movementDirection := self viewDirection.
+	neighboursNext := self neighboursAt: movementDirection.
+	(self hasBlockingDirectionalTileIn: neighboursNext direction: movementDirection) 
+		ifTrue: [ ^ false ].
 		
 	 ^ true
 ]
@@ -229,7 +232,7 @@ SKKara >> karaAhead [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'LM 6/8/2026 18:00'
+	#'squeak_changestamp' : 'mr 6/16/2026 13:51'
 }
 SKKara >> lockAt: aPoint [
 
@@ -237,7 +240,7 @@ SKKara >> lockAt: aPoint [
 
 	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
 	
-	(self trunkAhead or: [ self karaAhead ]) ifTrue: [ ^ self ].
+	(self canMoveAhead) ifFalse: [ ^ self ].
 	
 	lockSuccessful := (self gridCoordinator lockAt: aPoint for: self).
 	staysInCriticalSection := self onCriticalSection and: [ self criticalSectionAhead ].
@@ -257,13 +260,13 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/16/2026 13:02'
+	#'squeak_changestamp' : 'mr 6/16/2026 13:51'
 }
 SKKara >> move [
 	
 	self stopSayingOrThinking.
 
-	(self canMoveTo: self viewDirection) ifFalse: [
+	(self canMoveAhead) ifFalse: [
 		self sayMessageForThreeSeconds: 'Aua! Ich bin gegen ein Hindernis gelaufen D:'.
 		^ false ].
 
