@@ -15,7 +15,7 @@ Class {
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
+	#'squeak_changestamp' : 'SSP 6/13/2026 13:51'
 }
 SKBlock >> aboutToBeGrabbedBy: aHand [
 

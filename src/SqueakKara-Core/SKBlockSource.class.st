@@ -5,47 +5,6 @@ Class {
 }
 
 {
-	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 19:13'
-}
-SKBlockSource >> addControlBlocks [
-		
-	self addMorphBack: self ifBlock.
-	self addMorphBack: self ifElseBlock.
-	self addMorphBack: self forLoop.
-	self addMorphBack: self untilLoop.
-	self addMorphBack: self functionCall.
-	self addMorphBack: self functionStart.
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/16/2026 17:40'
-}
-SKBlockSource >> addMovementBlocks [
-	
-	self addMorphBack: self moveBlock.
-	self addMorphBack: self moveStepsBlock.
-	self addMorphBack: self pushBlock.
-	self addMorphBack: self turnLeftBlock.
-	self addMorphBack: self turnRightBlock.
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/16/2026 17:38'
-}
-SKBlockSource >> addSensingBlocks [
-		
-	self addMorphBack: self andBlock.
-	self addMorphBack: self orBlock.
-	self addMorphBack: self notBlock.
-	self addMorphBack: self trunkAheadBlock.
-	self addMorphBack: self mushroomAheadBlock.
-	self addMorphBack: self onCloverleafBlock
-]
-
-{
 	#category : #'block definitions - sensing',
 	#'squeak_changestamp' : 'SLH 6/16/2026 17:34'
 }
@@ -58,6 +17,23 @@ SKBlockSource >> andBlock [
 		value: [:bool1 :bool2 | '((',bool1,') and: [',bool2,'])'];
 		category: #sensing;
 		updateLayout;
+		yourself
+]
+
+{
+	#category : #categories,
+	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+}
+SKBlockSource >> controlCategory [
+
+	^ SKBlockCategory new
+		title: 'Control';
+		addBlock: self ifBlock;
+		addBlock: self ifElseBlock;
+		addBlock: self forLoop;
+		addBlock: self untilLoop;
+		addBlock: self functionCall;
+		addBlock: self functionStart;
 		yourself
 ]
 
@@ -111,7 +87,7 @@ SKBlockSource >> functionStart [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:13'
+	#'squeak_changestamp' : 'SS 6/14/2026 17:35'
 }
 SKBlockSource >> handlesMouseDown: anEvent [
 
@@ -156,7 +132,7 @@ SKBlockSource >> ifElseBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:15'
+	#'squeak_changestamp' : 'SSP 6/13/2026 14:00'
 }
 SKBlockSource >> initialize [
 
@@ -167,7 +143,7 @@ SKBlockSource >> initialize [
 		listDirection: #topToBottom;
 		layoutInset: 10;
 		hResizing: #spaceFill;
-	 	vResizing: #spaceFill;
+	 	vResizing: #shrinkWrap;
 		cellPositioning: #topLeft;
 		cellGap: 10;
 		populate
@@ -214,6 +190,21 @@ SKBlockSource >> moveStepsBlock [
 		action: [:steps | steps,' timesRepeat: [kara move]']; 
 		category: #movement;
 		updateLayout;
+		yourself
+]
+
+{
+	#category : #categories,
+	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+}
+SKBlockSource >> movementCategory [
+
+	^ SKBlockCategory new
+		title: 'Movement';
+		addBlock: self moveBlock;
+		addBlock: self moveStepsBlock;
+		addBlock: self turnLeftBlock;
+		addBlock: self turnRightBlock;
 		yourself
 ]
 
@@ -278,13 +269,13 @@ SKBlockSource >> orBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:06'
+	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
 }
 SKBlockSource >> populate [
-	
-	self addMovementBlocks.
-	self addControlBlocks.
-	self addSensingBlocks.
+
+	self addMorphBack: self movementCategory;
+		addMorphBack: self controlCategory;
+		addMorphBack: self sensingCategory
 ]
 
 {
@@ -302,31 +293,41 @@ SKBlockSource >> pushBlock [
 ]
 
 {
-	#category : #'event handling',
-	#'squeak_changestamp' : 'SLH 6/6/2026 01:13'
+	#category : #categories,
+	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
 }
-SKBlockSource >> startDrag: anEvent [
-
-	| hit |
+SKBlockSource >> sensingCategory [
 	
-	(hit := self targetMorphAt: anEvent) ifNil:[^self].
-	anEvent hand grabMorph: (hit duplicate leftSource: true)
-	
+	^ SKBlockCategory new
+		title: 'Sensing';
+		addBlock: self trunkAheadBlock;
+		addBlock: self onCloverleafBlock;
+		yourself
 ]
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:12'
+	#'squeak_changestamp' : 'SSP 6/13/2026 14:25'
+}
+SKBlockSource >> startDrag: anEvent [
+
+	| hit duplicate |
+	
+	(hit := self targetMorphAt: anEvent) ifNil: [^ self].
+	duplicate := hit duplicate leftSource: true.
+	duplicate position: anEvent hand position - (hit extent // 2).
+	anEvent hand grabMorph: duplicate
+]
+
+{
+	#category : #'event handling',
+	#'squeak_changestamp' : 'SS 6/14/2026 17:32'
 }
 SKBlockSource >> targetMorphAt: anEvent [
-
-	| hits |
 	
-	hits := self morphsAt: anEvent cursorPoint.
-	hits := hits select:[:m| m owner == self].
-	(hits isEmpty or:[hits size >1]) ifTrue:[^nil].
-	^hits first
-
+	^ (self morphsAt: anEvent cursorPoint)
+		detect: [:m | m isKindOf: SKBlock]
+		ifNone: [nil]
 ]
 
 {
