@@ -5,8 +5,8 @@ Class {
 }
 
 {
-	#category : #'block definitions - sensing',
-	#'squeak_changestamp' : 'FR 6/9/2026 18:31'
+	#category : #'block definitions - operators',
+	#'squeak_changestamp' : 'SLH 6/16/2026 17:34'
 }
 SKBlockSource >> andBlock [
 
@@ -14,7 +14,7 @@ SKBlockSource >> andBlock [
 		addBooleanPart;
 		addLabel: 'and';
 		addBooleanPart;
-		value: [:bool1 :bool2 | '(',bool1,' and:[',bool2,'])'];
+		value: [:bool1 :bool2 | '((',bool1,') and: [',bool2,'])'];
 		category: #sensing;
 		updateLayout;
 		yourself
@@ -195,7 +195,7 @@ SKBlockSource >> moveStepsBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'SLH 6/16/2026 21:11'
 }
 SKBlockSource >> movementCategory [
 
@@ -203,8 +203,38 @@ SKBlockSource >> movementCategory [
 		title: 'Movement';
 		addBlock: self moveBlock;
 		addBlock: self moveStepsBlock;
+		addBlock: self pushBlock;
 		addBlock: self turnLeftBlock;
 		addBlock: self turnRightBlock;
+		yourself
+]
+
+{
+	#category : #'block definitions - sensing',
+	#'squeak_changestamp' : 'SLH 6/16/2026 17:38'
+}
+SKBlockSource >> mushroomAheadBlock [
+
+	^ SKBooleanBlock new
+		addLabel: 'mushroom ahead';
+		value: ['kara mushroomAhead'];
+		category: #sensing;
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - operators',
+	#'squeak_changestamp' : 'SLH 6/16/2026 17:35'
+}
+SKBlockSource >> notBlock [
+
+	^ SKBooleanBlock new
+		addLabel: 'not';
+		addBooleanPart;
+		value: [:bool | '(', bool, ') not'];
+		category: #sensing;
+		updateLayout;
 		yourself
 ]
 
@@ -223,25 +253,71 @@ SKBlockSource >> onCloverleafBlock [
 ]
 
 {
+	#category : #categories,
+	#'squeak_changestamp' : 'SLH 6/16/2026 21:10'
+}
+SKBlockSource >> operatorCategory [
+	
+	^ SKBlockCategory new
+		title: 'Operators';
+		addBlock: self andBlock;
+		addBlock: self orBlock;
+		addBlock: self notBlock;
+		yourself
+]
+
+{
+	#category : #'block definitions - operators',
+	#'squeak_changestamp' : 'SLH 6/16/2026 17:35'
+}
+SKBlockSource >> orBlock [
+
+	^ SKBooleanBlock new
+		addBooleanPart;
+		addLabel: 'or';
+		addBooleanPart;
+		value: [:bool1 :bool2 | '((',bool1,') or: [',bool2,'])'];
+		category: #sensing;
+		updateLayout;
+		yourself
+]
+
+{
 	#category : #initialization,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'SLH 6/16/2026 21:10'
 }
 SKBlockSource >> populate [
 
 	self addMorphBack: self movementCategory;
 		addMorphBack: self controlCategory;
-		addMorphBack: self sensingCategory
+		addMorphBack: self sensingCategory;
+		addMorphBack: self operatorCategory
+]
+
+{
+	#category : #'block definitions - movement',
+	#'squeak_changestamp' : 'SLH 6/16/2026 17:40'
+}
+SKBlockSource >> pushBlock [
+
+	^ SKActionBlock new
+		addLabel: 'push';
+		action: ['kara push'];
+		category: #movement;
+		updateLayout;
+		yourself
 ]
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'SLH 6/16/2026 21:11'
 }
 SKBlockSource >> sensingCategory [
 	
 	^ SKBlockCategory new
 		title: 'Sensing';
 		addBlock: self trunkAheadBlock;
+		addBlock: self mushroomAheadBlock;
 		addBlock: self onCloverleafBlock;
 		yourself
 ]
