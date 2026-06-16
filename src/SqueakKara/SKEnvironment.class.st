@@ -84,6 +84,15 @@ SKEnvironment >> challange: anObject [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/17/2026 00:24'
+}
+SKEnvironment >> clearKaras [
+
+	self karas: OrderedCollection new
+]
+
+{
 	#category : #commands,
 	#'squeak_changestamp' : 'JS 5/27/2026 21:22'
 }
@@ -419,11 +428,12 @@ SKEnvironment >> programmingUI: aProgrammingUI [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:19'
+	#'squeak_changestamp' : 'FR 6/17/2026 00:25'
 }
 SKEnvironment >> reset: aChallenge [
 
 	self grid clear.
+	self clearKaras.
 	SKChallenge perform: ('initialize', aChallenge, 'For:environment:') asSymbol withArguments:{self grid. self}
 ]
 

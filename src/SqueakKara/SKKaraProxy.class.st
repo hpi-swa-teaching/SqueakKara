@@ -80,11 +80,12 @@ SKKaraProxy >> onCloverleaf [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 20:55'
+	#'squeak_changestamp' : 'FR 6/17/2026 00:23'
 }
 SKKaraProxy >> push [
 
-	self kara push.
+	self scheduler scheduleAction: (SKAction newWithType: #move action: [ self kara push ]) for: self.
+	self scheduler waitFor: self
 ]
 
 {
