@@ -44,14 +44,6 @@ SKMealyTest >> checkIfLogicGraph: aLogicGraph hasNode: aNode [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 14:02'
-}
-SKMealyTest >> checkIfLogicGraphHasNode: aNode [
-
-]
-
-{
-	#category : #helper,
 	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 14:03'
 }
 SKMealyTest >> checkIfNodeHasSameEdges: aNode and: anotherNode [
@@ -140,7 +132,7 @@ SKMealyTest >> tearDown [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 12:17'
+	#'squeak_changestamp' : 'JS 6/16/2026 20:38'
 }
 SKMealyTest >> testIntegration [
 
@@ -148,7 +140,7 @@ SKMealyTest >> testIntegration [
 	
 	kara := self environment karas first.
 	playGround := self environment programmingUI editor playGround.
-	node1 := self createStartingNodeWithName: 'node1'.
+	node1 := playGround nodes at: 1.
 	node2 := self createNodeWithName: 'node2'.
 	edge1 := self createEdgeFrom: node1 to: node2 command: 'kara turn: left' condition: ''.
 	playGround
@@ -165,14 +157,15 @@ SKMealyTest >> testIntegration [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 12:17'
+	#'squeak_changestamp' : 'JS 6/16/2026 20:45'
 }
 SKMealyTest >> testNormalCompile [
 
 	| playGround node1 node2 edge1 logicGraph logicNode1 logicNode2 logicEdge1 |
 	
 	playGround := self environment programmingUI editor playGround.
-	node1 := self createStartingNodeWithName: 'node1'.
+	node1 := playGround nodes at: 1.
+	node1 name: 'node1'.
 	node2 := self createNodeWithName: 'node2'.
 	edge1 := self createEdgeFrom: node1 to: node2 command: 'kara turn: left' condition: ''.
 	playGround
