@@ -19,23 +19,26 @@ SKTextEntry >> handlesMouseDown: anEvent [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SSP 6/13/2026 15:40'
+	#'squeak_changestamp' : 'SLH 6/16/2026 20:37'
 }
 SKTextEntry >> isInBlockSource [
 
 	| block |
+	
 	block := self ownerThatIsA: SKBlock.
 	^ block notNil and: [block leftSource not]
 ]
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:10'
+	#'squeak_changestamp' : 'SLH 6/16/2026 20:36'
 }
 SKTextEntry >> keyStroke: anEvent [
 	
 	| char |
-	self isInBlockSource ifTrue: [^ self]. "this is unnecessary typing prevention"
+
+	self isInBlockSource ifTrue: [^ self].
+
 	char := anEvent keyCharacter.
 	char = Character cr ifTrue: [
 		anEvent hand releaseKeyboardFocus: self.
@@ -61,17 +64,19 @@ SKTextEntry >> mouseDown: anEvent [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:52'
+	#'squeak_changestamp' : 'SLH 6/16/2026 20:36'
 }
 SKTextEntry >> numericOnly [
+
 	^ numericOnly ifNil: [numericOnly := false. ^ false]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:49'
+	#'squeak_changestamp' : 'SLH 6/16/2026 20:36'
 }
 SKTextEntry >> numericOnly: aBoolean [
+
 	numericOnly := aBoolean
 ]
 

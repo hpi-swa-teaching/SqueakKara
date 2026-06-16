@@ -11,11 +11,12 @@ Class {
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SSP 6/13/2026 14:00'
+	#'squeak_changestamp' : 'SLH 6/16/2026 20:43'
 }
 SKBlockEditor >> buildSourcePane [
 	
 	| pane source |
+
 	source := SKBlockSource new.
 	pane := ScrollPane new
 		color: Color transparent;
@@ -25,6 +26,7 @@ SKBlockEditor >> buildSourcePane [
 		extent: self sourcePaneWidth @ self minHeight;
 		yourself.
 	pane scroller addMorph: source.
+
 	^ pane
 ]
 
@@ -48,9 +50,10 @@ SKBlockEditor >> getCode [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:15'
+	#'squeak_changestamp' : 'SLH 6/16/2026 20:44'
 }
 SKBlockEditor >> initialize [
+
 	super initialize.
 	
 	self minWidth: 500;
@@ -83,9 +86,10 @@ SKBlockEditor >> nextAvailableFunctionNameFor: aString [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SSP 6/13/2026 14:00'
+	#'squeak_changestamp' : 'SLH 6/16/2026 20:44'
 }
 SKBlockEditor >> open [
+
 	| window |
 	
 	window := RectangleMorph new
@@ -108,7 +112,7 @@ SKBlockEditor >> open [
 ]
 
 {
-	#category : #initialization,
+	#category : #accessing,
 	#'squeak_changestamp' : 'SSP 6/13/2026 14:00'
 }
 SKBlockEditor >> sourcePaneWidth [

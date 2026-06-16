@@ -42,14 +42,27 @@ SKBlockCategory >> buildContent [
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'SLH 6/16/2026 20:40'
 }
 SKBlockCategory >> buildHeader [
 
 	| row |
+
 	disclosure := StringMorph new contents: self disclosureLabel.
 	titleLabel := StringMorph new contents: self title; emphasis: 1.
-	row := Morph new
+	row := self buildRow.
+	row addMorphBack: disclosure;
+		addMorphBack: titleLabel.
+	^ row
+]
+
+{
+	#category : #building,
+	#'squeak_changestamp' : 'SLH 6/16/2026 20:40'
+}
+SKBlockCategory >> buildRow [
+
+	^ Morph new
 		color: SKStylesheet colorBeige;
 		borderColor: SKStylesheet colorOrange;
 		borderWidth: 1;
@@ -63,18 +76,15 @@ SKBlockCategory >> buildHeader [
 		cellGap: 6;
 		on: #mouseDown send: #toggle to: self;
 		yourself.
-	row addMorphBack: disclosure;
-		addMorphBack: titleLabel.
-	^ row
 ]
 
 {
 	#category : #expansion,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'SLH 6/16/2026 20:39'
 }
 SKBlockCategory >> collapse [
 
-	expanded := false.
+	self expanded: false.
 	self content owner == self ifTrue: [self content delete].
 	self refreshDisclosure.
 	self layoutChanged
@@ -100,11 +110,11 @@ SKBlockCategory >> disclosureLabel [
 
 {
 	#category : #expansion,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'SLH 6/16/2026 20:39'
 }
 SKBlockCategory >> expand [
 
-	expanded := true.
+	self expanded: true.
 	self content owner == self ifFalse: [self addMorphBack: self content].
 	self refreshDisclosure.
 	self layoutChanged
@@ -117,6 +127,15 @@ SKBlockCategory >> expand [
 SKBlockCategory >> expanded [
 
 	^ expanded ifNil: [expanded := true]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/16/2026 20:38'
+}
+SKBlockCategory >> expanded: aBoolean [
+
+	expanded := aBoolean
 ]
 
 {

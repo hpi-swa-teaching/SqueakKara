@@ -5,43 +5,6 @@ Class {
 }
 
 {
-	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 19:13'
-}
-SKBlockSource >> addControlBlocks [
-		
-	self addMorphBack: self ifBlock.
-	self addMorphBack: self ifElseBlock.
-	self addMorphBack: self forLoop.
-	self addMorphBack: self untilLoop.
-	self addMorphBack: self functionCall.
-	self addMorphBack: self functionStart.
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:30'
-}
-SKBlockSource >> addMovementBlocks [
-	
-	self addMorphBack: self moveBlock.
-	self addMorphBack: self moveStepsBlock.
-	self addMorphBack: self turnLeftBlock.
-	self addMorphBack: self turnRightBlock.
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:32'
-}
-SKBlockSource >> addSensingBlocks [
-		
-	"self addMorphBack: self andBlock."
-	self addMorphBack: self trunkAheadBlock.
-	self addMorphBack: self onCloverleafBlock
-]
-
-{
 	#category : #'block definitions - sensing',
 	#'squeak_changestamp' : 'FR 6/9/2026 18:31'
 }
@@ -58,7 +21,7 @@ SKBlockSource >> andBlock [
 ]
 
 {
-	#category : #initialization,
+	#category : #categories,
 	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
 }
 SKBlockSource >> controlCategory [
@@ -231,7 +194,7 @@ SKBlockSource >> moveStepsBlock [
 ]
 
 {
-	#category : #initialization,
+	#category : #categories,
 	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
 }
 SKBlockSource >> movementCategory [
@@ -271,7 +234,7 @@ SKBlockSource >> populate [
 ]
 
 {
-	#category : #initialization,
+	#category : #categories,
 	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
 }
 SKBlockSource >> sensingCategory [
