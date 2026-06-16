@@ -5,7 +5,7 @@ Class {
 }
 
 {
-	#category : #'block definitions - sensing',
+	#category : #'block definitions - operators',
 	#'squeak_changestamp' : 'SLH 6/16/2026 17:34'
 }
 SKBlockSource >> andBlock [
@@ -195,7 +195,7 @@ SKBlockSource >> moveStepsBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'SLH 6/16/2026 21:11'
 }
 SKBlockSource >> movementCategory [
 
@@ -203,6 +203,7 @@ SKBlockSource >> movementCategory [
 		title: 'Movement';
 		addBlock: self moveBlock;
 		addBlock: self moveStepsBlock;
+		addBlock: self pushBlock;
 		addBlock: self turnLeftBlock;
 		addBlock: self turnRightBlock;
 		yourself
@@ -223,7 +224,7 @@ SKBlockSource >> mushroomAheadBlock [
 ]
 
 {
-	#category : #'block definitions - sensing',
+	#category : #'block definitions - operators',
 	#'squeak_changestamp' : 'SLH 6/16/2026 17:35'
 }
 SKBlockSource >> notBlock [
@@ -252,7 +253,21 @@ SKBlockSource >> onCloverleafBlock [
 ]
 
 {
-	#category : #'block definitions - sensing',
+	#category : #categories,
+	#'squeak_changestamp' : 'SLH 6/16/2026 21:10'
+}
+SKBlockSource >> operatorCategory [
+	
+	^ SKBlockCategory new
+		title: 'Operators';
+		addBlock: self andBlock;
+		addBlock: self orBlock;
+		addBlock: self notBlock;
+		yourself
+]
+
+{
+	#category : #'block definitions - operators',
 	#'squeak_changestamp' : 'SLH 6/16/2026 17:35'
 }
 SKBlockSource >> orBlock [
@@ -269,13 +284,14 @@ SKBlockSource >> orBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'SLH 6/16/2026 21:10'
 }
 SKBlockSource >> populate [
 
 	self addMorphBack: self movementCategory;
 		addMorphBack: self controlCategory;
-		addMorphBack: self sensingCategory
+		addMorphBack: self sensingCategory;
+		addMorphBack: self operatorCategory
 ]
 
 {
@@ -294,13 +310,14 @@ SKBlockSource >> pushBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'SLH 6/16/2026 21:11'
 }
 SKBlockSource >> sensingCategory [
 	
 	^ SKBlockCategory new
 		title: 'Sensing';
 		addBlock: self trunkAheadBlock;
+		addBlock: self mushroomAheadBlock;
 		addBlock: self onCloverleafBlock;
 		yourself
 ]
