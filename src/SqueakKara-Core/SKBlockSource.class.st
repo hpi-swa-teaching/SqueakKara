@@ -20,30 +20,34 @@ SKBlockSource >> addControlBlocks [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:30'
+	#'squeak_changestamp' : 'SLH 6/16/2026 17:40'
 }
 SKBlockSource >> addMovementBlocks [
 	
 	self addMorphBack: self moveBlock.
 	self addMorphBack: self moveStepsBlock.
+	self addMorphBack: self pushBlock.
 	self addMorphBack: self turnLeftBlock.
 	self addMorphBack: self turnRightBlock.
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:32'
+	#'squeak_changestamp' : 'SLH 6/16/2026 17:38'
 }
 SKBlockSource >> addSensingBlocks [
 		
-	"self addMorphBack: self andBlock."
+	self addMorphBack: self andBlock.
+	self addMorphBack: self orBlock.
+	self addMorphBack: self notBlock.
 	self addMorphBack: self trunkAheadBlock.
+	self addMorphBack: self mushroomAheadBlock.
 	self addMorphBack: self onCloverleafBlock
 ]
 
 {
 	#category : #'block definitions - sensing',
-	#'squeak_changestamp' : 'FR 6/9/2026 18:31'
+	#'squeak_changestamp' : 'SLH 6/16/2026 17:34'
 }
 SKBlockSource >> andBlock [
 
@@ -51,7 +55,7 @@ SKBlockSource >> andBlock [
 		addBooleanPart;
 		addLabel: 'and';
 		addBooleanPart;
-		value: [:bool1 :bool2 | '(',bool1,' and:[',bool2,'])'];
+		value: [:bool1 :bool2 | '((',bool1,') and: [',bool2,'])'];
 		category: #sensing;
 		updateLayout;
 		yourself
@@ -215,6 +219,35 @@ SKBlockSource >> moveStepsBlock [
 
 {
 	#category : #'block definitions - sensing',
+	#'squeak_changestamp' : 'SLH 6/16/2026 17:38'
+}
+SKBlockSource >> mushroomAheadBlock [
+
+	^ SKBooleanBlock new
+		addLabel: 'mushroom ahead';
+		value: ['kara mushroomAhead'];
+		category: #sensing;
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - sensing',
+	#'squeak_changestamp' : 'SLH 6/16/2026 17:35'
+}
+SKBlockSource >> notBlock [
+
+	^ SKBooleanBlock new
+		addLabel: 'not';
+		addBooleanPart;
+		value: [:bool | '(', bool, ') not'];
+		category: #sensing;
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - sensing',
 	#'squeak_changestamp' : 'FR 6/9/2026 18:32'
 }
 SKBlockSource >> onCloverleafBlock [
@@ -222,6 +255,22 @@ SKBlockSource >> onCloverleafBlock [
 	^ SKBooleanBlock new
 		addLabel: 'on cloverleaf';
 		value: ['kara onCloverleaf'];
+		category: #sensing;
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - sensing',
+	#'squeak_changestamp' : 'SLH 6/16/2026 17:35'
+}
+SKBlockSource >> orBlock [
+
+	^ SKBooleanBlock new
+		addBooleanPart;
+		addLabel: 'or';
+		addBooleanPart;
+		value: [:bool1 :bool2 | '((',bool1,') or: [',bool2,'])'];
 		category: #sensing;
 		updateLayout;
 		yourself
@@ -236,6 +285,20 @@ SKBlockSource >> populate [
 	self addMovementBlocks.
 	self addControlBlocks.
 	self addSensingBlocks.
+]
+
+{
+	#category : #'block definitions - movement',
+	#'squeak_changestamp' : 'SLH 6/16/2026 17:40'
+}
+SKBlockSource >> pushBlock [
+
+	^ SKActionBlock new
+		addLabel: 'push';
+		action: ['kara push'];
+		category: #movement;
+		updateLayout;
+		yourself
 ]
 
 {

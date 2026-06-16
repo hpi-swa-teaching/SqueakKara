@@ -49,7 +49,7 @@ SKValueBlock >> type [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:16'
+	#'squeak_changestamp' : 'SLH 6/16/2026 17:31'
 }
 SKValueBlock >> validSnapConnectionsIn: anObject [
 
@@ -58,7 +58,7 @@ SKValueBlock >> validSnapConnectionsIn: anObject [
 	validConnections := OrderedCollection new.
 
 	anObject allMorphsDo: [:each |
-		((each isKindOf: SKActionBlock) and: [
+		((each isKindOf: SKBlock) and: [
 			((each hasOwner: self) not) and: [
 				each ~= self]]) ifTrue: [
 					validConnections addAll: (each valueConnectionPoints select: [:connection |
