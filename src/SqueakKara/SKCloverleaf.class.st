@@ -18,6 +18,15 @@ SKCloverleaf >> isCloverleaf [
 ]
 
 {
+	#category : #appearance,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 17:06'
+}
+SKCloverleaf >> isWalkable [
+
+	^ true
+]
+
+{
 	#category : #geometry,
 	#'squeak_changestamp' : 'LM 4/29/2026 12:59'
 }
