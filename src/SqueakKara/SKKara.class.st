@@ -257,7 +257,7 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/12/2026 19:23'
+	#'squeak_changestamp' : 'mr 6/16/2026 13:02'
 }
 SKKara >> move [
 	
@@ -267,10 +267,9 @@ SKKara >> move [
 		self sayMessageForThreeSeconds: 'Aua! Ich bin gegen ein Hindernis gelaufen D:'.
 		^ false ].
 
-	(self moveToCoordinates: self coordinates + self viewDirection) ifTrue: [
-		^ true ]
-		ifFalse: [ 
-			self sayMessageForThreeSeconds: 'Aua! Da darf ich nicht hinlaufen D:'.
+	(self moveToCoordinates: self coordinates + self viewDirection) 
+		ifTrue: [ ^ true ]
+		ifFalse: [ self sayMessageForThreeSeconds: 'Aua! Da darf ich nicht hinlaufen D:'.
 			^ false ]
 ]
 

@@ -123,7 +123,7 @@ SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'mr 6/12/2026 21:13'
+	#'squeak_changestamp' : 'mr 6/16/2026 13:12'
 }
 SKKaraTest >> testDirectionalTile [
 
@@ -132,8 +132,8 @@ SKKaraTest >> testDirectionalTile [
 	kara := SKKara new.
 	kara initializeInGrid: self grid at: (1 @ 1) with: (4 @ 1).
 	
-	directionalTile1 := SKDirectionalTile newInGrid: self grid at: (2 @ 1) direction: SKDirection left.
-	directionalTile2 := SKDirectionalTile newInGrid: self grid at: (3 @ 1) direction: SKDirection right.
+	directionalTile1 := SKDirectionalTile newInGrid: self grid at: (2 @ 1) enterFrom: SKDirection left.
+	directionalTile2 := SKDirectionalTile newInGrid: self grid at: (3 @ 1) enterFrom: SKDirection right.
 	
 	kara move.
 	self assert: kara coordinates = directionalTile1 coordinates.
