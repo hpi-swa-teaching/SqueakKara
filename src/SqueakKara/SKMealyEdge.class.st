@@ -5,7 +5,6 @@ Class {
 		'line',
 		'fromNode',
 		'toNode',
-		'fromPosition',
 		'controller',
 		'popUpActive',
 		'edgeMorph',
@@ -29,25 +28,6 @@ SKMealyEdge class >> newFrom: aNode to: anotherNode [
 		line: line;
 		fromNode: aNode;
 		toNode: anotherNode.
-	aNode controller playGround addMorph: line.
-	
-	^ instance
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'JS 6/9/2026 13:02'
-}
-SKMealyEdge class >> newFromPosition: aPosition toNode: aNode [
-"TODO: Stylesheet"
-
-	| instance line |
-	instance := self new.
-	line := LineMorph from: aNode center to: aPosition color: (Color fromString: '#8caaee') width: 5.
-	instance 
-		line: line;
-		fromNode: nil;
-		toNode: aNode.
 	aNode controller playGround addMorph: line.
 	
 	^ instance
@@ -211,22 +191,6 @@ SKMealyEdge >> fromNode: aNode [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/9/2026 15:25'
-}
-SKMealyEdge >> fromPosition [
-	^ fromPosition
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/9/2026 15:25'
-}
-SKMealyEdge >> fromPosition: anObject [
-	fromPosition := anObject
-]
-
-{
 	#category : #vectorHelpFunctions,
 	#'squeak_changestamp' : 'LP 6/3/2026 01:17'
 }
@@ -291,12 +255,11 @@ SKMealyEdge >> getPointsWithoutNodesOverlapping [
 
 {
 	#category : #vectorHelpFunctions,
-	#'squeak_changestamp' : 'JS 6/10/2026 13:20'
+	#'squeak_changestamp' : 'JS 6/16/2026 19:12'
 }
 SKMealyEdge >> getVectorBetweenNodeCenters [
 
- 	self fromNode ifNotNil: [^ self toNode center - self fromNode center]
-		ifNil: [^ self toNode center - self fromPosition]
+ 	^ self toNode center - self fromNode center
 ]
 
 {
@@ -382,16 +345,13 @@ SKMealyEdge >> toNode: aNode [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'JS 6/10/2026 12:56'
+	#'squeak_changestamp' : 'JS 6/16/2026 19:12'
 }
 SKMealyEdge >> update: aValue [
 "TODO: Change colour"
 	
 	self line delete.
-	self fromNode ifNotNil:[
-		self line: (LineMorph from: self fromNode center to: self toNode center color: self normalColor width: 5)]
-		ifNil:[
-			self line: (LineMorph from: self fromPosition to: self toNode center color: self normalColor width: 5)].
+	self line: (LineMorph from: self fromNode center to: self toNode center color: self normalColor width: 5).
 	
 	self updateLine;
 		updateArrowhead;
