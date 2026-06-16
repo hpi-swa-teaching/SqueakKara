@@ -58,11 +58,14 @@ SKStateMachineEditor >> actionDeleteEdge: aEdge [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:42'
+	#'squeak_changestamp' : 'JS 6/16/2026 19:30'
 }
 SKStateMachineEditor >> actionDeleteNode: aNode [
-
+	
 	| belongingEdges |
+	
+	aNode isStartingNode ifTrue: [^nil].
+		
 	belongingEdges := OrderedCollection new.
 	belongingEdges
 		addAll: (self playGround findAllEdgesToNode: aNode);
