@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'controller',
 		'isInDrag',
+		'isDraggable',
 		'stateMachineEditor',
 		'isStartingNode',
 		'name'
@@ -60,7 +61,7 @@ SKMealyNode >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/10/2026 12:59'
+	#'squeak_changestamp' : 'JS 6/16/2026 19:25'
 }
 SKMealyNode >> initialize [
 
@@ -69,7 +70,26 @@ SKMealyNode >> initialize [
 	self extent: self defaultSize;
 		color: self normalColor;
 		borderWidth: 3;
-		isStartingNode: false
+		isStartingNode: false;
+		isDraggable: true
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LP 6/17/2026 00:47'
+}
+SKMealyNode >> isDraggable [
+
+	^ isDraggable
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LP 6/17/2026 00:47'
+}
+SKMealyNode >> isDraggable: anObject [
+
+	isDraggable := anObject
 ]
 
 {
@@ -110,7 +130,7 @@ SKMealyNode >> isStartingNode: aBoolean [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'JS 6/9/2026 13:24'
+	#'squeak_changestamp' : 'JS 6/16/2026 19:00'
 }
 SKMealyNode >> justDroppedInto: newOwner event: anEvent [
 
@@ -118,21 +138,21 @@ SKMealyNode >> justDroppedInto: newOwner event: anEvent [
 
 	newOwner addMorphFront: self.
 	self isInDrag: false.
-	self visualiseNodeType
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:58'
+	#'squeak_changestamp' : 'JS 6/16/2026 19:27'
 }
 SKMealyNode >> mouseDown: anEvent [
 
 	self controller mode = #drag ifTrue: [
+		self isDraggable ifTrue:[
 		anEvent hand
 		waitForClicksOrDrag: self
 		event: anEvent
 		selectors: {nil. nil. nil. #startDrag:}
-		threshold: HandMorph dragThreshold].
+		threshold: HandMorph dragThreshold]].
 	self controller nodeClicked: self
 
 ]
@@ -234,21 +254,4 @@ SKMealyNode >> stepTime [
 SKMealyNode >> unselectNode [
 
 	self color: self normalColor
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/10/2026 12:58'
-}
-SKMealyNode >> visualiseNodeType [
-
-|hasStartEdge|
-
-	self isStartingNode ifTrue: [
-		hasStartEdge := false.
-		(self stateMachineEditor playGround findAllEdgesToNode: self) do: [:edge |
-				edge fromNode == nil ifTrue: 
-					[hasStartEdge := true]].
-		hasStartEdge ifFalse: [
-			self stateMachineEditor actionAddEdgeFromPosition: self center -100 toNode: self]]
 ]
