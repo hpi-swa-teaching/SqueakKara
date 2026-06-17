@@ -51,13 +51,24 @@ SKKara >> cloverleaf: aCloverleaf [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'mr 6/5/2026 12:40'
+	#'squeak_changestamp' : 'JanWein 6/17/2026 14:57'
 }
 SKKara >> collectCloverleaf [
-
-	(self neighboursHere 
-		select: [ :neighbor | neighbor isCloverleaf and: [ neighbor color = self color ] ])
-		do: [ :cloverleaf | cloverleaf delete ].
+	
+	| cloverleaf |
+	cloverleaf := (self neighboursHere) 
+		detect: [ :neighbor | neighbor isCloverleaf ] 
+		ifNone: [ nil ].
+	
+	cloverleaf ifNil: [
+		self sayMessageForThreeSeconds: 'Hier ist kein Kleeblatt!'.
+		^ self ].
+	
+	( cloverleaf color = self color )
+		ifFalse: [self sayMessageForThreeSeconds: 'Ich kann nur mein eigenes Kleeblatt einsammeln.']
+		ifTrue: [ cloverleaf delete].
+	
+	
 	self grid checkWinCondition
 ]
 
