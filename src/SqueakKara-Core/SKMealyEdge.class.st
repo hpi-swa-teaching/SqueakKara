@@ -2,6 +2,7 @@ Class {
 	#name : #SKMealyEdge,
 	#superclass : #Object,
 	#instVars : [
+		'curve',
 		'line',
 		'fromNode',
 		'toNode',
@@ -18,18 +19,19 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'JS 6/10/2026 12:47'
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 11:10'
 }
 SKMealyEdge class >> newFrom: aNode to: anotherNode [
 
-	| instance line |
+	| instance curve |
 	instance := self new.
-	line := LineMorph from: aNode center to: anotherNode center color: instance normalColor width: 5.
-	instance 
-		line: line;
+	instance
 		fromNode: aNode;
 		toNode: anotherNode.
-	aNode controller playGround addMorph: line.
+	curve := instance curve.
+	curve edge: instance.
+	instance updateCurve.
+	aNode controller playGround addMorph: curve.
 	
 	^ instance
 ]
@@ -155,14 +157,32 @@ SKMealyEdge >> controller: aController [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 10:01'
+}
+SKMealyEdge >> curve [
+
+	^ curve ifNil: [curve := SKCurvyEdge new]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 10:00'
+}
+SKMealyEdge >> curve: aCurvyEdge [
+
+	curve := aCurvyEdge
+]
+
+{
 	#category : #drawing,
-	#'squeak_changestamp' : 'LP 6/9/2026 16:30'
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 10:18'
 }
 SKMealyEdge >> delete [
 
 	self arrowhead ifNotNil:[self arrowhead delete]. 
 	self edgeMorph ifNotNil:  [self edgeMorph delete]. 
-	self line ifNotNil: [self line delete]
+	self curve ifNotNil: [self curve delete]
 ]
 
 {
@@ -228,22 +248,27 @@ SKMealyEdge >> fromPosition: anObject [
 
 {
 	#category : #vectorHelpFunctions,
-	#'squeak_changestamp' : 'LP 6/3/2026 01:17'
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 11:39'
 }
 SKMealyEdge >> getArrowheadPoints [
 
-	|fromPoint toPoint vectorBetweenBorders orthogonalVector centerPoint leftPoint rightPoint|
+	|fromPoint toPoint vectorBetweenBorders orthogonalVector centerPoint leftPoint rightPoint contactPoint |
 	
-	fromPoint := self getPointsWithoutNodesOverlapping at:1.
+"	fromPoint := self getPointsWithoutNodesOverlapping at:1.
 	toPoint := self getPointsWithoutNodesOverlapping at:2. 
 	
 	vectorBetweenBorders := (toPoint - fromPoint) . 
-	vectorBetweenBorders := vectorBetweenBorders * (1/ (self lengthOfVector: vectorBetweenBorders)).
+	vectorBetweenBorders := vectorBetweenBorders * (1/ (self lengthOfVector: vectorBetweenBorders))."
+	contactPoint := self curve nodeContactPoint.
+	vectorBetweenBorders :=	contactPoint - (self toNode center).
+	vectorBetweenBorders := vectorBetweenBorders normalized.
+	
+	toPoint := self toNode center + (vectorBetweenBorders * (self toNode extent / 2)).
 	
 	orthogonalVector := (vectorBetweenBorders y negated @ vectorBetweenBorders x).
-	orthogonalVector := orthogonalVector * (1/ (self lengthOfVector: orthogonalVector)) * self arrowheadWidth.
+	orthogonalVector := orthogonalVector normalized * self arrowheadWidth.
 	
-	centerPoint := toPoint - (vectorBetweenBorders * self arrowheadLength).
+	centerPoint := toPoint + (vectorBetweenBorders * self arrowheadLength).
 	rightPoint := centerPoint + orthogonalVector.
 	leftPoint := centerPoint - orthogonalVector. 
 	
@@ -382,22 +407,21 @@ SKMealyEdge >> toNode: aNode [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'JS 6/10/2026 12:56'
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 10:12'
 }
 SKMealyEdge >> update: aValue [
 "TODO: Change colour"
 	
-	self line delete.
-	self fromNode ifNotNil:[
+"	self fromNode ifNotNil:[
 		self line: (LineMorph from: self fromNode center to: self toNode center color: self normalColor width: 5)]
 		ifNil:[
-			self line: (LineMorph from: self fromPosition to: self toNode center color: self normalColor width: 5)].
+			self line: (LineMorph from: self fromPosition to: self toNode center color: self normalColor width: 5)]."
 	
-	self updateLine;
+	self updateCurve;
 		updateArrowhead;
 		updateEdgePopUp. 
 	
-	self controller playGround addComponent: self line;
+	self controller playGround
 	 	addComponent: self arrowhead;
 		addComponent: self edgeMorph
 ]
@@ -409,6 +433,16 @@ SKMealyEdge >> update: aValue [
 SKMealyEdge >> updateArrowhead [
 	
 	self arrowhead setVertices: (self getArrowheadPoints)
+]
+
+{
+	#category : #updating,
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 10:12'
+}
+SKMealyEdge >> updateCurve [
+
+	self curve calculateControlPointsForLineFrom: self fromNode center to: self toNode center;
+		drawCurveForControlPoints
 ]
 
 {
