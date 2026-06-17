@@ -51,7 +51,7 @@ SKKara >> cloverleaf: aCloverleaf [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'JanWein 6/17/2026 14:57'
+	#'squeak_changestamp' : 'LD 6/17/2026 15:23'
 }
 SKKara >> collectCloverleaf [
 	
@@ -61,11 +61,11 @@ SKKara >> collectCloverleaf [
 		ifNone: [ nil ].
 	
 	cloverleaf ifNil: [
-		self sayMessageForThreeSeconds: 'Hier ist kein Kleeblatt!'.
+		self errorNoCloverleaf.
 		^ self ].
 	
 	( cloverleaf color = self color )
-		ifFalse: [self sayMessageForThreeSeconds: 'Ich kann nur mein eigenes Kleeblatt einsammeln.']
+		ifFalse: [self errorWrongCloverleaf]
 		ifTrue: [ cloverleaf delete].
 	
 	
@@ -134,6 +134,46 @@ SKKara >> delete [
 SKKara >> environment [
 	
 	^ self grid environment
+]
+
+{
+	#category : #'error handling',
+	#'squeak_changestamp' : 'LD 6/17/2026 15:22'
+}
+SKKara >> errorNoCloverleaf [
+	self sayMessage: 'Hier ist kein Kleeblatt!'
+]
+
+{
+	#category : #'error handling',
+	#'squeak_changestamp' : 'LD 6/17/2026 15:24'
+}
+SKKara >> errorOutOfBounce [
+	self sayMessage: 'Aua! Da darf ich nicht hinlaufen D:'.
+]
+
+{
+	#category : #'error handling',
+	#'squeak_changestamp' : 'LD 6/17/2026 15:25'
+}
+SKKara >> errorScheduler [
+	self kara sayMessage: 'Hey, hier darf ich gerade nicht hin!'.
+]
+
+{
+	#category : #'error handling',
+	#'squeak_changestamp' : 'LD 6/17/2026 15:24'
+}
+SKKara >> errorTrunk [
+	self sayMessage: 'Aua! Ich bin gegen einen Baumstumpf gelaufen D:'.
+]
+
+{
+	#category : #'error handling',
+	#'squeak_changestamp' : 'LD 6/17/2026 15:23'
+}
+SKKara >> errorWrongCloverleaf [
+	self sayMessage: 'Ich kann nur mein eigenes Kleeblatt einsammeln.'
 ]
 
 {
@@ -236,18 +276,18 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 6/10/2026 15:57'
+	#'squeak_changestamp' : 'LD 6/17/2026 15:24'
 }
 SKKara >> move [
 	
 	self stopSayingOrThinking.
 	(self trunkAhead) ifTrue: [ 
-		self sayMessageForThreeSeconds: 'Aua! Ich bin gegen einen Baumstumpf gelaufen D:'.
+		self errorTrunk.
 		^ false ].
 	(self moveToCoordinates: self coordinates + self viewDirection) ifTrue: [
 		^ true ]
 		ifFalse: [ 
-			self sayMessageForThreeSeconds: 'Aua! Da darf ich nicht hinlaufen D:'.
+			self errorOutOfBounce.
 			^ false ]
 ]
 
@@ -341,17 +381,13 @@ SKKara >> rotate [
 ]
 
 {
-	#category : #movement,
-	#'squeak_changestamp' : 'LD 6/10/2026 14:49'
+	#category : #'error handling',
+	#'squeak_changestamp' : 'LD 6/17/2026 15:33'
 }
-SKKara >> sayMessageForThreeSeconds: aString [
-	
-	| delayTime |
-	
-	delayTime := 3.
+SKKara >> sayMessage: aString [
+
 	self say: aString.
-	(Delay forSeconds: delayTime) wait.
-	self stopSayingOrThinking
+	self environment stop
 ]
 
 {

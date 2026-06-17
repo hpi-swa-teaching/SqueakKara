@@ -110,7 +110,7 @@ SKKaraProxy >> move [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LD 6/11/2026 09:40'
+	#'squeak_changestamp' : 'LD 6/17/2026 15:25'
 }
 SKKaraProxy >> moveAction [
 
@@ -120,7 +120,7 @@ SKKaraProxy >> moveAction [
 			previousPosition := self coordinates.
 			self kara move ]
 		ifTrue: [ 
-			self kara sayMessageForThreeSeconds: 'Hey, hier darf ich gerade nicht hin!'.
+			self kara errorScheduler.
 			false ]
 ]
 
