@@ -48,6 +48,23 @@ SKCurvyEdge >> calculateBezierPointForT: aNumber [
 
 {
 	#category : #placement,
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 12:17'
+}
+SKCurvyEdge >> calculateContorlPointsForSelfLoopAt: aDirection [
+
+	| firstDirection secondDirection startingPosition p2 p3 |
+	
+	firstDirection := self rotateVector: aDirection by: self loopAngle.
+	secondDirection := self rotateVector: aDirection by: (self loopAngle * -1).
+	
+	startingPosition := self edge fromNode center.
+	p2 := startingPosition + (firstDirection * self loopHeight).
+	p3 := startingPosition + (secondDirection * self loopHeight).
+	self controlPoints: {startingPosition. p2. p3. startingPosition} 
+]
+
+{
+	#category : #placement,
 	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 10:54'
 }
 SKCurvyEdge >> calculateControlPointsForLineFrom: aPoint to: anotherPoint [
@@ -251,6 +268,24 @@ SKCurvyEdge >> lines [
 ]
 
 {
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 12:59'
+}
+SKCurvyEdge >> loopAngle [
+
+	^ 40
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 12:01'
+}
+SKCurvyEdge >> loopHeight [
+
+	^ 200
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 11:14'
 }
@@ -284,4 +319,15 @@ SKCurvyEdge >> nodeContactPoint [
 SKCurvyEdge >> nodeContactPoint: aPoint [
 
 	nodeContactPoint := aPoint
+]
+
+{
+	#category : #placement,
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 11:54'
+}
+SKCurvyEdge >> rotateVector: aDirection by: aNumber [
+
+	| angle |
+	angle := aNumber degreesToRadians.
+	^ (aDirection x * angle cos - aDirection y * angle sin) @ (aDirection x * angle sin + aDirection y * angle cos)
 ]

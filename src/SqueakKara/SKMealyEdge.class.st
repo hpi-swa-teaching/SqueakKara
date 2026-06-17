@@ -12,14 +12,15 @@ Class {
 		'edgeMorph',
 		'arrowhead',
 		'command',
-		'condition'
+		'condition',
+		'isSelfLoop'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 11:10'
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 12:12'
 }
 SKMealyEdge class >> newFrom: aNode to: anotherNode [
 
@@ -27,7 +28,8 @@ SKMealyEdge class >> newFrom: aNode to: anotherNode [
 	instance := self new.
 	instance
 		fromNode: aNode;
-		toNode: anotherNode.
+		toNode: anotherNode;
+		isSelfLoop: aNode = anotherNode.
 	curve := instance curve.
 	curve edge: instance.
 	instance updateCurve.
@@ -316,9 +318,12 @@ SKMealyEdge >> getPointsWithoutNodesOverlapping [
 
 {
 	#category : #vectorHelpFunctions,
-	#'squeak_changestamp' : 'JS 6/10/2026 13:20'
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 12:58'
 }
 SKMealyEdge >> getVectorBetweenNodeCenters [
+	
+	self isSelfLoop ifTrue: [
+		^ (self toNode center - (0 @ 200)) - self fromNode center].
 
  	self fromNode ifNotNil: [^ self toNode center - self fromNode center]
 		ifNil: [^ self toNode center - self fromPosition]
@@ -340,6 +345,24 @@ SKMealyEdge >> gotDeselected [
 SKMealyEdge >> gotSelected [
 
 	self edgeMorph makeVisible
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 12:11'
+}
+SKMealyEdge >> isSelfLoop [
+
+	^ isSelfLoop
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 12:11'
+}
+SKMealyEdge >> isSelfLoop: aBoolean [
+
+	isSelfLoop := aBoolean
 ]
 
 {
@@ -437,12 +460,17 @@ SKMealyEdge >> updateArrowhead [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 10:12'
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 12:13'
 }
 SKMealyEdge >> updateCurve [
 
+	self isSelfLoop ifTrue: [
+		self curve calculateContorlPointsForSelfLoopAt: 0 @ -1;
+			drawCurveForControlPoints.
+		^ self].
 	self curve calculateControlPointsForLineFrom: self fromNode center to: self toNode center;
 		drawCurveForControlPoints
+
 ]
 
 {

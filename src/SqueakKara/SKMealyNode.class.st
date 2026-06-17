@@ -238,11 +238,11 @@ SKMealyNode >> unselectNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/10/2026 12:58'
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 13:04'
 }
 SKMealyNode >> visualiseNodeType [
 
-|hasStartEdge|
+"	|hasStartEdge|
 
 	self isStartingNode ifTrue: [
 		hasStartEdge := false.
@@ -250,5 +250,5 @@ SKMealyNode >> visualiseNodeType [
 				edge fromNode == nil ifTrue: 
 					[hasStartEdge := true]].
 		hasStartEdge ifFalse: [
-			self stateMachineEditor actionAddEdgeFromPosition: self center -100 toNode: self]]
+			self stateMachineEditor actionAddEdgeFromPosition: self center -100 toNode: self]]"
 ]

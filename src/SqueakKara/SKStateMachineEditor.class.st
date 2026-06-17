@@ -15,7 +15,7 @@ Class {
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:13'
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 13:02'
 }
 SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 
@@ -208,11 +208,12 @@ SKStateMachineEditor >> handleDeleteModePlayGroundClicked: aPosition [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/10/2026 13:01'
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 13:01'
 }
 SKStateMachineEditor >> handleEdgeModeNodeClick: aNode [
 
-	self selectedNode = aNode ifTrue: [
+	(self selectedNode = aNode) ifTrue: [
+		self actionAddEdgeFrom: self selectedNode to: aNode.
 		self selectedNode: nil.
 		^ nil].
 	
@@ -238,11 +239,12 @@ SKStateMachineEditor >> handleEdgeModeNodeClick: aNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/10/2026 13:13'
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 12:17'
 }
 SKStateMachineEditor >> handleEdgeModeNodeClicked: aNode [
 
-	self selectedNode = aNode ifTrue: [
+	(self selectedNode = aNode) ifTrue: [
+		self actionAddEdgeFrom: self selectedNode to: aNode.
 		self selectedNode: nil.
 		^ nil].
 	
