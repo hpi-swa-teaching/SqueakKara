@@ -81,15 +81,11 @@ SKPlayGround >> controller: aController [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/9/2026 15:39'
+	#'squeak_changestamp' : 'JS 6/16/2026 19:12'
 }
 SKPlayGround >> distanceFrom: aPoint toEdge: aEdge [
 
-	aEdge fromNode 
-		ifNotNil: [
-			^self distanceFrom: aPoint toLineFrom: aEdge fromNode position to: aEdge toNode position]
-		ifNil: [
-			^self distanceFrom: aPoint toLineFrom: aEdge fromPosition to: aEdge toNode position]
+			^self distanceFrom: aPoint toLineFrom: aEdge fromNode position to: aEdge toNode position
 ]
 
 {

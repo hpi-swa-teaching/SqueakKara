@@ -232,6 +232,89 @@ SKKaraTest >> testMoveWhenTrunkAhead [
 
 {
 	#category : #testing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 21:04'
+}
+SKKaraTest >> testMovementBlockedAfterMovingIntoTrunk [
+
+	| kara |
+	
+	kara := SKKara newInGrid: self grid at: 1 @ 1.
+	SKMushroom newInGrid: self grid at: 2 @ 1.
+	SKTrunk newInGrid: self grid at: 3 @ 1.
+	kara
+		viewDirection: SKDirection right;
+		push;
+		turn: SKDirection right.
+	self assert: kara viewDirection equals: SKDirection right
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 21:03'
+}
+SKKaraTest >> testMovementBlockedAfterPushingMushroomIntoTrunk [
+
+	| kara |
+	
+	kara := SKKara newInGrid: self grid at: 1 @ 1.
+	SKMushroom newInGrid: self grid at: 2 @ 1.
+	SKTrunk newInGrid: self grid at: 3 @ 1.
+	kara
+		viewDirection: SKDirection right;
+		push;
+		turn: SKDirection right.
+	self assert: kara viewDirection equals: SKDirection right
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 21:04'
+}
+SKKaraTest >> testMovementBlockedAfterPushingNothing [
+
+	| kara |
+	
+	kara := SKKara newInGrid: self grid at: 1 @ 1.
+	kara
+		viewDirection: SKDirection right;
+		push;
+		turn: SKDirection right;
+		move.
+	self assert: kara viewDirection equals: SKDirection right.
+	self assert: kara coordinates equals: 1 @ 1
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 17:26'
+}
+SKKaraTest >> testMushroomAhead [
+
+	| kara |
+	
+	kara := SKKara newInGrid: self grid.
+	SKMushroom newInGrid: self grid at: 2 @ 1.
+	self assert: kara mushroomAhead
+
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 17:27'
+}
+SKKaraTest >> testMushroomAheadAfterTurn [
+
+	| kara trunk |
+	
+	kara := SKKara newInGrid: self grid.
+	trunk := SKMushroom newInGrid: self grid at: 1 @ 2.
+	self assert: false = kara mushroomAhead.
+	kara turn: SKDirection rotateRight.
+	self assert: true = kara mushroomAhead
+]
+
+{
+	#category : #testing,
 	#'squeak_changestamp' : 'LD 5/21/2026 10:44'
 }
 SKKaraTest >> testNewColorPicker [

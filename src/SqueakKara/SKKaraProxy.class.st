@@ -62,11 +62,30 @@ SKKaraProxy >> move [
 
 {
 	#category : #commands,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 23:14'
+}
+SKKaraProxy >> mushroomAhead [
+
+	^ self kara mushroomAhead
+]
+
+{
+	#category : #commands,
 	#'squeak_changestamp' : 'LM 5/6/2026 21:57'
 }
 SKKaraProxy >> onCloverleaf [
 
 	^ self kara onCloverleaf
+]
+
+{
+	#category : #commands,
+	#'squeak_changestamp' : 'FR 6/17/2026 00:23'
+}
+SKKaraProxy >> push [
+
+	self scheduler scheduleAction: (SKAction newWithType: #move action: [ self kara push ]) for: self.
+	self scheduler waitFor: self
 ]
 
 {

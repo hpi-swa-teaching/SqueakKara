@@ -39,25 +39,6 @@ SKMealyEdge class >> newFrom: aNode to: anotherNode [
 ]
 
 {
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'JS 6/9/2026 13:02'
-}
-SKMealyEdge class >> newFromPosition: aPosition toNode: aNode [
-"TODO: Stylesheet"
-
-	| instance line |
-	instance := self new.
-	line := LineMorph from: aNode center to: aPosition color: (Color fromString: '#8caaee') width: 5.
-	instance 
-		line: line;
-		fromNode: nil;
-		toNode: aNode.
-	aNode controller playGround addMorph: line.
-	
-	^ instance
-]
-
-{
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:38'
 }
@@ -233,22 +214,6 @@ SKMealyEdge >> fromNode: aNode [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/9/2026 15:25'
-}
-SKMealyEdge >> fromPosition [
-	^ fromPosition
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/9/2026 15:25'
-}
-SKMealyEdge >> fromPosition: anObject [
-	fromPosition := anObject
-]
-
-{
 	#category : #vectorHelpFunctions,
 	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 11:39'
 }
@@ -318,15 +283,14 @@ SKMealyEdge >> getPointsWithoutNodesOverlapping [
 
 {
 	#category : #vectorHelpFunctions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 12:58'
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 16:11'
 }
 SKMealyEdge >> getVectorBetweenNodeCenters [
 	
 	self isSelfLoop ifTrue: [
 		^ (self toNode center - (0 @ 200)) - self fromNode center].
 
- 	self fromNode ifNotNil: [^ self toNode center - self fromNode center]
-		ifNil: [^ self toNode center - self fromPosition]
+ 	^ self toNode center - self fromNode center
 ]
 
 {
