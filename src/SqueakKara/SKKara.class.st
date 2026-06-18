@@ -32,6 +32,25 @@ SKKara class >> newInGrid: aGrid at: aPoint [
 ]
 
 {
+	#category : #movement,
+	#'squeak_changestamp' : 'mr 6/16/2026 13:50'
+}
+SKKara >> canMoveAhead [
+
+	| neighboursNext movementDirection |
+
+	(self trunkAhead) ifTrue: [ ^ false ].
+	(self karaAhead) ifTrue: [ ^ false ].
+	
+	movementDirection := self viewDirection.
+	neighboursNext := self neighboursAt: movementDirection.
+	(self hasBlockingDirectionalTileIn: neighboursNext direction: movementDirection) 
+		ifTrue: [ ^ false ].
+		
+	 ^ true
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'jawi 5/28/2026 15:01'
 }
@@ -153,6 +172,22 @@ SKKara >> findUnusedColor [
 ]
 
 {
+	#category : #movement,
+	#'squeak_changestamp' : 'mr 6/16/2026 12:39'
+}
+SKKara >> hasBlockingDirectionalTileIn: aNeighborCollection direction: aDirection [
+	
+	| directionalTiles |
+	
+	directionalTiles := (aNeighborCollection 
+		select: [ :neighbor | neighbor isDirectionalTile ]).
+	
+	directionalTiles isEmpty ifTrue: [ ^ false ].
+		
+	^ (directionalTiles anySatisfy: [ :directionalTile | directionalTile matchesDirection: aDirection ]) not
+]
+
+{
 	#category : #initialization,
 	#'squeak_changestamp' : 'LM 5/28/2026 19:40'
 }
@@ -197,7 +232,7 @@ SKKara >> karaAhead [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'LM 6/8/2026 18:00'
+	#'squeak_changestamp' : 'mr 6/16/2026 13:51'
 }
 SKKara >> lockAt: aPoint [
 
@@ -205,7 +240,7 @@ SKKara >> lockAt: aPoint [
 
 	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
 	
-	(self trunkAhead or: [ self karaAhead ]) ifTrue: [ ^ self ].
+	(self canMoveAhead) ifFalse: [ ^ self ].
 	
 	lockSuccessful := (self gridCoordinator lockAt: aPoint for: self).
 	staysInCriticalSection := self onCriticalSection and: [ self criticalSectionAhead ].
@@ -225,18 +260,19 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 6/10/2026 15:57'
+	#'squeak_changestamp' : 'mr 6/16/2026 13:51'
 }
 SKKara >> move [
 	
 	self stopSayingOrThinking.
-	(self trunkAhead) ifTrue: [ 
-		self sayMessageForThreeSeconds: 'Aua! Ich bin gegen einen Baumstumpf gelaufen D:'.
+
+	(self canMoveAhead) ifFalse: [
+		self sayMessageForThreeSeconds: 'Aua! Ich bin gegen ein Hindernis gelaufen D:'.
 		^ false ].
-	(self moveToCoordinates: self coordinates + self viewDirection) ifTrue: [
-		^ true ]
-		ifFalse: [ 
-			self sayMessageForThreeSeconds: 'Aua! Da darf ich nicht hinlaufen D:'.
+
+	(self moveToCoordinates: self coordinates + self viewDirection) 
+		ifTrue: [ ^ true ]
+		ifFalse: [ self sayMessageForThreeSeconds: 'Aua! Da darf ich nicht hinlaufen D:'.
 			^ false ]
 ]
 
@@ -310,27 +346,6 @@ SKKara >> randomDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 12:08'
-}
-SKKara >> rotate [
-	
-	| centerWidth centerHeight image |
-	
-	centerWidth := self image width / 2.
-	centerHeight := self image height / 2.
-	image := self originalImage.
-	self viewDirection caseOf: {
-		[SKDirection right] -> [image := self image rotateBy: #right centerAt: centerWidth @ centerHeight].
-		[SKDirection below] -> [image := self image rotateBy: #pi centerAt: centerWidth @ centerHeight].
-		[SKDirection left] -> [image := self image rotateBy: #left centerAt: centerWidth @ centerHeight].
-		[SKDirection above] -> [image := self image rotateBy: #none centerAt: centerWidth @ centerHeight].
-	}.
-	
-	^ image
-]
-
-{
-	#category : #movement,
 	#'squeak_changestamp' : 'LD 6/10/2026 14:49'
 }
 SKKara >> sayMessageForThreeSeconds: aString [
@@ -345,7 +360,7 @@ SKKara >> sayMessageForThreeSeconds: aString [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 12:08'
+	#'squeak_changestamp' : 'mr 6/12/2026 20:23'
 }
 SKKara >> scaleToFactor [
 
@@ -354,13 +369,13 @@ SKKara >> scaleToFactor [
 	super scaleToFactor.
 	self updateColor.
 	
-	image := self rotate.
+	image := self rotateTowards: self viewDirection.
 	self image: image
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/22/2026 22:12'
+	#'squeak_changestamp' : 'mr 6/12/2026 20:23'
 }
 SKKara >> setTexture [
 
@@ -373,7 +388,7 @@ SKKara >> setTexture [
 		scaledToWidth: self grid pixelPerBlock.
 	
 	self image: aForm.
-	self rotate.
+	self rotateTowards: self viewDirection.
 	self originalImage: aForm.
 	self updateColorFor: aForm
 ]
@@ -473,9 +488,9 @@ SKKara >> workspace: aWorkspace [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
+	#'squeak_changestamp' : 'mr 6/12/2026 19:00'
 }
 SKKara >> zLayer [
 
-	^ 3
+	^ 4
 ]
