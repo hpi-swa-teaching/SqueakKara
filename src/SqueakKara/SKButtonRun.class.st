@@ -1,14 +1,18 @@
+"
+The SKButtonRun activitates the execution of the workspace codes.
+"
 Class {
 	#name : #SKButtonRun,
 	#superclass : #SKButton,
 	#instVars : [
 		'pauseTexture'
 	],
-	#category : #SqueakKara
+	#category : #SqueakKara,
+	#'squeak_changestamp' : 'ND 6/18/2026 22:05'
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #execution,
 	#'squeak_changestamp' : 'ND 6/16/2026 21:54'
 }
 SKButtonRun >> action [
@@ -18,7 +22,7 @@ SKButtonRun >> action [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #texture,
 	#'squeak_changestamp' : 'ND 6/16/2026 23:57'
 }
 SKButtonRun >> currentRunButtonTexture [
@@ -34,7 +38,7 @@ SKButtonRun >> currentRunButtonTexture [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #texture,
 	#'squeak_changestamp' : 'ND 6/16/2026 23:07'
 }
 SKButtonRun >> loadTexture [
@@ -61,7 +65,7 @@ SKButtonRun >> pauseTexture: anObject [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'ND 6/16/2026 23:01'
 }
 SKButtonRun >> pauseTextureFilename [
@@ -70,7 +74,7 @@ SKButtonRun >> pauseTextureFilename [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #texture,
 	#'squeak_changestamp' : 'ND 6/16/2026 23:10'
 }
 SKButtonRun >> textureFileName [
@@ -79,7 +83,7 @@ SKButtonRun >> textureFileName [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #texture,
 	#'squeak_changestamp' : 'ND 6/16/2026 23:03'
 }
 SKButtonRun >> textureFilename [
@@ -88,7 +92,7 @@ SKButtonRun >> textureFilename [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #execution,
 	#'squeak_changestamp' : 'ND 6/16/2026 22:59'
 }
 SKButtonRun >> toggleExecutionState [
@@ -103,7 +107,7 @@ SKButtonRun >> toggleExecutionState [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #texture,
 	#'squeak_changestamp' : 'ND 6/16/2026 23:33'
 }
 SKButtonRun >> updateTextures [

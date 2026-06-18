@@ -1,11 +1,15 @@
+"
+The SKButtonStop stops the execution of the workspaces.
+"
 Class {
 	#name : #SKButtonStop,
 	#superclass : #SKButton,
-	#category : #SqueakKara
+	#category : #SqueakKara,
+	#'squeak_changestamp' : 'ND 6/18/2026 22:06'
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #execution,
 	#'squeak_changestamp' : 'ND 6/16/2026 23:57'
 }
 SKButtonStop >> action [
@@ -15,7 +19,7 @@ SKButtonStop >> action [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #textures,
 	#'squeak_changestamp' : 'ND 6/16/2026 23:19'
 }
 SKButtonStop >> textureFileName [
@@ -24,7 +28,7 @@ SKButtonStop >> textureFileName [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #textures,
 	#'squeak_changestamp' : 'ND 6/17/2026 00:12'
 }
 SKButtonStop >> updateTextures [

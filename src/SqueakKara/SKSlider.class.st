@@ -1,3 +1,6 @@
+"
+The SKSlider extends the SimpleSliderMorph for the usage as a speedSlider in the executionControls.
+"
 Class {
 	#name : #SKSlider,
 	#superclass : #SimpleSliderMorph,
@@ -6,7 +9,8 @@ Class {
 		'scaleFactor',
 		'executeControls'
 	],
-	#category : #SqueakKara
+	#category : #SqueakKara,
+	#'squeak_changestamp' : 'ND 6/18/2026 22:07'
 }
 
 {
@@ -62,7 +66,7 @@ SKSlider >> initialize [
 ]
 
 {
-	#category : #accessing,
+	#category : #initialization,
 	#'squeak_changestamp' : 'ND 6/16/2026 23:52'
 }
 SKSlider >> resizeByFactor: aNumber [
@@ -112,7 +116,7 @@ SKSlider >> sliderSpeed: anObject [
 ]
 
 {
-	#category : #accessing,
+	#category : #execution,
 	#'squeak_changestamp' : 'ND 6/16/2026 23:46'
 }
 SKSlider >> sliderSpeedValueChanged: aValue [

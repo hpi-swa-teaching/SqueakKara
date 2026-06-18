@@ -9,14 +9,10 @@ Class {
 		'buttonRun',
 		'buttonStop',
 		'buttonSpawnKara',
-		'buttonNextChallenge',
-		'stopTexture',
-		'runTexture',
-		'pauseTexture',
-		'karaTexture',
+		'buttonNextChallange',
 		'sliderSpeed',
 		'scaleFactor',
-		'nextChallengeTexture'
+		'buttonReset'
 	],
 	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:42'
@@ -24,17 +20,17 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'ND 6/17/2026 00:04'
+	#'squeak_changestamp' : 'ND 6/18/2026 21:53'
 }
 SKExecuteControls >> addAllWidgets [
 	
 	self addButtonRun.
 	self addButtonStop.
 	self addSliderSpeed.
-	
-	
 	self createButtonNextChallenge.
 	self addButtonSpawnKara.
+	self addButtonReset.
+	
 	self layoutChanged
 ]
 
@@ -45,6 +41,17 @@ SKExecuteControls >> addAllWidgets [
 SKExecuteControls >> addButtonNextChallenge [
 
 	self addMorphBack: self buttonNextChallenge
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 6/18/2026 21:53'
+}
+SKExecuteControls >> addButtonReset [
+
+    self buttonReset: SKButtonReset new.
+    self buttonReset executeControls: self.
+    self addMorphBack: self buttonReset
 ]
 
 {
@@ -123,6 +130,22 @@ SKExecuteControls >> buttonNextChallenge [
 SKExecuteControls >> buttonNextChallenge: aMorph [
 	
 	buttonNextChallenge := aMorph
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 6/18/2026 21:53'
+}
+SKExecuteControls >> buttonReset [
+	^ buttonReset
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 6/18/2026 21:53'
+}
+SKExecuteControls >> buttonReset: anObject [
+	buttonReset := anObject
 ]
 
 {

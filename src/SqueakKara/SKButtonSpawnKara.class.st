@@ -1,11 +1,15 @@
+"
+The SKButtonSpawnKara spawn on a random free tile a kara.
+"
 Class {
 	#name : #SKButtonSpawnKara,
 	#superclass : #SKButton,
-	#category : #SqueakKara
+	#category : #SqueakKara,
+	#'squeak_changestamp' : 'ND 6/18/2026 22:06'
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #execution,
 	#'squeak_changestamp' : 'ND 6/16/2026 22:20'
 }
 SKButtonSpawnKara >> action [
@@ -30,7 +34,7 @@ SKButtonSpawnKara >> action [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'ND 6/16/2026 22:23'
 }
 SKButtonSpawnKara >> textureFileName [

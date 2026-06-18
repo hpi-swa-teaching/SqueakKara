@@ -1,3 +1,6 @@
+"
+SKButton is the shared superclass by all SKButtons. It ensures texture loading, as well as the basic button functions.
+"
 Class {
 	#name : #SKButton,
 	#superclass : #IconicButton,
@@ -6,7 +9,8 @@ Class {
 		'texture',
 		'scaleFactor'
 	],
-	#category : #SqueakKara
+	#category : #SqueakKara,
+	#'squeak_changestamp' : 'ND 6/18/2026 22:04'
 }
 
 {
@@ -19,7 +23,7 @@ SKButton >> action [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'ND 6/16/2026 22:42'
 }
 SKButton >> defaultIconicButtonSize [
@@ -28,21 +32,12 @@ SKButton >> defaultIconicButtonSize [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'ND 6/16/2026 22:02'
 }
 SKButton >> defaultSliderSize [
 	
 	^ 100 @ 20
-]
-
-{
-	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'ND 6/16/2026 22:21'
-}
-SKButton >> environment [
-
-	^ self executeControls environment
 ]
 
 {
@@ -62,7 +57,7 @@ SKButton >> executeControls: anObject [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #texture,
 	#'squeak_changestamp' : 'ND 6/16/2026 21:58'
 }
 SKButton >> getTexture [
@@ -71,7 +66,7 @@ SKButton >> getTexture [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #texture,
 	#'squeak_changestamp' : 'ND 6/16/2026 23:10'
 }
 SKButton >> getTexture: aFileName [
@@ -80,7 +75,7 @@ SKButton >> getTexture: aFileName [
 ]
 
 {
-	#category : #accessing,
+	#category : #initialization,
 	#'squeak_changestamp' : 'ND 6/16/2026 22:41'
 }
 SKButton >> initialize [
@@ -93,7 +88,7 @@ SKButton >> initialize [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #texture,
 	#'squeak_changestamp' : 'ND 6/16/2026 22:00'
 }
 SKButton >> loadTexture [
@@ -138,7 +133,7 @@ SKButton >> scaleFactor: aNumber [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #texture,
 	#'squeak_changestamp' : 'ND 6/16/2026 22:25'
 }
 SKButton >> setTexture [
@@ -147,7 +142,7 @@ SKButton >> setTexture [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #texture,
 	#'squeak_changestamp' : 'ND 6/16/2026 22:15'
 }
 SKButton >> texture [
@@ -164,7 +159,7 @@ SKButton >> texture: anObject [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #texture,
 	#'squeak_changestamp' : 'ND 6/16/2026 23:04'
 }
 SKButton >> textureFileName [
