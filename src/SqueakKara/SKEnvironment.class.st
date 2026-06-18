@@ -12,7 +12,8 @@ Class {
 		'gameWidth',
 		'gameHeight',
 		'systemWindow',
-		'nextChallenge'
+		'nextChallenge',
+		'isTerminating'
 	],
 	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
@@ -223,13 +224,14 @@ SKEnvironment >> grid: aGrid [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/26/2026 09:42'
+	#'squeak_changestamp' : 'LD 6/18/2026 21:43'
 }
 SKEnvironment >> initialize [
 
 	super initialize.
 	self executer: (SKExecuter newWithEnvironment: self).
-	self karas: OrderedCollection new
+	self karas: OrderedCollection new.
+	self isTerminating: false
 ]
 
 {
@@ -408,6 +410,22 @@ SKEnvironment >> initializeWithKaraAt: aPoint [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'LD 6/18/2026 21:40'
+}
+SKEnvironment >> isTerminating [
+	^ isTerminating
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 6/18/2026 21:40'
+}
+SKEnvironment >> isTerminating: anObject [
+	isTerminating := anObject
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/23/2026 13:41'
 }
 SKEnvironment >> karas [
@@ -509,19 +527,21 @@ SKEnvironment >> resizeGridByFactor: aNumber [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:46'
+	#'squeak_changestamp' : 'LD 6/18/2026 22:13'
 }
 SKEnvironment >> resume [
 
-	self executer resumeExecution
+	self executer resumeExecution.
+	self isTerminating: false.
 ]
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/23/2026 13:45'
+	#'squeak_changestamp' : 'LD 6/18/2026 21:43'
 }
 SKEnvironment >> run [
 
+	self isTerminating: false.
 	self karas do: [ :kara | 
 		self executer execute: kara workspace userCode for: kara ]
 ]
@@ -555,11 +575,12 @@ SKEnvironment >> setSystemWindow [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
+	#'squeak_changestamp' : 'LD 6/18/2026 21:53'
 }
 SKEnvironment >> stop [
-	
-	self executer terminate
+	self isTerminating ifFalse: [
+		self isTerminating: true.
+		[ self executer terminate ] fork ]
 ]
 
 {

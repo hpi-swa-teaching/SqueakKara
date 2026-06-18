@@ -154,10 +154,10 @@ SKKara >> errorOutOfBounce [
 
 {
 	#category : #'error handling',
-	#'squeak_changestamp' : 'LD 6/17/2026 15:25'
+	#'squeak_changestamp' : 'LD 6/17/2026 15:47'
 }
 SKKara >> errorScheduler [
-	self kara sayMessage: 'Hey, hier darf ich gerade nicht hin!'.
+	self sayMessage: 'Hey, hier darf ich gerade nicht hin!'.
 ]
 
 {
@@ -382,12 +382,13 @@ SKKara >> rotate [
 
 {
 	#category : #'error handling',
-	#'squeak_changestamp' : 'LD 6/17/2026 15:33'
+	#'squeak_changestamp' : 'LD 6/18/2026 21:55'
 }
 SKKara >> sayMessage: aString [
 
 	self say: aString.
-	self environment stop
+	self environment stop.
+	
 ]
 
 {
