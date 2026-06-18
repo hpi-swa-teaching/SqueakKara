@@ -9,16 +9,6 @@ Class {
 }
 
 {
-	#category : #build,
-	#'squeak_changestamp' : 'mr 6/16/2026 12:33'
-}
-SKChallenge class >> directionalTileFor: aGrid at: aPoint entrances: aCollectionEntrances exits: aCollectionExits [
-
-	aCollectionEntrances do: [ :entranceDirection | SKDirectionalTile newInGrid: aGrid at: aPoint enterFrom: entranceDirection ].
-	aCollectionExits do: [ :exitDirection | SKDirectionalTile newInGrid: aGrid at: (aPoint + exitDirection) enterFrom: (SKDirection mirror: exitDirection) ].
-]
-
-{
 	#category : #challenges,
 	#'squeak_changestamp' : 'mr 6/5/2026 13:13'
 }
@@ -33,7 +23,7 @@ SKChallenge class >> initializeBlankProjectChallengeFor: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'mr 6/16/2026 12:52'
+	#'squeak_changestamp' : 'mr 6/18/2026 20:05'
 }
 SKChallenge class >> initializeChallenge10For: anEnvironment [
 	
@@ -47,11 +37,15 @@ SKChallenge class >> initializeChallenge10For: anEnvironment [
 	1 to: 5 do: [ :y | (SKCriticalSection newInGrid: grid at: 2 @ y) group: #group1; color: Color green ].
 	
 	2 to: 4 do: [ :y |
-		self directionalTileFor: grid at: (1 @ y) entrances: { SKDirection below } exits: { SKDirection above }.
-		self directionalTileFor: grid at: (2 @ y) entrances: { SKDirection below } exits: { SKDirection above }.
-		self directionalTileFor: grid at: (2 @ y) entrances: { SKDirection above } exits: { SKDirection below }.
-		self directionalTileFor: grid at: (3 @ y) entrances: { SKDirection above } exits: { SKDirection below } ].
+		SKDirectionalTile newInGrid: grid at: (1 @ y) enterFrom: SKDirection below.
+		SKDirectionalTile newInGrid: grid at: (2 @ y) enterFrom: SKDirection above.
+		SKDirectionalTile newInGrid: grid at: (2 @ y) enterFrom: SKDirection below.
+		SKDirectionalTile newInGrid: grid at: (3 @ y) enterFrom: SKDirection above ].
 	
+	SKDirectionalTile newInGrid: grid at: (1 @ 1) enterFrom: SKDirection below.
+	SKDirectionalTile newInGrid: grid at: (2 @ 1) enterFrom: SKDirection below.
+	SKDirectionalTile newInGrid: grid at: (2 @ 5) enterFrom: SKDirection above.
+	SKDirectionalTile newInGrid: grid at: (3 @ 5) enterFrom: SKDirection above.
 	SKDirectionalTile newInGrid: grid at: (2 @ 1) enterFrom: SKDirection left.
 	SKDirectionalTile newInGrid: grid at: (2 @ 5) enterFrom: SKDirection right
 ]
