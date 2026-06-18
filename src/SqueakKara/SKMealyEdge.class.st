@@ -103,12 +103,12 @@ SKMealyEdge >> arrowheadWidth [
 
 {
 	#category : #calculation,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 18:17'
+	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:42'
 }
 SKMealyEdge >> calculatPopUpAnchorPoint [
 
 	self isSelfLoop ifTrue: [
-		self calculatePopUpAnchorPointForSelfLoop.
+		self calculatePopUpAnchorPointForSelfLoop: self selfLoopDirection.
 		^ self].
 	self calculatePopUpAnchorPointForLineForm: self fromNode center to: self toNode center
 	
@@ -177,7 +177,7 @@ SKMealyEdge >> calculateBezierPointForT: aNumber [
 
 {
 	#category : #calculation,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 18:16'
+	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:41'
 }
 SKMealyEdge >> calculateContorlPointsForSelfLoopAt: aDirection [
 
@@ -186,7 +186,7 @@ SKMealyEdge >> calculateContorlPointsForSelfLoopAt: aDirection [
 	firstDirection := self rotateVector: aDirection by: self loopAngle.
 	secondDirection := self rotateVector: aDirection by: (self loopAngle * -1).
 	
-	startingPosition := self edge fromNode center.
+	startingPosition := self fromNode center.
 	p2 := startingPosition + (firstDirection * self loopHeight).
 	p3 := startingPosition + (secondDirection * self loopHeight).
 	self controlPoints: {startingPosition. p2. p3. startingPosition} 
@@ -462,35 +462,6 @@ SKMealyEdge >> fromNode: aNode [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 11:39'
-}
-SKMealyEdge >> getArrowheadPoints [
-
-	|fromPoint toPoint vectorBetweenBorders orthogonalVector centerPoint leftPoint rightPoint contactPoint |
-	
-"	fromPoint := self getPointsWithoutNodesOverlapping at:1.
-	toPoint := self getPointsWithoutNodesOverlapping at:2. 
-	
-	vectorBetweenBorders := (toPoint - fromPoint) . 
-	vectorBetweenBorders := vectorBetweenBorders * (1/ (self lengthOfVector: vectorBetweenBorders))."
-	contactPoint := self curve nodeContactPoint.
-	vectorBetweenBorders :=	contactPoint - (self toNode center).
-	vectorBetweenBorders := vectorBetweenBorders normalized.
-	
-	toPoint := self toNode center + (vectorBetweenBorders * (self toNode extent / 2)).
-	
-	orthogonalVector := (vectorBetweenBorders y negated @ vectorBetweenBorders x).
-	orthogonalVector := orthogonalVector normalized * self arrowheadWidth.
-	
-	centerPoint := toPoint + (vectorBetweenBorders * self arrowheadLength).
-	rightPoint := centerPoint + orthogonalVector.
-	leftPoint := centerPoint - orthogonalVector. 
-	
-	^ {toPoint. leftPoint. rightPoint}
-]
-
-{
-	#category : #helper,
 	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 18:03'
 }
 SKMealyEdge >> getOrthogonalVectorFor: aVector [
@@ -630,6 +601,18 @@ SKMealyEdge >> popUpAnchorPoint [
 SKMealyEdge >> popUpAnchorPoint: aPoint [
 
 	popUpAnchorPoint := aPoint
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:41'
+}
+SKMealyEdge >> rotateVector: aVector by: aNumber [
+
+	| angle |
+	
+	angle := aNumber degreesToRadians.
+	^ (((aVector x * angle cos) - (aVector y * angle  sin)) @ ((aVector x * angle sin) + (aVector y * angle cos)))
 ]
 
 {
