@@ -161,6 +161,15 @@ SKStateMachineEditor >> deselectAllEdges [
 ]
 
 {
+	#category : #const,
+	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 16:11'
+}
+SKStateMachineEditor >> edgeSelectionDistance [
+
+	^ 40
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:57'
 }
@@ -549,14 +558,14 @@ SKStateMachineEditor >> queueNodeToDelete: aNode [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:45'
+	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 16:11'
 }
 SKStateMachineEditor >> selectEdgeNear: aPosition [
 
 	| edge distance limit |
 	
 	"max distance from the line where it will be clicked"
-	limit := 50.
+	limit := self edgeSelectionDistance.
 	
 	edge := self playGround findNearestEdge: aPosition.
 	edge ifNil: [^ nil].
