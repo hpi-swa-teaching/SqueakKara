@@ -42,6 +42,14 @@ SKButton >> defaultSliderSize [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'ND 6/19/2026 09:39'
+}
+SKButton >> environment [ 
+	^ self executeControls environment
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'ND 6/16/2026 21:49'
 }
 SKButton >> executeControls [

@@ -10,7 +10,7 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:55'
+	#'squeak_changestamp' : 'ND 6/19/2026 09:36'
 }
 SKButtonReset >> action [
 
