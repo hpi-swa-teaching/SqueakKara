@@ -124,11 +124,12 @@ SKGrid >> drawTexture [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 01:49'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 02:27'
 }
 SKGrid >> enforceZOrder [
 
 	| sorted unsorted |
+	
 	unsorted := OrderedCollection new.
 	1 to: self gridWidth do: 
 		[:x | 1 to: self gridHeight do: 

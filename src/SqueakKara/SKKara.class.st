@@ -186,7 +186,7 @@ SKKara >> position: aPoint [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 16:25'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 09:45'
 }
 SKKara >> push [
 

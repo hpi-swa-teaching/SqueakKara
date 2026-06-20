@@ -69,22 +69,16 @@ SKChallenge class >> initializeChallenge1For: aGrid environment: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:59'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 16:02'
 }
 SKChallenge class >> initializeChallenge2For: aGrid environment: anEnvironment [
 
-	SKTrunk newInGrid: aGrid at: 3 @ 2.
-	SKTrunk newInGrid: aGrid at: 5 @ 2.
-	SKTrunk newInGrid: aGrid at: 7 @ 2.
-	
-	SKCloverleaf newInGrid: aGrid at: 9 @ 2.
-	
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2)
+	"isnt needed anymore"
 ]
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 01:57'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 09:45'
 }
 SKChallenge class >> initializeChallenge3For: aGrid environment: anEnvironment [
 

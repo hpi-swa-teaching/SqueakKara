@@ -294,23 +294,21 @@ SKEnvironment >> initializeWithChallenge1 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 15:40'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 16:02'
 }
 SKEnvironment >> initializeWithChallenge2 [
-
-	self grid: (SKGrid newWithExtent: 9 @ 2).
-	SKChallenge initializeChallenge2For: self grid environment: self.
-	self initializeObjects.
-	self executeControls currentChallenge: 'Challenge2'.
+	
+	SKLevel1World1 new initializeWithEnvironment: self.
+	
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 15:40'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 15:01'
 }
 SKEnvironment >> initializeWithChallenge3 [
 
-	self grid: (SKGrid newWithExtent: 9 @ 3).
+	self grid: (SKGrid newWithExtent: 9 @ 9).
 	SKChallenge initializeChallenge3For: self grid environment: self.
 	self initializeObjects.
 	self executeControls currentChallenge: 'Challenge3'.
