@@ -294,11 +294,11 @@ SKEnvironment >> initializeWithChallenge1 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 16:02'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 22:54'
 }
 SKEnvironment >> initializeWithChallenge2 [
 	
-	SKLevel1World1 new initializeWithEnvironment: self.
+	SKLevel3World4 new initializeWithEnvironment: self.
 	
 ]
 

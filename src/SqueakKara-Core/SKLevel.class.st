@@ -109,6 +109,20 @@ SKLevel >> placeKaraAt: aPoint [
 
 {
 	#category : #placing,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 23:23'
+}
+SKLevel >> placeKaraAt: aPoint withViewDirection: aDirection [
+	
+	| kara |
+	
+	kara := SKKara newInGrid: self grid at: aPoint.
+	kara viewDirection: aDirection.
+	self environment addKara: kara
+	
+]
+
+{
+	#category : #placing,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 11:25'
 }
 SKLevel >> placeMushroomAt: aPoint [

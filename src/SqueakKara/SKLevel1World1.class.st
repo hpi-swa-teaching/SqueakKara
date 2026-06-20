@@ -15,7 +15,7 @@ SKLevel1World1 >> build [
 ]
 
 {
-	#category : #building,
+	#category : #constants,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 15:32'
 }
 SKLevel1World1 >> height [
@@ -24,7 +24,7 @@ SKLevel1World1 >> height [
 ]
 
 {
-	#category : #building,
+	#category : #constants,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 15:34'
 }
 SKLevel1World1 >> levelName [
@@ -33,7 +33,7 @@ SKLevel1World1 >> levelName [
 ]
 
 {
-	#category : #building,
+	#category : #constants,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 16:04'
 }
 SKLevel1World1 >> width [
