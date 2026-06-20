@@ -16,7 +16,8 @@ Class {
 		'selfLoopDirection',
 		'popUp',
 		'arrowHeadVerticies',
-		'approximatedCurvePoints'
+		'approximatedCurvePoints',
+		'currentColor'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -408,6 +409,24 @@ SKMealyEdge >> createCalculationArrayWithLenght: aNumber [
 ]
 
 {
+	#category : #'accessing - helper',
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:38'
+}
+SKMealyEdge >> currentColor [
+	
+	^ currentColor ifNil: [currentColor := self normalColor]
+]
+
+{
+	#category : #'accessing - helper',
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:33'
+}
+SKMealyEdge >> currentColor: aColor [
+
+	currentColor := aColor
+]
+
+{
 	#category : #'accessing - visual-components',
 	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:35'
 }
@@ -491,12 +510,12 @@ SKMealyEdge >> drawCurveForControlPoints [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 22:57'
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:34'
 }
 SKMealyEdge >> drawLineForm: aPoint to: anotherPoint [
 
 	| line |
-	line := LineMorph from: aPoint to: anotherPoint color: self lineColorNormal width: self lineWidth.
+	line := LineMorph from: aPoint to: anotherPoint color: self currentColor width: self lineWidth.
 	self curve addMorph: line.
 ]
 
@@ -571,20 +590,24 @@ SKMealyEdge >> getPointBetween: aPoint and: anotherPoint interpolatedBy: aNumber
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 22:51'
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:40'
 }
 SKMealyEdge >> gotDeselected [
 	
-	self popUp actionClose
+	self popUp actionClose.
+	self currentColor: self normalColor;
+		update: #select
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 22:51'
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:40'
 }
 SKMealyEdge >> gotSelected [
 
-	self popUp makeVisible
+	self popUp makeVisible.
+	self currentColor: self selectedColor;
+		update: #select
 ]
 
 {
@@ -700,11 +723,11 @@ SKMealyEdge >> rotateVector: aVector by: aNumber [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:33'
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:41'
 }
 SKMealyEdge >> selectedColor [
 
-	^ SKStylesheet colorLightGreen
+	^ SKStylesheet colorYellow
 ]
 
 {
@@ -745,7 +768,7 @@ SKMealyEdge >> toNode: aNode [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:30'
+	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 16:18'
 }
 SKMealyEdge >> update: aValue [
 
