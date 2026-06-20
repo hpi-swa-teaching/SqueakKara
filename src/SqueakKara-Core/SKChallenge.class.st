@@ -19,7 +19,7 @@ SKChallenge class >> initializeBlankProjectFor: aGrid environment: anEnvironment
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:49'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 01:58'
 }
 SKChallenge class >> initializeChallenge1For: aGrid environment: anEnvironment [
 	
@@ -63,7 +63,8 @@ SKChallenge class >> initializeChallenge1For: aGrid environment: anEnvironment [
 	SKTrunk newInGrid: aGrid at: 3 @ 5.
 	
 	SKCloverleaf newInGrid: aGrid at: 4 @ 4.
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2)
+	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2).
+	aGrid enforceZOrder
 ]
 
 {
@@ -83,7 +84,7 @@ SKChallenge class >> initializeChallenge2For: aGrid environment: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 14:28'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 01:57'
 }
 SKChallenge class >> initializeChallenge3For: aGrid environment: anEnvironment [
 
@@ -100,7 +101,10 @@ SKChallenge class >> initializeChallenge3For: aGrid environment: anEnvironment [
 	SKTrunk newInGrid: aGrid at: 8 @ 3.
 	SKTrunk newInGrid: aGrid at: 9 @ 3.
 	
-	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2)
+	anEnvironment addKara: (SKKara newInGrid: aGrid at: 1 @ 2).
+	SKCloverleaf newInGrid: aGrid at: 1 @ 2.
+	SKCloverleaf newInGrid: aGrid at: 2 @ 2.
+	aGrid enforceZOrder
 ]
 
 {
