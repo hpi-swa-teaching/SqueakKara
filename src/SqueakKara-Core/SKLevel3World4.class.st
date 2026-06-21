@@ -6,10 +6,36 @@ Class {
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 23:44'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/21/2026 19:35'
 }
 SKLevel3World4 >> build [
 	"concept: when trunk ahead: turn right, when mushroom ahead walk left and look if it is blocked by trunk--> yes: walk straight along, no: walk back behind mushroom and push once. then turn right and walk straight"
+	
+	"example code: 
+	
+	[kara onCloverleaf not] whileTrue: [
+	kara mushroomAhead ifTrue: [
+		kara turn: left;
+			move;
+			turn: right;
+			move;
+			move;
+			turn: right.
+		kara trunkAhead ifTrue: [kara turn: left] ifFalse: [
+			kara turn: right;
+				move;
+				move;
+				turn: left;
+				move;
+				turn: left;
+				push;
+				turn: right
+			]
+		] ifFalse: [
+			kara trunkAhead ifTrue: [kara turn: right] ifFalse: [kara move]
+		]
+	]
+	"
 	self placeKaraAt: 1 @ 7 withViewDirection: SKDirection above;
 		placeCloverleafAt: 7 @ 5;
 		placeMushroomAt: 3 @ 8;
