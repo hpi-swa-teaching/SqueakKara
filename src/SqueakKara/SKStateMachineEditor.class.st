@@ -14,7 +14,7 @@ Class {
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 13:02'
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 14:48'
 }
 SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 
@@ -24,7 +24,14 @@ SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 	self playGround addEdge: edge.
 	
 	aNode addDependent: edge.
-	anotherNode addDependent: edge.
+	aNode addEdge: edge;
+		calculateBestEdgeDirections.
+
+	(anotherNode = aNode) ifFalse: [	
+		anotherNode addEdge: edge;
+			addDependent: edge;
+			calculateBestEdgeDirections].
+
 	edge update: #unusedValue. 
 	self actionSelectEdge: edge
 ]
@@ -58,7 +65,7 @@ SKStateMachineEditor >> actionDeleteEdge: aEdge [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/16/2026 19:30'
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:39'
 }
 SKStateMachineEditor >> actionDeleteNode: aNode [
 	
@@ -66,7 +73,7 @@ SKStateMachineEditor >> actionDeleteNode: aNode [
 	
 	aNode isStartingNode ifTrue: [^nil].
 		
-	belongingEdges := OrderedCollection new.
+	belongingEdges := Set new.
 	belongingEdges
 		addAll: (self playGround findAllEdgesToNode: aNode);
 		addAll: (self playGround findAllEdgesFromNode: aNode).

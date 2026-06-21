@@ -136,11 +136,9 @@ SKMealyEdge >> calculatPopUpAnchorPoint [
 
 {
 	#category : #calculation,
-	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 15:58'
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:04'
 }
 SKMealyEdge >> calculateAllAnchorPoints [
-
-	self selfLoopDirection: (0 @ -1).
 
 	self
 		calculateControlPoints;
@@ -732,11 +730,11 @@ SKMealyEdge >> selectedColor [
 
 {
 	#category : #'accessing - anchor-points',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 18:12'
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:04'
 }
 SKMealyEdge >> selfLoopDirection [
 
-	^ selfLoopDirection
+	^ selfLoopDirection ifNil: [selfLoopDirection := 0 @ -1]
 ]
 
 {
@@ -810,11 +808,12 @@ SKMealyEdge >> updateCurve [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 22:51'
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:50'
 }
 SKMealyEdge >> updatePopUp [
 
 	self popUp ifNil: [self popUp: SKSelectionPopUpWrapper new.
+		self popUp edge: self.
 		self controller playGround addComponent: self popUp].
 	
 	self popUp position: self popUpAnchorPoint.
