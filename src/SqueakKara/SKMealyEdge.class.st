@@ -17,7 +17,12 @@ Class {
 		'popUp',
 		'arrowHeadVerticies',
 		'approximatedCurvePoints',
-		'currentColor'
+		'currentColor',
+		'conditionAbbreviations',
+		'commandAbbriviations',
+		'edgeLabel',
+		'labelPosition',
+		'curvePointDistances'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -36,6 +41,17 @@ SKMealyEdge class >> newFrom: aNode to: anotherNode [
 		isSelfLoop: aNode = anotherNode.
 	
 	^ instance
+]
+
+{
+	#category : #'accessing - helper',
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 14:43'
+}
+SKMealyEdge >> addCurvePointDistance: aPair [
+
+	self curvePointDistances add: aPair
+
+	
 ]
 
 {
@@ -136,7 +152,7 @@ SKMealyEdge >> calculatPopUpAnchorPoint [
 
 {
 	#category : #calculation,
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:04'
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 14:23'
 }
 SKMealyEdge >> calculateAllAnchorPoints [
 
@@ -144,7 +160,8 @@ SKMealyEdge >> calculateAllAnchorPoints [
 		calculateControlPoints;
 		calculatPopUpAnchorPoint;
 		calculateArrowHeadVerticies;
-		calculateApproximatedCurvePoints
+		calculateApproximatedCurvePoints;
+		calculateLabelPosition
 ]
 
 {
@@ -288,6 +305,53 @@ SKMealyEdge >> calculateCurveIntersectionWithToNode [
 ]
 
 {
+	#category : #'calculation - label',
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:23'
+}
+SKMealyEdge >> calculateCurveMiddelT [
+
+	| stepSize t lastPoint currentPoint distanceToStep totalLength currentLength |
+	
+	distanceToStep := OrderedCollection new.
+	
+	stepSize := 0.05.
+	t := stepSize.
+	lastPoint := self calculateBezierPointForT: 0.
+	
+	[t <= 1] whileTrue: [
+		currentPoint := self calculateBezierPointForT: t.
+		distanceToStep add: (currentPoint dist: lastPoint) -> t. 
+		lastPoint := currentPoint.
+		t := t + stepSize].
+	
+	totalLength := 0.
+	distanceToStep do: [:aPair| totalLength := totalLength + aPair key].
+	currentLength := (distanceToStep at: 1) key.
+	2 to: distanceToStep size do: [:i| currentLength := currentLength + ((distanceToStep at: i ) key).
+		currentLength > (totalLength / 2) ifTrue: [^ (distanceToStep at: i-1) value]].
+	^ 0
+]
+
+{
+	#category : #'calculation - label',
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:15'
+}
+SKMealyEdge >> calculateLabelPosition [
+
+	| curveVertexPoint curveVertexDirection curveVertexOrthogonalDirection middelT |
+	
+	self isSelfLoop ifTrue: [self labelPosition: self popUpAnchorPoint.
+		^ self].
+	
+	middelT := self calculateCurveMiddelT.
+	curveVertexPoint := self calculateBezierPointForT: middelT.
+	curveVertexDirection := curveVertexPoint - (self calculateBezierPointForT: (middelT - 0.01)).
+	curveVertexOrthogonalDirection := (self getOrthogonalVectorFor: curveVertexDirection) normalized.
+	
+	self labelPosition: (curveVertexPoint + (curveVertexOrthogonalDirection * self labelCurveDistance))
+]
+
+{
 	#category : #'calculation - popUp',
 	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 16:14'
 }
@@ -298,11 +362,11 @@ SKMealyEdge >> calculatePopUpAnchorPointForLineForm: aPoint to: anotherPoint [
 
 {
 	#category : #'calculation - popUp',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 22:31'
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:16'
 }
 SKMealyEdge >> calculatePopUpAnchorPointForSelfLoop: aDirection [
 
-	self popUpAnchorPoint: (self fromNode center + (aDirection * self loopHeight))
+	self popUpAnchorPoint: (self fromNode center + (aDirection * (self loopHeight * 0.7)))
 ]
 
 {
@@ -326,6 +390,15 @@ SKMealyEdge >> checkIfPoint: aPoint isOutOfNode: aNode [
 ]
 
 {
+	#category : #'accessing - helper',
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 14:37'
+}
+SKMealyEdge >> clearCurvePointDistances [ 
+
+	curvePointDistances := nil
+]
+
+{
 	#category : #'accessing - edge-properties',
 	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:24'
 }
@@ -344,6 +417,24 @@ SKMealyEdge >> command: aCommand [
 ]
 
 {
+	#category : #labels,
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:13'
+}
+SKMealyEdge >> commandAbbriviations [
+
+	commandAbbriviations ifNotNil: [^ commandAbbriviations].
+	
+	commandAbbriviations := Dictionary new.
+	commandAbbriviations
+		at: 'kara move' put: 'm';
+		at: 'kara turn: left' put: 'l';
+		at: 'kara turn: right' put: 'r';
+		at: 'kara push' put: 'p';
+		at: '' put: '~'.
+	^ commandAbbriviations
+]
+
+{
 	#category : #'accessing - edge-properties',
 	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:23'
 }
@@ -359,6 +450,22 @@ SKMealyEdge >> condition [
 SKMealyEdge >> condition: aCondition [
 
 	condition := aCondition
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:09'
+}
+SKMealyEdge >> conditionAbbreviations [
+
+ 	conditionAbbreviations ifNotNil: [^ conditionAbbreviations].
+	
+	conditionAbbreviations := Dictionary new.
+	conditionAbbreviations 
+		at: 'kara trunkAhead' put: 't';
+		at: 'kara onCloverleaf' put: 'c';
+		at: 'kara mushroomAhead' put: 'm'.
+	^ conditionAbbreviations
 ]
 
 {
@@ -452,14 +559,24 @@ SKMealyEdge >> curveHeight [
 ]
 
 {
+	#category : #'accessing - helper',
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 14:36'
+}
+SKMealyEdge >> curvePointDistances [
+
+	^ curvePointDistances ifNil: [curvePointDistances := OrderedCollection new]
+]
+
+{
 	#category : #drawing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 22:53'
+	#'squeak_changestamp' : 'Lars Kuhr 6/22/2026 12:25'
 }
 SKMealyEdge >> delete [
 
 	self arrowhead ifNotNil:[self arrowhead delete]. 
 	self popUp ifNotNil:  [self popUp delete]. 
-	self curve ifNotNil: [self curve delete]
+	self curve ifNotNil: [self curve delete].
+	self edgeLabel ifNotNil: [self edgeLabel delete]
 ]
 
 {
@@ -518,6 +635,24 @@ SKMealyEdge >> drawLineForm: aPoint to: anotherPoint [
 ]
 
 {
+	#category : #'accessing - visual-components',
+	#'squeak_changestamp' : 'Lars Kuhr 6/22/2026 12:21'
+}
+SKMealyEdge >> edgeLabel [
+
+	^ edgeLabel
+]
+
+{
+	#category : #'accessing - visual-components',
+	#'squeak_changestamp' : 'Lars Kuhr 6/22/2026 12:12'
+}
+SKMealyEdge >> edgeLabel: aLabel [
+
+	edgeLabel := aLabel
+]
+
+{
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:36'
 }
@@ -542,6 +677,20 @@ SKMealyEdge >> fromNode [
 SKMealyEdge >> fromNode: aNode [
 	
 	fromNode := aNode
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:09'
+}
+SKMealyEdge >> generateEdgeLabel [
+
+	| label |
+	(self condition = '') 
+		ifTrue: [label := '']
+		ifFalse: [label := (self conditionAbbreviations at: self condition),'?'].
+	label := label,(self commandAbbriviations at: self command).
+	^ label
 ]
 
 {
@@ -624,6 +773,33 @@ SKMealyEdge >> isSelfLoop [
 SKMealyEdge >> isSelfLoop: aBoolean [
 
 	isSelfLoop := aBoolean
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:04'
+}
+SKMealyEdge >> labelCurveDistance [
+
+	^ 30
+]
+
+{
+	#category : #'accessing - anchor-points',
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 14:18'
+}
+SKMealyEdge >> labelPosition [
+
+	^ labelPosition
+]
+
+{
+	#category : #'accessing - anchor-points',
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 14:18'
+}
+SKMealyEdge >> labelPosition: aPosition [
+
+	labelPosition := aPosition
 ]
 
 {
@@ -766,7 +942,7 @@ SKMealyEdge >> toNode: aNode [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 16:18'
+	#'squeak_changestamp' : 'Lars Kuhr 6/22/2026 12:23'
 }
 SKMealyEdge >> update: aValue [
 
@@ -774,7 +950,8 @@ SKMealyEdge >> update: aValue [
 	
 	self updateCurve;
 		updateArrowhead;
-		updatePopUp. 
+		updatePopUp;
+		updateLabel
 ]
 
 {
@@ -804,6 +981,27 @@ SKMealyEdge >> updateCurve [
 	self controller playGround addComponent: curve.
 	self drawCurveForControlPoints
 
+]
+
+{
+	#category : #updating,
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:22'
+}
+SKMealyEdge >> updateLabel [
+
+	self updateValues.
+	self edgeLabel ifNil: [
+		self edgeLabel: (StringMorph new
+			color: Color black;
+			emphasis: TextEmphasis bold emphasisCode;
+			font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: 12)).
+		self edgeLabel
+			lock.
+		self controller playGround addComponent: self edgeLabel].
+	self edgeLabel 
+		center: self labelPosition;
+		contents: self generateEdgeLabel
+		
 ]
 
 {
