@@ -345,7 +345,7 @@ SKStateMachineEditor >> initializeModeButtons [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/23/2026 22:07'
+	#'squeak_changestamp' : 'JS 6/24/2026 00:03'
 }
 SKStateMachineEditor >> initializePlayground [
 

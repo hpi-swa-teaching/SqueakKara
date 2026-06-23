@@ -253,15 +253,14 @@ SKMealyNode >> isStartingNode: aBoolean [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'JS 6/23/2026 22:47'
+	#'squeak_changestamp' : 'JS 6/23/2026 23:56'
 }
 SKMealyNode >> justDroppedInto: newOwner event: anEvent [
 
-	"(newOwner isKindOf: SKPlayGround) ifFalse: [anEvent hand attachMorph: self. ^self]."
-
 	newOwner addMorphFront: self.
 	self isInDrag: false;
-		triggerSelfLoopUpdate
+		triggerSelfLoopUpdate;
+		positionInPlayground: newOwner
 ]
 
 {
@@ -323,6 +322,28 @@ SKMealyNode >> newAngle: aAngle [
 SKMealyNode >> normalColor [
 
 	^ SKStylesheet colorOrange
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'JS 6/23/2026 23:56'
+}
+SKMealyNode >> positionInPlayground: aPlayground [
+
+    | posX posY |
+
+    	posX := self position x.
+	posY := self position y.
+
+    	posX := posX max: aPlayground bounds left.
+
+   	posX := posX min: aPlayground bounds right - self width.
+
+    	posY := posY max: aPlayground bounds top.
+
+    	posY := posY min: aPlayground bounds bottom - self height.
+
+    	self position: posX @ posY.
 ]
 
 {
@@ -433,7 +454,7 @@ SKMealyNode >> updateSelfLoops [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'JS 6/23/2026 22:48'
+	#'squeak_changestamp' : 'JS 6/23/2026 23:46'
 }
 SKMealyNode >> wantsToBeDroppedInto: aMorph [
 
