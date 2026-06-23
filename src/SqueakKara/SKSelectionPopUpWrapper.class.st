@@ -113,11 +113,11 @@ SKSelectionPopUpWrapper >> closeButton [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:00'
+	#'squeak_changestamp' : 'JS 6/23/2026 21:38'
 }
 SKSelectionPopUpWrapper >> closeButton: aButton [
 
-	closeButton := aButton.
+	closeButton := aButton
 ]
 
 {
@@ -199,11 +199,11 @@ SKSelectionPopUpWrapper >> edge [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:49'
+	#'squeak_changestamp' : 'JS 6/23/2026 21:38'
 }
-SKSelectionPopUpWrapper >> edge: aEdge [
+SKSelectionPopUpWrapper >> edge: anEdge [
 
-	edge := aEdge
+	edge := anEdge
 ]
 
 {
@@ -233,12 +233,12 @@ SKSelectionPopUpWrapper >> handleCloseButtonClicked [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:15'
+	#'squeak_changestamp' : 'JS 6/23/2026 21:37'
 }
 SKSelectionPopUpWrapper >> initialize [
 
 	super initialize. 
-	
+
 	self
 		addSelectionModel: (SKSelectionModel newWithType: #condition andItems: self conditionList);
 		addSelectionModel: (SKSelectionModel newWithType: #command andItems: self commandList).
@@ -248,7 +248,7 @@ SKSelectionPopUpWrapper >> initialize [
 	self drawSelectionWindows;
 		updatePositionsOfChildren;
 		buildCloseButton;
-		visible: false
+		color: Color transparent
 
 
 

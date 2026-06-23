@@ -70,12 +70,12 @@ SKSelectionModel >> selectedIndex: aNumber [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:17'
+	#'squeak_changestamp' : 'JS 6/23/2026 21:31'
 }
 SKSelectionModel >> selectedValue [
 
 	self selectedIndex ifNil: [^''].
-	^ items at: self selectedIndex
+	^ self items at: self selectedIndex
 ]
 
 {
