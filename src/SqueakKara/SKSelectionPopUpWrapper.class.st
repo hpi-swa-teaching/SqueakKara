@@ -139,7 +139,7 @@ SKSelectionPopUpWrapper >> closeButtonWidth [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:20'
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:24'
 }
 SKSelectionPopUpWrapper >> commandList [
 
@@ -147,19 +147,21 @@ SKSelectionPopUpWrapper >> commandList [
 		'kara move'
 		'kara turn: left'
 		'kara turn: right'
+		'kara push'
 		'None'
 	)
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:51'
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:25'
 }
 SKSelectionPopUpWrapper >> conditionList [
 
 	^ #(
 		'kara onCloverleaf'
 		'kara trunkAhead'
+		'kara mushroomAhead'
 		'None'
 	)
 ]
