@@ -138,14 +138,15 @@ SKExecuteControls >> addWidgetCentered: aWidget atXPosition: aXValue [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 5/15/2026 22:35'
+	#'squeak_changestamp' : 'JS 6/24/2026 00:40'
 }
 SKExecuteControls >> buildButtonReset [
 
 	^ IconicButton new
-		    target: self;
-		    actionSelector: #actionReset;
-		    color: SKStylesheet secondaryColor
+		target: self;
+		actionSelector: #actionReset;
+		color: SKStylesheet secondaryColor;
+		yourself
 ]
 
 {
@@ -356,11 +357,11 @@ SKExecuteControls >> defaultBounds [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:04'
+	#'squeak_changestamp' : 'JS 6/24/2026 00:55'
 }
 SKExecuteControls >> defaultIconicButtonSize [
 
-	^ 34 @ 34
+	^ 32 @ 32
 ]
 
 {
@@ -517,7 +518,7 @@ SKExecuteControls >> resetTextureFilename [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'jawi 5/15/2026 09:20'
+	#'squeak_changestamp' : 'JS 6/24/2026 00:42'
 }
 SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
@@ -537,6 +538,9 @@ SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
 	self buttonSpawnKara extent: buttonSize.
 	self buttonSpawnKara labelGraphic: (self karaTexture scaledToSize: iconSize).
+	
+	self buttonReset extent: buttonSize.
+	self buttonReset labelGraphic: (self resetTexture scaledToSize: iconSize).
 	
 	self sliderSpeed extent: sliderSize
 ]
@@ -657,10 +661,9 @@ SKExecuteControls >> toggleExecutionState [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'JS 6/2/2026 14:44'
+	#'squeak_changestamp' : 'JS 6/24/2026 00:46'
 }
 SKExecuteControls >> updateTextures [
 
-	self buttonRunSetTexture: self currentRunButtonTexture.
-	self buttonStopSetTexture: self stopTexture.
+	self buttonRunSetTexture: self currentRunButtonTexture
 ]
