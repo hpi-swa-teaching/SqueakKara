@@ -25,7 +25,8 @@ Class {
 	#superclass : #Morph,
 	#instVars : [
 		'selectionWindows',
-		'closeButton'
+		'closeButton',
+		'edge'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'LP 6/9/2026 13:16'
@@ -71,7 +72,7 @@ SKSelectionPopUpWrapper >> bringChildrenToFront [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:06'
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:51'
 }
 SKSelectionPopUpWrapper >> buildCloseButton [
 
@@ -79,7 +80,7 @@ SKSelectionPopUpWrapper >> buildCloseButton [
 
 	closeButton := (SimpleButtonMorph new
 		target: self;
-		actionSelector: #actionClose;
+		actionSelector: #handleCloseButtonClicked;
 		height: self closeButtonHeight;
 		width: self closeButtonWidth;
 		color: self closeButtonColor;
@@ -178,6 +179,24 @@ SKSelectionPopUpWrapper >> drawSelectionWindows [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:49'
+}
+SKSelectionPopUpWrapper >> edge [
+
+	^ edge
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:49'
+}
+SKSelectionPopUpWrapper >> edge: aEdge [
+
+	edge := aEdge
+]
+
+{
 	#category : #helper,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:43'
 }
@@ -189,6 +208,17 @@ SKSelectionPopUpWrapper >> getValueByType: aType [
 	commandWindow selectedValue ifNil: [^ ''].
 	commandWindow selectedValue = 'None' ifTrue: [^ ''].
 	^ commandWindow selectedValue
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:50'
+}
+SKSelectionPopUpWrapper >> handleCloseButtonClicked [
+
+	self edge gotDeselected
+
+	
 ]
 
 {

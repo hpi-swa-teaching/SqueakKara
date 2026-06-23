@@ -7,7 +7,11 @@ Class {
 		'isDraggable',
 		'stateMachineEditor',
 		'isStartingNode',
-		'name'
+		'name',
+		'edges',
+		'edgeAngles',
+		'bestDifference',
+		'newAngle'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -21,6 +25,95 @@ SKMealyNode class >> newWithName: aString [
 	^ (self new
 		name: aString;
 		yourself)
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 23:25'
+}
+SKMealyNode >> addEdge: aEdge [
+
+	self edges add: aEdge
+]
+
+{
+	#category : #'accessing - edgePlacement',
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:46'
+}
+SKMealyNode >> addEdgeAnlge: aAngle [
+
+	edgeAngles add: aAngle
+]
+
+{
+	#category : #'accessing - edgePlacement',
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:48'
+}
+SKMealyNode >> bestDifference [
+
+	^ bestDifference ifNil: [bestDifference := 0]
+]
+
+{
+	#category : #'accessing - edgePlacement',
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:46'
+}
+SKMealyNode >> bestDifference: aNumber [
+
+	bestDifference := aNumber
+]
+
+{
+	#category : #edgePlacement,
+	#'squeak_changestamp' : 'JS 6/23/2026 20:03'
+}
+SKMealyNode >> calculateBestEdgeDirections [
+
+	| selfLoops |
+	
+	self edgeAngels: self getEdgeAngles asSortedCollection.
+	selfLoops := self edges select: [:aEdge| aEdge isSelfLoop]. 
+		
+	selfLoops do: [:aSelfLoopEdge|
+		self bestDifference: -1.	
+		1 to: self edgeAngles size - 1 do: [:i| self checkAnlgePairAt: i and: i + 1].
+		self checkLastAnglePair.
+		self addEdgeAnlge: self newAngle.
+		self newAngle ifNotNil: [
+			aSelfLoopEdge selfLoopDirection: ((self newAngle degreesToRadians) cos) @ ((self newAngle degreesToRadians) sin)]]
+]
+
+{
+	#category : #edgePlacement,
+	#'squeak_changestamp' : 'JS 6/23/2026 20:12'
+}
+SKMealyNode >> checkAnlgePairAt: aNumber and: anotherNumber [
+
+	| angle1 angle2 angleDifference |
+
+	angle1 := self edgeAngles at: aNumber.
+	angle2 := self edgeAngles at: anotherNumber.
+	angleDifference := angle2 - angle1.
+	(angleDifference > self bestDifference) ifTrue: [
+		self newAngle: ((angle2 + angle1) / 2) \\ 360.
+		self bestDifference: angleDifference]
+]
+
+{
+	#category : #edgePlacement,
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:59'
+}
+SKMealyNode >> checkLastAnglePair [
+
+	| angle1 angle2 angleDifference |
+	
+	self edgeAngles size <= 0 ifTrue: [^ self].
+	
+	angle1 := self edgeAngles at: 1.
+	angle2 := self edgeAngles at: self edgeAngles size.
+	angleDifference :=  (360 - angle2) + angle1.
+	(angleDifference > self bestDifference) ifTrue: [
+				self newAngle: (angle2 + (angleDifference / 2)) \\ 360]
 ]
 
 {
@@ -48,6 +141,53 @@ SKMealyNode >> controller: aController [
 SKMealyNode >> defaultSize [
 
 	^ 75 @ 75
+]
+
+{
+	#category : #'accessing - edgePlacement',
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:45'
+}
+SKMealyNode >> edgeAngels: aAngleCollection [
+
+	edgeAngles := aAngleCollection
+]
+
+{
+	#category : #'accessing - edgePlacement',
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:45'
+}
+SKMealyNode >> edgeAngles [
+
+	^ edgeAngles
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 23:24'
+}
+SKMealyNode >> edges [
+
+	^ edges ifNil: [edges := OrderedCollection new]
+]
+
+{
+	#category : #edgePlacement,
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:57'
+}
+SKMealyNode >> getEdgeAngles [
+
+	| uniqueAngles otherNode |
+	
+	uniqueAngles := Set new.
+
+	self edges do: [:aEdge|
+		aEdge isSelfLoop ifFalse: [
+			aEdge toNode center = self center 
+				ifTrue: [otherNode := aEdge fromNode]
+				ifFalse: [otherNode := aEdge toNode].
+			uniqueAngles add: ((otherNode center - self center) normalized) theta radiansToDegrees]].
+	^ uniqueAngles asOrderedCollection
+	
 ]
 
 {
@@ -130,14 +270,16 @@ SKMealyNode >> isStartingNode: aBoolean [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'JS 6/16/2026 19:00'
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:31'
 }
 SKMealyNode >> justDroppedInto: newOwner event: anEvent [
 
-	(newOwner isKindOf: SKPlayGround) ifFalse: [controller queueNodeToDelete: self].
+	(newOwner isKindOf: SKPlayGround) ifFalse: [controller queueNodeToDelete: self.
+		^ self].
 
 	newOwner addMorphFront: self.
-	self isInDrag: false.
+	self isInDrag: false;
+		triggerSelfLoopUpdate
 ]
 
 {
@@ -176,12 +318,39 @@ SKMealyNode >> name: aString [
 ]
 
 {
+	#category : #'accessing - edgePlacement',
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:46'
+}
+SKMealyNode >> newAngle [
+
+	^ newAngle
+]
+
+{
+	#category : #'accessing - edgePlacement',
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:47'
+}
+SKMealyNode >> newAngle: aAngle [
+
+	newAngle := aAngle
+]
+
+{
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:45'
 }
 SKMealyNode >> normalColor [
 
 	^ SKStylesheet colorOrange
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 23:25'
+}
+SKMealyNode >> removeEdge: aEdge [
+
+	self edges remove: aEdge
 ]
 
 {
@@ -231,7 +400,7 @@ SKMealyNode >> stateMachineEditor: anObject [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:40'
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:31'
 }
 SKMealyNode >> step [
 
@@ -240,11 +409,26 @@ SKMealyNode >> step [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:35'
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:30'
 }
 SKMealyNode >> stepTime [
 
 	^ 20
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:30'
+}
+SKMealyNode >> triggerSelfLoopUpdate [
+
+	| nodesToUpdate |
+	
+	nodesToUpdate := Set new.
+	self edges do: [:aEdge| 
+		nodesToUpdate add: aEdge fromNode.
+		nodesToUpdate add: aEdge toNode].
+	nodesToUpdate do: [:aNode| aNode updateSelfLoops]
 ]
 
 {
@@ -254,4 +438,31 @@ SKMealyNode >> stepTime [
 SKMealyNode >> unselectNode [
 
 	self color: self normalColor
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:27'
+}
+SKMealyNode >> updateSelfLoops [
+
+	self calculateBestEdgeDirections;
+		changed: #pos
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 13:04'
+}
+SKMealyNode >> visualiseNodeType [
+
+"	|hasStartEdge|
+
+	self isStartingNode ifTrue: [
+		hasStartEdge := false.
+		(self stateMachineEditor playGround findAllEdgesToNode: self) do: [:edge |
+				edge fromNode == nil ifTrue: 
+					[hasStartEdge := true]].
+		hasStartEdge ifFalse: [
+			self stateMachineEditor actionAddEdgeFromPosition: self center -100 toNode: self]]"
 ]
