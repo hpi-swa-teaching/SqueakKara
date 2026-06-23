@@ -58,14 +58,14 @@ SKBlockCategory >> buildHeader [
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:23'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:28'
 }
 SKBlockCategory >> buildRow [
 
 	^ Morph new
 		color: SKStylesheet colorBeige;
 		borderColor: SKStylesheet colorOrange;
-		borderWidth: 1;
+		borderWidth: SKBlockStyle borderWidth;
 		layoutPolicy: TableLayout new;
 		listDirection: #leftToRight;
 		wrapCentering: #center;
@@ -174,6 +174,16 @@ SKBlockCategory >> initialize [
 SKBlockCategory >> refreshDisclosure [
 
 	disclosure ifNotNil: [disclosure contents: self disclosureLabel]
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/23/2026 19:27'
+}
+SKBlockCategory >> setColorsToMatchCategory: aSymbol [
+
+	self header color: (SKBlockStyle colorByCategory at: aSymbol);
+		borderColor: (SKBlockStyle borderColorByCategory at: aSymbol).
 ]
 
 {

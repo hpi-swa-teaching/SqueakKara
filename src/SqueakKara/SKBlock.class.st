@@ -163,14 +163,11 @@ SKBlock >> blockType [
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'FR 6/23/2026 18:33'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:19'
 }
 SKBlock >> borderColorFromCategory [
 
-	^((Dictionary new at: #default put: SKStylesheet colorOrange;
-		at: #movement put: SKStylesheet colorBlue;
-		at: #sensing put: SKStylesheet colorGreen;
-		at: #operators put: SKStylesheet colorDarkTeal; yourself) at: self category)
+	^ SKBlockStyle borderColorByCategory at: self category
 ]
 
 {
@@ -196,14 +193,11 @@ SKBlock >> category: aCategory [
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'FR 6/23/2026 18:33'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:18'
 }
 SKBlock >> colorFromCategory [
 
-	^ (Dictionary new at: #default put: SKStylesheet colorBeige;
-		at: #movement put: SKStylesheet colorLightBlue;
-		at: #sensing put: SKStylesheet colorLightGreen;
-		at: #operators put: SKStylesheet colorTeal; yourself) at: self category
+	^ SKBlockStyle colorByCategory at: self category
 ]
 
 {

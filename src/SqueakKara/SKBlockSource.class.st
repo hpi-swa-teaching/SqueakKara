@@ -22,12 +22,13 @@ SKBlockSource >> andBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:25'
 }
 SKBlockSource >> controlCategory [
 
 	^ SKBlockCategory new
 		title: 'Control';
+		setColorsToMatchCategory: #default;
 		addBlock: self ifBlock;
 		addBlock: self ifElseBlock;
 		addBlock: self forLoop;
@@ -195,12 +196,13 @@ SKBlockSource >> moveStepsBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SLH 6/16/2026 21:11'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:26'
 }
 SKBlockSource >> movementCategory [
 
 	^ SKBlockCategory new
 		title: 'Movement';
+		setColorsToMatchCategory: #movement;
 		addBlock: self moveBlock;
 		addBlock: self moveStepsBlock;
 		addBlock: self pushBlock;
@@ -254,12 +256,13 @@ SKBlockSource >> onCloverleafBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SLH 6/16/2026 21:10'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:26'
 }
 SKBlockSource >> operatorCategory [
 	
 	^ SKBlockCategory new
 		title: 'Operators';
+		setColorsToMatchCategory: #operators;
 		addBlock: self andBlock;
 		addBlock: self orBlock;
 		addBlock: self notBlock;
@@ -310,12 +313,13 @@ SKBlockSource >> pushBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SLH 6/16/2026 21:11'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:26'
 }
 SKBlockSource >> sensingCategory [
 	
 	^ SKBlockCategory new
 		title: 'Sensing';
+		setColorsToMatchCategory: #sensing;
 		addBlock: self trunkAheadBlock;
 		addBlock: self mushroomAheadBlock;
 		addBlock: self onCloverleafBlock;
