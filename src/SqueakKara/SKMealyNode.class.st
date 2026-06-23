@@ -65,7 +65,7 @@ SKMealyNode >> bestDifference: aNumber [
 
 {
 	#category : #edgePlacement,
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:59'
+	#'squeak_changestamp' : 'JS 6/23/2026 20:03'
 }
 SKMealyNode >> calculateBestEdgeDirections [
 
@@ -80,23 +80,23 @@ SKMealyNode >> calculateBestEdgeDirections [
 		self checkLastAnglePair.
 		self addEdgeAnlge: self newAngle.
 		self newAngle ifNotNil: [
-			aSelfLoopEdge selfLoopDirection: ((self newAngle degreesToRadians) cos) @ ((self newAngle degreesToRadians) sin)]].
+			aSelfLoopEdge selfLoopDirection: ((self newAngle degreesToRadians) cos) @ ((self newAngle degreesToRadians) sin)]]
 ]
 
 {
 	#category : #edgePlacement,
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:49'
+	#'squeak_changestamp' : 'JS 6/23/2026 20:12'
 }
 SKMealyNode >> checkAnlgePairAt: aNumber and: anotherNumber [
 
 	| angle1 angle2 angleDifference |
 
-	angle1 := self edgeAngels at: aNumber.
-	angle2 := self edgeAngels at: anotherNumber + 1.
+	angle1 := self edgeAngles at: aNumber.
+	angle2 := self edgeAngles at: anotherNumber.
 	angleDifference := angle2 - angle1.
 	(angleDifference > self bestDifference) ifTrue: [
 		self newAngle: ((angle2 + angle1) / 2) \\ 360.
-		self bestDifference: angleDifference].
+		self bestDifference: angleDifference]
 ]
 
 {
