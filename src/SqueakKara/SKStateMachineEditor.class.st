@@ -53,13 +53,13 @@ SKStateMachineEditor >> actionCreateNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/10/2026 13:02'
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:32'
 }
 SKStateMachineEditor >> actionDeleteEdge: aEdge [
 
 	self playGround removeEdge: aEdge.
-	aEdge fromNode ifNil: [
-		aEdge toNode isStartingNode: false].
+	aEdge fromNode removeEdge: aEdge.
+	aEdge fromNode = aEdge toNode ifFalse: [aEdge toNode removeEdge: aEdge].
 	aEdge delete
 ]
 
