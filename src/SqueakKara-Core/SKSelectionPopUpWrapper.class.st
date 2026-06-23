@@ -26,7 +26,8 @@ Class {
 	#instVars : [
 		'selectionWindows',
 		'closeButton',
-		'edge'
+		'edge',
+		'selectionModels'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'LP 6/9/2026 13:16'
@@ -57,6 +58,15 @@ SKSelectionPopUpWrapper >> actionGetCommand [
 SKSelectionPopUpWrapper >> actionGetCondition [
 
 	^ self getValueByType: #condition
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:10'
+}
+SKSelectionPopUpWrapper >> addSelectionModel: aModel [
+
+	self selectionModels add: aModel
 ]
 
 {
@@ -198,16 +208,16 @@ SKSelectionPopUpWrapper >> edge: aEdge [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:43'
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:25'
 }
 SKSelectionPopUpWrapper >> getValueByType: aType [
 	
-	| commandWindow |
+	| model |
 	
-	commandWindow := self selectionWindows detect: [:aSelectionWindow | aSelectionWindow type = aType].
-	commandWindow selectedValue ifNil: [^ ''].
-	commandWindow selectedValue = 'None' ifTrue: [^ ''].
-	^ commandWindow selectedValue
+	model := self selectionModels detect: [:aSelectionModel | aSelectionModel type = aType].
+	model selectedValue ifNil: [^ ''].
+	model selectedValue = 'None' ifTrue: [^ ''].
+	^ model selectedValue
 ]
 
 {
@@ -223,15 +233,17 @@ SKSelectionPopUpWrapper >> handleCloseButtonClicked [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:18'
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:15'
 }
 SKSelectionPopUpWrapper >> initialize [
 
 	super initialize. 
 	
-	self selectionWindows
-		add: (SKSelectionPopUp newWithType: #condition listItems: self conditionList);
-		add: (SKSelectionPopUp newWithType: #command listItems: self commandList).
+	self
+		addSelectionModel: (SKSelectionModel newWithType: #condition andItems: self conditionList);
+		addSelectionModel: (SKSelectionModel newWithType: #command andItems: self commandList).
+	
+	self selectionModels do: [:aModel| self selectionWindows add: (PluggableListMorph on: aModel list: #items selected: #selectedIndex changeSelected: #itemSelectedAtIndex:)].
 		
 	self drawSelectionWindows;
 		updatePositionsOfChildren;
@@ -256,6 +268,15 @@ SKSelectionPopUpWrapper >> makeVisible [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:09'
+}
+SKSelectionPopUpWrapper >> selectionModels [
+
+	^ selectionModels ifNil: [selectionModels := OrderedCollection new]
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:59'
 }
 SKSelectionPopUpWrapper >> selectionWindows [
@@ -271,25 +292,6 @@ SKSelectionPopUpWrapper >> selectionWindows [
 SKSelectionPopUpWrapper >> selectionWindows: anObject [
 
 	selectionWindows := anObject
-]
-
-{
-	#category : #updating,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:24'
-}
-SKSelectionPopUpWrapper >> switchToSelectedText: aSelectionPopUp [ 
-
-	|selectedValue oldPos|
-	
-	oldPos := self position. 
-	self selectionWindows do: [:each |(each == aSelectionPopUp) ifTrue: [
-			selectedValue := each selectedValue.  
-			self replaceSubmorph: each by: (PluggableTextMorph new setText: selectedValue)]]. 
-	self position: oldPos;
-		updatePositionsOfChildren
-
-
-
 ]
 
 {
