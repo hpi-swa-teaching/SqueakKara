@@ -127,7 +127,7 @@ SKGridObject >> gridCoordinator [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:40'
+	#'squeak_changestamp' : 'JS 6/23/2026 16:01'
 }
 SKGridObject >> initializeInGrid: aGrid at: aPoint [
 

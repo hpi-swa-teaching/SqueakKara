@@ -1,14 +1,14 @@
 Class {
-	#name : #SKLevel3World4,
+	#name : #SKLevel2World4,
 	#superclass : #SKLevel,
 	#category : #'SqueakKara-Core'
 }
 
 {
-	#category : #building,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/21/2026 19:35'
+	#category : #commands,
+	#'squeak_changestamp' : 'JS 6/23/2026 17:24'
 }
-SKLevel3World4 >> build [
+SKLevel2World4 >> build [
 	"concept: when trunk ahead: turn right, when mushroom ahead walk left and look if it is blocked by trunk--> yes: walk straight along, no: walk back behind mushroom and push once. then turn right and walk straight"
 	
 	"example code: 
@@ -95,25 +95,35 @@ SKLevel3World4 >> build [
 	#category : #constants,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 23:14'
 }
-SKLevel3World4 >> height [
+SKLevel2World4 >> height [
 	
 	^ 9
 ]
 
 {
 	#category : #constants,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 23:29'
+	#'squeak_changestamp' : 'JS 6/23/2026 17:17'
 }
-SKLevel3World4 >> levelName [
+SKLevel2World4 >> levelName [
 	
-	^ 'Challange2'
+	^ 'Mycelium resistance'
+]
+
+{
+	#category : #commands,
+	#'squeak_changestamp' : 'JS 6/23/2026 18:57'
+}
+SKLevel2World4 >> reset [
+	
+	self build.
+	self grid enforceZOrder
 ]
 
 {
 	#category : #constants,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 23:14'
 }
-SKLevel3World4 >> width [
+SKLevel2World4 >> width [
 	
 	^ 10
 ]

@@ -16,8 +16,7 @@ Class {
 		'resetTexture',
 		'sliderSpeed',
 		'scaleFactor',
-		'buttonReset',
-		'currentChallenge'
+		'buttonReset'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:42'
@@ -25,13 +24,13 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:15'
+	#'squeak_changestamp' : 'JS 6/22/2026 13:05'
 }
 SKExecuteControls >> actionReset [
 
 	self environment stop.
 	self updateTextures.
-	self environment reset: currentChallenge
+	self environment reset
 ]
 
 {
@@ -310,24 +309,6 @@ SKExecuteControls >> buttonStop: aMorph [
 SKExecuteControls >> buttonStopSetTexture: aForm [
 
 	self buttonStop labelGraphic: aForm
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:15'
-}
-SKExecuteControls >> currentChallenge [
-
-	^ currentChallenge
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:15'
-}
-SKExecuteControls >> currentChallenge: anObject [
-
-	currentChallenge := anObject
 ]
 
 {

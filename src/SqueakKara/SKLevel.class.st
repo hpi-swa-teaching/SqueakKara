@@ -9,7 +9,7 @@ Class {
 }
 
 {
-	#category : #building,
+	#category : #commands,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 11:27'
 }
 SKLevel >> build [
@@ -64,7 +64,7 @@ SKLevel >> height [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 15:26'
+	#'squeak_changestamp' : 'JS 6/22/2026 13:23'
 }
 SKLevel >> initializeWithEnvironment: anEnvironment [
 
@@ -74,8 +74,7 @@ SKLevel >> initializeWithEnvironment: anEnvironment [
 	anEnvironment grid: self grid.
 	self build.
 	self grid enforceZOrder.
-	anEnvironment initializeObjects.
-	anEnvironment executeControls currentChallenge: self levelName
+	anEnvironment initializeObjects
 ]
 
 {
@@ -109,7 +108,7 @@ SKLevel >> placeKaraAt: aPoint [
 
 {
 	#category : #placing,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 23:23'
+	#'squeak_changestamp' : 'JS 6/23/2026 18:53'
 }
 SKLevel >> placeKaraAt: aPoint withViewDirection: aDirection [
 	
@@ -118,6 +117,7 @@ SKLevel >> placeKaraAt: aPoint withViewDirection: aDirection [
 	kara := SKKara newInGrid: self grid at: aPoint.
 	kara viewDirection: aDirection.
 	self environment addKara: kara
+	
 	
 ]
 
@@ -139,6 +139,15 @@ SKLevel >> placeTrunkAt: aPoint [
 
 	SKTrunk newInGrid: self grid at: aPoint
 	
+]
+
+{
+	#category : #commands,
+	#'squeak_changestamp' : 'JS 6/22/2026 13:07'
+}
+SKLevel >> reset [
+
+    self subclassResponsibility
 ]
 
 {
