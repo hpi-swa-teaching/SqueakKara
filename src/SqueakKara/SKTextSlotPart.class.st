@@ -29,7 +29,7 @@ SKTextSlotPart >> defaultValue [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 01:20'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
 }
 SKTextSlotPart >> initialize [
 	

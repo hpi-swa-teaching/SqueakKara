@@ -6,7 +6,7 @@ Class {
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'SLH 6/16/2026 17:34'
+	#'squeak_changestamp' : 'FR 6/23/2026 18:21'
 }
 SKBlockSource >> andBlock [
 
@@ -15,7 +15,7 @@ SKBlockSource >> andBlock [
 		addLabel: 'and';
 		addBooleanPart;
 		value: [:bool1 :bool2 | '((',bool1,') and: [',bool2,'])'];
-		category: #sensing;
+		category: #operators;
 		updateLayout;
 		yourself
 ]
@@ -132,7 +132,7 @@ SKBlockSource >> ifElseBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SSP 6/13/2026 14:00'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:24'
 }
 SKBlockSource >> initialize [
 
@@ -141,11 +141,11 @@ SKBlockSource >> initialize [
 	self color: Color transparent;
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
-		layoutInset: 10;
-		hResizing: #spaceFill;
+		layoutInset: SKBlockStyle unit * 2;
+		hResizing: #shrinkWrap;
 	 	vResizing: #shrinkWrap;
 		cellPositioning: #topLeft;
-		cellGap: 10;
+		cellGap:  SKBlockStyle unit * 5;
 		populate
 ]
 
@@ -225,7 +225,7 @@ SKBlockSource >> mushroomAheadBlock [
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'SLH 6/16/2026 17:35'
+	#'squeak_changestamp' : 'FR 6/23/2026 18:21'
 }
 SKBlockSource >> notBlock [
 
@@ -233,7 +233,7 @@ SKBlockSource >> notBlock [
 		addLabel: 'not';
 		addBooleanPart;
 		value: [:bool | '(', bool, ') not'];
-		category: #sensing;
+		category: #operators;
 		updateLayout;
 		yourself
 ]
@@ -268,7 +268,7 @@ SKBlockSource >> operatorCategory [
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'SLH 6/16/2026 17:35'
+	#'squeak_changestamp' : 'FR 6/23/2026 18:21'
 }
 SKBlockSource >> orBlock [
 
@@ -277,7 +277,7 @@ SKBlockSource >> orBlock [
 		addLabel: 'or';
 		addBooleanPart;
 		value: [:bool1 :bool2 | '((',bool1,') or: [',bool2,'])'];
-		category: #sensing;
+		category: #operators;
 		updateLayout;
 		yourself
 ]

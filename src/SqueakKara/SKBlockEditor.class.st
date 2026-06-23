@@ -11,7 +11,7 @@ Class {
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/16/2026 20:43'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:03'
 }
 SKBlockEditor >> buildSourcePane [
 	
@@ -21,9 +21,9 @@ SKBlockEditor >> buildSourcePane [
 	pane := ScrollPane new
 		color: Color transparent;
 		borderWidth: 0;
-		hResizing: #rigid;
+		hResizing: #shrinkWrap;
 		vResizing: #spaceFill;
-		extent: self sourcePaneWidth @ self minHeight;
+		"extent: self sourcePaneWidth @ self minHeight;"
 		yourself.
 	pane scroller addMorph: source.
 
@@ -50,7 +50,7 @@ SKBlockEditor >> getCode [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/16/2026 20:44'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:04'
 }
 SKBlockEditor >> initialize [
 
@@ -58,10 +58,11 @@ SKBlockEditor >> initialize [
 	
 	self minWidth: 500;
 		minHeight: 500;
+		"hResizing: #shrinkWrap;"
 		hResizing: #spaceFill;
 		vResizing: #spaceFill;
 		"color: (Color r: 0.8 g: 1 b: 0.8)."
-		color: (Color fromString: '#CCFFCC').
+		color: Color white.
 
 	self addMorph: self startBlock.
 	self startBlock updateLayout
@@ -86,7 +87,7 @@ SKBlockEditor >> nextAvailableFunctionNameFor: aString [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/16/2026 20:44'
+	#'squeak_changestamp' : 'FR 6/23/2026 18:52'
 }
 SKBlockEditor >> open [
 
@@ -95,6 +96,7 @@ SKBlockEditor >> open [
 	window := RectangleMorph new
 		layoutPolicy: TableLayout new;
 		listDirection: #leftToRight;
+		color: Color transparent;
 		yourself.
 
 	window
@@ -102,6 +104,8 @@ SKBlockEditor >> open [
 		addMorph: self buildSourcePane.
 
 	self window: (window openInWindowLabeled: 'Block Editor').
+	self window setWindowColor: SKStylesheet primaryColor.
+	self window minimumExtent: self window extent.
 
 	self startBlock
 		fullBounds;
@@ -113,23 +117,14 @@ SKBlockEditor >> open [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SSP 6/13/2026 14:00'
-}
-SKBlockEditor >> sourcePaneWidth [
-
-	^ 260
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:03'
 }
 SKBlockEditor >> startBlock [
 
 	^ startBlock ifNil: [startBlock := SKActionBlock new
 		addLabel: 'Start of Script';
 		isStart: true;
-		leftSource: true;
+		leftSource: false;
 		yourself]
 ]
 

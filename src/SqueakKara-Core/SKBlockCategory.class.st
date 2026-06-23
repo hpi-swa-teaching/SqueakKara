@@ -24,7 +24,7 @@ SKBlockCategory >> addBlock: aBlock [
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:22'
 }
 SKBlockCategory >> buildContent [
 
@@ -36,7 +36,7 @@ SKBlockCategory >> buildContent [
 		hResizing: #spaceFill;
 		vResizing: #shrinkWrap;
 		layoutInset: 0;
-		cellGap: 10;
+		cellGap: SKBlockStyle unit * 2;
 		yourself
 ]
 
@@ -58,7 +58,7 @@ SKBlockCategory >> buildHeader [
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'SLH 6/16/2026 20:40'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:23'
 }
 SKBlockCategory >> buildRow [
 
@@ -72,8 +72,8 @@ SKBlockCategory >> buildRow [
 		cellPositioning: #leftCenter;
 		hResizing: #spaceFill;
 		vResizing: #shrinkWrap;
-		layoutInset: 4;
-		cellGap: 6;
+		layoutInset: SKBlockStyle unit * 2;
+		cellGap: SKBlockStyle unit * 2;
 		on: #mouseDown send: #toggle to: self;
 		yourself.
 ]
@@ -149,7 +149,7 @@ SKBlockCategory >> header [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:24'
 }
 SKBlockCategory >> initialize [
 
@@ -162,7 +162,7 @@ SKBlockCategory >> initialize [
 		hResizing: #spaceFill;
 		vResizing: #shrinkWrap;
 		layoutInset: 0;
-		cellGap: 4.
+		cellGap: SKBlockStyle unit * 2.
 	self addMorphBack: self header.
 	self addMorphBack: self content
 ]

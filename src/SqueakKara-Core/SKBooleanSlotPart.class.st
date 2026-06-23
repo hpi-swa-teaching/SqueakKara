@@ -15,7 +15,7 @@ SKBooleanSlotPart >> defaultValue [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:17'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
 }
 SKBooleanSlotPart >> drawOn: aCanvas [
 	| innerBounds p1 p2 p3 p4 p5 p6 pts indent borderWidth |
