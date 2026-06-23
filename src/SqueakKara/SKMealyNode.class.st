@@ -38,11 +38,11 @@ SKMealyNode >> addEdge: aEdge [
 
 {
 	#category : #'accessing - edgePlacement',
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:46'
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:45'
 }
 SKMealyNode >> addEdgeAnlge: aAngle [
 
-	edgeAngles add: aAngle
+	self edgeAngles add: aAngle
 ]
 
 {
@@ -65,7 +65,7 @@ SKMealyNode >> bestDifference: aNumber [
 
 {
 	#category : #edgePlacement,
-	#'squeak_changestamp' : 'JS 6/23/2026 20:03'
+	#'squeak_changestamp' : 'JS 6/23/2026 20:38'
 }
 SKMealyNode >> calculateBestEdgeDirections [
 
@@ -73,6 +73,9 @@ SKMealyNode >> calculateBestEdgeDirections [
 	
 	self edgeAngels: self getEdgeAngles asSortedCollection.
 	selfLoops := self edges select: [:aEdge| aEdge isSelfLoop]. 
+	
+	self edgeAngles size <= 0 ifTrue: [selfLoops removeFirst.
+		self addEdgeAnlge: 0].
 		
 	selfLoops do: [:aSelfLoopEdge|
 		self bestDifference: -1.	
@@ -85,7 +88,7 @@ SKMealyNode >> calculateBestEdgeDirections [
 
 {
 	#category : #edgePlacement,
-	#'squeak_changestamp' : 'JS 6/23/2026 20:12'
+	#'squeak_changestamp' : 'JS 6/23/2026 20:38'
 }
 SKMealyNode >> checkAnlgePairAt: aNumber and: anotherNumber [
 
@@ -101,7 +104,7 @@ SKMealyNode >> checkAnlgePairAt: aNumber and: anotherNumber [
 
 {
 	#category : #edgePlacement,
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:59'
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:23'
 }
 SKMealyNode >> checkLastAnglePair [
 
@@ -154,11 +157,11 @@ SKMealyNode >> edgeAngels: aAngleCollection [
 
 {
 	#category : #'accessing - edgePlacement',
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:45'
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:47'
 }
 SKMealyNode >> edgeAngles [
 
-	^ edgeAngles
+	^ edgeAngles ifNil: [edgeAngles := SortedCollection new]
 ]
 
 {
@@ -172,7 +175,7 @@ SKMealyNode >> edges [
 
 {
 	#category : #edgePlacement,
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:57'
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:38'
 }
 SKMealyNode >> getEdgeAngles [
 
@@ -448,21 +451,4 @@ SKMealyNode >> updateSelfLoops [
 
 	self calculateBestEdgeDirections;
 		changed: #pos
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 13:04'
-}
-SKMealyNode >> visualiseNodeType [
-
-"	|hasStartEdge|
-
-	self isStartingNode ifTrue: [
-		hasStartEdge := false.
-		(self stateMachineEditor playGround findAllEdgesToNode: self) do: [:edge |
-				edge fromNode == nil ifTrue: 
-					[hasStartEdge := true]].
-		hasStartEdge ifFalse: [
-			self stateMachineEditor actionAddEdgeFromPosition: self center -100 toNode: self]]"
 ]

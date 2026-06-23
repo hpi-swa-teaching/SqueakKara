@@ -54,7 +54,7 @@ SKProcessLogicGraph >> runner: aRunner [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 16:49'
+	#'squeak_changestamp' : 'Lars Kuhr 6/22/2026 17:36'
 }
 SKProcessLogicGraph >> startWithCode: aCode context: aContext [
 
