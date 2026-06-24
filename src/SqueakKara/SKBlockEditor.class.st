@@ -33,7 +33,7 @@ SKBlockEditor >> buildSourcePane [
 
 {
 	#category : #preview,
-	#'squeak_changestamp' : 'SLH 6/24/2026 12:40'
+	#'squeak_changestamp' : 'SLH 6/24/2026 14:43'
 }
 SKBlockEditor >> clearPreviewBlock [
 
@@ -48,7 +48,8 @@ SKBlockEditor >> clearPreviewBlock [
 		previewChild := self previewBlock connectionPoint connectedPoint uiDelegate.
 		previewChild snapToTarget: previewSnappedPoint].
 	
-	self previewBlock: nil
+	self previewBlock: nil.
+	previewSnappedPoint uiDelegate updateLayout
 ]
 
 {
@@ -157,14 +158,15 @@ SKBlockEditor >> open [
 
 {
 	#category : #preview,
-	#'squeak_changestamp' : 'SLH 6/24/2026 12:29'
+	#'squeak_changestamp' : 'SLH 6/24/2026 14:43'
 }
 SKBlockEditor >> placePreviewBlockOf: aBlock at: aBlockConnectionPoint [
 
 	self clearPreviewBlock.
 	
 	self previewBlock: aBlock getPreview.
-	self previewBlock snapToTarget: aBlockConnectionPoint
+	self previewBlock snapToTarget: aBlockConnectionPoint.
+	aBlockConnectionPoint uiDelegate updateLayout
 ]
 
 {
