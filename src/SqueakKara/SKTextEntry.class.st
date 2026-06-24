@@ -18,6 +18,23 @@ SKTextEntry >> handlesMouseDown: anEvent [
 ]
 
 {
+	#category : #'event handling',
+	#'squeak_changestamp' : 'FR 6/17/2026 16:08'
+}
+SKTextEntry >> isControlKey: aCharacter [
+	
+	aCharacter asInteger
+		caseOf: {
+			[ 8 "backspace" ] -> [ ^ true ].
+			[ 28 "arrow left" ] -> [ ^ true ].
+			[ 29 "arrow right"] -> [ ^ true ].
+			[ 127 "delete" ] -> [ ^ true ].
+			[ 4 "end"] -> [ ^ true ].
+			[ 5 "insert"] -> [ ^ true ] }
+		otherwise: [ ^ false  ]
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'SLH 6/16/2026 20:37'
 }
@@ -31,22 +48,21 @@ SKTextEntry >> isInBlockSource [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'SLH 6/16/2026 20:36'
+	#'squeak_changestamp' : 'FR 6/17/2026 16:11'
 }
 SKTextEntry >> keyStroke: anEvent [
 	
 	| char |
 
 	self isInBlockSource ifTrue: [^ self].
-
 	char := anEvent keyCharacter.
-	char = Character cr ifTrue: [
+	(char = Character cr or:[char = Character end] or:[char = Character escape]) ifTrue: [
 		anEvent hand releaseKeyboardFocus: self.
 		self changed.
 		^ self
 	].
-	self numericOnly ifFalse: [^ super keyStroke: anEvent].
-	((char isDigit) or: [char = Character backspace]) ifTrue: [^ super keyStroke: anEvent]
+	(self isControlKey: char) ifTrue: [^ super keyStroke: anEvent].
+	char isDigit ifTrue: [^ super keyStroke: anEvent]
 	
 ]
 
