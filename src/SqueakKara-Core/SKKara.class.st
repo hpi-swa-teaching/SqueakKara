@@ -261,15 +261,6 @@ SKKara >> rotate [
 ]
 
 {
-	#category : #appearance,
-	#'squeak_changestamp' : 'makrosophos 6/24/2026 12:30'
-}
-SKKara >> say: aString [
-
-	SKSpeechBubble openFor: self text: aString
-]
-
-{
 	#category : #movement,
 	#'squeak_changestamp' : 'LD 5/21/2026 12:08'
 }
