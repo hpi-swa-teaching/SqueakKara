@@ -301,7 +301,7 @@ SKBlock >> getCode [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/24/2026 11:59'
+	#'squeak_changestamp' : 'SLH 6/24/2026 14:45'
 }
 SKBlock >> getPreview [
 
@@ -309,7 +309,8 @@ SKBlock >> getPreview [
 		previewBlock := self copy
 			isPreview: true;
 			color: Color gray;
-			borderColor: Color gray]
+			borderColor: Color gray;
+			removeAllMorphs]
 ]
 
 {
