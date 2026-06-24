@@ -6,7 +6,7 @@ Class {
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:40'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
 }
 SKBlockStyle class >> blockPartHeight [
 	
@@ -15,11 +15,35 @@ SKBlockStyle class >> blockPartHeight [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:40'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:18'
+}
+SKBlockStyle class >> borderColorByCategory [
+
+	^	Dictionary new at: #default put: SKStylesheet colorOrange;
+		at: #movement put: SKStylesheet colorBlue;
+		at: #sensing put: SKStylesheet colorGreen;
+		at: #operators put: SKStylesheet colorDarkTeal; yourself
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'FR 6/23/2026 17:32'
 }
 SKBlockStyle class >> borderWidth [
 
 	^ SKBlockStyle unit
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'FR 6/23/2026 19:19'
+}
+SKBlockStyle class >> colorByCategory [
+
+	^	Dictionary new at: #default put: SKStylesheet colorBeige;
+		at: #movement put: SKStylesheet colorLightBlue;
+		at: #sensing put: SKStylesheet colorLightGreen;
+		at: #operators put: SKStylesheet colorTeal; yourself
 ]
 
 {

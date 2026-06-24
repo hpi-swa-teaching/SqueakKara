@@ -14,17 +14,18 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'FR 6/23/2026 23:02'
 }
 SKBlockCategory >> addBlock: aBlock [
 
 	self content addMorphBack: aBlock.
+	self layoutChanged.
 	^ aBlock
 ]
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'FR 6/23/2026 23:01'
 }
 SKBlockCategory >> buildContent [
 
@@ -33,10 +34,10 @@ SKBlockCategory >> buildContent [
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
 		cellPositioning: #topLeft;
-		hResizing: #spaceFill;
+		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
 		layoutInset: 0;
-		cellGap: 10;
+		cellGap: SKBlockStyle unit * 2;
 		yourself
 ]
 
@@ -58,32 +59,33 @@ SKBlockCategory >> buildHeader [
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'SLH 6/16/2026 20:40'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:28'
 }
 SKBlockCategory >> buildRow [
 
 	^ Morph new
 		color: SKStylesheet colorBeige;
 		borderColor: SKStylesheet colorOrange;
-		borderWidth: 1;
+		borderWidth: SKBlockStyle borderWidth;
 		layoutPolicy: TableLayout new;
 		listDirection: #leftToRight;
 		wrapCentering: #center;
 		cellPositioning: #leftCenter;
 		hResizing: #spaceFill;
 		vResizing: #shrinkWrap;
-		layoutInset: 4;
-		cellGap: 6;
+		layoutInset: SKBlockStyle unit * 2;
+		cellGap: SKBlockStyle unit * 2;
 		on: #mouseDown send: #toggle to: self;
 		yourself.
 ]
 
 {
 	#category : #expansion,
-	#'squeak_changestamp' : 'SLH 6/16/2026 20:39'
+	#'squeak_changestamp' : 'FR 6/24/2026 02:56'
 }
 SKBlockCategory >> collapse [
 
+	self fullBounds.
 	self expanded: false.
 	self content owner == self ifTrue: [self content delete].
 	self refreshDisclosure.
@@ -149,7 +151,7 @@ SKBlockCategory >> header [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'FR 6/23/2026 22:56'
 }
 SKBlockCategory >> initialize [
 
@@ -159,12 +161,22 @@ SKBlockCategory >> initialize [
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
 		cellPositioning: #topLeft;
-		hResizing: #spaceFill;
 		vResizing: #shrinkWrap;
+		hResizing: #spaceFill;
 		layoutInset: 0;
-		cellGap: 4.
+		cellGap: SKBlockStyle unit * 2.
 	self addMorphBack: self header.
-	self addMorphBack: self content
+	self addMorphBack: self content.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/23/2026 23:00'
+}
+SKBlockCategory >> minWidth [
+
+	Transcript show: self asString.
+	^ self content fullBounds width max: self header width
 ]
 
 {
@@ -174,6 +186,16 @@ SKBlockCategory >> initialize [
 SKBlockCategory >> refreshDisclosure [
 
 	disclosure ifNotNil: [disclosure contents: self disclosureLabel]
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/23/2026 19:27'
+}
+SKBlockCategory >> setColorsToMatchCategory: aSymbol [
+
+	self header color: (SKBlockStyle colorByCategory at: aSymbol);
+		borderColor: (SKBlockStyle borderColorByCategory at: aSymbol).
 ]
 
 {

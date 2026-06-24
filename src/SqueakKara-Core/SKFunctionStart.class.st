@@ -39,11 +39,11 @@ SKFunctionStart >> delete [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 23:15'
+	#'squeak_changestamp' : 'FR 6/24/2026 03:47'
 }
 SKFunctionStart >> functionName [
 
-	^ functionName ifNil: [functionName := self functionNameSlot contents. ^ functionName]
+	^ functionName ifNil: [functionName := self functionNameSlot contents asString. ^ functionName]
 ]
 
 {
@@ -74,24 +74,6 @@ SKFunctionStart >> functionNameSlot: aTextMorph [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/10/2026 00:08'
-}
-SKFunctionStart >> haveSpawned [
-
-	^ haveSpawned ifNil: [haveSpawned := false. ^false]
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 23:22'
-}
-SKFunctionStart >> haveSpawned: aBoolean [
-
-	haveSpawned := aBoolean
-]
-
-{
 	#category : #initialization,
 	#'squeak_changestamp' : 'FR 6/9/2026 23:05'
 }
@@ -115,38 +97,37 @@ SKFunctionStart >> justDroppedInto: anObject event: anEvent [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'FR 6/10/2026 00:27'
+	#'squeak_changestamp' : 'FR 6/24/2026 03:48'
 }
 SKFunctionStart >> removeCall [
 
-	(self caller functionStarts at: self functionName ifAbsent: [^ self]) value = [self getCode] value ifTrue:[self caller functionStarts removeKey: self functionName]
+	(self caller functionStarts at: self functionName ifAbsent: [^ self])  remove:  self ifAbsent: [^ self]
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/10/2026 00:24'
+	#'squeak_changestamp' : 'FR 6/24/2026 03:49'
 }
 SKFunctionStart >> spawn [
 
 	(self caller notNil and:[self caller == self owner]) ifTrue: [^ self].
 	self caller: self owner.
-	self functionName: (self caller nextAvailableFunctionNameFor: self functionName).
+	self functionName: (self caller nextAvailableFunctionNameFor: self functionName) asString.
 	self functionNameSlot contents: self functionName.
 	self updateLayout.
-	self haveSpawned: true.
-	self caller functionStarts at: (self functionName) asString put: [self getCode]
+	(self caller functionStarts at: self functionName ifAbsentPut: [Set new]) add: self.
 	
 ]
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'FR 6/10/2026 00:01'
+	#'squeak_changestamp' : 'FR 6/24/2026 03:43'
 }
 SKFunctionStart >> updateName [
 
 	self removeCall.
 	self functionName: self functionNameSlot contents asString.
-	self caller functionStarts at: self functionName ifAbsent: [self caller functionStarts at: self functionName put: [self getCode]].
+	(self caller functionStarts at: self functionName ifAbsentPut: [Set new]) add: self.
 	self updateLayout
 	
 ]

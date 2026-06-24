@@ -4,14 +4,57 @@ Class {
 	#instVars : [
 		'startBlock',
 		'window',
-		'functionStarts'
+		'functionStarts',
+		'isWatchingChanges'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/16/2026 20:43'
+	#'squeak_changestamp' : 'FR 6/24/2026 02:53'
+}
+SKBlockEditor >> buildContainerWindow [
+
+	| container pane sourcePane window |
+	
+	sourcePane := self buildSourcePane.
+	sourcePane fullBounds.
+	container := self buildWindowWithSourceWidth: sourcePane width.
+	self width: container width - sourcePane width - 10.
+	pane := self buildEditorPane.
+	container
+		addMorph: pane;
+		addMorph: sourcePane.
+	window := container openInWindowLabeled: 'Block Editor'.
+	window setWindowColor: SKStylesheet primaryColor;
+			minimumExtent: window extent.
+	^ window
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/24/2026 02:47'
+}
+SKBlockEditor >> buildEditorPane [
+
+	| pane |
+	pane := ScrollPane new
+			color: Color transparent;
+			borderWidth: 0;
+			hResizing: #spaceFill;
+			vResizing: #spaceFill;
+			vScrollBarPolicy: #always;
+			hScrollBarPolicy: #always;
+			yourself.
+	pane scroller addMorph: self.
+	
+	^ pane
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/24/2026 02:35'
 }
 SKBlockEditor >> buildSourcePane [
 	
@@ -21,13 +64,62 @@ SKBlockEditor >> buildSourcePane [
 	pane := ScrollPane new
 		color: Color transparent;
 		borderWidth: 0;
-		hResizing: #rigid;
+		hResizing: #shrinkWrap;
 		vResizing: #spaceFill;
-		extent: self sourcePaneWidth @ self minHeight;
+		vScrollBarPolicy: #always;
+		"extent: self sourcePaneWidth @ self minHeight;"
 		yourself.
 	pane scroller addMorph: source.
+	pane adjustLayoutBounds.
 
 	^ pane
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'FR 6/24/2026 02:45'
+}
+SKBlockEditor >> buildWindowWithSourceWidth: aNumber [
+
+	^ RectangleMorph new
+		borderWidth: 0;
+		layoutPolicy: TableLayout new;
+		listDirection: #leftToRight;
+		color: Color transparent;
+		extent: ((aNumber * 4) min: World width * 0.75) @ ((aNumber * 3) min: World height * 0.75);
+		yourself.
+]
+
+{
+	#category : #resizing,
+	#'squeak_changestamp' : 'FR 6/24/2026 01:29'
+}
+SKBlockEditor >> expandIfNeededToInclude: aRectangle [
+
+	| newExtent |
+	
+	newExtent := self extent.
+	(aRectangle right > newExtent x) ifTrue: [newExtent := aRectangle right @ newExtent y].
+	(aRectangle left < 0) ifTrue: [
+		self offset: (self offset x + aRectangle left) @ self offset y.
+		newExtent := (newExtent x - aRectangle left) @ newExtent y].
+	(aRectangle bottom > newExtent y) ifTrue: [newExtent := newExtent x @ aRectangle bottom].
+	(aRectangle top < 0) ifTrue: [
+		self offset: self offset x @ (self offset y + aRectangle top).
+		newExtent := newExtent x @ (newExtent y - aRectangle top) ].
+	newExtent ~= self extent ifTrue: [
+		self extent: newExtent.
+		self layoutChanged.]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/24/2026 03:59'
+}
+SKBlockEditor >> functionStartWithName: aString [
+
+	(self functionStarts at: aString ifAbsent: [self error: 'The called function is not defined.'.]) isEmpty ifTrue:[self error: 'The called function is not defined.'.].
+	 ^ (self functionStarts at: aString) anyOne
 ]
 
 {
@@ -50,21 +142,34 @@ SKBlockEditor >> getCode [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/16/2026 20:44'
+	#'squeak_changestamp' : 'FR 6/24/2026 01:57'
 }
 SKBlockEditor >> initialize [
 
 	super initialize.
 	
-	self minWidth: 500;
-		minHeight: 500;
-		hResizing: #spaceFill;
-		vResizing: #spaceFill;
-		"color: (Color r: 0.8 g: 1 b: 0.8)."
-		color: (Color fromString: '#CCFFCC').
+	self color: Color white.
 
-	self addMorph: self startBlock.
+	self addMorph: (self startBlock center: self center).
 	self startBlock updateLayout
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/24/2026 01:48'
+}
+SKBlockEditor >> isWatchingChanges [
+
+	^ isWatchingChanges ifNil: [^ false]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/24/2026 01:48'
+}
+SKBlockEditor >> isWatchingChanges: aBoolean [
+
+	isWatchingChanges := aBoolean
 ]
 
 {
@@ -86,50 +191,42 @@ SKBlockEditor >> nextAvailableFunctionNameFor: aString [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/16/2026 20:44'
+	#'squeak_changestamp' : 'FR 6/24/2026 02:51'
 }
 SKBlockEditor >> open [
 
-	| window |
-	
-	window := RectangleMorph new
-		layoutPolicy: TableLayout new;
-		listDirection: #leftToRight;
-		yourself.
-
-	window
-		addMorph: self;
-		addMorph: self buildSourcePane.
-
-	self window: (window openInWindowLabeled: 'Block Editor').
-
-	self startBlock
-		fullBounds;
+	self window: self buildContainerWindow.
+	self startBlock fullBounds;
 		align: self startBlock topCenter
-		with: self topCenter + (0 @ 10).
+		with: self topCenter + (0 @ SKBlockStyle unit * 5).
+	self window layoutChanged.
+	self layoutChanged.
+	self isWatchingChanges: true.
 		
 	^ self window
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'SSP 6/13/2026 14:00'
+	#category : #resizing,
+	#'squeak_changestamp' : 'FR 6/24/2026 01:49'
 }
-SKBlockEditor >> sourcePaneWidth [
+SKBlockEditor >> ownerChanged [
 
-	^ 260
+	super ownerChanged.
+	self isWatchingChanges ifTrue: [self expandIfNeededToInclude: self owner innerBounds]
+	
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:03'
 }
 SKBlockEditor >> startBlock [
 
 	^ startBlock ifNil: [startBlock := SKActionBlock new
 		addLabel: 'Start of Script';
 		isStart: true;
-		leftSource: true;
+		leftSource: false;
 		yourself]
 ]
 

@@ -135,42 +135,6 @@ SKBlock >> anchorPoint [
 ]
 
 {
-	#category : #colors,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:11'
-}
-SKBlock >> blockDefaultBorderColor [
-
-	^ SKStylesheet colorOrange
-]
-
-{
-	#category : #colors,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:11'
-}
-SKBlock >> blockDefaultColor [
-
-	^ SKStylesheet colorBeige
-]
-
-{
-	#category : #colors,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:11'
-}
-SKBlock >> blockMovementBorderColor [
-
-	^ SKStylesheet colorBlue
-]
-
-{
-	#category : #colors,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:12'
-}
-SKBlock >> blockMovementColor [
-
-	^ SKStylesheet colorLightBlue
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
@@ -189,25 +153,6 @@ SKBlock >> blockRows [
 ]
 
 {
-	#category : #colors,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:12'
-}
-SKBlock >> blockSensingBorderColor [
-
-	^ SKStylesheet colorGreen
-
-]
-
-{
-	#category : #colors,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:12'
-}
-SKBlock >> blockSensingColor [
-
-	^ SKStylesheet colorLightGreen
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
@@ -218,13 +163,11 @@ SKBlock >> blockType [
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:16'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:19'
 }
 SKBlock >> borderColorFromCategory [
 
-	^((Dictionary new at: #default put: self blockDefaultBorderColor;
-		at: #movement put: self blockMovementBorderColor;
-		at: #sensing put: self blockSensingBorderColor; yourself) at: self category)
+	^ SKBlockStyle borderColorByCategory at: self category
 ]
 
 {
@@ -250,13 +193,11 @@ SKBlock >> category: aCategory [
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:16'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:18'
 }
 SKBlock >> colorFromCategory [
 
-	^ (Dictionary new at: #default put: self blockDefaultColor;
-		at: #movement put: self blockMovementColor;
-		at: #sensing put: self blockSensingColor; yourself) at: self category
+	^ SKBlockStyle colorByCategory at: self category
 ]
 
 {
@@ -317,7 +258,7 @@ SKBlock >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:58'
+	#'squeak_changestamp' : 'FR 6/23/2026 18:57'
 }
 SKBlock >> initialize [
 	
@@ -334,7 +275,7 @@ SKBlock >> initialize [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 6/8/2026 16:54'
+	#'squeak_changestamp' : 'FR 6/24/2026 01:12'
 }
 SKBlock >> justDroppedInto: anObject event: anEvent [
 
@@ -464,7 +405,7 @@ SKBlock >> tabHeight [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:32'
+	#'squeak_changestamp' : 'FR 6/24/2026 01:26'
 }
 SKBlock >> updateLayout [
 
@@ -476,12 +417,14 @@ SKBlock >> updateLayout [
 	height := (self blockRows collect: #height) sum + self tabHeight + (self borderWidth * 2).
 	
 	self extent: width@height.
+	self changed.
 	
 	self anchorPoint isConnected ifTrue: [
 		self anchorPoint connectedPoint uiDelegate 
 			layoutChanged;
 			changed;
 			updateLayout]
+	ifFalse: [(self ownerThatIsA: SKBlockEditor) ifNotNil: [(self ownerThatIsA: SKBlockEditor) expandIfNeededToInclude: self fullBounds]]
 ]
 
 {

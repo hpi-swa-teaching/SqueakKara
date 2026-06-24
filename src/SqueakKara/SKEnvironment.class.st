@@ -14,8 +14,7 @@ Class {
 		'gameHeight',
 		'systemWindow',
 		'programmingConcept',
-		'windowManager',
-		'challange'
+		'windowManager'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
@@ -44,43 +43,11 @@ SKEnvironment >> addKara: aKara [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/5/2026 15:19'
-}
-SKEnvironment >> blockspace [
-	^ blockspace
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/5/2026 15:19'
-}
-SKEnvironment >> blockspace: anObject [
-	blockspace := anObject
-]
-
-{
-	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/7/2026 21:38'
 }
 SKEnvironment >> calculateScaleFactor: aPoint [
 
 	 ^ (aPoint x / self gameWidth) min: (aPoint y / self gameHeight)
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/15/2026 20:18'
-}
-SKEnvironment >> challange [
-	^ challange
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/15/2026 20:18'
-}
-SKEnvironment >> challange: anObject [
-	challange := anObject
 ]
 
 {

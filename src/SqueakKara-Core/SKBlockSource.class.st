@@ -6,7 +6,7 @@ Class {
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'SLH 6/16/2026 17:34'
+	#'squeak_changestamp' : 'FR 6/23/2026 18:21'
 }
 SKBlockSource >> andBlock [
 
@@ -15,19 +15,29 @@ SKBlockSource >> andBlock [
 		addLabel: 'and';
 		addBooleanPart;
 		value: [:bool1 :bool2 | '((',bool1,') and: [',bool2,'])'];
-		category: #sensing;
+		category: #operators;
 		updateLayout;
 		yourself
 ]
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'FR 6/24/2026 02:55'
+}
+SKBlockSource >> collapseAll [
+
+	self submorphsDo: [:each | each collapse]
+]
+
+{
+	#category : #categories,
+	#'squeak_changestamp' : 'FR 6/23/2026 19:45'
 }
 SKBlockSource >> controlCategory [
 
 	^ SKBlockCategory new
 		title: 'Control';
+		setColorsToMatchCategory: #default;
 		addBlock: self ifBlock;
 		addBlock: self ifElseBlock;
 		addBlock: self forLoop;
@@ -56,7 +66,7 @@ SKBlockSource >> forLoop [
 
 {
 	#category : #'block definitions - control',
-	#'squeak_changestamp' : 'FR 6/9/2026 23:27'
+	#'squeak_changestamp' : 'FR 6/24/2026 03:54'
 }
 SKBlockSource >> functionCall [
 
@@ -65,10 +75,10 @@ SKBlockSource >> functionCall [
 	newBlock := SKActionBlock new
 		addLabel: 'send';
 		addStringPartWithText: 'Message 1';
-		action: [:input | ((self ownerThatIsA: SKBlockEditor) functionStarts at: input) value];
+		action: [:input | [((self ownerThatIsA: SKBlockEditor) functionStartWithName: input) getCode] value];
 		updateLayout;
 		yourself.
-	newBlock action: [:input | ((newBlock ownerThatIsA: SKBlockEditor) functionStarts at: input) value].
+	newBlock action: [:input | ((newBlock ownerThatIsA: SKBlockEditor) functionStartWithName: input) getCode].
 	^ newBlock
 ]
 
@@ -132,7 +142,7 @@ SKBlockSource >> ifElseBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SSP 6/13/2026 14:00'
+	#'squeak_changestamp' : 'FR 6/24/2026 02:55'
 }
 SKBlockSource >> initialize [
 
@@ -141,12 +151,16 @@ SKBlockSource >> initialize [
 	self color: Color transparent;
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
-		layoutInset: 10;
-		hResizing: #spaceFill;
+		layoutInset: SKBlockStyle unit * 2;
+		hResizing: #shrinkWrap;
 	 	vResizing: #shrinkWrap;
 		cellPositioning: #topLeft;
-		cellGap: 10;
-		populate
+		cellGap:  SKBlockStyle unit * 5;
+		populate;
+		adjustLayoutBounds;
+		layoutChanged;
+		minWidth: self width;
+		collapseAll
 ]
 
 {
@@ -195,12 +209,13 @@ SKBlockSource >> moveStepsBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SLH 6/16/2026 21:11'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:45'
 }
 SKBlockSource >> movementCategory [
 
 	^ SKBlockCategory new
 		title: 'Movement';
+		setColorsToMatchCategory: #movement;
 		addBlock: self moveBlock;
 		addBlock: self moveStepsBlock;
 		addBlock: self pushBlock;
@@ -225,7 +240,7 @@ SKBlockSource >> mushroomAheadBlock [
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'SLH 6/16/2026 17:35'
+	#'squeak_changestamp' : 'FR 6/23/2026 18:21'
 }
 SKBlockSource >> notBlock [
 
@@ -233,7 +248,7 @@ SKBlockSource >> notBlock [
 		addLabel: 'not';
 		addBooleanPart;
 		value: [:bool | '(', bool, ') not'];
-		category: #sensing;
+		category: #operators;
 		updateLayout;
 		yourself
 ]
@@ -254,12 +269,13 @@ SKBlockSource >> onCloverleafBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SLH 6/16/2026 21:10'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:45'
 }
 SKBlockSource >> operatorCategory [
 	
 	^ SKBlockCategory new
 		title: 'Operators';
+		setColorsToMatchCategory: #operators;
 		addBlock: self andBlock;
 		addBlock: self orBlock;
 		addBlock: self notBlock;
@@ -268,7 +284,7 @@ SKBlockSource >> operatorCategory [
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'SLH 6/16/2026 17:35'
+	#'squeak_changestamp' : 'FR 6/23/2026 18:21'
 }
 SKBlockSource >> orBlock [
 
@@ -277,7 +293,7 @@ SKBlockSource >> orBlock [
 		addLabel: 'or';
 		addBooleanPart;
 		value: [:bool1 :bool2 | '((',bool1,') or: [',bool2,'])'];
-		category: #sensing;
+		category: #operators;
 		updateLayout;
 		yourself
 ]
@@ -310,12 +326,13 @@ SKBlockSource >> pushBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SLH 6/16/2026 21:11'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:46'
 }
 SKBlockSource >> sensingCategory [
 	
 	^ SKBlockCategory new
 		title: 'Sensing';
+		setColorsToMatchCategory: #sensing;
 		addBlock: self trunkAheadBlock;
 		addBlock: self mushroomAheadBlock;
 		addBlock: self onCloverleafBlock;

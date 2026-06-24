@@ -81,7 +81,7 @@ SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:16'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
 }
 SKActionBlock >> drawOn: aCanvas [
 
@@ -136,7 +136,7 @@ SKActionBlock >> embedVisualBlock: anActionBlock [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/9/2026 17:51'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
 }
 SKActionBlock >> getBottomTabPointsFromLeft: left toRight: right atY: y [
 
@@ -173,7 +173,7 @@ SKActionBlock >> getCode [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/9/2026 17:52'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
 }
 SKActionBlock >> getTopTabPointsFromLeft: left atY: y [
 

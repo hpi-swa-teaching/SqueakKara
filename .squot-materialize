@@ -143,8 +143,7 @@
 			'reset.png'
 		],
 		#encoding : @8
-	},
-	SquotImageMapper {
+	},SquotImageMapper {
 		#path : FSAbsolutePath [
 			'assets',
 			'Mushrooms.png'

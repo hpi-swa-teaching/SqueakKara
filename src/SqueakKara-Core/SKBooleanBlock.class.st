@@ -6,7 +6,7 @@ Class {
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
 }
 SKBooleanBlock >> drawOn: aCanvas [
 	| b p1 p2 p3 p4 p5 p6 pts indent borderWidth |

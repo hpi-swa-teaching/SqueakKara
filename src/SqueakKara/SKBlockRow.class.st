@@ -85,7 +85,7 @@ SKBlockRow >> isGap: aBoolean [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/9/2026 01:48'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:32'
 }
 SKBlockRow >> layoutInset [
 
