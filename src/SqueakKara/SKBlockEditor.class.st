@@ -114,6 +114,16 @@ SKBlockEditor >> expandIfNeededToInclude: aRectangle [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/24/2026 03:59'
+}
+SKBlockEditor >> functionStartWithName: aString [
+
+	(self functionStarts at: aString ifAbsent: [self error: 'The called function is not defined.'.]) isEmpty ifTrue:[self error: 'The called function is not defined.'.].
+	 ^ (self functionStarts at: aString) anyOne
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 20:03'
 }
 SKBlockEditor >> functionStarts [
