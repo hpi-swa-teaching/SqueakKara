@@ -52,16 +52,16 @@ SKSelectionModel >> items: aItemCollection [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:16'
+	#'squeak_changestamp' : 'Lars Kuhr 6/24/2026 11:40'
 }
 SKSelectionModel >> selectedIndex [
 
-	^ selectedIndex ifNil: [^ 1]
+	^ selectedIndex ifNil: [selectedIndex := 0]
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:03'
+	#'squeak_changestamp' : 'Lars Kuhr 6/24/2026 11:40'
 }
 SKSelectionModel >> selectedIndex: aNumber [
 
@@ -70,11 +70,11 @@ SKSelectionModel >> selectedIndex: aNumber [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/23/2026 21:31'
+	#'squeak_changestamp' : 'Lars Kuhr 6/24/2026 11:40'
 }
 SKSelectionModel >> selectedValue [
 
-	self selectedIndex ifNil: [^''].
+	self selectedIndex = 0 ifTrue: [^''].
 	^ self items at: self selectedIndex
 ]
 
