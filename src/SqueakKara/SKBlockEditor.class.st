@@ -92,7 +92,7 @@ SKBlockEditor >> buildWindowWithSourceWidth: aNumber [
 
 {
 	#category : #resizing,
-	#'squeak_changestamp' : 'FR 6/24/2026 01:29'
+	#'squeak_changestamp' : 'FR 6/24/2026 18:15'
 }
 SKBlockEditor >> expandIfNeededToInclude: aRectangle [
 
@@ -101,11 +101,11 @@ SKBlockEditor >> expandIfNeededToInclude: aRectangle [
 	newExtent := self extent.
 	(aRectangle right > newExtent x) ifTrue: [newExtent := aRectangle right @ newExtent y].
 	(aRectangle left < 0) ifTrue: [
-		self offset: (self offset x + aRectangle left) @ self offset y.
+		self shiftSubmorphsBy: (aRectangle left abs @ 0).
 		newExtent := (newExtent x - aRectangle left) @ newExtent y].
 	(aRectangle bottom > newExtent y) ifTrue: [newExtent := newExtent x @ aRectangle bottom].
 	(aRectangle top < 0) ifTrue: [
-		self offset: self offset x @ (self offset y + aRectangle top).
+		self shiftSubmorphsBy: (0 @ aRectangle top abs).
 		newExtent := newExtent x @ (newExtent y - aRectangle top) ].
 	newExtent ~= self extent ifTrue: [
 		self extent: newExtent.
