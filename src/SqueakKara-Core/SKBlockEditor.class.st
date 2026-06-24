@@ -33,7 +33,7 @@ SKBlockEditor >> buildSourcePane [
 
 {
 	#category : #preview,
-	#'squeak_changestamp' : 'SLH 6/24/2026 12:05'
+	#'squeak_changestamp' : 'SLH 6/24/2026 12:40'
 }
 SKBlockEditor >> clearPreviewBlock [
 
@@ -42,6 +42,7 @@ SKBlockEditor >> clearPreviewBlock [
 	self previewBlock ifNil: [^ self].
 	previewSnappedPoint := self previewBlock anchorPoint connectedPoint.
 	previewSnappedPoint uiDelegate removeMorph: self previewBlock.
+	self previewBlock anchorPoint disconnect.
 	
 	((self previewBlock blockType = #Action) and: [self previewBlock connectionPoint isConnected]) ifTrue: [
 		previewChild := self previewBlock connectionPoint connectedPoint uiDelegate.
@@ -70,22 +71,24 @@ SKBlockEditor >> getCode [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 6/24/2026 12:12'
+	#'squeak_changestamp' : 'SLH 6/24/2026 14:15'
 }
 SKBlockEditor >> handleMouseOver: anEvent [
 
 	| draggedBlock snapTarget |
 	
 	super handleMouseOver: anEvent.
-	
 	anEvent hand hasSubmorphs ifFalse: [^ self].
+	
 	draggedBlock := anEvent hand submorphs first.
 	(draggedBlock isKindOf: SKBlock) ifFalse: [^ self].
 	
 	snapTarget := draggedBlock findClosestSnapTargetIn: self.
 	snapTarget ifNil: [self clearPreviewBlock. ^ self].
-	
-	((snapTarget uiDelegate isKindOf: SKBlock) and: [snapTarget uiDelegate isPreview]) ifTrue: [^ self].
+	((snapTarget uiDelegate isKindOf: SKBlock)
+		and: [snapTarget uiDelegate isPreview])
+			ifTrue: [^ self].
+	self previewBlock ifNotNil: [^ self].
 	self placePreviewBlockOf: draggedBlock at: snapTarget
 ]
 
@@ -154,13 +157,14 @@ SKBlockEditor >> open [
 
 {
 	#category : #preview,
-	#'squeak_changestamp' : 'SLH 6/24/2026 12:07'
+	#'squeak_changestamp' : 'SLH 6/24/2026 12:29'
 }
 SKBlockEditor >> placePreviewBlockOf: aBlock at: aBlockConnectionPoint [
 
 	self clearPreviewBlock.
 	
-	aBlock snapToTarget: aBlockConnectionPoint
+	self previewBlock: aBlock getPreview.
+	self previewBlock snapToTarget: aBlockConnectionPoint
 ]
 
 {
@@ -205,10 +209,11 @@ SKBlockEditor >> startBlock [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
+	#'squeak_changestamp' : 'SLH 6/24/2026 12:38'
 }
 SKBlockEditor >> wantsDroppedMorph: aMorph event: anEvent [
 
+	self clearPreviewBlock.
 	^ ((aMorph class = SKBlock) or: [aMorph class inheritsFrom: SKBlock])
 ]
 
