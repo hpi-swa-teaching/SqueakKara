@@ -11,7 +11,7 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:44'
+	#'squeak_changestamp' : 'JS 6/23/2026 23:59'
 }
 SKPlayGround class >> newWithController: aController [
 
