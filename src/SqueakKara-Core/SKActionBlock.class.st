@@ -135,6 +135,17 @@ SKActionBlock >> embedVisualBlock: anActionBlock [
 ]
 
 {
+	#category : #snapping,
+	#'squeak_changestamp' : 'SLH 6/24/2026 14:30'
+}
+SKActionBlock >> findLastRecursiveChildBlock [
+
+	self connectionPoint isConnected ifFalse: [^ self].
+	
+	^ self connectionPoint connectedPoint uiDelegate findLastRecursiveChildBlock.
+]
+
+{
 	#category : #drawing,
 	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
 }
@@ -227,7 +238,7 @@ SKActionBlock >> minHeight [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
+	#'squeak_changestamp' : 'SLH 6/24/2026 14:40'
 }
 SKActionBlock >> resolveConflictingBlockEmbeddingFor: anActionBlock [
 	
@@ -236,7 +247,7 @@ SKActionBlock >> resolveConflictingBlockEmbeddingFor: anActionBlock [
 	self connectionPoint isConnected ifFalse: [^ self].
 	
 	oldEmbeddedBlock := self connectionPoint connectedPoint uiDelegate.
-	oldEmbeddedBlock snapToTarget: anActionBlock connectionPoint
+	oldEmbeddedBlock snapToTarget: anActionBlock findLastRecursiveChildBlock connectionPoint
 ]
 
 {
