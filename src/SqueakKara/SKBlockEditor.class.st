@@ -5,10 +5,29 @@ Class {
 		'startBlock',
 		'window',
 		'functionStarts',
-		'isWatchingChanges'
+		'isWatchingChanges',
+		'blockMax'
 	],
 	#category : #'SqueakKara-Core'
 }
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/24/2026 20:00'
+}
+SKBlockEditor >> blockMax [
+
+	^ blockMax ifNil:[^ 15]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/24/2026 20:00'
+}
+SKBlockEditor >> blockMax: aNumber [
+
+	blockMax := aNumber
+]
 
 {
 	#category : #initialization,
@@ -173,7 +192,7 @@ SKBlockEditor >> isWatchingChanges: aBoolean [
 ]
 
 {
-	#category : #accessing,
+	#category : #'submorphs - tracking',
 	#'squeak_changestamp' : 'FR 6/9/2026 23:09'
 }
 SKBlockEditor >> nextAvailableFunctionNameFor: aString [
@@ -208,23 +227,38 @@ SKBlockEditor >> open [
 
 {
 	#category : #resizing,
-	#'squeak_changestamp' : 'FR 6/24/2026 01:49'
+	#'squeak_changestamp' : 'FR 6/24/2026 19:35'
 }
 SKBlockEditor >> ownerChanged [
 
 	super ownerChanged.
-	self isWatchingChanges ifTrue: [self expandIfNeededToInclude: self owner innerBounds]
+	self isWatchingChanges ifTrue: [self expandIfNeededToInclude: self owner innerBounds. self refreshBlockCount]
+	
+]
+
+{
+	#category : #'submorphs - tracking',
+	#'squeak_changestamp' : 'FR 6/24/2026 20:01'
+}
+SKBlockEditor >> refreshBlockCount [
+
+	| result |
+	
+	result := self startBlock blockCount - 1.
+	self functionStarts keysDo: [:key | result := (self functionStartWithName: key) blockCount + result].
+	(self startBlock blockParts at: 2) setDefaultUIText: result asString, ' / ', self blockMax asString
 	
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/23/2026 19:03'
+	#'squeak_changestamp' : 'FR 6/24/2026 19:56'
 }
 SKBlockEditor >> startBlock [
 
 	^ startBlock ifNil: [startBlock := SKActionBlock new
 		addLabel: 'Start of Script';
+		addStringPartWithText: '0 / 15';
 		isStart: true;
 		leftSource: false;
 		yourself]
@@ -232,7 +266,7 @@ SKBlockEditor >> startBlock [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
+	#'squeak_changestamp' : 'FR 6/24/2026 19:34'
 }
 SKBlockEditor >> wantsDroppedMorph: aMorph event: anEvent [
 
