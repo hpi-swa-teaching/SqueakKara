@@ -275,7 +275,7 @@ SKBlock >> initialize [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 6/8/2026 16:54'
+	#'squeak_changestamp' : 'FR 6/24/2026 01:12'
 }
 SKBlock >> justDroppedInto: anObject event: anEvent [
 
@@ -405,7 +405,7 @@ SKBlock >> tabHeight [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/23/2026 18:54'
+	#'squeak_changestamp' : 'FR 6/24/2026 01:26'
 }
 SKBlock >> updateLayout [
 
@@ -424,6 +424,7 @@ SKBlock >> updateLayout [
 			layoutChanged;
 			changed;
 			updateLayout]
+	ifFalse: [(self ownerThatIsA: SKBlockEditor) ifNotNil: [(self ownerThatIsA: SKBlockEditor) expandIfNeededToInclude: self fullBounds]]
 ]
 
 {

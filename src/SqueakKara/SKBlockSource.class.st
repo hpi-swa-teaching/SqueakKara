@@ -22,7 +22,16 @@ SKBlockSource >> andBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'FR 6/23/2026 19:25'
+	#'squeak_changestamp' : 'FR 6/24/2026 02:55'
+}
+SKBlockSource >> collapseAll [
+
+	self submorphsDo: [:each | each collapse]
+]
+
+{
+	#category : #categories,
+	#'squeak_changestamp' : 'FR 6/23/2026 19:45'
 }
 SKBlockSource >> controlCategory [
 
@@ -133,7 +142,7 @@ SKBlockSource >> ifElseBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:24'
+	#'squeak_changestamp' : 'FR 6/24/2026 02:55'
 }
 SKBlockSource >> initialize [
 
@@ -147,7 +156,11 @@ SKBlockSource >> initialize [
 	 	vResizing: #shrinkWrap;
 		cellPositioning: #topLeft;
 		cellGap:  SKBlockStyle unit * 5;
-		populate
+		populate;
+		adjustLayoutBounds;
+		layoutChanged;
+		minWidth: self width;
+		collapseAll
 ]
 
 {
@@ -196,7 +209,7 @@ SKBlockSource >> moveStepsBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'FR 6/23/2026 19:26'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:45'
 }
 SKBlockSource >> movementCategory [
 
@@ -256,7 +269,7 @@ SKBlockSource >> onCloverleafBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'FR 6/23/2026 19:26'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:45'
 }
 SKBlockSource >> operatorCategory [
 	
@@ -313,7 +326,7 @@ SKBlockSource >> pushBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'FR 6/23/2026 19:26'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:46'
 }
 SKBlockSource >> sensingCategory [
 	

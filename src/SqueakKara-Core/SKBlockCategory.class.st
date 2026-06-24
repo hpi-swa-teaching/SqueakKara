@@ -14,17 +14,18 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'FR 6/23/2026 23:02'
 }
 SKBlockCategory >> addBlock: aBlock [
 
 	self content addMorphBack: aBlock.
+	self layoutChanged.
 	^ aBlock
 ]
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:22'
+	#'squeak_changestamp' : 'FR 6/23/2026 23:01'
 }
 SKBlockCategory >> buildContent [
 
@@ -33,7 +34,7 @@ SKBlockCategory >> buildContent [
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
 		cellPositioning: #topLeft;
-		hResizing: #spaceFill;
+		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
 		layoutInset: 0;
 		cellGap: SKBlockStyle unit * 2;
@@ -80,10 +81,11 @@ SKBlockCategory >> buildRow [
 
 {
 	#category : #expansion,
-	#'squeak_changestamp' : 'SLH 6/16/2026 20:39'
+	#'squeak_changestamp' : 'FR 6/24/2026 02:56'
 }
 SKBlockCategory >> collapse [
 
+	self fullBounds.
 	self expanded: false.
 	self content owner == self ifTrue: [self content delete].
 	self refreshDisclosure.
@@ -149,7 +151,7 @@ SKBlockCategory >> header [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:24'
+	#'squeak_changestamp' : 'FR 6/23/2026 22:56'
 }
 SKBlockCategory >> initialize [
 
@@ -159,12 +161,22 @@ SKBlockCategory >> initialize [
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
 		cellPositioning: #topLeft;
-		hResizing: #spaceFill;
 		vResizing: #shrinkWrap;
+		hResizing: #spaceFill;
 		layoutInset: 0;
 		cellGap: SKBlockStyle unit * 2.
 	self addMorphBack: self header.
-	self addMorphBack: self content
+	self addMorphBack: self content.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/23/2026 23:00'
+}
+SKBlockCategory >> minWidth [
+
+	Transcript show: self asString.
+	^ self content fullBounds width max: self header width
 ]
 
 {
