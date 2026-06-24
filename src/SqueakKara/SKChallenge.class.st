@@ -52,6 +52,37 @@ SKChallenge class >> initializeChallenge10For: anEnvironment [
 
 {
 	#category : #challenges,
+	#'squeak_changestamp' : 'JanWein 6/24/2026 19:36'
+}
+SKChallenge class >> initializeChallenge11For: anEnvironment [
+	
+	| grid |
+	
+	grid := anEnvironment grid.
+	
+	anEnvironment addKara: (SKKara newInGrid: grid at: 3 @ 1 with: 5 @ 1).
+	anEnvironment addKara: (SKKara newInGrid: grid at: 5 @ 7 with: 3 @ 7).
+	
+	1 to: 7 do: [ :i |
+		SKDirectionalTile newInGrid: grid at: (3 @ i) enterFrom: SKDirection above.
+		SKDirectionalTile newInGrid: grid at: (5 @ i) enterFrom: SKDirection below.
+		SKDirectionalTile newInGrid: grid at: (i @ 3) enterFrom: SKDirection right.
+		SKDirectionalTile newInGrid: grid at: (i @ 5) enterFrom: SKDirection left.
+		SKTrunk newInGrid: grid at: 1 @ i.
+		SKTrunk newInGrid: grid at: 7 @ i.].
+	
+	1 to: 7 do: [:y |
+		(y = 3 or: y = 5) ifFalse: [
+			SKTrunk newInGrid: grid at: 2 @ y.
+			SKTrunk newInGrid: grid at: 4 @ y.
+			SKTrunk newInGrid: grid at: 6 @ y.]].
+	
+	
+	
+]
+
+{
+	#category : #challenges,
 	#'squeak_changestamp' : 'LM 6/9/2026 18:44'
 }
 SKChallenge class >> initializeChallenge1For: anEnvironment [
