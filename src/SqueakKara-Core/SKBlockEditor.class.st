@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'startBlock',
 		'window',
-		'functionStarts'
+		'functionStarts',
+		'previewBlock'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -31,6 +32,25 @@ SKBlockEditor >> buildSourcePane [
 ]
 
 {
+	#category : #preview,
+	#'squeak_changestamp' : 'SLH 6/24/2026 12:05'
+}
+SKBlockEditor >> clearPreviewBlock [
+
+	| previewSnappedPoint previewChild |
+
+	self previewBlock ifNil: [^ self].
+	previewSnappedPoint := self previewBlock anchorPoint connectedPoint.
+	previewSnappedPoint uiDelegate removeMorph: self previewBlock.
+	
+	((self previewBlock blockType = #Action) and: [self previewBlock connectionPoint isConnected]) ifTrue: [
+		previewChild := self previewBlock connectionPoint connectedPoint uiDelegate.
+		previewChild snapToTarget: previewSnappedPoint].
+	
+	self previewBlock: nil
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 20:03'
 }
@@ -46,6 +66,27 @@ SKBlockEditor >> functionStarts [
 SKBlockEditor >> getCode [
 
 	^ self startBlock getCode
+]
+
+{
+	#category : #'dropping/grabbing',
+	#'squeak_changestamp' : 'SLH 6/24/2026 12:12'
+}
+SKBlockEditor >> handleMouseOver: anEvent [
+
+	| draggedBlock snapTarget |
+	
+	super handleMouseOver: anEvent.
+	
+	anEvent hand hasSubmorphs ifFalse: [^ self].
+	draggedBlock := anEvent hand submorphs first.
+	(draggedBlock isKindOf: SKBlock) ifFalse: [^ self].
+	
+	snapTarget := draggedBlock findClosestSnapTargetIn: self.
+	snapTarget ifNil: [self clearPreviewBlock. ^ self].
+	
+	((snapTarget uiDelegate isKindOf: SKBlock) and: [snapTarget uiDelegate isPreview]) ifTrue: [^ self].
+	self placePreviewBlockOf: draggedBlock at: snapTarget
 ]
 
 {
@@ -109,6 +150,35 @@ SKBlockEditor >> open [
 		with: self topCenter + (0 @ 10).
 		
 	^ self window
+]
+
+{
+	#category : #preview,
+	#'squeak_changestamp' : 'SLH 6/24/2026 12:07'
+}
+SKBlockEditor >> placePreviewBlockOf: aBlock at: aBlockConnectionPoint [
+
+	self clearPreviewBlock.
+	
+	aBlock snapToTarget: aBlockConnectionPoint
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/24/2026 11:55'
+}
+SKBlockEditor >> previewBlock [
+
+	^ previewBlock
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/24/2026 11:56'
+}
+SKBlockEditor >> previewBlock: aBlockPreview [
+
+	previewBlock := aBlockPreview
 ]
 
 {

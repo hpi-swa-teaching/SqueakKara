@@ -8,7 +8,9 @@ Class {
 		'category',
 		'anchorPoint',
 		'actionConnectionPoints',
-		'valueConnectionPoints'
+		'valueConnectionPoints',
+		'isPreview',
+		'previewBlock'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -298,6 +300,19 @@ SKBlock >> getCode [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/24/2026 11:59'
+}
+SKBlock >> getPreview [
+
+	^ previewBlock ifNil: [
+		previewBlock := self copy
+			isPreview: true;
+			color: Color gray;
+			borderColor: Color gray]
+]
+
+{
 	#category : #'event handling',
 	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
 }
@@ -330,6 +345,24 @@ SKBlock >> initialize [
 		listDirection: #topToBottom;
 		wrapCentering: #center;
     		cellPositioning: #topLeft
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/24/2026 11:54'
+}
+SKBlock >> isPreview [
+
+	^ isPreview ifNil: [isPreview := false]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/24/2026 11:54'
+}
+SKBlock >> isPreview: aBoolean [
+
+	isPreview := aBoolean
 ]
 
 {
