@@ -211,13 +211,13 @@ SKBlock >> connectionPointPositionForType: aConnectionPointType [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
+	#'squeak_changestamp' : 'FR 6/24/2026 17:16'
 }
 SKBlock >> findClosestSnapTargetIn: anObject [
 
 	| closestConnectionPoint shortestDistance currentDistance |
 
-	shortestDistance := 20.
+	shortestDistance := self snapRadius.
 	closestConnectionPoint := nil.
 	
 	(self validSnapConnectionsIn: anObject) do: [:each |
@@ -364,11 +364,11 @@ SKBlock >> removedMorph: aMorph [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:17'
+	#'squeak_changestamp' : 'FR 6/24/2026 17:18'
 }
 SKBlock >> snapRadius [
 
-	^SKBlockStyle unit * 20.
+	^ SKBlockStyle blockPartHeight
 ]
 
 {
