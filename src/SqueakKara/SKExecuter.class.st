@@ -199,11 +199,11 @@ SKExecuter >> state: aSymbol [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/17/2026 00:06'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:17'
 }
 SKExecuter >> stateWithUpdate: aSymbol [
 
-	self state: aSymbol.
+	self state: aSymbol
 ]
 
 {

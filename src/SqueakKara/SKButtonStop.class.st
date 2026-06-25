@@ -29,11 +29,12 @@ SKButtonStop >> textureFileName [
 
 {
 	#category : #textures,
-	#'squeak_changestamp' : 'ND 6/17/2026 00:12'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:14'
 }
 SKButtonStop >> updateTextures [
 
 	| buttonRun |
+	
 	buttonRun := self executeControls buttonRun.
 	buttonRun labelGraphic: buttonRun currentRunButtonTexture.
 	self setTexture.

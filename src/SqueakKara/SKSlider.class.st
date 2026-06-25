@@ -42,18 +42,19 @@ SKSlider >> executeControls [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/16/2026 23:53'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:18'
 }
-SKSlider >> executeControls: anObject [
+SKSlider >> executeControls: anExecuteControls [
 
-	executeControls := anObject
+	executeControls := anExecuteControls
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/16/2026 23:55'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:18'
 }
 SKSlider >> initialize [
+
 	super initialize.
 	self bounds: (0 @ 0 extent: self defaultSliderSize);
 		minVal: 0;
@@ -67,7 +68,7 @@ SKSlider >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 6/16/2026 23:52'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:19'
 }
 SKSlider >> resizeByFactor: aNumber [
 	
@@ -76,7 +77,6 @@ SKSlider >> resizeByFactor: aNumber [
 	sliderSize := self defaultSliderSize * aNumber.
 	
 	self extent: sliderSize
-	
 ]
 
 {
@@ -101,17 +101,19 @@ SKSlider >> scaleFactor: aNumber [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/16/2026 23:46'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:18'
 }
 SKSlider >> sliderSpeed [
+
 	^ sliderSpeed
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/16/2026 23:46'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:18'
 }
 SKSlider >> sliderSpeed: anObject [
+
 	sliderSpeed := anObject
 ]
 

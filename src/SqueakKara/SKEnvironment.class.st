@@ -105,18 +105,20 @@ SKEnvironment >> containerMorph [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:54'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:14'
 }
 SKEnvironment >> currentChallenge [
+
 	^ currentChallenge
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:54'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:15'
 }
-SKEnvironment >> currentChallenge: anObject [
-	currentChallenge := anObject
+SKEnvironment >> currentChallenge: aSymbol [
+
+	currentChallenge := aSymbol
 ]
 
 {
@@ -484,11 +486,11 @@ SKEnvironment >> nextChallenge [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'jawi 6/3/2026 20:35'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:15'
 }
-SKEnvironment >> nextChallenge: aChallenge [
+SKEnvironment >> nextChallenge: aSymbol [
 	
-	nextChallenge := aChallenge
+	nextChallenge := aSymbol
 ]
 
 {

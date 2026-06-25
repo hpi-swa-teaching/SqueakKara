@@ -23,13 +23,13 @@ SKButtonRun >> action [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'ND 6/16/2026 23:57'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:13'
 }
 SKButtonRun >> currentRunButtonTexture [
 
 	| iconSize |
 	
-	iconSize := (self defaultIconicButtonSize - (10@10)) * self scaleFactor.
+	iconSize := (self defaultIconicButtonSize - (10 @ 10)) * self scaleFactor.
 
 	self environment executerState = #running
 		ifTrue: [ ^ self pauseTexture scaledToSize: iconSize ].
@@ -39,13 +39,12 @@ SKButtonRun >> currentRunButtonTexture [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'ND 6/16/2026 23:07'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:13'
 }
 SKButtonRun >> loadTexture [
 	
 	self pauseTexture: (self getTexture: self pauseTextureFilename).
 	super loadTexture
-	
 ]
 
 {
@@ -58,10 +57,11 @@ SKButtonRun >> pauseTexture [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/16/2026 22:59'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:12'
 }
-SKButtonRun >> pauseTexture: anObject [
-	pauseTexture := anObject
+SKButtonRun >> pauseTexture: aTexture [
+
+	pauseTexture := aTexture
 ]
 
 {
@@ -75,18 +75,9 @@ SKButtonRun >> pauseTextureFilename [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'ND 6/16/2026 23:10'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:24'
 }
 SKButtonRun >> textureFileName [
-
-	^ 'play.png'
-]
-
-{
-	#category : #texture,
-	#'squeak_changestamp' : 'ND 6/16/2026 23:03'
-}
-SKButtonRun >> textureFilename [
 
 	^ 'play.png'
 ]
@@ -108,7 +99,7 @@ SKButtonRun >> toggleExecutionState [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'ND 6/16/2026 23:33'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:12'
 }
 SKButtonRun >> updateTextures [
 
@@ -117,6 +108,5 @@ SKButtonRun >> updateTextures [
 	buttonStop := self executeControls buttonStop.
 	self labelGraphic: self currentRunButtonTexture.
 	buttonStop setTexture.
-	(Delay forMilliseconds: 1) wait.
 	buttonStop resizeByFactor: buttonStop scaleFactor
 ]

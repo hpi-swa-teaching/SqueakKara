@@ -15,11 +15,11 @@ Class {
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/16/2026 21:49'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:07'
 }
 SKButton >> action [
 
-	^ SubclassResponsibility
+	^ self subclassResponsibility
 ]
 
 {
@@ -42,26 +42,29 @@ SKButton >> defaultSliderSize [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/19/2026 09:39'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:08'
 }
 SKButton >> environment [ 
+
 	^ self executeControls environment
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/16/2026 21:49'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:08'
 }
 SKButton >> executeControls [
+
 	^ executeControls
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/16/2026 21:49'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:09'
 }
-SKButton >> executeControls: anObject [
-	executeControls := anObject
+SKButton >> executeControls: anExecuteControls [
+
+	executeControls := anExecuteControls
 ]
 
 {
@@ -84,15 +87,16 @@ SKButton >> getTexture: aFileName [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 6/16/2026 22:41'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:10'
 }
 SKButton >> initialize [
+
 	super initialize.
-	self loadTexture.
-	self target: self.
-	self color: SKStylesheet secondaryColor.
-	self actionSelector: #action.
-	self setTexture
+	self loadTexture;
+		target: self;
+		color: SKStylesheet secondaryColor;
+		actionSelector: #action;
+		setTexture
 ]
 
 {
@@ -106,18 +110,17 @@ SKButton >> loadTexture [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/16/2026 23:50'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:11'
 }
 SKButton >> resizeByFactor: aNumber [
 	
 	| buttonSize iconSize |
 	
 	buttonSize := self defaultIconicButtonSize * aNumber.
-	iconSize := (self defaultIconicButtonSize - (10@10)) * aNumber.
+	iconSize := (self defaultIconicButtonSize - (10 @ 10)) * aNumber.
 	
 	self extent: buttonSize.
-	self labelGraphic: (self texture scaledToSize: iconSize).
-	
+	self labelGraphic: (self texture scaledToSize: iconSize)
 ]
 
 {
@@ -160,17 +163,18 @@ SKButton >> texture [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/16/2026 22:14'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:12'
 }
-SKButton >> texture: anObject [
-	texture := anObject
+SKButton >> texture: aTexture [
+
+	texture := aTexture
 ]
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'ND 6/16/2026 23:04'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:07'
 }
 SKButton >> textureFileName [
 	
-	^ self SubclassResponsibility
+	^ self subclassResponsibility
 ]

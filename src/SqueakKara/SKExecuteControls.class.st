@@ -9,7 +9,7 @@ Class {
 		'buttonRun',
 		'buttonStop',
 		'buttonSpawnKara',
-		'buttonNextChallange',
+		'buttonNextChallenge',
 		'sliderSpeed',
 		'scaleFactor',
 		'buttonReset'
@@ -45,24 +45,24 @@ SKExecuteControls >> addButtonNextChallenge [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:53'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:16'
 }
 SKExecuteControls >> addButtonReset [
 
-    self buttonReset: SKButtonReset new.
-    self buttonReset executeControls: self.
-    self addMorphBack: self buttonReset
+	self buttonReset: SKButtonReset new.
+    	self buttonReset executeControls: self.
+    	self addMorphBack: self buttonReset
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/16/2026 23:02'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:16'
 }
 SKExecuteControls >> addButtonRun [
 
-    self buttonRun: SKButtonRun new.
-    self buttonRun executeControls: self.
-    self addMorphBack: self buttonRun
+	self buttonRun: SKButtonRun new.
+	self buttonRun executeControls: self.
+	self addMorphBack: self buttonRun
 ]
 
 {
@@ -142,10 +142,11 @@ SKExecuteControls >> buttonReset [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:53'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:20'
 }
-SKExecuteControls >> buttonReset: anObject [
-	buttonReset := anObject
+SKExecuteControls >> buttonReset: aButton [
+
+	buttonReset := aButton
 ]
 
 {
@@ -159,11 +160,11 @@ SKExecuteControls >> buttonRun [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:37'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:21'
 }
-SKExecuteControls >> buttonRun: aMorph [
+SKExecuteControls >> buttonRun: aButton [
 	
-	buttonRun := aMorph
+	buttonRun := aButton
 ]
 
 {
@@ -177,11 +178,11 @@ SKExecuteControls >> buttonSpawnKara [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'jawi 5/14/2026 13:17'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:21'
 }
-SKExecuteControls >> buttonSpawnKara: aMorph [
+SKExecuteControls >> buttonSpawnKara: aButton [
 	
-	buttonSpawnKara := aMorph
+	buttonSpawnKara := aButton
 ]
 
 {
@@ -195,20 +196,21 @@ SKExecuteControls >> buttonStop [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:37'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:21'
 }
-SKExecuteControls >> buttonStop: aMorph [
+SKExecuteControls >> buttonStop: aButton [
 	
-	buttonStop := aMorph
+	buttonStop := aButton
 ]
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'ND 6/17/2026 00:10'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:17'
 }
 SKExecuteControls >> createButtonNextChallenge [
 	
 	| buttonNextChallenge |
+	
 	buttonNextChallenge := SKButtonNextChallenge new
 		executeControls: self.
 	self buttonNextChallenge: buttonNextChallenge
@@ -274,7 +276,7 @@ SKExecuteControls >> initialize [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'ND 6/17/2026 00:04'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:17'
 }
 SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
@@ -284,8 +286,7 @@ SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
 	self extent: controlSize.
 	
-	self submorphsDo: [:subMorph | subMorph scaleFactor: aNumber].
-	
+	self submorphsDo: [ :subMorph | subMorph scaleFactor: aNumber ]
 ]
 
 {
