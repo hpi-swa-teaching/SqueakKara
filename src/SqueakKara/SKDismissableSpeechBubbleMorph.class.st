@@ -1,10 +1,21 @@
+"
+A SKDismissableSpeechBubbleMorph is a speech bubble which also has a close button that closes the entire morph.
+
+Instance Variables
+	closeButton:		<SimpleButtonMorph>
+
+closeButton
+	- The close button that closes the speech bubble.
+
+"
 Class {
 	#name : #SKDismissableSpeechBubbleMorph,
 	#superclass : #SpeechBubbleMorph,
 	#instVars : [
 		'closeButton'
 	],
-	#category : #SqueakKara
+	#category : #SqueakKara,
+	#'squeak_changestamp' : 'mr 6/25/2026 21:09'
 }
 
 {
