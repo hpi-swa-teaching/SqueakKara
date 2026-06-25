@@ -32,25 +32,6 @@ SKKara class >> newInGrid: aGrid at: aPoint [
 ]
 
 {
-	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/16/2026 13:50'
-}
-SKKara >> canMoveAhead [
-
-	| neighboursNext movementDirection |
-
-	(self trunkAhead) ifTrue: [ ^ false ].
-	(self karaAhead) ifTrue: [ ^ false ].
-	
-	movementDirection := self viewDirection.
-	neighboursNext := self neighboursAt: movementDirection.
-	(self hasBlockingDirectionalTileIn: neighboursNext direction: movementDirection) 
-		ifTrue: [ ^ false ].
-		
-	 ^ true
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'jawi 5/28/2026 15:01'
 }
@@ -223,22 +204,6 @@ SKKara >> findUnusedColor [
 ]
 
 {
-	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/16/2026 12:39'
-}
-SKKara >> hasBlockingDirectionalTileIn: aNeighborCollection direction: aDirection [
-	
-	| directionalTiles |
-	
-	directionalTiles := (aNeighborCollection 
-		select: [ :neighbor | neighbor isDirectionalTile ]).
-	
-	directionalTiles isEmpty ifTrue: [ ^ false ].
-		
-	^ (directionalTiles anySatisfy: [ :directionalTile | directionalTile matchesDirection: aDirection ]) not
-]
-
-{
 	#category : #initialization,
 	#'squeak_changestamp' : 'LM 5/28/2026 19:40'
 }
@@ -283,7 +248,7 @@ SKKara >> karaAhead [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'mr 6/16/2026 13:51'
+	#'squeak_changestamp' : 'LM 6/8/2026 18:00'
 }
 SKKara >> lockAt: aPoint [
 
@@ -291,7 +256,7 @@ SKKara >> lockAt: aPoint [
 
 	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
 	
-	(self canMoveAhead) ifFalse: [ ^ self ].
+	(self trunkAhead or: [ self karaAhead ]) ifTrue: [ ^ self ].
 	
 	lockSuccessful := (self gridCoordinator lockAt: aPoint for: self).
 	staysInCriticalSection := self onCriticalSection and: [ self criticalSectionAhead ].
@@ -428,7 +393,7 @@ SKKara >> sayMessage: aString [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/12/2026 20:23'
+	#'squeak_changestamp' : 'LD 5/21/2026 12:08'
 }
 SKKara >> scaleToFactor [
 
@@ -437,13 +402,13 @@ SKKara >> scaleToFactor [
 	super scaleToFactor.
 	self updateColor.
 	
-	image := self rotateTowards: self viewDirection.
+	image := self rotate.
 	self image: image
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/12/2026 20:23'
+	#'squeak_changestamp' : 'ND 5/22/2026 22:12'
 }
 SKKara >> setTexture [
 
@@ -456,7 +421,7 @@ SKKara >> setTexture [
 		scaledToWidth: self grid pixelPerBlock.
 	
 	self image: aForm.
-	self rotateTowards: self viewDirection.
+	self rotate.
 	self originalImage: aForm.
 	self updateColorFor: aForm
 ]
@@ -556,9 +521,9 @@ SKKara >> workspace: aWorkspace [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'mr 6/12/2026 19:00'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
 }
 SKKara >> zLayer [
 
-	^ 4
+	^ 3
 ]

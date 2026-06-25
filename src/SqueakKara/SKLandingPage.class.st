@@ -30,16 +30,6 @@ SKLandingPage >> actionExample1 [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'mr 6/16/2026 12:45'
-}
-SKLandingPage >> actionExample10 [
-
-	SKEnvironment new initializeWithChallenge10.
-	self delete
-]
-
-{
-	#category : #actions,
 	#'squeak_changestamp' : 'LM 5/7/2026 22:07'
 }
 SKLandingPage >> actionExample2 [
@@ -159,7 +149,7 @@ SKLandingPage >> addButton: aButton atIndex: anInteger [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'mr 6/16/2026 12:46'
+	#'squeak_changestamp' : 'JanWein 6/5/2026 14:01'
 }
 SKLandingPage >> buildAllButtons [
 
@@ -173,8 +163,7 @@ SKLandingPage >> buildAllButtons [
 		self buildButtonExample6.
 		self buildButtonExample7.
 		self buildButtonExample8.
-		self buildButtonExample9.
-		self buildButtonExample10 }
+		self buildButtonExample9 }
 ]
 
 {
@@ -185,17 +174,6 @@ SKLandingPage >> buildButtonExample1 [
 
 	^ self buildButtonWithLabel: self buttonExample1Label
 		andSelector: #actionExample1
-		andColor: SKStylesheet secondaryColor
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'mr 6/16/2026 12:46'
-}
-SKLandingPage >> buildButtonExample10 [
-
-	^ self buildButtonWithLabel: self buttonExample10Label
-		andSelector: #actionExample10
 		andColor: SKStylesheet secondaryColor
 ]
 
@@ -311,15 +289,6 @@ SKLandingPage >> buildButtonWithLabel: aLabel andSelector: aSelector andColor: a
 		color: aColor;
 		height: self buttonHeight;
 		yourself
-]
-
-{
-	#category : #labels,
-	#'squeak_changestamp' : 'mr 6/16/2026 12:46'
-}
-SKLandingPage >> buttonExample10Label [
-
-	^ 'One Way Ticket'
 ]
 
 {
