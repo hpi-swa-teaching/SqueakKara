@@ -153,6 +153,14 @@ GSMetadata {
 				'critical-section.png'
 			],
 			#encoding : @5
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'directional-tile.png'
+			],
+			#encoding : @5
 		}
 	],
 	#name : 'SqueakKara'

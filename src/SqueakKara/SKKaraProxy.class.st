@@ -115,10 +115,7 @@ SKKaraProxy >> move [
 SKKaraProxy >> moveAction [
 
 	^ (self isLocked: (self nextField))
-		ifFalse: [
-			| previousPosition |
-			previousPosition := self coordinates.
-			self kara move ]
+		ifFalse: [ self kara move ]
 		ifTrue: [ 
 			self kara errorScheduler.
 			false ]

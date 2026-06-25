@@ -288,6 +288,20 @@ SKEnvironment >> initializeWithChallenge1 [
 
 {
 	#category : #initialization,
+	#'squeak_changestamp' : 'mr 6/16/2026 12:44'
+}
+SKEnvironment >> initializeWithChallenge10 [
+
+	self grid: (SKGrid newWithExtent: 3 @ 5).
+	SKChallenge initializeChallenge10For: self.
+	
+	self nextChallenge: #initializeLandingPage.
+	
+	self initializeObjects
+]
+
+{
+	#category : #initialization,
 	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge2 [
@@ -386,14 +400,14 @@ SKEnvironment >> initializeWithChallenge8 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JanWein 6/5/2026 13:55'
+	#'squeak_changestamp' : 'mr 6/16/2026 12:43'
 }
 SKEnvironment >> initializeWithChallenge9 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 5).
 	SKChallenge initializeChallenge9For: self.
 	
-	self nextChallenge: #initializeLandingPage.
+	self nextChallenge: #initializeWithChallenge10.
 	
 	self initializeObjects
 ]
