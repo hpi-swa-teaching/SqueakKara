@@ -260,19 +260,19 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/16/2026 13:51'
+	#'squeak_changestamp' : 'mr 6/25/2026 21:07'
 }
 SKKara >> move [
 	
 	self stopSayingOrThinking.
 
 	(self canMoveAhead) ifFalse: [
-		self sayMessageForThreeSeconds: 'Aua! Ich bin gegen ein Hindernis gelaufen D:'.
+		self sayMessage: 'Aua! Ich bin gegen ein Hindernis gelaufen D:'.
 		^ false ].
 
 	(self moveToCoordinates: self coordinates + self viewDirection) 
 		ifTrue: [ ^ true ]
-		ifFalse: [ self sayMessageForThreeSeconds: 'Aua! Da darf ich nicht hinlaufen D:'.
+		ifFalse: [ self sayMessage: 'Aua! Da darf ich nicht hinlaufen D:'.
 			^ false ]
 ]
 
@@ -346,16 +346,11 @@ SKKara >> randomDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 6/10/2026 14:49'
+	#'squeak_changestamp' : 'mr 6/25/2026 21:07'
 }
-SKKara >> sayMessageForThreeSeconds: aString [
-	
-	| delayTime |
-	
-	delayTime := 3.
-	self say: aString.
-	(Delay forSeconds: delayTime) wait.
-	self stopSayingOrThinking
+SKKara >> sayMessage: aString [
+
+	SKDismissableSpeechBubbleMorph string: aString type: #speech for: self
 ]
 
 {

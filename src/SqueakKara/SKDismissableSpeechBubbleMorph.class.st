@@ -1,0 +1,77 @@
+Class {
+	#name : #SKDismissableSpeechBubbleMorph,
+	#superclass : #SpeechBubbleMorph,
+	#instVars : [
+		'closeButton'
+	],
+	#category : #SqueakKara
+}
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'mr 6/25/2026 20:56'
+}
+SKDismissableSpeechBubbleMorph >> buildCloseButton [
+	
+	| buttonLabel buttonExtent |
+	
+	buttonLabel := 'x'.
+	buttonExtent := 20 @ 20.
+	
+	^ SimpleButtonMorph new
+		label: buttonLabel;
+		target: self;
+		actionSelector: #delete;
+		extent: buttonExtent;
+		color: Color red;
+		position: self closeButtonPosition
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 6/25/2026 20:52'
+}
+SKDismissableSpeechBubbleMorph >> closeButton [
+
+	^ closeButton
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 6/25/2026 20:50'
+}
+SKDismissableSpeechBubbleMorph >> closeButton: aSimpleButtonMorph [
+
+	closeButton := aSimpleButtonMorph
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 6/25/2026 20:57'
+}
+SKDismissableSpeechBubbleMorph >> closeButtonPosition [
+	
+	^  8 @ 8
+]
+
+{
+	#category : #refreshing,
+	#'squeak_changestamp' : 'mr 6/25/2026 20:25'
+}
+SKDismissableSpeechBubbleMorph >> refresh [
+
+	super refresh.
+	self refreshButton
+]
+
+{
+	#category : #refreshing,
+	#'squeak_changestamp' : 'mr 6/25/2026 21:02'
+}
+SKDismissableSpeechBubbleMorph >> refreshButton [
+
+	self closeButton ifNotNil: [ self closeButton delete ].
+	self closeButton: self buildCloseButton.
+	self addMorphFront: self closeButton.
+	self closeButton position: (self position + self closeButtonPosition)
+]
