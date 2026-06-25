@@ -13,6 +13,24 @@ Class {
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'LM 6/25/2026 20:47'
+}
+SKGridTile >> isFree [
+
+	^ self noneSatisfy: [ :gridObject | gridObject isBlocking ]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 6/25/2026 20:55'
+}
+SKGridTile >> isLocked [
+
+	^ self lockingActor isNil not
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/29/2026 12:52'
 }
 SKGridTile >> lockBy: anActor [

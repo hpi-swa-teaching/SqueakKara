@@ -10,7 +10,7 @@ Class {
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'ND 6/16/2026 22:20'
+	#'squeak_changestamp' : 'LM 6/25/2026 20:56'
 }
 SKButtonSpawnKara >> action [
 
@@ -22,15 +22,14 @@ SKButtonSpawnKara >> action [
 	freeList := gridCoordinator findFreeFields.
 	
 	(freeList isEmpty or: self environment maxNumberOfKaras == karaList size) ifTrue: [ ^ self ].
+	freeList removeAllSuchThat: [ :position | (gridCoordinator getTileAtCoordinates: position) isLocked ].
 	
 	karaPosition := freeList atRandom.
 	freeList remove: karaPosition.
 	freeList isEmpty ifTrue: [ ^ self ].
 	
-	kara := SKKara newInGrid: grid at: karaPosition with: (freeList atRandom).
-	kara randomDirection.
-	
-	self environment addKara: kara
+	kara := self environment addKaraAt: karaPosition.
+	kara randomDirection
 ]
 
 {
