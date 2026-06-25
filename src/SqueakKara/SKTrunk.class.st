@@ -52,9 +52,9 @@ SKTrunk >> textureFilename [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
+	#'squeak_changestamp' : 'mr 6/12/2026 19:00'
 }
 SKTrunk >> zLayer [
 
-	^ 2
+	^ 3
 ]

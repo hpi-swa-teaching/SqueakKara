@@ -58,13 +58,6 @@ GSMetadata {
 			],
 			#encoding : @5
 		},
-		GSPlaintextMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'LICENSE'
-			],
-			#encoding : 'TXT'
-		},
 		GSImageMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
@@ -72,6 +65,13 @@ GSMetadata {
 				'play.png'
 			],
 			#encoding : @5
+		},
+		GSPlaintextMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'LICENSE'
+			],
+			#encoding : 'TXT'
 		},
 		GSPlaintextMapper {
 			#version : 1,
@@ -135,6 +135,14 @@ GSMetadata {
 			#path : FSAbsolutePath [
 				'src'
 			]
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'directional-tile.png'
+			],
+			#encoding : @5
 		},
 		GSTonelMapper {
 			#version : 1,
