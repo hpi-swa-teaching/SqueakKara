@@ -33,14 +33,13 @@ SKKara class >> newInGrid: aGrid at: aPoint [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/16/2026 13:50'
+	#'squeak_changestamp' : 'LM 6/25/2026 22:01'
 }
 SKKara >> canMoveAhead [
 
 	| neighboursNext movementDirection |
 
 	(self trunkAhead) ifTrue: [ ^ false ].
-	(self karaAhead) ifTrue: [ ^ false ].
 	
 	movementDirection := self viewDirection.
 	neighboursNext := self neighboursAt: movementDirection.
@@ -232,7 +231,7 @@ SKKara >> karaAhead [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'mr 6/16/2026 13:51'
+	#'squeak_changestamp' : 'LM 6/25/2026 22:01'
 }
 SKKara >> lockAt: aPoint [
 
@@ -240,6 +239,7 @@ SKKara >> lockAt: aPoint [
 
 	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
 	
+	(self karaAhead) ifTrue: [ ^ self ].
 	(self canMoveAhead) ifFalse: [ ^ self ].
 	
 	lockSuccessful := (self gridCoordinator lockAt: aPoint for: self).
