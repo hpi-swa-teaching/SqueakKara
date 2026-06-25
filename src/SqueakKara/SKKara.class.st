@@ -382,12 +382,12 @@ SKKara >> rotate [
 
 {
 	#category : #'error handling',
-	#'squeak_changestamp' : 'LD 6/18/2026 21:55'
+	#'squeak_changestamp' : 'LD 6/25/2026 19:50'
 }
 SKKara >> sayMessage: aString [
 
 	self say: aString.
-	self environment stop.
+	self environment stop
 	
 ]
 

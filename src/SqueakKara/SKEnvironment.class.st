@@ -245,7 +245,7 @@ SKEnvironment >> initializeLandingPage [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:46'
+	#'squeak_changestamp' : 'LD 6/25/2026 20:53'
 }
 SKEnvironment >> initializeObjects [
 
@@ -253,7 +253,8 @@ SKEnvironment >> initializeObjects [
 	self executeControls environment: self.
 	
 	self setSystemWindow.
-	self systemWindow openInHand
+	self systemWindow openInHand.
+	self isTerminating: false
 ]
 
 {
@@ -575,12 +576,13 @@ SKEnvironment >> setSystemWindow [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LD 6/18/2026 21:53'
+	#'squeak_changestamp' : 'LD 6/25/2026 19:50'
 }
 SKEnvironment >> stop [
 	self isTerminating ifFalse: [
 		self isTerminating: true.
-		[ self executer terminate ] fork ]
+		[self executer terminate] fork
+		]
 ]
 
 {

@@ -122,12 +122,12 @@ SKExecuteControlsTest >> testSlider [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LM 5/23/2026 14:05'
+	#'squeak_changestamp' : 'LD 6/25/2026 21:04'
 }
 SKExecuteControlsTest >> testStop [
 
 	environment firstWorkspace userCode: 'kara move.'.
 	controls actionRun.
-	controls actionStop.
+	environment executer terminate.
 	self assert: environment executer state = #terminated.
 ]

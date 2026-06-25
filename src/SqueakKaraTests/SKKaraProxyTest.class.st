@@ -5,7 +5,8 @@ Class {
 		'decorator',
 		'grid',
 		'kara',
-		'scheduler'
+		'scheduler',
+		'environment'
 	],
 	#category : #SqueakKaraTests
 }
@@ -59,13 +60,14 @@ SKKaraProxyTest >> scheduler [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'LM 5/8/2026 17:00'
+	#'squeak_changestamp' : 'LD 6/25/2026 20:25'
 }
 SKKaraProxyTest >> setUp [
 
 	| executer |
-
+	environment := SKEnvironment new.
 	grid := SKGrid newWithExtent: self gridSize.
+	environment grid: grid.
 	kara := SKKara newInGrid: self grid at: 1 @ 1.
 
 	decorator := SKKaraProxy new.
