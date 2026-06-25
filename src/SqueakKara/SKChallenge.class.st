@@ -83,6 +83,43 @@ SKChallenge class >> initializeChallenge11For: anEnvironment [
 
 {
 	#category : #challenges,
+	#'squeak_changestamp' : 'AB 6/25/2026 19:59'
+}
+SKChallenge class >> initializeChallenge12For: anEnvironment [
+	
+	| grid |
+	
+	grid := anEnvironment grid.
+	
+	anEnvironment addKara: (SKKara newInGrid: grid at: 2 @ 2 with: 6 @ 6).
+	anEnvironment addKara: (SKKara newInGrid: grid at: 6 @ 2 with: 2 @ 6).
+	
+	2 to: 6 do: [ :x | SKTrunk newInGrid: grid at: x @ 1 ].
+	2 to: 6 do: [ :x | SKTrunk newInGrid: grid at: x @ 7 ].
+	1 to: 7 do: [ :y | SKTrunk newInGrid: grid at: 1 @ y ].
+	1 to: 7 do: [ :y | SKTrunk newInGrid: grid at: 7 @ y ].
+	
+	SKTrunk newInGrid: grid at: 2 @ 3.
+	SKTrunk newInGrid: grid at: 5 @ 2.
+	SKTrunk newInGrid: grid at: 3 @ 3.
+	SKTrunk newInGrid: grid at: 2 @ 4.
+	SKTrunk newInGrid: grid at: 3 @ 4.
+	SKTrunk newInGrid: grid at: 3 @ 5.
+	SKTrunk newInGrid: grid at: 5 @ 3.
+	SKTrunk newInGrid: grid at: 5 @ 5.
+	SKTrunk newInGrid: grid at: 2 @ 5.
+	SKTrunk newInGrid: grid at: 6 @ 5.
+	
+	3 to: 6 do: [ :y |
+		SKDirectionalTile newInGrid: grid at: (4 @ y) enterFrom: SKDirection above ].
+	
+	SKDirectionalTile newInGrid: grid at: (6 @ 4) enterFrom: SKDirection above.
+	4 to: 5 do: [ :x |
+		SKDirectionalTile newInGrid: grid at: (x @ 4) enterFrom: SKDirection right ].
+]
+
+{
+	#category : #challenges,
 	#'squeak_changestamp' : 'LM 6/9/2026 18:44'
 }
 SKChallenge class >> initializeChallenge1For: anEnvironment [
