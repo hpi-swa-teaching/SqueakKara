@@ -1,12 +1,11 @@
 "
-A SKDirectionalTile is a tile that can only be entered from defined directions.
+A SKDirectionalTile is a grid object that can hinder karas movement depending on its direction.
 
 Instance Variables
-	direction:		<Object>
+	direction:		<Point>
 
 direction
-	- which direction kara is able to enter from
-
+	- direction of possible movement
 "
 Class {
 	#name : #SKDirectionalTile,
@@ -15,11 +14,11 @@ Class {
 		'direction'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'LD 6/26/2026 11:02'
+	#'squeak_changestamp' : 'LD 6/26/2026 11:05'
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #'instance creation',
 	#'squeak_changestamp' : 'LD 6/26/2026 10:50'
 }
 SKDirectionalTile class >> newInGrid: aGrid at: aPoint enterFrom: aDirection [
@@ -35,7 +34,7 @@ SKDirectionalTile class >> newInGrid: aGrid at: aPoint enterFrom: aDirection [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'LD 6/26/2026 10:50'
 }
 SKDirectionalTile >> direction [
@@ -44,7 +43,7 @@ SKDirectionalTile >> direction [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'LD 6/26/2026 10:50'
 }
 SKDirectionalTile >> direction: aDirection [
@@ -53,7 +52,7 @@ SKDirectionalTile >> direction: aDirection [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'LD 6/26/2026 10:50'
 }
 SKDirectionalTile >> isDirectionalTile [
@@ -62,7 +61,7 @@ SKDirectionalTile >> isDirectionalTile [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #direction,
 	#'squeak_changestamp' : 'LD 6/26/2026 10:50'
 }
 SKDirectionalTile >> matchesDirection: aDirection [
@@ -71,7 +70,7 @@ SKDirectionalTile >> matchesDirection: aDirection [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #appearance,
 	#'squeak_changestamp' : 'LD 6/26/2026 10:51'
 }
 SKDirectionalTile >> scaleToFactor [
@@ -81,7 +80,7 @@ SKDirectionalTile >> scaleToFactor [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #appearance,
 	#'squeak_changestamp' : 'LD 6/26/2026 10:51'
 }
 SKDirectionalTile >> textureFilename [
@@ -90,7 +89,7 @@ SKDirectionalTile >> textureFilename [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #appearance,
 	#'squeak_changestamp' : 'LD 6/26/2026 10:51'
 }
 SKDirectionalTile >> zLayer [

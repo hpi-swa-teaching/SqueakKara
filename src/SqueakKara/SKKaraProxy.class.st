@@ -110,15 +110,12 @@ SKKaraProxy >> move [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LD 6/17/2026 15:25'
+	#'squeak_changestamp' : 'LD 6/26/2026 11:13'
 }
 SKKaraProxy >> moveAction [
 
 	^ (self isLocked: (self nextField))
-		ifFalse: [
-			| previousPosition |
-			previousPosition := self coordinates.
-			self kara move ]
+		ifFalse: [ self kara move ]
 		ifTrue: [ 
 			self kara errorScheduler.
 			false ]
