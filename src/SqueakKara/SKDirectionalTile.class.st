@@ -70,7 +70,7 @@ SKDirectionalTile >> matchesDirection: aDirection [
 ]
 
 {
-	#category : #appearance,
+	#category : #accessing,
 	#'squeak_changestamp' : 'LD 6/26/2026 10:51'
 }
 SKDirectionalTile >> scaleToFactor [
