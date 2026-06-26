@@ -312,7 +312,7 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 6/26/2026 10:59'
+	#'squeak_changestamp' : 'mr 6/25/2026 21:07'
 }
 SKKara >> move [
 	
@@ -400,34 +400,12 @@ SKKara >> randomDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 12:08'
-}
-SKKara >> rotate [
-	
-	| centerWidth centerHeight image |
-	
-	centerWidth := self image width / 2.
-	centerHeight := self image height / 2.
-	image := self originalImage.
-	self viewDirection caseOf: {
-		[SKDirection right] -> [image := self image rotateBy: #right centerAt: centerWidth @ centerHeight].
-		[SKDirection below] -> [image := self image rotateBy: #pi centerAt: centerWidth @ centerHeight].
-		[SKDirection left] -> [image := self image rotateBy: #left centerAt: centerWidth @ centerHeight].
-		[SKDirection above] -> [image := self image rotateBy: #none centerAt: centerWidth @ centerHeight].
-	}.
-	
-	^ image
-]
-
-{
-	#category : #'error handling',
-	#'squeak_changestamp' : 'LD 6/25/2026 19:50'
+	#'squeak_changestamp' : 'mr 6/25/2026 21:07'
 }
 SKKara >> sayMessage: aString [
 
-	self say: aString.
-	self environment stop
-	
+	SKDismissableSpeechBubbleMorph string: aString type: #speech for: self.
+  self environment stop
 ]
 
 {
