@@ -180,6 +180,15 @@ SKGridObject >> isCriticalSection [
 ]
 
 {
+	#category : #geometry,
+	#'squeak_changestamp' : 'LD 6/26/2026 10:43'
+}
+SKGridObject >> isDirectionalTile [
+	
+	^ false
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'LM 4/29/2026 13:07'
 }
@@ -330,6 +339,27 @@ SKGridObject >> relativePosition [
 SKGridObject >> relativePositionFor: aPoint [
 
 	^ aPoint - self grid position
+]
+
+{
+	#category : #'neighbour detection',
+	#'squeak_changestamp' : 'LD 6/26/2026 10:43'
+}
+SKGridObject >> rotateTowards: aDirection [
+
+	| centerWidth centerHeight image |
+	
+	centerWidth := self image width / 2.
+	centerHeight := self image height / 2.
+	image := self originalImage.
+	aDirection caseOf: {
+		[ SKDirection right ] -> [ image := self image rotateBy: #right centerAt: centerWidth @ centerHeight ].
+		[ SKDirection below ] -> [ image := self image rotateBy: #pi centerAt: centerWidth @ centerHeight ].
+		[ SKDirection left ] -> [ image := self image rotateBy: #left centerAt: centerWidth @ centerHeight ].
+		[ SKDirection above ] -> [ image := self image rotateBy: #none centerAt: centerWidth @ centerHeight ].
+	}.
+	
+	^ image
 ]
 
 {

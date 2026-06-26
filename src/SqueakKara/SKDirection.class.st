@@ -46,6 +46,15 @@ SKDirection class >> left [
 
 {
 	#category : #directions,
+	#'squeak_changestamp' : 'LD 6/26/2026 10:41'
+}
+SKDirection class >> mirror: aDirection [
+	
+	^ aDirection * -1
+]
+
+{
+	#category : #directions,
 	#'squeak_changestamp' : 'LK 5/24/2024 11:28'
 }
 SKDirection class >> right [

@@ -222,6 +222,23 @@ SKKara >> findUnusedColor [
 ]
 
 {
+	#category : #movement,
+	#'squeak_changestamp' : 'LD 6/26/2026 10:44'
+}
+SKKara >> hasBlockingDirectionalTileIn: aNeighborCollection direction: aDirection [
+	
+	| directionalTiles |
+	
+	directionalTiles := (aNeighborCollection 
+		select: [ :neighbor | neighbor isDirectionalTile ]).
+	
+	directionalTiles isEmpty ifTrue: [ ^ false ].
+		
+	^ (directionalTiles anySatisfy: [ :directionalTile | directionalTile matchesDirection: aDirection ]) not
+
+]
+
+{
 	#category : #initialization,
 	#'squeak_changestamp' : 'LM 5/28/2026 19:40'
 }
@@ -295,13 +312,16 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 6/17/2026 15:24'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:59'
 }
 SKKara >> move [
 	
 	self stopSayingOrThinking.
 	(self trunkAhead) ifTrue: [ 
 		self errorTrunk.
+		^ false ].
+	(self canMoveAhead) ifFalse: [
+		self errorOutOfBounce.
 		^ false ].
 	(self moveToCoordinates: self coordinates + self viewDirection) ifTrue: [
 		^ true ]
@@ -412,7 +432,7 @@ SKKara >> sayMessage: aString [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/21/2026 12:08'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:45'
 }
 SKKara >> scaleToFactor [
 
@@ -421,13 +441,13 @@ SKKara >> scaleToFactor [
 	super scaleToFactor.
 	self updateColor.
 	
-	image := self rotate.
+	image := self rotateTowards: self viewDirection.
 	self image: image
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/22/2026 22:12'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:45'
 }
 SKKara >> setTexture [
 
@@ -440,7 +460,7 @@ SKKara >> setTexture [
 		scaledToWidth: self grid pixelPerBlock.
 	
 	self image: aForm.
-	self rotate.
+	self rotateTowards: self viewDirection.
 	self originalImage: aForm.
 	self updateColorFor: aForm
 ]

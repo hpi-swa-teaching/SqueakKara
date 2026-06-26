@@ -23,6 +23,35 @@ SKChallenge class >> initializeBlankProjectChallengeFor: anEnvironment [
 
 {
 	#category : #challenges,
+	#'squeak_changestamp' : 'LD 6/26/2026 10:52'
+}
+SKChallenge class >> initializeChallenge10For: anEnvironment [
+	
+	| grid |
+	
+	grid := anEnvironment grid.
+	
+	anEnvironment addKara: (SKKara newInGrid: grid at: 1 @ 5 with: 2 @ 5).
+	anEnvironment addKara: (SKKara newInGrid: grid at: 3 @ 1 with: 2 @ 1).
+	
+	1 to: 5 do: [ :y | (SKCriticalSection newInGrid: grid at: 2 @ y) group: #group1; color: Color green ].
+	
+	2 to: 4 do: [ :y |
+		SKDirectionalTile newInGrid: grid at: (1 @ y) enterFrom: SKDirection below.
+		SKDirectionalTile newInGrid: grid at: (2 @ y) enterFrom: SKDirection above.
+		SKDirectionalTile newInGrid: grid at: (2 @ y) enterFrom: SKDirection below.
+		SKDirectionalTile newInGrid: grid at: (3 @ y) enterFrom: SKDirection above ].
+	
+	SKDirectionalTile newInGrid: grid at: (1 @ 1) enterFrom: SKDirection below.
+	SKDirectionalTile newInGrid: grid at: (2 @ 1) enterFrom: SKDirection below.
+	SKDirectionalTile newInGrid: grid at: (2 @ 5) enterFrom: SKDirection above.
+	SKDirectionalTile newInGrid: grid at: (3 @ 5) enterFrom: SKDirection above.
+	SKDirectionalTile newInGrid: grid at: (2 @ 1) enterFrom: SKDirection left.
+	SKDirectionalTile newInGrid: grid at: (2 @ 5) enterFrom: SKDirection right
+]
+
+{
+	#category : #challenges,
 	#'squeak_changestamp' : 'LM 6/9/2026 18:44'
 }
 SKChallenge class >> initializeChallenge1For: anEnvironment [
