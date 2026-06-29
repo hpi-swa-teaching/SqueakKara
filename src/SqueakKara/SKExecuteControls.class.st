@@ -326,3 +326,12 @@ SKExecuteControls >> sliderSpeed: aSlider [
 	
 	 sliderSpeed := aSlider
 ]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'ND 6/29/2026 16:44'
+}
+SKExecuteControls >> updateTextures [
+
+	self buttonRun updateTextures
+]
