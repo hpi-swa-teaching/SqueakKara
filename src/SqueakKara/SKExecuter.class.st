@@ -253,7 +253,7 @@ SKExecuter >> terminate [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'ND 6/17/2026 00:07'
+	#'squeak_changestamp' : 'ND 6/29/2026 16:36'
 }
 SKExecuter >> terminateFor: aKara [
 
@@ -261,7 +261,7 @@ SKExecuter >> terminateFor: aKara [
 
 	(self processes at: aKara) terminate.
 	self processes removeKey: aKara.
-
+	self environment updateTextures
 ]
 
 {

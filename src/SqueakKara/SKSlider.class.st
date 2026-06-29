@@ -110,11 +110,11 @@ SKSlider >> sliderSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/25/2026 21:18'
+	#'squeak_changestamp' : 'ND 6/29/2026 16:37'
 }
-SKSlider >> sliderSpeed: anObject [
+SKSlider >> sliderSpeed: aNumber [
 
-	sliderSpeed := anObject
+	sliderSpeed := aNumber
 ]
 
 {
