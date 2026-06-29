@@ -238,7 +238,7 @@ SKBlockEditor >> ownerChanged [
 
 {
 	#category : #'submorphs - tracking',
-	#'squeak_changestamp' : 'FR 6/24/2026 20:01'
+	#'squeak_changestamp' : 'FR 6/29/2026 20:40'
 }
 SKBlockEditor >> refreshBlockCount [
 
@@ -246,7 +246,20 @@ SKBlockEditor >> refreshBlockCount [
 	
 	result := self startBlock blockCount - 1.
 	self functionStarts keysDo: [:key | result := (self functionStartWithName: key) blockCount + result].
-	(self startBlock blockParts at: 2) setDefaultUIText: result asString, ' / ', self blockMax asString
+	self setBlockCountDisplay: result
+	
+]
+
+{
+	#category : #'submorphs - tracking',
+	#'squeak_changestamp' : 'FR 6/29/2026 20:40'
+}
+SKBlockEditor >> setBlockCountDisplay: aNumber [
+	
+	aNumber > self blockMax ifTrue:[(self startBlock blockParts at: 2) defaultUIEntry color: Color red]
+		ifFalse:[(self startBlock blockParts at: 2) defaultUIEntry color: Color black].
+	(self startBlock blockParts at: 2) setDefaultUIText: aNumber asString, ' / ', self blockMax asString
+	
 	
 ]
 
