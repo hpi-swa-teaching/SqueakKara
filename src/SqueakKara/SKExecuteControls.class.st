@@ -134,9 +134,10 @@ SKExecuteControls >> buttonNextChallenge: aMorph [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:53'
+	#'squeak_changestamp' : 'LM 6/29/2026 16:46'
 }
 SKExecuteControls >> buttonReset [
+
 	^ buttonReset
 ]
 
