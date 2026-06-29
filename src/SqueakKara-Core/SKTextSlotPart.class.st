@@ -29,7 +29,7 @@ SKTextSlotPart >> defaultValue [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
+	#'squeak_changestamp' : 'FR 6/29/2026 21:08'
 }
 SKTextSlotPart >> initialize [
 	
@@ -42,9 +42,9 @@ SKTextSlotPart >> initialize [
 		wrapCentering: #center;
 		borderWidth: SKBlockStyle borderWidth // 2;
 		cellPositioning: #center;
-		layoutInset: SKBlockStyle unit * 3 @ SKBlockStyle unit;
+		layoutInset:" SKBlockStyle unit * 3 @ SKBlockStyle unit"0;
 		cornerStyle: #rounded;
-		cornerRadius: SKBlockStyle blockPartHeight // 2;
+		cornerRadius: SKBlockStyle blockPartHeight // 3;
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
 		defaultUI: self makeDefaultUI;
@@ -116,7 +116,17 @@ SKTextSlotPart >> type: anObject [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'FR 6/9/2026 19:49'
+	#'squeak_changestamp' : 'FR 6/29/2026 21:05'
+}
+SKTextSlotPart >> updateLayout [
+
+	super updateLayout.
+	self type = #Integer ifTrue:[self cornerRadius: self height // 2].
+]
+
+{
+	#category : #updating,
+	#'squeak_changestamp' : 'FR 6/29/2026 21:07'
 }
 SKTextSlotPart >> updateUIType [
 

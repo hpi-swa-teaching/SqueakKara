@@ -48,6 +48,22 @@ SKBlockSource >> controlCategory [
 ]
 
 {
+	#category : #'block definitions - operators',
+	#'squeak_changestamp' : 'FR 6/29/2026 20:57'
+}
+SKBlockSource >> equalBlock [
+
+	^ SKBooleanBlock new
+		addIntegerPart;
+		addLabel: '=';
+		addIntegerPart;
+		value: [:int1 :int2 | '((',int1,') = (',int2,'))'];
+		category: #operators;
+		updateLayout;
+		yourself
+]
+
+{
 	#category : #'block definitions - control',
 	#'squeak_changestamp' : 'FR 6/9/2026 18:24'
 }
@@ -91,6 +107,22 @@ SKBlockSource >> functionStart [
 	^ SKFunctionStart new
 		isStart: true;
 		action: '';
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - operators',
+	#'squeak_changestamp' : 'FR 6/29/2026 20:59'
+}
+SKBlockSource >> greaterBlock [
+
+	^ SKBooleanBlock new
+		addIntegerPart;
+		addLabel: '>';
+		addIntegerPart;
+		value: [:int1 :int2 | '((',int1,') > (',int2,'))'];
+		category: #operators;
 		updateLayout;
 		yourself
 ]
@@ -161,6 +193,38 @@ SKBlockSource >> initialize [
 		layoutChanged;
 		minWidth: self width;
 		collapseAll
+]
+
+{
+	#category : #'block definitions - operators',
+	#'squeak_changestamp' : 'FR 6/29/2026 20:59'
+}
+SKBlockSource >> lessBlock [
+
+	^ SKBooleanBlock new
+		addIntegerPart;
+		addLabel: '<';
+		addIntegerPart;
+		value: [:int1 :int2 | '((',int1,') < (',int2,'))'];
+		category: #operators;
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - operators',
+	#'squeak_changestamp' : 'FR 6/29/2026 21:00'
+}
+SKBlockSource >> minusBlock [
+
+	^ SKIntegerBlock new
+		addIntegerPart;
+		addLabel: '-';
+		addIntegerPart;
+		value: [:int1 :int2 | '((',int1,') - (',int2,'))'];
+		category: #operators;
+		updateLayout;
+		yourself
 ]
 
 {
@@ -269,13 +333,18 @@ SKBlockSource >> onCloverleafBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'FR 6/23/2026 19:45'
+	#'squeak_changestamp' : 'FR 6/29/2026 20:55'
 }
 SKBlockSource >> operatorCategory [
 	
 	^ SKBlockCategory new
 		title: 'Operators';
 		setColorsToMatchCategory: #operators;
+		addBlock: self plusBlock;
+		addBlock: self minusBlock;
+		addBlock: self equalBlock;
+		addBlock: self greaterBlock;
+		addBlock: self lessBlock;
 		addBlock: self andBlock;
 		addBlock: self orBlock;
 		addBlock: self notBlock;
@@ -293,6 +362,22 @@ SKBlockSource >> orBlock [
 		addLabel: 'or';
 		addBooleanPart;
 		value: [:bool1 :bool2 | '((',bool1,') or: [',bool2,'])'];
+		category: #operators;
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - operators',
+	#'squeak_changestamp' : 'FR 6/29/2026 21:00'
+}
+SKBlockSource >> plusBlock [
+
+	^ SKIntegerBlock new
+		addIntegerPart;
+		addLabel: '+';
+		addIntegerPart;
+		value: [:int1 :int2 | '((',int1,') + (',int2,'))'];
 		category: #operators;
 		updateLayout;
 		yourself
