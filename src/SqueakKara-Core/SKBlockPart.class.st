@@ -36,9 +36,9 @@ SKBlockPart >> type [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
+	#'squeak_changestamp' : 'FR 6/29/2026 21:20'
 }
 SKBlockPart >> updateLayout [
 
-	self block updateLayout
+	self block ifNotNil: [self block updateLayout] 
 ]

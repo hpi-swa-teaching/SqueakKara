@@ -57,7 +57,7 @@ SKTextSlotPart >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 19:02'
+	#'squeak_changestamp' : 'FR 6/29/2026 21:15'
 }
 SKTextSlotPart >> makeDefaultUI [
 
@@ -68,7 +68,7 @@ SKTextSlotPart >> makeDefaultUI [
 		listCentering: #center;
 		wrapCentering: #center;
 		cellPositioning: #center;
-		layoutInset: 0;
+		layoutInset: SKBlockStyle unit * 3 @ SKBlockStyle unit;
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
 		color: Color transparent.
@@ -126,9 +126,10 @@ SKTextSlotPart >> updateLayout [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'FR 6/29/2026 21:07'
+	#'squeak_changestamp' : 'FR 6/29/2026 21:19'
 }
 SKTextSlotPart >> updateUIType [
 
 	self defaultUIEntry numericOnly: (self type = #Integer).
+	self updateLayout
 ]
