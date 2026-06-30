@@ -5,7 +5,8 @@ Class {
 		'startBlock',
 		'window',
 		'functionStarts',
-		'isWatchingChanges'
+		'isWatchingChanges',
+		'variables'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -54,13 +55,13 @@ SKBlockEditor >> buildEditorPane [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/24/2026 02:35'
+	#'squeak_changestamp' : 'FR 6/30/2026 00:33'
 }
 SKBlockEditor >> buildSourcePane [
 	
 	| pane source |
 
-	source := SKBlockSource new.
+	source := SKBlockSource new blockEditor: self.
 	pane := ScrollPane new
 		color: Color transparent;
 		borderWidth: 0;
@@ -133,11 +134,17 @@ SKBlockEditor >> functionStarts [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
+	#'squeak_changestamp' : 'FR 6/30/2026 00:55'
 }
 SKBlockEditor >> getCode [
 
-	^ self startBlock getCode
+	| code |
+	
+	code:= '| '.
+	self variables do: [:each | code:= code, each, ' '].
+	code := code,' |', String cr,  self startBlock getCode.
+	
+	^ code
 ]
 
 {
@@ -228,6 +235,15 @@ SKBlockEditor >> startBlock [
 		isStart: true;
 		leftSource: false;
 		yourself]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/30/2026 00:49'
+}
+SKBlockEditor >> variables [
+
+	^ variables ifNil: [variables := Set new. ^ variables]
 ]
 
 {

@@ -1,8 +1,58 @@
 Class {
 	#name : #SKBlockSource,
 	#superclass : #Morph,
+	#instVars : [
+		'blockEditor',
+		'variablesCategory'
+	],
 	#category : #'SqueakKara-Core'
 }
+
+{
+	#category : #'block definitions - variables',
+	#'squeak_changestamp' : 'FR 6/30/2026 01:17'
+}
+SKBlockSource >> addToVariableBlock [
+
+	^ SKActionBlock new
+		addLabel: 'add';
+		addIntegerPart;
+		addLabel: 'to Variable';
+		addEmptyIntegerPart;
+		action: [:int :var | var,':= ',var, ' + ', int];
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - variables',
+	#'squeak_changestamp' : 'FR 6/30/2026 01:14'
+}
+SKBlockSource >> addVariable [
+
+	self variablesCategory addBlock: (SKIntegerBlock new 
+		addLabel: ('Variable ', (self blockEditor variables size + 1));
+		value: ['variable', (self blockEditor variables size + 1)];
+		updateLayout;
+		yourself).
+	self blockEditor variables add: ('variable', (self blockEditor variables size + 1))
+]
+
+{
+	#category : #'block definitions - variables',
+	#'squeak_changestamp' : 'FR 6/30/2026 01:15'
+}
+SKBlockSource >> addVariablesButton [
+
+	^ SimpleButtonMorph new label: 'add Variable';
+		"layoutPolicy: TableLayout new;
+		hResizing: #spaceFill;
+		wrapCentering: #center;"
+		target: self;
+		actionSelector: #addVariable;
+		color: Color lightGray twiceLighter;
+		yourself
+]
 
 {
 	#category : #'block definitions - operators',
@@ -18,6 +68,22 @@ SKBlockSource >> andBlock [
 		category: #operators;
 		updateLayout;
 		yourself
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/30/2026 00:33'
+}
+SKBlockSource >> blockEditor [
+	^ blockEditor
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/30/2026 00:33'
+}
+SKBlockSource >> blockEditor: anObject [
+	blockEditor := anObject
 ]
 
 {
@@ -385,14 +451,15 @@ SKBlockSource >> plusBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/16/2026 21:10'
+	#'squeak_changestamp' : 'FR 6/30/2026 00:05'
 }
 SKBlockSource >> populate [
 
 	self addMorphBack: self movementCategory;
 		addMorphBack: self controlCategory;
 		addMorphBack: self sensingCategory;
-		addMorphBack: self operatorCategory
+		addMorphBack: self operatorCategory;
+		addMorphBack: self variablesCategory
 ]
 
 {
@@ -421,6 +488,22 @@ SKBlockSource >> sensingCategory [
 		addBlock: self trunkAheadBlock;
 		addBlock: self mushroomAheadBlock;
 		addBlock: self onCloverleafBlock;
+		yourself
+]
+
+{
+	#category : #'block definitions - variables',
+	#'squeak_changestamp' : 'FR 6/30/2026 18:59'
+}
+SKBlockSource >> setVariableBlock [
+
+	^ SKActionBlock new
+		addLabel: 'set Variable';
+		addEmptyIntegerPart;
+		addLabel: 'to';
+		addIntegerPart;
+		action: [:var :int | var,':= ',int];
+		updateLayout;
 		yourself
 ]
 
@@ -505,4 +588,28 @@ SKBlockSource >> untilLoop [
 			'[', condition,'] whileFalse: [', String cr, loopBranch, ']'];
 		updateLayout;
 		yourself
+]
+
+{
+	#category : #categories,
+	#'squeak_changestamp' : 'FR 6/30/2026 01:18'
+}
+SKBlockSource >> variablesCategory [
+	
+	^ variablesCategory ifNil: [variablesCategory := SKBlockCategory new
+		title: 'Variables';
+		setColorsToMatchCategory: #default;
+		addBlock: self setVariableBlock;
+		addBlock: self addToVariableBlock;
+		addBlock: self addVariablesButton;
+		
+		yourself. ^ variablesCategory]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/30/2026 00:36'
+}
+SKBlockSource >> variablesCategory: anObject [
+	variablesCategory := anObject
 ]
