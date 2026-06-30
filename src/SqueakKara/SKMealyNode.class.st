@@ -204,7 +204,7 @@ SKMealyNode >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LP 6/30/2026 15:11'
+	#'squeak_changestamp' : 'LP 6/30/2026 16:14'
 }
 SKMealyNode >> initialize [
 
@@ -220,6 +220,7 @@ SKMealyNode >> initialize [
 				color: Color yellow; 
 				askBeforeDiscardingEdits: false; 
 				vScrollBarPolicy: #never; 
+				setText: ''; 
 				extent: (self defaultSize x * 0.7) @(self defaultSize y * 0.7)) . 
 	self addMorph: self label. ]
 ]
