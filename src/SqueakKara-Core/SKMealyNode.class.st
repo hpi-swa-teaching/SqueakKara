@@ -204,7 +204,7 @@ SKMealyNode >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LP 6/30/2026 16:14'
+	#'squeak_changestamp' : 'LP 6/30/2026 16:24'
 }
 SKMealyNode >> initialize [
 
@@ -214,15 +214,15 @@ SKMealyNode >> initialize [
 		color: self normalColor;
 		borderWidth: 3;
 		isStartingNode: false.
-	(self isStartingNode) ifFalse: [	
+	
 	self label: (PluggableTextMorph new position: (12@10);
 				wrapFlag: true;
 				color: Color yellow; 
 				askBeforeDiscardingEdits: false; 
 				vScrollBarPolicy: #never; 
 				setText: ''; 
-				extent: (self defaultSize x * 0.7) @(self defaultSize y * 0.7)) . 
-	self addMorph: self label. ]
+				extent: (self defaultSize x * 0.7) @(self defaultSize y * 0.7)). 
+	self addMorph: self label 
 ]
 
 {
@@ -275,17 +275,19 @@ SKMealyNode >> justDroppedInto: newOwner event: anEvent [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/30/2026 13:56'
+	#'squeak_changestamp' : 'LP 6/30/2026 16:25'
 }
 SKMealyNode >> label [
+
 	^ label
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/30/2026 13:56'
+	#'squeak_changestamp' : 'LP 6/30/2026 16:25'
 }
 SKMealyNode >> label: anObject [
+
 	label := anObject
 ]
 
@@ -428,12 +430,12 @@ SKMealyNode >> stateMachineEditor: anObject [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LP 6/30/2026 16:07'
+	#'squeak_changestamp' : 'LP 6/30/2026 16:25'
 }
 SKMealyNode >> step [
 
 	self isInDrag ifTrue: [self changed: #pos].
-	(self label) ifNotNil: [self label hasUnacceptedEdits: false].
+	(self label) ifNotNil: [self label hasUnacceptedEdits: false]
 ]
 
 {
