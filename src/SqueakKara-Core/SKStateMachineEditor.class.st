@@ -345,7 +345,7 @@ SKStateMachineEditor >> initializeModeButtons [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/24/2026 00:03'
+	#'squeak_changestamp' : 'LP 6/30/2026 14:36'
 }
 SKStateMachineEditor >> initializePlayground [
 
@@ -359,7 +359,9 @@ SKStateMachineEditor >> initializePlayground [
 	
 	startingNode := SKMealyNode newWithName: self nodeCounter asString.
 	self nodeCounterPP.
-	startingNode isStartingNode: true.
+	startingNode removeMorph: startingNode label. 
+	startingNode label: nil. 
+	startingNode isStartingNode: true. 
 	startingNode addMorph: (StringMorph new
 		contents: 'START';
 		color: Color black;

@@ -10,7 +10,8 @@ Class {
 		'edges',
 		'edgeAngles',
 		'bestDifference',
-		'newAngle'
+		'newAngle',
+		'label'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -203,7 +204,7 @@ SKMealyNode >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/23/2026 22:08'
+	#'squeak_changestamp' : 'LP 6/30/2026 15:11'
 }
 SKMealyNode >> initialize [
 
@@ -212,7 +213,15 @@ SKMealyNode >> initialize [
 	self extent: self defaultSize;
 		color: self normalColor;
 		borderWidth: 3;
-		isStartingNode: false
+		isStartingNode: false.
+	(self isStartingNode) ifFalse: [	
+	self label: (PluggableTextMorph new position: (12@10);
+				wrapFlag: true;
+				color: Color yellow; 
+				askBeforeDiscardingEdits: false; 
+				vScrollBarPolicy: #never; 
+				extent: (self defaultSize x * 0.7) @(self defaultSize y * 0.7)) . 
+	self addMorph: self label. ]
 ]
 
 {
@@ -261,6 +270,22 @@ SKMealyNode >> justDroppedInto: newOwner event: anEvent [
 	self isInDrag: false;
 		triggerSelfLoopUpdate;
 		positionInPlayground: newOwner
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LP 6/30/2026 13:56'
+}
+SKMealyNode >> label [
+	^ label
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LP 6/30/2026 13:56'
+}
+SKMealyNode >> label: anObject [
+	label := anObject
 ]
 
 {
@@ -402,11 +427,12 @@ SKMealyNode >> stateMachineEditor: anObject [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:31'
+	#'squeak_changestamp' : 'LP 6/30/2026 16:07'
 }
 SKMealyNode >> step [
 
-	self isInDrag ifTrue: [self changed: #pos]
+	self isInDrag ifTrue: [self changed: #pos].
+	(self label) ifNotNil: [self label hasUnacceptedEdits: false].
 ]
 
 {
