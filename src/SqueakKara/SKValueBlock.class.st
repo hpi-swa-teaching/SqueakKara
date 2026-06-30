@@ -49,7 +49,7 @@ SKValueBlock >> type [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'SLH 6/16/2026 17:31'
+	#'squeak_changestamp' : 'FR 6/30/2026 20:44'
 }
 SKValueBlock >> validSnapConnectionsIn: anObject [
 
@@ -62,7 +62,7 @@ SKValueBlock >> validSnapConnectionsIn: anObject [
 			((each hasOwner: self) not) and: [
 				each ~= self]]) ifTrue: [
 					validConnections addAll: (each valueConnectionPoints select: [:connection |
-						((connection dist: self anchorPoint) < self snapRadius)])]].
+						connection type = self type and: [((connection dist: self anchorPoint) < self snapRadius)]])]].
 
 	^ validConnections
 ]

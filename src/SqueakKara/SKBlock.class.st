@@ -78,11 +78,17 @@ SKBlock >> addConnectionPoint: aConnectionPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/30/2026 01:09'
+	#'squeak_changestamp' : 'FR 6/30/2026 20:39'
 }
 SKBlock >> addEmptyIntegerPart [
 	
-	^ self addInputSlotPart: (SKTextSlotPart new type: #Integer; setDefaultUIText: String empty)
+	| textSlotPart |
+	
+	textSlotPart := SKTextSlotPart new type: #Integer.
+	textSlotPart defaultUI: (textSlotPart defaultUI addMorphBack: (Morph new color: Color transparent; extent: textSlotPart defaultUIEntry extent); removeMorph: textSlotPart defaultUIEntry).
+	textSlotPart restoreDefault.
+	
+	^ self addInputSlotPart: (textSlotPart)
 ]
 
 {

@@ -2,7 +2,6 @@ Class {
 	#name : #SKBlockSource,
 	#superclass : #Morph,
 	#instVars : [
-		'blockEditor',
 		'variablesCategory'
 	],
 	#category : #'SqueakKara-Core'
@@ -26,13 +25,13 @@ SKBlockSource >> addToVariableBlock [
 
 {
 	#category : #'block definitions - variables',
-	#'squeak_changestamp' : 'FR 6/30/2026 01:14'
+	#'squeak_changestamp' : 'FR 6/30/2026 20:22'
 }
 SKBlockSource >> addVariable [
 
 	self variablesCategory addBlock: (SKIntegerBlock new 
 		addLabel: ('Variable ', (self blockEditor variables size + 1));
-		value: ['variable', (self blockEditor variables size + 1)];
+		value: 'variable', (self blockEditor variables size + 1);
 		updateLayout;
 		yourself).
 	self blockEditor variables add: ('variable', (self blockEditor variables size + 1))
@@ -72,18 +71,10 @@ SKBlockSource >> andBlock [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/30/2026 00:33'
+	#'squeak_changestamp' : 'FR 6/30/2026 19:07'
 }
 SKBlockSource >> blockEditor [
-	^ blockEditor
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/30/2026 00:33'
-}
-SKBlockSource >> blockEditor: anObject [
-	blockEditor := anObject
+	^ ((self owner owner owner owner firstSubmorph submorphs at: 2) submorphs at: 3) firstSubmorph 
 ]
 
 {

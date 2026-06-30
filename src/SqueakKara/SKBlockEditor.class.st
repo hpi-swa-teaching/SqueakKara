@@ -55,13 +55,13 @@ SKBlockEditor >> buildEditorPane [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/30/2026 00:33'
+	#'squeak_changestamp' : 'FR 6/30/2026 19:08'
 }
 SKBlockEditor >> buildSourcePane [
 	
 	| pane source |
 
-	source := SKBlockSource new blockEditor: self.
+	source := SKBlockSource new.
 	pane := ScrollPane new
 		color: Color transparent;
 		borderWidth: 0;
