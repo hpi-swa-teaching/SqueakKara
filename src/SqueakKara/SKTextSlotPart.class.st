@@ -1,10 +1,21 @@
+"
+A SKTextSlotPart is a Gap that by default allows text to be entered to change its value. This can be either only numeric when (#Integer) or any String.
+
+Instance Variables
+	type:		<Object>
+
+type
+	- the type of Text expected (and accepted) - also affects the type of blocks that can be placed into this Slot
+
+"
 Class {
 	#name : #SKTextSlotPart,
 	#superclass : #SKInputSlotPart,
 	#instVars : [
 		'type'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:36'
 }
 
 {

@@ -1,10 +1,21 @@
+"
+A SKValueBlock is the Template for a SKBlock representing a Value that is placeable in a BlockPart of the same type.
+
+Instance Variables
+	value:		<Object>
+
+value
+	- the value this Block represents
+
+"
 Class {
 	#name : #SKValueBlock,
 	#superclass : #SKBlock,
 	#instVars : [
 		'value'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:11'
 }
 
 {

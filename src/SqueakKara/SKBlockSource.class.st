@@ -1,10 +1,21 @@
+"
+A SKBlockSource is the scrollable List of all available Blocks. Duplicates of the individual blocks can be dragged from this source to be placed in (usually) a SKBlockEditor 
+
+Instance Variables
+	variablesCategory:		<Object>
+
+variablesCategory
+	- reference to the variables Category of this instance to easier allow adding new variables to that category
+
+"
 Class {
 	#name : #SKBlockSource,
 	#superclass : #Morph,
 	#instVars : [
 		'variablesCategory'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:43'
 }
 
 {

@@ -1,7 +1,14 @@
+"
+A SKIntegerBlock is a SKValueBlock representing a Integer Value. It can be placed in other Blocks expecting a Integer Value
+
+Instance Variables
+
+"
 Class {
 	#name : #SKIntegerBlock,
 	#superclass : #SKValueBlock,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:13'
 }
 
 {

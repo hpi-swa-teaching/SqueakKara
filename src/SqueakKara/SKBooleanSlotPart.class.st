@@ -1,7 +1,14 @@
+"
+A SKBooleanSlotPart is a Gap for Boolean Value Blocks.
+
+Instance Variables
+
+"
 Class {
 	#name : #SKBooleanSlotPart,
 	#superclass : #SKInputSlotPart,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:34'
 }
 
 {

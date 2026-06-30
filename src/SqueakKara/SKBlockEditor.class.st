@@ -1,3 +1,29 @@
+"
+A SKBlockEditor is the Space in which SKBlocks can be placed. It also keeps track of all functions and variables and is the access point for the SKEnvironment to retrieve the code to be executed
+
+Instance Variables
+	functionStarts:		<Object>
+	isWatchingChanges:		<Object>
+	startBlock:		<Object>
+	variables:		<Object>
+	window:		<Object>
+
+functionStarts
+	- a Dictionary of Sets including all names of functionStarts that are placed in this instance
+
+isWatchingChanges
+	- boolean wether the BlockEditor rescales when the window size is changed
+
+startBlock
+	- the initial startingPoint of a Program written inside this instance
+
+variables
+	- a set of all variables used inside this instances' Program
+
+window
+	- the system window surrounding this instance
+
+"
 Class {
 	#name : #SKBlockEditor,
 	#superclass : #Morph,
@@ -8,7 +34,8 @@ Class {
 		'isWatchingChanges',
 		'variables'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:28'
 }
 
 {
