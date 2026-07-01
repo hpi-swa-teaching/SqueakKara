@@ -3,7 +3,7 @@ SKEnvironment provides the main programming environment, consisting of the grid 
 "
 Class {
 	#name : #SKEnvironment,
-	#superclass : #Object,
+	#superclass : #SKSystemWindow,
 	#instVars : [
 		'grid',
 		'karas',
@@ -77,13 +77,13 @@ SKEnvironment >> calculateScaleFactor: aPoint [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/23/2026 13:45'
+	#'squeak_changestamp' : 'ND 7/1/2026 16:10'
 }
 SKEnvironment >> close [
 
 	self grid abandon.
 	self executer terminate.
-	self systemWindow delete
+	self delete
 ]
 
 {
@@ -262,7 +262,7 @@ SKEnvironment >> initializeLandingPage [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:46'
+	#'squeak_changestamp' : 'ND 7/1/2026 16:09'
 }
 SKEnvironment >> initializeObjects [
 
@@ -270,7 +270,7 @@ SKEnvironment >> initializeObjects [
 	self executeControls environment: self.
 	
 	self setSystemWindow.
-	self systemWindow openInHand
+	self openInHand
 ]
 
 {
@@ -513,27 +513,27 @@ SKEnvironment >> pause [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:46'
+	#'squeak_changestamp' : 'ND 7/1/2026 16:08'
 }
 SKEnvironment >> positionExecuteControlsAndGrid [
 
 	| startPoint |
 	
 	startPoint  := self grid pixelPerBlock @ (3 * self grid pixelPerBlock).
-	self grid position: self systemWindow position + startPoint.
+	self grid position: self position + startPoint.
 	
 	startPoint := ((self gameWidth / 2) - (self executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
-	self executeControls position: self systemWindow position + startPoint.
+	self executeControls position: self position + startPoint.
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:26'
+	#'squeak_changestamp' : 'ND 7/1/2026 16:08'
 }
 SKEnvironment >> resize [
 	
 	| scaleFactor |
-	scaleFactor := self calculateScaleFactor: self systemWindow extent.
+	scaleFactor := self calculateScaleFactor: self extent.
 	
 	self resizeGridByFactor: scaleFactor.
 	self executeControls scaleFactor: scaleFactor
@@ -570,22 +570,20 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'jawi 6/3/2026 19:53'
+	#'squeak_changestamp' : 'ND 7/1/2026 16:08'
 }
 SKEnvironment >> setSystemWindow [
 	
 	| container |
 	
-	self systemWindow: SKSystemWindow new.
-	self systemWindow setLabel: 'Kara'.
+	self setLabel: 'Kara'.
 	
 	container := self containerMorph
 		addMorph: self grid;
 		addMorph: self executeControls;
 		yourself.
 	
-	self systemWindow
-		extent: self gameWidth @ self gameHeight;
+	self extent: self gameWidth @ self gameHeight;
 		setWindowColor: self grid backgroundColor;
 		resizeListener: [ self resize ];
 		closeListener: [ self abandon ];

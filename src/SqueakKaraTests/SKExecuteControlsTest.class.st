@@ -45,17 +45,17 @@ SKExecuteControlsTest >> testMaxNumberRandomKaraSpawn [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'ND 6/18/2026 21:57'
+	#'squeak_changestamp' : 'ND 7/1/2026 16:12'
 }
 SKExecuteControlsTest >> testNextChallenge [
 	
 	| world testEnvironment testEnvironmentNew |
 	
 	testEnvironment := SKEnvironment new initializeWithChallenge1.
-	world := testEnvironment systemWindow owner.
+	world := testEnvironment owner.
 	testEnvironment executeControls addButtonNextChallenge.
 	
-	self assert: (world submorphs includes: (testEnvironment systemWindow)).
+	self assert: (world submorphs includes: (testEnvironment)).
 	
 	testEnvironmentNew := testEnvironment executeControls buttonNextChallenge action.
 	
