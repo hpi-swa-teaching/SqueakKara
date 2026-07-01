@@ -1,10 +1,21 @@
+"
+A SKTextEntry is a TextMorph accepting one line of input with the option to only allow integer inputs.
+
+Instance Variables
+	numericOnly:		<Object>
+
+numericOnly
+	- boolean wether only numeric characters are allowed as input
+
+"
 Class {
 	#name : #SKTextEntry,
 	#superclass : #TextMorph,
 	#instVars : [
 		'numericOnly'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:49'
 }
 
 {
@@ -48,7 +59,7 @@ SKTextEntry >> isInBlockSource [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'FR 6/17/2026 16:11'
+	#'squeak_changestamp' : 'SLH 7/1/2026 10:52'
 }
 SKTextEntry >> keyStroke: anEvent [
 	
@@ -62,8 +73,8 @@ SKTextEntry >> keyStroke: anEvent [
 		^ self
 	].
 	(self isControlKey: char) ifTrue: [^ super keyStroke: anEvent].
-	char isDigit ifTrue: [^ super keyStroke: anEvent]
-	
+	char isDigit ifTrue: [^ super keyStroke: anEvent].
+	(char = $-) ifTrue: [^ super keyStroke: anEvent]
 ]
 
 {

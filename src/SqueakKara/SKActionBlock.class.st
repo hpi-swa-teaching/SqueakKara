@@ -1,3 +1,21 @@
+"
+A SKActionBlock is a SKBlock that (most often) represents a line of code. They are typically drawn with tabs at top and bottom to show that they can be connected to other SKActionBlocks vertically. 
+
+Instance Variables
+	action:		<Object>
+	connectionPoint:		<Object>
+	isStart:		<Object>
+
+action
+	- the line of code represented
+
+connectionPoint
+	- the Point where further Blocks can be connected
+
+isStart
+	- wether this Block is a 'Start of Script' Block as those behave slightly differently
+
+"
 Class {
 	#name : #SKActionBlock,
 	#superclass : #SKBlock,
@@ -6,7 +24,8 @@ Class {
 		'isStart',
 		'connectionPoint'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:05'
 }
 
 {

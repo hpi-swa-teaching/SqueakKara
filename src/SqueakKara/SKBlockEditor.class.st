@@ -1,3 +1,29 @@
+"
+A SKBlockEditor is the Space in which SKBlocks can be placed. It also keeps track of all functions and variables and is the access point for the SKEnvironment to retrieve the code to be executed
+
+Instance Variables
+	functionStarts:		<Object>
+	isWatchingChanges:		<Object>
+	startBlock:		<Object>
+	variables:		<Object>
+	window:		<Object>
+
+functionStarts
+	- a Dictionary of Sets including all names of functionStarts that are placed in this instance
+
+isWatchingChanges
+	- boolean wether the BlockEditor rescales when the window size is changed
+
+startBlock
+	- the initial startingPoint of a Program written inside this instance
+
+variables
+	- a set of all variables used inside this instances' Program
+
+window
+	- the system window surrounding this instance
+
+"
 Class {
 	#name : #SKBlockEditor,
 	#superclass : #Morph,
@@ -5,9 +31,11 @@ Class {
 		'startBlock',
 		'window',
 		'functionStarts',
-		'isWatchingChanges'
+		'isWatchingChanges',
+		'variables'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:28'
 }
 
 {
@@ -54,7 +82,7 @@ SKBlockEditor >> buildEditorPane [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/24/2026 02:35'
+	#'squeak_changestamp' : 'FR 6/30/2026 19:08'
 }
 SKBlockEditor >> buildSourcePane [
 	
@@ -133,11 +161,17 @@ SKBlockEditor >> functionStarts [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
+	#'squeak_changestamp' : 'FR 6/30/2026 00:55'
 }
 SKBlockEditor >> getCode [
 
-	^ self startBlock getCode
+	| code |
+	
+	code:= '| '.
+	self variables do: [:each | code:= code, each, ' '].
+	code := code,' |', String cr,  self startBlock getCode.
+	
+	^ code
 ]
 
 {
@@ -228,6 +262,15 @@ SKBlockEditor >> startBlock [
 		isStart: true;
 		leftSource: false;
 		yourself]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/30/2026 00:49'
+}
+SKBlockEditor >> variables [
+
+	^ variables ifNil: [variables := Set new. ^ variables]
 ]
 
 {

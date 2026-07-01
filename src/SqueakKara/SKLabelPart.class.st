@@ -1,10 +1,21 @@
+"
+A SKLabelPart is the non-editable text displayed to show e.g. a blocks name.
+
+Instance Variables
+	label:		<Object>
+
+label
+	- the text shown
+
+"
 Class {
 	#name : #SKLabelPart,
 	#superclass : #SKBlockPart,
 	#instVars : [
 		'label'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:37'
 }
 
 {
