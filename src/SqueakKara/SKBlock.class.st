@@ -185,6 +185,19 @@ SKBlock >> anchorPoint [
 ]
 
 {
+	#category : #'submorphs - callbacks',
+	#'squeak_changestamp' : 'FR 6/24/2026 20:18'
+}
+SKBlock >> blockCount [
+	
+	| result |
+	
+	result := 1.
+	self actionConnectionPoints ifEmpty: [^0] ifNotEmpty: [self actionConnectionPoints do:[:each | each connectedPoint ifNotNil: [result := result + each connectedPoint uiDelegate blockCount]]].
+	^ result
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
@@ -455,7 +468,7 @@ SKBlock >> tabHeight [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/24/2026 01:26'
+	#'squeak_changestamp' : 'FR 6/24/2026 20:08'
 }
 SKBlock >> updateLayout [
 
