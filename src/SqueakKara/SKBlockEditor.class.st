@@ -32,7 +32,8 @@ Class {
 		'window',
 		'functionStarts',
 		'isWatchingChanges',
-		'variables'
+		'variables',
+		'blockMax'
 	],
 	#category : #'SqueakKara-ProgrammingBlocks',
 	#'squeak_changestamp' : 'FR 6/30/2026 21:28'
