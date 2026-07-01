@@ -1,7 +1,14 @@
+"
+SKBlockStyle is a Style Reference used for SKBlocks to allow uniform sizing and coloring.
+
+Instance Variables
+
+"
 Class {
 	#name : #SKBlockStyle,
 	#superclass : #Morph,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:45'
 }
 
 {

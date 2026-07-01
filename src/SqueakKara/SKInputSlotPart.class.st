@@ -1,3 +1,21 @@
+"
+A SKInputSlotPart is a Gap for placing SKBlocks usually used inside other SKBlocks.
+
+Instance Variables
+	attachedBlock:		<Object>
+	connectionPoint:		<Object>
+	defaultUI:		<Object>
+
+attachedBlock
+	- the block placed inside this Slot
+
+connectionPoint
+	- the connection Point another Block could be placed onto
+
+defaultUI
+	- the contents displayed when no Block is attached
+
+"
 Class {
 	#name : #SKInputSlotPart,
 	#superclass : #SKBlockPart,
@@ -6,7 +24,8 @@ Class {
 		'attachedBlock',
 		'connectionPoint'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:32'
 }
 
 {

@@ -1,3 +1,33 @@
+"
+A SKBlockCategory is the collapsable header of a group SKBlocks (usually) in the SKBlockSource.
+
+Instance Variables
+	content:		<Object>
+	disclosure:		<Object>
+	expanded:		<Object>
+	header:		<Object>
+	title:		<Object>
+	titleLabel:		<Object>
+
+content
+	- the group of blocks assigned to this category
+
+disclosure
+	- the shown representation ('[+]') wether the category is currently expanded or collapsed
+
+expanded
+	- boolean describing wether the category is currently expanded
+
+header
+	- the Morph always displayed to represent this category
+
+title
+	- the Title of the category
+
+titleLabel
+	- the Morph used to display the title
+
+"
 Class {
 	#name : #SKBlockCategory,
 	#superclass : #Morph,
@@ -9,7 +39,8 @@ Class {
 		'titleLabel',
 		'expanded'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:19'
 }
 
 {
