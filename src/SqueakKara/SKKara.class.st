@@ -186,7 +186,7 @@ SKKara >> position: aPoint [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 09:45'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 16:25'
 }
 SKKara >> push [
 
@@ -265,7 +265,7 @@ SKKara >> scaleToFactor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'JS 6/23/2026 18:54'
+	#'squeak_changestamp' : 'ND 5/20/2026 15:52'
 }
 SKKara >> setTexture [
 
@@ -281,6 +281,7 @@ SKKara >> setTexture [
 	self rotate.
 	self originalImage: aForm.
 	self updateColorFor: aForm
+	
 
 ]
 
@@ -351,7 +352,7 @@ SKKara >> updateColorFor: aForm [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'JS 6/23/2026 16:01'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
 }
 SKKara >> viewDirection [
 	
@@ -360,7 +361,7 @@ SKKara >> viewDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'JS 6/23/2026 18:54'
+	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
 }
 SKKara >> viewDirection: aDirection [
 	
