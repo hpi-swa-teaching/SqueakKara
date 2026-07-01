@@ -138,6 +138,24 @@ SKMealyNode >> controller: aController [
 ]
 
 {
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 13:06'
+}
+SKMealyNode >> createNodeTextMorph [
+
+	| textMorph |
+
+	self isStartingNode ifTrue: [^ self].
+	textMorph := (SKNodeTextMorph new
+		contents: self name;
+		center: self center;
+		node: self;
+		yourself).
+	self label: textMorph.
+	self addMorph: textMorph
+]
+
+{
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:17'
 }
@@ -204,7 +222,7 @@ SKMealyNode >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LP 6/30/2026 16:59'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:35'
 }
 SKMealyNode >> initialize [
 
@@ -213,16 +231,7 @@ SKMealyNode >> initialize [
 	self extent: self defaultSize;
 		color: self normalColor;
 		borderWidth: 3;
-		isStartingNode: false.
-	
-	self label: (PluggableTextMorph new position: (11@17);
-				wrapFlag: true;
-				color: Color yellow; 
-				askBeforeDiscardingEdits: false; 
-				vScrollBarPolicy: #never; 
-				setText: ''; 
-				extent: (self defaultSize x * 0.7) @(self defaultSize y * 0.5)). 
-	self addMorph: self label 
+		isStartingNode: false
 ]
 
 {
@@ -292,6 +301,15 @@ SKMealyNode >> label: anObject [
 ]
 
 {
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:21'
+}
+SKMealyNode >> markNode [
+
+	self color: self selectedColor
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'JS 6/23/2026 22:09'
 }
@@ -309,11 +327,11 @@ SKMealyNode >> mouseDown: anEvent [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 10:06'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:22'
 }
 SKMealyNode >> name [
 
-	^ name
+	^ name 
 ]
 
 {
@@ -385,11 +403,14 @@ SKMealyNode >> removeEdge: aEdge [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:14'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 13:06'
 }
 SKMealyNode >> selectNode [
 
-	self color: self selectedColor
+	self isStartingNode ifTrue: [^ self].	
+	self label ifNotNil: [self label delete].
+	self createNodeTextMorph.
+	ActiveHand newKeyboardFocus: self label
 ]
 
 {
@@ -430,12 +451,11 @@ SKMealyNode >> stateMachineEditor: anObject [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LP 6/30/2026 16:25'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:37'
 }
 SKMealyNode >> step [
 
 	self isInDrag ifTrue: [self changed: #pos].
-	(self label) ifNotNil: [self label hasUnacceptedEdits: false]
 ]
 
 {
@@ -464,11 +484,31 @@ SKMealyNode >> triggerSelfLoopUpdate [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:14'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:21'
+}
+SKMealyNode >> unmarkNode [
+
+	self color: self normalColor
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 13:06'
 }
 SKMealyNode >> unselectNode [
 
-	self color: self normalColor
+	| label |
+	
+	self isStartingNode ifTrue: [^ self].
+	self label ifNotNil: [self name: self label contents.
+		self label delete].
+	label := (StringMorph new
+		contents: self name;
+		color: Color black;
+		center: self center;
+		yourself).
+	self label: label.
+	self addMorph: label
 ]
 
 {

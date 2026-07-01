@@ -38,7 +38,7 @@ SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/16/2026 16:41'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:56'
 }
 SKStateMachineEditor >> actionCreateNode [
 
@@ -48,6 +48,7 @@ SKStateMachineEditor >> actionCreateNode [
 	
 	self nodeCounterPP.
 	self playGround addNode: node.
+	node createNodeTextMorph.
 	node openInHand
 ]
 
@@ -102,6 +103,16 @@ SKStateMachineEditor >> actionSelectEdge: aEdge [
 
 	self deselectAllEdges.
 	aEdge gotSelected
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:34'
+}
+SKStateMachineEditor >> actionSelectNode: aNode [
+
+	self unselectAll.
+	aNode selectNode
 ]
 
 {
@@ -192,6 +203,15 @@ SKStateMachineEditor >> edges [
 SKStateMachineEditor >> enqueueNodeToDelete: aNode [
 
 	self nodesToDelete remove: aNode
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:38'
+}
+SKStateMachineEditor >> handelSelectModeNodeClicked: aNode [
+
+	self actionSelectNode: aNode
 ]
 
 {
@@ -345,11 +365,11 @@ SKStateMachineEditor >> initializeModeButtons [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LP 6/30/2026 14:36'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 13:08'
 }
 SKStateMachineEditor >> initializePlayground [
 
-|startingNode|
+	|startingNode|
 
 	self playGround
 			extent: 1400@900;
@@ -359,14 +379,12 @@ SKStateMachineEditor >> initializePlayground [
 	
 	startingNode := SKMealyNode newWithName: self nodeCounter asString.
 	self nodeCounterPP.
-	startingNode removeMorph: startingNode label. 
-	startingNode label: nil. 
 	startingNode isStartingNode: true. 
 	startingNode addMorph: (StringMorph new
 		contents: 'START';
 		color: Color black;
 		emphasis: TextEmphasis bold emphasisCode;
-		font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: 12);
+		font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: 8);
 		center: startingNode center).
 		
 	self playGround addNode: startingNode.
@@ -489,13 +507,14 @@ SKStateMachineEditor >> modes [
 
 {
 	#category : #events,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:20'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:28'
 }
 SKStateMachineEditor >> nodeClicked: aNode [
 
 	self mode caseOf: {
 		[#delete] -> [self actionDeleteNode: aNode].
-		[#edge]   -> [self handleEdgeModeNodeClicked: aNode]
+		[#edge]   -> [self handleEdgeModeNodeClicked: aNode].
+		[#select] -> [self handelSelectModeNodeClicked: aNode]
 	} otherwise: []
 ]
 
@@ -597,13 +616,13 @@ SKStateMachineEditor >> selectedNode [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:26'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:21'
 }
 SKStateMachineEditor >> selectedNode: aNode [
 
 	aNode 
-		ifNil: [ selectedNode ifNotNil: [selectedNode unselectNode]]
-		ifNotNil: [aNode selectNode].
+		ifNil: [ selectedNode ifNotNil: [selectedNode unmarkNode]]
+		ifNotNil: [aNode markNode].
 	
 	selectedNode := aNode.
 ]
@@ -631,15 +650,26 @@ SKStateMachineEditor >> stepTime [
 
 {
 	#category : #modes,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:43'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:35'
 }
 SKStateMachineEditor >> toggleMode: aMode [
 
+	self unselectAll.
 	self 
 		colorAllModeButtonsNormal;
 		markModeButtonSelected: aMode;
 		deselectAllEdges;
 		mode: aMode
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:34'
+}
+SKStateMachineEditor >> unselectAll [
+	
+	self playGround nodes do: [:anotherNode| anotherNode unselectNode]
+	
 ]
 
 {
