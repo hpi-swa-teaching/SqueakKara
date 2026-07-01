@@ -1,3 +1,21 @@
+"
+A SKFunctionStart is a Block representing the start of a callable Function. This class primarily manages how functions get registered with the SKBlockEditor.
+
+Instance Variables
+	caller:		<Object>
+	functionName:		<Object>
+	functionNameSlot:		<Object>
+
+caller
+	- the Object keeping track of Functions (probably a SKBlockEditor)
+
+functionName
+	- the name of the function that is registered with the caller
+
+functionNameSlot
+	- the name of the function as is typed in the TextSlot
+
+"
 Class {
 	#name : #SKFunctionStart,
 	#superclass : #SKActionBlock,
@@ -6,7 +24,8 @@ Class {
 		'functionName',
 		'caller'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:09'
 }
 
 {

@@ -1,3 +1,17 @@
+"
+A SKBlockRow is a Container for a Row of (usually) Block Parts inside a SKBlock as an SKBlock can visually represent a stack of multiple rows.
+
+Instance Variables
+	block:		<Object>
+	isGap:		<Object>
+
+block
+	- the block this row is part of
+
+isGap
+	- wether this row should leave space to attach (usually) SKAction Blocks
+
+"
 Class {
 	#name : #SKBlockRow,
 	#superclass : #Morph,
@@ -5,7 +19,8 @@ Class {
 		'block',
 		'isGap'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:39'
 }
 
 {

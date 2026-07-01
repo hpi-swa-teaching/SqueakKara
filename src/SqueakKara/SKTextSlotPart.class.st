@@ -1,10 +1,21 @@
+"
+A SKTextSlotPart is a Gap that by default allows text to be entered to change its value. This can be either only numeric when (#Integer) or any String.
+
+Instance Variables
+	type:		<Object>
+
+type
+	- the type of Text expected (and accepted) - also affects the type of blocks that can be placed into this Slot
+
+"
 Class {
 	#name : #SKTextSlotPart,
 	#superclass : #SKInputSlotPart,
 	#instVars : [
 		'type'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:36'
 }
 
 {
@@ -29,7 +40,7 @@ SKTextSlotPart >> defaultValue [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
+	#'squeak_changestamp' : 'FR 6/29/2026 21:08'
 }
 SKTextSlotPart >> initialize [
 	
@@ -42,9 +53,9 @@ SKTextSlotPart >> initialize [
 		wrapCentering: #center;
 		borderWidth: SKBlockStyle borderWidth // 2;
 		cellPositioning: #center;
-		layoutInset: SKBlockStyle unit * 3 @ SKBlockStyle unit;
+		layoutInset:" SKBlockStyle unit * 3 @ SKBlockStyle unit"0;
 		cornerStyle: #rounded;
-		cornerRadius: SKBlockStyle blockPartHeight // 2;
+		cornerRadius: SKBlockStyle blockPartHeight // 3;
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
 		defaultUI: self makeDefaultUI;
@@ -57,7 +68,7 @@ SKTextSlotPart >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 19:02'
+	#'squeak_changestamp' : 'FR 6/29/2026 21:15'
 }
 SKTextSlotPart >> makeDefaultUI [
 
@@ -68,7 +79,7 @@ SKTextSlotPart >> makeDefaultUI [
 		listCentering: #center;
 		wrapCentering: #center;
 		cellPositioning: #center;
-		layoutInset: 0;
+		layoutInset: SKBlockStyle unit * 3 @ SKBlockStyle unit;
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
 		color: Color transparent.
@@ -116,9 +127,20 @@ SKTextSlotPart >> type: anObject [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'FR 6/9/2026 19:49'
+	#'squeak_changestamp' : 'FR 6/29/2026 21:05'
+}
+SKTextSlotPart >> updateLayout [
+
+	super updateLayout.
+	self type = #Integer ifTrue:[self cornerRadius: self height // 2].
+]
+
+{
+	#category : #updating,
+	#'squeak_changestamp' : 'FR 6/29/2026 21:19'
 }
 SKTextSlotPart >> updateUIType [
 
 	self defaultUIEntry numericOnly: (self type = #Integer).
+	self updateLayout
 ]
