@@ -89,7 +89,7 @@ SKProgrammingUI >> executer: aExecuter [
 
 {
 	#category : #interface,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 08:53'
+	#'squeak_changestamp' : 'SLH 6/6/2026 14:56'
 }
 SKProgrammingUI >> getCode [
 

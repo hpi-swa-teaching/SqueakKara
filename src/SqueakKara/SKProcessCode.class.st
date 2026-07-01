@@ -1,9 +1,6 @@
 Class {
 	#name : #SKProcessCode,
 	#superclass : #SKProcess,
-	#instVars : [
-		'process'
-	],
 	#category : #'SqueakKara-Core'
 }
 
@@ -23,24 +20,6 @@ SKProcessCode >> isSuspended [
 SKProcessCode >> isTerminated [
 
 	^ self process isTerminated
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:11'
-}
-SKProcessCode >> process [
-	
-	^ process
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:12'
-}
-SKProcessCode >> process: aProcess [
-
-	process := aProcess
 ]
 
 {

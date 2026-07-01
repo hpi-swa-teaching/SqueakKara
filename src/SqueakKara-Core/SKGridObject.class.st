@@ -52,7 +52,7 @@ SKGridObject >> addToGrid [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/28/2026 18:49'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 00:34'
 }
 SKGridObject >> coordinates [
 
@@ -61,7 +61,7 @@ SKGridObject >> coordinates [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:44'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 00:41'
 }
 SKGridObject >> coordinates: aPoint [
 
@@ -142,7 +142,7 @@ SKGridObject >> initializeInGrid: aGrid at: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/29/2026 13:09'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 16:58'
 }
 SKGridObject >> isBlocking [
 
@@ -159,11 +159,20 @@ SKGridObject >> isCloverleaf [
 ]
 
 {
-	#category : #accessing,
+	#category : #type,
 	#'squeak_changestamp' : 'LM 4/29/2026 13:07'
 }
 SKGridObject >> isKara [
 
+	^ false
+]
+
+{
+	#category : #type,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/6/2026 20:11'
+}
+SKGridObject >> isMushroom [
+	
 	^ false
 ]
 
@@ -177,8 +186,17 @@ SKGridObject >> isTrunk [
 ]
 
 {
+	#category : #'object detection',
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 17:06'
+}
+SKGridObject >> isWalkable [
+
+	self subclassResponsibility
+]
+
+{
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:55'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 00:43'
 }
 SKGridObject >> moveToCoordinates: aPoint [
 
@@ -269,7 +287,7 @@ SKGridObject >> originalImage: aForm [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/29/2026 13:12'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/8/2026 00:43'
 }
 SKGridObject >> position: aPoint [
 
@@ -307,11 +325,12 @@ SKGridObject >> relativePositionFor: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:38'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 17:30'
 }
 SKGridObject >> scaleToFactor [
 
 	| size |
+	
 	size := self grid pixelPerBlock.
 
 	self image: (self originalImage scaledToSize: size @ size).
@@ -344,4 +363,19 @@ SKGridObject >> setTexture [
 SKGridObject >> textureFilename [
 
 	^ SubclassResponsibility
+]
+
+{
+	#category : #'object detection',
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 17:30'
+}
+SKGridObject >> walkableIn: aDirection [
+	
+	| target tile |
+	
+	target := self coordinates + aDirection.
+	(self grid isPointInGridDimensions: target) ifFalse: [ ^ false ].
+
+	tile := self gridCoordinator getTileAtCoordinates: target.
+	^ tile allSatisfy: [ :each | each isWalkable]
 ]

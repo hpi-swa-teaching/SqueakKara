@@ -401,11 +401,11 @@ SKLandingPage >> conceptStack: aStack [
 
 {
 	#category : #conceptSelection,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:42'
+	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 10:15'
 }
 SKLandingPage >> concepts [
 
-	^ { SKProgrammingConceptCode new. SKProgrammingConceptBlocks new. SKProgrammingConceptMealy new}
+	^ { SKProgrammingConcept code.  SKProgrammingConcept blocks. SKProgrammingConcept mealy }
 ]
 
 {

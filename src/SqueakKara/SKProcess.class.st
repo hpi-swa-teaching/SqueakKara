@@ -5,7 +5,8 @@ Class {
 		'compiler',
 		'context',
 		'scheduler',
-		'code'
+		'code',
+		'process'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -101,6 +102,24 @@ SKProcess >> isTerminated [
 SKProcess >> priority [
 
 	^ Processor userBackgroundPriority
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 12:40'
+}
+SKProcess >> process [
+
+	^ process
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 12:40'
+}
+SKProcess >> process: aProcess [
+
+	process := aProcess
 ]
 
 {
