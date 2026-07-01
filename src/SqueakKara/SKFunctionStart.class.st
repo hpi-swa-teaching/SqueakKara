@@ -116,16 +116,19 @@ SKFunctionStart >> justDroppedInto: anObject event: anEvent [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'FR 6/24/2026 03:48'
+	#'squeak_changestamp' : 'FR 6/24/2026 20:29'
 }
 SKFunctionStart >> removeCall [
 
-	(self caller functionStarts at: self functionName ifAbsent: [^ self])  remove:  self ifAbsent: [^ self]
+	(self caller functionStarts at: self functionName ifAbsent: [^ self]) remove:  self ifAbsent: [^ self].
+	(self caller functionStarts at: self functionName) ifEmpty: [self caller functionStarts removeKey: self functionName].
+	self caller refreshBlockCount.
+	
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/24/2026 03:49'
+	#'squeak_changestamp' : 'FR 6/24/2026 19:50'
 }
 SKFunctionStart >> spawn [
 
