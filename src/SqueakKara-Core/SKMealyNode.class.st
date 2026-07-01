@@ -222,7 +222,7 @@ SKMealyNode >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:35'
+	#'squeak_changestamp' : 'SLH 7/1/2026 12:28'
 }
 SKMealyNode >> initialize [
 
