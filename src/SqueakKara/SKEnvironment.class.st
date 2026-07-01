@@ -11,7 +11,6 @@ Class {
 		'executeControls',
 		'gameWidth',
 		'gameHeight',
-		'systemWindow',
 		'nextChallenge',
 		'currentChallenge'
 	],
@@ -600,24 +599,6 @@ SKEnvironment >> setSystemWindow [
 SKEnvironment >> stop [
 	
 	self executer terminate
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:11'
-}
-SKEnvironment >> systemWindow [
-	
-	^ systemWindow
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:10'
-}
-SKEnvironment >> systemWindow: anObject [
-	
-	systemWindow := anObject
 ]
 
 {

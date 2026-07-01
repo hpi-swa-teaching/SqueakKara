@@ -45,7 +45,7 @@ SKExecuteControlsTest >> testMaxNumberRandomKaraSpawn [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'ND 7/1/2026 16:12'
+	#'squeak_changestamp' : 'ND 7/1/2026 16:20'
 }
 SKExecuteControlsTest >> testNextChallenge [
 	
@@ -59,7 +59,7 @@ SKExecuteControlsTest >> testNextChallenge [
 	
 	testEnvironmentNew := testEnvironment executeControls buttonNextChallenge action.
 	
-	self deny: (world submorphs includes: (testEnvironment systemWindow)).
+	self deny: (world submorphs includes: (testEnvironment)).
 	
 	testEnvironmentNew close
 ]
