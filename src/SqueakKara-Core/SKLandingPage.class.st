@@ -229,38 +229,38 @@ SKLandingPage >> buildEnvironment [
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:53'
+	#'squeak_changestamp' : 'JS 7/1/2026 13:48'
 }
 SKLandingPage >> buttonExample1Label [
 
-	^ 'Example Project 1'
+	^ SKLevel1World2 levelName
 ]
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:53'
+	#'squeak_changestamp' : 'JS 6/23/2026 19:06'
 }
 SKLandingPage >> buttonExample2Label [
 
-	^ 'Example Project 2'
+	^ SKLevel1World4 levelName
 ]
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:53'
+	#'squeak_changestamp' : 'JS 6/23/2026 19:07'
 }
 SKLandingPage >> buttonExample3Label [
 
-	^ 'Example Project 3'
+	^ SKLevel2World3 levelName
 ]
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:15'
+	#'squeak_changestamp' : 'JS 6/23/2026 19:07'
 }
 SKLandingPage >> buttonExample4Label [
 
-	^ 'Example Project 4'
+	^ SKLevel2World4 levelName
 ]
 
 {

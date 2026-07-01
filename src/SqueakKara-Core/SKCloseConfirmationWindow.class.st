@@ -33,91 +33,82 @@ SKCloseConfirmationWindow >> abortButton: anObject [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 6/30/2026 12:49'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:13'
 }
 SKCloseConfirmationWindow >> buildAbortButton [
 
-	^ self buildButtonWithLabel: 'NO' 
-		selector: #closeOnlyConfirmationWindow
+	self buildButtonWithLabel: 'NO' 
+		selector: #closeOnlyConfirmationWindow 
+		centerXOffset: self buttonXOffset
+		centerYOffset: self buttonYOffset
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 6/30/2026 12:48'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:13'
 }
-SKCloseConfirmationWindow >> buildButtonWithLabel: aLabel selector: aSelector [
+SKCloseConfirmationWindow >> buildButtonWithLabel: aLabel selector: aSelector centerXOffset: aXOffset centerYOffset: aYOffset [
 
-	|button|
-	
-	button := (SimpleButtonMorph new
+	self confirmationButton: (SimpleButtonMorph new
 		label: aLabel;
 		target: self;
 		actionSelector: aSelector;
 		color: SKStylesheet secondaryColor;
 		width: self buttonWidth;
 		height: self buttonHeight).
-	^ button
+	self addMorph: self confirmationButton.
+	self confirmationButton center:  (self center x + aXOffset) @ (self center y + aYOffset)
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 6/30/2026 12:49'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:13'
 }
 SKCloseConfirmationWindow >> buildConfirmationButton [
 
-	^ self buildButtonWithLabel: 'YES' 
-		selector: #closeAllWindows
+	self buildButtonWithLabel: 'YES' 
+		selector: 'closeAllWindows' 
+		centerXOffset: (self buttonXOffset * -1)
+		centerYOffset: self buttonYOffset
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 6/30/2026 13:49'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:12'
 }
-SKCloseConfirmationWindow >> buildWidgets [ 
+SKCloseConfirmationWindow >> buildMessage [
 
-	| layout buttonRow textWidth layoutMargin | 
-		
-	layout := AlignmentMorph newColumn. 
-	layout 
-		hResizing: #spaceFill;
-		vResizing: #spaceFill; 
-		cellPositioning: #center; 
-		layoutInset: 20; 
-		cellInset: 10;
-		color: Color transparent.
-	
-	buttonRow := AlignmentMorph newRow. 
-	buttonRow 
-		hResizing: #shrinkWrap; 
-		cellPositioning: #center; 
-		cellInset: 20;
-		color: Color transparent.
-		
-	buttonRow 
-		addMorph: self buildAbortButton; 
-		addMorph: self buildConfirmationButton. 
-	
-	textWidth := 320.
-	
-	layout addMorph: buttonRow. 
-	layout addMorph: (TextMorph new 
-		contents: self messageSecondLine; 
-		wrapFlag: true;
-		width: textWidth;
-		lock). 
-	
-	layout addMorph: (TextMorph new 
-		contents: self messageFirstLine; 
-		wrapFlag: true;
-		width: textWidth;
-		lock).
-	
-	layoutMargin := (40@60).
-	
-	self addMorph: layout frame: (0 @ 0 corner: 1 @ 1).
-	self extent: layout fullBounds extent + layoutMargin.
+	self buildMessageWithText: self messageFirstLine 
+		center:  self center x @ (self center y - self messageYOffset).
+	self buildMessageWithText: self messageSecondLine 
+		center:  self center x @ (self center y - (self messageYOffset - self messageTextSpacing))
+]
 
-	self centerWindowInWorld
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:11'
+}
+SKCloseConfirmationWindow >> buildMessageWithText: aText center: aCenter [
+
+	self addMorph: (StringMorph new 
+		contents: aText;
+		color: self messageColor;
+		emphasis: TextEmphasis bold emphasisCode;
+		font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: self messageFontSize);
+		center: aCenter)
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:14'
+}
+SKCloseConfirmationWindow >> buildWidgets [
+
+	self scaleWindow; 
+		centerWindowInWorld;
+		buildMessage;
+		buildConfirmationButton;
+		buildAbortButton
 ]
 
 {
@@ -136,6 +127,24 @@ SKCloseConfirmationWindow >> buttonHeight [
 SKCloseConfirmationWindow >> buttonWidth [
 
 	^ 100
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
+}
+SKCloseConfirmationWindow >> buttonXOffset [
+
+	^ 75
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
+}
+SKCloseConfirmationWindow >> buttonYOffset [
+
+	^ 30
 ]
 
 {

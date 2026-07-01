@@ -25,9 +25,7 @@ Class {
 	#superclass : #Morph,
 	#instVars : [
 		'selectionWindows',
-		'closeButton',
-		'edge',
-		'selectionModels'
+		'closeButton'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'LP 6/9/2026 13:16'
@@ -61,15 +59,6 @@ SKSelectionPopUpWrapper >> actionGetCondition [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:10'
-}
-SKSelectionPopUpWrapper >> addSelectionModel: aModel [
-
-	self selectionModels add: aModel
-]
-
-{
 	#category : #drawing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:58'
 }
@@ -82,7 +71,7 @@ SKSelectionPopUpWrapper >> bringChildrenToFront [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:51'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:06'
 }
 SKSelectionPopUpWrapper >> buildCloseButton [
 
@@ -90,7 +79,7 @@ SKSelectionPopUpWrapper >> buildCloseButton [
 
 	closeButton := (SimpleButtonMorph new
 		target: self;
-		actionSelector: #handleCloseButtonClicked;
+		actionSelector: #actionClose;
 		height: self closeButtonHeight;
 		width: self closeButtonWidth;
 		color: self closeButtonColor;
@@ -113,11 +102,11 @@ SKSelectionPopUpWrapper >> closeButton [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/23/2026 21:38'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:00'
 }
 SKSelectionPopUpWrapper >> closeButton: aButton [
 
-	closeButton := aButton
+	closeButton := aButton.
 ]
 
 {
@@ -149,7 +138,7 @@ SKSelectionPopUpWrapper >> closeButtonWidth [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:24'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:20'
 }
 SKSelectionPopUpWrapper >> commandList [
 
@@ -157,21 +146,19 @@ SKSelectionPopUpWrapper >> commandList [
 		'kara move'
 		'kara turn: left'
 		'kara turn: right'
-		'kara push'
 		'None'
 	)
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:25'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:51'
 }
 SKSelectionPopUpWrapper >> conditionList [
 
 	^ #(
 		'kara onCloverleaf'
 		'kara trunkAhead'
-		'kara mushroomAhead'
 		'None'
 	)
 ]
@@ -191,66 +178,35 @@ SKSelectionPopUpWrapper >> drawSelectionWindows [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:49'
-}
-SKSelectionPopUpWrapper >> edge [
-
-	^ edge
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/23/2026 21:38'
-}
-SKSelectionPopUpWrapper >> edge: anEdge [
-
-	edge := anEdge
-]
-
-{
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:25'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:43'
 }
 SKSelectionPopUpWrapper >> getValueByType: aType [
 	
-	| model |
+	| commandWindow |
 	
-	model := self selectionModels detect: [:aSelectionModel | aSelectionModel type = aType].
-	model selectedValue ifNil: [^ ''].
-	model selectedValue = 'None' ifTrue: [^ ''].
-	^ model selectedValue
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:50'
-}
-SKSelectionPopUpWrapper >> handleCloseButtonClicked [
-
-	self edge gotDeselected
-
-	
+	commandWindow := self selectionWindows detect: [:aSelectionWindow | aSelectionWindow type = aType].
+	commandWindow selectedValue ifNil: [^ ''].
+	commandWindow selectedValue = 'None' ifTrue: [^ ''].
+	^ commandWindow selectedValue
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/23/2026 21:37'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:18'
 }
 SKSelectionPopUpWrapper >> initialize [
 
 	super initialize. 
-
-	self
-		addSelectionModel: (SKSelectionModel newWithType: #condition andItems: self conditionList);
-		addSelectionModel: (SKSelectionModel newWithType: #command andItems: self commandList).
 	
-	self selectionModels do: [:aModel| self selectionWindows add: (PluggableListMorph on: aModel list: #items selected: #selectedIndex changeSelected: #itemSelectedAtIndex:)].
+	self selectionWindows
+		add: (SKSelectionPopUp newWithType: #condition listItems: self conditionList);
+		add: (SKSelectionPopUp newWithType: #command listItems: self commandList).
 		
 	self drawSelectionWindows;
 		updatePositionsOfChildren;
 		buildCloseButton;
-		color: Color transparent
+		visible: false
 
 
 
@@ -270,15 +226,6 @@ SKSelectionPopUpWrapper >> makeVisible [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:09'
-}
-SKSelectionPopUpWrapper >> selectionModels [
-
-	^ selectionModels ifNil: [selectionModels := OrderedCollection new]
-]
-
-{
-	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:59'
 }
 SKSelectionPopUpWrapper >> selectionWindows [
@@ -294,6 +241,25 @@ SKSelectionPopUpWrapper >> selectionWindows [
 SKSelectionPopUpWrapper >> selectionWindows: anObject [
 
 	selectionWindows := anObject
+]
+
+{
+	#category : #updating,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:24'
+}
+SKSelectionPopUpWrapper >> switchToSelectedText: aSelectionPopUp [ 
+
+	|selectedValue oldPos|
+	
+	oldPos := self position. 
+	self selectionWindows do: [:each |(each == aSelectionPopUp) ifTrue: [
+			selectedValue := each selectedValue.  
+			self replaceSubmorph: each by: (PluggableTextMorph new setText: selectedValue)]]. 
+	self position: oldPos;
+		updatePositionsOfChildren
+
+
+
 ]
 
 {

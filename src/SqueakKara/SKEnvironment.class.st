@@ -15,7 +15,7 @@ Class {
 		'systemWindow',
 		'programmingConcept',
 		'windowManager',
-		'challange'
+		'level'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
@@ -65,22 +65,6 @@ SKEnvironment >> blockspace: anObject [
 SKEnvironment >> calculateScaleFactor: aPoint [
 
 	 ^ (aPoint x / self gameWidth) min: (aPoint y / self gameHeight)
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/15/2026 20:18'
-}
-SKEnvironment >> challange [
-	^ challange
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/15/2026 20:18'
-}
-SKEnvironment >> challange: anObject [
-	challange := anObject
 ]
 
 {
@@ -269,63 +253,58 @@ SKEnvironment >> initializeProgrammingUI [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 15:48'
+	#'squeak_changestamp' : 'JS 6/23/2026 18:45'
 }
 SKEnvironment >> initializeWithBlankProject [
 
-	self grid: (SKGrid newWithExtent: 7 @ 7).
-	SKChallenge initializeBlankProjectFor: self grid environment: self.
-	self initializeObjects.
-	self executeControls currentChallenge: 'BlankProject'
+	self level: (SKEmptyLevel new initializeWithEnvironment: self).
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 15:39'
+	#'squeak_changestamp' : 'JS 7/1/2026 13:48'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
-	self grid: (SKGrid newWithExtent: 7 @ 7).
-	SKChallenge initializeChallenge1For: self grid environment: self.
-	self initializeObjects.
-	self executeControls currentChallenge: 'Challenge1'.
+	self level: (SKLevel1World2 new initializeWithEnvironment: self).
 
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 15:40'
+	#'squeak_changestamp' : 'JS 6/23/2026 17:26'
 }
 SKEnvironment >> initializeWithChallenge2 [
-
-	self grid: (SKGrid newWithExtent: 9 @ 2).
-	SKChallenge initializeChallenge2For: self grid environment: self.
-	self initializeObjects.
-	self executeControls currentChallenge: 'Challenge2'.
+	
+	self level: (SKLevel1World4 new initializeWithEnvironment: self).
+	
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 15:40'
+	#'squeak_changestamp' : 'JS 6/23/2026 19:06'
 }
 SKEnvironment >> initializeWithChallenge3 [
 
-	self grid: (SKGrid newWithExtent: 9 @ 3).
-	SKChallenge initializeChallenge3For: self grid environment: self.
-	self initializeObjects.
-	self executeControls currentChallenge: 'Challenge3'.
+	self level: (SKLevel2World3 new initializeWithEnvironment: self).
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 15:41'
+	#'squeak_changestamp' : 'JS 6/23/2026 17:29'
 }
 SKEnvironment >> initializeWithChallenge4 [
 
-	self grid: (SKGrid newWithExtent: 7 @ 4).
-	SKChallenge initializeChallenge4For: self grid environment: self.
-	self initializeObjects.
-	self executeControls currentChallenge: 'Challenge4'.
+	self level: (SKLevel2World4 new initializeWithEnvironment: self).
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'JS 6/23/2026 17:29'
+}
+SKEnvironment >> initializeWithChallenge5 [
+
+	self level: (SKLevel3World1 new initializeWithEnvironment: self).
 ]
 
 {
@@ -355,6 +334,22 @@ SKEnvironment >> karas [
 SKEnvironment >> karas: aCollection [
 	
 	karas := aCollection
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/22/2026 13:02'
+}
+SKEnvironment >> level [
+	^ level
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/22/2026 13:02'
+}
+SKEnvironment >> level: anObject [
+	level := anObject
 ]
 
 {
@@ -428,13 +423,13 @@ SKEnvironment >> programmingUI: aProgrammingUI [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'FR 6/17/2026 00:25'
+	#'squeak_changestamp' : 'JS 6/22/2026 13:02'
 }
-SKEnvironment >> reset: aChallenge [
+SKEnvironment >> reset [
 
 	self grid clear.
 	self clearKaras.
-	SKChallenge perform: ('initialize', aChallenge, 'For:environment:') asSymbol withArguments:{self grid. self}
+	self level reset
 ]
 
 {

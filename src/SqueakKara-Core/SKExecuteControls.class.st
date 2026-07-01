@@ -16,8 +16,7 @@ Class {
 		'resetTexture',
 		'sliderSpeed',
 		'scaleFactor',
-		'buttonReset',
-		'currentChallenge'
+		'buttonReset'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:42'
@@ -25,13 +24,13 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:15'
+	#'squeak_changestamp' : 'JS 6/22/2026 13:05'
 }
 SKExecuteControls >> actionReset [
 
 	self environment stop.
 	self updateTextures.
-	self environment reset: currentChallenge
+	self environment reset
 ]
 
 {
@@ -138,15 +137,14 @@ SKExecuteControls >> addWidgetCentered: aWidget atXPosition: aXValue [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 6/24/2026 00:40'
+	#'squeak_changestamp' : 'JS 5/15/2026 22:35'
 }
 SKExecuteControls >> buildButtonReset [
 
 	^ IconicButton new
-		target: self;
-		actionSelector: #actionReset;
-		color: SKStylesheet secondaryColor;
-		yourself
+		    target: self;
+		    actionSelector: #actionReset;
+		    color: SKStylesheet secondaryColor
 ]
 
 {
@@ -314,24 +312,6 @@ SKExecuteControls >> buttonStopSetTexture: aForm [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:15'
-}
-SKExecuteControls >> currentChallenge [
-
-	^ currentChallenge
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:15'
-}
-SKExecuteControls >> currentChallenge: anObject [
-
-	currentChallenge := anObject
-]
-
-{
 	#category : #texture,
 	#'squeak_changestamp' : 'LM 4/29/2026 12:33'
 }
@@ -357,11 +337,11 @@ SKExecuteControls >> defaultBounds [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 6/24/2026 00:55'
+	#'squeak_changestamp' : 'LM 4/28/2026 21:04'
 }
 SKExecuteControls >> defaultIconicButtonSize [
 
-	^ 32 @ 32
+	^ 34 @ 34
 ]
 
 {
@@ -518,7 +498,7 @@ SKExecuteControls >> resetTextureFilename [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 6/24/2026 00:42'
+	#'squeak_changestamp' : 'jawi 5/15/2026 09:20'
 }
 SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
@@ -538,9 +518,6 @@ SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
 	self buttonSpawnKara extent: buttonSize.
 	self buttonSpawnKara labelGraphic: (self karaTexture scaledToSize: iconSize).
-	
-	self buttonReset extent: buttonSize.
-	self buttonReset labelGraphic: (self resetTexture scaledToSize: iconSize).
 	
 	self sliderSpeed extent: sliderSize
 ]
@@ -661,9 +638,10 @@ SKExecuteControls >> toggleExecutionState [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'JS 6/24/2026 00:46'
+	#'squeak_changestamp' : 'JS 6/2/2026 14:44'
 }
 SKExecuteControls >> updateTextures [
 
-	self buttonRunSetTexture: self currentRunButtonTexture
+	self buttonRunSetTexture: self currentRunButtonTexture.
+	self buttonStopSetTexture: self stopTexture.
 ]

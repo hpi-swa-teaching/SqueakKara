@@ -123,6 +123,23 @@ SKGrid >> drawTexture [
 ]
 
 {
+	#category : #texture,
+	#'squeak_changestamp' : 'JS 6/23/2026 18:57'
+}
+SKGrid >> enforceZOrder [
+
+	| sorted unsorted |
+	
+	unsorted := OrderedCollection new.
+	1 to: self gridWidth do: 
+		[:x | 1 to: self gridHeight do: 
+			[:y | unsorted addAll: (self gridCoordinator getTileAtCoordinates: x @ y)]].
+	sorted := unsorted asSortedCollection: [:gridObject0 :gridObject1 | gridObject0 zValue < gridObject1 zValue].
+	sorted do: [:gridObject | gridObject comeToFront].
+	self redrawTexture.
+]
+
+{
 	#category : #initialization,
 	#'squeak_changestamp' : 'LK 5/24/2024 11:18'
 }

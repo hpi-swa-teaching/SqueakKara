@@ -42,7 +42,7 @@ SKGridObject class >> textureDimension [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/28/2026 19:08'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 01:31'
 }
 SKGridObject >> addToGrid [
 
@@ -127,7 +127,7 @@ SKGridObject >> gridCoordinator [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:40'
+	#'squeak_changestamp' : 'JS 6/23/2026 16:01'
 }
 SKGridObject >> initializeInGrid: aGrid at: aPoint [
 
@@ -378,4 +378,29 @@ SKGridObject >> walkableIn: aDirection [
 
 	tile := self gridCoordinator getTileAtCoordinates: target.
 	^ tile allSatisfy: [ :each | each isWalkable]
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/19/2026 16:39'
+}
+SKGridObject >> zOrder [
+
+	^ {self isCloverleaf.
+    		self isMushroom.
+    		self isTrunk.
+    		self isKara}
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/19/2026 16:53'
+}
+SKGridObject >> zValue [
+
+	| zOrderArray |
+	
+	zOrderArray := self zOrder.
+	zOrderArray size to: 1 by: -1 do: [:index | (zOrderArray at: index) ifTrue: [^ index]].
+	^ 0
 ]

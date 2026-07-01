@@ -14,7 +14,7 @@ Class {
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 14:48'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:13'
 }
 SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 
@@ -24,14 +24,7 @@ SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 	self playGround addEdge: edge.
 	
 	aNode addDependent: edge.
-	aNode addEdge: edge;
-		calculateBestEdgeDirections.
-
-	(anotherNode = aNode) ifFalse: [	
-		anotherNode addEdge: edge;
-			addDependent: edge;
-			calculateBestEdgeDirections].
-
+	anotherNode addDependent: edge.
 	edge update: #unusedValue. 
 	self actionSelectEdge: edge
 ]
@@ -53,19 +46,19 @@ SKStateMachineEditor >> actionCreateNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:32'
+	#'squeak_changestamp' : 'JS 6/10/2026 13:02'
 }
 SKStateMachineEditor >> actionDeleteEdge: aEdge [
 
 	self playGround removeEdge: aEdge.
-	aEdge fromNode removeEdge: aEdge.
-	aEdge fromNode = aEdge toNode ifFalse: [aEdge toNode removeEdge: aEdge].
+	aEdge fromNode ifNil: [
+		aEdge toNode isStartingNode: false].
 	aEdge delete
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:39'
+	#'squeak_changestamp' : 'JS 6/16/2026 19:30'
 }
 SKStateMachineEditor >> actionDeleteNode: aNode [
 	
@@ -73,7 +66,7 @@ SKStateMachineEditor >> actionDeleteNode: aNode [
 	
 	aNode isStartingNode ifTrue: [^nil].
 		
-	belongingEdges := Set new.
+	belongingEdges := OrderedCollection new.
 	belongingEdges
 		addAll: (self playGround findAllEdgesToNode: aNode);
 		addAll: (self playGround findAllEdgesFromNode: aNode).
@@ -168,15 +161,6 @@ SKStateMachineEditor >> deselectAllEdges [
 ]
 
 {
-	#category : #const,
-	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 16:11'
-}
-SKStateMachineEditor >> edgeSelectionDistance [
-
-	^ 40
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:57'
 }
@@ -210,43 +194,11 @@ SKStateMachineEditor >> handleDeleteModePlayGroundClicked: aPosition [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 13:01'
-}
-SKStateMachineEditor >> handleEdgeModeNodeClick: aNode [
-
-	(self selectedNode = aNode) ifTrue: [
-		self actionAddEdgeFrom: self selectedNode to: aNode.
-		self selectedNode: nil.
-		^ nil].
-	
-	self selectedNode ifNotNil: [
-		self actionAddEdgeFrom: self selectedNode to: aNode.
-		self selectedNode: nil.
-		^ nil].
-	
-	self selectedNode: aNode.
-	self startEdgePosition ifNotNil:[
-		aNode isStartingNode ifTrue:[
-			(self playGround findAllEdgesToNode: aNode) do: [:edge |
-				edge fromNode == nil ifTrue: [
-					self playGround removeEdge: edge.
-					edge delete]]]
-		ifFalse: [
-			aNode isStartingNode: true.].
-		self actionAddEdgeFromPosition: self startEdgePosition toNode: aNode.
-		self startEdgePosition: nil.
-		self selectedNode: nil].
-						
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 16:11'
+	#'squeak_changestamp' : 'JS 6/16/2026 19:00'
 }
 SKStateMachineEditor >> handleEdgeModeNodeClicked: aNode [
 
-	(self selectedNode = aNode) ifTrue: [
-		self actionAddEdgeFrom: self selectedNode to: aNode.
+	self selectedNode = aNode ifTrue: [
 		self selectedNode: nil.
 		^ nil].
 	
@@ -565,14 +517,14 @@ SKStateMachineEditor >> queueNodeToDelete: aNode [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 16:11'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:45'
 }
 SKStateMachineEditor >> selectEdgeNear: aPosition [
 
 	| edge distance limit |
 	
 	"max distance from the line where it will be clicked"
-	limit := self edgeSelectionDistance.
+	limit := 50.
 	
 	edge := self playGround findNearestEdge: aPosition.
 	edge ifNil: [^ nil].

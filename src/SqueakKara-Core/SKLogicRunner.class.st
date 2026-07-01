@@ -98,24 +98,19 @@ SKLogicRunner >> executeContext: aExecuteContext [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:20'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:47'
 }
 SKLogicRunner >> executeLogicGraph [
 
-	| hasNextStep counter |
-	
-	counter := 0.
+	| hasNextStep |
 	
 	hasNextStep := true.
-	[hasNextStep] whileTrue: [self executeStep ifNil: [hasNextStep := false].
-		counter := counter + 1.
-		counter >= 500 ifTrue: [Transcript show: '[SKLogicRunner] Endlosschleife Detected'.
-			^ self]]
+	[hasNextStep] whileTrue: [self executeStep ifNil: [hasNextStep := false]]
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:23'
+	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:55'
 }
 SKLogicRunner >> executeStep [
 	

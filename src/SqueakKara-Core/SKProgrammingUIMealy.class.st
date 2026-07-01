@@ -30,7 +30,7 @@ SKProgrammingUIMealy >> close [
 
 {
 	#category : #compile,
-	#'squeak_changestamp' : 'Lars Kuhr 6/22/2026 17:28'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:43'
 }
 SKProgrammingUIMealy >> compileToLogicGraph: aNodeCollection edges: aEdgeCollection [
 
