@@ -41,7 +41,7 @@ SKLogicNode >> edges [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #tests,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 15:05'
 }
 SKLogicNode >> hasEdge [

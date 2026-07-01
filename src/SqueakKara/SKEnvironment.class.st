@@ -14,8 +14,7 @@ Class {
 		'gameHeight',
 		'systemWindow',
 		'programmingConcept',
-		'windowManager',
-		'challange'
+		'windowManager'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
@@ -44,22 +43,6 @@ SKEnvironment >> addKara: aKara [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/5/2026 15:19'
-}
-SKEnvironment >> blockspace [
-	^ blockspace
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 5/5/2026 15:19'
-}
-SKEnvironment >> blockspace: anObject [
-	blockspace := anObject
-]
-
-{
-	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/7/2026 21:38'
 }
 SKEnvironment >> calculateScaleFactor: aPoint [
@@ -69,18 +52,11 @@ SKEnvironment >> calculateScaleFactor: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/15/2026 20:18'
+	#'squeak_changestamp' : 'FR 6/17/2026 00:24'
 }
-SKEnvironment >> challange [
-	^ challange
-]
+SKEnvironment >> clearKaras [
 
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'JS 5/15/2026 20:18'
-}
-SKEnvironment >> challange: anObject [
-	challange := anObject
+	self karas: OrderedCollection new
 ]
 
 {
@@ -249,7 +225,7 @@ SKEnvironment >> initializeObjects [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 14:02'
+	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:31'
 }
 SKEnvironment >> initializeProgrammingUI [
 
@@ -419,11 +395,12 @@ SKEnvironment >> programmingUI: aProgrammingUI [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:19'
+	#'squeak_changestamp' : 'FR 6/17/2026 00:25'
 }
 SKEnvironment >> reset: aChallenge [
 
 	self grid clear.
+	self clearKaras.
 	SKChallenge perform: ('initialize', aChallenge, 'For:environment:') asSymbol withArguments:{self grid. self}
 ]
 
@@ -460,12 +437,11 @@ SKEnvironment >> resume [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 17:58'
+	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 16:30'
 }
 SKEnvironment >> run [
 
 	| code |
-	
 	code :=  self programmingUI getCode.
 	self executer execute: code
 ]

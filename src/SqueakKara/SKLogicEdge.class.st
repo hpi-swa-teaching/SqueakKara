@@ -13,15 +13,15 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:19'
+	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 13:23'
 }
 SKLogicEdge class >> newWithCommand: aString condition: anotherString fromNode: aLogicNode toNode: anotherLogicNode [
 
 	^(self new
 		command: aString;
 		condition: anotherString;
-		outNode: aLogicNode;
-		inNode: anotherLogicNode;
+		toNode: aLogicNode;
+		fromNode: anotherLogicNode;
 		yourself)
 ]
 
@@ -52,11 +52,10 @@ SKLogicEdge class >> newWithfromNode: aLogicNode toNode: anotherLogicNode [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 14:24'
+	#'squeak_changestamp' : 'LP 6/10/2026 11:11'
 }
 SKLogicEdge >> command [
-
-	^ command ifNil: [ command := '' ]
+	^ command
 ]
 
 {
@@ -103,6 +102,15 @@ SKLogicEdge >> fromNode [
 SKLogicEdge >> fromNode: aLogicNode [
 
 	fromNode := aLogicNode
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/2/2026 17:48'
+}
+SKLogicEdge >> getCode [
+
+	^ command ifNil: [ command := '' ]
 ]
 
 {

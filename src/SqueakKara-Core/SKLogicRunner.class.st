@@ -22,11 +22,11 @@ SKLogicRunner class >> newWithExecutionContext: aExecutionContext [
 
 {
 	#category : #initialize,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 21:45'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:47'
 }
 SKLogicRunner >> attachToGraph: aLogicGraph [
 
-	Transcript show: '[LogicRunner] Attacht to startingNode: ' , aLogicGraph startingNode name; cr.
+"	Transcript show: '[LogicRunner] Attacht to startingNode: ' , aLogicGraph startingNode name; cr."
 
 	self executeContext env: (SKContextVariables new).
 	self compiler: (Compiler new);
@@ -98,7 +98,24 @@ SKLogicRunner >> executeContext: aExecuteContext [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:55'
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:20'
+}
+SKLogicRunner >> executeLogicGraph [
+
+	| hasNextStep counter |
+	
+	counter := 0.
+	
+	hasNextStep := true.
+	[hasNextStep] whileTrue: [self executeStep ifNil: [hasNextStep := false].
+		counter := counter + 1.
+		counter >= 500 ifTrue: [Transcript show: '[SKLogicRunner] Endlosschleife Detected'.
+			^ self]]
+]
+
+{
+	#category : #execution,
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:23'
 }
 SKLogicRunner >> executeStep [
 	
@@ -110,7 +127,7 @@ SKLogicRunner >> executeStep [
 	nextEdge := self findNextEdge: self currentNode. 
 	nextEdge ifNil: [^ nil].
 	
-	self	executeCode: nextEdge command; 
+	self	executeCode: nextEdge getCode; 
 		traverseEdge: nextEdge
 ]
 
@@ -136,11 +153,11 @@ SKLogicRunner >> findNextEdge: aLogicNode [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 16:45'
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:48'
 }
 SKLogicRunner >> traverseEdge: aLogicEdge [
 
-	Transcript show: ('[LogicRunner] ' , aLogicEdge fromNode name, ' --> ', aLogicEdge toNode name); cr.
+"	Transcript show: ('[LogicRunner] ' , aLogicEdge fromNode name, ' --> ', aLogicEdge toNode name); cr."
 
 	self currentNode: aLogicEdge toNode
 	

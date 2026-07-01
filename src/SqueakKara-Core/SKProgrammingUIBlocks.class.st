@@ -2,45 +2,46 @@ Class {
 	#name : #SKProgrammingUIBlocks,
 	#superclass : #SKProgrammingUI,
 	#instVars : [
-		'code'
+		'blockEditor'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/6/2026 15:09'
+}
+SKProgrammingUIBlocks >> blockEditor [
+
+	^ blockEditor.
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/6/2026 15:09'
+}
+SKProgrammingUIBlocks >> blockEditor: aBlockEditor [
+
+	blockEditor := aBlockEditor.
+]
+
+{
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/2/2026 14:26'
+	#'squeak_changestamp' : 'SLH 6/6/2026 15:25'
 }
 SKProgrammingUIBlocks >> build [
 
-	self environment windowManager addWindow: ((SKBlockSpace newWithController: self) window)
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:19'
-}
-SKProgrammingUIBlocks >> code [
-
-	^ code
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:19'
-}
-SKProgrammingUIBlocks >> code: aCode [
-
-	code := aCode
+	self blockEditor: SKBlockEditor new.
+	self environment windowManager addWindow: (self blockEditor open).
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:20'
+	#'squeak_changestamp' : 'FR 6/10/2026 00:08'
 }
 SKProgrammingUIBlocks >> getCode [
 
-	^ code
+	^ self blockEditor getCode
 ]
 
 {

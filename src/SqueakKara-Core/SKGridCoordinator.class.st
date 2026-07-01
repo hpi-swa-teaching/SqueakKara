@@ -166,7 +166,7 @@ SKGridCoordinator >> removeObject: aGridObject [
 
 {
 	#category : #'object storing',
-	#'squeak_changestamp' : 'LK 5/24/2024 11:03'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/7/2026 23:35'
 }
 SKGridCoordinator >> storeObject: aGridObject at: aPoint [
 
@@ -175,6 +175,5 @@ SKGridCoordinator >> storeObject: aGridObject at: aPoint [
 	currentGridTile := self privateFind: aGridObject.
 	
 	self privateMove: aGridObject fromTile: currentGridTile to: aPoint
-	
 
 ]

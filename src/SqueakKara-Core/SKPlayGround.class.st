@@ -11,7 +11,7 @@ Class {
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:44'
+	#'squeak_changestamp' : 'JS 6/23/2026 23:59'
 }
 SKPlayGround class >> newWithController: aController [
 
@@ -81,11 +81,11 @@ SKPlayGround >> controller: aController [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:56'
+	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 15:57'
 }
 SKPlayGround >> distanceFrom: aPoint toEdge: aEdge [
 
-	^ self distanceFrom: aPoint toLineFrom: aEdge fromNode position to: aEdge toNode position
+			^ aEdge getApproximatedDistanceToEdgeFrom: aPoint
 ]
 
 {
@@ -142,7 +142,7 @@ SKPlayGround >> findAllEdgesToNode: aNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 11:14'
+	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 16:09'
 }
 SKPlayGround >> findNearestEdge: aPosition [
 
@@ -150,12 +150,7 @@ SKPlayGround >> findNearestEdge: aPosition [
 	| currentNearestEdge currentNearestDistance currentDistance |
 	
 	self edges size > 0 ifFalse: [^ nil].
-	
-	self  
-		ifNil: [^ nil]
-		ifNotNil: [
-			currentNearestEdge := self edges first.
-			currentNearestDistance := self distanceFrom: aPosition toEdge: currentNearestEdge].
+	currentNearestDistance := Float infinity.
 	
 	self edges do: [:edge | 
 		currentDistance := self distanceFrom: aPosition toEdge: edge.
@@ -173,6 +168,15 @@ SKPlayGround >> findNearestEdge: aPosition [
 SKPlayGround >> handlesMouseDown: anEvent [
 
 	^ true
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 6/9/2026 01:01'
+}
+SKPlayGround >> isNodeEmpty [
+
+	^ self nodes isEmpty
 ]
 
 {
@@ -195,7 +199,7 @@ SKPlayGround >> nodes [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:04'
+	#'squeak_changestamp' : 'LP 6/9/2026 16:28'
 }
 SKPlayGround >> removeEdge: aEdge [
 
