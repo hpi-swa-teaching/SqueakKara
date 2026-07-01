@@ -446,16 +446,6 @@ SKStateMachineEditor >> modeLables [
 ]
 
 {
-	#category : #modes,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:13'
-}
-SKStateMachineEditor >> modes [
-	
-	"first item is the last item in the list"
-	^ { #edge. #delete. #drag. #select }
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
 }
@@ -471,6 +461,16 @@ SKStateMachineEditor >> modeStack [
 SKStateMachineEditor >> modeStack: aStack [
 
 	modeStack := aStack
+]
+
+{
+	#category : #modes,
+	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:13'
+}
+SKStateMachineEditor >> modes [
+	
+	"first item is the last item in the list"
+	^ { #edge. #delete. #drag. #select }
 ]
 
 {

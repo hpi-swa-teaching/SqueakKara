@@ -1,5 +1,5 @@
 "
-SKLandingPage is tremendous. It starts the whole thing. A lot of people don't realize that, but it's true. Very true. Nobody does it better.
+provides a user interface for the user to select either a blank work environment or one of the provided example problems. It is the first page the user sees.
 "
 Class {
 	#name : #SKLandingPage,
@@ -9,7 +9,7 @@ Class {
 		'conceptStack'
 	],
 	#category : #'SqueakKara-Core',
-	#'squeak_changestamp' : 'SS 6/7/2026 19:52'
+	#'squeak_changestamp' : 'SP 7/2/2026 01:24'
 }
 
 {
