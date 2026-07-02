@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'windowManager',
 		'confirmationButton',
-		'abortButton'
+		'abortButton',
+		'layout'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JS 5/26/2026 14:51'
@@ -29,6 +30,64 @@ SKCloseConfirmationWindow >> abortButton [
 SKCloseConfirmationWindow >> abortButton: anObject [
 
 	abortButton := anObject
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'JS 7/2/2026 03:04'
+}
+SKCloseConfirmationWindow >> addButtonsToLayout [
+
+	| buttonRow |
+	
+	buttonRow := AlignmentMorph newRow. 
+	buttonRow 
+		hResizing: #spaceFill; 
+		cellPositioning: #center; 
+		cellInset: 20;
+		color: Color transparent.
+		
+	buttonRow 
+		addMorph: self buildAbortButton; 
+		addMorph: self buildConfirmationButton.
+		
+	self layout addMorph: buttonRow
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'JS 7/2/2026 03:11'
+}
+SKCloseConfirmationWindow >> addLayoutToWindow [
+
+	| layoutMargin |
+	
+	layoutMargin := (40@60).
+	self addMorph: self layout frame: (0@0  corner: 1@1).
+	self extent: self layout fullBounds extent + layoutMargin
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'JS 7/2/2026 03:02'
+}
+SKCloseConfirmationWindow >> addTextToLayout [
+
+	| textWidth |
+	
+	textWidth := 320.
+	
+	self layout addMorph: (TextMorph new 
+		contents: self messageSecondLine; 
+		wrapFlag: true;
+		width: textWidth;
+		lock). 
+	
+	self layout addMorph: (TextMorph new 
+		contents: self messageFirstLine; 
+		wrapFlag: true;
+		width: textWidth;
+		lock)
 ]
 
 {
@@ -71,53 +130,32 @@ SKCloseConfirmationWindow >> buildConfirmationButton [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 6/30/2026 13:49'
+	#'squeak_changestamp' : 'JS 7/2/2026 02:55'
 }
-SKCloseConfirmationWindow >> buildWidgets [ 
+SKCloseConfirmationWindow >> buildLayout [
 
-	| layout buttonRow textWidth layoutMargin | 
-		
-	layout := AlignmentMorph newColumn. 
-	layout 
+	self layout: AlignmentMorph newColumn. 
+	self layout 
 		hResizing: #spaceFill;
 		vResizing: #spaceFill; 
 		cellPositioning: #center; 
 		layoutInset: 20; 
 		cellInset: 10;
-		color: Color transparent.
-	
-	buttonRow := AlignmentMorph newRow. 
-	buttonRow 
-		hResizing: #shrinkWrap; 
-		cellPositioning: #center; 
-		cellInset: 20;
-		color: Color transparent.
-		
-	buttonRow 
-		addMorph: self buildAbortButton; 
-		addMorph: self buildConfirmationButton. 
-	
-	textWidth := 320.
-	
-	layout addMorph: buttonRow. 
-	layout addMorph: (TextMorph new 
-		contents: self messageSecondLine; 
-		wrapFlag: true;
-		width: textWidth;
-		lock). 
-	
-	layout addMorph: (TextMorph new 
-		contents: self messageFirstLine; 
-		wrapFlag: true;
-		width: textWidth;
-		lock).
-	
-	layoutMargin := (40@60).
-	
-	self addMorph: layout frame: (0 @ 0 corner: 1 @ 1).
-	self extent: layout fullBounds extent + layoutMargin.
+		color: Color transparent
+]
 
-	self centerWindowInWorld
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'JS 7/2/2026 03:05'
+}
+SKCloseConfirmationWindow >> buildWidgets [ 
+
+	self 
+		buildLayout;
+		addButtonsToLayout;
+		addTextToLayout;
+		addLayoutToWindow;
+		centerWindowInWorld
 ]
 
 {
@@ -198,6 +236,22 @@ SKCloseConfirmationWindow >> initialize [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/2/2026 02:47'
+}
+SKCloseConfirmationWindow >> layout [
+	^ layout
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/2/2026 02:47'
+}
+SKCloseConfirmationWindow >> layout: anObject [
+	layout := anObject
+]
+
+{
 	#category : #messages,
 	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:12'
 }
@@ -249,15 +303,6 @@ SKCloseConfirmationWindow >> messageTextSpacing [
 SKCloseConfirmationWindow >> messageYOffset [
 
 	^ 30
-]
-
-{
-	#category : #widgets,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:14'
-}
-SKCloseConfirmationWindow >> scaleWindow [
-
-	self extent: self windowWidth @ self windowHeight
 ]
 
 {

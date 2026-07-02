@@ -518,11 +518,12 @@ SKExecuteControls >> resetTextureFilename [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'JS 6/24/2026 00:42'
+	#'squeak_changestamp' : 'JS 7/2/2026 04:04'
 }
 SKExecuteControls >> resizeWidgetByFactor: aNumber [
 	
 	| buttonSize iconSize controlSize sliderSize |
+	
 	controlSize := self defaultBounds extent * aNumber.
 	buttonSize := self defaultIconicButtonSize * aNumber.
 	iconSize := (self defaultIconicButtonSize - (10@10)) * aNumber.

@@ -341,7 +341,7 @@ SKGridObject >> scaleToFactor [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'LM 4/27/2026 20:16'
+	#'squeak_changestamp' : 'JS 7/2/2026 03:46'
 }
 SKGridObject >> setTexture [
 
@@ -351,7 +351,7 @@ SKGridObject >> setTexture [
 	
 	aForm := aTextureLoader
 		getTexture: self textureFilename
-		scaledToWidth: self grid pixelPerBlock * self scaleFactor.
+		scaledToWidth: self grid pixelPerBlock.
 		
 	self image: aForm; originalImage: aForm
 ]

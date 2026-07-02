@@ -244,7 +244,7 @@ SKEnvironment >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 15:36'
+	#'squeak_changestamp' : 'JS 7/2/2026 03:28'
 }
 SKEnvironment >> initializeObjects [
 
@@ -377,7 +377,7 @@ SKEnvironment >> pause [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:46'
+	#'squeak_changestamp' : 'JS 7/2/2026 03:50'
 }
 SKEnvironment >> positionExecuteControlsAndGrid [
 
@@ -387,7 +387,7 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 	self grid position: self systemWindow position + startPoint.
 	
 	startPoint := ((self gameWidth / 2) - (self executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
-	self executeControls position: self systemWindow position + startPoint.
+	self executeControls position: self systemWindow position + startPoint
 ]
 
 {
