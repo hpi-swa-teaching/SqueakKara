@@ -263,7 +263,7 @@ SKEnvironment >> initializeLandingPage [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LD 7/2/2026 13:52'
+	#'squeak_changestamp' : 'LD 7/2/2026 13:58'
 }
 SKEnvironment >> initializeObjects [
 
@@ -271,7 +271,7 @@ SKEnvironment >> initializeObjects [
 	self executeControls environment: self.
 	
 	self setSystemWindow.
-	self isTerminating: false
+	self isTerminating: false.
 	self openInHand
 ]
 
