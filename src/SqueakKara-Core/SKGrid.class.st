@@ -45,20 +45,20 @@ SKGrid >> addGridLine: aMorph [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/27/2026 19:51'
+	#'squeak_changestamp' : 'JS 7/2/2026 03:52'
 }
 SKGrid >> addHorizontalLineAt: aCoordinate [
 
 	| aMorph |
 	
 	aMorph := Morph new.
-	
-	self addGridLine: aMorph.
 
 	aMorph color: self lineColor;
 			width: self width;
 			height: self lineWidth;
 	 		position: self position x @ (self position y + (aCoordinate * self pixelPerBlock)).
+			
+	self addGridLine: aMorph
 
 
 	
@@ -66,20 +66,20 @@ SKGrid >> addHorizontalLineAt: aCoordinate [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 4/27/2026 19:52'
+	#'squeak_changestamp' : 'JS 7/2/2026 03:54'
 }
 SKGrid >> addVerticalLineAt: aCoordinate [
 
 	| aMorph |
 	
 	aMorph := Morph new.
-		
-	self addGridLine: aMorph.
 
 	aMorph color: self lineColor;
 			width: self lineWidth;
 			height: self height;
 	 		position: (self position x + (aCoordinate * self pixelPerBlock)) @ self position y.
+			
+	self addGridLine: aMorph
 
 	
 ]
