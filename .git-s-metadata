@@ -1,6 +1,6 @@
 GSMetadata {
 	#version : 1,
-	#mappers : OrderedCollection [
+	#mappers : [
 		GSImageMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
@@ -26,12 +26,13 @@ GSMetadata {
 			],
 			#encoding : @5
 		},
-		GSPlaintextMapper {
+		GSImageMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
-				'LICENSE'
+				'assets',
+				'arrow_next_challenge.png'
 			],
-			#encoding : 'TXT'
+			#encoding : @5
 		},
 		GSPlaintextMapper {
 			#version : 1,
@@ -40,6 +41,14 @@ GSMetadata {
 				'.properties'
 			],
 			#encoding : 'TXT'
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'Trunk.png'
+			],
+			#encoding : @5
 		},
 		GSImageMapper {
 			#version : 1,
@@ -57,13 +66,12 @@ GSMetadata {
 			],
 			#encoding : @5
 		},
-		GSImageMapper {
+		GSPlaintextMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
-				'assets',
-				'Trunk.png'
+				'LICENSE'
 			],
-			#encoding : @5
+			#encoding : 'TXT'
 		},
 		GSPlaintextMapper {
 			#version : 1,
@@ -80,6 +88,22 @@ GSMetadata {
 				'automatic-testing.yml'
 			],
 			#encoding : 'TXT'
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'WIN-Screen.png'
+			],
+			#encoding : @5
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'reset.png'
+			],
+			#encoding : @5
 		},
 		GSPlaintextMapper {
 			#version : 1,
@@ -112,6 +136,23 @@ GSMetadata {
 				'src'
 			]
 		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'directional-tile.png'
+			],
+			#encoding : @5
+		},
+		GSTonelMapper {
+			#version : 1,
+			#package : MCPackage {
+				#name : 'SqueakKaraTests'
+			},
+			#path : FSAbsolutePath [
+				'src'
+			]
+		},
 		GSTonelMapper {
 			#version : 1,
 			#package : MCPackage {
@@ -125,40 +166,7 @@ GSMetadata {
 			#version : 1,
 			#path : FSAbsolutePath [
 				'assets',
-				'WIN-Screen.png'
-			],
-			#encoding : @5
-		},
-		GSTonelMapper {
-			#version : 1,
-			#package : MCPackage {
-				#name : 'SqueakKaraTests'
-			},
-			#path : FSAbsolutePath [
-				'src'
-			]
-		},
-		GSImageMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'assets',
-				'arrow_next_challenge.png'
-			],
-			#encoding : @5
-		},
-		GSImageMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'assets',
 				'critical-section.png'
-			],
-			#encoding : @5
-		},
-		GSImageMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'assets',
-				'directional-tile.png'
 			],
 			#encoding : @5
 		}
