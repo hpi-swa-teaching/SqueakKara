@@ -7,7 +7,8 @@ Class {
 		'selectedNode',
 		'modeStack',
 		'nodesToDelete',
-		'nodeCounter'
+		'nodeCounter',
+		'buttonPanel'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -141,19 +142,16 @@ SKStateMachineEditor >> buildActionButtonStack [
 }
 SKStateMachineEditor >> buildButtonPanel [
 
-	| panel |
-
-	panel := AlignmentMorph newColumn
+	buttonPanel := AlignmentMorph newColumn
 		color: Color transparent;
 		cellInset: self modeButtonVerticalDistance;
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
 		yourself.
-	panel
+	buttonPanel
 		addMorphBack: self buildActionButtonStack;
 		addMorphBack: self buildModeButtonStack.
-	self addMorph: panel.
-	panel position: self playGround topRight + (self buttonPanelOffset @ 0)
+	self addMorph: buttonPanel
 ]
 
 {
@@ -178,6 +176,15 @@ SKStateMachineEditor >> buildModeButtonStack [
 			color: self modeButtonNormalColor].
 	self modeStack: stack.
 	^ stack
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'S 7/2/2026 12:04'
+}
+SKStateMachineEditor >> buttonPanel [
+
+	^ buttonPanel
 ]
 
 {
@@ -223,6 +230,16 @@ SKStateMachineEditor >> edges [
 SKStateMachineEditor >> enqueueNodeToDelete: aNode [
 
 	self nodesToDelete remove: aNode
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 7/2/2026 12:04'
+}
+SKStateMachineEditor >> extent: aPoint [
+
+	super extent: aPoint.
+	self relayoutContents
 ]
 
 {
@@ -336,9 +353,10 @@ SKStateMachineEditor >> initialize [
 		paneColor: Color white;
 		setLabel: self windowTitle.
 	
-	self initializePlayground.
-			
+	self addMorph: self playGround.
 	self buildButtonPanel.
+	self relayoutContents.
+	self initializePlayground.
 	self toggleMode: #drag
 ]
 
@@ -350,11 +368,7 @@ SKStateMachineEditor >> initializePlayground [
 
 	|startingNode|
 
-	self playGround
-			extent: 1400@900;
-			color: Color white;
-			position: (self position + (50@100)).
-	self addMorph: self playGround.
+	self playGround color: Color white.
 	
 	startingNode := SKMealyNode newWithName: self nodeCounter asString.
 	self nodeCounterPP.
@@ -550,6 +564,26 @@ SKStateMachineEditor >> playGroundClicked: aPosition [
 SKStateMachineEditor >> queueNodeToDelete: aNode [
 
 	self nodesToDelete add: aNode
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'S 7/2/2026 12:04'
+}
+SKStateMachineEditor >> relayoutContents [
+
+	| content panelWidth playGroundExtent |
+	self buttonPanel ifNil: [^ self].
+	content := self innerBounds insetBy: (0 @ self labelHeight corner: 0 @ 0).
+	content := content insetBy: self buttonPanelOffset.
+	panelWidth := self modeButtonSize x.
+	playGroundExtent :=
+		(content width - panelWidth - self buttonPanelOffset) @ content height.
+	self playGround
+		position: content topLeft;
+		extent: playGroundExtent.
+	self buttonPanel
+		position: self playGround topRight + (self buttonPanelOffset @ 0)
 ]
 
 {
