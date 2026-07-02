@@ -29,62 +29,66 @@ SKExecuteControlsTest >> tearDown [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'ND 5/21/2026 22:18'
+	#'squeak_changestamp' : 'ND 6/25/2026 21:21'
 }
 SKExecuteControlsTest >> testMaxNumberRandomKaraSpawn [
 	
 	| karaCount |
 	
-	karaCount:= environment karas size.
+	karaCount := environment karas size.
 	
-	SKKara defaultColors size + 5 timesRepeat: [ controls actionSpawnKara ].
+	controls addButtonSpawnKara.
+	SKKara defaultColors size + 5 timesRepeat: [ controls buttonSpawnKara action ].
 
 	self assert: environment karas size == (environment maxNumberOfKaras)
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'jawi 6/3/2026 20:19'
+	#'squeak_changestamp' : 'ND 7/1/2026 16:20'
 }
 SKExecuteControlsTest >> testNextChallenge [
 	
 	| world testEnvironment testEnvironmentNew |
 	
 	testEnvironment := SKEnvironment new initializeWithChallenge1.
-	world := testEnvironment systemWindow owner.
+	world := testEnvironment owner.
+	testEnvironment executeControls addButtonNextChallenge.
 	
-	self assert: (world submorphs includes: (testEnvironment systemWindow)).
+	self assert: (world submorphs includes: (testEnvironment)).
 	
-	testEnvironmentNew := testEnvironment executeControls actionNextChallenge.
+	testEnvironmentNew := testEnvironment executeControls buttonNextChallenge action.
 	
-	self deny: (world submorphs includes: (testEnvironment systemWindow)).
+	self deny: (world submorphs includes: (testEnvironment)).
 	
 	testEnvironmentNew close
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'ND 5/25/2026 18:16'
+	#'squeak_changestamp' : 'ND 6/18/2026 21:58'
 }
 SKExecuteControlsTest >> testRandomKaraSpawn [
 	
 	| karaCount |
 	
 	karaCount := environment karas size.
+	controls addButtonSpawnKara.
 	
-	controls actionSpawnKara.
+	controls buttonSpawnKara action.
 
 	self assert: environment karas size == (karaCount + 1)
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LM 5/7/2026 23:11'
+	#'squeak_changestamp' : 'ND 6/18/2026 21:59'
 }
 SKExecuteControlsTest >> testRun [
 
 	environment firstWorkspace userCode: 'kara move'.
-	controls actionRun.
+	controls addButtonRun.
+	controls buttonRun action.
 	
 	"Busy waiting until execution done."
 	environment executer waitUntilTerminated.
@@ -94,16 +98,17 @@ SKExecuteControlsTest >> testRun [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LM 5/23/2026 14:05'
+	#'squeak_changestamp' : 'ND 6/18/2026 21:59'
 }
 SKExecuteControlsTest >> testRunPause [
 
 	environment firstWorkspace userCode: 'kara move. kara move. kara move'.
 
-	controls actionRun.
+	controls addButtonRun.
+	controls buttonRun action.
 	(Delay forMilliseconds: 1) wait.
 
-	controls actionRun.
+	controls buttonRun action.
 
 	self assert: environment executer state = #suspended.
 	self assert: (environment executer processes anySatisfy: [ :process |
@@ -112,22 +117,25 @@ SKExecuteControlsTest >> testRunPause [
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'EB 7/12/2024 11:42'
+	#'squeak_changestamp' : 'ND 6/18/2026 22:00'
 }
 SKExecuteControlsTest >> testSlider [
 	
-	controls sliderSpeedValueChanged: 10.
+	controls addSliderSpeed.
+	controls sliderSpeed sliderSpeedValueChanged: 10.
 	self assert: environment executer speed = 10.
 ]
 
 {
 	#category : #'as yet unclassified',
-	#'squeak_changestamp' : 'LD 6/25/2026 21:04'
+	#'squeak_changestamp' : 'LD 7/2/2026 13:57'
 }
 SKExecuteControlsTest >> testStop [
 
 	environment firstWorkspace userCode: 'kara move.'.
-	controls actionRun.
-	environment executer terminate.
+	controls addButtonRun.
+	controls addButtonStop.
+	controls buttonRun action.
+	controls buttonStop action.
 	self assert: environment executer state = #terminated.
 ]
