@@ -253,11 +253,11 @@ SKGrid >> lineWidth [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'JJG 6/5/2024 16:42'
+	#'squeak_changestamp' : 'JS 7/2/2026 04:26'
 }
 SKGrid >> pixelPerBlock [
 
-	^ SKGridObject textureDimension px * self scaleFactor
+	^ SKGridObject textureDimension * self scaleFactor
 ]
 
 {

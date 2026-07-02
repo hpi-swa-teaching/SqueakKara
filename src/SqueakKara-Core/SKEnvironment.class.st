@@ -146,11 +146,11 @@ SKEnvironment >> executionSpeed: aSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:27'
+	#'squeak_changestamp' : 'JS 7/2/2026 04:34'
 }
 SKEnvironment >> gameHeight [
 
-	^ gameHeight ifNil: [ self gameHeight: self grid height + (self grid pixelPerBlock * 4)]
+	^ gameHeight ifNil: [ self gameHeight: self grid height + self executeControls height + (self grid pixelPerBlock * 3)]
 ]
 
 {
