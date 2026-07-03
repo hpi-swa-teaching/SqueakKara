@@ -59,7 +59,7 @@ SKTextEntry >> isInBlockSource [
 
 {
 	#category : #'event handling',
-	#'squeak_changestamp' : 'SLH 7/1/2026 10:52'
+	#'squeak_changestamp' : 'SLH 7/1/2026 12:19'
 }
 SKTextEntry >> keyStroke: anEvent [
 	
@@ -72,6 +72,7 @@ SKTextEntry >> keyStroke: anEvent [
 		self changed.
 		^ self
 	].
+	self numericOnly ifFalse: [^ super keyStroke: anEvent].
 	(self isControlKey: char) ifTrue: [^ super keyStroke: anEvent].
 	char isDigit ifTrue: [^ super keyStroke: anEvent].
 	(char = $-) ifTrue: [^ super keyStroke: anEvent]

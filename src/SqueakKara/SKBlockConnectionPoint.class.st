@@ -88,11 +88,11 @@ SKBlockConnectionPoint >> dist: anotherBlockConnectionPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
+	#'squeak_changestamp' : 'FR 7/3/2026 03:09'
 }
 SKBlockConnectionPoint >> isConnected [
 
-	^ connectedPoint isNil not
+	^ self connectedPoint isNil not
 ]
 
 {

@@ -29,18 +29,18 @@ SKTextSlotPart >> defaultUIEntry [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 19:48'
+	#'squeak_changestamp' : 'FR 7/3/2026 03:05'
 }
 SKTextSlotPart >> defaultValue [
 
-	type = #Integer ifTrue: [^ self defaultUIEntry contents string asInteger].
+	self type = #Integer ifTrue: [^ self defaultUIEntry contents string asInteger].
 	^ self defaultUIEntry contents string
 	
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/29/2026 21:08'
+	#'squeak_changestamp' : 'FR 7/3/2026 03:01'
 }
 SKTextSlotPart >> initialize [
 	
@@ -53,7 +53,7 @@ SKTextSlotPart >> initialize [
 		wrapCentering: #center;
 		borderWidth: SKBlockStyle borderWidth // 2;
 		cellPositioning: #center;
-		layoutInset:" SKBlockStyle unit * 3 @ SKBlockStyle unit"0;
+		layoutInset: 0;
 		cornerStyle: #rounded;
 		cornerRadius: SKBlockStyle blockPartHeight // 3;
 		hResizing: #shrinkWrap;

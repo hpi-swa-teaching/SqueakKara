@@ -52,16 +52,16 @@ SKBlockRow >> block: aBlock [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:07'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:57'
 }
 SKBlockRow >> connectionPoint [
 
-	^ self bottomLeft + ((self block tabOffsetOuter + self block slantWidth + (self block tabWidth / 2)) @ 0)
+	^ self bottomLeft + ((self block tabOffsetOuter + self block slantWidth + (self block tabWidth // 2)) @ 0)
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:07'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:56'
 }
 SKBlockRow >> initialize [
 	
@@ -75,8 +75,6 @@ SKBlockRow >> initialize [
     		cellPositioning: #center;
 		cellGap: SKBlockStyle unit * 3;
 		color: Color transparent;
-		"borderWidth: 1;
-		borderColor: Color black;"
 		height: SKBlockStyle tabHeight * 3
 ]
 

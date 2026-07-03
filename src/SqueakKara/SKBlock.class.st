@@ -113,14 +113,18 @@ SKBlock >> addConnectionPoint: aConnectionPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/30/2026 20:39'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:32'
 }
 SKBlock >> addEmptyIntegerPart [
 	
 	| textSlotPart |
 	
 	textSlotPart := SKTextSlotPart new type: #Integer.
-	textSlotPart defaultUI: (textSlotPart defaultUI addMorphBack: (Morph new color: Color transparent; extent: textSlotPart defaultUIEntry extent); removeMorph: textSlotPart defaultUIEntry).
+	textSlotPart defaultUI: 
+		(textSlotPart defaultUI addMorphBack:
+			(Morph new color: Color transparent;
+				extent: textSlotPart defaultUIEntry extent);
+			removeMorph: textSlotPart defaultUIEntry).
 	textSlotPart restoreDefault.
 	
 	^ self addInputSlotPart: (textSlotPart)
@@ -182,6 +186,21 @@ SKBlock >> anchorPoint [
 	^ anchorPoint ifNil: [anchorPoint := SKBlockConnectionPoint new
 		uiDelegate: self;
 		type: #Anchor]
+]
+
+{
+	#category : #'submorphs - callbacks',
+	#'squeak_changestamp' : 'FR 7/3/2026 02:34'
+}
+SKBlock >> blockCount [
+	
+	| result |
+	
+	result := 1.
+	self actionConnectionPoints ifEmpty: [^0]
+		ifNotEmpty: [self actionConnectionPoints do:[:each | each connectedPoint ifNotNil:
+				[result := result + each connectedPoint uiDelegate blockCount]]].
+	^ result
 ]
 
 {
@@ -261,13 +280,13 @@ SKBlock >> connectionPointPositionForType: aConnectionPointType [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
+	#'squeak_changestamp' : 'FR 6/24/2026 17:16'
 }
 SKBlock >> findClosestSnapTargetIn: anObject [
 
 	| closestConnectionPoint shortestDistance currentDistance |
 
-	shortestDistance := 20.
+	shortestDistance := self snapRadius.
 	closestConnectionPoint := nil.
 	
 	(self validSnapConnectionsIn: anObject) do: [:each |
@@ -389,7 +408,7 @@ SKBlock >> mouseDown: anEvent [
 ]
 
 {
-	#category : #'dropping/grabbing',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
 }
 SKBlock >> rejectDropMorphEvent: anEvent [
@@ -414,11 +433,11 @@ SKBlock >> removedMorph: aMorph [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:17'
+	#'squeak_changestamp' : 'FR 6/24/2026 17:18'
 }
 SKBlock >> snapRadius [
 
-	^SKBlockStyle unit * 20.
+	^ SKBlockStyle blockPartHeight
 ]
 
 {
@@ -436,7 +455,7 @@ SKBlock >> snapToTarget: aConnectionPoint [
 ]
 
 {
-	#category : #'dropping/grabbing',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
 }
 SKBlock >> startDrag: anEvent [
@@ -445,7 +464,7 @@ SKBlock >> startDrag: anEvent [
 ]
 
 {
-	#category : #accessing,
+	#category : #layout,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
 }
 SKBlock >> tabHeight [
@@ -455,7 +474,7 @@ SKBlock >> tabHeight [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/24/2026 01:26'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:35'
 }
 SKBlock >> updateLayout [
 
@@ -474,7 +493,8 @@ SKBlock >> updateLayout [
 			layoutChanged;
 			changed;
 			updateLayout]
-	ifFalse: [(self ownerThatIsA: SKBlockEditor) ifNotNil: [(self ownerThatIsA: SKBlockEditor) expandIfNeededToInclude: self fullBounds]]
+	ifFalse: [(self ownerThatIsA: SKBlockEditor) ifNotNil:
+		[(self ownerThatIsA: SKBlockEditor) expandIfNeededToInclude: self fullBounds]]
 ]
 
 {

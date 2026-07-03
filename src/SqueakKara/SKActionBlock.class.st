@@ -67,7 +67,7 @@ SKActionBlock >> addBlockGap [
 ]
 
 {
-	#category : #type,
+	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:12'
 }
 SKActionBlock >> blockType [
@@ -100,20 +100,19 @@ SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:54'
 }
 SKActionBlock >> drawOn: aCanvas [
 
-	| bounds pts top bottom left right y halfBW |
+	| bounds pts bottom left right y halfBW |
 	
 	halfBW := self borderWidth // 2.
 	bounds := self bounds insetBy: halfBW.
-	top := bounds top.
 	bottom := bounds bottom - self tabHeight.
 	left := bounds left.
 	right := bounds right.
 	pts := OrderedCollection new.
-	y := top.
+	y := bounds top.
 	
 	self blockRows doWithIndex: [:row :index |
 		| leftTop leftBot tabOffset yNew |
@@ -155,14 +154,13 @@ SKActionBlock >> embedVisualBlock: anActionBlock [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:52'
 }
 SKActionBlock >> getBottomTabPointsFromLeft: left toRight: right atY: y [
 
-	| halfBW leftBot |
+	| halfBW |
 	
 	halfBW := SKBlockStyle borderWidth // 2.
-	leftBot := left.
 	
 	^ {	right @ y.
 		(left + self tabOffset + self tabWidth) @ y.
@@ -364,7 +362,7 @@ SKActionBlock >> updateLayout [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:15'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:50'
 }
 SKActionBlock >> validSnapConnectionsIn: anObject [
 
@@ -373,7 +371,7 @@ SKActionBlock >> validSnapConnectionsIn: anObject [
 	validConnections := OrderedCollection new.
 
 	anObject allMorphsDo: [:each |
-		((each isKindOf: SKActionBlock) and: [
+		((each isKindOf: self class) and: [
 			((each hasOwner: self) not) and: [
 				each ~= self]]) ifTrue: [
 					validConnections addAll: (each actionConnectionPoints select: [:connection |

@@ -74,23 +74,23 @@ SKBlockCategory >> buildContent [
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'SLH 6/16/2026 20:40'
+	#'squeak_changestamp' : 'FR 7/3/2026 03:07'
 }
 SKBlockCategory >> buildHeader [
 
 	| row |
 
-	disclosure := StringMorph new contents: self disclosureLabel.
-	titleLabel := StringMorph new contents: self title; emphasis: 1.
+	self disclosure: (StringMorph new contents: self disclosureLabel).
+	self titleLabel: (StringMorph new contents: self title; emphasis: 1).
 	row := self buildRow.
-	row addMorphBack: disclosure;
-		addMorphBack: titleLabel.
+	row addMorphBack: self disclosure;
+		addMorphBack: self titleLabel.
 	^ row
 ]
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'FR 6/23/2026 19:28'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:27'
 }
 SKBlockCategory >> buildRow [
 
@@ -107,7 +107,7 @@ SKBlockCategory >> buildRow [
 		layoutInset: SKBlockStyle unit * 2;
 		cellGap: SKBlockStyle unit * 2;
 		on: #mouseDown send: #toggle to: self;
-		yourself.
+		yourself
 ]
 
 {
@@ -130,6 +130,22 @@ SKBlockCategory >> collapse [
 SKBlockCategory >> content [
 
 	^ content ifNil: [content := self buildContent]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 7/3/2026 03:05'
+}
+SKBlockCategory >> disclosure [
+	^ disclosure
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 7/3/2026 03:05'
+}
+SKBlockCategory >> disclosure: anObject [
+	disclosure := anObject
 ]
 
 {
@@ -202,21 +218,20 @@ SKBlockCategory >> initialize [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/23/2026 23:00'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:44'
 }
 SKBlockCategory >> minWidth [
 
-	Transcript show: self asString.
 	^ self content fullBounds width max: self header width
 ]
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'FR 7/3/2026 03:07'
 }
 SKBlockCategory >> refreshDisclosure [
 
-	disclosure ifNotNil: [disclosure contents: self disclosureLabel]
+	self disclosure ifNotNil: [self disclosure contents: self disclosureLabel]
 ]
 
 {
@@ -240,12 +255,30 @@ SKBlockCategory >> title [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'FR 7/3/2026 03:08'
 }
 SKBlockCategory >> title: aString [
 
 	title := aString.
-	titleLabel ifNotNil: [titleLabel contents: aString]
+	self titleLabel ifNotNil: [self titleLabel contents: aString]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 7/3/2026 03:06'
+}
+SKBlockCategory >> titleLabel [
+
+	^ titleLabel
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 7/3/2026 03:08'
+}
+SKBlockCategory >> titleLabel: aMorph [
+
+	titleLabel := aMorph
 ]
 
 {

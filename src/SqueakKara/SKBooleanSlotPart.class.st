@@ -48,14 +48,15 @@ SKBooleanSlotPart >> drawOn: aCanvas [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:24'
+	#'squeak_changestamp' : 'FR 7/3/2026 03:05'
 }
 SKBooleanSlotPart >> initialize [
 	super initialize.
 	
-	self defaultUI: (Morph new color: Color transparent; extent: SKBlockStyle blockPartHeight * 2 @SKBlockStyle blockPartHeight).
+	self defaultUI: (Morph new color: Color transparent;
+						extent: SKBlockStyle blockPartHeight * 2 @SKBlockStyle blockPartHeight).
 	self hResizing: #shrinkWrap; vResizing: #shrinkWrap.
-	self addMorphBack: defaultUI
+	self addMorphBack: self defaultUI
 ]
 
 {

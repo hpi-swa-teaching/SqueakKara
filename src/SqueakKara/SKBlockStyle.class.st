@@ -34,11 +34,11 @@ SKBlockStyle class >> borderColorByCategory [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:32'
+	#'squeak_changestamp' : 'FR 7/1/2026 14:54'
 }
 SKBlockStyle class >> borderWidth [
 
-	^ SKBlockStyle unit
+	^ SKBlockStyle unit // 2 * 2
 ]
 
 {

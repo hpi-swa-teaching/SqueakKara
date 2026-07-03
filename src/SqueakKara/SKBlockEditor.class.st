@@ -32,11 +32,31 @@ Class {
 		'window',
 		'functionStarts',
 		'isWatchingChanges',
-		'variables'
+		'variables',
+		'blockMax'
 	],
 	#category : #'SqueakKara-ProgrammingBlocks',
 	#'squeak_changestamp' : 'FR 6/30/2026 21:28'
 }
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/24/2026 20:00'
+}
+SKBlockEditor >> blockMax [
+
+	^ blockMax ifNil:[^ 15]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 7/3/2026 02:46'
+}
+SKBlockEditor >> blockMax: aNumber [
+
+	self flag: #todo. "currently not sent -> this should be used to change the requirements based on the current level"
+	blockMax := aNumber
+]
 
 {
 	#category : #initialization,
@@ -82,7 +102,7 @@ SKBlockEditor >> buildEditorPane [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/30/2026 19:08'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:48'
 }
 SKBlockEditor >> buildSourcePane [
 	
@@ -95,7 +115,6 @@ SKBlockEditor >> buildSourcePane [
 		hResizing: #shrinkWrap;
 		vResizing: #spaceFill;
 		vScrollBarPolicy: #always;
-		"extent: self sourcePaneWidth @ self minHeight;"
 		yourself.
 	pane scroller addMorph: source.
 	pane adjustLayoutBounds.
@@ -105,7 +124,7 @@ SKBlockEditor >> buildSourcePane [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/24/2026 02:45'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:27'
 }
 SKBlockEditor >> buildWindowWithSourceWidth: aNumber [
 
@@ -115,12 +134,12 @@ SKBlockEditor >> buildWindowWithSourceWidth: aNumber [
 		listDirection: #leftToRight;
 		color: Color transparent;
 		extent: ((aNumber * 4) min: World width * 0.75) @ ((aNumber * 3) min: World height * 0.75);
-		yourself.
+		yourself
 ]
 
 {
 	#category : #resizing,
-	#'squeak_changestamp' : 'FR 6/24/2026 01:29'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:29'
 }
 SKBlockEditor >> expandIfNeededToInclude: aRectangle [
 
@@ -129,24 +148,26 @@ SKBlockEditor >> expandIfNeededToInclude: aRectangle [
 	newExtent := self extent.
 	(aRectangle right > newExtent x) ifTrue: [newExtent := aRectangle right @ newExtent y].
 	(aRectangle left < 0) ifTrue: [
-		self offset: (self offset x + aRectangle left) @ self offset y.
+		self shiftSubmorphsBy: (aRectangle left abs @ 0).
 		newExtent := (newExtent x - aRectangle left) @ newExtent y].
 	(aRectangle bottom > newExtent y) ifTrue: [newExtent := newExtent x @ aRectangle bottom].
 	(aRectangle top < 0) ifTrue: [
-		self offset: self offset x @ (self offset y + aRectangle top).
+		self shiftSubmorphsBy: (0 @ aRectangle top abs).
 		newExtent := newExtent x @ (newExtent y - aRectangle top) ].
-	newExtent ~= self extent ifTrue: [
-		self extent: newExtent.
-		self layoutChanged.]
+	newExtent = self extent ifTrue: [^self].
+	self extent: newExtent.
+	self layoutChanged
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/24/2026 03:59'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:36'
 }
 SKBlockEditor >> functionStartWithName: aString [
 
-	(self functionStarts at: aString ifAbsent: [self error: 'The called function is not defined.'.]) isEmpty ifTrue:[self error: 'The called function is not defined.'.].
+	(self functionStarts at: aString ifAbsent: [self error: 'The called function is not defined.'.]) isEmpty
+		ifTrue:[self error: 'The called function is not defined.'.].
+		
 	 ^ (self functionStarts at: aString) anyOne
 ]
 
@@ -207,7 +228,7 @@ SKBlockEditor >> isWatchingChanges: aBoolean [
 ]
 
 {
-	#category : #accessing,
+	#category : #'submorphs - tracking',
 	#'squeak_changestamp' : 'FR 6/9/2026 23:09'
 }
 SKBlockEditor >> nextAvailableFunctionNameFor: aString [
@@ -242,23 +263,53 @@ SKBlockEditor >> open [
 
 {
 	#category : #resizing,
-	#'squeak_changestamp' : 'FR 6/24/2026 01:49'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:30'
 }
 SKBlockEditor >> ownerChanged [
 
 	super ownerChanged.
-	self isWatchingChanges ifTrue: [self expandIfNeededToInclude: self owner innerBounds]
+	self isWatchingChanges ifFalse: [^self].
+	self expandIfNeededToInclude: self owner innerBounds;
+		refreshBlockCount
+	
+]
+
+{
+	#category : #'submorphs - tracking',
+	#'squeak_changestamp' : 'FR 6/29/2026 20:40'
+}
+SKBlockEditor >> refreshBlockCount [
+
+	| result |
+	
+	result := self startBlock blockCount - 1.
+	self functionStarts keysDo: [:key | result := (self functionStartWithName: key) blockCount + result].
+	self setBlockCountDisplay: result
+	
+]
+
+{
+	#category : #'submorphs - tracking',
+	#'squeak_changestamp' : 'FR 6/29/2026 20:40'
+}
+SKBlockEditor >> setBlockCountDisplay: aNumber [
+	
+	aNumber > self blockMax ifTrue:[(self startBlock blockParts at: 2) defaultUIEntry color: Color red]
+		ifFalse:[(self startBlock blockParts at: 2) defaultUIEntry color: Color black].
+	(self startBlock blockParts at: 2) setDefaultUIText: aNumber asString, ' / ', self blockMax asString
+	
 	
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/23/2026 19:03'
+	#'squeak_changestamp' : 'FR 6/24/2026 19:56'
 }
 SKBlockEditor >> startBlock [
 
 	^ startBlock ifNil: [startBlock := SKActionBlock new
 		addLabel: 'Start of Script';
+		addStringPartWithText: '0 / 15';
 		isStart: true;
 		leftSource: false;
 		yourself]
@@ -275,7 +326,7 @@ SKBlockEditor >> variables [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
+	#'squeak_changestamp' : 'FR 6/24/2026 19:34'
 }
 SKBlockEditor >> wantsDroppedMorph: aMorph event: anEvent [
 

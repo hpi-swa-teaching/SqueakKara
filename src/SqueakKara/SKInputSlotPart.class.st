@@ -129,19 +129,13 @@ SKInputSlotPart >> removedMorph: aMorph [
 
 {
 	#category : #attaching,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:48'
 }
 SKInputSlotPart >> resolveConflictingBlockEmbeddingFor: anSKBlock [
-	
-	"| oldEmbeddedBlock |"
 	
 	self connectionPoint isConnected ifFalse: [^ self].
 	
 	^ nil
-	
-	"oldEmbeddedBlock := self connectionPoint connectedPoint uiDelegate.
-	oldEmbeddedBlock detachFromSnapAnchor.
-	oldEmbeddedBlock position: oldEmbeddedBlock position+(25@25)."
 ]
 
 {

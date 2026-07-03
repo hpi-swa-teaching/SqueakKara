@@ -82,9 +82,12 @@ SKBlockSource >> andBlock [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/30/2026 19:07'
+	#'squeak_changestamp' : 'FR 7/3/2026 03:00'
 }
 SKBlockSource >> blockEditor [
+
+	self flag: #todo. 
+	"make this nicer. passing the blockEditor in an instance var kills squeak when adding some blocks as the code of the blocks is stored in a block Closure including its sender (the blockSource) and by extension the blockEditor itself -> very big very fast"
 	^ ((self owner owner owner owner firstSubmorph submorphs at: 2) submorphs at: 3) firstSubmorph 
 ]
 
@@ -150,7 +153,7 @@ SKBlockSource >> forLoop [
 
 {
 	#category : #'block definitions - control',
-	#'squeak_changestamp' : 'FR 6/24/2026 03:54'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:51'
 }
 SKBlockSource >> functionCall [
 
@@ -159,7 +162,7 @@ SKBlockSource >> functionCall [
 	newBlock := SKActionBlock new
 		addLabel: 'send';
 		addStringPartWithText: 'Message 1';
-		action: [:input | [((self ownerThatIsA: SKBlockEditor) functionStartWithName: input) getCode] value];
+		action: [:input | 'placeholder', input];
 		updateLayout;
 		yourself.
 	newBlock action: [:input | ((newBlock ownerThatIsA: SKBlockEditor) functionStartWithName: input) getCode].
