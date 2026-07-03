@@ -10,7 +10,7 @@ Class {
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'FR 7/3/2026 15:24'
+	#'squeak_changestamp' : 'FR 7/3/2026 23:37'
 }
 SKBlockFunctionTest >> setUp [
 	
@@ -18,7 +18,7 @@ SKBlockFunctionTest >> setUp [
 	
 	newBlock := SKMockBlock new.
 	newBlock code: [:input | (blockEditor functionStartWithName: input) getCode].
-	blockEditor := SKBlockEditor new startBlock: newBlock.
+	blockEditor := (SKBlockEditor new startBlock: newBlock).
 	functionStart := (SKFunctionStart new
 		isStart: true;
 		action: '';
