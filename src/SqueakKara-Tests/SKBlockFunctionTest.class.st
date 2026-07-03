@@ -9,25 +9,56 @@ Class {
 }
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 7/3/2026 23:44'
+}
+SKBlockFunctionTest >> blockEditor [
+	^ blockEditor ifNil: [blockEditor := SKBlockEditor new]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 7/3/2026 23:41'
+}
+SKBlockFunctionTest >> blockEditor: anObject [
+	blockEditor := anObject
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 7/3/2026 23:44'
+}
+SKBlockFunctionTest >> functionStart [
+	^ functionStart ifNil:[functionStart := (SKFunctionStart new
+		isStart: true;
+		action: '';
+		updateLayout;
+		functionName: 'TestFunction';
+		functionNameSlot: TextMorph new;
+		yourself)]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 7/3/2026 23:41'
+}
+SKBlockFunctionTest >> functionStart: anObject [
+	functionStart := anObject
+]
+
+{
 	#category : #setup,
-	#'squeak_changestamp' : 'FR 7/3/2026 23:37'
+	#'squeak_changestamp' : 'FR 7/3/2026 23:43'
 }
 SKBlockFunctionTest >> setUp [
 	
 	| newBlock |
 	
 	newBlock := SKMockBlock new.
-	newBlock code: [:input | (blockEditor functionStartWithName: input) getCode].
-	blockEditor := (SKBlockEditor new startBlock: newBlock).
-	functionStart := (SKFunctionStart new
-		isStart: true;
-		action: '';
-		updateLayout;
-		functionName: 'TestFunction';
-		functionNameSlot: TextMorph new;
-		yourself).
-	blockEditor addMorph: functionStart.
-	functionStart spawn.
+	newBlock code: [:input | (self blockEditor functionStartWithName: input) getCode].
+	self blockEditor startBlock: newBlock.
+	self blockEditor addMorph: self functionStart.
+	self functionStart spawn
 	
 ]
 
