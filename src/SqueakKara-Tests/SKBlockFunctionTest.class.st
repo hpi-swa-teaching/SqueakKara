@@ -48,15 +48,17 @@ SKBlockFunctionTest >> functionStart: anObject [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'FR 7/3/2026 23:43'
+	#'squeak_changestamp' : 'FR 7/4/2026 00:04'
 }
 SKBlockFunctionTest >> setUp [
 	
 	| newBlock |
 	
-	newBlock := SKMockBlock new.
-	newBlock code: [:input | (self blockEditor functionStartWithName: input) getCode].
+	"newBlock := SKMockBlock new.
+	newBlock code: [:input | (self blockEditor functionStartWithName: input) getCode]."
+	newBlock:= SKBlockSource basicNew functionCall.
 	self blockEditor startBlock: newBlock.
+	self blockEditor addMorph: newBlock.
 	self blockEditor addMorph: self functionStart.
 	self functionStart spawn
 	
@@ -64,24 +66,36 @@ SKBlockFunctionTest >> setUp [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'FR 7/3/2026 15:25'
+	#'squeak_changestamp' : 'FR 7/3/2026 23:48'
 }
 SKBlockFunctionTest >> tearDown [
 	
 	
-	blockEditor startBlock delete.
-	blockEditor delete.
-	functionStart caller: nil.
-	functionStart delete.
+	self blockEditor startBlock delete.
+	self blockEditor delete.
+	self functionStart caller: nil.
+	self functionStart delete.
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'FR 7/3/2026 15:28'
+	#'squeak_changestamp' : 'FR 7/4/2026 00:03'
 }
 SKBlockFunctionTest >> testFunctionCall [
 
-	functionStart action: 'functionCodeBlock'.
-	self assert: (blockEditor startBlock getCodeWithArgs: (Array with: ('TestFunction 1'))) equals: 'functionCodeBlock'
+	self functionStart action: 'functionCodeBlock'.
+	(self blockEditor startBlock blockParts at: 2) setDefaultUIText: 'TestFunction 1'.
+	self assert: (self blockEditor startBlock getCode) equals: 'functionCodeBlock'
+	
+]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'FR 7/3/2026 23:50'
+}
+SKBlockFunctionTest >> testFunctionCallAfterRemovingDuplicates [
+
+"	functionStart action: 'functionCodeBlock'.
+	self assert: (blockEditor startBlock getCodeWithArgs: (Array with: ('TestFunction 1'))) equals: 'functionCodeBlock'"
 	
 ]
