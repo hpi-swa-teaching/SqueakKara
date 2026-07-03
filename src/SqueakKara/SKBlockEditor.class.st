@@ -139,7 +139,7 @@ SKBlockEditor >> buildWindowWithSourceWidth: aNumber [
 
 {
 	#category : #resizing,
-	#'squeak_changestamp' : 'FR 7/3/2026 02:29'
+	#'squeak_changestamp' : 'FR 7/3/2026 14:31'
 }
 SKBlockEditor >> expandIfNeededToInclude: aRectangle [
 
@@ -149,10 +149,12 @@ SKBlockEditor >> expandIfNeededToInclude: aRectangle [
 	(aRectangle right > newExtent x) ifTrue: [newExtent := aRectangle right @ newExtent y].
 	(aRectangle left < 0) ifTrue: [
 		self shiftSubmorphsBy: (aRectangle left abs @ 0).
+		self scroller offset: (self scroller offset x + aRectangle left abs @ (self scroller offset y)).
 		newExtent := (newExtent x - aRectangle left) @ newExtent y].
-	(aRectangle bottom > newExtent y) ifTrue: [newExtent := newExtent x @ aRectangle bottom].
+	(aRectangle bottom > newExtent y) ifTrue: [newExtent := newExtent x @ aRectangle bottom + SKBlockStyle blockPartHeight].
 	(aRectangle top < 0) ifTrue: [
 		self shiftSubmorphsBy: (0 @ aRectangle top abs).
+		self scroller offset:( self scroller offset x @ (self scroller offset y + aRectangle top abs)).
 		newExtent := newExtent x @ (newExtent y - aRectangle top) ].
 	newExtent = self extent ifTrue: [^self].
 	self extent: newExtent.
@@ -289,6 +291,15 @@ SKBlockEditor >> refreshBlockCount [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 7/3/2026 14:05'
+}
+SKBlockEditor >> scroller [
+
+	^ self owner
+]
+
+{
 	#category : #'submorphs - tracking',
 	#'squeak_changestamp' : 'FR 6/29/2026 20:40'
 }
@@ -313,6 +324,15 @@ SKBlockEditor >> startBlock [
 		isStart: true;
 		leftSource: false;
 		yourself]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 7/3/2026 15:21'
+}
+SKBlockEditor >> startBlock: aSKBlock [
+
+	startBlock := aSKBlock
 ]
 
 {
