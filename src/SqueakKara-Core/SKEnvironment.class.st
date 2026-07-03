@@ -60,7 +60,7 @@ SKEnvironment >> blockspace: anObject [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:38'
+	#'squeak_changestamp' : 'JS 7/2/2026 23:29'
 }
 SKEnvironment >> calculateScaleFactor: aPoint [
 
@@ -439,7 +439,7 @@ SKEnvironment >> reset: aChallenge [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:26'
+	#'squeak_changestamp' : 'JS 7/2/2026 22:42'
 }
 SKEnvironment >> resize [
 	
@@ -447,16 +447,16 @@ SKEnvironment >> resize [
 	scaleFactor := self calculateScaleFactor: self systemWindow extent.
 	
 	self resizeGridByFactor: scaleFactor.
-	self executeControls scaleFactor: scaleFactor
+	self executeControls scaleFactor: scaleFactor. 
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:26'
+	#'squeak_changestamp' : 'JS 7/2/2026 20:07'
 }
 SKEnvironment >> resizeGridByFactor: aNumber [
 	self grid scaleFactor: aNumber.
-	self grid updateDimensions
+	self grid updateDimensions.
 ]
 
 {
@@ -481,7 +481,7 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 12:52'
+	#'squeak_changestamp' : 'JS 7/4/2026 01:23'
 }
 SKEnvironment >> setSystemWindow [
 	
