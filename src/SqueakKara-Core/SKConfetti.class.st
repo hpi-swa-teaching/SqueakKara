@@ -45,6 +45,16 @@ SKConfetti >> addParticleAt: aCenter [
 ]
 
 {
+	#category : #stepping,
+	#'squeak_changestamp' : 'makrosophos 7/3/2026 13:31'
+}
+SKConfetti >> decrementTick [
+
+	ticksRemaining := ticksRemaining - 1.
+	ticksRemaining <= 0 ifTrue: [self delete]
+]
+
+{
 	#category : #initialization,
 	#'squeak_changestamp' : 'makrosophos 6/24/2026 12:00'
 }
@@ -82,7 +92,7 @@ SKConfetti >> startCelebration [
 
 	self extent: 1 @ 1.
 	50 timesRepeat: [self addParticleAt: self position].
-	self startStepping
+	
 ]
 
 {
@@ -98,10 +108,7 @@ SKConfetti >> step [
 		newVelocity := velocity x @ (velocity y + 0.6).
 		each at: 2 put: newVelocity.
 		piece position: piece position + newVelocity].
-	ticksRemaining := ticksRemaining - 1.
-	ticksRemaining <= 0 ifTrue: [
-		self stopStepping.
-		self delete]
+	self decrementTick
 ]
 
 {
