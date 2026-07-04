@@ -12,8 +12,7 @@ Class {
 		'gameWidth',
 		'gameHeight',
 		'systemWindow',
-		'nextChallenge',
-		'currentChallenge'
+		'nextChallenge'
 	],
 	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
@@ -101,24 +100,6 @@ SKEnvironment >> containerMorph [
 		vResizing: #spaceFill;
 		cellInset: 10;
 		yourself
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/25/2026 21:14'
-}
-SKEnvironment >> currentChallenge [
-
-	^ currentChallenge
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/25/2026 21:15'
-}
-SKEnvironment >> currentChallenge: aSymbol [
-
-	currentChallenge := aSymbol
 ]
 
 {
@@ -289,14 +270,13 @@ SKEnvironment >> initializeWithBlankProject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:54'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge1 [
 
 	self grid: (SKGrid newWithExtent: 7 @ 7).
 	SKChallenge initializeChallenge1For: self.
 	
-	self currentChallenge: #initializeWithChallenge1.
 	self nextChallenge: #initializeWithChallenge2.
 	
 	self initializeObjects
@@ -319,14 +299,13 @@ SKEnvironment >> initializeWithChallenge10 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:54'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge2 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 2).
 	SKChallenge initializeChallenge2For: self.
 	
-	self currentChallenge: #initializeWithChallenge2.
 	self nextChallenge: #initializeWithChallenge3.
 	
 	self initializeObjects
@@ -334,14 +313,13 @@ SKEnvironment >> initializeWithChallenge2 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:54'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge3 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 3).
 	SKChallenge initializeChallenge3For: self.
-
-	self currentChallenge: #initializeWithChallenge3.	
+	
 	self nextChallenge: #initializeWithChallenge4.
 	
 	self initializeObjects
@@ -349,14 +327,13 @@ SKEnvironment >> initializeWithChallenge3 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:54'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:36'
 }
 SKEnvironment >> initializeWithChallenge4 [
 
 	self grid: (SKGrid newWithExtent: 7 @ 4).
 	SKChallenge initializeChallenge4For: self.
 	
-	self currentChallenge: #initializeWithChallenge4.
 	self nextChallenge: #initializeWithChallenge5.
 	
 	self initializeObjects
@@ -364,14 +341,13 @@ SKEnvironment >> initializeWithChallenge4 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:54'
+	#'squeak_changestamp' : 'mr 6/5/2026 13:21'
 }
 SKEnvironment >> initializeWithChallenge5 [
 
 	self grid: (SKGrid newWithExtent: 11 @ 11).
 	SKChallenge initializeChallenge5For: self.
-
-	self currentChallenge: #initializeWithChallenge5.	
+	
 	self nextChallenge: #initializeWithChallenge6.
 	
 	self initializeObjects
@@ -379,14 +355,13 @@ SKEnvironment >> initializeWithChallenge5 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:54'
+	#'squeak_changestamp' : 'mr 6/5/2026 13:21'
 }
 SKEnvironment >> initializeWithChallenge6 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 9).
 	SKChallenge initializeChallenge6For: self.
 	
-	self currentChallenge: #initializeWithChallenge6.
 	self nextChallenge: #initializeWithChallenge7.
 	
 	self initializeObjects
@@ -394,14 +369,13 @@ SKEnvironment >> initializeWithChallenge6 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:55'
+	#'squeak_changestamp' : 'mr 6/5/2026 13:21'
 }
 SKEnvironment >> initializeWithChallenge7 [
 
 	self grid: (SKGrid newWithExtent: 8 @ 8).
 	SKChallenge initializeChallenge7For: self.
 	
-	self currentChallenge: #initializeWithChallenge7.
 	self nextChallenge: #initializeWithChallenge8.
 	
 	self initializeObjects
@@ -409,14 +383,13 @@ SKEnvironment >> initializeWithChallenge7 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 6/18/2026 21:55'
+	#'squeak_changestamp' : 'JanWein 6/5/2026 13:55'
 }
 SKEnvironment >> initializeWithChallenge8 [
 
 	self grid: (SKGrid newWithExtent: 10 @ 11).
 	SKChallenge initializeChallenge8For: self.
 	
-	self currentChallenge: #initializeWithChallenge8.
 	self nextChallenge: #initializeWithChallenge9.
 	
 	self initializeObjects
@@ -424,14 +397,13 @@ SKEnvironment >> initializeWithChallenge8 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 6/25/2026 19:11'
+	#'squeak_changestamp' : 'mr 6/16/2026 12:43'
 }
 SKEnvironment >> initializeWithChallenge9 [
 
 	self grid: (SKGrid newWithExtent: 9 @ 5).
 	SKChallenge initializeChallenge9For: self.
 	
-	self currentChallenge: #initializeWithChallenge9.
 	self nextChallenge: #initializeWithChallenge10.
 	
 	self initializeObjects
@@ -486,20 +458,20 @@ SKEnvironment >> nextChallenge [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/25/2026 21:15'
+	#'squeak_changestamp' : 'jawi 6/3/2026 20:35'
 }
-SKEnvironment >> nextChallenge: aSymbol [
+SKEnvironment >> nextChallenge: aChallenge [
 	
-	nextChallenge := aSymbol
+	nextChallenge := aChallenge
 ]
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'ND 6/17/2026 00:11'
+	#'squeak_changestamp' : 'LM 5/4/2026 12:56'
 }
 SKEnvironment >> onFinish [
 
-	self executeControls buttonStop action
+	self executeControls actionStop
 ]
 
 {
@@ -624,11 +596,11 @@ SKEnvironment >> systemWindow: anObject [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'ND 6/29/2026 16:43'
+	#'squeak_changestamp' : 'LM 5/12/2026 21:01'
 }
 SKEnvironment >> updateTextures [
 
-    self executeControls updateTextures
+	self executeControls updateTextures
 ]
 
 {

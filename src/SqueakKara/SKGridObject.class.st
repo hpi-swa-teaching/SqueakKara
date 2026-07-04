@@ -154,11 +154,11 @@ SKGridObject >> initializeInGrid: aGrid at: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 6/25/2026 20:48'
+	#'squeak_changestamp' : 'LM 4/29/2026 13:09'
 }
 SKGridObject >> isBlocking [
 
-	^ self isKara or: [ self isTrunk ]
+	^ self isKara or: [ self isCloverleaf ] or: [ self isTrunk ]
 ]
 
 {

@@ -1,6 +1,6 @@
 GSMetadata {
 	#version : 1,
-	#mappers : [
+	#mappers : OrderedCollection [
 		GSImageMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
@@ -94,14 +94,6 @@ GSMetadata {
 			#path : FSAbsolutePath [
 				'assets',
 				'WIN-Screen.png'
-			],
-			#encoding : @5
-		},
-		GSImageMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'assets',
-				'reset.png'
 			],
 			#encoding : @5
 		},

@@ -33,13 +33,14 @@ SKKara class >> newInGrid: aGrid at: aPoint [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 6/25/2026 22:01'
+	#'squeak_changestamp' : 'mr 6/16/2026 13:50'
 }
 SKKara >> canMoveAhead [
 
 	| neighboursNext movementDirection |
 
 	(self trunkAhead) ifTrue: [ ^ false ].
+	(self karaAhead) ifTrue: [ ^ false ].
 	
 	movementDirection := self viewDirection.
 	neighboursNext := self neighboursAt: movementDirection.
@@ -81,7 +82,7 @@ SKKara >> collectCloverleaf [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/29/2026 08:39'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:13'
 }
 SKKara >> color: aColor [
 
@@ -89,7 +90,7 @@ SKKara >> color: aColor [
 		self cloverleaf color: aColor.
 		self scaleToFactor.
 
-	self workspace ifNotNil: [ self workspace color: self color ]
+	self hasWorkspace ifTrue: [ self workspace color: self color ]
 ]
 
 {
@@ -126,11 +127,11 @@ SKKara >> defaultColor [
 
 {
 	#category : #'submorphs - add/remove',
-	#'squeak_changestamp' : 'LM 6/8/2026 22:26'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:13'
 }
 SKKara >> delete [
 
-	self workspace ifNotNil: [ self workspace superClose ].
+	self hasWorkspace ifTrue: [ self workspace superClose ].
 	self superDelete
 ]
 
@@ -187,6 +188,15 @@ SKKara >> hasBlockingDirectionalTileIn: aNeighborCollection direction: aDirectio
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 7/4/2026 11:12'
+}
+SKKara >> hasWorkspace [
+	
+		^ self workspace isNil not
+]
+
+{
 	#category : #initialization,
 	#'squeak_changestamp' : 'LM 5/28/2026 19:40'
 }
@@ -231,7 +241,7 @@ SKKara >> karaAhead [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'LM 6/25/2026 22:01'
+	#'squeak_changestamp' : 'mr 6/16/2026 13:51'
 }
 SKKara >> lockAt: aPoint [
 
@@ -239,7 +249,6 @@ SKKara >> lockAt: aPoint [
 
 	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
 	
-	(self karaAhead) ifTrue: [ ^ self ].
 	(self canMoveAhead) ifFalse: [ ^ self ].
 	
 	lockSuccessful := (self gridCoordinator lockAt: aPoint for: self).
