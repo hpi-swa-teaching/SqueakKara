@@ -86,11 +86,11 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/29/2026 12:54'
+	#'squeak_changestamp' : 'ND 7/4/2026 11:58'
 }
 SKExecuter >> execute: aCode for: aKara [
 
-	| proxy context |
+	| proxy |
 	
 	self terminateFor: aKara.
 	
@@ -99,9 +99,7 @@ SKExecuter >> execute: aCode for: aKara [
 	
 	self scheduler addActor: proxy.
 	
-	context := SKExecuteContext new kara: proxy.
-	self processes at: aKara put: ([[ self compiler evaluate: aCode for: context ]
-		ensure: [ self scheduler finishActor: proxy ]] forkAt: Processor userBackgroundPriority).
+	self startExecutionOf: aCode for: aKara using: proxy.
 
 	self stateWithUpdate: #running
 ]
@@ -191,6 +189,20 @@ SKExecuter >> speed [
 SKExecuter >> speed: aSpeed [
 	
 	speed := aSpeed
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 7/4/2026 12:07'
+}
+SKExecuter >> startExecutionOf: aCode for: aKara using: aProxy [
+
+	| context |
+	context := SKExecuteContext new kara: aProxy.
+	self processes at: aKara put: (
+		[[ self compiler evaluate: aCode for: context ]
+			ensure: [ self scheduler finishActor: aProxy ]]
+			forkAt: Processor userBackgroundPriority)
 ]
 
 {
