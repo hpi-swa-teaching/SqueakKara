@@ -71,11 +71,11 @@ SKInputSlotPart >> connectionPoint [
 
 {
 	#category : #attaching,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
+	#'squeak_changestamp' : 'SLH 7/4/2026 14:09'
 }
 SKInputSlotPart >> connectionPointPositionForType: aConnectionPointType [
 
-	^ self leftCenter
+	^ self boundsInWorld leftCenter
 ]
 
 {
@@ -107,12 +107,12 @@ SKInputSlotPart >> defaultValue [
 
 {
 	#category : #attaching,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
+	#'squeak_changestamp' : 'SLH 7/4/2026 14:27'
 }
 SKInputSlotPart >> embedVisualBlock: anSKBlock [
 	
+	self addMorph: anSKBlock.
 	anSKBlock align: (anSKBlock anchorPoint position) with: (self connectionPoint position).
-	self addMorph: anSKBlock
 ]
 
 {

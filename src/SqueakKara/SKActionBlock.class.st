@@ -88,14 +88,14 @@ SKActionBlock >> connectionPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:33'
+	#'squeak_changestamp' : 'SLH 7/4/2026 14:09'
 }
 SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 
 	(aConnectionPointType = #Action) ifTrue: [
-		^ self bottomLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth // 2)) @ 0)].
+		^ self boundsInWorld bottomLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth // 2)) @ 0)].
 	
-	^ self topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth // 2)) @ (self tabHeight))
+	^ self boundsInWorld topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth // 2)) @ (self tabHeight))
 ]
 
 {
