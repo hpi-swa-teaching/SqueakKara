@@ -6,7 +6,7 @@ Class {
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 7/4/2026 13:12'
+	#'squeak_changestamp' : 'LM 7/4/2026 13:59'
 }
 SKIntegrationTest >> testCriticalSectionLevel [
 
@@ -28,11 +28,13 @@ SKIntegrationTest >> testCriticalSectionLevel [
 	
 	self assert: environment karas first coordinates = (4 @ 1).
 	
+	environment karas do: [ :kara | kara speechBubbles do: [ :bubble | bubble delete ]].
 	environment := environment executeControls buttonReset action.
 	
 	wrongCloverleafCode1 := '(1 to: 6) do: [ :i | kara move ]. kara collectCloverleaf'.
 	
 	environment firstWorkspace userCode: wrongCloverleafCode1.
+	environment workspaces second userCode: ''.
 	
 	environment run.
 	
@@ -41,6 +43,7 @@ SKIntegrationTest >> testCriticalSectionLevel [
 	
 	self assert: ((environment grid gridCoordinator getTileAtCoordinates: (7 @ 1)) anySatisfy: [ :object | object isCloverleaf ]).
 	
+	environment karas do: [ :kara | kara speechBubbles do: [ :bubble | bubble delete ]].
 	environment := environment executeControls buttonReset action.
 	
 	solutionCode1 := '(1 to: 2) do: [ :k | (1 to: 4) do: [ :i | kara move ]. kara turn: right ]. kara move. kara collectCloverleaf'.
@@ -56,5 +59,6 @@ SKIntegrationTest >> testCriticalSectionLevel [
 	
 	self assert: environment grid allLeavesCollected.
 	
+	environment karas do: [ :kara | kara speechBubbles do: [ :bubble | bubble delete ]].
 	environment close
 ]
