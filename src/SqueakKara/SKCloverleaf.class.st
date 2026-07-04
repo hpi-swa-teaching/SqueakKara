@@ -58,14 +58,14 @@ SKCloverleaf >> isCloverleaf [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'jawi 5/28/2026 15:41'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:31'
 }
 SKCloverleaf >> position: aPoint [
 
-	| coordinates tile |
+	| newCoordinates tile |
 	
-	coordinates := self coordinatesFromPosition: aPoint.
-	tile := self gridCoordinator getTileAtCoordinates: coordinates.
+	newCoordinates := self coordinatesFromPosition: aPoint.
+	tile := self gridCoordinator getTileAtCoordinates: newCoordinates.
 	
 	(tile anySatisfy: [ :each | each isTrunk ]) ifTrue: [^ self ].
 

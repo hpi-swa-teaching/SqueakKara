@@ -238,18 +238,18 @@ SKGridCoordinator >> storeObject: aGridObject at: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 6/9/2026 18:57'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:37'
 }
 SKGridCoordinator >> unlockAt: aPoint [
+
+	| tile |
 	
-	(self grid isPointInGridDimensions: aPoint)
-		ifTrue: [
-			| tile |
-			
-			(self gridMatrix at: aPoint x at: aPoint y) unlock.
-			tile := self getTileAtCoordinates: aPoint.
-			tile detect: [ :gridObject | gridObject isCriticalSection ]
-				ifFound: [ :criticalSection | self unlockGroup: criticalSection group ]]
+	(self grid isPointInGridDimensions: aPoint) ifFalse: [ ^ self ].
+	
+	(self gridMatrix at: aPoint x at: aPoint y) unlock.
+	tile := self getTileAtCoordinates: aPoint.
+	tile detect: [ :gridObject | gridObject isCriticalSection ]
+		ifFound: [ :criticalSection | self unlockGroup: criticalSection group ]
 ]
 
 {

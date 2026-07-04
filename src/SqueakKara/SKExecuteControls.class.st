@@ -206,16 +206,11 @@ SKExecuteControls >> buttonStop: aButton [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'ND 6/25/2026 21:17'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:32'
 }
 SKExecuteControls >> createButtonNextChallenge [
-	
-	| buttonNextChallenge |
-	
-	buttonNextChallenge := SKButtonNextChallenge new
-		executeControls: self.
-	self buttonNextChallenge: buttonNextChallenge
 
+	self buttonNextChallenge: (SKButtonNextChallenge new executeControls: self)
 ]
 
 {
