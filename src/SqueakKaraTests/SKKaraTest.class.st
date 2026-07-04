@@ -97,7 +97,7 @@ SKKaraTest >> testCollectCloverleaf [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'LM 5/23/2026 14:08'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:32'
 }
 SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
     | kara aForm colorChanged |
@@ -107,18 +107,18 @@ SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
     aBoolean ifTrue: [ kara color: Color green ]
     ifFalse: [ kara fillStyle: Color green ].
     
-    colorChanged := False.
+    colorChanged := false.
         
     aForm := kara image.
     1 to: aForm width do: [:x |
       1 to: aForm height do: [:y |
             ((aForm colorAt: x @ y) = (Color green))
                 ifTrue: [
-				colorChanged := True ].
+				colorChanged := true ].
 				self assert: (((aForm colorAt: x @ y) = (kara defaultColor)) not)
                   ]].
 			
-    self assert: (colorChanged = True)
+    self assert: (colorChanged = true)
 ]
 
 {
