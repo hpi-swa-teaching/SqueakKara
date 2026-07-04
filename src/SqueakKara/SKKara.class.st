@@ -91,7 +91,7 @@ SKKara >> collectCloverleaf [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/29/2026 08:39'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:24'
 }
 SKKara >> color: aColor [
 
@@ -99,7 +99,7 @@ SKKara >> color: aColor [
 		self cloverleaf color: aColor.
 		self scaleToFactor.
 
-	self workspace ifNotNil: [ self workspace color: self color ]
+	self hasWorkspace ifTrue: [ self workspace color: self color ]
 ]
 
 {
@@ -136,11 +136,11 @@ SKKara >> defaultColor [
 
 {
 	#category : #'submorphs - add/remove',
-	#'squeak_changestamp' : 'LM 6/8/2026 22:26'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:24'
 }
 SKKara >> delete [
 
-	self workspace ifNotNil: [ self workspace superClose ].
+	self hasWorkspace ifTrue: [ self workspace superClose ].
 	self superDelete
 ]
 
@@ -210,7 +210,7 @@ SKKara >> fillStyle: aFillStyle [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/22/2026 22:05'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:49'
 }
 SKKara >> findUnusedColor [
 	
@@ -219,7 +219,7 @@ SKKara >> findUnusedColor [
 	colorList := SKKara defaultColors.
 	karaList := self environment karas.
 	
-	karaList do: [ :kara | colorList remove: kara color ifAbsent: [] ].
+	karaList do: [ :kara | colorList remove: kara color ifAbsent: []].
 	colorList isEmpty ifFalse: [ ^ colorList first ].
 	
 	^ Color black
@@ -239,6 +239,15 @@ SKKara >> hasBlockingDirectionalTileIn: aNeighborCollection direction: aDirectio
 	directionalTiles isEmpty ifTrue: [ ^ false ].
 		
 	^ (directionalTiles anySatisfy: [ :directionalTile | directionalTile matchesDirection: aDirection ]) not
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 7/4/2026 11:24'
+}
+SKKara >> hasWorkspace [
+
+	^ self workspace isNil not
 ]
 
 {
@@ -403,7 +412,7 @@ SKKara >> randomDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/25/2026 21:07'
+	#'squeak_changestamp' : 'mr 7/4/2026 12:34'
 }
 SKKara >> sayMessage: aString [
 
@@ -417,13 +426,13 @@ SKKara >> sayMessage: aString [
 }
 SKKara >> scaleToFactor [
 
-	| image |
+	| modifiedImage |
 	
 	super scaleToFactor.
 	self updateColor.
 	
-	image := self rotateTowards: self viewDirection.
-	self image: image
+	modifiedImage := self rotateTowards: self viewDirection.
+	self image: modifiedImage
 ]
 
 {

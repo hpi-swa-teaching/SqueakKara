@@ -116,13 +116,14 @@ SKGrid >> backgroundColor [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'mr 6/5/2026 13:00'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:46'
 }
 SKGrid >> checkWinCondition [
 
-	self allLeavesCollected ifTrue: [ 
-		self spawnWinScreen. 
-		self environment ifNotNil: [ self executeControls addButtonNextChallenge ]]
+	self allLeavesCollected ifFalse: [ ^ self ].
+
+	self spawnWinScreen. 
+	self hasEnvironment ifTrue: [ self executeControls addButtonNextChallenge ]
 ]
 
 {
@@ -236,6 +237,15 @@ SKGrid >> gridWidth: aNumber [
 	
 	gridWidth := aNumber.
 	self updateDimensions
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 7/4/2026 11:23'
+}
+SKGrid >> hasEnvironment [
+
+	^ self environment isNil not
 ]
 
 {

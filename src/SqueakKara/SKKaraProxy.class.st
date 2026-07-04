@@ -23,15 +23,6 @@ SKKaraProxy class >> newWith: aKara [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/6/2026 18:59'
-}
-SKKaraProxy >> codeContext [
-
-	^ (SKExecuteContext new kara: self kara)
-]
-
-{
 	#category : #commands,
 	#'squeak_changestamp' : 'mr 6/5/2026 12:14'
 }

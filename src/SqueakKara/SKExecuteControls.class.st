@@ -99,22 +99,6 @@ SKExecuteControls >> addSliderSpeed [
 ]
 
 {
-	#category : #widgets,
-	#'squeak_changestamp' : 'LM 4/28/2026 22:26'
-}
-SKExecuteControls >> addWidgetCentered: aWidget atXPosition: aXValue [ 
-
-	| verticalCenter widgetCenter |
-
-	self addMorph: aWidget.
-	verticalCenter := (self extent y) / 2.
-	widgetCenter := (aWidget extent y) / 2.
-	aWidget position: (aXValue @ (verticalCenter - widgetCenter)).
-	
-	^ aXValue + aWidget extent x
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'jawi 6/3/2026 18:52'
 }
@@ -206,16 +190,11 @@ SKExecuteControls >> buttonStop: aButton [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'ND 6/25/2026 21:17'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:32'
 }
 SKExecuteControls >> createButtonNextChallenge [
-	
-	| buttonNextChallenge |
-	
-	buttonNextChallenge := SKButtonNextChallenge new
-		executeControls: self.
-	self buttonNextChallenge: buttonNextChallenge
 
+	self buttonNextChallenge: (SKButtonNextChallenge new executeControls: self)
 ]
 
 {

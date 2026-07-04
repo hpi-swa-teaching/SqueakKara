@@ -20,7 +20,7 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'mr 6/25/2026 20:56'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:32'
 }
 SKDismissableSpeechBubbleMorph >> buildCloseButton [
 	
@@ -35,7 +35,8 @@ SKDismissableSpeechBubbleMorph >> buildCloseButton [
 		actionSelector: #delete;
 		extent: buttonExtent;
 		color: Color red;
-		position: self closeButtonPosition
+		position: self closeButtonPosition;
+		yourself
 ]
 
 {
@@ -66,6 +67,15 @@ SKDismissableSpeechBubbleMorph >> closeButtonPosition [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 7/4/2026 11:23'
+}
+SKDismissableSpeechBubbleMorph >> hasCloseButton [
+
+	^ self closeButton isNil not
+]
+
+{
 	#category : #refreshing,
 	#'squeak_changestamp' : 'mr 6/25/2026 20:25'
 }
@@ -77,11 +87,11 @@ SKDismissableSpeechBubbleMorph >> refresh [
 
 {
 	#category : #refreshing,
-	#'squeak_changestamp' : 'mr 6/25/2026 21:02'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:23'
 }
 SKDismissableSpeechBubbleMorph >> refreshButton [
 
-	self closeButton ifNotNil: [ self closeButton delete ].
+	self hasCloseButton ifTrue: [ self closeButton delete ].
 	self closeButton: self buildCloseButton.
 	self addMorphFront: self closeButton.
 	self closeButton position: (self position + self closeButtonPosition)

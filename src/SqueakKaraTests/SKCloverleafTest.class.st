@@ -8,7 +8,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'LD 5/22/2026 12:12'
 }
 SKCloverleafTest >> grid [
@@ -17,7 +17,7 @@ SKCloverleafTest >> grid [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'LD 5/22/2026 12:12'
 }
 SKCloverleafTest >> gridSize [
@@ -44,29 +44,29 @@ SKCloverleafTest >> tearDown [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'jawi 5/28/2026 16:38'
 }
 SKCloverleafTest >> testColorUpdate [
 	
 	| kara cloverleaf aForm colorChanged |
 	
-	colorChanged := False.
+	colorChanged := false.
 	
 	kara := SKKara newInGrid: self grid at: 1 @ 1 with: 1 @ 2.
 	cloverleaf := kara cloverleaf.
 	
 	kara color: Color blue.
-
+ 
 	aForm := cloverleaf image.
 	
 	1 to: aForm width do: [ :x |
 		1 to: aForm height do: [ :y |
             ((aForm colorAt: x @ y) = (Color blue))
 			ifTrue: [
-				colorChanged := True ].
+				colorChanged := true ].
 				self assert: (((aForm colorAt: x @ y) = (cloverleaf defaultColor)) not)
 	]].
 		
-	self assert: (colorChanged = True)
+	self assert: (colorChanged = true)
 ]

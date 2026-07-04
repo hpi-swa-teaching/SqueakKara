@@ -5,7 +5,6 @@ Class {
 	#name : #SKExecuter,
 	#superclass : #Object,
 	#instVars : [
-		'codeString',
 		'compiler',
 		'processes',
 		'speed',
@@ -51,6 +50,24 @@ SKExecuter >> compiler: anObject [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'LM 7/4/2026 11:04'
+}
+SKExecuter >> defaultSpeed [
+
+	^ 25
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 7/4/2026 11:07'
+}
+SKExecuter >> defaultStepTime [
+
+	^ 5000
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'jawi 4/30/2026 17:36'
 }
 SKExecuter >> environment [
@@ -69,11 +86,11 @@ SKExecuter >> environment: anEnvironment [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/29/2026 12:54'
+	#'squeak_changestamp' : 'ND 7/4/2026 11:58'
 }
 SKExecuter >> execute: aCode for: aKara [
 
-	| proxy context |
+	| proxy |
 	
 	self terminateFor: aKara.
 	
@@ -82,22 +99,20 @@ SKExecuter >> execute: aCode for: aKara [
 	
 	self scheduler addActor: proxy.
 	
-	context := SKExecuteContext new kara: proxy.
-	self processes at: aKara put: ([[ self compiler evaluate: aCode for: context ]
-		ensure: [ self scheduler finishActor: proxy ]] forkAt: Processor userBackgroundPriority).
+	self startExecutionOf: aCode for: aKara using: proxy.
 
 	self stateWithUpdate: #running
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:09'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:04'
 }
 SKExecuter >> initialize [
 
 	super initialize.
 	self compiler: Compiler new.
-	self speed: 25.
+	self speed: self defaultSpeed.
 	self processes: Dictionary new.
 	self scheduler: (SKScheduler newWithExecuter: self).
 	^ self
@@ -178,6 +193,20 @@ SKExecuter >> speed: aSpeed [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'LM 7/4/2026 12:07'
+}
+SKExecuter >> startExecutionOf: aCode for: aKara using: aProxy [
+
+	| context |
+	context := SKExecuteContext new kara: aProxy.
+	self processes at: aKara put: (
+		[[ self compiler evaluate: aCode for: context ]
+			ensure: [ self scheduler finishActor: aProxy ]]
+			forkAt: Processor userBackgroundPriority)
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 5/7/2026 16:31'
 }
 SKExecuter >> state [
@@ -217,24 +246,24 @@ SKExecuter >> step [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:00'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:07'
 }
 SKExecuter >> stepTime [
 
 	self testMode ifTrue: [ ^ 0 ].
 
-	(self speed = 0) ifTrue: [ ^ 5000 ].
-	^ 5000 / self speed
+	(self speed = 0) ifTrue: [ ^ self defaultStepTime ].
+	^ self defaultStepTime / self speed
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/29/2026 12:55'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:53'
 }
 SKExecuter >> suspendExecution [
 
 	self processes valuesDo: [ :process |
-		((process isTerminated not) and: (process isSuspended not)) ifTrue: [ process suspend ]].
+		((process isTerminated not) and: [ process isSuspended not ]) ifTrue: [ process suspend ]].
 	
 	self stateWithUpdate: #suspended
 ]

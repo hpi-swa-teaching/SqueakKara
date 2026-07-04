@@ -103,6 +103,29 @@ SKScheduler >> addActor: anActor [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 7/4/2026 11:48'
+}
+SKScheduler >> clearActor: anActor [
+	
+	self activeActors remove: anActor.
+	self releaseLocks removeKey: anActor.
+	self scheduledSteps removeKey: anActor ifAbsent: []
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 7/4/2026 11:47'
+}
+SKScheduler >> clearUp [
+	
+	self scheduledSteps removeAll.
+	self releaseAll.
+	self executer stateWithUpdate: #terminated.
+	self executer onFinish
+]
+
+{
 	#category : #stepping,
 	#'squeak_changestamp' : 'LM 5/7/2026 16:28'
 }
@@ -132,21 +155,13 @@ SKScheduler >> executer: anExecuter [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/29/2026 12:55'
+	#'squeak_changestamp' : 'LM 7/4/2026 12:08'
 }
 SKScheduler >> finishActor: anActor [
 
 	self stepLock critical: [
-		self activeActors remove: anActor.
-		self releaseLocks removeKey: anActor.
-		self scheduledSteps removeKey: anActor ifAbsent: [].
-		
-		self activeActors isEmpty ifTrue: [
-			self scheduledSteps removeAll.
-			self releaseAll.
-			self executer stateWithUpdate: #terminated.
-			self executer onFinish ].
-
+		self clearActor: anActor.
+		self activeActors isEmpty ifTrue: [ self clearUp ].
 		self stepOnEnd ]
 ]
 
@@ -227,26 +242,21 @@ SKScheduler >> step [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/28/2026 11:20'
+	#'squeak_changestamp' : 'mr 7/4/2026 12:37'
 }
 SKScheduler >> stepForType: aType [
 
-	| gotStatus busyStep result |
+	| results actions |
 	
-	gotStatus := false.
-	busyStep := false.
+	actions := OrderedCollection new.
+	self scheduledSteps valuesDo: [ :step | actions addAll: step ].
 	
-	self scheduledSteps valuesDo: [ :actions |
-		actions do: [ :action | action type = aType ifTrue: [
-			result := action action value.
-			
-			result isBoolean ifTrue: [
-				gotStatus := true.
-				result ifTrue: [ busyStep := true ]]]]].
-	
-	gotStatus ifFalse: [ ^ true ].
-	
-	^ busyStep
+	results := ((actions
+		select: [ :action | action type = aType ])
+		collect: [ :action | action action value ]
+		thenSelect: [ :actionResult | actionResult isBoolean ]).
+		
+	^ results isEmpty or: [ results anySatisfy: [ :result | result ]]
 ]
 
 {

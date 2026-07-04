@@ -28,13 +28,13 @@ SKTrunk >> isTrunk [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/29/2026 13:13'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:31'
 }
 SKTrunk >> position: aPoint [
 
-	| coordinates tile |
-	coordinates := self coordinatesFromPosition: aPoint.
-	tile := self gridCoordinator getTileAtCoordinates: coordinates.
+	| newCoordinates tile |
+	newCoordinates := self coordinatesFromPosition: aPoint.
+	tile := self gridCoordinator getTileAtCoordinates: newCoordinates.
 	
 	(tile anySatisfy: [ :each | each isBlocking ]) ifTrue: [ ^ self ].
 

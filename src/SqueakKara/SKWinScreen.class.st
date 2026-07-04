@@ -12,7 +12,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'LD 5/29/2026 08:31'
 }
 SKWinScreen >> scaleToFactor [
@@ -21,7 +21,7 @@ SKWinScreen >> scaleToFactor [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #appearance,
 	#'squeak_changestamp' : 'LD 5/29/2026 08:32'
 }
 SKWinScreen >> setTexture [
@@ -30,7 +30,7 @@ SKWinScreen >> setTexture [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #appearance,
 	#'squeak_changestamp' : 'LD 5/29/2026 08:40'
 }
 SKWinScreen >> textureFilename [
