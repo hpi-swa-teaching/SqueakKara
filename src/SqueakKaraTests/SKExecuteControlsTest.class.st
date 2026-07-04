@@ -82,6 +82,23 @@ SKExecuteControlsTest >> testRandomKaraSpawn [
 
 {
 	#category : #testing,
+	#'squeak_changestamp' : 'ND 7/4/2026 13:02'
+}
+SKExecuteControlsTest >> testReset [
+	
+	| testEnvironment testEnvironmentNew |
+	
+	testEnvironment := SKEnvironment new initializeWithChallenge1.
+	
+	testEnvironmentNew := testEnvironment executeControls buttonReset action.
+	
+	self assert: (testEnvironmentNew currentChallenge = #initializeWithChallenge1).
+	
+	testEnvironmentNew close
+]
+
+{
+	#category : #testing,
 	#'squeak_changestamp' : 'ND 6/18/2026 21:59'
 }
 SKExecuteControlsTest >> testRun [
