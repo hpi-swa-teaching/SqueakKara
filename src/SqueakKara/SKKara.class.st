@@ -242,12 +242,12 @@ SKKara >> karaAhead [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'LM 6/25/2026 22:01'
+	#'squeak_changestamp' : 'ND 7/4/2026 14:56'
 }
 SKKara >> lockAt: aPoint [
 
 	| lockSuccessful staysInCriticalSection |
-
+	
 	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
 	
 	(self karaAhead) ifTrue: [ ^ self ].

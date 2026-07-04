@@ -65,13 +65,13 @@ SKIntegrationTest >> testCriticalSectionLevel [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 7/4/2026 14:18'
+	#'squeak_changestamp' : 'ND 7/4/2026 15:08'
 }
 SKIntegrationTest >> testDirectionalSectionLevel [
 
 	| environment solutionCode1 solutionCode2 wrongWayCode1 wrongCloverleafCode1 |
 	
-	environment := SKEnvironment new initializeWithChallenge9.
+	environment := SKEnvironment new initializeWithChallenge10.
 	environment executer testMode: true.
 	
 	wrongWayCode1 := 'kara move'.
@@ -104,8 +104,8 @@ SKIntegrationTest >> testDirectionalSectionLevel [
 	environment karas do: [ :kara | kara speechBubbles do: [ :bubble | bubble delete ]].
 	environment := environment executeControls buttonReset action.
 	
-	solutionCode1 := 'kara turn: left. (1 to: 4) do: [ :i | kara move ]. kara turn: right. kara move. kara move. kara turn: right. (1 to: 4) do: [ :i | kara move ]. kara turn: right. kara move. kara collectCloverleaf'.
-	solutionCode2 := 'kara turn: right. (1 to: 4) do: [ :i | kara move ]. kara turn: right. kara move. kara move. kara move. kara turn: right. (1 to: 4) do: [ :i | kara move ]. kara turn: right. kara move. kara collectCloverleaf. kara move'.
+	solutionCode1 := 'kara turn: left. kara move. kara move. kara move. kara move. kara turn: right. kara move. kara move. kara turn: right. kara move. kara move. kara move. kara move. kara turn: right. kara move. kara move. kara collectCloverleaf.'.
+	solutionCode2 := 'kara move. kara move. kara turn: right. kara move. kara move. kara move. kara move. kara turn: right. kara move. kara turn: right. kara move. kara move. kara move. kara move. kara collectCloverleaf. kara turn: right. kara move.'.
 	
 	environment firstWorkspace userCode: solutionCode1.
 	environment workspaces second userCode: solutionCode2.
