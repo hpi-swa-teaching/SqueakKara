@@ -103,6 +103,29 @@ SKScheduler >> addActor: anActor [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 7/4/2026 11:48'
+}
+SKScheduler >> clearActor: anActor [
+	
+	self activeActors remove: anActor.
+	self releaseLocks removeKey: anActor.
+	self scheduledSteps removeKey: anActor ifAbsent: []
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ND 7/4/2026 11:47'
+}
+SKScheduler >> clearUp [
+	
+	self scheduledSteps removeAll.
+	self releaseAll.
+	self executer stateWithUpdate: #terminated.
+	self executer onFinish
+]
+
+{
 	#category : #stepping,
 	#'squeak_changestamp' : 'LM 5/7/2026 16:28'
 }
@@ -132,20 +155,15 @@ SKScheduler >> executer: anExecuter [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'LM 5/29/2026 12:55'
+	#'squeak_changestamp' : 'ND 7/4/2026 11:48'
 }
 SKScheduler >> finishActor: anActor [
 
 	self stepLock critical: [
-		self activeActors remove: anActor.
-		self releaseLocks removeKey: anActor.
-		self scheduledSteps removeKey: anActor ifAbsent: [].
+		self clearActor:  anActor.
 		
 		self activeActors isEmpty ifTrue: [
-			self scheduledSteps removeAll.
-			self releaseAll.
-			self executer stateWithUpdate: #terminated.
-			self executer onFinish ].
+			self clearUp ].
 
 		self stepOnEnd ]
 ]
