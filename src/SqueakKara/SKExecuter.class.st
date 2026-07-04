@@ -60,6 +60,15 @@ SKExecuter >> defaultSpeed [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'LM 7/4/2026 11:07'
+}
+SKExecuter >> defaultStepTime [
+
+	^ 5000
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'jawi 4/30/2026 17:36'
 }
 SKExecuter >> environment [
@@ -226,14 +235,14 @@ SKExecuter >> step [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 23:00'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:07'
 }
 SKExecuter >> stepTime [
 
 	self testMode ifTrue: [ ^ 0 ].
 
-	(self speed = 0) ifTrue: [ ^ 5000 ].
-	^ 5000 / self speed
+	(self speed = 0) ifTrue: [ ^ self defaultStepTime ].
+	^ self defaultStepTime / self speed
 ]
 
 {
