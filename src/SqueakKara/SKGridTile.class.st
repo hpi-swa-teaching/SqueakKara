@@ -40,11 +40,11 @@ SKGridTile >> lockBy: anActor [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/26/2026 09:47'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:24'
 }
 SKGridTile >> lockedFor: anActor [
 
-	^ (self lockingActor = anActor or: [ self lockingActor isNil ]) not
+	^ (self lockingActor = anActor or: [ self isLocked not ]) not
 ]
 
 {

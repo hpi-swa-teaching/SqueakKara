@@ -81,7 +81,7 @@ SKKara >> collectCloverleaf [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 5/29/2026 08:39'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:24'
 }
 SKKara >> color: aColor [
 
@@ -89,7 +89,7 @@ SKKara >> color: aColor [
 		self cloverleaf color: aColor.
 		self scaleToFactor.
 
-	self workspace ifNotNil: [ self workspace color: self color ]
+	self hasWorkspace ifTrue: [ self workspace color: self color ]
 ]
 
 {
@@ -126,11 +126,11 @@ SKKara >> defaultColor [
 
 {
 	#category : #'submorphs - add/remove',
-	#'squeak_changestamp' : 'LM 6/8/2026 22:26'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:24'
 }
 SKKara >> delete [
 
-	self workspace ifNotNil: [ self workspace superClose ].
+	self hasWorkspace ifTrue: [ self workspace superClose ].
 	self superDelete
 ]
 
@@ -184,6 +184,15 @@ SKKara >> hasBlockingDirectionalTileIn: aNeighborCollection direction: aDirectio
 	directionalTiles isEmpty ifTrue: [ ^ false ].
 		
 	^ (directionalTiles anySatisfy: [ :directionalTile | directionalTile matchesDirection: aDirection ]) not
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 7/4/2026 11:24'
+}
+SKKara >> hasWorkspace [
+
+	^ self workspace isNil not
 ]
 
 {
