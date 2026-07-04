@@ -84,7 +84,7 @@ SKButtonRun >> textureFileName [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'ND 6/16/2026 22:59'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:36'
 }
 SKButtonRun >> toggleExecutionState [
 
@@ -95,6 +95,7 @@ SKButtonRun >> toggleExecutionState [
 	state = #terminated ifTrue: [ self environment run. ^ self ].
 	state = #suspended ifTrue: [ self environment resume. ^ self ].
 	state = #running ifTrue: [ self environment pause. ^ self ].
+	^ self
 ]
 
 {

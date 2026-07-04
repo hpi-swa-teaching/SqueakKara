@@ -343,23 +343,23 @@ SKGridObject >> relativePositionFor: aPoint [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/12/2026 20:23'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:36'
 }
 SKGridObject >> rotateTowards: aDirection [
 
-	| centerWidth centerHeight image |
+	| centerWidth centerHeight rotatedImage |
 	
 	centerWidth := self image width / 2.
 	centerHeight := self image height / 2.
-	image := self originalImage.
+	rotatedImage := self originalImage.
 	aDirection caseOf: {
-		[ SKDirection right ] -> [ image := self image rotateBy: #right centerAt: centerWidth @ centerHeight ].
-		[ SKDirection below ] -> [ image := self image rotateBy: #pi centerAt: centerWidth @ centerHeight ].
-		[ SKDirection left ] -> [ image := self image rotateBy: #left centerAt: centerWidth @ centerHeight ].
-		[ SKDirection above ] -> [ image := self image rotateBy: #none centerAt: centerWidth @ centerHeight ].
+		[ SKDirection right ] -> [ rotatedImage := self image rotateBy: #right centerAt: centerWidth @ centerHeight ].
+		[ SKDirection below ] -> [ rotatedImage := self image rotateBy: #pi centerAt: centerWidth @ centerHeight ].
+		[ SKDirection left ] -> [ rotatedImage := self image rotateBy: #left centerAt: centerWidth @ centerHeight ].
+		[ SKDirection above ] -> [ rotatedImage := self image rotateBy: #none centerAt: centerWidth @ centerHeight ].
 	}.
 	
-	^ image
+	^ rotatedImage
 ]
 
 {

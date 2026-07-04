@@ -139,16 +139,6 @@ SKLandingPage >> actionExample9 [
 ]
 
 {
-	#category : #actions,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:01'
-}
-SKLandingPage >> actionNew [
-
-	SKEnvironment newWithKaraAt: 1 @ 1.
-	self delete
-]
-
-{
 	#category : #buttons,
 	#'squeak_changestamp' : 'AB 5/27/2026 15:30'
 }
