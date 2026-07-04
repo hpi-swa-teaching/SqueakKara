@@ -45,7 +45,7 @@ SKGridCoordinatorTest >> tearDown [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:10'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:54'
 }
 SKGridCoordinatorTest >> testDeleteObject [
 
@@ -55,7 +55,7 @@ SKGridCoordinatorTest >> testDeleteObject [
 	anotherObject := SKKara newInGrid: self grid.
 	anotherObject abandon.
 	
-	self deny: ((anObject neighboursHere includes: anotherObject) or: (anObject neighboursHere size = 2))
+	self deny: ((anObject neighboursHere includes: anotherObject) or: [ anObject neighboursHere size = 2 ])
 ]
 
 {
@@ -97,7 +97,7 @@ SKGridCoordinatorTest >> testLogicalConsistencyOnResize [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:27'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:54'
 }
 SKGridCoordinatorTest >> testNeighbourAbove [
 
@@ -106,12 +106,12 @@ SKGridCoordinatorTest >> testNeighbourAbove [
 	anObject := SKKara newInGrid: self grid at: 1 @ 1.
 	anotherObject := SKKara newInGrid: self grid at: 1 @ 1 + SKDirection below.
 	
-	self assert: ((anotherObject neighboursAbove includes: anObject) and: (anotherObject neighboursAbove size = 1))
+	self assert: ((anotherObject neighboursAbove includes: anObject) and: [ anotherObject neighboursAbove size = 1 ])
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:28'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:54'
 }
 SKGridCoordinatorTest >> testNeighbourBelow [
 
@@ -120,12 +120,12 @@ SKGridCoordinatorTest >> testNeighbourBelow [
 	anObject := SKKara newInGrid: self grid at: 1 @ 1.
 	anotherObject := SKKara newInGrid: self grid at: 1 @ 1 + SKDirection below.
 	
-	self assert: ((anObject neighboursBelow includes: anotherObject) and: (anObject neighboursBelow size = 1))
+	self assert: ((anObject neighboursBelow includes: anotherObject) and: [ anObject neighboursBelow size = 1 ])
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:10'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:54'
 }
 SKGridCoordinatorTest >> testNeighbourLeft [
 
@@ -134,12 +134,12 @@ SKGridCoordinatorTest >> testNeighbourLeft [
 	anObject := SKKara newInGrid: self grid at: 1 @ 1 + SKDirection right.
 	anotherObject := SKKara newInGrid: self grid.
 	
-	self assert: ((anObject neighboursLeft includes: anotherObject) and: (anObject neighboursLeft size = 1))
+	self assert: ((anObject neighboursLeft includes: anotherObject) and: [ anObject neighboursLeft size = 1 ])
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:10'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:54'
 }
 SKGridCoordinatorTest >> testNeighbourLeftAfterDelete [
 
@@ -149,12 +149,12 @@ SKGridCoordinatorTest >> testNeighbourLeftAfterDelete [
 	anotherObject := SKKara newInGrid: self grid.
 	anotherObject abandon.
 	
-	self deny: ((anObject neighboursLeft includes: anotherObject) or: (anObject neighboursLeft size = 1))
+	self deny: ((anObject neighboursLeft includes: anotherObject) or: [ anObject neighboursLeft size = 1 ])
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:31'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:54'
 }
 SKGridCoordinatorTest >> testNeighbourLeftAfterMove [
 
@@ -164,12 +164,12 @@ SKGridCoordinatorTest >> testNeighbourLeftAfterMove [
 	anotherObject := SKKara newInGrid: self grid.
 	anotherObject coordinates: ((anotherObject coordinates x + 2) @ anotherObject coordinates y).
 	
-	self assert: ((anotherObject neighboursLeft includes: anObject) and: (anotherObject neighboursLeft size = 1))
+	self assert: ((anotherObject neighboursLeft includes: anObject) and: [ anotherObject neighboursLeft size = 1 ])
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/18/2024 18:24'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:54'
 }
 SKGridCoordinatorTest >> testNeighbourRight [
 
@@ -178,24 +178,24 @@ SKGridCoordinatorTest >> testNeighbourRight [
 	anObject := SKKara newInGrid: self grid at: 1 @ 1 + SKDirection right.
 	anotherObject := SKKara newInGrid: self grid.
 	
-	self assert: ((anotherObject neighboursRight includes: anObject) and: (anotherObject neighboursRight size = 1))
+	self assert: ((anotherObject neighboursRight includes: anObject) and: [ anotherObject neighboursRight size = 1 ])
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:11'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:54'
 }
 SKGridCoordinatorTest >> testNeighboursHereSingleObject [
 
 	| object |
 	
 	object := SKKara newInGrid: self grid.
-	self assert: ((object neighboursHere includes: object) and: (object neighboursHere size = 1))
+	self assert: ((object neighboursHere includes: object) and: [ object neighboursHere size = 1 ])
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:11'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:55'
 }
 SKGridCoordinatorTest >> testNeighboursHereTwoObjects [
 
@@ -203,7 +203,7 @@ SKGridCoordinatorTest >> testNeighboursHereTwoObjects [
 	
 	anObject := SKKara newInGrid: self grid.
 	anotherObject := SKKara newInGrid: self grid.
-	self assert: ((anObject neighboursHere includes: anotherObject) and: (anObject neighboursHere size = 2))
+	self assert: ((anObject neighboursHere includes: anotherObject) and: [ anObject neighboursHere size = 2 ])
 ]
 
 {
