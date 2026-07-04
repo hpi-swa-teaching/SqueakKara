@@ -62,3 +62,61 @@ SKIntegrationTest >> testCriticalSectionLevel [
 	environment karas do: [ :kara | kara speechBubbles do: [ :bubble | bubble delete ]].
 	environment close
 ]
+
+{
+	#category : #testing,
+	#'squeak_changestamp' : 'LM 7/4/2026 14:18'
+}
+SKIntegrationTest >> testDirectionalSectionLevel [
+
+	| environment solutionCode1 solutionCode2 wrongWayCode1 wrongCloverleafCode1 |
+	
+	environment := SKEnvironment new initializeWithChallenge9.
+	environment executer testMode: true.
+	
+	wrongWayCode1 := 'kara move'.
+	
+	environment firstWorkspace userCode: wrongWayCode1.
+	environment workspaces second userCode: ''.
+	
+	environment run.
+	
+	"Busy waiting until execution done."
+	environment executer waitUntilTerminated.
+	
+	self assert: environment karas first coordinates = (1 @ 5).
+	
+	environment karas do: [ :kara | kara speechBubbles do: [ :bubble | bubble delete ]].
+	environment := environment executeControls buttonReset action.
+	
+	wrongCloverleafCode1 := 'kara turn: left. (1 to: 4) do: [ :i | kara move ]. kara turn: right. kara move. kara collectCloverleaf'.
+	
+	environment firstWorkspace userCode: wrongCloverleafCode1.
+	environment workspaces second userCode: ''.
+	
+	environment run.
+	
+	"Busy waiting until execution done."
+	environment executer waitUntilTerminated.
+	
+	self assert: ((environment grid gridCoordinator getTileAtCoordinates: (2 @ 1)) anySatisfy: [ :object | object isCloverleaf ]).
+	
+	environment karas do: [ :kara | kara speechBubbles do: [ :bubble | bubble delete ]].
+	environment := environment executeControls buttonReset action.
+	
+	solutionCode1 := 'kara turn: left. (1 to: 4) do: [ :i | kara move ]. kara turn: right. kara move. kara move. kara turn: right. (1 to: 4) do: [ :i | kara move ]. kara turn: right. kara move. kara collectCloverleaf'.
+	solutionCode2 := 'kara turn: right. (1 to: 4) do: [ :i | kara move ]. kara turn: right. kara move. kara move. kara move. kara turn: right. (1 to: 4) do: [ :i | kara move ]. kara turn: right. kara move. kara collectCloverleaf. kara move'.
+	
+	environment firstWorkspace userCode: solutionCode1.
+	environment workspaces second userCode: solutionCode2.
+	
+	environment run.
+	
+	"Busy waiting until execution done."
+	environment executer waitUntilTerminated.
+	
+	self assert: environment grid allLeavesCollected.
+	
+	environment karas do: [ :kara | kara speechBubbles do: [ :bubble | bubble delete ]].
+	environment close
+]
