@@ -155,7 +155,7 @@ SKKara >> fillStyle: aFillStyle [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/22/2026 22:05'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:49'
 }
 SKKara >> findUnusedColor [
 	
@@ -164,7 +164,7 @@ SKKara >> findUnusedColor [
 	colorList := SKKara defaultColors.
 	karaList := self environment karas.
 	
-	karaList do: [ :kara | colorList remove: kara color ifAbsent: [] ].
+	karaList do: [ :kara | colorList remove: kara color ifAbsent: []].
 	colorList isEmpty ifFalse: [ ^ colorList first ].
 	
 	^ Color black

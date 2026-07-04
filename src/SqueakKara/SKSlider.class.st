@@ -51,7 +51,7 @@ SKSlider >> executeControls: anExecuteControls [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/25/2026 21:18'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:50'
 }
 SKSlider >> initialize [
 
@@ -62,8 +62,7 @@ SKSlider >> initialize [
 		setNumericValue: 25;
 		orientation: #horizontal;
 		target: self;
-		actionSelector: #sliderSpeedValueChanged:;
-		yourself
+		actionSelector: #sliderSpeedValueChanged:
 ]
 
 {

@@ -5,7 +5,6 @@ Class {
 	#name : #SKExecuter,
 	#superclass : #Object,
 	#instVars : [
-		'codeString',
 		'compiler',
 		'processes',
 		'speed',
