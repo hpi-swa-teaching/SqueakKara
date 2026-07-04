@@ -160,7 +160,7 @@ SKLandingPage >> addAllButtons [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:20'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:17'
 }
 SKLandingPage >> addButton: aButton atIndex: anInteger [
 
@@ -168,11 +168,9 @@ SKLandingPage >> addButton: aButton atIndex: anInteger [
 	
 	self addMorph: aButton.
 	
-	yOffset := (aButton height + 10) * (anInteger - 1).
+	yOffset := (aButton height + self defaultOffset) * (anInteger - 1).
 	
-	basePosition := self center
-		- (aButton width / 2)
-		+ (0 @ 50).
+	basePosition := (self center - (aButton width / 2)) x @ (self top + 100).
 	
 	aButton position: basePosition + (0 @ yOffset)
 ]
@@ -485,17 +483,26 @@ SKLandingPage >> buttonNewLabel [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JanWein 6/4/2026 15:47'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:24'
 }
 SKLandingPage >> defaultExtent [
 
 	| buttonSlotHeight totalHeight buttonCount |
     
 	buttonCount := self buildAllButtons size.
-	buttonSlotHeight := self buttonHeight + 30.
-	totalHeight := 50 + (buttonSlotHeight * buttonCount) + 60.
-    
+	buttonSlotHeight := self buttonHeight + self defaultOffset.
+	totalHeight := buttonSlotHeight * buttonCount.
+	
 	^ 300 px @ totalHeight
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'LM 7/4/2026 11:17'
+}
+SKLandingPage >> defaultOffset [
+
+	^ 10
 ]
 
 {
