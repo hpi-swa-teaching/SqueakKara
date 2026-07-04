@@ -12,7 +12,8 @@ Class {
 	#name : #SKDismissableSpeechBubbleMorph,
 	#superclass : #SpeechBubbleMorph,
 	#instVars : [
-		'closeButton'
+		'closeButton',
+		'closeCallback'
 	],
 	#category : #SqueakKara,
 	#'squeak_changestamp' : 'mr 6/25/2026 21:09'
@@ -68,11 +69,48 @@ SKDismissableSpeechBubbleMorph >> closeButtonPosition [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'LM 7/4/2026 13:56'
+}
+SKDismissableSpeechBubbleMorph >> closeCallback [
+
+	^ closeCallback
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 7/4/2026 13:56'
+}
+SKDismissableSpeechBubbleMorph >> closeCallback: aBlock [
+
+	closeCallback := aBlock
+]
+
+{
+	#category : #deleting,
+	#'squeak_changestamp' : 'LM 7/4/2026 13:57'
+}
+SKDismissableSpeechBubbleMorph >> delete [
+
+	self hasCloseCallback ifTrue: [ self closeCallback value ].
+	super delete
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'mr 7/4/2026 11:23'
 }
 SKDismissableSpeechBubbleMorph >> hasCloseButton [
 
 	^ self closeButton isNil not
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 7/4/2026 14:00'
+}
+SKDismissableSpeechBubbleMorph >> hasCloseCallback [
+
+	^ self closeCallback isNil not
 ]
 
 {
