@@ -23,15 +23,6 @@ SKKara >> blockMovement [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'makrosophos 6/24/2026 12:00'
-}
-SKKara >> celebrateCloverleaf [
-
-	SKConfetti explodeAt: self center
-]
-
-{
-	#category : #movement,
 	#'squeak_changestamp' : 'LD 5/21/2026 10:57'
 }
 SKKara >> color: aColor [
@@ -110,16 +101,13 @@ SKKara >> karaAhead [
 }
 SKKara >> move [
 
-	| wasOnClover |
 	self movementBlocked ifTrue: [^ self].
 	self walkableAhead ifFalse: [
 		self
 			blockMovement;
 			say: 'I should not walk into things. There might also be a bug in the code!'.
 		^ self].
-	wasOnClover := self onCloverleaf.
-	self coordinates: self coordinates + self viewDirection.
-	(wasOnClover not and: [self onCloverleaf]) ifTrue: [self celebrateCloverleaf]
+	self coordinates: self coordinates + self viewDirection
 ]
 
 {
