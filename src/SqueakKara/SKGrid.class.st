@@ -116,7 +116,7 @@ SKGrid >> backgroundColor [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'LM 7/4/2026 11:37'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:41'
 }
 SKGrid >> checkWinCondition [
 
@@ -237,6 +237,15 @@ SKGrid >> gridWidth: aNumber [
 	
 	gridWidth := aNumber.
 	self updateDimensions
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'mr 7/4/2026 11:23'
+}
+SKGrid >> hasEnvironment [
+
+	^ self environment isNil not
 ]
 
 {
