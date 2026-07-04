@@ -69,13 +69,13 @@ SKKara >> cloverleaf: aCloverleaf [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'mr 6/5/2026 12:40'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:34'
 }
 SKKara >> collectCloverleaf [
 
 	(self neighboursHere 
-		select: [ :neighbor | neighbor isCloverleaf and: [ neighbor color = self color ] ])
-		do: [ :cloverleaf | cloverleaf delete ].
+		select: [ :neighbor | neighbor isCloverleaf and: [ neighbor color = self color ]])
+		do: [ :aCloverleaf | aCloverleaf delete ].
 	self grid checkWinCondition
 ]
 
@@ -155,7 +155,7 @@ SKKara >> fillStyle: aFillStyle [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/22/2026 22:05'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:49'
 }
 SKKara >> findUnusedColor [
 	
@@ -164,7 +164,7 @@ SKKara >> findUnusedColor [
 	colorList := SKKara defaultColors.
 	karaList := self environment karas.
 	
-	karaList do: [ :kara | colorList remove: kara color ifAbsent: [] ].
+	karaList do: [ :kara | colorList remove: kara color ifAbsent: []].
 	colorList isEmpty ifFalse: [ ^ colorList first ].
 	
 	^ Color black
@@ -364,17 +364,17 @@ SKKara >> sayMessage: aString [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/12/2026 20:23'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:35'
 }
 SKKara >> scaleToFactor [
 
-	| image |
+	| modifiedImage |
 	
 	super scaleToFactor.
 	self updateColor.
 	
-	image := self rotateTowards: self viewDirection.
-	self image: image
+	modifiedImage := self rotateTowards: self viewDirection.
+	self image: modifiedImage
 ]
 
 {
