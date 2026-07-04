@@ -194,18 +194,16 @@ SKExecuter >> speed: aSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 7/4/2026 11:58'
+	#'squeak_changestamp' : 'LM 7/4/2026 12:07'
 }
 SKExecuter >> startExecutionOf: aCode for: aKara using: aProxy [
-	
+
 	| context |
 	context := SKExecuteContext new kara: aProxy.
-	self processes 
-		at: aKara 
-		put: (
-			[[ self compiler evaluate: aCode for: context ]
-					ensure: [ self scheduler finishActor: aProxy ]]
-						 forkAt: Processor userBackgroundPriority).
+	self processes at: aKara put: (
+		[[ self compiler evaluate: aCode for: context ]
+			ensure: [ self scheduler finishActor: aProxy ]]
+			forkAt: Processor userBackgroundPriority)
 ]
 
 {

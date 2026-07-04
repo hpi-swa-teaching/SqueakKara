@@ -155,16 +155,13 @@ SKScheduler >> executer: anExecuter [
 
 {
 	#category : #stepping,
-	#'squeak_changestamp' : 'ND 7/4/2026 11:48'
+	#'squeak_changestamp' : 'LM 7/4/2026 12:08'
 }
 SKScheduler >> finishActor: anActor [
 
 	self stepLock critical: [
-		self clearActor:  anActor.
-		
-		self activeActors isEmpty ifTrue: [
-			self clearUp ].
-
+		self clearActor: anActor.
+		self activeActors isEmpty ifTrue: [ self clearUp ].
 		self stepOnEnd ]
 ]
 
