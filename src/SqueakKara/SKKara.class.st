@@ -355,7 +355,7 @@ SKKara >> randomDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/25/2026 21:07'
+	#'squeak_changestamp' : 'mr 7/4/2026 12:34'
 }
 SKKara >> sayMessage: aString [
 
