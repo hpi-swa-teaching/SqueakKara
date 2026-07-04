@@ -14,13 +14,15 @@ Class {
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'Gustav Meinshausen 7/1/2026 10:28'
+	#'squeak_changestamp' : 'SLH 7/4/2026 16:04'
 }
 SKKara >> addCloseButtonTo: aBubble [
 
 	| closeButton |
+
 	(aBubble submorphs anySatisfy: [:each | each isKindOf: SimpleButtonMorph])
 		ifTrue: [^ self].
+
 	closeButton := SimpleButtonMorph new
 		label: 'x';
 		target: aBubble;
@@ -34,11 +36,12 @@ SKKara >> addCloseButtonTo: aBubble [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'Gustav Meinshausen 7/1/2026 10:33'
+	#'squeak_changestamp' : 'SLH 7/4/2026 16:04'
 }
 SKKara >> attachBubbleToWindow: aBubble [
 
 	| window |
+
 	window := self ownerThatIsA: SystemWindow.
 	window ifNil: [^ aBubble comeToFront].
 	window addMorphFront: aBubble
