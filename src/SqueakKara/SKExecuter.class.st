@@ -51,6 +51,15 @@ SKExecuter >> compiler: anObject [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'LM 7/4/2026 11:04'
+}
+SKExecuter >> defaultSpeed [
+
+	^ 25
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'jawi 4/30/2026 17:36'
 }
 SKExecuter >> environment [
@@ -91,13 +100,13 @@ SKExecuter >> execute: aCode for: aKara [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:09'
+	#'squeak_changestamp' : 'LM 7/4/2026 11:04'
 }
 SKExecuter >> initialize [
 
 	super initialize.
 	self compiler: Compiler new.
-	self speed: 25.
+	self speed: self defaultSpeed.
 	self processes: Dictionary new.
 	self scheduler: (SKScheduler newWithExecuter: self).
 	^ self
