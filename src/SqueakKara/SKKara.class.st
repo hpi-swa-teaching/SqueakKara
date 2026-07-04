@@ -69,7 +69,7 @@ SKKara >> cloverleaf: aCloverleaf [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'LD 6/17/2026 15:23'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:31'
 }
 SKKara >> collectCloverleaf [
 	
@@ -82,10 +82,9 @@ SKKara >> collectCloverleaf [
 		self errorNoCloverleaf.
 		^ self ].
 	
-	( cloverleaf color = self color )
-		ifFalse: [self errorWrongCloverleaf]
-		ifTrue: [ cloverleaf delete].
-	
+	(cloverleaf color = self color)
+		ifFalse: [ self errorWrongCloverleaf ]
+		ifTrue: [ cloverleaf delete ].
 	
 	self grid checkWinCondition
 ]
@@ -156,41 +155,46 @@ SKKara >> environment [
 
 {
 	#category : #'error handling',
-	#'squeak_changestamp' : 'LD 6/17/2026 15:22'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:32'
 }
 SKKara >> errorNoCloverleaf [
+
 	self sayMessage: 'Hier ist kein Kleeblatt!'
 ]
 
 {
 	#category : #'error handling',
-	#'squeak_changestamp' : 'LD 6/17/2026 15:24'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:32'
 }
 SKKara >> errorOutOfBounce [
+
 	self sayMessage: 'Aua! Da darf ich nicht hinlaufen D:'.
 ]
 
 {
 	#category : #'error handling',
-	#'squeak_changestamp' : 'LD 6/17/2026 15:47'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:32'
 }
 SKKara >> errorScheduler [
+
 	self sayMessage: 'Hey, hier darf ich gerade nicht hin!'.
 ]
 
 {
 	#category : #'error handling',
-	#'squeak_changestamp' : 'LD 6/17/2026 15:24'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:32'
 }
 SKKara >> errorTrunk [
+
 	self sayMessage: 'Aua! Ich bin gegen einen Baumstumpf gelaufen D:'.
 ]
 
 {
 	#category : #'error handling',
-	#'squeak_changestamp' : 'LD 6/17/2026 15:23'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:33'
 }
 SKKara >> errorWrongCloverleaf [
+
 	self sayMessage: 'Ich kann nur mein eigenes Kleeblatt einsammeln.'
 ]
 
@@ -223,7 +227,7 @@ SKKara >> findUnusedColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LD 6/26/2026 10:44'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:33'
 }
 SKKara >> hasBlockingDirectionalTileIn: aNeighborCollection direction: aDirection [
 	
@@ -235,7 +239,6 @@ SKKara >> hasBlockingDirectionalTileIn: aNeighborCollection direction: aDirectio
 	directionalTiles isEmpty ifTrue: [ ^ false ].
 		
 	^ (directionalTiles anySatisfy: [ :directionalTile | directionalTile matchesDirection: aDirection ]) not
-
 ]
 
 {

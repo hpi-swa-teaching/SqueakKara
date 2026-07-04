@@ -452,17 +452,19 @@ SKEnvironment >> initializeWithKaraAt: aPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LD 6/18/2026 21:40'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:27'
 }
 SKEnvironment >> isTerminating [
+
 	^ isTerminating
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LD 6/18/2026 21:40'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:27'
 }
 SKEnvironment >> isTerminating: anObject [
+
 	isTerminating := anObject
 ]
 
@@ -569,12 +571,12 @@ SKEnvironment >> resizeGridByFactor: aNumber [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LD 6/18/2026 22:13'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:28'
 }
 SKEnvironment >> resume [
 
 	self executer resumeExecution.
-	self isTerminating: false.
+	self isTerminating: false
 ]
 
 {
@@ -615,13 +617,13 @@ SKEnvironment >> setSystemWindow [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LD 6/25/2026 19:50'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:30'
 }
 SKEnvironment >> stop [
 	self isTerminating ifFalse: [
 		self isTerminating: true.
-		[self executer terminate] fork
-		]
+		[ self executer terminate ] fork
+	]
 ]
 
 {
