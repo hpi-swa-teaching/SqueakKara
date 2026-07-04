@@ -355,11 +355,12 @@ SKKara >> textureFilename [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'LM 4/28/2026 19:10'
+	#'squeak_changestamp' : 'JS 7/4/2026 20:29'
 }
 SKKara >> trunkAhead [
 
 	| target tileAhead |
+	
 	target := self coordinates + self viewDirection.
 	tileAhead := self gridCoordinator getTileAtCoordinates: target.
 
@@ -383,9 +384,10 @@ SKKara >> turn: aRotation [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:49'
+	#'squeak_changestamp' : 'JS 7/4/2026 20:29'
 }
 SKKara >> updateColor [
+	
 	self updateColorFor: self image
 ]
 
@@ -410,7 +412,7 @@ SKKara >> updateColorFor: aForm [
 ]
 
 {
-	#category : #movement,
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
 }
 SKKara >> viewDirection [
@@ -419,7 +421,7 @@ SKKara >> viewDirection [
 ]
 
 {
-	#category : #movement,
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
 }
 SKKara >> viewDirection: aDirection [
