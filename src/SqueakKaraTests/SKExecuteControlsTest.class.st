@@ -9,7 +9,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #running,
 	#'squeak_changestamp' : 'EB 7/12/2024 11:34'
 }
 SKExecuteControlsTest >> setUp [
@@ -19,7 +19,7 @@ SKExecuteControlsTest >> setUp [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #running,
 	#'squeak_changestamp' : 'LM 6/4/2026 09:25'
 }
 SKExecuteControlsTest >> tearDown [
@@ -28,7 +28,7 @@ SKExecuteControlsTest >> tearDown [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'ND 6/25/2026 21:21'
 }
 SKExecuteControlsTest >> testMaxNumberRandomKaraSpawn [
@@ -44,7 +44,7 @@ SKExecuteControlsTest >> testMaxNumberRandomKaraSpawn [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'ND 7/1/2026 16:20'
 }
 SKExecuteControlsTest >> testNextChallenge [
@@ -65,7 +65,7 @@ SKExecuteControlsTest >> testNextChallenge [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'ND 6/18/2026 21:58'
 }
 SKExecuteControlsTest >> testRandomKaraSpawn [
@@ -81,7 +81,7 @@ SKExecuteControlsTest >> testRandomKaraSpawn [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'ND 6/18/2026 21:59'
 }
 SKExecuteControlsTest >> testRun [
@@ -97,7 +97,7 @@ SKExecuteControlsTest >> testRun [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'ND 6/18/2026 21:59'
 }
 SKExecuteControlsTest >> testRunPause [
@@ -116,7 +116,7 @@ SKExecuteControlsTest >> testRunPause [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'ND 6/18/2026 22:00'
 }
 SKExecuteControlsTest >> testSlider [
@@ -127,7 +127,7 @@ SKExecuteControlsTest >> testSlider [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'ND 6/18/2026 22:00'
 }
 SKExecuteControlsTest >> testStop [

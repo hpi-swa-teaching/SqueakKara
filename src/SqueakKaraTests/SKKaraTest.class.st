@@ -379,7 +379,7 @@ SKKaraTest >> testTrunkAhead [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'EB 7/11/2024 15:28'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:51'
 }
 SKKaraTest >> testTrunkAheadAfterTurn [
 
@@ -387,9 +387,9 @@ SKKaraTest >> testTrunkAheadAfterTurn [
 	
 	kara := SKKara newInGrid: self grid.
 	trunk := SKTrunk newInGrid: self grid at: 1 @ 2.
-	self assert: false = kara trunkAhead.
+	self assert: kara trunkAhead not.
 	kara turn: SKDirection rotateRight.
-	self assert: true = kara trunkAhead
+	self assert: kara trunkAhead
 ]
 
 {

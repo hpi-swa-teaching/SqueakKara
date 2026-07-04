@@ -246,12 +246,12 @@ SKExecuter >> stepTime [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'LM 5/29/2026 12:55'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:53'
 }
 SKExecuter >> suspendExecution [
 
 	self processes valuesDo: [ :process |
-		((process isTerminated not) and: (process isSuspended not)) ifTrue: [ process suspend ]].
+		((process isTerminated not) and: [ process isSuspended not ]) ifTrue: [ process suspend ]].
 	
 	self stateWithUpdate: #suspended
 ]
