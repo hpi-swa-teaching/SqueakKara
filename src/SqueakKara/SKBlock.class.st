@@ -1,3 +1,36 @@
+"
+A SKBlock is the (visual) representation of a segment of code used to program the behaviour of a SqueakKara Kara object. It mainly handles the connection-process to other SKBlocks.
+
+Instance Variables
+	actionConnectionPoints:		<Object>
+	anchorPoint:		<Object>
+	blockParts:		<Object>
+	blockRows:		<Object>
+	category:		<Object>
+	leftSource:		<Object>
+	valueConnectionPoints:		<Object>
+
+actionConnectionPoints
+	- Points where ActionBlocks (see SKActionBlock) can be connected to this block
+
+anchorPoint
+	- Point where this instance wants to be connected to another SKBlock
+
+blockParts
+	- Parts making up rows of this block (e.g. see SKBlockPart)
+
+blockRows
+	- Rows making up this block (see SKBlockRow)
+
+category
+	- used for consistent coloring + possibility for meta-programming
+
+leftSource
+	- boolean wether this Block is still in the BlockSource -> affects wether the block is draggable and editable
+
+valueConnectionPoints
+	- Points where ValueBlocks (see SKValueBlock) can be connected to this block
+"
 Class {
 	#name : #SKBlock,
 	#superclass : #Morph,
@@ -12,7 +45,7 @@ Class {
 		'isPreview',
 		'previewBlock'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks'
 }
 
 {
@@ -80,6 +113,21 @@ SKBlock >> addConnectionPoint: aConnectionPoint [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/30/2026 20:39'
+}
+SKBlock >> addEmptyIntegerPart [
+	
+	| textSlotPart |
+	
+	textSlotPart := SKTextSlotPart new type: #Integer.
+	textSlotPart defaultUI: (textSlotPart defaultUI addMorphBack: (Morph new color: Color transparent; extent: textSlotPart defaultUIEntry extent); removeMorph: textSlotPart defaultUIEntry).
+	textSlotPart restoreDefault.
+	
+	^ self addInputSlotPart: (textSlotPart)
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 19:39'
 }
 SKBlock >> addInputSlotPart: anInputSlotPart [
@@ -134,6 +182,19 @@ SKBlock >> anchorPoint [
 	^ anchorPoint ifNil: [anchorPoint := SKBlockConnectionPoint new
 		uiDelegate: self;
 		type: #Anchor]
+]
+
+{
+	#category : #'submorphs - callbacks',
+	#'squeak_changestamp' : 'FR 6/24/2026 20:18'
+}
+SKBlock >> blockCount [
+	
+	| result |
+	
+	result := 1.
+	self actionConnectionPoints ifEmpty: [^0] ifNotEmpty: [self actionConnectionPoints do:[:each | each connectedPoint ifNotNil: [result := result + each connectedPoint uiDelegate blockCount]]].
+	^ result
 ]
 
 {
@@ -213,13 +274,13 @@ SKBlock >> connectionPointPositionForType: aConnectionPointType [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
+	#'squeak_changestamp' : 'FR 6/24/2026 17:16'
 }
 SKBlock >> findClosestSnapTargetIn: anObject [
 
 	| closestConnectionPoint shortestDistance currentDistance |
 
-	shortestDistance := 20.
+	shortestDistance := self snapRadius.
 	closestConnectionPoint := nil.
 	
 	(self validSnapConnectionsIn: anObject) do: [:each |
@@ -398,11 +459,11 @@ SKBlock >> removedMorph: aMorph [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:17'
+	#'squeak_changestamp' : 'FR 6/24/2026 17:18'
 }
 SKBlock >> snapRadius [
 
-	^SKBlockStyle unit * 20.
+	^ SKBlockStyle blockPartHeight
 ]
 
 {
@@ -439,7 +500,7 @@ SKBlock >> tabHeight [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/24/2026 01:26'
+	#'squeak_changestamp' : 'FR 6/24/2026 20:08'
 }
 SKBlock >> updateLayout [
 

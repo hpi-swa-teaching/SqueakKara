@@ -1,3 +1,21 @@
+"
+A SKFunctionStart is a Block representing the start of a callable Function. This class primarily manages how functions get registered with the SKBlockEditor.
+
+Instance Variables
+	caller:		<Object>
+	functionName:		<Object>
+	functionNameSlot:		<Object>
+
+caller
+	- the Object keeping track of Functions (probably a SKBlockEditor)
+
+functionName
+	- the name of the function that is registered with the caller
+
+functionNameSlot
+	- the name of the function as is typed in the TextSlot
+
+"
 Class {
 	#name : #SKFunctionStart,
 	#superclass : #SKActionBlock,
@@ -6,7 +24,8 @@ Class {
 		'functionName',
 		'caller'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:09'
 }
 
 {
@@ -97,16 +116,19 @@ SKFunctionStart >> justDroppedInto: anObject event: anEvent [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'FR 6/24/2026 03:48'
+	#'squeak_changestamp' : 'FR 6/24/2026 20:29'
 }
 SKFunctionStart >> removeCall [
 
-	(self caller functionStarts at: self functionName ifAbsent: [^ self])  remove:  self ifAbsent: [^ self]
+	(self caller functionStarts at: self functionName ifAbsent: [^ self]) remove:  self ifAbsent: [^ self].
+	(self caller functionStarts at: self functionName) ifEmpty: [self caller functionStarts removeKey: self functionName].
+	self caller refreshBlockCount.
+	
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/24/2026 03:49'
+	#'squeak_changestamp' : 'FR 6/24/2026 19:50'
 }
 SKFunctionStart >> spawn [
 
