@@ -14,6 +14,41 @@ Class {
 
 {
 	#category : #appearance,
+	#'squeak_changestamp' : 'SLH 7/4/2026 16:04'
+}
+SKKara >> addCloseButtonTo: aBubble [
+
+	| closeButton |
+
+	(aBubble submorphs anySatisfy: [:each | each isKindOf: SimpleButtonMorph])
+		ifTrue: [^ self].
+
+	closeButton := SimpleButtonMorph new
+		label: 'x';
+		target: aBubble;
+		actionSelector: #delete;
+		color: SKStylesheet secondaryColor;
+		borderWidth: 0;
+		yourself.
+	aBubble addMorph: closeButton.
+	closeButton position: aBubble topRight - (closeButton width @ 0)
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'SLH 7/4/2026 16:04'
+}
+SKKara >> attachBubbleToWindow: aBubble [
+
+	| window |
+
+	window := self ownerThatIsA: SystemWindow.
+	window ifNil: [^ aBubble comeToFront].
+	window addMorphFront: aBubble
+]
+
+{
+	#category : #appearance,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 14:30'
 }
 SKKara >> blockMovement [
@@ -105,6 +140,30 @@ SKKara >> karaAhead [
 ]
 
 {
+	#category : #appearance,
+	#'squeak_changestamp' : 'Gustav Meinshausen 7/1/2026 10:22'
+}
+SKKara >> karaSay: aString [
+
+	self say: aString.
+	(self world submorphs select: [:each | each isKindOf: SpeechBubbleMorph])
+		do: [:bubble |
+			self lockTextIn: bubble.
+			self addCloseButtonTo: bubble.
+			self attachBubbleToWindow: bubble]
+]
+
+{
+	#category : #appearance,
+	#'squeak_changestamp' : 'Gustav Meinshausen 7/1/2026 10:31'
+}
+SKKara >> lockTextIn: aBubble [
+
+	aBubble allMorphsDo: [:each |
+		(each isKindOf: TextMorph) ifTrue: [each lock]]
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 16:18'
 }
@@ -115,7 +174,7 @@ SKKara >> move [
 	self walkableAhead ifFalse: [
 		self
 			blockMovement;
-			say: 'I should not walk into things. There might also be a bug in the code!'.
+			karaSay: 'I should not walk into things. There might also be a bug in the code!'.
 		^ self].
 	wasOnClover := self onCloverleaf.
 	self coordinates: self coordinates + self viewDirection.
@@ -131,7 +190,7 @@ SKKara >> moveAfterPushing [
 	self mushroomAhead ifTrue: [
 		self
 			blockMovement;
-			say: 'I should not push stuff into things!'.
+			karaSay: 'I should not push stuff into things!'.
 		^ self].
 	self move
 ]
@@ -206,7 +265,7 @@ SKKara >> push [
 	self mushroomAhead ifFalse: [
 		self
 			blockMovement;
-			say: 'I can not push that'.
+			karaSay: 'I can not push that'.
 		^ self].
 	self pushMushroomAhead.
 	self moveAfterPushing
@@ -308,11 +367,12 @@ SKKara >> textureFilename [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'LM 4/28/2026 19:10'
+	#'squeak_changestamp' : 'JS 7/4/2026 20:29'
 }
 SKKara >> trunkAhead [
 
 	| target tileAhead |
+	
 	target := self coordinates + self viewDirection.
 	tileAhead := self gridCoordinator getTileAtCoordinates: target.
 
@@ -336,9 +396,10 @@ SKKara >> turn: aRotation [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/20/2026 14:49'
+	#'squeak_changestamp' : 'JS 7/4/2026 20:29'
 }
 SKKara >> updateColor [
+	
 	self updateColorFor: self image
 ]
 
@@ -363,7 +424,7 @@ SKKara >> updateColorFor: aForm [
 ]
 
 {
-	#category : #movement,
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
 }
 SKKara >> viewDirection [
@@ -372,7 +433,7 @@ SKKara >> viewDirection [
 ]
 
 {
-	#category : #movement,
+	#category : #accessing,
 	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
 }
 SKKara >> viewDirection: aDirection [
