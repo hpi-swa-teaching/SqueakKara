@@ -50,11 +50,10 @@ SKBlockEditor >> blockMax [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 7/3/2026 02:46'
+	#'squeak_changestamp' : 'FR 6/24/2026 20:00'
 }
 SKBlockEditor >> blockMax: aNumber [
 
-	self flag: #todo. "currently not sent -> this should be used to change the requirements based on the current level"
 	blockMax := aNumber
 ]
 

@@ -474,7 +474,7 @@ SKBlock >> tabHeight [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 7/3/2026 02:35'
+	#'squeak_changestamp' : 'SLH 7/4/2026 16:43'
 }
 SKBlock >> updateLayout [
 
