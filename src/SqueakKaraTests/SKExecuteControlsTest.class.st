@@ -82,16 +82,24 @@ SKExecuteControlsTest >> testRandomKaraSpawn [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'ND 7/4/2026 13:02'
+	#'squeak_changestamp' : 'ND 7/4/2026 13:11'
 }
 SKExecuteControlsTest >> testReset [
 	
-	| testEnvironment testEnvironmentNew |
+	| testEnvironment testEnvironmentNew positionBefore positionAfter |
 	
 	testEnvironment := SKEnvironment new initializeWithChallenge1.
+	testEnvironment firstWorkspace contents: 'kara move' .
+	positionBefore := (testEnvironment karas at: 1) coordinates.
+	testEnvironment run.
+	positionAfter := (testEnvironment karas at: 1) coordinates.
+	
+	self assert: positionBefore = positionAfter.
 	
 	testEnvironmentNew := testEnvironment executeControls buttonReset action.
 	
+	self assert: (testEnvironmentNew firstWorkspace contents = 'kara move').
+	self assert: ((testEnvironmentNew karas at: 1) coordinates = positionBefore).
 	self assert: (testEnvironmentNew currentChallenge = #initializeWithChallenge1).
 	
 	testEnvironmentNew close
