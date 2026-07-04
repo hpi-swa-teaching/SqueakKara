@@ -50,7 +50,7 @@ You might run code by using the "do it" command `CTRL+D`. If you find yourself s
 
 ![UML](./assets/UML.png)
 
-The LandingPage opens the Environment, which consists of the Grid, Workspace and the Executer. All different Components on the grid are children from a central GridObjekt class. The grid owns every object and allows interactions between them.
+The LandingPage opens the Environment, which consists of the Grid, Workspace and the Executer. All different Components on the grid are children from a central GridObjekt class.
 The workspace owns Kara and allows the do-it and print-it-statements. 
 Each KaraProxy is owned by the Executer.
 The ExecuteControls class acts as the primary interface for managing project execution.
