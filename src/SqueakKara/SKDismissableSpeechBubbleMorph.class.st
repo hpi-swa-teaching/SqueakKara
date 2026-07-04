@@ -20,7 +20,7 @@ Class {
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'mr 6/25/2026 20:56'
+	#'squeak_changestamp' : 'mr 7/4/2026 11:32'
 }
 SKDismissableSpeechBubbleMorph >> buildCloseButton [
 	
@@ -35,7 +35,8 @@ SKDismissableSpeechBubbleMorph >> buildCloseButton [
 		actionSelector: #delete;
 		extent: buttonExtent;
 		color: Color red;
-		position: self closeButtonPosition
+		position: self closeButtonPosition;
+		yourself
 ]
 
 {
