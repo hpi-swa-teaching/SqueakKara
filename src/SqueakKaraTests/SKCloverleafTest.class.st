@@ -8,7 +8,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'LD 5/22/2026 12:12'
 }
 SKCloverleafTest >> grid [
@@ -17,7 +17,7 @@ SKCloverleafTest >> grid [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #accessing,
 	#'squeak_changestamp' : 'LD 5/22/2026 12:12'
 }
 SKCloverleafTest >> gridSize [
@@ -44,7 +44,7 @@ SKCloverleafTest >> tearDown [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #testing,
 	#'squeak_changestamp' : 'jawi 5/28/2026 16:38'
 }
 SKCloverleafTest >> testColorUpdate [
