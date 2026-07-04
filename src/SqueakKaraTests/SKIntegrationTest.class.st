@@ -65,7 +65,7 @@ SKIntegrationTest >> testCriticalSectionLevel [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'ND 7/4/2026 15:36'
+	#'squeak_changestamp' : 'ND 7/4/2026 15:08'
 }
 SKIntegrationTest >> testDirectionalSectionLevel [
 
