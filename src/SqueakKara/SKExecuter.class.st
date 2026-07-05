@@ -242,14 +242,13 @@ SKExecuter >> startExecutionOf: aCode for: aKara using: aProxy [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'ND 7/5/2026 14:05'
+	#'squeak_changestamp' : 'LM 7/5/2026 15:07'
 }
 SKExecuter >> state [
-	
-	
+
 	(self processes allSatisfy: [ :process | process isTerminated ])
 		ifTrue: [ ^ #terminated ].
-		
+	
 	^ state
 ]
 
@@ -306,14 +305,14 @@ SKExecuter >> suspendExecution [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'ND 7/5/2026 14:05'
+	#'squeak_changestamp' : 'LM 7/5/2026 15:07'
 }
 SKExecuter >> terminate [
 
 	(self state = #terminated) ifTrue: [ ^ self ].
 
 	self processes keysDo: [ :kara | self terminateFor: kara ].
-	self stateWithUpdate: #terminated.
+	self stateWithUpdate: #terminated
 ]
 
 {
