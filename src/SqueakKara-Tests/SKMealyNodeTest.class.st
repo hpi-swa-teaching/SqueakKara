@@ -2,51 +2,48 @@ Class {
 	#name : #SKMealyNodeTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'node'
+		'node',
+		'stateMachineEditor'
 	],
 	#category : #'SqueakKara-Tests'
 }
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'JS 6/9/2026 17:30'
+	#'squeak_changestamp' : 'JS 7/5/2026 18:17'
 }
 SKMealyNodeTest >> setUp [
-	node := SKMealyNode new
+	node := SKMealyNode new.
+	stateMachineEditor := SKStateMachineEditor new
 ]
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'JS 6/9/2026 17:30'
+	#'squeak_changestamp' : 'JS 7/5/2026 18:17'
 }
 SKMealyNodeTest >> tearDown [
-	node delete
+	node delete.
+	stateMachineEditor delete
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JS 6/9/2026 17:48'
+	#'squeak_changestamp' : 'JS 7/5/2026 18:22'
 }
 SKMealyNodeTest >> testController [
 
-
-|stateMachineEditor|
-
-	stateMachineEditor := SKStateMachineEditor new.
 	stateMachineEditor actionCreateNode.
 	stateMachineEditor playGround nodes do: [:n | 
-		self assert: (n controller =  nil) not]
+		self assert: (n controller =  nil) not].
+	(stateMachineEditor playGround nodes at: 2) delete
 ]
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'LP 6/30/2026 16:27'
+	#'squeak_changestamp' : 'JS 7/5/2026 18:17'
 }
 SKMealyNodeTest >> testLabelCreation [
 
-|stateMachineEditor|
-
-	stateMachineEditor := SKStateMachineEditor new.
 	stateMachineEditor initializePlayground. 
 	stateMachineEditor playGround nodes do: [:each| (each isStartingNode) ifTrue: [self assert: each label = nil]]
 ]

@@ -11,9 +11,10 @@ Class {
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'SSP 5/26/2026 13:40'
+	#'squeak_changestamp' : 'FR 7/3/2026 14:11'
 }
 SKCloseConfirmationWindowTest >> setUp [
+
 	manager := SKWindowManager new.
 	sysWindow := SKChallengeWindow new windowManager: manager.
 	sysWindow openInWorld.
