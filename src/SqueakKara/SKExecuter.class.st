@@ -11,7 +11,7 @@ Instance Variables
 	testMode:			<Boolean>
 
 compiler
-	- Compiles the code of the user.
+	- Compiles the code of the user in each workspace.
 
 processes
 	- The state of what the code currently does.
@@ -26,10 +26,10 @@ environment
 	- Calls the current game environment.
 	
 scheduler
-	-Decides which in which order tasks should be done.
+	- Decides which in which order tasks should be done.
 	
 testMode
-	-Tells if its just a Test run.
+	- Tells if its just a test run. This is used, so that the tests run faster.
 
 
 
@@ -49,7 +49,7 @@ Class {
 		'testMode'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'AB 7/5/2026 12:35'
+	#'squeak_changestamp' : 'ND 7/5/2026 13:30'
 }
 
 {

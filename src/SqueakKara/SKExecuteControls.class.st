@@ -12,7 +12,7 @@ Instance Variables
 	buttonReset:			<SKButtonReset>
 
 environment
-	- The environment is needed for the buttons.
+	- A reference to environment. This is needed for the buttons to run correctly. 
 
 buttonRun
 	- The button to start the execution.
@@ -21,10 +21,10 @@ buttonStop
 	- The button to terminate the execution.
 
 buttonSpawnKara
-	- The button to spawn a additional Kara.
+	- The button to spawn an additional Kara.
 
 buttonNextChallenge
-	- The button to go to the next Challenge.
+	- The button to go to the next challenge.
 
 sliderSpeed
 	- The Slider to adjust the speed of the execution.
@@ -33,7 +33,7 @@ scaleFactor
 	- The scaleFactor is needed to scale the ExecuteControls to the right size.
 	
 buttonReset
-	- The button to reset everything but keeping the code in the Workspaces the same.
+	- The button to reset everything but keeping the code in the workspaces the same.
 "
 Class {
 	#name : #SKExecuteControls,
@@ -49,7 +49,7 @@ Class {
 		'buttonReset'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JanWein 7/5/2026 12:56'
+	#'squeak_changestamp' : 'ND 7/5/2026 13:29'
 }
 
 {
