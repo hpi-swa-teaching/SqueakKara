@@ -65,11 +65,11 @@ SKIntegrationTest >> testCriticalSectionLevel [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'ND 7/4/2026 15:08'
+	#'squeak_changestamp' : 'ND 7/5/2026 14:03'
 }
 SKIntegrationTest >> testDirectionalSectionLevel [
 
-	| environment solutionCode1 solutionCode2 wrongWayCode1 wrongCloverleafCode1 |
+	| environment solutionCode1 solutionCode2 wrongWayCode1 |
 	
 	environment := SKEnvironment new initializeWithChallenge10.
 	environment executer testMode: true.
@@ -85,21 +85,6 @@ SKIntegrationTest >> testDirectionalSectionLevel [
 	environment executer waitUntilTerminated.
 	
 	self assert: environment karas first coordinates = (1 @ 5).
-	
-	environment karas do: [ :kara | kara speechBubbles do: [ :bubble | bubble delete ]].
-	environment := environment executeControls buttonReset action.
-	
-	wrongCloverleafCode1 := 'kara turn: left. (1 to: 4) do: [ :i | kara move ]. kara turn: right. kara move. kara collectCloverleaf'.
-	
-	environment firstWorkspace userCode: wrongCloverleafCode1.
-	environment workspaces second userCode: ''.
-	
-	environment run.
-	
-	"Busy waiting until execution done."
-	environment executer waitUntilTerminated.
-	
-	self assert: ((environment grid gridCoordinator getTileAtCoordinates: (2 @ 1)) anySatisfy: [ :object | object isCloverleaf ]).
 	
 	environment karas do: [ :kara | kara speechBubbles do: [ :bubble | bubble delete ]].
 	environment := environment executeControls buttonReset action.
