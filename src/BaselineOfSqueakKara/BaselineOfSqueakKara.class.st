@@ -6,7 +6,7 @@ Class {
 
 {
 	#category : #baseline,
-	#'squeak_changestamp' : 'SLH 7/5/2026 11:12'
+	#'squeak_changestamp' : 'SLH 7/5/2026 11:54'
 }
 BaselineOfSqueakKara >> baseline: spec [
          <baseline>
@@ -22,7 +22,7 @@ BaselineOfSqueakKara >> baseline: spec [
                      package: 'SqueakKara-Tests' with: [spec requires: #('default')];
                      yourself.
                  spec
-                     group: 'default' with: #('SqueakKara-Core' ' SqueakKara-ProgrammingBlocks');
+                     group: 'default' with: #('SqueakKara-Core' 'SqueakKara-ProgrammingBlocks');
                      group: 'tests' with: #('SqueakKara-Tests');
                      yourself].
 ]
