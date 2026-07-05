@@ -9,8 +9,6 @@ Instance Variables
 	category:		<Object>
 	leftSource:		<Object>
 	valueConnectionPoints:		<Object>
-	isPreview:		<Object>
-	previewBlock: 	<Object>
 
 actionConnectionPoints
 	- Points where ActionBlocks (see SKActionBlock) can be connected to this block
@@ -32,12 +30,7 @@ leftSource
 
 valueConnectionPoints
 	- Points where ValueBlocks (see SKValueBlock) can be connected to this block
-	
-isPreview
-	- wether this Block is a (grayed out) preview of a block or an actual block
 
-previewBlock
-	- the preview block (if any) that is currently displayed where this block could be dropped
 "
 Class {
 	#name : #SKBlock,
@@ -49,12 +42,10 @@ Class {
 		'category',
 		'anchorPoint',
 		'actionConnectionPoints',
-		'valueConnectionPoints',
-		'isPreview',
-		'previewBlock'
+		'valueConnectionPoints'
 	],
 	#category : #'SqueakKara-ProgrammingBlocks',
-	#'squeak_changestamp' : 'FR 7/5/2026 22:36'
+	#'squeak_changestamp' : 'FR 6/30/2026 21:02'
 }
 
 {
@@ -317,20 +308,6 @@ SKBlock >> getCode [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/24/2026 14:45'
-}
-SKBlock >> getPreview [
-
-	^ previewBlock ifNil: [
-		previewBlock := self copy
-			isPreview: true;
-			color: Color gray;
-			borderColor: Color gray;
-			removeAllMorphs]
-]
-
-{
 	#category : #'event handling',
 	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
 }
@@ -363,24 +340,6 @@ SKBlock >> initialize [
 		listDirection: #topToBottom;
 		wrapCentering: #center;
     		cellPositioning: #topLeft
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/24/2026 11:54'
-}
-SKBlock >> isPreview [
-
-	^ isPreview ifNil: [isPreview := false]
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'SLH 6/24/2026 11:54'
-}
-SKBlock >> isPreview: aBoolean [
-
-	isPreview := aBoolean
 ]
 
 {
