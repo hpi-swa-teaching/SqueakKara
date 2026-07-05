@@ -439,7 +439,7 @@ SKEnvironment >> reset: aChallenge [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'JS 7/2/2026 22:42'
+	#'squeak_changestamp' : 'JS 7/5/2026 20:53'
 }
 SKEnvironment >> resize [
 	
@@ -447,7 +447,8 @@ SKEnvironment >> resize [
 	scaleFactor := self calculateScaleFactor: self systemWindow extent.
 	
 	self resizeGridByFactor: scaleFactor.
-	self executeControls scaleFactor: scaleFactor. 
+	self executeControls scaleFactor: scaleFactor.
+	"self systemWindow extent: self extent x @ (self grid extent y + self executeControls extent y + 40). "
 ]
 
 {

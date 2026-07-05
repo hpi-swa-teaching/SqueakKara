@@ -402,18 +402,19 @@ SKExecuteControls >> getTexture: aFilename [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:34'
+	#'squeak_changestamp' : 'JS 7/5/2026 20:23'
 }
 SKExecuteControls >> initialize [
 
 	super initialize.
 	self bounds: self defaultBounds;
 		color: SKStylesheet primaryColor;
-		borderWidth: 1 px;
+		borderWidth: 1;
 		borderColor: SKStylesheet secondaryColor;
 		layoutPolicy: TableLayout new;
 		listDirection: #leftToRight;
 		cellPositioning: #center;
+		wrapCentering: #center;
 		cellInset: 5;
 		hResizing: #rigid;
 		vResizing: #rigid;
