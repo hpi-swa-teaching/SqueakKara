@@ -88,14 +88,14 @@ SKActionBlock >> connectionPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:33'
+	#'squeak_changestamp' : 'SLH 7/4/2026 14:09'
 }
 SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 
 	(aConnectionPointType = #Action) ifTrue: [
-		^ self bottomLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth // 2)) @ 0)].
+		^ self boundsInWorld bottomLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth // 2)) @ 0)].
 	
-	^ self topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth // 2)) @ (self tabHeight))
+	^ self boundsInWorld topLeft + ((self tabOffsetOuter + self slantWidth + (self tabWidth // 2)) @ (self tabHeight))
 ]
 
 {
@@ -150,6 +150,17 @@ SKActionBlock >> embedVisualBlock: anActionBlock [
 	anActionBlock align: (anActionBlock anchorPoint position) with: (self connectionPoint position).
 	self addMorph: anActionBlock.
 	self updateLayout
+]
+
+{
+	#category : #snapping,
+	#'squeak_changestamp' : 'SLH 6/24/2026 14:30'
+}
+SKActionBlock >> findLastRecursiveChildBlock [
+
+	self connectionPoint isConnected ifFalse: [^ self].
+	
+	^ self connectionPoint connectedPoint uiDelegate findLastRecursiveChildBlock.
 ]
 
 {
@@ -244,7 +255,7 @@ SKActionBlock >> minHeight [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
+	#'squeak_changestamp' : 'SLH 6/24/2026 14:40'
 }
 SKActionBlock >> resolveConflictingBlockEmbeddingFor: anActionBlock [
 	
@@ -253,7 +264,7 @@ SKActionBlock >> resolveConflictingBlockEmbeddingFor: anActionBlock [
 	self connectionPoint isConnected ifFalse: [^ self].
 	
 	oldEmbeddedBlock := self connectionPoint connectedPoint uiDelegate.
-	oldEmbeddedBlock snapToTarget: anActionBlock connectionPoint
+	oldEmbeddedBlock snapToTarget: anActionBlock findLastRecursiveChildBlock connectionPoint
 ]
 
 {
