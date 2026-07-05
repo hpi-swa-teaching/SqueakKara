@@ -31,7 +31,7 @@ SKSystemWindow >> closeBoxHit [
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:25'
+	#'squeak_changestamp' : 'JS 7/5/2026 21:12'
 }
 SKSystemWindow >> extent: aPoint [
 
@@ -40,12 +40,23 @@ SKSystemWindow >> extent: aPoint [
 ]
 
 {
+	#category : #initialization,
+	#'squeak_changestamp' : 'JS 7/5/2026 22:32'
+}
+SKSystemWindow >> initialize [
+
+	super initialize
+	
+]
+
+{
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:54'
+	#'squeak_changestamp' : 'JS 7/5/2026 22:24'
 }
 SKSystemWindow >> minimumExtent [
-
-	^ minimumExtent ifNil: [minimumExtent := 450 @ 550. ^ 450 @ 550]
+	
+	^ super minimumExtent
+	"^ minimumExtent ifNil: [minimumExtent := 450 @ 550. ^ 450 @ 550]"
 ]
 
 {
