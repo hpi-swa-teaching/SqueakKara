@@ -1,7 +1,12 @@
+"
+A SKMushroom is a SkGridObject, that is not walkable, but moveable by SKKara when using push 
+
+"
 Class {
 	#name : #SKMushroom,
 	#superclass : #SKGridObject,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 22:52'
 }
 
 {

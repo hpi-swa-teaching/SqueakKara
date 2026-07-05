@@ -1,7 +1,12 @@
+"
+A SKLevel2World0 defines level 2 in World 0
+
+"
 Class {
 	#name : #SKLevel2World0,
 	#superclass : #SKLevel,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 22:47'
 }
 
 {

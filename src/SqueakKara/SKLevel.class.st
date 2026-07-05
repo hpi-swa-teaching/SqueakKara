@@ -1,3 +1,17 @@
+"
+A SKLevel is the abstract superclass of all concrete level-classes. Its responsibility is the creation of a SKGrid and the coordination between the Enviroment and the SKGrid. The concrete values from which the SKGrid is created are the responsivilty of the subclasses of SKLevel
+
+Instance Variables
+	environment:		SkEnviroment
+	grid:		SkGrid
+
+environment
+	- the SkEnviroment for which a SKGrid is created
+
+grid
+	- the SkGrid that is created
+
+"
 Class {
 	#name : #SKLevel,
 	#superclass : #Object,
@@ -5,7 +19,8 @@ Class {
 		'grid',
 		'environment'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 22:51'
 }
 
 {

@@ -1,7 +1,12 @@
+"
+A SKLevel2World4 is defines level 2 in World 4
+
+"
 Class {
 	#name : #SKLevel2World4,
 	#superclass : #SKLevel,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 22:48'
 }
 
 {

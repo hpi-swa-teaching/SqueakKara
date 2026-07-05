@@ -1,7 +1,12 @@
+"
+A SKLevel1World1 defines level 1 in World 1
+
+"
 Class {
 	#name : #SKLevel1World1,
 	#superclass : #SKLevel,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-Core',
+	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 22:46'
 }
 
 {
