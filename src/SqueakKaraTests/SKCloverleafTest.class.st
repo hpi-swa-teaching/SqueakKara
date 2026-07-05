@@ -1,10 +1,21 @@
+"
+A SKCloverleafTest is a test to test the funcionality of the SKCloverLeafs.
+
+Instance Variables
+	grid:		<SKGrid>
+
+grid
+	- The grid used in the tests.
+
+"
 Class {
 	#name : #SKCloverleafTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'grid'
 	],
-	#category : #SqueakKaraTests
+	#category : #SqueakKaraTests,
+	#'squeak_changestamp' : 'ND 7/5/2026 15:52'
 }
 
 {

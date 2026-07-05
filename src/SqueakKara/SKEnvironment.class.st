@@ -8,7 +8,7 @@ Instance Variables
 	executeControls:	<SKExecuteControls>
 	gameWidth:		<Number>
 	gameHeight: 		<Number>
-	nextChallenge:	<Symbol>
+	nextChallenge:		<Symbol>
 	currentChallenge:	<Symbol>
 	isTerminationg: <Boolean>
 
