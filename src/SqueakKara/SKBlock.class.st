@@ -1,3 +1,44 @@
+"
+A SKBlock is the (visual) representation of a segment of code used to program the behaviour of a SqueakKara Kara object. It mainly handles the connection-process to other SKBlocks.
+
+Instance Variables
+	actionConnectionPoints:		<Object>
+	anchorPoint:		<Object>
+	blockParts:		<Object>
+	blockRows:		<Object>
+	category:		<Object>
+	leftSource:		<Object>
+	valueConnectionPoints:		<Object>
+	isPreview:		<Object>
+	previewBlock: 	<Object>
+
+actionConnectionPoints
+	- Points where ActionBlocks (see SKActionBlock) can be connected to this block
+
+anchorPoint
+	- Point where this instance wants to be connected to another SKBlock
+
+blockParts
+	- Parts making up rows of this block (e.g. see SKBlockPart)
+
+blockRows
+	- Rows making up this block (see SKBlockRow)
+
+category
+	- used for consistent coloring + possibility for meta-programming
+
+leftSource
+	- boolean wether this Block is still in the BlockSource -> affects wether the block is draggable and editable
+
+valueConnectionPoints
+	- Points where ValueBlocks (see SKValueBlock) can be connected to this block
+	
+isPreview
+	- wether this Block is a (grayed out) preview of a block or an actual block
+
+previewBlock
+	- the preview block (if any) that is currently displayed where this block could be dropped
+"
 Class {
 	#name : #SKBlock,
 	#superclass : #Morph,
@@ -12,7 +53,8 @@ Class {
 		'isPreview',
 		'previewBlock'
 	],
-	#category : #'SqueakKara-ProgrammingBlocks'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 7/5/2026 22:36'
 }
 
 {
