@@ -10,7 +10,7 @@ Instance Variables
 	gameHeight: 		<Number>
 	nextChallenge:		<Symbol>
 	currentChallenge:	<Symbol>
-	isTerminationg: <Boolean>
+	isTerminationg: 	<Boolean>
 
 grid
 	- The grid of the environment.
@@ -54,7 +54,7 @@ Class {
 		'isTerminating'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'LD 7/5/2026 15:44'
+	#'squeak_changestamp' : 'LM 7/5/2026 17:19'
 }
 
 {
@@ -530,11 +530,11 @@ SKEnvironment >> isTerminating [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JanWein 7/4/2026 19:27'
+	#'squeak_changestamp' : 'LM 7/5/2026 17:19'
 }
-SKEnvironment >> isTerminating: anObject [
+SKEnvironment >> isTerminating: aBoolean [
 
-	isTerminating := anObject
+	isTerminating := aBoolean
 ]
 
 {
@@ -686,13 +686,13 @@ SKEnvironment >> setSystemWindow [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'JanWein 7/4/2026 19:30'
+	#'squeak_changestamp' : 'LM 7/5/2026 17:20'
 }
 SKEnvironment >> stop [
+
 	self isTerminating ifFalse: [
 		self isTerminating: true.
-		[ self executer terminate ] fork
-	]
+		[ self executer terminate ] fork ]
 ]
 
 {

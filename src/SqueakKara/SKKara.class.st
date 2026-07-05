@@ -344,22 +344,16 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/25/2026 21:07'
+	#'squeak_changestamp' : 'LM 7/5/2026 17:21'
 }
 SKKara >> move [
 	
 	self stopSayingOrThinking.
-	(self trunkAhead) ifTrue: [ 
-		self errorTrunk.
-		^ false ].
-	(self canMoveAhead) ifFalse: [
-		self errorOutOfBounce.
-		^ false ].
-	(self moveToCoordinates: self coordinates + self viewDirection) ifTrue: [
-		^ true ]
-		ifFalse: [ 
-			self errorOutOfBounce.
-			^ false ]
+	(self trunkAhead) ifTrue: [ self errorTrunk. ^ false ].
+	(self canMoveAhead) ifFalse: [ self errorOutOfBounce. ^ false ].
+	(self moveToCoordinates: self coordinates + self viewDirection)
+		ifTrue: [ ^ true ]
+		ifFalse: [ self errorOutOfBounce. ^ false ]
 ]
 
 {
