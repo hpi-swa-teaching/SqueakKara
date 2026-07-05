@@ -30,31 +30,6 @@ SKButtonStack >> addButton: aButton [
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'SSP 6/13/2026 12:29'
-}
-SKButtonStack >> addButtonWithLabel: aLabel target: aTarget selector: aSelector [
-
-	^ self addButton: (SimpleButtonMorph new
-		label: aLabel;
-		target: aTarget;
-		actionSelector: aSelector)
-]
-
-{
-	#category : #building,
-	#'squeak_changestamp' : 'SSP 6/13/2026 12:29'
-}
-SKButtonStack >> addButtonWithLabel: aLabel target: aTarget selector: aSelector arguments: anArray [
-
-	^ self addButton: (SimpleButtonMorph new
-		label: aLabel;
-		target: aTarget;
-		actionSelector: aSelector;
-		arguments: anArray)
-]
-
-{
-	#category : #building,
 	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
 }
 SKButtonStack >> addButtonWithLabel: aLabel target: aTarget selector: aSelector arguments: anArray color: aColor [
@@ -88,6 +63,15 @@ SKButtonStack >> buttonColors [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/5/2026 15:26'
+}
+SKButtonStack >> buttonColors: anIdentityDictionary [
+
+	buttonColors := anIdentityDictionary
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
 }
 SKButtonStack >> buttonExtent [
@@ -111,6 +95,15 @@ SKButtonStack >> buttonExtent: aPoint [
 SKButtonStack >> buttons [
 
 	^ buttons ifNil: [buttons := OrderedCollection new]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/5/2026 15:26'
+}
+SKButtonStack >> buttons: anOrderedCollection [
+
+	^ buttons := anOrderedCollection
 ]
 
 {
@@ -172,20 +165,21 @@ SKButtonStack >> selectButtonAt: anIndex [
 ]
 
 {
-	#category : #selection,
-	#'squeak_changestamp' : 'SSP 6/7/2026 13:50'
-}
-SKButtonStack >> selectIndex: anIndex [
-	^ self select: (self buttons at: anIndex)
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
 }
 SKButtonStack >> selectedButton [
 
 	^ selectedButton
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/5/2026 15:27'
+}
+SKButtonStack >> selectedButton: aButton [
+
+	selectedButton := aButton
 ]
 
 {
