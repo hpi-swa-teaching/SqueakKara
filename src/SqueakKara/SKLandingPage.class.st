@@ -6,11 +6,22 @@ Class {
 	#superclass : #SystemWindow,
 	#instVars : [
 		'selectedConcept',
-		'conceptStack'
+		'conceptStack',
+		'conceptButtons'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'SP 7/2/2026 01:24'
 }
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:20'
+}
+SKLandingPage >> actionBlankProject [
+
+	self buildEnvironment initializeWithBlankProject.
+	self delete
+]
 
 {
 	#category : #actions,
@@ -63,110 +74,12 @@ SKLandingPage >> actionExample4 [
 ]
 
 {
-	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/2/2026 15:45'
-}
-SKLandingPage >> actionNew [
-
-	self buildEnvironment initializeWithBlankProject.
-	self delete
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:16'
-}
-SKLandingPage >> addAllButtons [
-
-	self addButton: self buildButtonNew atIndex: 0.
-	
-	self addButton: self buildButtonExample1 atIndex: 1.
-	self addButton: self buildButtonExample2 atIndex: 2.
-	self addButton: self buildButtonExample3 atIndex: 3.
-	self addButton: self buildButtonExample4 atIndex: 4
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:43'
-}
-SKLandingPage >> addButton: aButton atIndex: anInteger [
-
-	| yOffset basePosition |
-	
-	self addMorph: aButton.
-	
-	yOffset := (aButton height + 10) * (anInteger - 1).
-	
-	basePosition := self position
-		- (aButton width / 2)
-		+ (200 @ 250).
-	
-	aButton position: basePosition + (0 @ yOffset)
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:07'
 }
 SKLandingPage >> addConceptButton: aButton [
 
 	self conceptButtons add: aButton
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
-}
-SKLandingPage >> buildButtonExample1 [
-
-	^ self buildButtonWithLabel: self buttonExample1Label
-		andSelector: #actionExample1
-		andColor: SKStylesheet secondaryColor
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
-}
-SKLandingPage >> buildButtonExample2 [
-
-	^ self buildButtonWithLabel: self buttonExample2Label
-		andSelector: #actionExample2
-		andColor: SKStylesheet secondaryColor
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
-}
-SKLandingPage >> buildButtonExample3 [
-
-	^ self buildButtonWithLabel: self buttonExample3Label
-		andSelector: #actionExample3
-		andColor: SKStylesheet secondaryColor
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:15'
-}
-SKLandingPage >> buildButtonExample4 [
-
-	^ self buildButtonWithLabel: self buttonExample4Label
-		andSelector: #actionExample4
-		andColor: SKStylesheet secondaryColor
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
-}
-SKLandingPage >> buildButtonNew [
-
-	^ self buildButtonWithLabel: self buttonNewLabel
-		andSelector: #actionNew
-		andColor: SKStylesheet primaryColor
 ]
 
 {
@@ -241,11 +154,14 @@ SKLandingPage >> buildConceptStack [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+	#'squeak_changestamp' : 'JS 7/5/2026 14:16'
 }
 SKLandingPage >> buildContent [
 
-	| row |
+	| row topBar|
+	
+	topBar := (self submorphs select: [:each | each isKindOf: AlignmentMorph]) at: 1.
+
 	row := AlignmentMorph newRow
 		color: Color transparent;
 		cellInset: self contentSpacing;
@@ -257,7 +173,10 @@ SKLandingPage >> buildContent [
 		addMorphBack: self buildProjectStack;
 		addMorphBack: self buildConceptStack.
 	self addMorph: row.
-	row position: self position + ((self extent - row fullBounds extent) // 2)
+	self extent: self extent x @ (self extent y max: row bounds height +( topBar extent y * 2)).
+	
+	row center: self center x @ self center y + (topBar extent y / 2).
+	row goBehind
 ]
 
 {
@@ -271,29 +190,38 @@ SKLandingPage >> buildEnvironment [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+	#'squeak_changestamp' : 'JS 7/5/2026 00:20'
 }
 SKLandingPage >> buildProjectStack [
 
 	| stack |
 	stack := SKButtonStack new.
 	stack
-		addButtonWithLabel: self buttonNewLabel
+		addButtonWithLabel: self buttonBlankProjectLabel
 		target: self
-		selector: #actionNew
+		selector: #actionEmptyProject
 		color: SKStylesheet primaryColor.
-	self exampleProjects do: [:assoc |
+	self exampleProjects do: [:each |
 		stack
-			addButtonWithLabel: assoc key
+			addButtonWithLabel: each key
 			target: self
-			selector: assoc value
+			selector: each value
 			color: SKStylesheet secondaryColor].
 	^ stack
 ]
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:53'
+	#'squeak_changestamp' : 'JS 7/5/2026 00:18'
+}
+SKLandingPage >> buttonBlankProjectLabel [
+
+	^ 'New Blank Project'
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
 }
 SKLandingPage >> buttonExample1Label [
 
@@ -328,21 +256,48 @@ SKLandingPage >> buttonExample4Label [
 ]
 
 {
+	#category : #labels,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
+}
+SKLandingPage >> buttonExample5Label [
+
+	^ 'Example Project 5'
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
+}
+SKLandingPage >> buttonExample6Label [
+
+	^ 'Example Project 6'
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
+}
+SKLandingPage >> buttonExample7Label [
+
+	^ 'Example Project 7'
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:22'
+}
+SKLandingPage >> buttonExample8Label [
+
+	^ 'Example Project 8'
+]
+
+{
 	#category : #buttons,
 	#'squeak_changestamp' : 'LK 7/4/2024 19:06'
 }
 SKLandingPage >> buttonHeight [
 
 	^ 20 px
-]
-
-{
-	#category : #labels,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:52'
-}
-SKLandingPage >> buttonNewLabel [
-
-	^ 'New Blank Project'
 ]
 
 {
@@ -361,6 +316,15 @@ SKLandingPage >> conceptButtonExtent [
 SKLandingPage >> conceptButtons [
 
 	^ conceptButtons ifNil: [conceptButtons := OrderedCollection new]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:14'
+}
+SKLandingPage >> conceptButtons: anOrderedCollection [
+
+	conceptStack := anOrderedCollection
 ]
 
 {
@@ -428,7 +392,7 @@ SKLandingPage >> defaultExtent [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
 }
 SKLandingPage >> exampleProjects [
 
@@ -436,16 +400,20 @@ SKLandingPage >> exampleProjects [
 		self buttonExample1Label -> #actionExample1.
 		self buttonExample2Label -> #actionExample2.
 		self buttonExample3Label -> #actionExample3.
-		self buttonExample4Label -> #actionExample4
+		self buttonExample4Label -> #actionExample4.
+		self buttonExample5Label -> #actionExample5.
+		self buttonExample6Label -> #actionExample6.
+		self buttonExample7Label -> #actionExample7.
+		self buttonExample8Label -> #actionExample8
 	}
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+	#'squeak_changestamp' : 'JS 7/5/2026 14:03'
 }
 SKLandingPage >> initialize [
-
+	
 	super initialize.
 	
 	self setLabel: self windowTitle;
