@@ -1,22 +1,78 @@
 GSMetadata {
 	#version : 1,
 	#mappers : [
-		GSTonelMapper {
+		GSImageMapper {
 			#version : 1,
-			#package : MCPackage {
-				#name : 'SqueakKara-ProgrammingBlocks'
-			},
 			#path : FSAbsolutePath [
-				'src'
-			]
+				'assets',
+				'Cloverleaf.png'
+			],
+			#encoding : Class [ #PNGReadWriter ]
+		},
+		GSPlaintextMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'.github',
+				'workflows',
+				'automatic-release.yml'
+			],
+			#encoding : 'TXT'
 		},
 		GSImageMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
 				'assets',
-				'Mushrooms.png'
+				'pause.png'
 			],
-			#encoding : Class [ #PNGReadWriter ]
+			#encoding : @5
+		},
+		GSTonelMapper {
+			#version : 1,
+			#package : MCPackage {
+				#name : 'SqueakKara-Tests'
+			},
+			#path : FSAbsolutePath [
+				'src'
+			]
+		},
+		GSPlaintextMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'src',
+				'.properties'
+			],
+			#encoding : 'TXT'
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'Trunk.png'
+			],
+			#encoding : @5
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'Kara-FacingUp.png'
+			],
+			#encoding : @5
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'play.png'
+			],
+			#encoding : @5
+		},
+		GSPlaintextMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'LICENSE'
+			],
+			#encoding : 'TXT'
 		},
 		GSPlaintextMapper {
 			#version : 1,
@@ -30,18 +86,33 @@ GSMetadata {
 		GSPlaintextMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
-				'LICENSE'
+				'README.md'
 			],
 			#encoding : 'TXT'
+		},
+		GSPlaintextMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'.github',
+				'workflows',
+				'automatic-testing.yml'
+			],
+			#encoding : 'TXT'
+		},
+		GSImageMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'assets',
+				'reset.png'
+			],
+			#encoding : @5
 		},
 		GSTonelMapper {
 			#version : 1,
 			#package : MCPackage {
-				#name : 'BaselineOfSqueakKara'
+				#name : 'SqueakKara-Core'
 			},
-			#path : FSAbsolutePath [
-				'src'
-			]
+			#path : @12
 		},
 		GSPlaintextMapper {
 			#version : 1,
@@ -49,78 +120,6 @@ GSMetadata {
 				'.filetree'
 			],
 			#encoding : 'TXT'
-		},
-		GSImageMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'assets',
-				'pause.png'
-			],
-			#encoding : @8
-		},
-		GSImageMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'assets',
-				'play.png'
-			],
-			#encoding : @8
-		},
-		GSPlaintextMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'README.md'
-			],
-			#encoding : 'TXT'
-		},
-		GSImageMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'assets',
-				'Trunk.png'
-			],
-			#encoding : @8
-		},
-		GSTonelMapper {
-			#version : 1,
-			#package : MCPackage {
-				#name : 'SqueakKara-Tests'
-			},
-			#path : @15
-		},
-		GSImageMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'assets',
-				'stop.png'
-			],
-			#encoding : @8
-		},
-		GSImageMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'assets',
-				'Cloverleaf.png'
-			],
-			#encoding : @8
-		},
-		GSPlaintextMapper {
-			#version : 1,
-			#path : FSAbsolutePath [
-				'.github',
-				'workflows',
-				'automatic-release.yml'
-			],
-			#encoding : 'TXT'
-		},
-		GSTonelMapper {
-			#version : 1,
-			#package : MCPackage {
-				#name : 'SqueakKara'
-			},
-			#path : FSAbsolutePath [
-				'src'
-			]
 		},
 		GSPlaintextMapper {
 			#version : 1,
@@ -133,41 +132,33 @@ GSMetadata {
 			#version : 1,
 			#path : FSAbsolutePath [
 				'assets',
-				'Kara-FacingUp.png'
+				'stop.png'
 			],
-			#encoding : @8
-		},
-		GSTonelMapper {
-			#version : 1,
-			#package : MCPackage {
-				#name : 'SqueakKara-Core'
-			},
-			#path : @15
+			#encoding : @5
 		},
 		GSImageMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
 				'assets',
-				'reset.png'
+				'Mushrooms.png'
 			],
-			#encoding : @8
+			#encoding : @5
 		},
-		GSPlaintextMapper {
+		GSTonelMapper {
 			#version : 1,
+			#package : MCPackage {
+				#name : 'SqueakKara-ProgrammingBlocks'
+			},
 			#path : FSAbsolutePath [
-				'.github',
-				'workflows',
-				'automatic-testing.yml'
-			],
-			#encoding : 'TXT'
+				'src'
+			]
 		},
-		GSPlaintextMapper {
+		GSTonelMapper {
 			#version : 1,
-			#path : FSAbsolutePath [
-				'src',
-				'.properties'
-			],
-			#encoding : 'TXT'
+			#package : MCPackage {
+				#name : 'BaselineOfSqueakKara'
+			},
+			#path : @12
 		}
 	],
 	#name : 'SqueakKara'
