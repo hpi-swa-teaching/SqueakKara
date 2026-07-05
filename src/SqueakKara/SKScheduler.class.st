@@ -2,26 +2,26 @@
 A SKScheduler is a custom Scheduler for scheduling action grouped by type.
 
 Instance Variables
-	activeActors:		<Object>
-	executer:			<Object>
-	releaseLocks:		<Object>
-	scheduledSteps:		<Object>
-	stepLock:		<Object>
+	activeActors:		<Dictionary>
+	executer:			<SKExecuter>
+	releaseLocks:		<Dictionary>
+	scheduledSteps:	<Dictionary>
+	stepLock:			<Dictionary>
 
 activeActors
-	- xxxxx
+	- A dictionary of the active actors (kara proxys). 
 
 executer
-	- xxxxx
+	- The coresponding executer of the scheduler.
 
 releaseLocks
-	- xxxxx
+	- The dicitonary of the released locks.
 
 scheduledSteps
-	- xxxxx
+	- The dictionary of the schedules steps.
 
 stepLock
-	- xxxxx
+	- The dictionary of the steps which are locked.
 
 "
 Class {
@@ -35,7 +35,7 @@ Class {
 		'scheduledSteps'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:31'
+	#'squeak_changestamp' : 'ND 7/5/2026 12:59'
 }
 
 {

@@ -1,5 +1,35 @@
 "
-SKEnvironment provides the main programming environment, consisting of the grid (SKGrid) with its kara object (SKKara), a workspace (SKWorkspace) in which to write the code, an executer (SKExecuter) to execute the code and executeControls (SKExecuteControls) to provide UI for the code execution. Apart from being a common access point for all these elements, SKEnvironent also stores relevant variables for the scaling of the application.
+SKEnvironment provides the main game environment. 
+
+Instance Variables
+	grid:				<SKGrid>
+	karas:		 		<Collection>
+	executer:			<SKScheduler>
+	executeControls:	<SKExecuteControls>
+	gameWidth:		<Number>
+	nextChallenge:		<Symbol>
+	currentChallenge:	<Symbol>
+
+grid
+	- The grid of the environment.
+	
+karas
+	- The collection of the existing karas in the environment.
+
+executer
+	-  The executer of the environment.
+
+executeControls
+	- The executeControls (space of the buttons and button mangement) of the environment.
+
+gameWidth
+	- The width of the window.
+	
+nextChallenge
+	- A symbol referencing the method to initialize the next challenge.
+
+curentChallenge
+	- A symbol referencing the method to initialze the current challenge.
 "
 Class {
 	#name : #SKEnvironment,
@@ -15,7 +45,7 @@ Class {
 		'currentChallenge'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
+	#'squeak_changestamp' : 'ND 7/5/2026 12:31'
 }
 
 {
