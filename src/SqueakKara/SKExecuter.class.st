@@ -1,5 +1,40 @@
 "
-SKExecuter provides a way to run the code step by step. It uses the pre-existing Compiler class and adds the feature that each move or turn call on the SKKara-object ist executed on its own beat as well as the ability to pause, stop or restart execution.
+SKExecuter contains  a compiler, processes, speed, state, environment, scheduler and a testMode. It provides a way to run the code step by step. It uses the pre-existing Compiler class and adds the feature that each move or turn call on the SKKara-object ist executed on its own beat as well as the ability to pause, stop or restart execution.
+
+Instance Variables
+	compiler:			<Object>
+	processes:			<Dictionary>
+	speed:				<Number>
+	state:				<Symbol>
+	environment:		<SKEnvironment>
+	scheduler:			<SKScheduler>
+	testMode:			<Boolean>
+
+compiler
+	- Compiles the code of the user.
+
+processes
+	- The state of what the code currently does.
+	
+speed
+	- Dictates how fast the code should be executed.
+	
+state
+	- Tells if the process is still running.
+
+environment
+	- Calls the current game environment.
+	
+scheduler
+	-Decides which in which order tasks should be done.
+	
+testMode
+	-Tells if its just a Test run.
+
+
+
+
+
 "
 Class {
 	#name : #SKExecuter,
@@ -14,7 +49,7 @@ Class {
 		'testMode'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:45'
+	#'squeak_changestamp' : 'AB 7/5/2026 12:35'
 }
 
 {

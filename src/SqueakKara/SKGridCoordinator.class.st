@@ -1,5 +1,19 @@
 "
 SKGridCoordinator stores all objects within the SKGrid. All SKGridObjects within the grid must register with the SKGridCoordinator, which stores their position in its gridMatrix, which is made up of SKGridTiles.
+
+Instance Variables
+	grid:				<Grid>
+	gridMatrix:			<Matrix>
+			
+grid
+	- For which grid is the GridCoordinator responsible.
+
+gridMatrix
+	- Determines the amount of rows and columns.
+
+
+
+
 "
 Class {
 	#name : #SKGridCoordinator,
@@ -9,7 +23,7 @@ Class {
 		'gridMatrix'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:57'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:01'
 }
 
 {

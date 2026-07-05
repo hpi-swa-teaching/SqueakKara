@@ -1,11 +1,16 @@
 "
 SKCloverleaf adds the proper texture and a way to identify it as a cloverleaf to the functionality provided by SKGridObject.
+
+Instance Variables
+
+
+
 "
 Class {
 	#name : #SKCloverleaf,
 	#superclass : #SKGridObject,
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:55'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:18'
 }
 
 {

@@ -1,5 +1,8 @@
 "
 SKKara provides methods to move an turn kara within the grid.
+
+Instance Variables
+
 "
 Class {
 	#name : #SKKara,
@@ -11,7 +14,7 @@ Class {
 		'speechBubbles'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:19'
 }
 
 {
