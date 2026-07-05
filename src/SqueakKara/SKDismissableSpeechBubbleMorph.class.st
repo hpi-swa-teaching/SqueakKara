@@ -3,10 +3,13 @@ A SKDismissableSpeechBubbleMorph is a speech bubble which also has a close butto
 
 Instance Variables
 	closeButton:		<SimpleButtonMorph>
+	closeCallback: 		<Block>
 
 closeButton
 	- The close button that closes the speech bubble.
 
+closeCallback
+	- The Block that gets executed when closed.
 "
 Class {
 	#name : #SKDismissableSpeechBubbleMorph,
@@ -16,7 +19,7 @@ Class {
 		'closeCallback'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'mr 6/25/2026 21:09'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 12:27'
 }
 
 {

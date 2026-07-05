@@ -1,5 +1,11 @@
 "
-The SKButtonRun activitates the execution of the workspace codes.
+The SKButtonRun activitates the execution of the workspace codes and pauses the execution when it is clicked in execution.
+
+Instance Variables
+	pauseTexture:		<Object>
+
+pauseTexture
+	- A secound texture for when the button is clicked in execution.
 "
 Class {
 	#name : #SKButtonRun,
@@ -8,7 +14,7 @@ Class {
 		'pauseTexture'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'ND 6/18/2026 22:05'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 12:22'
 }
 
 {

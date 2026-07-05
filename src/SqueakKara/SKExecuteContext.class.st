@@ -1,5 +1,19 @@
 "
-SKExecuteContext stores bindings for variables that can be used in the SKWorkspace and is used to compile the code written by the user.
+SKExecuteContext stores bindings for variables that can be used in the SKWorkspace and is used to compile the code written by the user. Replaces the rotate: left/right by the SKDirection.
+
+Instance Variables
+	kara:		<SKKara>
+	left: 		<SKDirection>
+	right:		<SKDirection>
+
+kara
+	- Stores the Kara.
+
+left
+	- The rotation to the left.
+
+right
+	- The rotation to the right.
 "
 Class {
 	#name : #SKExecuteContext,
@@ -10,7 +24,7 @@ Class {
 		'left'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:41'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:28'
 }
 
 {

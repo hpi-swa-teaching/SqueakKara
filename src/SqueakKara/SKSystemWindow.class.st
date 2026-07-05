@@ -3,9 +3,14 @@ A SKSystemWindow is a custom implementation of the internal SystemWindow in orde
 
 Instance Variables
 	resizeListener:		<Block>
+	closeListener: 		<Block>
 
 resizeListener
 	- A Block of code that is being called without any arguments if the SystemWindow is being resized.
+	
+closeListener
+	- A Block of code that is being called without any arguments if the SystemWindow is being closed.
+
 
 "
 Class {
@@ -16,7 +21,7 @@ Class {
 		'closeListener'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:16'
+	#'squeak_changestamp' : 'ND 7/5/2026 12:23'
 }
 
 {

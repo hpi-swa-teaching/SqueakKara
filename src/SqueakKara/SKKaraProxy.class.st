@@ -1,5 +1,12 @@
 "
-SKKaraDecorator is a decorator for SKKara used to add the necessary step calls to the turn and move methods and modify the SKKara methods so that they can be used by the SKExecuter.
+SKKaraProxy is a proxy for SKKara used to add the necessary step calls to the turn and move methods and modify the SKKara methods so that they can be used by the SKExecuter.
+
+Instance Variables
+	kara:		<SKKara>
+
+scheduler
+	- Reference the kara.
+
 "
 Class {
 	#name : #SKKaraProxy,
@@ -8,7 +15,7 @@ Class {
 		'kara'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:00'
+	#'squeak_changestamp' : 'ND 7/5/2026 13:01'
 }
 
 {

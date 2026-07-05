@@ -2,27 +2,26 @@
 A SKScheduler is a custom Scheduler for scheduling action grouped by type.
 
 Instance Variables
-	activeActors:		<Object>
-	executer:			<Object>
-	releaseLocks:		<Object>
-	scheduledSteps:		<Object>
-	stepLock:		<Object>
+	activeActors:		<Dictionary>
+	executer:			<SKExecuter>
+	releaseLocks:		<Dictionary>
+	scheduledSteps:	<Dictionary>
+	stepLock:			<Semaphore>
 
 activeActors
-	- xxxxx
+	- A dictionary of the active actors (kara proxys) which have not yet finished execution and therefore can schedule more actions.
 
 executer
-	- xxxxx
+	- The coresponding executer of the scheduler. Manages the processes.
 
 releaseLocks
-	- xxxxx
+	- The dicitonary of the released locks. Each releaseLock is only signaled once the every actor can perform one action.
 
 scheduledSteps
-	- xxxxx
+	- The dictionary of the schedules steps.
 
 stepLock
-	- xxxxx
-
+	- Makes sure scheduling is mutual exclusive.
 "
 Class {
 	#name : #SKScheduler,
@@ -35,7 +34,7 @@ Class {
 		'scheduledSteps'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:31'
+	#'squeak_changestamp' : 'LM 7/5/2026 15:06'
 }
 
 {
@@ -195,7 +194,7 @@ SKScheduler >> releaseLocks: aDictionary [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'ND 7/4/2026 15:02'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 13:57'
 }
 SKScheduler >> scheduleAction: anAction for: anActor [
 
@@ -204,7 +203,6 @@ SKScheduler >> scheduleAction: anAction for: anActor [
 		
 		actions := self scheduledSteps at: anActor ifAbsent: [ OrderedCollection new ].
 		actions add: anAction.
-		Transcript showln: anActor kara color.
 		(anAction type = #move) ifTrue: [ anActor lockNextField ].
 		self scheduledSteps at: anActor put: actions.
 		

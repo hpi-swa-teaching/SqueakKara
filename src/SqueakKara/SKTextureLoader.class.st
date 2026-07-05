@@ -1,5 +1,11 @@
 "
 SKTextureLoader is used to load and scale all textures.
+
+Instance Variables
+	assetLoader:		<GitAssetLoader>
+	
+assetLoader
+	- The assetLoader that is used to get the textures from the asset launcher.
 "
 Class {
 	#name : #SKTextureLoader,
@@ -8,7 +14,7 @@ Class {
 		'assetLoader'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:01'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:33'
 }
 
 {

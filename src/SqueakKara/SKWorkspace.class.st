@@ -1,5 +1,25 @@
 "
 SKWorkspace extends the pre-existing workspace to allow the user a way to write code which can then be executed and visualized within the SKGrid.
+
+Instance Variables
+	executer:		<SKExecuter>
+	kara:			<SKKara>
+	color:			<Color>
+	closeListener:	<Block>
+
+executer
+	- The corresponding executer of the workspace.
+	
+kara
+	- A reference to the kara which is controlled by this workspace.
+
+color
+	- The color of the workspace. This is matched with the color of the kara.
+	
+closeListener
+	- A Block of code that is being called without any arguments if the SKWorkspace is being closed.
+
+
 "
 Class {
 	#name : #SKWorkspace,
@@ -11,7 +31,7 @@ Class {
 		'closeListener'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:03'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:46'
 }
 
 {
@@ -159,7 +179,7 @@ SKWorkspace >> hasBindingOf: aString [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/21/2026 10:35'
+	#'squeak_changestamp' : 'ND 7/5/2026 12:18'
 }
 SKWorkspace >> initialize [
 	
