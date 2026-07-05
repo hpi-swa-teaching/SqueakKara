@@ -21,19 +21,19 @@ buttonStop
 	- The button to terminate the execution.
 
 buttonSpawnKara
-	- The button to spawn a additional Kara.
+	- The button to spawn a additional kara.
 
 buttonNextChallenge
-	- The button to go to the next Challenge.
+	- The button to go to the next challenge.
 
 sliderSpeed
-	- The Slider to adjust the speed of the execution.
+	- The slider to adjust the speed of the execution.
 
 scaleFactor
 	- The scaleFactor is needed to scale the ExecuteControls to the right size.
 	
 buttonReset
-	- The button to reset everything but keeping the code in the Workspaces the same.
+	- The button to reset everything but keeping the code in the workspaces the same.
 "
 Class {
 	#name : #SKExecuteControls,
@@ -49,7 +49,7 @@ Class {
 		'buttonReset'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JanWein 7/5/2026 12:56'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:29'
 }
 
 {

@@ -1,5 +1,5 @@
 "
-SKGridNullTile overwrites the remove method of the pre-existing Set class for simpler handling within the SKGridCoordinator. It is a NullObjekt.
+SKGridNullTile overwrites the remove method of the pre-existing set class for simpler handling within the SKGridCoordinator. It is a NullObjekt.
 
 Instance Variables
 "
@@ -7,7 +7,7 @@ Class {
 	#name : #SKGridNullTile,
 	#superclass : #SKGridTile,
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JanWein 7/5/2026 13:18'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:30'
 }
 
 {

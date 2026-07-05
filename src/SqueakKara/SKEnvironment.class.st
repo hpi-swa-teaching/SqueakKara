@@ -7,7 +7,8 @@ Instance Variables
 	executer:			<SKScheduler>
 	executeControls:	<SKExecuteControls>
 	gameWidth:		<Number>
-	nextChallenge:		<Symbol>
+	gameHeight: 		<Number>
+	nextChallenge:	<Symbol>
 	currentChallenge:	<Symbol>
 
 grid
@@ -24,6 +25,9 @@ executeControls
 
 gameWidth
 	- The width of the window.
+	
+gameHeight
+	- The height of the window.
 	
 nextChallenge
 	- A symbol referencing the method to initialize the next challenge.
@@ -45,7 +49,7 @@ Class {
 		'currentChallenge'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'ND 7/5/2026 12:31'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:33'
 }
 
 {

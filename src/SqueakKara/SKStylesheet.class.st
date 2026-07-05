@@ -2,13 +2,13 @@
 SKStylesheet provides access to common stylistic properties, e.g. primary and secondary colors.
 
 Instance Variables
-	-/-
+
 "
 Class {
 	#name : #SKStylesheet,
 	#superclass : #Object,
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'ND 7/5/2026 12:34'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:31'
 }
 
 {
