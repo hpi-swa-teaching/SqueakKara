@@ -137,6 +137,29 @@ SKBlockEditor >> buildWindowWithSourceWidth: aNumber [
 ]
 
 {
+	#category : #preview,
+	#'squeak_changestamp' : 'SLH 7/5/2026 21:10'
+}
+SKBlockEditor >> clearPreviewBlock [
+
+	| previewSnappedPoint previewChild |
+
+	self previewBlock ifNil: [^ self].
+	self previewBlock anchorPoint isConnected ifTrue: [
+		previewSnappedPoint := self previewBlock anchorPoint connectedPoint.
+		previewSnappedPoint uiDelegate removeMorph: self previewBlock.
+		self previewBlock anchorPoint disconnect].
+	
+	((self previewBlock blockType = #Action) and: [self previewBlock connectionPoint isConnected]) ifTrue: [
+		previewChild := self previewBlock connectionPoint connectedPoint uiDelegate.
+		previewChild snapToTarget: previewSnappedPoint].
+	
+	self previewBlock: nil.
+	previewSnappedPoint ifNotNil: [
+		previewSnappedPoint uiDelegate updateLayout]
+]
+
+{
 	#category : #resizing,
 	#'squeak_changestamp' : 'FR 7/3/2026 14:31'
 }
@@ -194,6 +217,29 @@ SKBlockEditor >> getCode [
 	code := code,' |', String cr,  self startBlock getCode.
 	
 	^ code
+]
+
+{
+	#category : #'dropping/grabbing',
+	#'squeak_changestamp' : 'SLH 6/24/2026 14:15'
+}
+SKBlockEditor >> handleMouseOver: anEvent [
+
+	| draggedBlock snapTarget |
+	
+	super handleMouseOver: anEvent.
+	anEvent hand hasSubmorphs ifFalse: [^ self].
+	
+	draggedBlock := anEvent hand submorphs first.
+	(draggedBlock isKindOf: SKBlock) ifFalse: [^ self].
+	
+	snapTarget := draggedBlock findClosestSnapTargetIn: self.
+	snapTarget ifNil: [self clearPreviewBlock. ^ self].
+	((snapTarget uiDelegate isKindOf: SKBlock)
+		and: [snapTarget uiDelegate isPreview])
+			ifTrue: [^ self].
+	self previewBlock ifNotNil: [^ self].
+	self placePreviewBlockOf: draggedBlock at: snapTarget
 ]
 
 {
@@ -276,6 +322,37 @@ SKBlockEditor >> ownerChanged [
 ]
 
 {
+	#category : #preview,
+	#'squeak_changestamp' : 'SLH 6/24/2026 14:43'
+}
+SKBlockEditor >> placePreviewBlockOf: aBlock at: aBlockConnectionPoint [
+
+	self clearPreviewBlock.
+	
+	self previewBlock: aBlock getPreview.
+	self previewBlock snapToTarget: aBlockConnectionPoint.
+	aBlockConnectionPoint uiDelegate updateLayout
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/24/2026 11:55'
+}
+SKBlockEditor >> previewBlock [
+
+	^ previewBlock
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/24/2026 11:56'
+}
+SKBlockEditor >> previewBlock: aBlockPreview [
+
+	previewBlock := aBlockPreview
+]
+
+{
 	#category : #'submorphs - tracking',
 	#'squeak_changestamp' : 'FR 6/29/2026 20:40'
 }
@@ -345,10 +422,11 @@ SKBlockEditor >> variables [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 6/24/2026 19:34'
+	#'squeak_changestamp' : 'SLH 7/4/2026 13:59'
 }
 SKBlockEditor >> wantsDroppedMorph: aMorph event: anEvent [
 
+	self clearPreviewBlock.
 	^ ((aMorph class = SKBlock) or: [aMorph class inheritsFrom: SKBlock])
 ]
 
