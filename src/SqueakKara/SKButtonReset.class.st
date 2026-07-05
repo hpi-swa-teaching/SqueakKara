@@ -1,11 +1,13 @@
 "
 The SKButtonReset implements the button to reset to the current challenge while maintaining the workspace code.
+
+Instance Variables
 "
 Class {
 	#name : #SKButtonReset,
 	#superclass : #SKButton,
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'ND 6/18/2026 22:05'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 13:21'
 }
 
 {

@@ -1,11 +1,13 @@
 "
 The SKButtonNextChallenge implements the button to switch to the next challenge after finishing the current level.
+
+Instance Variables
 "
 Class {
 	#name : #SKButtonNextChallenge,
 	#superclass : #SKButton,
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'ND 6/18/2026 22:04'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 13:21'
 }
 
 {
