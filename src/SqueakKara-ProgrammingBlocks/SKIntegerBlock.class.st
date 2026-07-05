@@ -34,11 +34,11 @@ SKIntegerBlock >> type [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/29/2026 21:03'
+	#'squeak_changestamp' : 'SLH 7/5/2026 14:48'
 }
 SKIntegerBlock >> updateLayout [
 
 	super updateLayout.
 	self cornerRadius: self height // 2.
-	self redraw
+	self changed
 ]
