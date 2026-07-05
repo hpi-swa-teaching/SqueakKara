@@ -1,7 +1,14 @@
+"
+A SKIntegrationTest is a Test that tests the general functionaliy of different units by playing through different levels.
+
+Instance Variables
+
+"
 Class {
 	#name : #SKIntegrationTest,
 	#superclass : #TestCase,
-	#category : #SqueakKaraTests
+	#category : #SqueakKaraTests,
+	#'squeak_changestamp' : 'LD 7/5/2026 15:51'
 }
 
 {

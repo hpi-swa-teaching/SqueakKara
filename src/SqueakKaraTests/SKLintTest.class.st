@@ -1,7 +1,14 @@
+"
+A SKLintTest is a test to ensure good code quality.
+
+Instance Variables
+
+"
 Class {
 	#name : #SKLintTest,
 	#superclass : #TestCase,
-	#category : #SqueakKaraTests
+	#category : #SqueakKaraTests,
+	#'squeak_changestamp' : 'LD 7/5/2026 15:55'
 }
 
 {

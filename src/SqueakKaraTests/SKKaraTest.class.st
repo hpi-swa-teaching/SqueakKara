@@ -1,3 +1,17 @@
+"
+A SKKaraTest is a test to check the functionality of SKKara.
+
+Instance Variables
+	environment:		<SKEnvironment>
+	grid:		<SKGrid>
+
+environment
+	- The environment used by the test
+
+grid
+	- The grid used by the test
+
+"
 Class {
 	#name : #SKKaraTest,
 	#superclass : #TestCase,
@@ -5,7 +19,8 @@ Class {
 		'grid',
 		'environment'
 	],
-	#category : #SqueakKaraTests
+	#category : #SqueakKaraTests,
+	#'squeak_changestamp' : 'LD 7/5/2026 15:55'
 }
 
 {

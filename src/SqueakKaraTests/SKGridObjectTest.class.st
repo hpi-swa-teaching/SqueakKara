@@ -1,10 +1,21 @@
+"
+A SKGridObjectTest is a Test to check the functionality of the SKGridObjects.
+
+Instance Variables
+	grid:		<SKGrid>
+
+grid
+	- The grid on which the Test run.
+
+"
 Class {
 	#name : #SKGridObjectTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'grid'
 	],
-	#category : #SqueakKaraTests
+	#category : #SqueakKaraTests,
+	#'squeak_changestamp' : 'LD 7/5/2026 15:50'
 }
 
 {

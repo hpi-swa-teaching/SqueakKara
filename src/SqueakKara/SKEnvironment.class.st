@@ -10,6 +10,7 @@ Instance Variables
 	gameHeight: 		<Number>
 	nextChallenge:	<Symbol>
 	currentChallenge:	<Symbol>
+	isTerminationg: <Boolean>
 
 grid
 	- The grid of the environment.
@@ -34,6 +35,9 @@ nextChallenge
 
 curentChallenge
 	- A symbol referencing the method to initialze the current challenge.
+
+isTerminating
+	- True if the executer is currently terminating
 "
 Class {
 	#name : #SKEnvironment,
@@ -50,7 +54,7 @@ Class {
 		'isTerminating'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
+	#'squeak_changestamp' : 'LD 7/5/2026 15:44'
 }
 
 {
