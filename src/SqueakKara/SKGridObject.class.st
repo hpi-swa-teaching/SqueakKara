@@ -2,12 +2,12 @@
 SKGridObject is the common superclass shared by all objects that may appear within the SKGrid (namely SKKara, SKTrunk and SKCloverleaf). It mainly ensures that the objects remain aligned to the grid at all times and offers methods for interacting with the grid, such as detecting neighbours. Additionally, it provides an interface for setting the texture in the inheriting subclasses.
 
 Instance Variables
-	grid:				<Grid>
+	grid:				<SKGrid>
 	originalImage:		<Image>
 	coordinates:		<Point>
 
 grid
-	- On which grid should the gridObjects be.
+	- The grid on which the gridObjects should be.
 	
 originalImage
 	- Saves the original texture of an object.
@@ -24,7 +24,7 @@ Class {
 		'coordinates'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'AB 7/5/2026 13:16'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 13:32'
 }
 
 {

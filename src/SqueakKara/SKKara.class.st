@@ -2,7 +2,22 @@
 SKKara provides methods to move an turn kara within the grid.
 
 Instance Variables
+	viewDirection:		<SKDirektion>
+	workspace:		<SKWorkspace>
+	cloverleaf:			<SKCloverleaf>
+	speechBubbles:	<Collection>
 
+viewDirection
+	- The current direktion Kara is facing.
+	
+workspace
+	- The workspace for this Kara.
+
+cloverleaf
+	- The cloverleaf for this Kara.
+
+speechBubbles
+	- A collection of the speechBubbles of this Kara.
 "
 Class {
 	#name : #SKKara,
@@ -14,7 +29,7 @@ Class {
 		'speechBubbles'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'AB 7/5/2026 13:19'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 13:44'
 }
 
 {

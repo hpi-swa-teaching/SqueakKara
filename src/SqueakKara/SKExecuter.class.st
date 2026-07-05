@@ -26,10 +26,10 @@ environment
 	- Calls the current game environment.
 	
 scheduler
-	-Decides which in which order tasks should be done.
+	-Decides in which order tasks should be done.
 	
 testMode
-	-Tells if its just a Test run.
+	-Tells if it is just a Test run.
 
 
 
@@ -49,7 +49,7 @@ Class {
 		'testMode'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'AB 7/5/2026 12:35'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 13:27'
 }
 
 {
