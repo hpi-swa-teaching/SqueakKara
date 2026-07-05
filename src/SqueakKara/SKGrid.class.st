@@ -1,5 +1,37 @@
 "
 SKGrid provides the grid in which all SKGridObjects are displayed. It creates and scales the grid itself and creates a SKGridCoordinator which handles all objects within the grid.
+
+Instance Variables
+	gridWidth:			<Number>
+	gridHeight:			<Number>
+	gridCoordinator:	<Object>
+	scaleFactor:		<Number>
+	gridLines:			<Collection>
+	environment:		<SkEnvironment>
+	leafCount:			<Number>
+
+gridWidth
+	- A number which determines how wide the grid should be.
+
+gridHeight
+	- A number which determines which height the grid should have.
+	
+gridCoordinator
+	- Handles all the stuff for the implementation of the grid and its objects.
+	
+scaleFactor
+	- Adjust the grid when the window os resized.
+
+gridLines
+	- Displays the matrix in which kara can move.
+	
+environment
+	- Calls the current game environment.
+	
+leafCount
+	- Keeps count of the current number of leafes.
+
+
 "
 Class {
 	#name : #SKGrid,
@@ -14,7 +46,7 @@ Class {
 		'leafCount'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:48'
+	#'squeak_changestamp' : 'AB 7/5/2026 12:53'
 }
 
 {

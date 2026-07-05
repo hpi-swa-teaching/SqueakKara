@@ -2,7 +2,7 @@
 A SKCriticalSection is a field which is part of a group. If a kara locks a field with a critical section, all critical section of the same group will be locked.
 
 Instance Variables
-	group:		Group of the critical section
+	group:		 <Group of the critical section>
 
 group
 	- Symbol to identify groups
@@ -15,7 +15,7 @@ Class {
 		'group'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'LM 6/8/2026 22:49'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:18'
 }
 
 {
