@@ -59,6 +59,22 @@ SKBlockCodeGenerationTest >> testMoveBlockGeneratesKaraMove [
 ]
 
 {
+	#category : #'testing - variables',
+	#'squeak_changestamp' : 'SLH 7/5/2026 15:17'
+}
+SKBlockCodeGenerationTest >> testMultipleVariableDeclaration [
+
+	| editor |
+
+	editor := SKBlockEditor new.
+	editor startBlock:
+		(SKActionBlock new addLabel: 'x'; action: ['kara move']; yourself).
+	editor variables add: 'variable1'; add: 'variable2'.
+
+	self assert: editor getCode equals: '| variable1 variable2  |', String cr, 'kara move'
+]
+
+{
 	#category : #'testing - value blocks',
 	#'squeak_changestamp' : 'SLH 7/5/2026 14:40'
 }
@@ -98,4 +114,20 @@ SKBlockCodeGenerationTest >> testPlusBlockUsesCustomSlotValues [
 SKBlockCodeGenerationTest >> testPlusBlockUsesDefaultSlotValues [
 
 	self assert: self source plusBlock getCode equals: '((5) + (5))'
+]
+
+{
+	#category : #'testing - variables',
+	#'squeak_changestamp' : 'SLH 7/5/2026 15:16'
+}
+SKBlockCodeGenerationTest >> testSingleVariableDeclaration [
+
+	| editor |
+
+	editor := SKBlockEditor new.
+	editor startBlock:
+		(SKActionBlock new addLabel: 'x'; action: ['kara move']; yourself).
+	editor variables add: 'variable1'.
+
+	self assert: editor getCode equals: '| variable1  |', String cr, 'kara move'
 ]
