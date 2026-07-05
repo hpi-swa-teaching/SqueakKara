@@ -9,7 +9,7 @@ closeButton
 	- The close button that closes the speech bubble.
 
 closeCallback
-	- The block that gets executed when closed.
+	- The Block that gets executed when closed.
 "
 Class {
 	#name : #SKDismissableSpeechBubbleMorph,
@@ -19,7 +19,7 @@ Class {
 		'closeCallback'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'ND 7/5/2026 13:26'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 12:27'
 }
 
 {

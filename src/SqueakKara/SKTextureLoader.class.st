@@ -5,7 +5,7 @@ Instance Variables
 	assetLoader:		<GitAssetLoader>
 	
 assetLoader
-	The assetLoader that is used to get the textures from the asset launcher.
+	- The assetLoader that is used to get the textures from the asset launcher.
 "
 Class {
 	#name : #SKTextureLoader,
@@ -14,7 +14,7 @@ Class {
 		'assetLoader'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'ND 7/5/2026 12:22'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:33'
 }
 
 {
