@@ -1,3 +1,17 @@
+"
+A SKExecuteControlsTest is a test to test the funcionality of the SKExecuteControls and SKButtons.
+
+Instance Variables
+	controls:		<SKExecuteControls>
+	environment:		<SKEnvironment>
+
+controls
+	- The used executeControls in these tests.
+
+environment
+	- The used environment in these tests.
+
+"
 Class {
 	#name : #SKExecuteControlsTest,
 	#superclass : #TestCase,
@@ -5,7 +19,8 @@ Class {
 		'environment',
 		'controls'
 	],
-	#category : #SqueakKaraTests
+	#category : #SqueakKaraTests,
+	#'squeak_changestamp' : 'ND 7/5/2026 15:51'
 }
 
 {

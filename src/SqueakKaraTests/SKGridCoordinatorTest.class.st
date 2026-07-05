@@ -1,10 +1,21 @@
+"
+A SKGridCoordinatorTest is a test to test the functionality of the SKGridCoordinator.
+
+Instance Variables
+	grid:		<SKGrid>
+
+grid
+	- The used grid in these tests.
+
+"
 Class {
 	#name : #SKGridCoordinatorTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'grid'
 	],
-	#category : #SqueakKaraTests
+	#category : #SqueakKaraTests,
+	#'squeak_changestamp' : 'ND 7/5/2026 15:52'
 }
 
 {

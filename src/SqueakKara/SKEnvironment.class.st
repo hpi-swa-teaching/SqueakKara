@@ -8,7 +8,7 @@ Instance Variables
 	executeControls:	<SKExecuteControls>
 	gameWidth:		<Number>
 	gameHeight: 		<Number>
-	nextChallenge:	<Symbol>
+	nextChallenge:		<Symbol>
 	currentChallenge:	<Symbol>
 
 grid
@@ -50,7 +50,7 @@ Class {
 		'isTerminating'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:38'
+	#'squeak_changestamp' : 'ND 7/5/2026 15:41'
 }
 
 {
