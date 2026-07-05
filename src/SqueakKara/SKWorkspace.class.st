@@ -8,7 +8,7 @@ Instance Variables
 	closeListener:	<Block>
 
 executer
-	- The corrosponding executer of the workspace.
+	- The corresponding executer of the workspace.
 	
 kara
 	- A reference to the kara which is controlled by this workspace.
@@ -31,7 +31,7 @@ Class {
 		'closeListener'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'ND 7/5/2026 12:23'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:46'
 }
 
 {
