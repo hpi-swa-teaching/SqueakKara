@@ -242,11 +242,11 @@ SKGrid >> lineColor [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'JJG 6/12/2024 16:22'
+	#'squeak_changestamp' : 'JS 7/5/2026 20:15'
 }
 SKGrid >> lineWidth [
 
-	^ 1 px
+	^ 1
 
 	
 ]
