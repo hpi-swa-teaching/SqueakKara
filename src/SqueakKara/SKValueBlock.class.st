@@ -29,11 +29,11 @@ SKValueBlock >> blockType [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
+	#'squeak_changestamp' : 'SLH 7/4/2026 14:09'
 }
 SKValueBlock >> connectionPointPositionForType: aConnectionPointType [
 
-	^ self leftCenter
+	^ self boundsInWorld leftCenter
 ]
 
 {

@@ -13,11 +13,11 @@ Class {
 
 {
 	#category : #attaching,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
+	#'squeak_changestamp' : 'SLH 7/4/2026 14:09'
 }
 SKActionSlotPart >> connectionPointPositionForType: aConnectionPointType [
 
-	^ self topLeft + ((self block tabOffsetInner + self block slantWidth + (self block tabWidth // 2) - self block borderWidth) @ (self block tabHeight))
+	^ self boundsInWorld topLeft + ((self block tabOffsetInner + self block slantWidth + (self block tabWidth // 2) - self block borderWidth) @ (self block tabHeight))
 ]
 
 {
