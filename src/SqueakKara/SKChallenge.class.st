@@ -1,11 +1,11 @@
 "
-A SKChallenge is a static class that implementes methods for placing objects on the passed grid.
+A SKChallenge is a static class that implementes methods for placing objects on the passed grid and thereby create the different challenges.
 "
 Class {
 	#name : #SKChallenge,
 	#superclass : #Object,
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'LM 5/10/2026 20:27'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 12:23'
 }
 
 {
