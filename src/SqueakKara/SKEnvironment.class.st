@@ -243,11 +243,17 @@ SKEnvironment >> gameHeight: aNumber [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:27'
+	#'squeak_changestamp' : 'ND 7/5/2026 22:55'
 }
 SKEnvironment >> gameWidth [
 	
-	^ gameWidth ifNil: [ self gameWidth: self grid width + (self grid pixelPerBlock * 2)]
+	^ gameWidth ifNil: [ 
+		self grid width > self executeControls width 
+			ifTrue: [ self gameWidth: self grid width + (self grid pixelPerBlock * 2) ]
+			ifFalse: [self gameWidth: self executeControls width + (self grid pixelPerBlock * 2) ]
+		]
+		
+		
 ]
 
 {

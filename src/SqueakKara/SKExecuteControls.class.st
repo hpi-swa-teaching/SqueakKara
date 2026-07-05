@@ -70,11 +70,14 @@ SKExecuteControls >> addAllWidgets [
 
 {
 	#category : #texture,
-	#'squeak_changestamp' : 'ND 6/17/2026 00:10'
+	#'squeak_changestamp' : 'LD 7/5/2026 23:06'
 }
 SKExecuteControls >> addButtonNextChallenge [
 
-	self addMorphBack: self buttonNextChallenge
+	self addMorphBack: self buttonNextChallenge.
+	self buttonNextChallenge scaleFactor: self scaleFactor.
+	self width: self width + self buttonNextChallenge width
+	
 ]
 
 {
