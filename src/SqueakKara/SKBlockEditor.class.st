@@ -139,23 +139,25 @@ SKBlockEditor >> buildWindowWithSourceWidth: aNumber [
 
 {
 	#category : #preview,
-	#'squeak_changestamp' : 'SLH 6/24/2026 14:43'
+	#'squeak_changestamp' : 'SLH 7/5/2026 21:10'
 }
 SKBlockEditor >> clearPreviewBlock [
 
 	| previewSnappedPoint previewChild |
 
 	self previewBlock ifNil: [^ self].
-	previewSnappedPoint := self previewBlock anchorPoint connectedPoint.
-	previewSnappedPoint uiDelegate removeMorph: self previewBlock.
-	self previewBlock anchorPoint disconnect.
+	self previewBlock anchorPoint isConnected ifTrue: [
+		previewSnappedPoint := self previewBlock anchorPoint connectedPoint.
+		previewSnappedPoint uiDelegate removeMorph: self previewBlock.
+		self previewBlock anchorPoint disconnect].
 	
 	((self previewBlock blockType = #Action) and: [self previewBlock connectionPoint isConnected]) ifTrue: [
 		previewChild := self previewBlock connectionPoint connectedPoint uiDelegate.
 		previewChild snapToTarget: previewSnappedPoint].
 	
 	self previewBlock: nil.
-	previewSnappedPoint uiDelegate updateLayout
+	previewSnappedPoint ifNotNil: [
+		previewSnappedPoint uiDelegate updateLayout]
 ]
 
 {
