@@ -1,10 +1,21 @@
+"
+A SKEnvironmentTest is a test to test the funcionality of the SKEnvironment.
+
+Instance Variables
+	environment:		<SKEnvironment>
+
+environment
+	- The used environment in the tests.
+
+"
 Class {
 	#name : #SKEnvironmentTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'environment'
 	],
-	#category : #SqueakKaraTests
+	#category : #SqueakKaraTests,
+	#'squeak_changestamp' : 'ND 7/5/2026 15:52'
 }
 
 {

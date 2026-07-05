@@ -33,7 +33,7 @@ SKLandingPage >> actionExample1 [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'mr 6/16/2026 12:45'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:46'
 }
 SKLandingPage >> actionExample10 [
 
@@ -170,7 +170,7 @@ SKLandingPage >> addButton: aButton atIndex: anInteger [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'AB 6/25/2026 19:45'
+	#'squeak_changestamp' : 'LD 6/26/2026 11:14'
 }
 SKLandingPage >> buildAllButtons [
 
@@ -203,7 +203,7 @@ SKLandingPage >> buildButtonExample1 [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'mr 6/16/2026 12:46'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:46'
 }
 SKLandingPage >> buildButtonExample10 [
 
@@ -350,7 +350,7 @@ SKLandingPage >> buildButtonWithLabel: aLabel andSelector: aSelector andColor: a
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'mr 6/16/2026 12:46'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:46'
 }
 SKLandingPage >> buttonExample10Label [
 

@@ -25,7 +25,7 @@ SKChallenge class >> initializeBlankProjectChallengeFor: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'mr 6/18/2026 20:05'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:52'
 }
 SKChallenge class >> initializeChallenge10For: anEnvironment [
 	
@@ -322,7 +322,7 @@ SKChallenge class >> initializeChallenge8For: anEnvironment [
 
 {
 	#category : #challenges,
-	#'squeak_changestamp' : 'mr 6/16/2026 12:32'
+	#'squeak_changestamp' : 'LM 7/5/2026 17:19'
 }
 SKChallenge class >> initializeChallenge9For: anEnvironment [
 	

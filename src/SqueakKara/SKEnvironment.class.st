@@ -8,8 +8,9 @@ Instance Variables
 	executeControls:	<SKExecuteControls>
 	gameWidth:		<Number>
 	gameHeight: 		<Number>
-	nextChallenge:	<Symbol>
+	nextChallenge:		<Symbol>
 	currentChallenge:	<Symbol>
+	isTerminationg: 	<Boolean>
 
 grid
 	- The grid of the environment.
@@ -34,6 +35,9 @@ nextChallenge
 
 curentChallenge
 	- A symbol referencing the method to initialze the current challenge.
+
+isTerminating
+	- True if the executer is currently terminating
 "
 Class {
 	#name : #SKEnvironment,
@@ -46,10 +50,11 @@ Class {
 		'gameWidth',
 		'gameHeight',
 		'nextChallenge',
-		'currentChallenge'
+		'currentChallenge',
+		'isTerminating'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'AB 7/5/2026 13:33'
+	#'squeak_changestamp' : 'LM 7/5/2026 17:19'
 }
 
 {
@@ -275,13 +280,14 @@ SKEnvironment >> grid: aGrid [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/26/2026 09:42'
+	#'squeak_changestamp' : 'LD 6/18/2026 21:43'
 }
 SKEnvironment >> initialize [
 
 	super initialize.
 	self executer: (SKExecuter newWithEnvironment: self).
-	self karas: OrderedCollection new
+	self karas: OrderedCollection new.
+	self isTerminating: false
 ]
 
 {
@@ -295,7 +301,7 @@ SKEnvironment >> initializeLandingPage [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'ND 7/1/2026 16:09'
+	#'squeak_changestamp' : 'LD 7/2/2026 13:58'
 }
 SKEnvironment >> initializeObjects [
 
@@ -303,6 +309,7 @@ SKEnvironment >> initializeObjects [
 	self executeControls environment: self.
 	
 	self setSystemWindow.
+	self isTerminating: false.
 	self openInHand
 ]
 
@@ -338,7 +345,7 @@ SKEnvironment >> initializeWithChallenge1 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 7/4/2026 14:13'
+	#'squeak_changestamp' : 'LD 7/5/2026 14:45'
 }
 SKEnvironment >> initializeWithChallenge10 [
 
@@ -488,7 +495,7 @@ SKEnvironment >> initializeWithChallenge8 [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 6/25/2026 19:11'
+	#'squeak_changestamp' : 'LD 7/2/2026 13:50'
 }
 SKEnvironment >> initializeWithChallenge9 [
 
@@ -510,6 +517,24 @@ SKEnvironment >> initializeWithKaraAt: aPoint [
 	self grid: (SKGrid newWithExtent: 7 @ 7).
 	self addKaraAt: aPoint.
 	self initializeObjects
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:27'
+}
+SKEnvironment >> isTerminating [
+
+	^ isTerminating
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 7/5/2026 17:19'
+}
+SKEnvironment >> isTerminating: aBoolean [
+
+	isTerminating := aBoolean
 ]
 
 {
@@ -615,19 +640,21 @@ SKEnvironment >> resizeGridByFactor: aNumber [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:46'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:28'
 }
 SKEnvironment >> resume [
 
-	self executer resumeExecution
+	self executer resumeExecution.
+	self isTerminating: false
 ]
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'LM 5/23/2026 13:45'
+	#'squeak_changestamp' : 'LD 6/18/2026 21:43'
 }
 SKEnvironment >> run [
 
+	self isTerminating: false.
 	self karas do: [ :kara | 
 		self executer execute: kara workspace userCode for: kara ]
 ]
@@ -659,11 +686,13 @@ SKEnvironment >> setSystemWindow [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:09'
+	#'squeak_changestamp' : 'LM 7/5/2026 17:20'
 }
 SKEnvironment >> stop [
-	
-	self executer terminate
+
+	self isTerminating ifFalse: [
+		self isTerminating: true.
+		[ self executer terminate ] fork ]
 ]
 
 {

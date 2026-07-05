@@ -195,7 +195,7 @@ SKGridObject >> isCriticalSection [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'mr 6/12/2026 19:10'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:43'
 }
 SKGridObject >> isDirectionalTile [
 	
@@ -357,7 +357,7 @@ SKGridObject >> relativePositionFor: aPoint [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 7/4/2026 11:36'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:43'
 }
 SKGridObject >> rotateTowards: aDirection [
 

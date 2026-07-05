@@ -1,11 +1,43 @@
+"
+A SKKaraTest is a test to check the functionality of SKKara.
+
+Instance Variables
+	environment:		<SKEnvironment>
+	grid:		<SKGrid>
+
+environment
+	- The environment used by the test
+
+grid
+	- The grid used by the test
+
+"
 Class {
 	#name : #SKKaraTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'grid'
+		'grid',
+		'environment'
 	],
-	#category : #SqueakKaraTests
+	#category : #SqueakKaraTests,
+	#'squeak_changestamp' : 'LD 7/5/2026 15:55'
 }
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 6/25/2026 20:21'
+}
+SKKaraTest >> environment [
+	^ environment
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 6/25/2026 20:21'
+}
+SKKaraTest >> environment: anObject [
+	environment := anObject
+]
 
 {
 	#category : #accessing,
@@ -27,20 +59,24 @@ SKKaraTest >> gridSize [
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'jt 6/11/2024 11:14'
+	#'squeak_changestamp' : 'LD 6/25/2026 21:05'
 }
 SKKaraTest >> setUp [
-
-	grid := SKGrid newWithExtent: self gridSize
+	environment := SKEnvironment new.
+	environment executer testMode: true.
+	grid := SKGrid newWithExtent: self gridSize.
+	environment grid: grid.
+	environment initializeObjects
 ]
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'jt 6/11/2024 11:14'
+	#'squeak_changestamp' : 'LD 6/25/2026 21:05'
 }
 SKKaraTest >> tearDown [
 
-	grid abandon
+	grid abandon.
+	environment close
 ]
 
 {
@@ -74,7 +110,7 @@ SKKaraTest >> testAbsolutePositionAfterMoveWithDefaultDirection [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'mr 6/12/2026 21:08'
+	#'squeak_changestamp' : 'LD 6/25/2026 20:24'
 }
 SKKaraTest >> testCollectCloverleaf [
 
@@ -93,6 +129,8 @@ SKKaraTest >> testCollectCloverleaf [
 	self assert: karaOtherColor cloverleaf coordinates = (2 @ 1).
 	kara collectCloverleaf.
 	self assert: self grid allLeavesCollected not.
+	
+	
 ]
 
 {
@@ -122,8 +160,8 @@ SKKaraTest >> testColorUsingNewColorPicker: aBoolean [
 ]
 
 {
-	#category : #helper,
-	#'squeak_changestamp' : 'mr 6/16/2026 13:12'
+	#category : #accessing,
+	#'squeak_changestamp' : 'LD 6/26/2026 10:52'
 }
 SKKaraTest >> testDirectionalTile [
 
@@ -144,7 +182,6 @@ SKKaraTest >> testDirectionalTile [
 	kara turn: SKDirection rotateRight.
 	kara move.
 	self assert: kara coordinates = (2 @ 2)
-	
 ]
 
 {

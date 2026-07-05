@@ -88,13 +88,23 @@ SKKara >> cloverleaf: aCloverleaf [
 
 {
 	#category : #'object detection',
-	#'squeak_changestamp' : 'LM 7/4/2026 11:34'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:31'
 }
 SKKara >> collectCloverleaf [
-
-	(self neighboursHere 
-		select: [ :neighbor | neighbor isCloverleaf and: [ neighbor color = self color ]])
-		do: [ :aCloverleaf | aCloverleaf delete ].
+	
+	| cloverleaf |
+	cloverleaf := (self neighboursHere) 
+		detect: [ :neighbor | neighbor isCloverleaf ] 
+		ifNone: [ nil ].
+	
+	cloverleaf ifNil: [
+		self errorNoCloverleaf.
+		^ self ].
+	
+	(cloverleaf color = self color)
+		ifFalse: [ self errorWrongCloverleaf ]
+		ifTrue: [ cloverleaf delete ].
+	
 	self grid checkWinCondition
 ]
 
@@ -163,6 +173,51 @@ SKKara >> environment [
 ]
 
 {
+	#category : #'error handling',
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:32'
+}
+SKKara >> errorNoCloverleaf [
+
+	self sayMessage: 'Hier ist kein Kleeblatt!'
+]
+
+{
+	#category : #'error handling',
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:32'
+}
+SKKara >> errorOutOfBounce [
+
+	self sayMessage: 'Aua! Da darf ich nicht hinlaufen D:'.
+]
+
+{
+	#category : #'error handling',
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:32'
+}
+SKKara >> errorScheduler [
+
+	self sayMessage: 'Hey, hier darf ich gerade nicht hin!'.
+]
+
+{
+	#category : #'error handling',
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:32'
+}
+SKKara >> errorTrunk [
+
+	self sayMessage: 'Aua! Ich bin gegen einen Baumstumpf gelaufen D:'.
+]
+
+{
+	#category : #'error handling',
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:33'
+}
+SKKara >> errorWrongCloverleaf [
+
+	self sayMessage: 'Ich kann nur mein eigenes Kleeblatt einsammeln.'
+]
+
+{
 	#category : #movement,
 	#'squeak_changestamp' : 'LD 5/29/2026 08:36'
 }
@@ -191,7 +246,7 @@ SKKara >> findUnusedColor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/16/2026 12:39'
+	#'squeak_changestamp' : 'JanWein 7/4/2026 19:33'
 }
 SKKara >> hasBlockingDirectionalTileIn: aNeighborCollection direction: aDirection [
 	
@@ -289,20 +344,16 @@ SKKara >> lockNextField [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/25/2026 21:07'
+	#'squeak_changestamp' : 'LM 7/5/2026 17:21'
 }
 SKKara >> move [
 	
 	self stopSayingOrThinking.
-
-	(self canMoveAhead) ifFalse: [
-		self sayMessage: 'Aua! Ich bin gegen ein Hindernis gelaufen D:'.
-		^ false ].
-
-	(self moveToCoordinates: self coordinates + self viewDirection) 
+	(self trunkAhead) ifTrue: [ self errorTrunk. ^ false ].
+	(self canMoveAhead) ifFalse: [ self errorOutOfBounce. ^ false ].
+	(self moveToCoordinates: self coordinates + self viewDirection)
 		ifTrue: [ ^ true ]
-		ifFalse: [ self sayMessage: 'Aua! Da darf ich nicht hinlaufen D:'.
-			^ false ]
+		ifFalse: [ self errorOutOfBounce. ^ false ]
 ]
 
 {
@@ -375,7 +426,7 @@ SKKara >> randomDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 7/4/2026 13:58'
+	#'squeak_changestamp' : 'LD 7/5/2026 14:46'
 }
 SKKara >> sayMessage: aString [
 
@@ -383,12 +434,13 @@ SKKara >> sayMessage: aString [
 
 	speechBubble := SKDismissableSpeechBubbleMorph string: aString type: #speech for: self.
 	self speechBubbles add: speechBubble.
-	speechBubble closeCallback: [ self speechBubbles remove: speechBubble ]
+	speechBubble closeCallback: [ self speechBubbles remove: speechBubble ].
+	self environment stop
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'LM 7/4/2026 11:35'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:45'
 }
 SKKara >> scaleToFactor [
 
@@ -403,7 +455,7 @@ SKKara >> scaleToFactor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 6/12/2026 20:23'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:45'
 }
 SKKara >> setTexture [
 
@@ -534,9 +586,9 @@ SKKara >> workspace: aWorkspace [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'mr 6/12/2026 19:00'
+	#'squeak_changestamp' : 'LM 6/9/2026 18:55'
 }
 SKKara >> zLayer [
 
-	^ 4
+	^ 3
 ]

@@ -108,7 +108,7 @@ SKCloverleaf >> textureFilename [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'mr 6/12/2026 19:00'
+	#'squeak_changestamp' : 'LD 6/26/2026 11:10'
 }
 SKCloverleaf >> zLayer [
 

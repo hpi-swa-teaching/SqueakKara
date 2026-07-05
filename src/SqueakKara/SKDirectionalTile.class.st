@@ -6,7 +6,6 @@ Instance Variables
 
 direction
 	- direction of possible movement
-
 "
 Class {
 	#name : #SKDirectionalTile,
@@ -15,12 +14,12 @@ Class {
 		'direction'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'mr 6/12/2026 20:56'
+	#'squeak_changestamp' : 'LD 6/26/2026 11:05'
 }
 
 {
 	#category : #'instance creation',
-	#'squeak_changestamp' : 'mr 6/16/2026 12:33'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:50'
 }
 SKDirectionalTile class >> newInGrid: aGrid at: aPoint enterFrom: aDirection [
 
@@ -36,7 +35,7 @@ SKDirectionalTile class >> newInGrid: aGrid at: aPoint enterFrom: aDirection [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'mr 6/12/2026 18:54'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:50'
 }
 SKDirectionalTile >> direction [
 
@@ -45,7 +44,7 @@ SKDirectionalTile >> direction [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'mr 6/12/2026 18:54'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:50'
 }
 SKDirectionalTile >> direction: aDirection [
 
@@ -54,7 +53,7 @@ SKDirectionalTile >> direction: aDirection [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'mr 6/12/2026 19:09'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:50'
 }
 SKDirectionalTile >> isDirectionalTile [
 
@@ -63,7 +62,7 @@ SKDirectionalTile >> isDirectionalTile [
 
 {
 	#category : #direction,
-	#'squeak_changestamp' : 'mr 6/12/2026 19:01'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:50'
 }
 SKDirectionalTile >> matchesDirection: aDirection [
 
@@ -72,7 +71,7 @@ SKDirectionalTile >> matchesDirection: aDirection [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'mr 6/12/2026 20:24'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:51'
 }
 SKDirectionalTile >> scaleToFactor [
 
@@ -82,7 +81,7 @@ SKDirectionalTile >> scaleToFactor [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'mr 6/12/2026 20:46'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:51'
 }
 SKDirectionalTile >> textureFilename [
 	
@@ -91,7 +90,7 @@ SKDirectionalTile >> textureFilename [
 
 {
 	#category : #appearance,
-	#'squeak_changestamp' : 'mr 6/12/2026 19:00'
+	#'squeak_changestamp' : 'LD 6/26/2026 10:51'
 }
 SKDirectionalTile >> zLayer [
 

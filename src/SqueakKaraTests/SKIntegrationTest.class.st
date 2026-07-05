@@ -1,7 +1,14 @@
+"
+A SKIntegrationTest is a Test that tests the general functionaliy of different units by playing through different levels.
+
+Instance Variables
+
+"
 Class {
 	#name : #SKIntegrationTest,
 	#superclass : #TestCase,
-	#category : #SqueakKaraTests
+	#category : #SqueakKaraTests,
+	#'squeak_changestamp' : 'LD 7/5/2026 15:51'
 }
 
 {
@@ -65,7 +72,7 @@ SKIntegrationTest >> testCriticalSectionLevel [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'ND 7/5/2026 14:03'
+	#'squeak_changestamp' : 'ND 7/5/2026 15:40'
 }
 SKIntegrationTest >> testDirectionalSectionLevel [
 
@@ -89,8 +96,8 @@ SKIntegrationTest >> testDirectionalSectionLevel [
 	environment karas do: [ :kara | kara speechBubbles do: [ :bubble | bubble delete ]].
 	environment := environment executeControls buttonReset action.
 	
-	solutionCode1 := 'kara turn: left. kara move. kara move. kara move. kara move. kara turn: right. kara move. kara move. kara turn: right. kara move. kara move. kara move. kara move. kara turn: right. kara move. kara move. kara collectCloverleaf.'.
-	solutionCode2 := 'kara move. kara move. kara turn: right. kara move. kara move. kara move. kara move. kara turn: right. kara move. kara turn: right. kara move. kara move. kara move. kara move. kara collectCloverleaf. kara turn: right. kara move.'.
+	solutionCode1 := 'kara turn: left. kara move. kara move. kara move. kara move. kara turn: right. kara move. kara move. kara turn: right. kara move. kara turn: left. kara turn: left. kara move. kara turn: left. kara turn: left. kara move. kara move. kara move. kara move. kara kara turn: right. kara move. kara collectCloverleaf'.
+	solutionCode2 := 'kara turn: right. kara move. kara turn: left. kara turn: left. kara move. kara turn: left. kara turn: left. kara move. kara move. kara move. kara move. kara turn: right. kara move. kara turn: right. kara move. kara move. kara move. kara move. kara collectCloverleaf. kara turn: right. kara move.'.
 	
 	environment firstWorkspace userCode: solutionCode1.
 	environment workspaces second userCode: solutionCode2.

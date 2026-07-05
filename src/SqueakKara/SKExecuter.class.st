@@ -317,14 +317,14 @@ SKExecuter >> terminate [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'ND 6/29/2026 16:36'
+	#'squeak_changestamp' : 'LM 7/5/2026 17:20'
 }
 SKExecuter >> terminateFor: aKara [
 
 	(self state = #terminated or: [(self processes includesKey: aKara) not ]) ifTrue: [ ^ self ].
-
-	(self processes at: aKara) terminate.
-	self processes removeKey: aKara.
+	((self processes at: aKara) = Processor activeProcess) ifFalse: [ 
+		(self processes at: aKara) terminate.
+		self processes removeKey: aKara ].
 	self environment updateTextures
 ]
 
