@@ -28,6 +28,15 @@ SKStylesheet class >> colorBlue [
 
 {
 	#category : #colors,
+	#'squeak_changestamp' : 'FR 6/23/2026 18:48'
+}
+SKStylesheet class >> colorDarkTeal [
+
+	^ Color fromString: '#62A8D0'
+]
+
+{
+	#category : #colors,
 	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:38'
 }
 SKStylesheet class >> colorGreen [
@@ -69,6 +78,15 @@ SKStylesheet class >> colorOrange [
 SKStylesheet class >> colorRed [
 
 	^ Color fromString: '#bf5f4e'
+]
+
+{
+	#category : #colors,
+	#'squeak_changestamp' : 'FR 6/23/2026 18:49'
+}
+SKStylesheet class >> colorTeal [
+
+	^  (Color fromString: '#62A8D0') twiceLighter
 ]
 
 {

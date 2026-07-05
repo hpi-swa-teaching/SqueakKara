@@ -1,7 +1,14 @@
+"
+A SKBooleanSlotPart is a Gap for Boolean Value Blocks.
+
+Instance Variables
+
+"
 Class {
 	#name : #SKBooleanSlotPart,
 	#superclass : #SKInputSlotPart,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:34'
 }
 
 {
@@ -15,7 +22,7 @@ SKBooleanSlotPart >> defaultValue [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:17'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
 }
 SKBooleanSlotPart >> drawOn: aCanvas [
 	| innerBounds p1 p2 p3 p4 p5 p6 pts indent borderWidth |
@@ -41,14 +48,15 @@ SKBooleanSlotPart >> drawOn: aCanvas [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:24'
+	#'squeak_changestamp' : 'FR 7/3/2026 03:05'
 }
 SKBooleanSlotPart >> initialize [
 	super initialize.
 	
-	self defaultUI: (Morph new color: Color transparent; extent: SKBlockStyle blockPartHeight * 2 @SKBlockStyle blockPartHeight).
+	self defaultUI: (Morph new color: Color transparent;
+						extent: SKBlockStyle blockPartHeight * 2 @SKBlockStyle blockPartHeight).
 	self hResizing: #shrinkWrap; vResizing: #shrinkWrap.
-	self addMorphBack: defaultUI
+	self addMorphBack: self defaultUI
 ]
 
 {

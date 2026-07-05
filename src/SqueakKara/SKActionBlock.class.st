@@ -1,3 +1,21 @@
+"
+A SKActionBlock is a SKBlock that (most often) represents a line of code. They are typically drawn with tabs at top and bottom to show that they can be connected to other SKActionBlocks vertically. 
+
+Instance Variables
+	action:		<Object>
+	connectionPoint:		<Object>
+	isStart:		<Object>
+
+action
+	- the line of code represented
+
+connectionPoint
+	- the Point where further Blocks can be connected
+
+isStart
+	- wether this Block is a 'Start of Script' Block as those behave slightly differently
+
+"
 Class {
 	#name : #SKActionBlock,
 	#superclass : #SKBlock,
@@ -6,7 +24,8 @@ Class {
 		'isStart',
 		'connectionPoint'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:05'
 }
 
 {
@@ -48,7 +67,7 @@ SKActionBlock >> addBlockGap [
 ]
 
 {
-	#category : #type,
+	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:12'
 }
 SKActionBlock >> blockType [
@@ -81,20 +100,19 @@ SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:16'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:54'
 }
 SKActionBlock >> drawOn: aCanvas [
 
-	| bounds pts top bottom left right y halfBW |
+	| bounds pts bottom left right y halfBW |
 	
 	halfBW := self borderWidth // 2.
 	bounds := self bounds insetBy: halfBW.
-	top := bounds top.
 	bottom := bounds bottom - self tabHeight.
 	left := bounds left.
 	right := bounds right.
 	pts := OrderedCollection new.
-	y := top.
+	y := bounds top.
 	
 	self blockRows doWithIndex: [:row :index |
 		| leftTop leftBot tabOffset yNew |
@@ -136,14 +154,13 @@ SKActionBlock >> embedVisualBlock: anActionBlock [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/9/2026 17:51'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:52'
 }
 SKActionBlock >> getBottomTabPointsFromLeft: left toRight: right atY: y [
 
-	| halfBW leftBot |
+	| halfBW |
 	
 	halfBW := SKBlockStyle borderWidth // 2.
-	leftBot := left.
 	
 	^ {	right @ y.
 		(left + self tabOffset + self tabWidth) @ y.
@@ -173,7 +190,7 @@ SKActionBlock >> getCode [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/9/2026 17:52'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
 }
 SKActionBlock >> getTopTabPointsFromLeft: left atY: y [
 
@@ -345,7 +362,7 @@ SKActionBlock >> updateLayout [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:15'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:50'
 }
 SKActionBlock >> validSnapConnectionsIn: anObject [
 
@@ -354,7 +371,7 @@ SKActionBlock >> validSnapConnectionsIn: anObject [
 	validConnections := OrderedCollection new.
 
 	anObject allMorphsDo: [:each |
-		((each isKindOf: SKActionBlock) and: [
+		((each isKindOf: self class) and: [
 			((each hasOwner: self) not) and: [
 				each ~= self]]) ifTrue: [
 					validConnections addAll: (each actionConnectionPoints select: [:connection |

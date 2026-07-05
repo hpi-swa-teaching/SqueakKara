@@ -1,12 +1,19 @@
+"
+A SKBooleanBlock is a SKValueBlock representing a Boolean Value. It can be placed in other Blocks expecting a Boolean Value
+
+Instance Variables
+
+"
 Class {
 	#name : #SKBooleanBlock,
 	#superclass : #SKValueBlock,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:12'
 }
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
 }
 SKBooleanBlock >> drawOn: aCanvas [
 	| b p1 p2 p3 p4 p5 p6 pts indent borderWidth |

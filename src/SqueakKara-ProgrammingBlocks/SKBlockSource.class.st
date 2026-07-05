@@ -1,12 +1,72 @@
+"
+A SKBlockSource is the scrollable List of all available Blocks. Duplicates of the individual blocks can be dragged from this source to be placed in (usually) a SKBlockEditor 
+
+Instance Variables
+	variablesCategory:		<Object>
+
+variablesCategory
+	- reference to the variables Category of this instance to easier allow adding new variables to that category
+
+"
 Class {
 	#name : #SKBlockSource,
 	#superclass : #Morph,
-	#category : #'SqueakKara-Core'
+	#instVars : [
+		'variablesCategory'
+	],
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:43'
 }
 
 {
+	#category : #'block definitions - variables',
+	#'squeak_changestamp' : 'FR 6/30/2026 01:17'
+}
+SKBlockSource >> addToVariableBlock [
+
+	^ SKActionBlock new
+		addLabel: 'add';
+		addIntegerPart;
+		addLabel: 'to Variable';
+		addEmptyIntegerPart;
+		action: [:int :var | var,':= ',var, ' + ', int];
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - variables',
+	#'squeak_changestamp' : 'FR 6/30/2026 20:22'
+}
+SKBlockSource >> addVariable [
+
+	self variablesCategory addBlock: (SKIntegerBlock new 
+		addLabel: ('Variable ', (self blockEditor variables size + 1));
+		value: 'variable', (self blockEditor variables size + 1);
+		updateLayout;
+		yourself).
+	self blockEditor variables add: ('variable', (self blockEditor variables size + 1))
+]
+
+{
+	#category : #'block definitions - variables',
+	#'squeak_changestamp' : 'FR 6/30/2026 01:15'
+}
+SKBlockSource >> addVariablesButton [
+
+	^ SimpleButtonMorph new label: 'add Variable';
+		"layoutPolicy: TableLayout new;
+		hResizing: #spaceFill;
+		wrapCentering: #center;"
+		target: self;
+		actionSelector: #addVariable;
+		color: Color lightGray twiceLighter;
+		yourself
+]
+
+{
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'SLH 6/16/2026 17:34'
+	#'squeak_changestamp' : 'FR 6/23/2026 18:21'
 }
 SKBlockSource >> andBlock [
 
@@ -15,25 +75,62 @@ SKBlockSource >> andBlock [
 		addLabel: 'and';
 		addBooleanPart;
 		value: [:bool1 :bool2 | '((',bool1,') and: [',bool2,'])'];
-		category: #sensing;
+		category: #operators;
 		updateLayout;
 		yourself
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 7/3/2026 03:00'
+}
+SKBlockSource >> blockEditor [
+
+	self flag: #todo. 
+	"make this nicer. passing the blockEditor in an instance var kills squeak when adding some blocks as the code of the blocks is stored in a block Closure including its sender (the blockSource) and by extension the blockEditor itself -> very big very fast"
+	^ ((self owner owner owner owner firstSubmorph submorphs at: 2) submorphs at: 3) firstSubmorph 
+]
+
+{
 	#category : #categories,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'FR 6/24/2026 02:55'
+}
+SKBlockSource >> collapseAll [
+
+	self submorphsDo: [:each | each collapse]
+]
+
+{
+	#category : #categories,
+	#'squeak_changestamp' : 'FR 6/23/2026 19:45'
 }
 SKBlockSource >> controlCategory [
 
 	^ SKBlockCategory new
 		title: 'Control';
+		setColorsToMatchCategory: #default;
 		addBlock: self ifBlock;
 		addBlock: self ifElseBlock;
 		addBlock: self forLoop;
 		addBlock: self untilLoop;
 		addBlock: self functionCall;
 		addBlock: self functionStart;
+		yourself
+]
+
+{
+	#category : #'block definitions - operators',
+	#'squeak_changestamp' : 'FR 6/29/2026 20:57'
+}
+SKBlockSource >> equalBlock [
+
+	^ SKBooleanBlock new
+		addIntegerPart;
+		addLabel: '=';
+		addIntegerPart;
+		value: [:int1 :int2 | '((',int1,') = (',int2,'))'];
+		category: #operators;
+		updateLayout;
 		yourself
 ]
 
@@ -56,7 +153,7 @@ SKBlockSource >> forLoop [
 
 {
 	#category : #'block definitions - control',
-	#'squeak_changestamp' : 'FR 6/9/2026 23:27'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:51'
 }
 SKBlockSource >> functionCall [
 
@@ -65,10 +162,10 @@ SKBlockSource >> functionCall [
 	newBlock := SKActionBlock new
 		addLabel: 'send';
 		addStringPartWithText: 'Message 1';
-		action: [:input | ((self ownerThatIsA: SKBlockEditor) functionStarts at: input) value];
+		action: [:input | 'placeholder', input];
 		updateLayout;
 		yourself.
-	newBlock action: [:input | ((newBlock ownerThatIsA: SKBlockEditor) functionStarts at: input) value].
+	newBlock action: [:input | ((newBlock ownerThatIsA: SKBlockEditor) functionStartWithName: input) getCode].
 	^ newBlock
 ]
 
@@ -81,6 +178,22 @@ SKBlockSource >> functionStart [
 	^ SKFunctionStart new
 		isStart: true;
 		action: '';
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - operators',
+	#'squeak_changestamp' : 'FR 6/29/2026 20:59'
+}
+SKBlockSource >> greaterBlock [
+
+	^ SKBooleanBlock new
+		addIntegerPart;
+		addLabel: '>';
+		addIntegerPart;
+		value: [:int1 :int2 | '((',int1,') > (',int2,'))'];
+		category: #operators;
 		updateLayout;
 		yourself
 ]
@@ -132,7 +245,7 @@ SKBlockSource >> ifElseBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SSP 6/13/2026 14:00'
+	#'squeak_changestamp' : 'FR 6/24/2026 02:55'
 }
 SKBlockSource >> initialize [
 
@@ -141,12 +254,48 @@ SKBlockSource >> initialize [
 	self color: Color transparent;
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
-		layoutInset: 10;
-		hResizing: #spaceFill;
+		layoutInset: SKBlockStyle unit * 2;
+		hResizing: #shrinkWrap;
 	 	vResizing: #shrinkWrap;
 		cellPositioning: #topLeft;
-		cellGap: 10;
-		populate
+		cellGap:  SKBlockStyle unit * 5;
+		populate;
+		adjustLayoutBounds;
+		layoutChanged;
+		minWidth: self width;
+		collapseAll
+]
+
+{
+	#category : #'block definitions - operators',
+	#'squeak_changestamp' : 'FR 6/29/2026 20:59'
+}
+SKBlockSource >> lessBlock [
+
+	^ SKBooleanBlock new
+		addIntegerPart;
+		addLabel: '<';
+		addIntegerPart;
+		value: [:int1 :int2 | '((',int1,') < (',int2,'))'];
+		category: #operators;
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - operators',
+	#'squeak_changestamp' : 'FR 6/29/2026 21:00'
+}
+SKBlockSource >> minusBlock [
+
+	^ SKIntegerBlock new
+		addIntegerPart;
+		addLabel: '-';
+		addIntegerPart;
+		value: [:int1 :int2 | '((',int1,') - (',int2,'))'];
+		category: #operators;
+		updateLayout;
+		yourself
 ]
 
 {
@@ -195,12 +344,13 @@ SKBlockSource >> moveStepsBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SLH 6/16/2026 21:11'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:45'
 }
 SKBlockSource >> movementCategory [
 
 	^ SKBlockCategory new
 		title: 'Movement';
+		setColorsToMatchCategory: #movement;
 		addBlock: self moveBlock;
 		addBlock: self moveStepsBlock;
 		addBlock: self pushBlock;
@@ -225,7 +375,7 @@ SKBlockSource >> mushroomAheadBlock [
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'SLH 6/16/2026 17:35'
+	#'squeak_changestamp' : 'FR 6/23/2026 18:21'
 }
 SKBlockSource >> notBlock [
 
@@ -233,7 +383,7 @@ SKBlockSource >> notBlock [
 		addLabel: 'not';
 		addBooleanPart;
 		value: [:bool | '(', bool, ') not'];
-		category: #sensing;
+		category: #operators;
 		updateLayout;
 		yourself
 ]
@@ -254,12 +404,18 @@ SKBlockSource >> onCloverleafBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SLH 6/16/2026 21:10'
+	#'squeak_changestamp' : 'FR 6/29/2026 20:55'
 }
 SKBlockSource >> operatorCategory [
 	
 	^ SKBlockCategory new
 		title: 'Operators';
+		setColorsToMatchCategory: #operators;
+		addBlock: self plusBlock;
+		addBlock: self minusBlock;
+		addBlock: self equalBlock;
+		addBlock: self greaterBlock;
+		addBlock: self lessBlock;
 		addBlock: self andBlock;
 		addBlock: self orBlock;
 		addBlock: self notBlock;
@@ -268,7 +424,7 @@ SKBlockSource >> operatorCategory [
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'SLH 6/16/2026 17:35'
+	#'squeak_changestamp' : 'FR 6/23/2026 18:21'
 }
 SKBlockSource >> orBlock [
 
@@ -277,21 +433,38 @@ SKBlockSource >> orBlock [
 		addLabel: 'or';
 		addBooleanPart;
 		value: [:bool1 :bool2 | '((',bool1,') or: [',bool2,'])'];
-		category: #sensing;
+		category: #operators;
+		updateLayout;
+		yourself
+]
+
+{
+	#category : #'block definitions - operators',
+	#'squeak_changestamp' : 'FR 6/29/2026 21:00'
+}
+SKBlockSource >> plusBlock [
+
+	^ SKIntegerBlock new
+		addIntegerPart;
+		addLabel: '+';
+		addIntegerPart;
+		value: [:int1 :int2 | '((',int1,') + (',int2,'))'];
+		category: #operators;
 		updateLayout;
 		yourself
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'SLH 6/16/2026 21:10'
+	#'squeak_changestamp' : 'FR 6/30/2026 00:05'
 }
 SKBlockSource >> populate [
 
 	self addMorphBack: self movementCategory;
 		addMorphBack: self controlCategory;
 		addMorphBack: self sensingCategory;
-		addMorphBack: self operatorCategory
+		addMorphBack: self operatorCategory;
+		addMorphBack: self variablesCategory
 ]
 
 {
@@ -310,15 +483,32 @@ SKBlockSource >> pushBlock [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'SLH 6/16/2026 21:11'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:46'
 }
 SKBlockSource >> sensingCategory [
 	
 	^ SKBlockCategory new
 		title: 'Sensing';
+		setColorsToMatchCategory: #sensing;
 		addBlock: self trunkAheadBlock;
 		addBlock: self mushroomAheadBlock;
 		addBlock: self onCloverleafBlock;
+		yourself
+]
+
+{
+	#category : #'block definitions - variables',
+	#'squeak_changestamp' : 'FR 6/30/2026 18:59'
+}
+SKBlockSource >> setVariableBlock [
+
+	^ SKActionBlock new
+		addLabel: 'set Variable';
+		addEmptyIntegerPart;
+		addLabel: 'to';
+		addIntegerPart;
+		action: [:var :int | var,':= ',int];
+		updateLayout;
 		yourself
 ]
 
@@ -403,4 +593,28 @@ SKBlockSource >> untilLoop [
 			'[', condition,'] whileFalse: [', String cr, loopBranch, ']'];
 		updateLayout;
 		yourself
+]
+
+{
+	#category : #categories,
+	#'squeak_changestamp' : 'FR 6/30/2026 01:18'
+}
+SKBlockSource >> variablesCategory [
+	
+	^ variablesCategory ifNil: [variablesCategory := SKBlockCategory new
+		title: 'Variables';
+		setColorsToMatchCategory: #default;
+		addBlock: self setVariableBlock;
+		addBlock: self addToVariableBlock;
+		addBlock: self addVariablesButton;
+		
+		yourself. ^ variablesCategory]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/30/2026 00:36'
+}
+SKBlockSource >> variablesCategory: anObject [
+	variablesCategory := anObject
 ]

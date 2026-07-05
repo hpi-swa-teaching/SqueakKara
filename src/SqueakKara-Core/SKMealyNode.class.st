@@ -4,14 +4,14 @@ Class {
 	#instVars : [
 		'controller',
 		'isInDrag',
-		'isDraggable',
 		'stateMachineEditor',
 		'isStartingNode',
 		'name',
 		'edges',
 		'edgeAngles',
 		'bestDifference',
-		'newAngle'
+		'newAngle',
+		'label'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -138,6 +138,24 @@ SKMealyNode >> controller: aController [
 ]
 
 {
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 13:06'
+}
+SKMealyNode >> createNodeTextMorph [
+
+	| textMorph |
+
+	self isStartingNode ifTrue: [^ self].
+	textMorph := (SKNodeTextMorph new
+		contents: self name;
+		center: self center;
+		node: self;
+		yourself).
+	self label: textMorph.
+	self addMorph: textMorph
+]
+
+{
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:17'
 }
@@ -204,7 +222,7 @@ SKMealyNode >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/16/2026 19:25'
+	#'squeak_changestamp' : 'SLH 7/1/2026 12:28'
 }
 SKMealyNode >> initialize [
 
@@ -213,26 +231,7 @@ SKMealyNode >> initialize [
 	self extent: self defaultSize;
 		color: self normalColor;
 		borderWidth: 3;
-		isStartingNode: false;
-		isDraggable: true
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/17/2026 00:47'
-}
-SKMealyNode >> isDraggable [
-
-	^ isDraggable
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'LP 6/17/2026 00:47'
-}
-SKMealyNode >> isDraggable: anObject [
-
-	isDraggable := anObject
+		isStartingNode: false
 ]
 
 {
@@ -273,42 +272,66 @@ SKMealyNode >> isStartingNode: aBoolean [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:31'
+	#'squeak_changestamp' : 'JS 6/23/2026 23:56'
 }
 SKMealyNode >> justDroppedInto: newOwner event: anEvent [
 
-	(newOwner isKindOf: SKPlayGround) ifFalse: [controller queueNodeToDelete: self.
-		^ self].
-
 	newOwner addMorphFront: self.
 	self isInDrag: false;
-		triggerSelfLoopUpdate
+		triggerSelfLoopUpdate;
+		positionInPlayground: newOwner
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LP 6/30/2026 16:25'
+}
+SKMealyNode >> label [
+
+	^ label
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LP 6/30/2026 16:25'
+}
+SKMealyNode >> label: anObject [
+
+	label := anObject
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:21'
+}
+SKMealyNode >> markNode [
+
+	self color: self selectedColor
 ]
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'JS 6/16/2026 19:27'
+	#'squeak_changestamp' : 'JS 6/23/2026 22:09'
 }
 SKMealyNode >> mouseDown: anEvent [
 
 	self controller mode = #drag ifTrue: [
-		self isDraggable ifTrue:[
 		anEvent hand
 		waitForClicksOrDrag: self
 		event: anEvent
 		selectors: {nil. nil. nil. #startDrag:}
-		threshold: HandMorph dragThreshold]].
+		threshold: HandMorph dragThreshold].
 	self controller nodeClicked: self
 
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 10:06'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:22'
 }
 SKMealyNode >> name [
 
-	^ name
+	^ name 
 ]
 
 {
@@ -348,6 +371,28 @@ SKMealyNode >> normalColor [
 ]
 
 {
+	#category : #movement,
+	#'squeak_changestamp' : 'JS 6/23/2026 23:56'
+}
+SKMealyNode >> positionInPlayground: aPlayground [
+
+    | posX posY |
+
+    	posX := self position x.
+	posY := self position y.
+
+    	posX := posX max: aPlayground bounds left.
+
+   	posX := posX min: aPlayground bounds right - self width.
+
+    	posY := posY max: aPlayground bounds top.
+
+    	posY := posY min: aPlayground bounds bottom - self height.
+
+    	self position: posX @ posY.
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 23:25'
 }
@@ -358,11 +403,14 @@ SKMealyNode >> removeEdge: aEdge [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:14'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 13:06'
 }
 SKMealyNode >> selectNode [
 
-	self color: self selectedColor
+	self isStartingNode ifTrue: [^ self].	
+	self label ifNotNil: [self label delete].
+	self createNodeTextMorph.
+	ActiveHand newKeyboardFocus: self label
 ]
 
 {
@@ -403,11 +451,11 @@ SKMealyNode >> stateMachineEditor: anObject [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:31'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:37'
 }
 SKMealyNode >> step [
 
-	self isInDrag ifTrue: [self changed: #pos]
+	self isInDrag ifTrue: [self changed: #pos].
 ]
 
 {
@@ -436,11 +484,31 @@ SKMealyNode >> triggerSelfLoopUpdate [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:14'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:21'
+}
+SKMealyNode >> unmarkNode [
+
+	self color: self normalColor
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 13:06'
 }
 SKMealyNode >> unselectNode [
 
-	self color: self normalColor
+	| label |
+	
+	self isStartingNode ifTrue: [^ self].
+	self label ifNotNil: [self name: self label contents.
+		self label delete].
+	label := (StringMorph new
+		contents: self name;
+		color: Color black;
+		center: self center;
+		yourself).
+	self label: label.
+	self addMorph: label
 ]
 
 {
@@ -451,4 +519,13 @@ SKMealyNode >> updateSelfLoops [
 
 	self calculateBestEdgeDirections;
 		changed: #pos
+]
+
+{
+	#category : #movement,
+	#'squeak_changestamp' : 'JS 6/23/2026 23:46'
+}
+SKMealyNode >> wantsToBeDroppedInto: aMorph [
+
+	^ aMorph isKindOf: SKPlayGround
 ]

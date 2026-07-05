@@ -1,10 +1,21 @@
+"
+A SKValueBlock is the Template for a SKBlock representing a Value that is placeable in a BlockPart of the same type.
+
+Instance Variables
+	value:		<Object>
+
+value
+	- the value this Block represents
+
+"
 Class {
 	#name : #SKValueBlock,
 	#superclass : #SKBlock,
 	#instVars : [
 		'value'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:11'
 }
 
 {
@@ -49,7 +60,7 @@ SKValueBlock >> type [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'SLH 6/16/2026 17:31'
+	#'squeak_changestamp' : 'FR 6/30/2026 20:44'
 }
 SKValueBlock >> validSnapConnectionsIn: anObject [
 
@@ -62,7 +73,7 @@ SKValueBlock >> validSnapConnectionsIn: anObject [
 			((each hasOwner: self) not) and: [
 				each ~= self]]) ifTrue: [
 					validConnections addAll: (each valueConnectionPoints select: [:connection |
-						((connection dist: self anchorPoint) < self snapRadius)])]].
+						connection type = self type and: [((connection dist: self anchorPoint) < self snapRadius)]])]].
 
 	^ validConnections
 ]
