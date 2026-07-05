@@ -150,6 +150,15 @@ GSMetadata {
 			#path : FSAbsolutePath [
 				'src'
 			]
+		},
+		GSPlaintextMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'.github',
+				'ISSUE_TEMPLATE',
+				'user-story.md'
+			],
+			#encoding : 'TXT'
 		}
 	],
 	#name : 'SqueakKara'
