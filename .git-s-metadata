@@ -126,15 +126,6 @@ GSMetadata {
 			},
 			#path : @18
 		},
-		GSTonelMapper {
-			#version : 1,
-			#package : MCPackage {
-				#name : 'SqueakKara'
-			},
-			#path : FSAbsolutePath [
-				'src'
-			]
-		},
 		GSImageMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
@@ -150,6 +141,15 @@ GSMetadata {
 				'Mushrooms.png'
 			],
 			#encoding : @9
+		},
+		GSTonelMapper {
+			#version : 1,
+			#package : MCPackage {
+				#name : 'SqueakKara-ProgrammingBlocks'
+			},
+			#path : FSAbsolutePath [
+				'src'
+			]
 		}
 	],
 	#name : 'SqueakKara'
