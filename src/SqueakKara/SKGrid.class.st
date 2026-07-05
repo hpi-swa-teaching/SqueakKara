@@ -4,10 +4,10 @@ SKGrid provides the grid in which all SKGridObjects are displayed. It creates an
 Instance Variables
 	gridWidth:			<Number>
 	gridHeight:			<Number>
-	gridCoordinator:	<Object>
+	gridCoordinator:	<SKGridCoordinator>
 	scaleFactor:		<Number>
 	gridLines:			<Collection>
-	environment:		<SkEnvironment>
+	environment:		<SKEnvironment>
 	leafCount:			<Number>
 
 gridWidth
@@ -17,7 +17,7 @@ gridHeight
 	- A number which determines which height the grid should have.
 	
 gridCoordinator
-	- Handles all the stuff for the implementation of the grid and its objects.
+	- Handles everything for the implementation of the grid and its objects.
 	
 scaleFactor
 	- Adjust the grid when the window os resized.
@@ -30,8 +30,6 @@ environment
 	
 leafCount
 	- Keeps count of the current number of leafes.
-
-
 "
 Class {
 	#name : #SKGrid,
@@ -46,7 +44,7 @@ Class {
 		'leafCount'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'AB 7/5/2026 12:53'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 13:29'
 }
 
 {
