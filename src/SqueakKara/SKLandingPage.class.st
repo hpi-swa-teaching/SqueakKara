@@ -476,7 +476,7 @@ SKLandingPage >> buttonNewLabel [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'AB 7/5/2026 22:46'
+	#'squeak_changestamp' : 'LD 7/5/2026 22:55'
 }
 SKLandingPage >> defaultExtent [
 
@@ -484,7 +484,7 @@ SKLandingPage >> defaultExtent [
     
 	buttonCount := self buildAllButtons size.
 	buttonSlotHeight := self buttonHeight + self defaultOffset.
-	totalHeight := buttonSlotHeight * (buttonCount + 1).
+	totalHeight := buttonSlotHeight * (buttonCount + 2).
 	
 	^ 300 px @ totalHeight
 ]
