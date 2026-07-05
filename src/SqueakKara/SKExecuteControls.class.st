@@ -1,5 +1,39 @@
 "
 SKExecuteControls creates a user interface to control the execution: a button to start and stop the execution of written code as well as a slider with which the user can control the execution speed.
+
+Instance Variables
+	environment:			<SKEnvironment>
+	buttonRun: 			<SKButtonRun>
+	buttonStop:			<SKButtonStop>
+	buttonSpawnKara:		<SKButtonSpawnKara>
+	buttonNextChallenge:	<SKButtonNextChallenge>
+	sliderSpeed:			<SKSlider>
+	scaleFactor:			<Number>
+	buttonReset:			<SKButtonReset>
+
+environment
+	- The environment is needed for the buttons.
+
+buttonRun
+	- The button to start the execution.
+
+buttonStop
+	- The button to terminate the execution.
+
+buttonSpawnKara
+	- The button to spawn a additional kara.
+
+buttonNextChallenge
+	- The button to go to the next challenge.
+
+sliderSpeed
+	- The slider to adjust the speed of the execution.
+
+scaleFactor
+	- The scaleFactor is needed to scale the ExecuteControls to the right size.
+	
+buttonReset
+	- The button to reset everything but keeping the code in the workspaces the same.
 "
 Class {
 	#name : #SKExecuteControls,
@@ -15,7 +49,7 @@ Class {
 		'buttonReset'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:42'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:29'
 }
 
 {

@@ -1,11 +1,13 @@
 "
-The SKButtonSpawnKara spawn on a random free tile a kara.
+The SKButtonSpawnKara spawn on a random free tile a kara with its cloverleaf.
+
+Instance Variables
 "
 Class {
 	#name : #SKButtonSpawnKara,
 	#superclass : #SKButton,
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'ND 6/18/2026 22:06'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 13:21'
 }
 
 {

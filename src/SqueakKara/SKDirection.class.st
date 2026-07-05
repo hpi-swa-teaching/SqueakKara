@@ -1,11 +1,13 @@
 "
 Direction stores vectors for all directions on the class side, to be used by the Grid and GridObjects.
+
+Instance Variables
 "
 Class {
 	#name : #SKDirection,
 	#superclass : #Object,
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:34'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 13:21'
 }
 
 {

@@ -1,16 +1,25 @@
 "
 The SKSlider extends the SimpleSliderMorph for the usage as a speedSlider in the executionControls.
+
+Instance Variables
+	scaleFactor:	 		<Number>
+	executeControls:		<SKExecuteControls>
+
+scaleFactor
+	- The factor which is used to scale the sliderMorph.
+	
+executeControls
+	- The owner of the slider. 
 "
 Class {
 	#name : #SKSlider,
 	#superclass : #SimpleSliderMorph,
 	#instVars : [
-		'sliderSpeed',
 		'scaleFactor',
 		'executeControls'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'ND 6/18/2026 22:07'
+	#'squeak_changestamp' : 'ND 7/5/2026 12:47'
 }
 
 {
@@ -96,24 +105,6 @@ SKSlider >> scaleFactor: aNumber [
 	self resizeByFactor: aNumber.
 	
 	^ scaleFactor := aNumber
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/25/2026 21:18'
-}
-SKSlider >> sliderSpeed [
-
-	^ sliderSpeed
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'ND 6/29/2026 16:37'
-}
-SKSlider >> sliderSpeed: aNumber [
-
-	sliderSpeed := aNumber
 ]
 
 {

@@ -1,11 +1,14 @@
 "
 SKLandingPage provides a user interface for the user to select either a blank work environment or one of the provided example problems. It is the first page the user sees.
+
+Instance Variables
+
 "
 Class {
 	#name : #SKLandingPage,
 	#superclass : #SKSystemWindow,
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:01'
+	#'squeak_changestamp' : 'AB 7/5/2026 13:33'
 }
 
 {

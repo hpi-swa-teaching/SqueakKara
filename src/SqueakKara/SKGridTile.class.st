@@ -1,5 +1,11 @@
 "
 SKGridTile inherits all functionality from the pre-existing class Set, existing as a class in order to allow for the existance of a NullObject.
+
+Instance Variables
+	lockingActor:		<SKGridObjekt>
+
+lockingActor
+	- A SKGridObjekt that looks the Tile.
 "
 Class {
 	#name : #SKGridTile,
@@ -8,7 +14,7 @@ Class {
 		'lockingActor'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JJG 7/1/2024 15:58'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 13:21'
 }
 
 {

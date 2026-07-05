@@ -1,11 +1,13 @@
 "
 The SKButtonStop stops the execution of the workspaces.
+
+Instance Variables
 "
 Class {
 	#name : #SKButtonStop,
 	#superclass : #SKButton,
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'ND 6/18/2026 22:06'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 13:21'
 }
 
 {
