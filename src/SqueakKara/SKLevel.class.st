@@ -9,7 +9,7 @@ Class {
 }
 
 {
-	#category : #commands,
+	#category : #building,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 11:27'
 }
 SKLevel >> build [
@@ -78,15 +78,6 @@ SKLevel >> initializeWithEnvironment: anEnvironment [
 ]
 
 {
-	#category : #constants,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 15:10'
-}
-SKLevel >> levelName [
-
-	self subclassResponsibility
-]
-
-{
 	#category : #placing,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 11:25'
 }
@@ -143,11 +134,12 @@ SKLevel >> placeTrunkAt: aPoint [
 
 {
 	#category : #commands,
-	#'squeak_changestamp' : 'JS 6/22/2026 13:07'
+	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 21:43'
 }
 SKLevel >> reset [
 
-    self subclassResponsibility
+	self build.
+	self grid enforceZOrder
 ]
 
 {

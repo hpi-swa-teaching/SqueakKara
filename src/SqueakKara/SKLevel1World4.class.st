@@ -5,7 +5,16 @@ Class {
 }
 
 {
-	#category : #commands,
+	#category : #name,
+	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 21:54'
+}
+SKLevel1World4 class >> levelName [
+	
+	^ 'Spiral Garden'
+]
+
+{
+	#category : #building,
 	#'squeak_changestamp' : 'JS 6/23/2026 17:24'
 }
 SKLevel1World4 >> build [
@@ -60,25 +69,6 @@ SKLevel1World4 >> build [
 SKLevel1World4 >> height [
 	
 	^7
-]
-
-{
-	#category : #constants,
-	#'squeak_changestamp' : 'JS 6/23/2026 17:15'
-}
-SKLevel1World4 >> levelName [
-	
-	^ 'Lost in the woods' "Spiral garden"
-]
-
-{
-	#category : #commands,
-	#'squeak_changestamp' : 'JS 6/23/2026 16:08'
-}
-SKLevel1World4 >> reset [
-	
-	self build.
-	self grid enforceZOrder
 ]
 
 {

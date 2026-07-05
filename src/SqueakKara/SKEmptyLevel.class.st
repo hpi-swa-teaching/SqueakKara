@@ -5,7 +5,16 @@ Class {
 }
 
 {
-	#category : #commands,
+	#category : #name,
+	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 21:56'
+}
+SKEmptyLevel class >> levelName [
+	
+	^ 'Blank project'
+]
+
+{
+	#category : #building,
 	#'squeak_changestamp' : 'JS 6/23/2026 18:44'
 }
 SKEmptyLevel >> build [
@@ -20,25 +29,6 @@ SKEmptyLevel >> build [
 SKEmptyLevel >> height [
 	
 	^ 7
-]
-
-{
-	#category : #constants,
-	#'squeak_changestamp' : 'JS 6/23/2026 18:44'
-}
-SKEmptyLevel >> levelName [
-	
-	^ 'Blank project'
-]
-
-{
-	#category : #commands,
-	#'squeak_changestamp' : 'JS 6/23/2026 17:21'
-}
-SKEmptyLevel >> reset [
-
-	self build.
-	self grid enforceZOrder
 ]
 
 {

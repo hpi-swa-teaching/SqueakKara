@@ -5,7 +5,16 @@ Class {
 }
 
 {
-	#category : #commands,
+	#category : #name,
+	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 21:55'
+}
+SKLevel1World1 class >> levelName [
+	
+	^ 'Rainbows and sunshine'
+]
+
+{
+	#category : #building,
 	#'squeak_changestamp' : 'JS 6/23/2026 17:24'
 }
 SKLevel1World1 >> build [
@@ -21,25 +30,6 @@ SKLevel1World1 >> build [
 SKLevel1World1 >> height [
 	
 	^ 2
-]
-
-{
-	#category : #constants,
-	#'squeak_changestamp' : 'JS 6/23/2026 17:14'
-}
-SKLevel1World1 >> levelName [
-	
-	^ 'Rainbows and sunshine'
-]
-
-{
-	#category : #commands,
-	#'squeak_changestamp' : 'JS 6/23/2026 17:21'
-}
-SKLevel1World1 >> reset [
-
-	self build.
-	self grid enforceZOrder
 ]
 
 {

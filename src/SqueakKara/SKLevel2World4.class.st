@@ -5,37 +5,20 @@ Class {
 }
 
 {
-	#category : #commands,
-	#'squeak_changestamp' : 'JS 6/23/2026 17:24'
+	#category : #name,
+	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 21:58'
+}
+SKLevel2World4 class >> levelName [
+	
+	^ 'Mycelium resistance'
+]
+
+{
+	#category : #building,
+	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 21:46'
 }
 SKLevel2World4 >> build [
-	"concept: when trunk ahead: turn right, when mushroom ahead walk left and look if it is blocked by trunk--> yes: walk straight along, no: walk back behind mushroom and push once. then turn right and walk straight"
-	
-	"example code: 
-	
-	[kara onCloverleaf not] whileTrue: [
-	kara mushroomAhead ifTrue: [
-		kara turn: left;
-			move;
-			turn: right;
-			move;
-			move;
-			turn: right.
-		kara trunkAhead ifTrue: [kara turn: left] ifFalse: [
-			kara turn: right;
-				move;
-				move;
-				turn: left;
-				move;
-				turn: left;
-				push;
-				turn: right
-			]
-		] ifFalse: [
-			kara trunkAhead ifTrue: [kara turn: right] ifFalse: [kara move]
-		]
-	]
-	"
+
 	self placeKaraAt: 1 @ 7 withViewDirection: SKDirection above;
 		placeCloverleafAt: 7 @ 5;
 		placeMushroomAt: 3 @ 8;
@@ -98,25 +81,6 @@ SKLevel2World4 >> build [
 SKLevel2World4 >> height [
 	
 	^ 9
-]
-
-{
-	#category : #constants,
-	#'squeak_changestamp' : 'JS 6/23/2026 17:17'
-}
-SKLevel2World4 >> levelName [
-	
-	^ 'Mycelium resistance'
-]
-
-{
-	#category : #commands,
-	#'squeak_changestamp' : 'JS 6/23/2026 18:57'
-}
-SKLevel2World4 >> reset [
-	
-	self build.
-	self grid enforceZOrder
 ]
 
 {
