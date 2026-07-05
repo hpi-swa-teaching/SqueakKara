@@ -195,7 +195,7 @@ SKScheduler >> releaseLocks: aDictionary [
 
 {
 	#category : #scheduling,
-	#'squeak_changestamp' : 'LM 5/27/2026 21:40'
+	#'squeak_changestamp' : 'ND 7/4/2026 15:02'
 }
 SKScheduler >> scheduleAction: anAction for: anActor [
 
@@ -204,6 +204,7 @@ SKScheduler >> scheduleAction: anAction for: anActor [
 		
 		actions := self scheduledSteps at: anActor ifAbsent: [ OrderedCollection new ].
 		actions add: anAction.
+		Transcript showln: anActor kara color.
 		(anAction type = #move) ifTrue: [ anActor lockNextField ].
 		self scheduledSteps at: anActor put: actions.
 		

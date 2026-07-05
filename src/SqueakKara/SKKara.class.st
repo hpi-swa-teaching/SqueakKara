@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'viewDirection',
 		'workspace',
-		'cloverleaf'
+		'cloverleaf',
+		'speechBubbles'
 	],
 	#category : #SqueakKara,
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
@@ -252,10 +253,11 @@ SKKara >> hasWorkspace [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 5/28/2026 19:40'
+	#'squeak_changestamp' : 'LM 7/4/2026 13:58'
 }
 SKKara >> initializeInGrid: aGrid at: aPoint [
 
+	self speechBubbles: OrderedCollection new.
 	aGrid gridCoordinator lockAt: aPoint for: self.
 	super initializeInGrid: aGrid at: aPoint
 ]
@@ -295,12 +297,12 @@ SKKara >> karaAhead [
 
 {
 	#category : #locking,
-	#'squeak_changestamp' : 'LM 6/25/2026 22:01'
+	#'squeak_changestamp' : 'ND 7/4/2026 14:56'
 }
 SKKara >> lockAt: aPoint [
 
 	| lockSuccessful staysInCriticalSection |
-
+	
 	(self ownsLockAt: aPoint) ifTrue: [ ^ self ].
 	
 	(self karaAhead) ifTrue: [ ^ self ].
@@ -412,12 +414,16 @@ SKKara >> randomDirection [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'mr 7/4/2026 12:34'
+	#'squeak_changestamp' : 'LD 7/5/2026 14:46'
 }
 SKKara >> sayMessage: aString [
 
-	SKDismissableSpeechBubbleMorph string: aString type: #speech for: self.
-  self environment stop
+	| speechBubble |
+
+	speechBubble := SKDismissableSpeechBubbleMorph string: aString type: #speech for: self.
+	self speechBubbles add: speechBubble.
+	speechBubble closeCallback: [ self speechBubbles remove: speechBubble ].
+	self environment stop
 ]
 
 {
@@ -453,6 +459,24 @@ SKKara >> setTexture [
 	self rotateTowards: self viewDirection.
 	self originalImage: aForm.
 	self updateColorFor: aForm
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 7/4/2026 13:57'
+}
+SKKara >> speechBubbles [
+
+	^ speechBubbles
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'LM 7/4/2026 13:57'
+}
+SKKara >> speechBubbles: aCollection [
+
+	speechBubbles := aCollection
 ]
 
 {
