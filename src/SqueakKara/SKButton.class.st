@@ -2,18 +2,18 @@
 SKButton is the shared superclass by all SKButtons. It ensures texture loading, as well as the basic button functions.
 
 Instance Variables
-	executeControls:	<Morph>
-	texture:			<>
-	scaleFactor:		<>
+	executeControls:	<SKExecuteControls>
+	texture:			<Objekt>
+	scaleFactor:		<Number>
 
 executeControls
-	- 
+	- The executeControls can receive calls to perform the corresponding aktions.
 
 texture
-	- 
+	- The texture of the button.
 
 scaleFactor
-	- 
+	- The scaleFactor all visible Objekts have to scale.
 "
 Class {
 	#name : #SKButton,
@@ -24,7 +24,7 @@ Class {
 		'scaleFactor'
 	],
 	#category : #SqueakKara,
-	#'squeak_changestamp' : 'JanWein 7/5/2026 10:30'
+	#'squeak_changestamp' : 'JanWein 7/5/2026 12:16'
 }
 
 {
