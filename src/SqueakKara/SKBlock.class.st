@@ -148,7 +148,7 @@ SKBlock >> addIntegerPart [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
+	#'squeak_changestamp' : 'SLH 7/5/2026 18:50'
 }
 SKBlock >> addLabel: aString [
 	
