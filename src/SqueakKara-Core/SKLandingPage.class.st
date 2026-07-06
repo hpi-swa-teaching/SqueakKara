@@ -128,7 +128,7 @@ SKLandingPage >> buildConceptStack [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'JS 7/5/2026 14:16'
+	#'squeak_changestamp' : 'JS 7/6/2026 11:11'
 }
 SKLandingPage >> buildContent [
 
@@ -147,9 +147,9 @@ SKLandingPage >> buildContent [
 		addMorphBack: self buildProjectStack;
 		addMorphBack: self buildConceptStack.
 	self addMorph: row.
-	self extent: self extent x @ (self extent y max: row bounds height +( topBar extent y * 2)).
+	self extent: (self extent x max: row extent x) @ (self extent y max: row bounds height +( topBar extent y * 2)).
 	
-	row center: self center x @ self center y + (topBar extent y / 2).
+	row center: self center x @ (self center y + (topBar extent y / 2)).
 	row goBehind
 ]
 
@@ -164,7 +164,7 @@ SKLandingPage >> buildEnvironment [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'JS 7/6/2026 04:25'
+	#'squeak_changestamp' : 'JS 7/6/2026 11:35'
 }
 SKLandingPage >> buildProjectStack [
 
@@ -176,7 +176,7 @@ SKLandingPage >> buildProjectStack [
 	stack
 		addButtonWithLabel: self buttonBlankProjectLabel
 		target: self
-		selector: #actionEmptyProject
+		selector: #actionBlankProject
 		color: SKStylesheet primaryColor.
 		
 	self exampleProjects do: [:each |
