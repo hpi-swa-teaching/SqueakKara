@@ -223,13 +223,13 @@ SKBlockEditor >> getCode [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 7/6/2026 09:28'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:54'
 }
-SKBlockEditor >> handleMouseOver_: anEvent [
+SKBlockEditor >> handleMouseOver: anEvent [
 
 	| draggedBlock snapTarget |
 	
-	super handlesMouseOver: anEvent.
+	super handleMouseOver: anEvent.
 	anEvent hand hasSubmorphs ifFalse: [^ self].
 	
 	draggedBlock := anEvent hand submorphs first.
@@ -242,30 +242,6 @@ SKBlockEditor >> handleMouseOver_: anEvent [
 			ifTrue: [^ self].
 	self previewBlock ifNotNil: [^ self].
 	self placePreviewBlockOf: draggedBlock at: snapTarget
-]
-
-{
-	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 7/6/2026 09:35'
-}
-SKBlockEditor >> handlesMouseOver: anEvent [
-
-	| draggedBlock snapTarget |
-	
-	anEvent hand hasSubmorphs ifFalse: [^ true].
-	
-	draggedBlock := anEvent hand submorphs first.
-	(draggedBlock isKindOf: SKBlock) ifFalse: [^ true].
-	
-	snapTarget := draggedBlock findClosestSnapTargetIn: self.
-	snapTarget ifNil: [self clearPreviewBlock. ^ true].
-	((snapTarget uiDelegate isKindOf: SKBlock)
-		and: [snapTarget uiDelegate isPreview])
-			ifTrue: [^ true].
-	self previewBlock ifNotNil: [^ true].
-	self placePreviewBlockOf: draggedBlock at: snapTarget.
-	
-	^ true
 ]
 
 {
