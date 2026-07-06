@@ -43,7 +43,7 @@ SKEnvironment >> addKara: aKara [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 21:38'
+	#'squeak_changestamp' : 'JS 7/2/2026 23:29'
 }
 SKEnvironment >> calculateScaleFactor: aPoint [
 
@@ -146,11 +146,11 @@ SKEnvironment >> executionSpeed: aSpeed [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:27'
+	#'squeak_changestamp' : 'JS 7/5/2026 21:19'
 }
 SKEnvironment >> gameHeight [
 
-	^ gameHeight ifNil: [ self gameHeight: self grid height + (self grid pixelPerBlock * 4)]
+	^ gameHeight ifNil: [ self gameHeight: self grid extent y + self executeControls extent y + (self grid pixelPerBlock * 3)]
 ]
 
 {
@@ -200,7 +200,7 @@ SKEnvironment >> grid: anObject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:35'
+	#'squeak_changestamp' : 'JS 7/5/2026 22:15'
 }
 SKEnvironment >> initialize [
 
@@ -211,7 +211,7 @@ SKEnvironment >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 15:36'
+	#'squeak_changestamp' : 'JS 7/2/2026 03:28'
 }
 SKEnvironment >> initializeObjects [
 
@@ -344,7 +344,7 @@ SKEnvironment >> pause [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:46'
+	#'squeak_changestamp' : 'JS 7/2/2026 03:50'
 }
 SKEnvironment >> positionExecuteControlsAndGrid [
 
@@ -354,7 +354,7 @@ SKEnvironment >> positionExecuteControlsAndGrid [
 	self grid position: self systemWindow position + startPoint.
 	
 	startPoint := ((self gameWidth / 2) - (self executeControls width / 2)) @ ( 1.5 * self grid pixelPerBlock).
-	self executeControls position: self systemWindow position + startPoint.
+	self executeControls position: self systemWindow position + startPoint
 ]
 
 {
@@ -406,7 +406,7 @@ SKEnvironment >> reset: aChallenge [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:26'
+	#'squeak_changestamp' : 'JS 7/5/2026 22:26'
 }
 SKEnvironment >> resize [
 	
@@ -419,11 +419,11 @@ SKEnvironment >> resize [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'LM 4/28/2026 21:26'
+	#'squeak_changestamp' : 'JS 7/2/2026 20:07'
 }
 SKEnvironment >> resizeGridByFactor: aNumber [
 	self grid scaleFactor: aNumber.
-	self grid updateDimensions
+	self grid updateDimensions.
 ]
 
 {
@@ -448,30 +448,32 @@ SKEnvironment >> run [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/2/2026 12:52'
+	#'squeak_changestamp' : 'JS 7/5/2026 23:09'
 }
 SKEnvironment >> setSystemWindow [
 	
-| container |
+| container topBarOffset|
 
 	self systemWindow: (SKSystemWindow new windowManager: self windowManager).
 	self systemWindow setLabel: 'Kara'.
 	
+	topBarOffset := self systemWindow firstSubmorph extent y.
+	
 	container := self containerMorph
 		addMorph: self grid;
 		addMorph: self executeControls;
-		addMorph: self windowManager;
 		yourself.
 	
 	self systemWindow
-		extent: self gameWidth @ self gameHeight;
-		setWindowColor: self grid backgroundColor; 
-		resizeListener: [ self resize ];
-		addMorph: container fullFrame: (LayoutFrame fractions: (0@0 corner: 1@1)).
+		extent: (self gameWidth max: 600) @ (self gameHeight max: 950);
+		setWindowColor: self grid backgroundColor;
+		addMorph: container fullFrame: (LayoutFrame fractions: (0@0 corner: 1@1));
+		resizeListener: [ self resize ].
 		
 	self windowManager addWindow: self systemWindow.	
 	self positionExecuteControlsAndGrid.
-	self resize
+	self resize.
+	self systemWindow extent: (self executeControls extent x max: self executeControls extent x) @ (self grid extent y + self executeControls extent y + topBarOffset)
 ]
 
 {

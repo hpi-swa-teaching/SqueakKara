@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'windowManager',
 		'confirmationButton',
-		'abortButton'
+		'abortButton',
+		'layout'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JS 5/26/2026 14:51'
@@ -33,87 +34,134 @@ SKCloseConfirmationWindow >> abortButton: anObject [
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:13'
+	#'squeak_changestamp' : 'JS 7/6/2026 02:18'
 }
-SKCloseConfirmationWindow >> buildAbortButton [
+SKCloseConfirmationWindow >> addButtonsToLayout [
 
-	self buildButtonWithLabel: 'NO' 
-		selector: #closeOnlyConfirmationWindow 
-		centerXOffset: self buttonXOffset
-		centerYOffset: self buttonYOffset
+	| buttonRow |
+	
+	buttonRow := AlignmentMorph newRow. 
+	buttonRow 
+		hResizing: #shrinkWrap; 
+		cellPositioning: #center;
+		cellInset: 20;
+		color: Color transparent.
+		
+	buttonRow 
+		addMorph: self buildAbortButton; 
+		addMorph: self buildConfirmationButton.
+		
+	self layout addMorph: buttonRow
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:13'
+	#'squeak_changestamp' : 'JS 7/6/2026 02:16'
 }
-SKCloseConfirmationWindow >> buildButtonWithLabel: aLabel selector: aSelector centerXOffset: aXOffset centerYOffset: aYOffset [
+SKCloseConfirmationWindow >> addLayoutToWindow [
 
-	self confirmationButton: (SimpleButtonMorph new
+	| layoutMargin |
+	
+	layoutMargin := (40@60).
+	self addMorph: self layout frame: (0@0  corner: 1@1).
+	self extent: self layout fullBounds extent + layoutMargin
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'JS 7/6/2026 02:20'
+}
+SKCloseConfirmationWindow >> addTextToLayout [
+
+	| textWidth |
+	
+	textWidth := 320.
+	
+	self layout addMorph: (TextMorph new 
+		contents: self messageSecondLine; 
+		wrapFlag: true;
+		width: textWidth;
+		lock). 
+	
+	self layout addMorph: (TextMorph new 
+		contents: self messageFirstLine; 
+		wrapFlag: true;
+		width: (self layout extent x max: textWidth);
+		lock)
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'JS 6/30/2026 12:49'
+}
+SKCloseConfirmationWindow >> buildAbortButton [
+
+	^ self buildButtonWithLabel: 'NO' 
+		selector: #closeOnlyConfirmationWindow
+]
+
+{
+	#category : #widgets,
+	#'squeak_changestamp' : 'JS 6/30/2026 12:48'
+}
+SKCloseConfirmationWindow >> buildButtonWithLabel: aLabel selector: aSelector [
+
+	|button|
+	
+	button := (SimpleButtonMorph new
 		label: aLabel;
 		target: self;
 		actionSelector: aSelector;
 		color: SKStylesheet secondaryColor;
 		width: self buttonWidth;
 		height: self buttonHeight).
-	self addMorph: self confirmationButton.
-	self confirmationButton center:  (self center x + aXOffset) @ (self center y + aYOffset)
+	^ button
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:13'
+	#'squeak_changestamp' : 'JS 6/30/2026 12:49'
 }
 SKCloseConfirmationWindow >> buildConfirmationButton [
 
-	self buildButtonWithLabel: 'YES' 
-		selector: 'closeAllWindows' 
-		centerXOffset: (self buttonXOffset * -1)
-		centerYOffset: self buttonYOffset
+	^ self buildButtonWithLabel: 'YES' 
+		selector: #closeAllWindows
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:12'
+	#'squeak_changestamp' : 'JS 7/2/2026 02:55'
 }
-SKCloseConfirmationWindow >> buildMessage [
+SKCloseConfirmationWindow >> buildLayout [
 
-	self buildMessageWithText: self messageFirstLine 
-		center:  self center x @ (self center y - self messageYOffset).
-	self buildMessageWithText: self messageSecondLine 
-		center:  self center x @ (self center y - (self messageYOffset - self messageTextSpacing))
+	self layout: AlignmentMorph newColumn. 
+	self layout 
+		hResizing: #spaceFill;
+		vResizing: #spaceFill; 
+		cellPositioning: #center; 
+		layoutInset: 20; 
+		cellInset: 10;
+		color: Color transparent
 ]
 
 {
 	#category : #widgets,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:11'
+	#'squeak_changestamp' : 'JS 7/6/2026 02:09'
 }
-SKCloseConfirmationWindow >> buildMessageWithText: aText center: aCenter [
+SKCloseConfirmationWindow >> buildWidgets [ 
 
-	self addMorph: (StringMorph new 
-		contents: aText;
-		color: self messageColor;
-		emphasis: TextEmphasis bold emphasisCode;
-		font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: self messageFontSize);
-		center: aCenter)
-]
-
-{
-	#category : #widgets,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:14'
-}
-SKCloseConfirmationWindow >> buildWidgets [
-
-	self scaleWindow; 
-		centerWindowInWorld;
-		buildMessage;
-		buildConfirmationButton;
-		buildAbortButton
+	self 
+		buildLayout;
+		addButtonsToLayout;
+		addTextToLayout;
+		addLayoutToWindow;
+		centerWindowInWorld
+	
 ]
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
+	#'squeak_changestamp' : 'JS 7/6/2026 02:24'
 }
 SKCloseConfirmationWindow >> buttonHeight [
 
@@ -122,29 +170,11 @@ SKCloseConfirmationWindow >> buttonHeight [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
+	#'squeak_changestamp' : 'JS 7/6/2026 02:13'
 }
 SKCloseConfirmationWindow >> buttonWidth [
 
 	^ 100
-]
-
-{
-	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
-}
-SKCloseConfirmationWindow >> buttonXOffset [
-
-	^ 75
-]
-
-{
-	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:09'
-}
-SKCloseConfirmationWindow >> buttonYOffset [
-
-	^ 30
 ]
 
 {
@@ -207,6 +237,22 @@ SKCloseConfirmationWindow >> initialize [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/2/2026 02:47'
+}
+SKCloseConfirmationWindow >> layout [
+	^ layout
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/2/2026 02:47'
+}
+SKCloseConfirmationWindow >> layout: anObject [
+	layout := anObject
+]
+
+{
 	#category : #messages,
 	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:12'
 }
@@ -261,17 +307,8 @@ SKCloseConfirmationWindow >> messageYOffset [
 ]
 
 {
-	#category : #widgets,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:14'
-}
-SKCloseConfirmationWindow >> scaleWindow [
-
-	self extent: self windowWidth @ self windowHeight
-]
-
-{
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:10'
+	#'squeak_changestamp' : 'JS 7/6/2026 02:13'
 }
 SKCloseConfirmationWindow >> windowHeight [
 
@@ -307,7 +344,7 @@ SKCloseConfirmationWindow >> windowManager: anObject [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 6/3/2026 12:10'
+	#'squeak_changestamp' : 'JS 7/6/2026 02:13'
 }
 SKCloseConfirmationWindow >> windowWidth [
 
