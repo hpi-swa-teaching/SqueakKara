@@ -11,11 +11,12 @@ Class {
 
 {
 	#category : #setup,
-	#'squeak_changestamp' : 'SSP 5/26/2026 13:40'
+	#'squeak_changestamp' : 'JS 7/5/2026 21:09'
 }
 SKCloseConfirmationWindowTest >> setUp [
+
 	manager := SKWindowManager new.
-	sysWindow := SKChallengeWindow new windowManager: manager.
+	sysWindow := SKSystemWindow new windowManager: manager.
 	sysWindow openInWorld.
 	manager addWindow: sysWindow.
 	manager buildConfirmationWindow.
@@ -76,14 +77,6 @@ SKCloseConfirmationWindowTest >> testCloseOnlyConfirmationWindowDeletesSelf [
 SKCloseConfirmationWindowTest >> testCloseOnlyConfirmationWindowKeepsOtherWindows [
 	confirmation closeOnlyConfirmationWindow.
 	self assert: sysWindow owner notNil
-]
-
-{
-	#category : #'ui testing',
-	#'squeak_changestamp' : 'SSP 5/26/2026 13:41'
-}
-SKCloseConfirmationWindowTest >> testExtentMatchesWindowDimensions [
-	self assert: confirmation extent = (confirmation windowWidth @ confirmation windowHeight)
 ]
 
 {

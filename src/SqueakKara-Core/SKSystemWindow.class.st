@@ -13,7 +13,8 @@ Class {
 	#superclass : #SystemWindow,
 	#instVars : [
 		'resizeListener',
-		'windowManager'
+		'windowManager',
+		'minimumExtent'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'LM 4/28/2026 20:16'
@@ -21,15 +22,16 @@ Class {
 
 {
 	#category : #'open/close',
-	#'squeak_changestamp' : 'JS 6/2/2026 12:51'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:53'
 }
 SKSystemWindow >> closeBoxHit [
-	self windowManager buildConfirmationWindow.
+
+	self windowManager ifNotNil: [self windowManager buildConfirmationWindow]
 ]
 
 {
 	#category : #geometry,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:25'
+	#'squeak_changestamp' : 'JS 7/5/2026 21:12'
 }
 SKSystemWindow >> extent: aPoint [
 
@@ -38,12 +40,31 @@ SKSystemWindow >> extent: aPoint [
 ]
 
 {
-	#category : #'geometry - layout',
-	#'squeak_changestamp' : 'LM 4/29/2026 16:09'
+	#category : #initialization,
+	#'squeak_changestamp' : 'JS 7/5/2026 22:32'
+}
+SKSystemWindow >> initialize [
+
+	super initialize
+	
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/5/2026 22:24'
 }
 SKSystemWindow >> minimumExtent [
 	
-	^ 450 @ 550
+	^ super minimumExtent
+	"^ minimumExtent ifNil: [minimumExtent := 450 @ 550. ^ 450 @ 550]"
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'FR 6/23/2026 17:53'
+}
+SKSystemWindow >> minimumExtent: anObject [
+	minimumExtent := anObject
 ]
 
 {

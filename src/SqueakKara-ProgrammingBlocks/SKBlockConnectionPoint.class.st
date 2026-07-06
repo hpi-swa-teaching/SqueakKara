@@ -1,3 +1,21 @@
+"
+A SKBlockConnectionPoint is a Point where two SKBlocks can be connected
+
+Instance Variables
+	connectedPoint:		<Object>
+	type:		<Object>
+	uiDelegate:		<Object>
+
+connectedPoint
+	- another ConnectionPoint of another SKBlock that is connected to this instance
+
+type
+	- the type of this connection point (#anchor, #action, etc.)
+
+uiDelegate
+	- the Block this connectionPoint is from
+
+"
 Class {
 	#name : #SKBlockConnectionPoint,
 	#superclass : #Object,
@@ -6,7 +24,8 @@ Class {
 		'connectedPoint',
 		'type'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:22'
 }
 
 {
@@ -69,11 +88,11 @@ SKBlockConnectionPoint >> dist: anotherBlockConnectionPoint [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:01'
+	#'squeak_changestamp' : 'FR 7/3/2026 03:09'
 }
 SKBlockConnectionPoint >> isConnected [
 
-	^ connectedPoint isNil not
+	^ self connectedPoint isNil not
 ]
 
 {

@@ -1,26 +1,36 @@
 "
-SKLandingPage provides a user interface for the user to select either a blank work environment or one of the provided example problems. It is the first page the user sees.
+provides a user interface for the user to select either a blank work environment or one of the provided example problems. It is the first page the user sees.
 "
 Class {
 	#name : #SKLandingPage,
 	#superclass : #SystemWindow,
 	#instVars : [
 		'selectedConcept',
+		'conceptStack',
 		'conceptButtons'
 	],
 	#category : #'SqueakKara-Core',
-	#'squeak_changestamp' : 'JJG 7/1/2024 16:01'
+	#'squeak_changestamp' : 'SP 7/2/2026 01:24'
 }
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:17'
+	#'squeak_changestamp' : 'JS 7/5/2026 00:20'
+}
+SKLandingPage >> actionBlankProject [
+
+	self buildEnvironment initializeWithBlankProject.
+	self delete
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
 }
 SKLandingPage >> actionConceptSelected: aIndex [
 
 	self selectedConcept: aIndex.
-	self conceptButtons do: [:aButton | aButton color: self conceptSelectionButtonNormalColor].
-	(self conceptButtons at: (self selectedConcept)) color: self conceptSelectionButtonSelectedColor
+	self conceptStack selectButtonAt: aIndex
 ]
 
 {
@@ -64,110 +74,12 @@ SKLandingPage >> actionExample4 [
 ]
 
 {
-	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/2/2026 15:45'
-}
-SKLandingPage >> actionNew [
-
-	self buildEnvironment initializeWithBlankProject.
-	self delete
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:16'
-}
-SKLandingPage >> addAllButtons [
-
-	self addButton: self buildButtonNew atIndex: 0.
-	
-	self addButton: self buildButtonExample1 atIndex: 1.
-	self addButton: self buildButtonExample2 atIndex: 2.
-	self addButton: self buildButtonExample3 atIndex: 3.
-	self addButton: self buildButtonExample4 atIndex: 4
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:43'
-}
-SKLandingPage >> addButton: aButton atIndex: anInteger [
-
-	| yOffset basePosition |
-	
-	self addMorph: aButton.
-	
-	yOffset := (aButton height + 10) * (anInteger - 1).
-	
-	basePosition := self position
-		- (aButton width / 2)
-		+ (200 @ 250).
-	
-	aButton position: basePosition + (0 @ yOffset)
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:07'
 }
 SKLandingPage >> addConceptButton: aButton [
 
 	self conceptButtons add: aButton
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
-}
-SKLandingPage >> buildButtonExample1 [
-
-	^ self buildButtonWithLabel: self buttonExample1Label
-		andSelector: #actionExample1
-		andColor: SKStylesheet secondaryColor
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
-}
-SKLandingPage >> buildButtonExample2 [
-
-	^ self buildButtonWithLabel: self buttonExample2Label
-		andSelector: #actionExample2
-		andColor: SKStylesheet secondaryColor
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
-}
-SKLandingPage >> buildButtonExample3 [
-
-	^ self buildButtonWithLabel: self buttonExample3Label
-		andSelector: #actionExample3
-		andColor: SKStylesheet secondaryColor
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:15'
-}
-SKLandingPage >> buildButtonExample4 [
-
-	^ self buildButtonWithLabel: self buttonExample4Label
-		andSelector: #actionExample4
-		andColor: SKStylesheet secondaryColor
-]
-
-{
-	#category : #buttons,
-	#'squeak_changestamp' : 'LK 7/4/2024 19:12'
-}
-SKLandingPage >> buildButtonNew [
-
-	^ self buildButtonWithLabel: self buttonNewLabel
-		andSelector: #actionNew
-		andColor: SKStylesheet primaryColor
 ]
 
 {
@@ -219,6 +131,55 @@ SKLandingPage >> buildConceptSelection [
 ]
 
 {
+	#category : #buttons,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+}
+SKLandingPage >> buildConceptStack [
+
+	| stack |
+	stack := SKButtonStack new
+		selectedColor: self conceptSelectionButtonSelectedColor;
+		buttonExtent: self conceptButtonExtent;
+		yourself.
+	self concepts withIndexDo: [:concept :i |
+		stack
+			addButtonWithLabel: concept name
+			target: self
+			selector: #actionConceptSelected:
+			arguments: { i }
+			color: self conceptSelectionButtonNormalColor].
+	self conceptStack: stack.
+	^ stack
+]
+
+{
+	#category : #buttons,
+	#'squeak_changestamp' : 'JS 7/5/2026 14:16'
+}
+SKLandingPage >> buildContent [
+
+	| row topBar|
+	
+	topBar := (self submorphs select: [:each | each isKindOf: AlignmentMorph]) at: 1.
+
+	row := AlignmentMorph newRow
+		color: Color transparent;
+		cellInset: self contentSpacing;
+		layoutInset: self contentSpacing;
+		hResizing: #shrinkWrap;
+		vResizing: #shrinkWrap;
+		yourself.
+	row
+		addMorphBack: self buildProjectStack;
+		addMorphBack: self buildConceptStack.
+	self addMorph: row.
+	self extent: self extent x @ (self extent y max: row bounds height +( topBar extent y * 2)).
+	
+	row center: self center x @ self center y + (topBar extent y / 2).
+	row goBehind
+]
+
+{
 	#category : #conceptSelection,
 	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:19'
 }
@@ -228,8 +189,39 @@ SKLandingPage >> buildEnvironment [
 ]
 
 {
+	#category : #buttons,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:20'
+}
+SKLandingPage >> buildProjectStack [
+
+	| stack |
+	stack := SKButtonStack new.
+	stack
+		addButtonWithLabel: self buttonBlankProjectLabel
+		target: self
+		selector: #actionEmptyProject
+		color: SKStylesheet primaryColor.
+	self exampleProjects do: [:each |
+		stack
+			addButtonWithLabel: each key
+			target: self
+			selector: each value
+			color: SKStylesheet secondaryColor].
+	^ stack
+]
+
+{
 	#category : #labels,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:53'
+	#'squeak_changestamp' : 'JS 7/5/2026 00:18'
+}
+SKLandingPage >> buttonBlankProjectLabel [
+
+	^ 'New Blank Project'
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
 }
 SKLandingPage >> buttonExample1Label [
 
@@ -264,6 +256,42 @@ SKLandingPage >> buttonExample4Label [
 ]
 
 {
+	#category : #labels,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
+}
+SKLandingPage >> buttonExample5Label [
+
+	^ 'Example Project 5'
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
+}
+SKLandingPage >> buttonExample6Label [
+
+	^ 'Example Project 6'
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
+}
+SKLandingPage >> buttonExample7Label [
+
+	^ 'Example Project 7'
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:22'
+}
+SKLandingPage >> buttonExample8Label [
+
+	^ 'Example Project 8'
+]
+
+{
 	#category : #buttons,
 	#'squeak_changestamp' : 'LK 7/4/2024 19:06'
 }
@@ -273,12 +301,12 @@ SKLandingPage >> buttonHeight [
 ]
 
 {
-	#category : #labels,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:52'
+	#category : #layout,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
 }
-SKLandingPage >> buttonNewLabel [
+SKLandingPage >> conceptButtonExtent [
 
-	^ 'New Blank Project'
+	^ 150 px @ 20 px
 ]
 
 {
@@ -288,6 +316,15 @@ SKLandingPage >> buttonNewLabel [
 SKLandingPage >> conceptButtons [
 
 	^ conceptButtons ifNil: [conceptButtons := OrderedCollection new]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:14'
+}
+SKLandingPage >> conceptButtons: anOrderedCollection [
+
+	conceptStack := anOrderedCollection
 ]
 
 {
@@ -309,6 +346,24 @@ SKLandingPage >> conceptSelectionButtonSelectedColor [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+}
+SKLandingPage >> conceptStack [
+
+	^ conceptStack
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+}
+SKLandingPage >> conceptStack: aStack [
+
+	conceptStack := aStack
+]
+
+{
 	#category : #conceptSelection,
 	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 10:15'
 }
@@ -318,27 +373,53 @@ SKLandingPage >> concepts [
 ]
 
 {
-	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 20:42'
+	#category : #layout,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
 }
-SKLandingPage >> defaultExtent [
+SKLandingPage >> contentSpacing [
 
-	^ 350 px @ 200 px
+	^ 12
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:18'
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+}
+SKLandingPage >> defaultExtent [
+
+	^ 420 px @ 280 px
+]
+
+{
+	#category : #buttons,
+	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
+}
+SKLandingPage >> exampleProjects [
+
+	^ {
+		self buttonExample1Label -> #actionExample1.
+		self buttonExample2Label -> #actionExample2.
+		self buttonExample3Label -> #actionExample3.
+		self buttonExample4Label -> #actionExample4.
+		self buttonExample5Label -> #actionExample5.
+		self buttonExample6Label -> #actionExample6.
+		self buttonExample7Label -> #actionExample7.
+		self buttonExample8Label -> #actionExample8
+	}
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'JS 7/5/2026 14:03'
 }
 SKLandingPage >> initialize [
-
+	
 	super initialize.
 	
 	self setLabel: self windowTitle;
 		openInHand;
 		extent: self defaultExtent;
-		addAllButtons;
-		buildConceptSelection;
+		buildContent;
 		actionConceptSelected: 1
 ]
 

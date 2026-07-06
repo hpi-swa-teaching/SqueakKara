@@ -1,6 +1,15 @@
 GSMetadata {
 	#version : 1,
 	#mappers : [
+		GSTonelMapper {
+			#version : 1,
+			#package : MCPackage {
+				#name : 'SqueakKara-ProgrammingBlocks'
+			},
+			#path : FSAbsolutePath [
+				'src'
+			]
+		},
 		GSImageMapper {
 			#version : 1,
 			#path : FSAbsolutePath [
@@ -8,6 +17,15 @@ GSMetadata {
 				'Mushrooms.png'
 			],
 			#encoding : Class [ #PNGReadWriter ]
+		},
+		GSPlaintextMapper {
+			#version : 1,
+			#path : FSAbsolutePath [
+				'.github',
+				'ISSUE_TEMPLATE',
+				'user-story.md'
+			],
+			#encoding : 'TXT'
 		},
 		GSPlaintextMapper {
 			#version : 1,
@@ -38,7 +56,7 @@ GSMetadata {
 				'assets',
 				'pause.png'
 			],
-			#encoding : @5
+			#encoding : @8
 		},
 		GSImageMapper {
 			#version : 1,
@@ -46,7 +64,7 @@ GSMetadata {
 				'assets',
 				'play.png'
 			],
-			#encoding : @5
+			#encoding : @8
 		},
 		GSPlaintextMapper {
 			#version : 1,
@@ -61,14 +79,14 @@ GSMetadata {
 				'assets',
 				'Trunk.png'
 			],
-			#encoding : @5
+			#encoding : @8
 		},
 		GSTonelMapper {
 			#version : 1,
 			#package : MCPackage {
 				#name : 'SqueakKara-Tests'
 			},
-			#path : @10
+			#path : @15
 		},
 		GSImageMapper {
 			#version : 1,
@@ -76,7 +94,7 @@ GSMetadata {
 				'assets',
 				'stop.png'
 			],
-			#encoding : @5
+			#encoding : @8
 		},
 		GSImageMapper {
 			#version : 1,
@@ -84,7 +102,7 @@ GSMetadata {
 				'assets',
 				'Cloverleaf.png'
 			],
-			#encoding : @5
+			#encoding : @8
 		},
 		GSPlaintextMapper {
 			#version : 1,
@@ -108,14 +126,14 @@ GSMetadata {
 				'assets',
 				'Kara-FacingUp.png'
 			],
-			#encoding : @5
+			#encoding : @8
 		},
 		GSTonelMapper {
 			#version : 1,
 			#package : MCPackage {
 				#name : 'SqueakKara-Core'
 			},
-			#path : @10
+			#path : @15
 		},
 		GSImageMapper {
 			#version : 1,
@@ -123,7 +141,7 @@ GSMetadata {
 				'assets',
 				'reset.png'
 			],
-			#encoding : @5
+			#encoding : @8
 		},
 		GSPlaintextMapper {
 			#version : 1,

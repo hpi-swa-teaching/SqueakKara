@@ -1,16 +1,23 @@
+"
+A SKActionSlotPart is a Gap for placing SKActionBlocks inside other SKBlocks. e.g. used to build if-statements
+
+Instance Variables
+
+"
 Class {
 	#name : #SKActionSlotPart,
 	#superclass : #SKInputSlotPart,
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:33'
 }
 
 {
 	#category : #attaching,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:37'
+	#'squeak_changestamp' : 'SLH 7/4/2026 14:09'
 }
 SKActionSlotPart >> connectionPointPositionForType: aConnectionPointType [
 
-	^ self topLeft + ((self block tabOffsetInner + self block slantWidth + (self block tabWidth // 2) - self block borderWidth) @ (self block tabHeight))
+	^ self boundsInWorld topLeft + ((self block tabOffsetInner + self block slantWidth + (self block tabWidth // 2) - self block borderWidth) @ (self block tabHeight))
 ]
 
 {

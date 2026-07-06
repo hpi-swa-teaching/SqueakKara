@@ -1,3 +1,17 @@
+"
+A SKBlockRow is a Container for a Row of (usually) Block Parts inside a SKBlock as an SKBlock can visually represent a stack of multiple rows.
+
+Instance Variables
+	block:		<Object>
+	isGap:		<Object>
+
+block
+	- the block this row is part of
+
+isGap
+	- wether this row should leave space to attach (usually) SKAction Blocks
+
+"
 Class {
 	#name : #SKBlockRow,
 	#superclass : #Morph,
@@ -5,7 +19,8 @@ Class {
 		'block',
 		'isGap'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:39'
 }
 
 {
@@ -37,16 +52,16 @@ SKBlockRow >> block: aBlock [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:07'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:57'
 }
 SKBlockRow >> connectionPoint [
 
-	^ self bottomLeft + ((self block tabOffsetOuter + self block slantWidth + (self block tabWidth / 2)) @ 0)
+	^ self bottomLeft + ((self block tabOffsetOuter + self block slantWidth + (self block tabWidth // 2)) @ 0)
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:07'
+	#'squeak_changestamp' : 'FR 7/3/2026 02:56'
 }
 SKBlockRow >> initialize [
 	
@@ -60,8 +75,6 @@ SKBlockRow >> initialize [
     		cellPositioning: #center;
 		cellGap: SKBlockStyle unit * 3;
 		color: Color transparent;
-		"borderWidth: 1;
-		borderColor: Color black;"
 		height: SKBlockStyle tabHeight * 3
 ]
 
@@ -85,7 +98,7 @@ SKBlockRow >> isGap: aBoolean [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/9/2026 01:48'
+	#'squeak_changestamp' : 'FR 6/23/2026 17:32'
 }
 SKBlockRow >> layoutInset [
 

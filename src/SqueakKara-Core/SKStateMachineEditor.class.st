@@ -5,16 +5,17 @@ Class {
 		'playGround',
 		'mode',
 		'selectedNode',
-		'buttons',
+		'modeStack',
 		'nodesToDelete',
-		'nodeCounter'
+		'nodeCounter',
+		'buttonPanel'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:13'
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 14:48'
 }
 SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 
@@ -24,14 +25,21 @@ SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 	self playGround addEdge: edge.
 	
 	aNode addDependent: edge.
-	anotherNode addDependent: edge.
+	aNode addEdge: edge;
+		calculateBestEdgeDirections.
+
+	(anotherNode = aNode) ifFalse: [	
+		anotherNode addEdge: edge;
+			addDependent: edge;
+			calculateBestEdgeDirections].
+
 	edge update: #unusedValue. 
 	self actionSelectEdge: edge
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/16/2026 16:41'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:56'
 }
 SKStateMachineEditor >> actionCreateNode [
 
@@ -41,24 +49,25 @@ SKStateMachineEditor >> actionCreateNode [
 	
 	self nodeCounterPP.
 	self playGround addNode: node.
+	node createNodeTextMorph.
 	node openInHand
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/10/2026 13:02'
+	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:32'
 }
 SKStateMachineEditor >> actionDeleteEdge: aEdge [
 
 	self playGround removeEdge: aEdge.
-	aEdge fromNode ifNil: [
-		aEdge toNode isStartingNode: false].
+	aEdge fromNode removeEdge: aEdge.
+	aEdge fromNode = aEdge toNode ifFalse: [aEdge toNode removeEdge: aEdge].
 	aEdge delete
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/16/2026 19:30'
+	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:39'
 }
 SKStateMachineEditor >> actionDeleteNode: aNode [
 	
@@ -66,7 +75,7 @@ SKStateMachineEditor >> actionDeleteNode: aNode [
 	
 	aNode isStartingNode ifTrue: [^nil].
 		
-	belongingEdges := OrderedCollection new.
+	belongingEdges := Set new.
 	belongingEdges
 		addAll: (self playGround findAllEdgesToNode: aNode);
 		addAll: (self playGround findAllEdgesFromNode: aNode).
@@ -98,57 +107,102 @@ SKStateMachineEditor >> actionSelectEdge: aEdge [
 ]
 
 {
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:52'
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:34'
 }
-SKStateMachineEditor >> addButton: aButton [
+SKStateMachineEditor >> actionSelectNode: aNode [
 
-	self buttons add: aButton
+	self unselectAll.
+	aNode selectNode
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:48'
+	#'squeak_changestamp' : 'JS 7/5/2026 15:53'
 }
-SKStateMachineEditor >> buildButtonForMode: aMode withLabel: aString [
+SKStateMachineEditor >> buildActionButtonStack [
 
-	^ self buildButtonWithActionSelector: #toggleMode: arguments: { aMode } label: aString
+	| stack |
+
+	stack := SKButtonStack new
+		cellInset: self modeButtonVerticalDistance;
+		buttonExtent: self modeButtonSize;
+		yourself.
+	stack
+		addButtonWithLabel: 'Create Node'
+		target: self
+		selector: #actionCreateNode
+		color: self modeButtonDefaultColor.
+	^ stack
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:47'
+	#'squeak_changestamp' : 'JS 7/5/2026 16:34'
 }
-SKStateMachineEditor >> buildButtonWithActionSelector: aActionSelector arguments: aArgumentCollection label: aString [
+SKStateMachineEditor >> buildButtonPanel [
 
-	| button |
+	self buttonPanel: (AlignmentMorph newColumn
+		color: Color transparent;
+		cellInset: self modeButtonVerticalDistance;
+		hResizing: #shrinkWrap;
+		vResizing: #shrinkWrap;
+		yourself).
+	self buttonPanel
+		addMorphBack: self buildActionButtonStack;
+		addMorphBack: self buildModeButtonStack.
+	self addMorph: self buttonPanel
+]
 
-	button := SimpleButtonMorph new
-		label: aString;
-		extent: self modeButtonSize;
-		color: self modeButtonNormalColor;
-		target: self;
-		actionSelector: aActionSelector;
-		arguments: aArgumentCollection.
-	^ button
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'JS 7/5/2026 15:54'
+}
+SKStateMachineEditor >> buildModeButtonStack [
+
+	| stack |
+
+	stack := SKButtonStack new
+		cellInset: self modeButtonVerticalDistance;
+		buttonExtent: self modeButtonSize;
+		selectedColor: self modeButtonSelectedColor;
+		yourself.
+	self modes do: [:aMode |
+		stack
+			addButtonWithLabel: (self modeLables at: aMode)
+			target: self
+			selector: #toggleMode:
+			arguments: { aMode }
+			color: self modeButtonDefaultColor].
+	self modeStack: stack.
+	^ stack
 ]
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:52'
+	#'squeak_changestamp' : 'S 7/2/2026 12:04'
 }
-SKStateMachineEditor >> buttons [
+SKStateMachineEditor >> buttonPanel [
 
-	^ buttons ifNil: [buttons := OrderedCollection new]
+	^ buttonPanel
 ]
 
 {
-	#category : #modes,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:19'
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/5/2026 16:33'
 }
-SKStateMachineEditor >> colorAllModeButtonsNormal [
+SKStateMachineEditor >> buttonPanel: aButtonStack [
 
-	self buttons do: [:button| button color: self modeButtonNormalColor]
+	buttonPanel := aButtonStack
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+}
+SKStateMachineEditor >> buttonPanelOffset [
+
+	^ 20
 ]
 
 {
@@ -158,6 +212,15 @@ SKStateMachineEditor >> colorAllModeButtonsNormal [
 SKStateMachineEditor >> deselectAllEdges [
 
 	self playGround edges do: [:aEdge | self actionDeselectEdge: aEdge]
+]
+
+{
+	#category : #const,
+	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 16:11'
+}
+SKStateMachineEditor >> edgeSelectionDistance [
+
+	^ 40
 ]
 
 {
@@ -179,6 +242,25 @@ SKStateMachineEditor >> enqueueNodeToDelete: aNode [
 ]
 
 {
+	#category : #layout,
+	#'squeak_changestamp' : 'Lars Kuhr 7/2/2026 12:04'
+}
+SKStateMachineEditor >> extent: aPoint [
+
+	super extent: aPoint.
+	self relayoutContents
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:38'
+}
+SKStateMachineEditor >> handelSelectModeNodeClicked: aNode [
+
+	self actionSelectNode: aNode
+]
+
+{
 	#category : #helper,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:20'
 }
@@ -194,11 +276,12 @@ SKStateMachineEditor >> handleDeleteModePlayGroundClicked: aPosition [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'JS 6/16/2026 19:00'
+	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 16:11'
 }
 SKStateMachineEditor >> handleEdgeModeNodeClicked: aNode [
 
-	self selectedNode = aNode ifTrue: [
+	(self selectedNode = aNode) ifTrue: [
+		self actionAddEdgeFrom: self selectedNode to: aNode.
 		self selectedNode: nil.
 		^ nil].
 	
@@ -237,7 +320,7 @@ SKStateMachineEditor >> hasNodesToDelete [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/16/2026 16:49'
+	#'squeak_changestamp' : 'JS 7/5/2026 16:15'
 }
 SKStateMachineEditor >> initialize [
 
@@ -248,75 +331,31 @@ SKStateMachineEditor >> initialize [
 		paneColor: Color white;
 		setLabel: self windowTitle.
 	
+	self addMorph: self playGround.
+	self buildButtonPanel.
+	self relayoutContents.
 	self initializePlayground.
-			
-	self initializeButtons.
 	self toggleMode: #drag
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:01'
-}
-SKStateMachineEditor >> initializeButtons [
-	
-	| container |
-	
-	container := AlignmentMorph newColumn.
-	container 
-		position: (self position + (1100 @ 50));
-		cellInset: self modeButtonVerticalDistance.
-	container
-		addMorph: self initilazieActionButtons;
-		addMorph: self initializeModeButtons.
-	self addMorph: container
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:55'
-}
-SKStateMachineEditor >> initializeModeButtons [
-
-	| container modeLabels button |
-	
-	container := AlignmentMorph newColumn.
-	container 
-		cellInset: self modeButtonVerticalDistance;
-		color: Color transparent.
-	
-	modeLabels := self modeLables.
-	
-	self modes do: [:mode | 
-		button := self buildButtonForMode: mode withLabel: (modeLabels at: mode).
-		self addButton: button.
-		container addMorph:  button].
-	
-	^ container
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'LP 6/17/2026 00:48'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 13:08'
 }
 SKStateMachineEditor >> initializePlayground [
 
-|startingNode|
+	|startingNode|
 
-	self playGround
-			extent: 1400@900;
-			color: Color white;
-			position: (self position + (50@100)).
-	self addMorph: self playGround.
+	self playGround color: Color white.
 	
 	startingNode := SKMealyNode newWithName: self nodeCounter asString.
 	self nodeCounterPP.
-	startingNode isStartingNode: true; isDraggable: false.
+	startingNode isStartingNode: true. 
 	startingNode addMorph: (StringMorph new
 		contents: 'START';
 		color: Color black;
 		emphasis: TextEmphasis bold emphasisCode;
-		font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: 12);
+		font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: 8);
 		center: startingNode center).
 		
 	self playGround addNode: startingNode.
@@ -325,35 +364,6 @@ SKStateMachineEditor >> initializePlayground [
 	startingNode center: self playGround center
 	
 
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:57'
-}
-SKStateMachineEditor >> initilazieActionButtons [
-
-	| container |
-	
-	container := AlignmentMorph newColumn.
-	container 
-		cellInset: self modeButtonVerticalDistance;
-		color: Color transparent.
-	container addMorph: (self buildButtonWithActionSelector: #actionCreateNode arguments: {} label: 'Create Node').
-	^ container
-]
-
-{
-	#category : #modes,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 10:24'
-}
-SKStateMachineEditor >> markModeButtonSelected: aMode [
-
-	| selectedButton buttonLabel |
-	
-	buttonLabel := self modeLables at: aMode.
-	selectedButton := self buttons detect: [:button| button label = buttonLabel].
-	selectedButton color: self modeButtonSelectedColor
 ]
 
 {
@@ -376,9 +386,9 @@ SKStateMachineEditor >> mode: aMode [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:48'
+	#'squeak_changestamp' : 'JS 7/5/2026 15:53'
 }
-SKStateMachineEditor >> modeButtonNormalColor [
+SKStateMachineEditor >> modeButtonDefaultColor [
 
 	^ SKStylesheet colorLightGreen
 ]
@@ -428,24 +438,42 @@ SKStateMachineEditor >> modeLables [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+}
+SKStateMachineEditor >> modeStack [
+
+	^ modeStack
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+}
+SKStateMachineEditor >> modeStack: aStack [
+
+	modeStack := aStack
+]
+
+{
 	#category : #modes,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:13'
+	#'squeak_changestamp' : 'JS 7/5/2026 15:55'
 }
 SKStateMachineEditor >> modes [
 	
-	"first item is the last item in the list"
 	^ { #edge. #delete. #drag. #select }
 ]
 
 {
 	#category : #events,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:20'
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:28'
 }
 SKStateMachineEditor >> nodeClicked: aNode [
 
 	self mode caseOf: {
 		[#delete] -> [self actionDeleteNode: aNode].
-		[#edge]   -> [self handleEdgeModeNodeClicked: aNode]
+		[#edge]   -> [self handleEdgeModeNodeClicked: aNode].
+		[#select] -> [self handelSelectModeNodeClicked: aNode]
 	} otherwise: []
 ]
 
@@ -516,15 +544,34 @@ SKStateMachineEditor >> queueNodeToDelete: aNode [
 ]
 
 {
+	#category : #layout,
+	#'squeak_changestamp' : 'JS 7/5/2026 16:36'
+}
+SKStateMachineEditor >> relayoutContents [
+
+	| content playGroundExtent |
+	
+	self buttonPanel ifNil: [^ self].
+	content := self innerBounds insetBy: (0 @ self labelHeight corner: 0 @ 0).
+	content := content insetBy: self buttonPanelOffset.
+	playGroundExtent :=
+		(content width - self buttonPanel extent x - self buttonPanelOffset) @ content height.
+	self playGround
+		position: content topLeft;
+		extent: playGroundExtent.
+	self buttonPanel
+		position: self playGround topRight + (self buttonPanelOffset @ 0)
+]
+
+{
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:45'
+	#'squeak_changestamp' : 'JS 7/5/2026 15:56'
 }
 SKStateMachineEditor >> selectEdgeNear: aPosition [
 
 	| edge distance limit |
 	
-	"max distance from the line where it will be clicked"
-	limit := 50.
+	limit := self edgeSelectionDistance.
 	
 	edge := self playGround findNearestEdge: aPosition.
 	edge ifNil: [^ nil].
@@ -547,15 +594,15 @@ SKStateMachineEditor >> selectedNode [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:26'
+	#'squeak_changestamp' : 'JS 7/5/2026 15:56'
 }
 SKStateMachineEditor >> selectedNode: aNode [
 
 	aNode 
-		ifNil: [ selectedNode ifNotNil: [selectedNode unselectNode]]
-		ifNotNil: [aNode selectNode].
+		ifNil: [ selectedNode ifNotNil: [selectedNode unmarkNode]]
+		ifNotNil: [aNode markNode].
 	
-	selectedNode := aNode.
+	selectedNode := aNode
 ]
 
 {
@@ -581,15 +628,28 @@ SKStateMachineEditor >> stepTime [
 
 {
 	#category : #modes,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:43'
+	#'squeak_changestamp' : 'JS 7/5/2026 15:57'
 }
 SKStateMachineEditor >> toggleMode: aMode [
 
-	self 
-		colorAllModeButtonsNormal;
-		markModeButtonSelected: aMode;
-		deselectAllEdges;
-		mode: aMode
+	| label button |
+
+	self unselectAll.
+	self deselectAllEdges.
+	self mode: aMode.
+	label := self modeLables at: aMode.
+	button := self modeStack buttons detect: [:each | each label = label].
+	self modeStack select: button
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:34'
+}
+SKStateMachineEditor >> unselectAll [
+	
+	self playGround nodes do: [:anotherNode| anotherNode unselectNode]
+	
 ]
 
 {

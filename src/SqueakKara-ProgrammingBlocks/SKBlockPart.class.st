@@ -1,10 +1,21 @@
+"
+A SKBlockPart is Part making up the contents of a SKBlock.
+
+Instance Variables
+	block:		<Object>
+
+block
+	- the owning Block
+
+"
 Class {
 	#name : #SKBlockPart,
 	#superclass : #Morph,
 	#instVars : [
 		'block'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 6/30/2026 21:30'
 }
 
 {
@@ -36,9 +47,9 @@ SKBlockPart >> type [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:02'
+	#'squeak_changestamp' : 'FR 6/29/2026 21:20'
 }
 SKBlockPart >> updateLayout [
 
-	self block updateLayout
+	self block ifNotNil: [self block updateLayout] 
 ]

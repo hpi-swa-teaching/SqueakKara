@@ -1,3 +1,44 @@
+"
+A SKBlock is the (visual) representation of a segment of code used to program the behaviour of a SqueakKara Kara object. It mainly handles the connection-process to other SKBlocks.
+
+Instance Variables
+	actionConnectionPoints:		<Object>
+	anchorPoint:		<Object>
+	blockParts:		<Object>
+	blockRows:		<Object>
+	category:		<Object>
+	leftSource:		<Object>
+	valueConnectionPoints:		<Object>
+	isPreview:		<Object>
+	previewBlock: 	<Object>
+
+actionConnectionPoints
+	- Points where ActionBlocks (see SKActionBlock) can be connected to this block
+
+anchorPoint
+	- Point where this instance wants to be connected to another SKBlock
+
+blockParts
+	- Parts making up rows of this block (e.g. see SKBlockPart)
+
+blockRows
+	- Rows making up this block (see SKBlockRow)
+
+category
+	- used for consistent coloring + possibility for meta-programming
+
+leftSource
+	- boolean wether this Block is still in the BlockSource -> affects wether the block is draggable and editable
+
+valueConnectionPoints
+	- Points where ValueBlocks (see SKValueBlock) can be connected to this block
+	
+isPreview
+	- wether this Block is a (grayed out) preview of a block or an actual block
+
+previewBlock
+	- the preview block (if any) that is currently displayed where this block could be dropped
+"
 Class {
 	#name : #SKBlock,
 	#superclass : #Morph,
@@ -8,9 +49,12 @@ Class {
 		'category',
 		'anchorPoint',
 		'actionConnectionPoints',
-		'valueConnectionPoints'
+		'valueConnectionPoints',
+		'isPreview',
+		'previewBlock'
 	],
-	#category : #'SqueakKara-Core'
+	#category : #'SqueakKara-ProgrammingBlocks',
+	#'squeak_changestamp' : 'FR 7/5/2026 22:36'
 }
 
 {
@@ -78,6 +122,25 @@ SKBlock >> addConnectionPoint: aConnectionPoint [
 
 {
 	#category : #accessing,
+	#'squeak_changestamp' : 'FR 7/3/2026 02:32'
+}
+SKBlock >> addEmptyIntegerPart [
+	
+	| textSlotPart |
+	
+	textSlotPart := SKTextSlotPart new type: #Integer.
+	textSlotPart defaultUI: 
+		(textSlotPart defaultUI addMorphBack:
+			(Morph new color: Color transparent;
+				extent: textSlotPart defaultUIEntry extent);
+			removeMorph: textSlotPart defaultUIEntry).
+	textSlotPart restoreDefault.
+	
+	^ self addInputSlotPart: (textSlotPart)
+]
+
+{
+	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 19:39'
 }
 SKBlock >> addInputSlotPart: anInputSlotPart [
@@ -135,39 +198,18 @@ SKBlock >> anchorPoint [
 ]
 
 {
-	#category : #colors,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:11'
+	#category : #'submorphs - callbacks',
+	#'squeak_changestamp' : 'FR 7/3/2026 02:34'
 }
-SKBlock >> blockDefaultBorderColor [
-
-	^ SKStylesheet colorOrange
-]
-
-{
-	#category : #colors,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:11'
-}
-SKBlock >> blockDefaultColor [
-
-	^ SKStylesheet colorBeige
-]
-
-{
-	#category : #colors,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:11'
-}
-SKBlock >> blockMovementBorderColor [
-
-	^ SKStylesheet colorBlue
-]
-
-{
-	#category : #colors,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:12'
-}
-SKBlock >> blockMovementColor [
-
-	^ SKStylesheet colorLightBlue
+SKBlock >> blockCount [
+	
+	| result |
+	
+	result := 1.
+	self actionConnectionPoints ifEmpty: [^0]
+		ifNotEmpty: [self actionConnectionPoints do:[:each | each connectedPoint ifNotNil:
+				[result := result + each connectedPoint uiDelegate blockCount]]].
+	^ result
 ]
 
 {
@@ -189,25 +231,6 @@ SKBlock >> blockRows [
 ]
 
 {
-	#category : #colors,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:12'
-}
-SKBlock >> blockSensingBorderColor [
-
-	^ SKStylesheet colorGreen
-
-]
-
-{
-	#category : #colors,
-	#'squeak_changestamp' : 'JS 6/9/2026 00:12'
-}
-SKBlock >> blockSensingColor [
-
-	^ SKStylesheet colorLightGreen
-]
-
-{
 	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:09'
 }
@@ -218,13 +241,11 @@ SKBlock >> blockType [
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:16'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:19'
 }
 SKBlock >> borderColorFromCategory [
 
-	^((Dictionary new at: #default put: self blockDefaultBorderColor;
-		at: #movement put: self blockMovementBorderColor;
-		at: #sensing put: self blockSensingBorderColor; yourself) at: self category)
+	^ SKBlockStyle borderColorByCategory at: self category
 ]
 
 {
@@ -250,13 +271,11 @@ SKBlock >> category: aCategory [
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:16'
+	#'squeak_changestamp' : 'FR 6/23/2026 19:18'
 }
 SKBlock >> colorFromCategory [
 
-	^ (Dictionary new at: #default put: self blockDefaultColor;
-		at: #movement put: self blockMovementColor;
-		at: #sensing put: self blockSensingColor; yourself) at: self category
+	^ SKBlockStyle colorByCategory at: self category
 ]
 
 {
@@ -270,13 +289,13 @@ SKBlock >> connectionPointPositionForType: aConnectionPointType [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
+	#'squeak_changestamp' : 'FR 6/24/2026 17:16'
 }
 SKBlock >> findClosestSnapTargetIn: anObject [
 
 	| closestConnectionPoint shortestDistance currentDistance |
 
-	shortestDistance := 20.
+	shortestDistance := self snapRadius.
 	closestConnectionPoint := nil.
 	
 	(self validSnapConnectionsIn: anObject) do: [:each |
@@ -295,6 +314,20 @@ SKBlock >> findClosestSnapTargetIn: anObject [
 SKBlock >> getCode [
 
 	self subclassResponsibility
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/24/2026 14:45'
+}
+SKBlock >> getPreview [
+
+	^ previewBlock ifNil: [
+		previewBlock := self copy
+			isPreview: true;
+			color: Color gray;
+			borderColor: Color gray;
+			removeAllMorphs]
 ]
 
 {
@@ -317,7 +350,7 @@ SKBlock >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:58'
+	#'squeak_changestamp' : 'FR 6/23/2026 18:57'
 }
 SKBlock >> initialize [
 	
@@ -333,8 +366,26 @@ SKBlock >> initialize [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/24/2026 11:54'
+}
+SKBlock >> isPreview [
+
+	^ isPreview ifNil: [isPreview := false]
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'SLH 6/24/2026 11:54'
+}
+SKBlock >> isPreview: aBoolean [
+
+	isPreview := aBoolean
+]
+
+{
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'FR 6/8/2026 16:54'
+	#'squeak_changestamp' : 'FR 6/24/2026 01:12'
 }
 SKBlock >> justDroppedInto: anObject event: anEvent [
 
@@ -398,7 +449,7 @@ SKBlock >> mouseDown: anEvent [
 ]
 
 {
-	#category : #'dropping/grabbing',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
 }
 SKBlock >> rejectDropMorphEvent: anEvent [
@@ -423,11 +474,11 @@ SKBlock >> removedMorph: aMorph [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:17'
+	#'squeak_changestamp' : 'FR 6/24/2026 17:18'
 }
 SKBlock >> snapRadius [
 
-	^SKBlockStyle unit * 20.
+	^ SKBlockStyle blockPartHeight
 ]
 
 {
@@ -445,7 +496,7 @@ SKBlock >> snapToTarget: aConnectionPoint [
 ]
 
 {
-	#category : #'dropping/grabbing',
+	#category : #'event handling',
 	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
 }
 SKBlock >> startDrag: anEvent [
@@ -454,7 +505,7 @@ SKBlock >> startDrag: anEvent [
 ]
 
 {
-	#category : #accessing,
+	#category : #layout,
 	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
 }
 SKBlock >> tabHeight [
@@ -464,7 +515,7 @@ SKBlock >> tabHeight [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:32'
+	#'squeak_changestamp' : 'SLH 7/4/2026 16:43'
 }
 SKBlock >> updateLayout [
 
@@ -476,12 +527,15 @@ SKBlock >> updateLayout [
 	height := (self blockRows collect: #height) sum + self tabHeight + (self borderWidth * 2).
 	
 	self extent: width@height.
+	self changed.
 	
 	self anchorPoint isConnected ifTrue: [
 		self anchorPoint connectedPoint uiDelegate 
 			layoutChanged;
 			changed;
 			updateLayout]
+	ifFalse: [(self ownerThatIsA: SKBlockEditor) ifNotNil:
+		[(self ownerThatIsA: SKBlockEditor) expandIfNeededToInclude: self fullBounds]]
 ]
 
 {
