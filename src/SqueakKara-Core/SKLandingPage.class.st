@@ -250,7 +250,7 @@ SKLandingPage >> buttonExample3Label [
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'JS 7/6/2026 04:22'
+	#'squeak_changestamp' : 'JS 7/6/2026 10:16'
 }
 SKLandingPage >> buttonExample4Label [
 
@@ -259,11 +259,11 @@ SKLandingPage >> buttonExample4Label [
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'JS 7/6/2026 03:19'
+	#'squeak_changestamp' : 'JS 7/6/2026 10:16'
 }
 SKLandingPage >> buttonExample5Label [
 
-	^ 'TBC'
+	^ SKLevelWorld1Level5 levelName
 ]
 
 {
@@ -295,11 +295,11 @@ SKLandingPage >> buttonExample8Label [
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'JS 7/6/2026 03:22'
+	#'squeak_changestamp' : 'JS 7/6/2026 09:35'
 }
 SKLandingPage >> buttonExample9Label [
 
-	^ 'TBC'
+	^ SKLevelWorld2Level4 levelName
 ]
 
 {

@@ -20,11 +20,11 @@ SKLevelWorld1Level1 class >> levelName [
 
 {
 	#category : #constants,
-	#'squeak_changestamp' : 'JS 7/6/2026 03:13'
+	#'squeak_changestamp' : 'JS 7/6/2026 10:15'
 }
 SKLevelWorld1Level1 >> blockLimit [
 
-	^ 2
+	^ 5
 ]
 
 {
@@ -44,6 +44,15 @@ SKLevelWorld1Level1 >> build [
 SKLevelWorld1Level1 >> height [
 	
 	^ 4
+]
+
+{
+	#category : #constants,
+	#'squeak_changestamp' : 'JS 7/6/2026 10:08'
+}
+SKLevelWorld1Level1 >> nextLevel [
+
+	^ 'SKLevelWorld1Level2'
 ]
 
 {

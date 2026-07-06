@@ -102,6 +102,15 @@ SKLevel >> initializeWithEnvironment: anEnvironment [
 ]
 
 {
+	#category : #constants,
+	#'squeak_changestamp' : 'JS 7/6/2026 10:07'
+}
+SKLevel >> nextLevel [
+
+	^ self subclassResponsibility
+]
+
+{
 	#category : #placing,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 11:25'
 }

@@ -6,7 +6,8 @@ Class {
 	#superclass : #SKGridObject,
 	#instVars : [
 		'viewDirection',
-		'movementBlocked'
+		'movementBlocked',
+		'environment'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
@@ -58,11 +59,14 @@ SKKara >> blockMovement [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'makrosophos 6/24/2026 12:00'
+	#'squeak_changestamp' : 'JS 7/6/2026 10:10'
 }
 SKKara >> celebrateCloverleaf [
 
-	SKConfetti explodeAt: self center
+	SKConfetti explodeAt: self center.
+	3 second asDelay wait.
+	self environment systemWindow delete.
+	self environment initializeWithLevel: self environment level nextLevel.
 ]
 
 {
@@ -94,6 +98,22 @@ SKKara >> colorNotBlack: aColor [
 SKKara >> defaultColor [
 
 	^ Color red
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/6/2026 10:05'
+}
+SKKara >> environment [
+	^ environment
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/6/2026 10:05'
+}
+SKKara >> environment: anObject [
+	environment := anObject
 ]
 
 {

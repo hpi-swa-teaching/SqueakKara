@@ -80,6 +80,15 @@ SKLevelWorld2Level2 >> height [
 
 {
 	#category : #constants,
+	#'squeak_changestamp' : 'JS 7/6/2026 10:11'
+}
+SKLevelWorld2Level2 >> nextLevel [
+
+	^ 'SKLevelWorld2Level3'
+]
+
+{
+	#category : #constants,
 	#'squeak_changestamp' : 'JS 6/23/2026 16:06'
 }
 SKLevelWorld2Level2 >> width [

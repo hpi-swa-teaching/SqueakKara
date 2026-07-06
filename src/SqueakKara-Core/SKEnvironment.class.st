@@ -35,11 +35,12 @@ SKEnvironment class >> newWithProgrammingConcept: aConcept [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:02'
+	#'squeak_changestamp' : 'JS 7/6/2026 10:05'
 }
 SKEnvironment >> addKara: aKara [
 
-	self karas add: aKara
+	self karas add: aKara.
+	aKara environment: self
 ]
 
 {
@@ -366,6 +367,18 @@ SKEnvironment >> programmingUI [
 SKEnvironment >> programmingUI: aProgrammingUI [
 
 	programmingUI := aProgrammingUI
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'JS 7/6/2026 10:40'
+}
+SKEnvironment >> replaceWithLevel: aLevel [
+
+	self gameHeight: 400.
+	self gameWidth: 550.
+	self level: ((Smalltalk at: aLevel asSymbol) new initializeWithEnvironment: self).
+
 ]
 
 {
