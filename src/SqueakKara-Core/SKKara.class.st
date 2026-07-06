@@ -6,7 +6,8 @@ Class {
 	#superclass : #SKGridObject,
 	#instVars : [
 		'viewDirection',
-		'movementBlocked'
+		'movementBlocked',
+		'environment'
 	],
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'JJG 7/1/2024 15:56'
@@ -58,11 +59,17 @@ SKKara >> blockMovement [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'makrosophos 6/24/2026 12:00'
+	#'squeak_changestamp' : 'JS 7/6/2026 11:47'
 }
 SKKara >> celebrateCloverleaf [
 
-	SKConfetti explodeAt: self center
+	SKConfetti explodeAt: self center.
+	3 second asDelay wait.
+	self environment 
+		ifNotNil: [
+		self environment systemWindow delete.
+		self environment resetSizeToDefault.
+		self environment initializeWithLevel: self environment level nextLevel]
 ]
 
 {
@@ -94,6 +101,22 @@ SKKara >> colorNotBlack: aColor [
 SKKara >> defaultColor [
 
 	^ Color red
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/6/2026 10:05'
+}
+SKKara >> environment [
+	^ environment
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'JS 7/6/2026 10:05'
+}
+SKKara >> environment: anObject [
+	environment := anObject
 ]
 
 {
@@ -257,7 +280,7 @@ SKKara >> position: aPoint [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'Gustav Meinshausen 6/10/2026 16:25'
+	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 09:45'
 }
 SKKara >> push [
 
@@ -336,7 +359,7 @@ SKKara >> scaleToFactor [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'ND 5/20/2026 15:52'
+	#'squeak_changestamp' : 'JS 6/23/2026 18:54'
 }
 SKKara >> setTexture [
 
@@ -352,7 +375,6 @@ SKKara >> setTexture [
 	self rotate.
 	self originalImage: aForm.
 	self updateColorFor: aForm
-	
 
 ]
 
@@ -425,7 +447,7 @@ SKKara >> updateColorFor: aForm [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
+	#'squeak_changestamp' : 'JS 6/23/2026 16:01'
 }
 SKKara >> viewDirection [
 	
@@ -434,7 +456,7 @@ SKKara >> viewDirection [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:53'
+	#'squeak_changestamp' : 'JS 6/23/2026 18:54'
 }
 SKKara >> viewDirection: aDirection [
 	

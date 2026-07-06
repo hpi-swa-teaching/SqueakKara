@@ -68,17 +68,37 @@ SKWorkspace >> executer: anExecuter [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'LM 4/29/2026 12:01'
+	#'squeak_changestamp' : 'JS 7/6/2026 11:35'
 }
 SKWorkspace >> getExampleCode [
 	^ '"
-To solve this challenge use following functions:
+To solve this challenge use following functions. If you struggle with the syntax, use BLOCKS first.
 
 COMMANDS: kara
-	move, turn left/right
+	move, turn left/right, push
+	
+	Note, push only works on mushrooms and, if successful, also includes a move operation.
         
 SENSORS: kara
-	onCloverleaf, trunkAhead
+	onCloverleaf, trunkAhead, mushroomAhead
+	
+FLOWCONTROL: 
+	(amount) timesRepeat: [ (action) ].
+	(condition) ifTrue: [ (action) ] ifFalse: [ (action) ].
+	(condition) whileFalse: [ (action) ].
+	
+VARIABLES:
+	Creation: | variableName | 
+	Declaration: variableName := Value.
+	Access: variableName
+	
+LOGIC:
+	Comparison: 
+		(value1) = (value2).
+		(value1) > (value2).
+		(value1) < (value2).
+	And: (value1) and: (value2).
+	Or: (value1) or: (value2).	
 
 INFO:
 	You might run code by using the <do it> command [CTRL+D]. If you find yourself stuck in an infinite loop (Squeak might get unresponsive), just press [ALT+.] to interrupt the code execution.

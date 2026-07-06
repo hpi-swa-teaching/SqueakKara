@@ -35,42 +35,13 @@ SKLandingPage >> actionConceptSelected: aIndex [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:20'
+	#'squeak_changestamp' : 'JS 7/6/2026 04:03'
 }
-SKLandingPage >> actionExample1 [
+SKLandingPage >> actionLoadLevel: aLevel [
 
-	self buildEnvironment initializeWithChallenge1.
+	self buildEnvironment initializeWithLevel: aLevel.
 	self delete
-]
 
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:20'
-}
-SKLandingPage >> actionExample2 [
-
-	self buildEnvironment initializeWithChallenge2.
-	self delete
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:20'
-}
-SKLandingPage >> actionExample3 [
-
-	self buildEnvironment initializeWithChallenge3.
-	self delete
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:20'
-}
-SKLandingPage >> actionExample4 [
-
-	self buildEnvironment initializeWithChallenge4.
-	self delete
 ]
 
 {
@@ -84,7 +55,7 @@ SKLandingPage >> addConceptButton: aButton [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'LM 4/28/2026 20:08'
+	#'squeak_changestamp' : 'JS 7/6/2026 03:52'
 }
 SKLandingPage >> buildButtonWithLabel: aLabel andSelector: aSelector andColor: aColor [
 
@@ -99,7 +70,7 @@ SKLandingPage >> buildButtonWithLabel: aLabel andSelector: aSelector andColor: a
 
 {
 	#category : #conceptSelection,
-	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 21:17'
+	#'squeak_changestamp' : 'JS 7/6/2026 03:52'
 }
 SKLandingPage >> buildConceptButtonFor: aConcept atIndex: aIndex [
 
@@ -132,15 +103,17 @@ SKLandingPage >> buildConceptSelection [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+	#'squeak_changestamp' : 'JS 7/6/2026 03:29'
 }
 SKLandingPage >> buildConceptStack [
 
-	| stack |
+	| stack|
+	
 	stack := SKButtonStack new
 		selectedColor: self conceptSelectionButtonSelectedColor;
 		buttonExtent: self conceptButtonExtent;
 		yourself.
+	
 	self concepts withIndexDo: [:concept :i |
 		stack
 			addButtonWithLabel: concept name
@@ -148,13 +121,14 @@ SKLandingPage >> buildConceptStack [
 			selector: #actionConceptSelected:
 			arguments: { i }
 			color: self conceptSelectionButtonNormalColor].
+	
 	self conceptStack: stack.
 	^ stack
 ]
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'JS 7/5/2026 14:16'
+	#'squeak_changestamp' : 'JS 7/6/2026 11:11'
 }
 SKLandingPage >> buildContent [
 
@@ -173,9 +147,9 @@ SKLandingPage >> buildContent [
 		addMorphBack: self buildProjectStack;
 		addMorphBack: self buildConceptStack.
 	self addMorph: row.
-	self extent: self extent x @ (self extent y max: row bounds height +( topBar extent y * 2)).
+	self extent: (self extent x max: row extent x) @ (self extent y max: row bounds height +( topBar extent y * 2)).
 	
-	row center: self center x @ self center y + (topBar extent y / 2).
+	row center: self center x @ (self center y + (topBar extent y / 2)).
 	row goBehind
 ]
 
@@ -190,23 +164,33 @@ SKLandingPage >> buildEnvironment [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'JS 7/5/2026 00:20'
+	#'squeak_changestamp' : 'JS 7/6/2026 11:35'
 }
 SKLandingPage >> buildProjectStack [
 
-	| stack |
+	| stack maxWidth levelIndex|
+	
+	maxWidth := 0.
+	levelIndex := 0.
 	stack := SKButtonStack new.
 	stack
 		addButtonWithLabel: self buttonBlankProjectLabel
 		target: self
-		selector: #actionEmptyProject
+		selector: #actionBlankProject
 		color: SKStylesheet primaryColor.
+		
 	self exampleProjects do: [:each |
 		stack
 			addButtonWithLabel: each key
 			target: self
 			selector: each value
-			color: SKStylesheet secondaryColor].
+			arguments: {'SKLevelWorld',(levelIndex // 5 + 1) asString, 'Level', (levelIndex \\ 5 + 1) asString}
+			color: SKStylesheet secondaryColor.
+			maxWidth := maxWidth max: stack buttons last extent x.
+			levelIndex := levelIndex + 1].
+	stack buttons do: [:each | 
+		each extent: (maxWidth + 20) @ each extent y.
+		each firstSubmorph left: each left + 10].
 	^ stack
 ]
 
@@ -221,74 +205,101 @@ SKLandingPage >> buttonBlankProjectLabel [
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
+	#'squeak_changestamp' : 'JS 7/6/2026 04:23'
+}
+SKLandingPage >> buttonExample10Label [
+
+	^ SKLevelWorld2Level5 levelName
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'JS 7/6/2026 04:24'
+}
+SKLandingPage >> buttonExample11Label [
+
+	^ SKLevelWorld3Level1 levelName
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'JS 7/6/2026 04:22'
 }
 SKLandingPage >> buttonExample1Label [
 
-	^ 'Example Project 1'
+	^ SKLevelWorld1Level1 levelName
 ]
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:53'
+	#'squeak_changestamp' : 'JS 7/6/2026 04:22'
 }
 SKLandingPage >> buttonExample2Label [
 
-	^ 'Example Project 2'
+	^ SKLevelWorld1Level2 levelName
 ]
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'LK 6/21/2024 22:53'
+	#'squeak_changestamp' : 'JS 7/6/2026 04:22'
 }
 SKLandingPage >> buttonExample3Label [
 
-	^ 'Example Project 3'
+	^ SKLevelWorld1Level3 levelName
 ]
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'LM 5/7/2026 22:15'
+	#'squeak_changestamp' : 'JS 7/6/2026 10:16'
 }
 SKLandingPage >> buttonExample4Label [
 
-	^ 'Example Project 4'
+	^ SKLevelWorld1Level4 levelName
 ]
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
+	#'squeak_changestamp' : 'JS 7/6/2026 10:16'
 }
 SKLandingPage >> buttonExample5Label [
 
-	^ 'Example Project 5'
+	^ SKLevelWorld1Level5 levelName
 ]
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
+	#'squeak_changestamp' : 'JS 7/6/2026 04:23'
 }
 SKLandingPage >> buttonExample6Label [
 
-	^ 'Example Project 6'
+	^ SKLevelWorld2Level1 levelName
 ]
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
+	#'squeak_changestamp' : 'JS 7/6/2026 04:23'
 }
 SKLandingPage >> buttonExample7Label [
 
-	^ 'Example Project 7'
+	^ SKLevelWorld2Level2 levelName
 ]
 
 {
 	#category : #labels,
-	#'squeak_changestamp' : 'JS 7/5/2026 00:22'
+	#'squeak_changestamp' : 'JS 7/6/2026 04:23'
 }
 SKLandingPage >> buttonExample8Label [
 
-	^ 'Example Project 8'
+	^ SKLevelWorld2Level3 levelName
+]
+
+{
+	#category : #labels,
+	#'squeak_changestamp' : 'JS 7/6/2026 09:35'
+}
+SKLandingPage >> buttonExample9Label [
+
+	^ SKLevelWorld2Level4 levelName
 ]
 
 {
@@ -392,19 +403,22 @@ SKLandingPage >> defaultExtent [
 
 {
 	#category : #buttons,
-	#'squeak_changestamp' : 'JS 7/5/2026 00:23'
+	#'squeak_changestamp' : 'JS 7/6/2026 04:14'
 }
 SKLandingPage >> exampleProjects [
 
 	^ {
-		self buttonExample1Label -> #actionExample1.
-		self buttonExample2Label -> #actionExample2.
-		self buttonExample3Label -> #actionExample3.
-		self buttonExample4Label -> #actionExample4.
-		self buttonExample5Label -> #actionExample5.
-		self buttonExample6Label -> #actionExample6.
-		self buttonExample7Label -> #actionExample7.
-		self buttonExample8Label -> #actionExample8
+		self buttonExample1Label -> #actionLoadLevel:.
+		self buttonExample2Label -> #actionLoadLevel:.
+		self buttonExample3Label -> #actionLoadLevel:.
+		self buttonExample4Label -> #actionLoadLevel:.
+		self buttonExample5Label -> #actionLoadLevel:.
+		self buttonExample6Label -> #actionLoadLevel:.
+		self buttonExample7Label -> #actionLoadLevel:.
+		self buttonExample8Label -> #actionLoadLevel:.
+		self buttonExample9Label -> #actionLoadLevel:.
+		self buttonExample10Label -> #actionLoadLevel:.
+		self buttonExample11Label -> #actionLoadLevel:.
 	}
 ]
 
