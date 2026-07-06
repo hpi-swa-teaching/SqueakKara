@@ -22,25 +22,25 @@ SKBooleanSlotPart >> defaultValue [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
+	#'squeak_changestamp' : 'SLH 7/6/2026 10:37'
 }
 SKBooleanSlotPart >> drawOn: aCanvas [
-	| innerBounds p1 p2 p3 p4 p5 p6 pts indent borderWidth |
+	| blockBounds points indent borderWidth |
 	
 	borderWidth := SKBlockStyle borderWidth.
-	innerBounds := self bounds insetBy: borderWidth.
+	blockBounds := self bounds insetBy: borderWidth.
 	
 	indent := self height // 2. 
 	
-	p1 := innerBounds left @ innerBounds center y.
-	p2 := (innerBounds left + indent) @ innerBounds top.
-	p3 := (innerBounds right - indent) @ innerBounds top.
-	p4 := innerBounds right @ innerBounds center y.
-	p5 := (innerBounds right - indent) @ innerBounds bottom.
-	p6 := (innerBounds left + indent) @ innerBounds bottom.
-	pts := { p1. p2. p3. p4. p5. p6 }.
+	points := OrderedCollection new.
+	points add: blockBounds left @ blockBounds center y.
+	points add: (blockBounds left + indent) @ blockBounds top.
+	points add: (blockBounds right - indent) @ blockBounds top.
+	points add: blockBounds right @ blockBounds center y.
+	points add: (blockBounds right - indent) @ blockBounds bottom.
+	points add: (blockBounds left + indent) @ blockBounds bottom.
 	
-	aCanvas drawPolygon: pts
+	aCanvas drawPolygon: points
 		color: self block borderColor
 		borderWidth: 0
 		borderColor: self block borderColor

@@ -105,7 +105,7 @@ SKFunctionStart >> initialize [
 ]
 
 {
-	#category : #initialization,
+	#category : #'dropping/grabbing',
 	#'squeak_changestamp' : 'FR 6/10/2026 00:22'
 }
 SKFunctionStart >> justDroppedInto: anObject event: anEvent [

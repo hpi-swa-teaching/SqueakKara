@@ -20,7 +20,7 @@ Class {
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:06'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:21'
 }
 SKLabelPart >> initialize [
 
@@ -29,8 +29,6 @@ SKLabelPart >> initialize [
 	self hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
 		color: Color transparent;
-		"borderWidth: 1;
-		borderColor: Color green;"
 		addMorph: self label
 ]
 

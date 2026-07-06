@@ -20,7 +20,7 @@ Class {
 
 {
 	#category : #'block definitions - variables',
-	#'squeak_changestamp' : 'FR 6/30/2026 01:17'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:16'
 }
 SKBlockSource >> addToVariableBlock [
 
@@ -29,7 +29,7 @@ SKBlockSource >> addToVariableBlock [
 		addIntegerPart;
 		addLabel: 'to Variable';
 		addEmptyIntegerPart;
-		action: [:int :var | var,':= ',var, ' + ', int];
+		action: [:int :var | var, ':= ', var, ' + ', int];
 		updateLayout;
 		yourself
 ]
@@ -50,14 +50,11 @@ SKBlockSource >> addVariable [
 
 {
 	#category : #'block definitions - variables',
-	#'squeak_changestamp' : 'FR 6/30/2026 01:15'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:16'
 }
 SKBlockSource >> addVariablesButton [
 
 	^ SimpleButtonMorph new label: 'add Variable';
-		"layoutPolicy: TableLayout new;
-		hResizing: #spaceFill;
-		wrapCentering: #center;"
 		target: self;
 		actionSelector: #addVariable;
 		color: Color lightGray twiceLighter;
@@ -66,7 +63,7 @@ SKBlockSource >> addVariablesButton [
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'FR 6/23/2026 18:21'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:16'
 }
 SKBlockSource >> andBlock [
 
@@ -74,7 +71,7 @@ SKBlockSource >> andBlock [
 		addBooleanPart;
 		addLabel: 'and';
 		addBooleanPart;
-		value: [:bool1 :bool2 | '((',bool1,') and: [',bool2,'])'];
+		value: [:bool1 :bool2 | '((', bool1, ') and: [', bool2, '])'];
 		category: #operators;
 		updateLayout;
 		yourself
@@ -93,11 +90,11 @@ SKBlockSource >> blockEditor [
 
 {
 	#category : #categories,
-	#'squeak_changestamp' : 'FR 6/24/2026 02:55'
+	#'squeak_changestamp' : 'SLH 7/6/2026 08:51'
 }
-SKBlockSource >> collapseAll [
+SKBlockSource >> collapseAllCategories [
 
-	self submorphsDo: [:each | each collapse]
+	self submorphsDo: [:each | each collapseCategory]
 ]
 
 {
@@ -120,7 +117,7 @@ SKBlockSource >> controlCategory [
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'FR 6/29/2026 20:57'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:18'
 }
 SKBlockSource >> equalBlock [
 
@@ -128,7 +125,7 @@ SKBlockSource >> equalBlock [
 		addIntegerPart;
 		addLabel: '=';
 		addIntegerPart;
-		value: [:int1 :int2 | '((',int1,') = (',int2,'))'];
+		value: [:int1 :int2 | '((', int1, ') = (', int2, '))'];
 		category: #operators;
 		updateLayout;
 		yourself
@@ -226,7 +223,7 @@ SKBlockSource >> ifBlock [
 
 {
 	#category : #'block definitions - control',
-	#'squeak_changestamp' : 'FR 6/9/2026 18:24'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:18'
 }
 SKBlockSource >> ifElseBlock [
 
@@ -238,14 +235,14 @@ SKBlockSource >> ifElseBlock [
 		addLabel: 'else';
 		addBlockGap;
 		action: [:condition :trueBranch :falseBranch |
-			'(', condition,') ifTrue: [', String cr, trueBranch, '] ifFalse: [', String cr, falseBranch, ']'];
+			'(', condition, ') ifTrue: [', String cr, trueBranch, '] ifFalse: [', String cr, falseBranch, ']'];
 		updateLayout;
 		yourself
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/24/2026 02:55'
+	#'squeak_changestamp' : 'SLH 7/6/2026 08:51'
 }
 SKBlockSource >> initialize [
 
@@ -263,12 +260,12 @@ SKBlockSource >> initialize [
 		adjustLayoutBounds;
 		layoutChanged;
 		minWidth: self width;
-		collapseAll
+		collapseAllCategories
 ]
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'FR 6/29/2026 20:59'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:18'
 }
 SKBlockSource >> lessBlock [
 
@@ -276,7 +273,7 @@ SKBlockSource >> lessBlock [
 		addIntegerPart;
 		addLabel: '<';
 		addIntegerPart;
-		value: [:int1 :int2 | '((',int1,') < (',int2,'))'];
+		value: [:int1 :int2 | '((', int1, ') < (', int2, '))'];
 		category: #operators;
 		updateLayout;
 		yourself
@@ -284,7 +281,7 @@ SKBlockSource >> lessBlock [
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'FR 6/29/2026 21:00'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:18'
 }
 SKBlockSource >> minusBlock [
 
@@ -292,7 +289,7 @@ SKBlockSource >> minusBlock [
 		addIntegerPart;
 		addLabel: '-';
 		addIntegerPart;
-		value: [:int1 :int2 | '((',int1,') - (',int2,'))'];
+		value: [:int1 :int2 | '((', int1, ') - (', int2, '))'];
 		category: #operators;
 		updateLayout;
 		yourself
@@ -328,7 +325,7 @@ SKBlockSource >> moveBlock [
 
 {
 	#category : #'block definitions - movement',
-	#'squeak_changestamp' : 'FR 6/9/2026 18:28'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:19'
 }
 SKBlockSource >> moveStepsBlock [
 
@@ -336,7 +333,7 @@ SKBlockSource >> moveStepsBlock [
 		addLabel: 'move';
 		addIntegerPart;
 		addLabel: 'steps';
-		action: [:steps | steps,' timesRepeat: [kara move]']; 
+		action: [:steps | steps, ' timesRepeat: [kara move]']; 
 		category: #movement;
 		updateLayout;
 		yourself
@@ -424,7 +421,7 @@ SKBlockSource >> operatorCategory [
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'FR 6/23/2026 18:21'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:19'
 }
 SKBlockSource >> orBlock [
 
@@ -432,7 +429,7 @@ SKBlockSource >> orBlock [
 		addBooleanPart;
 		addLabel: 'or';
 		addBooleanPart;
-		value: [:bool1 :bool2 | '((',bool1,') or: [',bool2,'])'];
+		value: [:bool1 :bool2 | '((', bool1, ') or: [', bool2, '])'];
 		category: #operators;
 		updateLayout;
 		yourself
@@ -440,7 +437,7 @@ SKBlockSource >> orBlock [
 
 {
 	#category : #'block definitions - operators',
-	#'squeak_changestamp' : 'FR 6/29/2026 21:00'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:19'
 }
 SKBlockSource >> plusBlock [
 
@@ -448,7 +445,7 @@ SKBlockSource >> plusBlock [
 		addIntegerPart;
 		addLabel: '+';
 		addIntegerPart;
-		value: [:int1 :int2 | '((',int1,') + (',int2,'))'];
+		value: [:int1 :int2 | '((', int1, ') + (', int2, '))'];
 		category: #operators;
 		updateLayout;
 		yourself
@@ -498,7 +495,7 @@ SKBlockSource >> sensingCategory [
 
 {
 	#category : #'block definitions - variables',
-	#'squeak_changestamp' : 'FR 6/30/2026 18:59'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:19'
 }
 SKBlockSource >> setVariableBlock [
 
@@ -507,7 +504,7 @@ SKBlockSource >> setVariableBlock [
 		addEmptyIntegerPart;
 		addLabel: 'to';
 		addIntegerPart;
-		action: [:var :int | var,':= ',int];
+		action: [:var :int | var, ' := ', int];
 		updateLayout;
 		yourself
 ]
@@ -581,7 +578,7 @@ SKBlockSource >> turnRightBlock [
 
 {
 	#category : #'block definitions - control',
-	#'squeak_changestamp' : 'FR 6/9/2026 18:25'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:20'
 }
 SKBlockSource >> untilLoop [
 
@@ -590,7 +587,7 @@ SKBlockSource >> untilLoop [
 		addBooleanPart;
 		addBlockGap;
 		action: [:condition :loopBranch |
-			'[', condition,'] whileFalse: [', String cr, loopBranch, ']'];
+			'[', condition, '] whileFalse: [', String cr, loopBranch, ']'];
 		updateLayout;
 		yourself
 ]
