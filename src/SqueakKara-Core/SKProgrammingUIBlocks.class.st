@@ -27,7 +27,7 @@ SKProgrammingUIBlocks >> blockEditor: aBlockEditor [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'SLH 6/6/2026 15:25'
+	#'squeak_changestamp' : 'JS 7/6/2026 10:56'
 }
 SKProgrammingUIBlocks >> build [
 

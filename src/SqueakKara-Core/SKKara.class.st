@@ -59,13 +59,14 @@ SKKara >> blockMovement [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'JS 7/6/2026 10:10'
+	#'squeak_changestamp' : 'JS 7/6/2026 11:02'
 }
 SKKara >> celebrateCloverleaf [
 
 	SKConfetti explodeAt: self center.
 	3 second asDelay wait.
 	self environment systemWindow delete.
+	self environment resetSizeToDefault.
 	self environment initializeWithLevel: self environment level nextLevel.
 ]
 

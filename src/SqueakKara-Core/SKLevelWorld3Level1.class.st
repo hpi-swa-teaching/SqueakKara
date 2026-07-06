@@ -20,11 +20,11 @@ SKLevelWorld3Level1 class >> levelName [
 
 {
 	#category : #constants,
-	#'squeak_changestamp' : 'JS 7/6/2026 03:15'
+	#'squeak_changestamp' : 'JS 7/6/2026 11:06'
 }
 SKLevelWorld3Level1 >> blockLimit [
 
-	^ 25
+	^ 5
 ]
 
 {

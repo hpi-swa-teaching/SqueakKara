@@ -258,11 +258,13 @@ SKEnvironment >> initializeWithKaraAt: aPoint [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 7/6/2026 04:13'
+	#'squeak_changestamp' : 'JS 7/6/2026 11:00'
 }
 SKEnvironment >> initializeWithLevel: aLevel [
 
 	self level: ((Smalltalk at: aLevel asSymbol) new initializeWithEnvironment: self).
+	self programmingConcept name = 'Blocks' 
+		ifTrue: [self programmingUI blockEditor blockMax: self level blockLimit]
 
 ]
 
@@ -370,18 +372,6 @@ SKEnvironment >> programmingUI: aProgrammingUI [
 ]
 
 {
-	#category : #initialization,
-	#'squeak_changestamp' : 'JS 7/6/2026 10:40'
-}
-SKEnvironment >> replaceWithLevel: aLevel [
-
-	self gameHeight: 400.
-	self gameWidth: 550.
-	self level: ((Smalltalk at: aLevel asSymbol) new initializeWithEnvironment: self).
-
-]
-
-{
 	#category : #commands,
 	#'squeak_changestamp' : 'JS 6/22/2026 13:02'
 }
@@ -390,6 +380,16 @@ SKEnvironment >> reset [
 	self grid clear.
 	self clearKaras.
 	self level reset
+]
+
+{
+	#category : #layout,
+	#'squeak_changestamp' : 'JS 7/6/2026 11:03'
+}
+SKEnvironment >> resetSizeToDefault [
+	
+	self gameWidth: nil.
+	self gameHeight: nil.
 ]
 
 {

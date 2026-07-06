@@ -20,16 +20,16 @@ SKLevelWorld2Level4 class >> levelName [
 
 {
 	#category : #constants,
-	#'squeak_changestamp' : 'JS 7/6/2026 03:15'
+	#'squeak_changestamp' : 'JS 7/6/2026 11:05'
 }
 SKLevelWorld2Level4 >> blockLimit [
 
-	^ 25
+	^ 15
 ]
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'JS 7/6/2026 09:58'
+	#'squeak_changestamp' : 'JS 7/6/2026 11:06'
 }
 SKLevelWorld2Level4 >> build [
 
@@ -83,7 +83,6 @@ SKLevelWorld2Level4 >> build [
 		placeTrunkAt: 9 @ 9;
 	
 		placeMushroomAt: 5 @ 3;
-		"placeMushroomAt: 6 @ 4;"
 		placeMushroomAt: 8 @ 4;
 		placeMushroomAt: 8 @ 6;
 		placeMushroomAt: 8 @ 7;
