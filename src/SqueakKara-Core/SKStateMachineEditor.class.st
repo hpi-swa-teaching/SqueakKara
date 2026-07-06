@@ -2,27 +2,37 @@ Class {
 	#name : #SKStateMachineEditor,
 	#superclass : #SystemWindow,
 	#instVars : [
-		'playGround',
+		'canvas',
 		'mode',
 		'selectedNode',
 		'modeStack',
 		'nodesToDelete',
 		'nodeCounter',
-		'buttonPanel'
+		'buttonPanel',
+		'selectedEdge'
 	],
 	#category : #'SqueakKara-Core'
 }
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 14:48'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
+}
+SKStateMachineEditor >> actionAddComponent: aMoprh [
+
+	self canvas addComponent: aMoprh
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
 }
 SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 
 	| edge |
 
 	edge := SKMealyEdge newFrom: aNode to: anotherNode.
-	self playGround addEdge: edge.
+	self canvas addEdge: edge.
 	
 	aNode addDependent: edge.
 	aNode addEdge: edge;
@@ -39,7 +49,7 @@ SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:56'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
 }
 SKStateMachineEditor >> actionCreateNode [
 
@@ -48,18 +58,18 @@ SKStateMachineEditor >> actionCreateNode [
 	node stateMachineEditor: self.
 	
 	self nodeCounterPP.
-	self playGround addNode: node.
+	self canvas addNode: node.
 	node createNodeTextMorph.
 	node openInHand
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:32'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
 }
 SKStateMachineEditor >> actionDeleteEdge: aEdge [
 
-	self playGround removeEdge: aEdge.
+	self canvas removeEdge: aEdge.
 	aEdge fromNode removeEdge: aEdge.
 	aEdge fromNode = aEdge toNode ifFalse: [aEdge toNode removeEdge: aEdge].
 	aEdge delete
@@ -67,7 +77,7 @@ SKStateMachineEditor >> actionDeleteEdge: aEdge [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:39'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
 }
 SKStateMachineEditor >> actionDeleteNode: aNode [
 	
@@ -77,43 +87,36 @@ SKStateMachineEditor >> actionDeleteNode: aNode [
 		
 	belongingEdges := Set new.
 	belongingEdges
-		addAll: (self playGround findAllEdgesToNode: aNode);
-		addAll: (self playGround findAllEdgesFromNode: aNode).
+		addAll: (self canvas findAllEdgesToNode: aNode);
+		addAll: (self canvas findAllEdgesFromNode: aNode).
 	belongingEdges  do: [:edge | 
-		self playGround removeEdge: edge.
+		self canvas removeEdge: edge.
 		edge delete].
 		
-	self playGround removeNode: aNode.
+	self canvas removeNode: aNode.
 	aNode delete
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:44'
-}
-SKStateMachineEditor >> actionDeselectEdge: aEdge [
-
-	aEdge gotDeselected
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:43'
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:58'
 }
 SKStateMachineEditor >> actionSelectEdge: aEdge [
 
-	self deselectAllEdges.
-	aEdge gotSelected
+	self deselectEdge;
+		selectedEdge: aEdge.
+	aEdge actionSelect
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:34'
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:58'
 }
 SKStateMachineEditor >> actionSelectNode: aNode [
 
-	self unselectAll.
-	aNode selectNode
+	self deselectNode;
+		selectedNode: aNode.
+	aNode actionSelectWithMode: self mode
 ]
 
 {
@@ -179,6 +182,28 @@ SKStateMachineEditor >> buildModeButtonStack [
 ]
 
 {
+	#category : #initialization,
+	#'squeak_changestamp' : 'Lars 7/7/2026 11:05'
+}
+SKStateMachineEditor >> buildStartNode [
+
+	| startingNode |
+		
+	startingNode := SKMealyNode newWithName: self nodeCounter asString.
+	self nodeCounterPP.
+	startingNode isStartingNode: true. 
+	startingNode addMorph: (StringMorph new
+		contents: 'START';
+		color: Color black;
+		emphasis: TextEmphasis bold emphasisCode;
+		font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: 8);
+		center: startingNode center).
+	self canvas addNode: startingNode;
+		addMorph: startingNode.
+	startingNode center: self canvas center
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'S 7/2/2026 12:04'
 }
@@ -206,12 +231,55 @@ SKStateMachineEditor >> buttonPanelOffset [
 ]
 
 {
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:01'
+}
+SKStateMachineEditor >> canvas [
+ 
+	^ canvas ifNil: [canvas := SKStateMachineCanvas newWithController: self]
+]
+
+{
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:43'
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:57'
+}
+SKStateMachineEditor >> deselectAll [
+	
+	self 
+		deselectNode;
+		deselectEdge
+	
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
 }
 SKStateMachineEditor >> deselectAllEdges [
 
-	self playGround edges do: [:aEdge | self actionDeselectEdge: aEdge]
+	self canvas edges do: [:aEdge | self actionDeselectEdge: aEdge]
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:54'
+}
+SKStateMachineEditor >> deselectEdge [
+
+	self selectedEdge ifNil: [^ self].
+	self selectedEdge actionDeselect.
+	self selectedEdge: nil
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:54'
+}
+SKStateMachineEditor >> deselectNode [
+
+	self selectedNode ifNil: [^ self].
+	self selectedNode actionDeselect.
+	self selectedNode: nil
 ]
 
 {
@@ -225,11 +293,11 @@ SKStateMachineEditor >> edgeSelectionDistance [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:57'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
 }
 SKStateMachineEditor >> edges [
 
-	^ self playGround edges
+	^ self canvas edges
 ]
 
 {
@@ -252,16 +320,7 @@ SKStateMachineEditor >> extent: aPoint [
 ]
 
 {
-	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:38'
-}
-SKStateMachineEditor >> handelSelectModeNodeClicked: aNode [
-
-	self actionSelectNode: aNode
-]
-
-{
-	#category : #helper,
+	#category : #events,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:20'
 }
 SKStateMachineEditor >> handleDeleteModePlayGroundClicked: aPosition [
@@ -275,27 +334,29 @@ SKStateMachineEditor >> handleDeleteModePlayGroundClicked: aPosition [
 ]
 
 {
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 16:11'
+	#category : #events,
+	#'squeak_changestamp' : 'Lars 7/7/2026 02:07'
 }
 SKStateMachineEditor >> handleEdgeModeNodeClicked: aNode [
 
-	(self selectedNode = aNode) ifTrue: [
-		self actionAddEdgeFrom: self selectedNode to: aNode.
-		self selectedNode: nil.
-		^ nil].
-	
-	self selectedNode ifNotNil: [
-		self actionAddEdgeFrom: self selectedNode to: aNode.
-		self selectedNode: nil.
-		^ nil].
-	
-	self selectedNode: aNode.
+	self selectedNode ifNil: [self actionSelectNode: aNode.
+		^ self].
+	self actionAddEdgeFrom: self selectedNode to: aNode.
+	self deselectNode
 						
 ]
 
 {
-	#category : #helper,
+	#category : #events,
+	#'squeak_changestamp' : 'Lars 7/7/2026 02:08'
+}
+SKStateMachineEditor >> handleSelectModeNodeClicked: aNode [
+
+	self actionSelectNode: aNode
+]
+
+{
+	#category : #events,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:25'
 }
 SKStateMachineEditor >> handleSelectModePlayGroundClicked: aPosition [
@@ -320,7 +381,7 @@ SKStateMachineEditor >> hasNodesToDelete [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 7/5/2026 16:15'
+	#'squeak_changestamp' : 'Lars 7/7/2026 11:01'
 }
 SKStateMachineEditor >> initialize [
 
@@ -331,37 +392,22 @@ SKStateMachineEditor >> initialize [
 		paneColor: Color white;
 		setLabel: self windowTitle.
 	
-	self addMorph: self playGround.
+	self addMorph: self canvas.
 	self buildButtonPanel.
 	self relayoutContents.
-	self initializePlayground.
+	self initializeCanvas.
 	self toggleMode: #drag
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 13:08'
+	#'squeak_changestamp' : 'Lars 7/7/2026 11:05'
 }
-SKStateMachineEditor >> initializePlayground [
+SKStateMachineEditor >> initializeCanvas [
 
-	|startingNode|
+	self canvas color: Color white.
+	self buildStartNode
 
-	self playGround color: Color white.
-	
-	startingNode := SKMealyNode newWithName: self nodeCounter asString.
-	self nodeCounterPP.
-	startingNode isStartingNode: true. 
-	startingNode addMorph: (StringMorph new
-		contents: 'START';
-		color: Color black;
-		emphasis: TextEmphasis bold emphasisCode;
-		font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: 8);
-		center: startingNode center).
-		
-	self playGround addNode: startingNode.
-	self playGround addMorph: startingNode.
-	
-	startingNode center: self playGround center
 	
 
 ]
@@ -466,14 +512,14 @@ SKStateMachineEditor >> modes [
 
 {
 	#category : #events,
-	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:28'
+	#'squeak_changestamp' : 'Lars 7/7/2026 02:09'
 }
 SKStateMachineEditor >> nodeClicked: aNode [
 
 	self mode caseOf: {
 		[#delete] -> [self actionDeleteNode: aNode].
 		[#edge]   -> [self handleEdgeModeNodeClicked: aNode].
-		[#select] -> [self handelSelectModeNodeClicked: aNode]
+		[#select] -> [self handleSelectModeNodeClicked: aNode]
 	} otherwise: []
 ]
 
@@ -497,11 +543,11 @@ SKStateMachineEditor >> nodeCounterPP [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:57'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
 }
 SKStateMachineEditor >> nodes [
 
-	^ self playGround nodes
+	^ self canvas nodes
 ]
 
 {
@@ -511,15 +557,6 @@ SKStateMachineEditor >> nodes [
 SKStateMachineEditor >> nodesToDelete [
 
 	^ nodesToDelete ifNil: [nodesToDelete := OrderedCollection new]
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:00'
-}
-SKStateMachineEditor >> playGround [
- 
-	^ playGround ifNil: [playGround := SKPlayGround newWithController: self]
 ]
 
 {
@@ -545,7 +582,7 @@ SKStateMachineEditor >> queueNodeToDelete: aNode [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'JS 7/5/2026 16:36'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
 }
 SKStateMachineEditor >> relayoutContents [
 
@@ -556,16 +593,16 @@ SKStateMachineEditor >> relayoutContents [
 	content := content insetBy: self buttonPanelOffset.
 	playGroundExtent :=
 		(content width - self buttonPanel extent x - self buttonPanelOffset) @ content height.
-	self playGround
+	self canvas
 		position: content topLeft;
 		extent: playGroundExtent.
 	self buttonPanel
-		position: self playGround topRight + (self buttonPanelOffset @ 0)
+		position: self canvas topRight + (self buttonPanelOffset @ 0)
 ]
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'JS 7/5/2026 15:56'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
 }
 SKStateMachineEditor >> selectEdgeNear: aPosition [
 
@@ -573,14 +610,32 @@ SKStateMachineEditor >> selectEdgeNear: aPosition [
 	
 	limit := self edgeSelectionDistance.
 	
-	edge := self playGround findNearestEdge: aPosition.
+	edge := self canvas findNearestEdge: aPosition.
 	edge ifNil: [^ nil].
 	
-	distance := self playGround distanceFrom: aPosition toEdge: edge.
+	distance := self canvas distanceFrom: aPosition toEdge: edge.
 	distance := distance abs.
 	
 	distance <= limit ifFalse: [^ nil].
 	^ edge
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:34'
+}
+SKStateMachineEditor >> selectedEdge [
+
+	^ selectedEdge
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:34'
+}
+SKStateMachineEditor >> selectedEdge: aEdge [
+
+	selectedEdge := aEdge
 ]
 
 {
@@ -594,13 +649,9 @@ SKStateMachineEditor >> selectedNode [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'JS 7/5/2026 15:56'
+	#'squeak_changestamp' : 'Lars 7/7/2026 02:02'
 }
 SKStateMachineEditor >> selectedNode: aNode [
-
-	aNode 
-		ifNil: [ selectedNode ifNotNil: [selectedNode unmarkNode]]
-		ifNotNil: [aNode markNode].
 	
 	selectedNode := aNode
 ]
@@ -628,27 +679,28 @@ SKStateMachineEditor >> stepTime [
 
 {
 	#category : #modes,
-	#'squeak_changestamp' : 'JS 7/5/2026 15:57'
+	#'squeak_changestamp' : 'Lars 7/7/2026 02:00'
 }
 SKStateMachineEditor >> toggleMode: aMode [
 
 	| label button |
 
-	self unselectAll.
-	self deselectAllEdges.
 	self mode: aMode.
 	label := self modeLables at: aMode.
 	button := self modeStack buttons detect: [:each | each label = label].
-	self modeStack select: button
+	self modeStack select: button.
+	self deselectAll
 ]
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:34'
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:53'
 }
 SKStateMachineEditor >> unselectAll [
 	
-	self playGround nodes do: [:anotherNode| anotherNode unselectNode]
+	self 
+		deselectNode;
+		deselectEdge
 	
 ]
 

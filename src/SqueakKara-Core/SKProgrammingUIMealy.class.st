@@ -65,16 +65,11 @@ SKProgrammingUIMealy >> editor: aEditor [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 12:16'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:55'
 }
 SKProgrammingUIMealy >> getCode [
 
-	| edges |
-	
-	edges := self editor edges.
-	self testMode ifFalse: [edges do: [:aEdge| aEdge updateValues]].
-	
-	self compileToLogicGraph: self editor nodes edges: edges.
+	self compileToLogicGraph: self editor nodes edges: (self editor edges).
 	self logicGraph isValid ifFalse: [self inform: 'Der Automat ist nicht valide!'].
 	^ self logicGraph
 ]

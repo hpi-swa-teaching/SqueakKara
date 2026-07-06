@@ -40,7 +40,7 @@ SKTextSlotPart >> defaultValue [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 7/3/2026 03:01'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:11'
 }
 SKTextSlotPart >> initialize [
 	
@@ -51,11 +51,11 @@ SKTextSlotPart >> initialize [
 		layoutPolicy: TableLayout new;
 		listDirection: #leftToRight;
 		wrapCentering: #center;
-		borderWidth: SKBlockStyle borderWidth // 2;
+		borderWidth: SKStylesheet blockBorderWidth // 2;
 		cellPositioning: #center;
 		layoutInset: 0;
 		cornerStyle: #rounded;
-		cornerRadius: SKBlockStyle blockPartHeight // 3;
+		cornerRadius: SKStylesheet blockPartHeight // 3;
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
 		defaultUI: self makeDefaultUI;
@@ -68,7 +68,7 @@ SKTextSlotPart >> initialize [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/29/2026 21:15'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:17'
 }
 SKTextSlotPart >> makeDefaultUI [
 
@@ -79,7 +79,7 @@ SKTextSlotPart >> makeDefaultUI [
 		listCentering: #center;
 		wrapCentering: #center;
 		cellPositioning: #center;
-		layoutInset: SKBlockStyle unit * 3 @ SKBlockStyle unit;
+		layoutInset:  SKStylesheet blockUnit * 3 @ SKStylesheet blockUnit;
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
 		color: Color transparent.

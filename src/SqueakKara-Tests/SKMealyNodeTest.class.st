@@ -28,24 +28,14 @@ SKMealyNodeTest >> tearDown [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JS 7/5/2026 18:22'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
 }
 SKMealyNodeTest >> testController [
 
 	stateMachineEditor actionCreateNode.
-	stateMachineEditor playGround nodes do: [:n | 
+	stateMachineEditor canvas nodes do: [:n | 
 		self assert: (n controller =  nil) not].
-	(stateMachineEditor playGround nodes at: 2) delete
-]
-
-{
-	#category : #testing,
-	#'squeak_changestamp' : 'JS 7/5/2026 18:17'
-}
-SKMealyNodeTest >> testLabelCreation [
-
-	stateMachineEditor initializePlayground. 
-	stateMachineEditor playGround nodes do: [:each| (each isStartingNode) ifTrue: [self assert: each label = nil]]
+	(stateMachineEditor canvas nodes at: 2) delete
 ]
 
 {

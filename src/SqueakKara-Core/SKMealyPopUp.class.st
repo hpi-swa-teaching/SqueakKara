@@ -21,7 +21,7 @@ right
 
 "
 Class {
-	#name : #SKSelectionPopUpWrapper,
+	#name : #SKMealyPopUp,
 	#superclass : #Morph,
 	#instVars : [
 		'selectionWindows',
@@ -37,34 +37,34 @@ Class {
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:11'
 }
-SKSelectionPopUpWrapper >> actionClose [
+SKMealyPopUp >> actionClose [
 
 	self visible: false
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:21'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:53'
 }
-SKSelectionPopUpWrapper >> actionGetCommand [
+SKMealyPopUp >> actionSetCommand: aCommand [
 
-	^ self getValueByType: #command
+	self edge command: (self formatItem: aCommand)
 ]
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:54'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:53'
 }
-SKSelectionPopUpWrapper >> actionGetCondition [
+SKMealyPopUp >> actionSetCondition: aCondition [
 
-	^ self getValueByType: #condition
+	self edge condition: (self formatItem: aCondition)
 ]
 
 {
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:10'
 }
-SKSelectionPopUpWrapper >> addSelectionModel: aModel [
+SKMealyPopUp >> addSelectionModel: aModel [
 
 	self selectionModels add: aModel
 ]
@@ -73,7 +73,7 @@ SKSelectionPopUpWrapper >> addSelectionModel: aModel [
 	#category : #drawing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:58'
 }
-SKSelectionPopUpWrapper >> bringChildrenToFront [
+SKMealyPopUp >> bringChildrenToFront [
 
 	self selectionWindows do: [:each | each comeToFront].
 	self closeButton comeToFront
@@ -84,7 +84,7 @@ SKSelectionPopUpWrapper >> bringChildrenToFront [
 	#category : #initialization,
 	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:51'
 }
-SKSelectionPopUpWrapper >> buildCloseButton [
+SKMealyPopUp >> buildCloseButton [
 
 	| closeButton |
 
@@ -106,7 +106,7 @@ SKSelectionPopUpWrapper >> buildCloseButton [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:58'
 }
-SKSelectionPopUpWrapper >> closeButton [
+SKMealyPopUp >> closeButton [
 
 	^ closeButton
 ]
@@ -115,7 +115,7 @@ SKSelectionPopUpWrapper >> closeButton [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JS 6/23/2026 21:38'
 }
-SKSelectionPopUpWrapper >> closeButton: aButton [
+SKMealyPopUp >> closeButton: aButton [
 
 	closeButton := aButton
 ]
@@ -124,7 +124,7 @@ SKSelectionPopUpWrapper >> closeButton: aButton [
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:05'
 }
-SKSelectionPopUpWrapper >> closeButtonColor [
+SKMealyPopUp >> closeButtonColor [
 
 	^ SKStylesheet colorRed
 ]
@@ -133,7 +133,7 @@ SKSelectionPopUpWrapper >> closeButtonColor [
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:05'
 }
-SKSelectionPopUpWrapper >> closeButtonHeight [
+SKMealyPopUp >> closeButtonHeight [
 
 	^ 50
 ]
@@ -142,7 +142,7 @@ SKSelectionPopUpWrapper >> closeButtonHeight [
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:05'
 }
-SKSelectionPopUpWrapper >> closeButtonWidth [
+SKMealyPopUp >> closeButtonWidth [
 
 	^ 100
 ]
@@ -151,7 +151,7 @@ SKSelectionPopUpWrapper >> closeButtonWidth [
 	#category : #initialization,
 	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:24'
 }
-SKSelectionPopUpWrapper >> commandList [
+SKMealyPopUp >> commandList [
 
 	^ #(
 		'kara move'
@@ -166,7 +166,7 @@ SKSelectionPopUpWrapper >> commandList [
 	#category : #initialization,
 	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:25'
 }
-SKSelectionPopUpWrapper >> conditionList [
+SKMealyPopUp >> conditionList [
 
 	^ #(
 		'kara onCloverleaf'
@@ -180,7 +180,7 @@ SKSelectionPopUpWrapper >> conditionList [
 	#category : #drawing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:00'
 }
-SKSelectionPopUpWrapper >> drawSelectionWindows [
+SKMealyPopUp >> drawSelectionWindows [
 
 	self selectionWindows do: [:each | self addMorph: each]
 
@@ -194,7 +194,7 @@ SKSelectionPopUpWrapper >> drawSelectionWindows [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:49'
 }
-SKSelectionPopUpWrapper >> edge [
+SKMealyPopUp >> edge [
 
 	^ edge
 ]
@@ -203,47 +203,44 @@ SKSelectionPopUpWrapper >> edge [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JS 6/23/2026 21:38'
 }
-SKSelectionPopUpWrapper >> edge: anEdge [
+SKMealyPopUp >> edge: anEdge [
 
 	edge := anEdge
 ]
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:25'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:52'
 }
-SKSelectionPopUpWrapper >> getValueByType: aType [
-	
-	| model |
-	
-	model := self selectionModels detect: [:aSelectionModel | aSelectionModel type = aType].
-	model selectedValue ifNil: [^ ''].
-	model selectedValue = 'None' ifTrue: [^ ''].
-	^ model selectedValue
+SKMealyPopUp >> formatItem: aItem [
+
+	aItem ifNil: [^ ''].
+	aItem = 'None' ifTrue: [^ ''].
+	^ aItem
 ]
 
 {
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:50'
+	#category : #events,
+	#'squeak_changestamp' : 'Lars 7/7/2026 08:17'
 }
-SKSelectionPopUpWrapper >> handleCloseButtonClicked [
+SKMealyPopUp >> handleCloseButtonClicked [
 
-	self edge gotDeselected
+	self edge actionDeselect
 
 	
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/23/2026 21:37'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:46'
 }
-SKSelectionPopUpWrapper >> initialize [
+SKMealyPopUp >> initialize [
 
 	super initialize. 
 
 	self
-		addSelectionModel: (SKSelectionModel newWithType: #condition andItems: self conditionList);
-		addSelectionModel: (SKSelectionModel newWithType: #command andItems: self commandList).
+		addSelectionModel: (SKSelectionModel newWithType: #condition andItems: self conditionList andPopUp: self);
+		addSelectionModel: (SKSelectionModel newWithType: #command andItems: self commandList andPopUp: self).
 	
 	self selectionModels do: [:aModel| self selectionWindows add: (PluggableListMorph on: aModel list: #items selected: #selectedIndex changeSelected: #itemSelectedAtIndex:)].
 		
@@ -259,10 +256,22 @@ SKSelectionPopUpWrapper >> initialize [
 ]
 
 {
+	#category : #events,
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:41'
+}
+SKMealyPopUp >> itemClicked: aItem byType: aType [
+
+	aType caseOf: {
+		[#command] -> [self actionSetCommand: aItem].
+		[#condition]  -> [self actionSetCondition: aItem]
+	} otherwise: []
+]
+
+{
 	#category : #drawing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:11'
 }
-SKSelectionPopUpWrapper >> makeVisible [
+SKMealyPopUp >> makeVisible [
 
 	self visible: true.
 	self comeToFront
@@ -272,7 +281,7 @@ SKSelectionPopUpWrapper >> makeVisible [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:09'
 }
-SKSelectionPopUpWrapper >> selectionModels [
+SKMealyPopUp >> selectionModels [
 
 	^ selectionModels ifNil: [selectionModels := OrderedCollection new]
 ]
@@ -281,7 +290,7 @@ SKSelectionPopUpWrapper >> selectionModels [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:59'
 }
-SKSelectionPopUpWrapper >> selectionWindows [
+SKMealyPopUp >> selectionWindows [
 
 	(selectionWindows) ifNil:[self selectionWindows: OrderedCollection new]. 
 	^ selectionWindows
@@ -291,7 +300,7 @@ SKSelectionPopUpWrapper >> selectionWindows [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:59'
 }
-SKSelectionPopUpWrapper >> selectionWindows: anObject [
+SKMealyPopUp >> selectionWindows: anObject [
 
 	selectionWindows := anObject
 ]
@@ -300,7 +309,7 @@ SKSelectionPopUpWrapper >> selectionWindows: anObject [
 	#category : #updating,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:26'
 }
-SKSelectionPopUpWrapper >> updatePositionsOfChildren [
+SKMealyPopUp >> updatePositionsOfChildren [
 
 	|newX newY|
 	

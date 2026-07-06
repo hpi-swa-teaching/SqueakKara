@@ -5,7 +5,8 @@ Class {
 		'wrapper',
 		'items',
 		'selectedIndex',
-		'type'
+		'type',
+		'popUp'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -23,13 +24,27 @@ SKSelectionModel class >> newWithType: aType andItems: aItemCollection [
 ]
 
 {
+	#category : #'as yet unclassified',
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:46'
+}
+SKSelectionModel class >> newWithType: aType andItems: aItemCollection andPopUp: aPopUp [
+
+	^ (self new
+		type: aType;
+		items: aItemCollection;
+		popUp:  aPopUp;
+		yourself)
+]
+
+{
 	#category : #events,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:24'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:50'
 }
 SKSelectionModel >> itemSelectedAtIndex: aNumber [
 
 	self selectedIndex: aNumber;
-		changed: #selectedIndex
+		changed: #selectedIndex.
+	self popUp itemClicked: (self items at: aNumber) byType: self type
 ]
 
 {
@@ -48,6 +63,24 @@ SKSelectionModel >> items [
 SKSelectionModel >> items: aItemCollection [
 
 	items := aItemCollection
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:45'
+}
+SKSelectionModel >> popUp [
+
+	^ popUp
+]
+
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:45'
+}
+SKSelectionModel >> popUp: aPopUp [
+
+	popUp := aPopUp 
 ]
 
 {

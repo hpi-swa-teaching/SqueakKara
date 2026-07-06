@@ -132,14 +132,14 @@ SKMealyTest >> tearDown [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JS 6/16/2026 20:38'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
 }
 SKMealyTest >> testIntegration [
 
 	| playGround node1 node2 edge1 kara |
 	
 	kara := self environment karas first.
-	playGround := self environment programmingUI editor playGround.
+	playGround := self environment programmingUI editor canvas.
 	node1 := playGround nodes at: 1.
 	node2 := self createNodeWithName: 'node2'.
 	edge1 := self createEdgeFrom: node1 to: node2 command: 'kara turn: left' condition: ''.
@@ -157,13 +157,13 @@ SKMealyTest >> testIntegration [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'JS 6/16/2026 20:45'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
 }
 SKMealyTest >> testNormalCompile [
 
 	| playGround node1 node2 edge1 logicGraph logicNode1 logicNode2 logicEdge1 |
 	
-	playGround := self environment programmingUI editor playGround.
+	playGround := self environment programmingUI editor canvas.
 	node1 := playGround nodes at: 1.
 	node1 name: 'node1'.
 	node2 := self createNodeWithName: 'node2'.

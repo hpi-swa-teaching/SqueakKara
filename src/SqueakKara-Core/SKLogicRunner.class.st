@@ -10,7 +10,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #constructor,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 21:07'
 }
 SKLogicRunner class >> newWithExecutionContext: aExecutionContext [
@@ -98,7 +98,7 @@ SKLogicRunner >> executeContext: aExecuteContext [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:20'
+	#'squeak_changestamp' : 'Lars 7/7/2026 11:10'
 }
 SKLogicRunner >> executeLogicGraph [
 
@@ -109,21 +109,18 @@ SKLogicRunner >> executeLogicGraph [
 	hasNextStep := true.
 	[hasNextStep] whileTrue: [self executeStep ifNil: [hasNextStep := false].
 		counter := counter + 1.
-		counter >= 500 ifTrue: [Transcript show: '[SKLogicRunner] Endlosschleife Detected'.
-			^ self]]
+		counter >= self infinityLoopCutoff ifTrue: [^ self]]
 ]
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 09:23'
+	#'squeak_changestamp' : 'Lars 7/7/2026 11:06'
 }
 SKLogicRunner >> executeStep [
 	
 	| nextEdge |
 	
-	self currentNode hasEdge ifFalse: [
-			Transcript show: '[LoigcRunner] ', currentNode name , ' has no edges'; cr.
-			^ nil].
+	self currentNode hasEdge ifFalse: [^ nil].
 	nextEdge := self findNextEdge: self currentNode. 
 	nextEdge ifNil: [^ nil].
 	
@@ -133,7 +130,7 @@ SKLogicRunner >> executeStep [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:55'
+	#'squeak_changestamp' : 'Lars 7/7/2026 11:11'
 }
 SKLogicRunner >> findNextEdge: aLogicNode [
 
@@ -146,18 +143,23 @@ SKLogicRunner >> findNextEdge: aLogicNode [
 	
 	(possibleEdges size > 0) ifTrue: [^ possibleEdges first].
 	(defaultEdges size > 0) ifTrue: [^ defaultEdges first].
-	
-	Transcript show: '[LogicRunner] No possible edge found'; cr.
 	^ nil
 ]
 
 {
+	#category : #const,
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:27'
+}
+SKLogicRunner >> infinityLoopCutoff [
+
+	^ 500
+]
+
+{
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:48'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:27'
 }
 SKLogicRunner >> traverseEdge: aLogicEdge [
-
-"	Transcript show: ('[LogicRunner] ' , aLogicEdge fromNode name, ' --> ', aLogicEdge toNode name); cr."
 
 	self currentNode: aLogicEdge toNode
 	

@@ -12,7 +12,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #constructor,
 	#'squeak_changestamp' : 'Lars Kuhr 5/22/2026 11:42'
 }
 SKProcess class >> newWithCompiler: aCompiler scheduler: aScheduler [

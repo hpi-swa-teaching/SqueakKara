@@ -56,7 +56,7 @@ SKBlockCategory >> addBlock: aBlock [
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'FR 6/23/2026 23:01'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:15'
 }
 SKBlockCategory >> buildContent [
 
@@ -68,7 +68,7 @@ SKBlockCategory >> buildContent [
 		hResizing: #shrinkWrap;
 		vResizing: #shrinkWrap;
 		layoutInset: 0;
-		cellGap: SKBlockStyle unit * 2;
+		cellGap: SKStylesheet blockUnit * 2;
 		yourself
 ]
 
@@ -90,22 +90,22 @@ SKBlockCategory >> buildHeader [
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'FR 7/3/2026 02:27'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:17'
 }
 SKBlockCategory >> buildRow [
 
 	^ Morph new
 		color: SKStylesheet colorBeige;
 		borderColor: SKStylesheet colorOrange;
-		borderWidth: SKBlockStyle borderWidth;
+		borderWidth: SKStylesheet blockBorderWidth;
 		layoutPolicy: TableLayout new;
 		listDirection: #leftToRight;
 		wrapCentering: #center;
 		cellPositioning: #leftCenter;
 		hResizing: #spaceFill;
 		vResizing: #shrinkWrap;
-		layoutInset: SKBlockStyle unit * 2;
-		cellGap: SKBlockStyle unit * 2;
+		layoutInset:  SKStylesheet blockUnit * 2;
+		cellGap: SKStylesheet blockUnit * 2;
 		on: #mouseDown send: #toggle to: self;
 		yourself
 ]
@@ -198,7 +198,7 @@ SKBlockCategory >> header [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/23/2026 22:56'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:15'
 }
 SKBlockCategory >> initialize [
 
@@ -211,7 +211,7 @@ SKBlockCategory >> initialize [
 		vResizing: #shrinkWrap;
 		hResizing: #spaceFill;
 		layoutInset: 0;
-		cellGap: SKBlockStyle unit * 2.
+		cellGap:  SKStylesheet blockUnit * 2.
 	self addMorphBack: self header.
 	self addMorphBack: self content.
 ]
@@ -236,12 +236,12 @@ SKBlockCategory >> refreshDisclosure [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/23/2026 19:27'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:13'
 }
 SKBlockCategory >> setColorsToMatchCategory: aSymbol [
 
-	self header color: (SKBlockStyle colorByCategory at: aSymbol);
-		borderColor: (SKBlockStyle borderColorByCategory at: aSymbol).
+	self header color: (SKStylesheet blockColorByCategory at: aSymbol);
+		borderColor: (SKStylesheet blockBorderColorByCategory at: aSymbol).
 ]
 
 {
