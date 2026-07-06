@@ -100,18 +100,17 @@ SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'SLH 7/6/2026 08:45'
+	#'squeak_changestamp' : 'SLH 7/6/2026 10:40'
 }
 SKActionBlock >> drawOn: aCanvas [
 
-	| blockBounds pts bottom left right y halfBW |
+	| blockBounds points bottom left right y |
 	
-	halfBW := self borderWidth // 2.
-	blockBounds := self bounds insetBy: halfBW.
+	blockBounds := self bounds insetBy: (self borderWidth // 2).
 	bottom := blockBounds bottom - self tabHeight.
 	left := blockBounds left.
 	right := blockBounds right.
-	pts := OrderedCollection new.
+	points := OrderedCollection new.
 	y := blockBounds top.
 	
 	self blockRows doWithIndex: [:row :index |
@@ -126,16 +125,16 @@ SKActionBlock >> drawOn: aCanvas [
 		 (index = self blockRows size) ifTrue: [
 			leftBot := left.
 			yNew := bottom].
-		pts add: leftTop@y.
+		points add: leftTop@y.
 		row isGap ifFalse: [
-			self isStart ifFalse: [pts addAll: (self getTopTabPointsFromLeft: leftTop atY: y).].
-			pts add: right @ y.
-			pts addAll: (self getBottomTabPointsFromLeft: leftBot toRight: right atY: yNew).].
+			self isStart ifFalse: [points addAll: (self getTopTabPointsFromLeft: leftTop atY: y).].
+			points add: right @ y.
+			points addAll: (self getBottomTabPointsFromLeft: leftBot toRight: right atY: yNew).].
 		y := yNew].
-	pts add: left@bottom.
+	points add: left@bottom.
 
 	aCanvas 
-		drawPolygon: pts 
+		drawPolygon: points 
 		color: self color 
 		borderWidth: self borderWidth
 		borderColor: self borderColor

@@ -13,25 +13,25 @@ Class {
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'SLH 7/6/2026 09:20'
+	#'squeak_changestamp' : 'SLH 7/6/2026 10:36'
 }
 SKBooleanBlock >> drawOn: aCanvas [
-	| b p1 p2 p3 p4 p5 p6 pts indent borderWidth |
+	| blockBounds points indent borderWidth |
 	
 	borderWidth := SKBlockStyle borderWidth.
-	b := self bounds insetBy: borderWidth.
+	blockBounds := self bounds insetBy: borderWidth.
 	
 	indent := self height // 2. 
 	
-	p1 := b left @ b center y.
-	p2 := (b left + indent) @ b top.
-	p3 := (b right - indent) @ b top.
-	p4 := b right @ b center y.
-	p5 := (b right - indent) @ b bottom.
-	p6 := (b left + indent) @ b bottom.
-	pts := {p1. p2. p3. p4. p5. p6}.
+	points := OrderedCollection new.
+	points add: blockBounds left @ blockBounds center y.
+	points add: (blockBounds left + indent) @ blockBounds top.
+	points add: (blockBounds right - indent) @ blockBounds top.
+	points add: blockBounds right @ blockBounds center y.
+	points add: (blockBounds right - indent) @ blockBounds bottom.
+	points add: (blockBounds left + indent) @ blockBounds bottom.
 	
-	aCanvas drawPolygon: pts
+	aCanvas drawPolygon: points
 		color: self color
 		borderWidth: borderWidth
 		borderColor: self borderColor
