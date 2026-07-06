@@ -22,12 +22,12 @@ SKBooleanSlotPart >> defaultValue [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:18'
 }
 SKBooleanSlotPart >> drawOn: aCanvas [
 	| innerBounds p1 p2 p3 p4 p5 p6 pts indent borderWidth |
 	
-	borderWidth := SKBlockStyle borderWidth.
+	borderWidth := SKStylesheet blockBorderWidth.
 	innerBounds := self bounds insetBy: borderWidth.
 	
 	indent := self height // 2. 
@@ -48,13 +48,13 @@ SKBooleanSlotPart >> drawOn: aCanvas [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 7/3/2026 03:05'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:18'
 }
 SKBooleanSlotPart >> initialize [
 	super initialize.
 	
 	self defaultUI: (Morph new color: Color transparent;
-						extent: SKBlockStyle blockPartHeight * 2 @SKBlockStyle blockPartHeight).
+						extent: SKStylesheet blockPartHeight * 2 @SKStylesheet blockPartHeight).
 	self hResizing: #shrinkWrap; vResizing: #shrinkWrap.
 	self addMorphBack: self defaultUI
 ]

@@ -31,14 +31,14 @@ SKActionSlotPart >> defaultValue [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:37'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:11'
 }
 SKActionSlotPart >> initialize [
 	
 	super initialize.
 	
 	self color: Color transparent;
-		height: SKBlockStyle blockPartHeight
+		height: SKStylesheet blockPartHeight
 		
 ]
 
@@ -67,13 +67,13 @@ SKActionSlotPart >> type [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/9/2026 01:05'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:19'
 }
 SKActionSlotPart >> updateLayout [
 
 	self connectionPoint isConnected ifTrue: [
 		self extent: self connectionPoint connectedPoint uiDelegate stackExtent] ifFalse: [
-			self extent: SKBlockStyle blockPartHeight * 2 @ SKBlockStyle blockPartHeight].
+			self extent: SKStylesheet blockPartHeight * 2 @ SKStylesheet blockPartHeight].
 
 	super updateLayout
 ]

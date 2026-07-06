@@ -9,12 +9,12 @@ Class {
 
 {
 	#category : #input,
-	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 13:02'
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:43'
 }
 SKNodeTextMorph >> handleKeystroke: anEvent [
 
 	anEvent keyCharacter = Character cr ifTrue: [self acceptContents.
-		self owner unselectNode.
+		self owner actionDeselect.
 		^ self].
 	super keyStroke: anEvent
 ]

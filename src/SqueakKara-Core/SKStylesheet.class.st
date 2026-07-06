@@ -9,6 +9,75 @@ Class {
 }
 
 {
+	#category : #'block-style',
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:12'
+}
+SKStylesheet class >> blockBorderColorByCategory [
+
+	^	Dictionary new at: #default put: SKStylesheet colorOrange;
+		at: #movement put: SKStylesheet colorBlue;
+		at: #sensing put: SKStylesheet colorGreen;
+		at: #operators put: SKStylesheet colorDarkTeal; yourself
+]
+
+{
+	#category : #'block-style',
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:09'
+}
+SKStylesheet class >> blockBorderWidth [
+
+	^ self blockUnit // 2 * 2
+]
+
+{
+	#category : #'block-style',
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:12'
+}
+SKStylesheet class >> blockColorByCategory [
+
+	^	Dictionary new at: #default put: SKStylesheet colorBeige;
+		at: #movement put: SKStylesheet colorLightBlue;
+		at: #sensing put: SKStylesheet colorLightGreen;
+		at: #operators put: SKStylesheet colorTeal; yourself
+]
+
+{
+	#category : #'block-style',
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:10'
+}
+SKStylesheet class >> blockPartHeight [
+	
+	^ TextStyle defaultFont lineGrid + ((TextStyle defaultFont height // 6) * 2) + ((SKStylesheet blockBorderWidth // 2) * 2)
+]
+
+{
+	#category : #'block-style',
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:13'
+}
+SKStylesheet class >> blockTabHeight [
+
+	^ TextStyle defaultFont height // 5 * 2
+]
+
+{
+	#category : #'block-style',
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:14'
+}
+SKStylesheet class >> blockTabOffset [
+
+	^ TextStyle defaultFont height // 5 * 3
+]
+
+{
+	#category : #'block-style',
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:08'
+}
+SKStylesheet class >> blockUnit [
+	
+	^ TextStyle defaultFont height // 6
+]
+
+{
 	#category : #colors,
 	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:36'
 }

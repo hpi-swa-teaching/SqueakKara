@@ -241,11 +241,11 @@ SKBlock >> blockType [
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'FR 6/23/2026 19:19'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:12'
 }
 SKBlock >> borderColorFromCategory [
 
-	^ SKBlockStyle borderColorByCategory at: self category
+	^ SKStylesheet blockBorderColorByCategory at: self category
 ]
 
 {
@@ -271,11 +271,11 @@ SKBlock >> category: aCategory [
 
 {
 	#category : #colors,
-	#'squeak_changestamp' : 'FR 6/23/2026 19:18'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:13'
 }
 SKBlock >> colorFromCategory [
 
-	^ SKBlockStyle colorByCategory at: self category
+	^ SKStylesheet blockColorByCategory at: self category
 ]
 
 {
@@ -350,7 +350,7 @@ SKBlock >> handlesMouseDown: anEvent [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/23/2026 18:57'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:09'
 }
 SKBlock >> initialize [
 	
@@ -358,7 +358,7 @@ SKBlock >> initialize [
 	
 	self borderColor: self borderColorFromCategory;
 		color: self colorFromCategory;
-		borderWidth: SKBlockStyle borderWidth;
+		borderWidth: SKStylesheet blockBorderWidth;
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
 		wrapCentering: #center;
@@ -428,11 +428,11 @@ SKBlock >> leftSource: aBoolean [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:10'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:11'
 }
 SKBlock >> minHeight [
 
-	^ SKBlockStyle blockPartHeight
+	^ SKStylesheet blockPartHeight
 ]
 
 {
@@ -474,11 +474,11 @@ SKBlock >> removedMorph: aMorph [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'FR 6/24/2026 17:18'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:11'
 }
 SKBlock >> snapRadius [
 
-	^ SKBlockStyle blockPartHeight
+	^ SKStylesheet blockPartHeight
 ]
 
 {
