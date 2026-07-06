@@ -246,53 +246,6 @@ SKEnvironment >> initializeWithBlankProject [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/23/2026 17:19'
-}
-SKEnvironment >> initializeWithChallenge1 [
-
-	self level: (SKLevel1World1 new initializeWithEnvironment: self).
-
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/23/2026 17:26'
-}
-SKEnvironment >> initializeWithChallenge2 [
-	
-	self level: (SKLevel1World4 new initializeWithEnvironment: self).
-	
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/23/2026 18:09'
-}
-SKEnvironment >> initializeWithChallenge3 [
-
-	self level: (SKLevel2World2 new initializeWithEnvironment: self).
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/23/2026 17:29'
-}
-SKEnvironment >> initializeWithChallenge4 [
-
-	self level: (SKLevel2World4 new initializeWithEnvironment: self).
-]
-
-{
-	#category : #initialization,
-	#'squeak_changestamp' : 'JS 6/23/2026 17:29'
-}
-SKEnvironment >> initializeWithChallenge5 [
-
-	self level: (SKLevel3World1 new initializeWithEnvironment: self).
-]
-
-{
-	#category : #initialization,
 	#'squeak_changestamp' : 'LM 5/7/2026 21:51'
 }
 SKEnvironment >> initializeWithKaraAt: aPoint [
@@ -300,6 +253,16 @@ SKEnvironment >> initializeWithKaraAt: aPoint [
 	self grid: (SKGrid newWithExtent: 7 @ 7).
 	self addKara: (SKKara newInGrid: self grid at: aPoint).
 	self initializeObjects
+]
+
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'JS 7/6/2026 04:13'
+}
+SKEnvironment >> initializeWithLevel: aLevel [
+
+	self level: ((Smalltalk at: aLevel asSymbol) new initializeWithEnvironment: self).
+
 ]
 
 {

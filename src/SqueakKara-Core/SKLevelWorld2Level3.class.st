@@ -3,7 +3,7 @@ A SKLevel2World2 defines level 2 in World 2
 
 "
 Class {
-	#name : #SKLevel2World2,
+	#name : #SKLevelWorld2Level3,
 	#superclass : #SKLevel,
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 22:47'
@@ -11,18 +11,27 @@ Class {
 
 {
 	#category : #name,
-	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 21:57'
+	#'squeak_changestamp' : 'JS 7/6/2026 03:20'
 }
-SKLevel2World2 class >> levelName [
+SKLevelWorld2Level3 class >> levelName [
 	
-	^ 'Fungus fumble'
+	^ '2 - 3 Fungus fumble'
+]
+
+{
+	#category : #constants,
+	#'squeak_changestamp' : 'JS 7/6/2026 03:15'
+}
+SKLevelWorld2Level3 >> blockLimit [
+
+	^ 25
 ]
 
 {
 	#category : #building,
 	#'squeak_changestamp' : 'JS 6/23/2026 18:04'
 }
-SKLevel2World2 >> build [
+SKLevelWorld2Level3 >> build [
 
 	self placeKaraAt: 1 @ 3 withViewDirection: SKDirection right;
 		placeTrunkAt: 1 @ 1;
@@ -54,7 +63,7 @@ SKLevel2World2 >> build [
 	#category : #constants,
 	#'squeak_changestamp' : 'JS 6/23/2026 16:16'
 }
-SKLevel2World2 >> height [
+SKLevelWorld2Level3 >> height [
 	
 	^7
 ]
@@ -63,7 +72,7 @@ SKLevel2World2 >> height [
 	#category : #constants,
 	#'squeak_changestamp' : 'JS 6/23/2026 16:06'
 }
-SKLevel2World2 >> width [
+SKLevelWorld2Level3 >> width [
 	
 	^7
 ]

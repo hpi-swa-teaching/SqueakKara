@@ -30,7 +30,7 @@ SKButtonStack >> addButton: aButton [
 
 {
 	#category : #building,
-	#'squeak_changestamp' : 'SSP 6/7/2026 15:00'
+	#'squeak_changestamp' : 'JS 7/6/2026 03:53'
 }
 SKButtonStack >> addButtonWithLabel: aLabel target: aTarget selector: aSelector arguments: anArray color: aColor [
 

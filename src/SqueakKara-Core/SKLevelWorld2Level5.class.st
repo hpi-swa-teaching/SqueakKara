@@ -3,7 +3,7 @@ A SKLevel2World4 is defines level 2 in World 4
 
 "
 Class {
-	#name : #SKLevel2World4,
+	#name : #SKLevelWorld2Level5,
 	#superclass : #SKLevel,
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 22:48'
@@ -11,18 +11,27 @@ Class {
 
 {
 	#category : #name,
-	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 21:58'
+	#'squeak_changestamp' : 'JS 7/6/2026 03:20'
 }
-SKLevel2World4 class >> levelName [
+SKLevelWorld2Level5 class >> levelName [
 	
-	^ 'Mycelium resistance'
+	^ '2 - 5 Mycelium resistance'
+]
+
+{
+	#category : #constants,
+	#'squeak_changestamp' : 'JS 7/6/2026 03:15'
+}
+SKLevelWorld2Level5 >> blockLimit [
+
+	^ 25
 ]
 
 {
 	#category : #building,
 	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 21:46'
 }
-SKLevel2World4 >> build [
+SKLevelWorld2Level5 >> build [
 
 	self placeKaraAt: 1 @ 7 withViewDirection: SKDirection above;
 		placeCloverleafAt: 7 @ 5;
@@ -83,7 +92,7 @@ SKLevel2World4 >> build [
 	#category : #constants,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 23:14'
 }
-SKLevel2World4 >> height [
+SKLevelWorld2Level5 >> height [
 	
 	^ 9
 ]
@@ -92,7 +101,7 @@ SKLevel2World4 >> height [
 	#category : #constants,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 23:14'
 }
-SKLevel2World4 >> width [
+SKLevelWorld2Level5 >> width [
 	
 	^ 10
 ]

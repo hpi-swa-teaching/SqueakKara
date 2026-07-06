@@ -3,7 +3,7 @@ A SKLevel3World1 defines level 3 in World 1
 
 "
 Class {
-	#name : #SKLevel3World1,
+	#name : #SKLevelWorld3Level1,
 	#superclass : #SKLevel,
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 22:48'
@@ -11,18 +11,27 @@ Class {
 
 {
 	#category : #name,
-	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 21:58'
+	#'squeak_changestamp' : 'JS 7/6/2026 03:21'
 }
-SKLevel3World1 class >> levelName [
+SKLevelWorld3Level1 class >> levelName [
 	
-	^ 'Stronger together'
+	^ '3 - 1 Stronger together'
+]
+
+{
+	#category : #constants,
+	#'squeak_changestamp' : 'JS 7/6/2026 03:15'
+}
+SKLevelWorld3Level1 >> blockLimit [
+
+	^ 25
 ]
 
 {
 	#category : #building,
 	#'squeak_changestamp' : 'JS 6/23/2026 17:24'
 }
-SKLevel3World1 >> build [
+SKLevelWorld3Level1 >> build [
 
 	self placeKaraAt: 1 @ 2 withViewDirection: SKDirection right;
 		placeKaraAt: 1 @ 4 withViewDirection: SKDirection right;
@@ -32,18 +41,18 @@ SKLevel3World1 >> build [
 
 {
 	#category : #constants,
-	#'squeak_changestamp' : 'JS 6/23/2026 16:16'
+	#'squeak_changestamp' : 'JS 7/6/2026 02:37'
 }
-SKLevel3World1 >> height [
+SKLevelWorld3Level1 >> height [
 	
-	^7
+	^5
 ]
 
 {
 	#category : #constants,
 	#'squeak_changestamp' : 'JS 6/23/2026 16:06'
 }
-SKLevel3World1 >> width [
+SKLevelWorld3Level1 >> width [
 	
 	^7
 ]

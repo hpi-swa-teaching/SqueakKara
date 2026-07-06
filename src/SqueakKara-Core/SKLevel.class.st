@@ -24,6 +24,15 @@ Class {
 }
 
 {
+	#category : #constants,
+	#'squeak_changestamp' : 'JS 7/6/2026 03:13'
+}
+SKLevel >> blockLimit [
+
+	self subclassResponsibility
+]
+
+{
 	#category : #building,
 	#'squeak_changestamp' : 'Gustav Meinshausen 6/20/2026 11:27'
 }

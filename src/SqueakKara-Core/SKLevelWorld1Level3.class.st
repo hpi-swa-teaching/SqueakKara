@@ -2,7 +2,7 @@
 A SKLevel1World4 defines level 1 in World 4
 "
 Class {
-	#name : #SKLevel1World4,
+	#name : #SKLevelWorld1Level3,
 	#superclass : #SKLevel,
 	#category : #'SqueakKara-Core',
 	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 22:47'
@@ -10,18 +10,27 @@ Class {
 
 {
 	#category : #name,
-	#'squeak_changestamp' : 'Gustav Meinshausen 7/5/2026 21:54'
+	#'squeak_changestamp' : 'JS 7/6/2026 03:20'
 }
-SKLevel1World4 class >> levelName [
+SKLevelWorld1Level3 class >> levelName [
 	
-	^ 'Spiral Garden'
+	^ '1 - 3 Spiral Garden'
+]
+
+{
+	#category : #constants,
+	#'squeak_changestamp' : 'JS 7/6/2026 03:14'
+}
+SKLevelWorld1Level3 >> blockLimit [
+
+	^ 15
 ]
 
 {
 	#category : #building,
 	#'squeak_changestamp' : 'JS 6/23/2026 17:24'
 }
-SKLevel1World4 >> build [
+SKLevelWorld1Level3 >> build [
 
 	self placeKaraAt: 1 @ 2 withViewDirection: SKDirection right;
 		placeTrunkAt: 1 @ 1;
@@ -70,7 +79,7 @@ SKLevel1World4 >> build [
 	#category : #constants,
 	#'squeak_changestamp' : 'JS 6/23/2026 16:16'
 }
-SKLevel1World4 >> height [
+SKLevelWorld1Level3 >> height [
 	
 	^7
 ]
@@ -79,7 +88,7 @@ SKLevel1World4 >> height [
 	#category : #constants,
 	#'squeak_changestamp' : 'JS 6/23/2026 16:06'
 }
-SKLevel1World4 >> width [
+SKLevelWorld1Level3 >> width [
 	
 	^7
 ]
