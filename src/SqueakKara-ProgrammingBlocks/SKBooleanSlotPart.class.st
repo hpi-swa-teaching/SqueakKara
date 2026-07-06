@@ -22,7 +22,7 @@ SKBooleanSlotPart >> defaultValue [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:20'
 }
 SKBooleanSlotPart >> drawOn: aCanvas [
 	| innerBounds p1 p2 p3 p4 p5 p6 pts indent borderWidth |
@@ -38,7 +38,7 @@ SKBooleanSlotPart >> drawOn: aCanvas [
 	p4 := innerBounds right @ innerBounds center y.
 	p5 := (innerBounds right - indent) @ innerBounds bottom.
 	p6 := (innerBounds left + indent) @ innerBounds bottom.
-	pts := { p1. p2. p3. p4. p5. p6 }.
+	pts := {p1. p2. p3. p4. p5. p6}.
 	
 	aCanvas drawPolygon: pts
 		color: self block borderColor

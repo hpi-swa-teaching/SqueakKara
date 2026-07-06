@@ -21,42 +21,11 @@ Class {
 	#superclass : #SKBlockPart,
 	#instVars : [
 		'defaultUI',
-		'attachedBlock',
 		'connectionPoint'
 	],
 	#category : #'SqueakKara-ProgrammingBlocks',
 	#'squeak_changestamp' : 'FR 6/30/2026 21:32'
 }
-
-{
-	#category : #attaching,
-	#'squeak_changestamp' : 'FR 6/9/2026 17:06'
-}
-SKInputSlotPart >> acceptBlock: anSKBlock [
-
-	self attachedBlock: anSKBlock.
-	self removeMorph: self defaultUI.
-	self addMorph: anSKBlock
-	
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
-}
-SKInputSlotPart >> attachedBlock [
-
-	^ attachedBlock
-]
-
-{
-	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
-}
-SKInputSlotPart >> attachedBlock: aValueBlock [
-
-	attachedBlock := aValueBlock
-]
 
 {
 	#category : #accessing,
@@ -140,11 +109,10 @@ SKInputSlotPart >> resolveConflictingBlockEmbeddingFor: anSKBlock [
 
 {
 	#category : #detaching,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:03'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:13'
 }
 SKInputSlotPart >> restoreDefault [
 
-	self attachedBlock: nil.
 	self addMorph: self defaultUI
 ]
 

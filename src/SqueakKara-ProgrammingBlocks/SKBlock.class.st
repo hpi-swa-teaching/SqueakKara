@@ -170,15 +170,6 @@ SKBlock >> addLabel: aString [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 19:48'
-}
-SKBlock >> addStringPart [
-	
-	^ self addInputSlotPart: (SKTextSlotPart new setDefaultUIText: 'Placeholder')
-]
-
-{
-	#category : #accessing,
 	#'squeak_changestamp' : 'FR 6/9/2026 22:45'
 }
 SKBlock >> addStringPartWithText: aString [
@@ -199,15 +190,15 @@ SKBlock >> anchorPoint [
 
 {
 	#category : #'submorphs - callbacks',
-	#'squeak_changestamp' : 'FR 7/3/2026 02:34'
+	#'squeak_changestamp' : 'SLH 7/6/2026 08:47'
 }
 SKBlock >> blockCount [
 	
 	| result |
 	
 	result := 1.
-	self actionConnectionPoints ifEmpty: [^0]
-		ifNotEmpty: [self actionConnectionPoints do:[:each | each connectedPoint ifNotNil:
+	self actionConnectionPoints ifEmpty: [^ 0]
+		ifNotEmpty: [self actionConnectionPoints do: [:each | each connectedPoint ifNotNil:
 				[result := result + each connectedPoint uiDelegate blockCount]]].
 	^ result
 ]
@@ -449,7 +440,7 @@ SKBlock >> mouseDown: anEvent [
 ]
 
 {
-	#category : #'event handling',
+	#category : #'dropping/grabbing',
 	#'squeak_changestamp' : 'FR 6/9/2026 00:11'
 }
 SKBlock >> rejectDropMorphEvent: anEvent [

@@ -13,7 +13,7 @@ Class {
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:20'
 }
 SKBooleanBlock >> drawOn: aCanvas [
 	| b p1 p2 p3 p4 p5 p6 pts indent borderWidth |
@@ -29,7 +29,7 @@ SKBooleanBlock >> drawOn: aCanvas [
 	p4 := b right @ b center y.
 	p5 := (b right - indent) @ b bottom.
 	p6 := (b left + indent) @ b bottom.
-	pts := { p1. p2. p3. p4. p5. p6 }.
+	pts := {p1. p2. p3. p4. p5. p6}.
 	
 	aCanvas drawPolygon: pts
 		color: self color

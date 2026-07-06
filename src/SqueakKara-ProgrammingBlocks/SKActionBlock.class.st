@@ -100,19 +100,19 @@ SKActionBlock >> connectionPointPositionForType: aConnectionPointType [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 7/3/2026 02:54'
+	#'squeak_changestamp' : 'SLH 7/6/2026 08:45'
 }
 SKActionBlock >> drawOn: aCanvas [
 
-	| bounds pts bottom left right y halfBW |
+	| blockBounds pts bottom left right y halfBW |
 	
 	halfBW := self borderWidth // 2.
-	bounds := self bounds insetBy: halfBW.
-	bottom := bounds bottom - self tabHeight.
-	left := bounds left.
-	right := bounds right.
+	blockBounds := self bounds insetBy: halfBW.
+	bottom := blockBounds bottom - self tabHeight.
+	left := blockBounds left.
+	right := blockBounds right.
 	pts := OrderedCollection new.
-	y := bounds top.
+	y := blockBounds top.
 	
 	self blockRows doWithIndex: [:row :index |
 		| leftTop leftBot tabOffset yNew |
@@ -154,25 +154,21 @@ SKActionBlock >> embedVisualBlock: anActionBlock [
 
 {
 	#category : #snapping,
-	#'squeak_changestamp' : 'SLH 6/24/2026 14:30'
+	#'squeak_changestamp' : 'SLH 7/6/2026 08:39'
 }
 SKActionBlock >> findLastRecursiveChildBlock [
 
 	self connectionPoint isConnected ifFalse: [^ self].
 	
-	^ self connectionPoint connectedPoint uiDelegate findLastRecursiveChildBlock.
+	^ self connectionPoint connectedPoint uiDelegate findLastRecursiveChildBlock
 ]
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 7/3/2026 02:52'
+	#'squeak_changestamp' : 'SLH 7/6/2026 08:44'
 }
 SKActionBlock >> getBottomTabPointsFromLeft: left toRight: right atY: y [
 
-	| halfBW |
-	
-	halfBW := SKBlockStyle borderWidth // 2.
-	
 	^ {	right @ y.
 		(left + self tabOffset + self tabWidth) @ y.
 		(left + self tabOffset + self tabWidth - self slantWidth) @ (y + self tabHeight).

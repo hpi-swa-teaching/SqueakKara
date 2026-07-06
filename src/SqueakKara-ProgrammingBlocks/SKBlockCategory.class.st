@@ -112,9 +112,9 @@ SKBlockCategory >> buildRow [
 
 {
 	#category : #expansion,
-	#'squeak_changestamp' : 'FR 6/24/2026 02:56'
+	#'squeak_changestamp' : 'SLH 7/6/2026 08:49'
 }
-SKBlockCategory >> collapse [
+SKBlockCategory >> collapseCategory [
 
 	self fullBounds.
 	self expanded: false.
@@ -159,9 +159,9 @@ SKBlockCategory >> disclosureLabel [
 
 {
 	#category : #expansion,
-	#'squeak_changestamp' : 'SLH 6/16/2026 20:39'
+	#'squeak_changestamp' : 'SLH 7/6/2026 08:49'
 }
-SKBlockCategory >> expand [
+SKBlockCategory >> expandCategory [
 
 	self expanded: true.
 	self content owner == self ifFalse: [self addMorphBack: self content].
@@ -217,7 +217,7 @@ SKBlockCategory >> initialize [
 ]
 
 {
-	#category : #accessing,
+	#category : #layout,
 	#'squeak_changestamp' : 'FR 7/3/2026 02:44'
 }
 SKBlockCategory >> minWidth [
@@ -283,9 +283,9 @@ SKBlockCategory >> titleLabel: aMorph [
 
 {
 	#category : #expansion,
-	#'squeak_changestamp' : 'SSP 6/14/2026 16:50'
+	#'squeak_changestamp' : 'SLH 7/6/2026 08:49'
 }
 SKBlockCategory >> toggle [
 
-	self expanded ifTrue: [self collapse] ifFalse: [self expand]
+	self expanded ifTrue: [self collapseCategory] ifFalse: [self expandCategory]
 ]

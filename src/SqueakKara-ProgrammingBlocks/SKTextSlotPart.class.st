@@ -40,11 +40,10 @@ SKTextSlotPart >> defaultValue [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 7/3/2026 03:01'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:21'
 }
 SKTextSlotPart >> initialize [
-	
-	
+
 	super initialize.
 	
 	self color: Color white;
@@ -108,11 +107,11 @@ SKTextSlotPart >> setDefaultUIText: aString [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'FR 6/9/2026 18:55'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:21'
 }
 SKTextSlotPart >> type [
 
-	^ type ifNil: [type := #String. ^ #String]
+	^ type ifNil: [type := #String]
 ]
 
 {
@@ -127,12 +126,12 @@ SKTextSlotPart >> type: anObject [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'FR 6/29/2026 21:05'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:22'
 }
 SKTextSlotPart >> updateLayout [
 
 	super updateLayout.
-	self type = #Integer ifTrue:[self cornerRadius: self height // 2].
+	self type = #Integer ifTrue: [self cornerRadius: self height // 2].
 ]
 
 {

@@ -33,7 +33,8 @@ Class {
 		'functionStarts',
 		'isWatchingChanges',
 		'variables',
-		'blockMax'
+		'blockMax',
+		'previewBlock'
 	],
 	#category : #'SqueakKara-ProgrammingBlocks',
 	#'squeak_changestamp' : 'FR 6/30/2026 21:28'
@@ -59,11 +60,11 @@ SKBlockEditor >> blockMax: aNumber [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/24/2026 02:53'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:00'
 }
 SKBlockEditor >> buildContainerWindow [
 
-	| container pane sourcePane window |
+	| container pane sourcePane containerWindow |
 	
 	sourcePane := self buildSourcePane.
 	sourcePane fullBounds.
@@ -73,10 +74,10 @@ SKBlockEditor >> buildContainerWindow [
 	container
 		addMorph: pane;
 		addMorph: sourcePane.
-	window := container openInWindowLabeled: 'Block Editor'.
-	window setWindowColor: SKStylesheet primaryColor;
-			minimumExtent: window extent.
-	^ window
+	containerWindow := container openInWindowLabeled: 'Block Editor'.
+	containerWindow setWindowColor: SKStylesheet primaryColor;
+			minimumExtent: containerWindow extent.
+	^ containerWindow
 ]
 
 {
@@ -161,7 +162,7 @@ SKBlockEditor >> clearPreviewBlock [
 
 {
 	#category : #resizing,
-	#'squeak_changestamp' : 'FR 7/3/2026 14:31'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:08'
 }
 SKBlockEditor >> expandIfNeededToInclude: aRectangle [
 
@@ -173,7 +174,8 @@ SKBlockEditor >> expandIfNeededToInclude: aRectangle [
 		self shiftSubmorphsBy: (aRectangle left abs @ 0).
 		self scroller offset: (self scroller offset x + aRectangle left abs @ (self scroller offset y)).
 		newExtent := (newExtent x - aRectangle left) @ newExtent y].
-	(aRectangle bottom > newExtent y) ifTrue: [newExtent := newExtent x @ aRectangle bottom + SKBlockStyle blockPartHeight].
+	(aRectangle bottom > newExtent y) ifTrue: [
+		newExtent := newExtent x @ aRectangle bottom + SKBlockStyle blockPartHeight].
 	(aRectangle top < 0) ifTrue: [
 		self shiftSubmorphsBy: (0 @ aRectangle top abs).
 		self scroller offset:( self scroller offset x @ (self scroller offset y + aRectangle top abs)).
@@ -221,13 +223,13 @@ SKBlockEditor >> getCode [
 
 {
 	#category : #'dropping/grabbing',
-	#'squeak_changestamp' : 'SLH 6/24/2026 14:15'
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:28'
 }
-SKBlockEditor >> handleMouseOver: anEvent [
+SKBlockEditor >> handleMouseOver_: anEvent [
 
 	| draggedBlock snapTarget |
 	
-	super handleMouseOver: anEvent.
+	super handlesMouseOver: anEvent.
 	anEvent hand hasSubmorphs ifFalse: [^ self].
 	
 	draggedBlock := anEvent hand submorphs first.
@@ -240,6 +242,30 @@ SKBlockEditor >> handleMouseOver: anEvent [
 			ifTrue: [^ self].
 	self previewBlock ifNotNil: [^ self].
 	self placePreviewBlockOf: draggedBlock at: snapTarget
+]
+
+{
+	#category : #'dropping/grabbing',
+	#'squeak_changestamp' : 'SLH 7/6/2026 09:35'
+}
+SKBlockEditor >> handlesMouseOver: anEvent [
+
+	| draggedBlock snapTarget |
+	
+	anEvent hand hasSubmorphs ifFalse: [^ true].
+	
+	draggedBlock := anEvent hand submorphs first.
+	(draggedBlock isKindOf: SKBlock) ifFalse: [^ true].
+	
+	snapTarget := draggedBlock findClosestSnapTargetIn: self.
+	snapTarget ifNil: [self clearPreviewBlock. ^ true].
+	((snapTarget uiDelegate isKindOf: SKBlock)
+		and: [snapTarget uiDelegate isPreview])
+			ifTrue: [^ true].
+	self previewBlock ifNotNil: [^ true].
+	self placePreviewBlockOf: draggedBlock at: snapTarget.
+	
+	^ true
 ]
 
 {
@@ -309,7 +335,7 @@ SKBlockEditor >> open [
 ]
 
 {
-	#category : #resizing,
+	#category : #layout,
 	#'squeak_changestamp' : 'FR 7/3/2026 02:30'
 }
 SKBlockEditor >> ownerChanged [
