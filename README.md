@@ -1,10 +1,10 @@
-# SqueakKara 🐞
+### SqueakKara 🐞
 When you want coding to be as simple as collecting a cloverleaf. 
 
 ## How To Use 🍀
 
-To start the game, open a workspace and run 'SKLandingPage new.'. Then you can select an interface and a level from the LandingPage and start playing! Currently you can 
-start coding by writing smalltalk(Code), creating blocks(Blocks) like Scratch and Mealy state machines(Mealy). A game window and a interface corresponding to the selected interface will appear.
+To start the game, open a workspace and run 'SKLandingPage new.'. Then you can select an interface and a level from the LandingPage and start playing! Currently, you can 
+start coding by writing classy smalltalk, creating blocks like in Scratch and by creating Mealy state machines. A game window and a interface corresponding to the selected interface will appear.
 
 
 ## What to do 🎱
@@ -34,7 +34,7 @@ Kara has following methods you can use:
 
 And remember to use Squeak Syntax.
 
-### Example Code for "Example Project 1" 👨‍💻
+### Example solution for "1-3 Spiral Garden" 👨‍💻
 
 ```squeak
 [kara onCloverleaf not]
@@ -46,13 +46,14 @@ And remember to use Squeak Syntax.
 
 You can use the slider in the middle to change the speed of the code execution.
 
-If you have moved Kara in a tricky spot you can always change its position in the grid via the Squeak Halo.
+If you have moved Kara in a tricky spot or mushrooms in a corner, you can always use the reset button inbetween the 'stop execution' and 'spawn another kara' button. 
 
-You might run code by using the "do it" command `CTRL+D`. If you find yourself stuck in an infinite loop (Squeak might get unresponsive), just press `ALT+.` to interrupt the code execution.
+You can also run code by using the "do it" command `CTRL+D`. If you find yourself stuck in an infinite loop (Squeak might get unresponsive), just press `ALT+.` to interrupt the code execution.
 
 ## Architecture 🌇
 
-![image](https://github.com/hpi-swa-teaching/SqueakKara/assets/149858749/286cde60-77bf-498b-af44-65e80f10baff)
+<img width="2042" height="1129" alt="Architecture SWT drawio" src="https://github.com/user-attachments/assets/1a2de416-e460-4377-ba50-9eb6d89c3a1c" />
+
 
 The LandingPage opens the Environment, which consists of the Grid, Workspace and the Executer. The grid owns every object and allows interactions between them. The workspace owns Kara and allows the do-it and print-it-statements. 
 
