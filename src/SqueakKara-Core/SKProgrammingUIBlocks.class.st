@@ -43,13 +43,3 @@ SKProgrammingUIBlocks >> getCode [
 
 	^ self blockEditor getCode
 ]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:21'
-}
-SKProgrammingUIBlocks >> setCode: aCode [
-
-	"it is also possile to generate Blocks out of given code"
-	self code: aCode
-]

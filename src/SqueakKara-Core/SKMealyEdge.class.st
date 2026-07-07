@@ -157,11 +157,11 @@ SKMealyEdge >> calculator [
 
 {
 	#category : #'accessing - edge-properties',
-	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:24'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:47'
 }
 SKMealyEdge >> command [
 
-	^command
+	^ command ifNil: [command := '']
 ]
 
 {
@@ -193,11 +193,11 @@ SKMealyEdge >> commandAbbriviations [
 
 {
 	#category : #'accessing - edge-properties',
-	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:23'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:48'
 }
 SKMealyEdge >> condition [
 
-	^ condition
+	^ condition ifNil: [condition := '']
 ]
 
 {
@@ -241,6 +241,19 @@ SKMealyEdge >> controller [
 SKMealyEdge >> controller: aController [
 
 	controller := aController
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:33'
+}
+SKMealyEdge >> createEdgeLabel [
+	
+	^ StringMorph new
+			color: Color black;
+			emphasis: TextEmphasis bold emphasisCode;
+			font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: self labelFontSize);
+			yourself
 ]
 
 {
@@ -438,6 +451,15 @@ SKMealyEdge >> labelCurveDistance [
 
 {
 	#category : #layout,
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:33'
+}
+SKMealyEdge >> labelFontSize [
+
+	^ 12
+]
+
+{
+	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:05'
 }
 SKMealyEdge >> lineColorNormal [
@@ -589,18 +611,13 @@ SKMealyEdge >> updateCurve [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'Lars 7/7/2026 09:27'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:54'
 }
 SKMealyEdge >> updateLabel [
 
-	self updateValues.
 	self edgeLabel ifNil: [
-		self edgeLabel: (StringMorph new
-			color: Color black;
-			emphasis: TextEmphasis bold emphasisCode;
-			font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: 12)).
-		self edgeLabel
-			lock.
+		self edgeLabel: self createEdgeLabel.
+		self edgeLabel lock.
 		self controller actionAddComponent: self edgeLabel].
 	self edgeLabel 
 		center: self calculator labelPosition;
@@ -610,25 +627,15 @@ SKMealyEdge >> updateLabel [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'Lars 7/7/2026 10:02'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:25'
 }
 SKMealyEdge >> updatePopUp [
 
-	self popUp ifNil: [self popUp: SKPopUp new.
+	self popUp ifNil: [self popUp: SKMealyPopUp new.
 		self popUp edge: self.
 		self controller actionAddComponent: self popUp].
 	
 	self popUp position: self calculator popUpAnchorPoint.
 	self popUp bringChildrenToFront.
 	
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 22:53'
-}
-SKMealyEdge >> updateValues [
-
-	self condition: self popUp actionGetCondition.
-	self command: self popUp actionGetCommand
 ]

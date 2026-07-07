@@ -418,11 +418,11 @@ SKMealyEdgeCalculator >> curvePoints: aPointCollection [
 
 {
 	#category : #calculation,
-	#'squeak_changestamp' : 'Lars 7/7/2026 08:49'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:56'
 }
 SKMealyEdgeCalculator >> curveStepSize [
 
-	^ 0.01
+	^ 0.02
 ]
 
 {
