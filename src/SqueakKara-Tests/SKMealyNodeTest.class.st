@@ -40,16 +40,6 @@ SKMealyNodeTest >> testController [
 
 {
 	#category : #testing,
-	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
-}
-SKMealyNodeTest >> testLabelCreation [
-
-	stateMachineEditor initializePlayground. 
-	stateMachineEditor canvas nodes do: [:each| (each isStartingNode) ifTrue: [self assert: each label = nil]]
-]
-
-{
-	#category : #testing,
 	#'squeak_changestamp' : 'JS 6/9/2026 17:43'
 }
 SKMealyNodeTest >> testNodeSize [

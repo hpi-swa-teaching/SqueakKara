@@ -98,7 +98,7 @@ SKLogicRunner >> executeContext: aExecuteContext [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars 7/7/2026 10:27'
+	#'squeak_changestamp' : 'Lars 7/7/2026 11:10'
 }
 SKLogicRunner >> executeLogicGraph [
 
@@ -114,7 +114,7 @@ SKLogicRunner >> executeLogicGraph [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars 7/7/2026 10:27'
+	#'squeak_changestamp' : 'Lars 7/7/2026 11:06'
 }
 SKLogicRunner >> executeStep [
 	
@@ -130,7 +130,7 @@ SKLogicRunner >> executeStep [
 
 {
 	#category : #execution,
-	#'squeak_changestamp' : 'Lars 7/7/2026 10:27'
+	#'squeak_changestamp' : 'Lars 7/7/2026 11:11'
 }
 SKLogicRunner >> findNextEdge: aLogicNode [
 
@@ -142,7 +142,8 @@ SKLogicRunner >> findNextEdge: aLogicNode [
 	defaultEdges := aLogicNode edges select: [:aEdge | aEdge hasDefaultCondition].
 	
 	(possibleEdges size > 0) ifTrue: [^ possibleEdges first].
-	(defaultEdges size > 0) ifTrue: [^ defaultEdges first]
+	(defaultEdges size > 0) ifTrue: [^ defaultEdges first].
+	^ nil
 ]
 
 {

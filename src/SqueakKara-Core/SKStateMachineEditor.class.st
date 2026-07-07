@@ -182,6 +182,28 @@ SKStateMachineEditor >> buildModeButtonStack [
 ]
 
 {
+	#category : #initialization,
+	#'squeak_changestamp' : 'Lars 7/7/2026 11:05'
+}
+SKStateMachineEditor >> buildStartNode [
+
+	| startingNode |
+		
+	startingNode := SKMealyNode newWithName: self nodeCounter asString.
+	self nodeCounterPP.
+	startingNode isStartingNode: true. 
+	startingNode addMorph: (StringMorph new
+		contents: 'START';
+		color: Color black;
+		emphasis: TextEmphasis bold emphasisCode;
+		font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: 8);
+		center: startingNode center).
+	self canvas addNode: startingNode;
+		addMorph: startingNode.
+	startingNode center: self canvas center
+]
+
+{
 	#category : #accessing,
 	#'squeak_changestamp' : 'S 7/2/2026 12:04'
 }
@@ -359,7 +381,7 @@ SKStateMachineEditor >> hasNodesToDelete [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
+	#'squeak_changestamp' : 'Lars 7/7/2026 11:01'
 }
 SKStateMachineEditor >> initialize [
 
@@ -373,34 +395,19 @@ SKStateMachineEditor >> initialize [
 	self addMorph: self canvas.
 	self buildButtonPanel.
 	self relayoutContents.
-	self initializePlayground.
+	self initializeCanvas.
 	self toggleMode: #drag
 ]
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'Lars 7/7/2026 10:00'
+	#'squeak_changestamp' : 'Lars 7/7/2026 11:05'
 }
-SKStateMachineEditor >> initializePlayground [
-
-	|startingNode|
+SKStateMachineEditor >> initializeCanvas [
 
 	self canvas color: Color white.
-	
-	startingNode := SKMealyNode newWithName: self nodeCounter asString.
-	self nodeCounterPP.
-	startingNode isStartingNode: true. 
-	startingNode addMorph: (StringMorph new
-		contents: 'START';
-		color: Color black;
-		emphasis: TextEmphasis bold emphasisCode;
-		font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: 8);
-		center: startingNode center).
-		
-	self canvas addNode: startingNode.
-	self canvas addMorph: startingNode.
-	
-	startingNode center: self canvas center
+	self buildStartNode
+
 	
 
 ]
