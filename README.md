@@ -4,32 +4,33 @@ When you want coding to be as simple as collecting a cloverleaf.
 ## How To Use 🍀
 
 To start the game, open a workspace and run 'SKLandingPage new.'. Then you can select an interface and a level from the LandingPage and start playing! Currently, you can 
-start coding by writing classy smalltalk, creating blocks like in Scratch and by creating Mealy state machines. A game window and a interface corresponding to the selected interface will appear.
+start coding by writing classy smalltalk, creating blocks like in Scratch and by creating Mealy state machines. A game window and an interface corresponding to the selected one will appear.
 
 
 ## What to do 🎱
 
-When you just want to experiment open a blank project. 
+When you just want to experiment, open a blank project. 
 
-To solve problems open one of the example projects. The first 2 are completed when you reach the cloverleaf. The 3rd one is a bit trickier, there you have to make Kara stop moving at the start or the end of the tunnel.
+To solve problems open one of the example levels. They are all considered solved, when reaching the cloverleaf with Kara.
 
-To add your own projects you can modify the challenge functions in the SKGrid and the SKEnvironment class. 
+To add your own projects you can have a look at the subclasses of SKLevel.
 
-## Blocks
-When selecting Blocks, a BlockEditor and a GameWindow pops up. Start dragging predefined blocks into the window. You are only allowed a limited number of blocks, so define variables and functions to solve the level within the limit.
+## Blocks 
+When selecting Blocks, a BlockEditor and a GameWindow pops up. Start dragging predefined blocks into the window. You are only allowed a limited number of blocks, so use control structures, variables and functions to solve the level within the limit.
 
-## Code
+## Code 
 When selecting Code, a SKWorkspace and a GameWindow pops up. Start writing your solution in the Workspace and execute in in the GameWindow. Write full code in the SKWorkspace, **save the code** and use the **execute controls** above the SKGrid. You can also reset the level if Kara gets stuck. 
 
 ## Mealy
-When selecting Mealy, a StateMachineEditor and a GameWindow pops up. Start creating Nodes and connect them with edges. Each edge has a certain condition to be met to walk along it and an "output - an action kara does. 
+When selecting Mealy, a StateMachineEditor and a GameWindow pops up. Start creating Nodes and connect them with edges. Select 'Create Node' to place it within the Canvas and then use Edge mode to connect them. Each edge has a certain condition to be met to walk along it and an 'output' - an action kara does.  
 
 ## Hints 💡
 
 Kara has following methods you can use:
   - move
+  - push
   - turn: left/right
-  - trunkAhead
+  - trunkAhead, mushroomAhead
   - onCloverleaf
 
 And remember to use Squeak Syntax.
@@ -55,7 +56,8 @@ You can also run code by using the "do it" command `CTRL+D`. If you find yoursel
 <img width="2042" height="1129" alt="Architecture SWT drawio" src="https://github.com/user-attachments/assets/1a2de416-e460-4377-ba50-9eb6d89c3a1c" />
 
 
-The LandingPage opens the Environment, which consists of the Grid, Workspace and the Executer. The grid owns every object and allows interactions between them. The workspace owns Kara and allows the do-it and print-it-statements. 
+The LandingPage opens the Environment, which consists of the Grid, Workspace and the Executer. The grid owns every object and allows interactions between them. The workspace owns Kara and allows the do-it and print-it-statements. ProgrammingConcept defines valid combinations between an visual interface and an underlying execution model.
 
-You can write code in the Workspace and execute it with the executer through the execute commands above the grid. There you can start, pause and terminate a process and toggle the speed. The executer uses a Kara decorator to allow stepping through the code. 
+
+
 
