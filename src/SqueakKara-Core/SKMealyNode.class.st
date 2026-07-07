@@ -30,13 +30,12 @@ SKMealyNode class >> newWithName: aString [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars 7/7/2026 01:56'
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:29'
 }
 SKMealyNode >> actionDeselect [
 
 	self color: self normalColor;
-		showNameAsLabel.
-	Transcript show: 'Test'; cr.
+		showNameAsLabel
 ]
 
 {
@@ -295,10 +294,11 @@ SKMealyNode >> isStartingNode [
 
 {
 	#category : #accessing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/8/2026 11:25'
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:32'
 }
 SKMealyNode >> isStartingNode: aBoolean [
 
+	aBoolean ifTrue: [self label ifNotNil: [self label delete]].
 	isStartingNode := aBoolean
 ]
 
@@ -330,15 +330,6 @@ SKMealyNode >> label [
 SKMealyNode >> label: anObject [
 
 	label := anObject
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:21'
-}
-SKMealyNode >> markNode [
-
-	self color: self selectedColor
 ]
 
 {
@@ -434,18 +425,6 @@ SKMealyNode >> removeEdge: aEdge [
 ]
 
 {
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 13:06'
-}
-SKMealyNode >> selectNode [
-
-	self isStartingNode ifTrue: [^ self].	
-	self label ifNotNil: [self label delete].
-	self createNodeTextMorph.
-	ActiveHand newKeyboardFocus: self label
-]
-
-{
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/2/2026 09:45'
 }
@@ -456,7 +435,7 @@ SKMealyNode >> selectedColor [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars 7/7/2026 01:48'
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:31'
 }
 SKMealyNode >> setNewNameDisplay: aDisplay [
 
@@ -544,35 +523,6 @@ SKMealyNode >> triggerSelfLoopUpdate [
 		nodesToUpdate add: aEdge fromNode.
 		nodesToUpdate add: aEdge toNode].
 	nodesToUpdate do: [:aNode| aNode updateSelfLoops]
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 12:21'
-}
-SKMealyNode >> unmarkNode [
-
-	self color: self normalColor
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 13:06'
-}
-SKMealyNode >> unselectNode [
-
-	| label |
-	
-	self isStartingNode ifTrue: [^ self].
-	self label ifNotNil: [self name: self label contents.
-		self label delete].
-	label := (StringMorph new
-		contents: self name;
-		color: Color black;
-		center: self center;
-		yourself).
-	self label: label.
-	self addMorph: label
 ]
 
 {

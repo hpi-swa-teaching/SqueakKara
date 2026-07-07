@@ -2,27 +2,21 @@ Class {
 	#name : #SKMealyEdge,
 	#superclass : #Object,
 	#instVars : [
-		'curve',
 		'fromNode',
 		'toNode',
-		'controller',
-		'arrowhead',
 		'command',
 		'condition',
 		'isSelfLoop',
-		'controlPoints',
-		'popUpAnchorPoint',
-		'calculationArray',
 		'selfLoopDirection',
+		'controller',
+		'calculator',
+		'curve',
+		'arrowhead',
 		'popUp',
-		'arrowHeadVerticies',
-		'approximatedCurvePoints',
 		'currentColor',
 		'conditionAbbreviations',
 		'commandAbbriviations',
-		'edgeLabel',
-		'labelPosition',
-		'curvePointDistances'
+		'edgeLabel'
 	],
 	#category : #'SqueakKara-Core'
 }
@@ -56,6 +50,22 @@ SKMealyEdge >> actionDeselect [
 
 {
 	#category : #actions,
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:23'
+}
+SKMealyEdge >> actionGetApproximatedDistanceToPoint: aPoint [
+
+	| minDistance fromPoint toPoint |
+	
+	minDistance := Float infinity.
+	1 to: self calculator curvePoints size -1 do: [:i| 
+		fromPoint := self calculator curvePoints at: i.
+		toPoint := self calculator curvePoints at: i + 1.
+		minDistance := minDistance min: (self distanceFrom: aPoint toLineFrom: fromPoint to: toPoint)].
+	^ minDistance
+]
+
+{
+	#category : #actions,
 	#'squeak_changestamp' : 'Lars 7/7/2026 01:40'
 }
 SKMealyEdge >> actionSelect [
@@ -63,35 +73,6 @@ SKMealyEdge >> actionSelect [
 	self popUp makeVisible.
 	self currentColor: self selectedColor;
 		update: #select
-]
-
-{
-	#category : #'accessing - helper',
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 14:43'
-}
-SKMealyEdge >> addCurvePointDistance: aPair [
-
-	self curvePointDistances add: aPair
-
-	
-]
-
-{
-	#category : #'accessing - helper',
-	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 15:58'
-}
-SKMealyEdge >> approximatedCurvePoints [
-
-	^ approximatedCurvePoints ifNil: [self calculateApproximatedCurvePoints]
-]
-
-{
-	#category : #'accessing - helper',
-	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 15:48'
-}
-SKMealyEdge >> approximatedCurvePoints: aPointCollection [
-
-	approximatedCurvePoints := aPointCollection
 ]
 
 {
@@ -104,31 +85,13 @@ SKMealyEdge >> arrowColor [
 ]
 
 {
-	#category : #'accessing - anchor-points',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:28'
-}
-SKMealyEdge >> arrowHeadVerticies [
-
-	^ arrowHeadVerticies
-]
-
-{
-	#category : #'accessing - anchor-points',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:28'
-}
-SKMealyEdge >> arrowHeadVerticies: aVerticiesCollection [
-
-	arrowHeadVerticies := aVerticiesCollection
-]
-
-{
 	#category : #'accessing - visual-components',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:29'
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:28'
 }
 SKMealyEdge >> arrowhead [
 
 	^ arrowhead ifNil: [arrowhead := (PolygonMorph
-		vertices: (self arrowHeadVerticies)
+		vertices: (self calculator arrowHeadVerticies)
 		color: self arrowColor borderWidth: 1 borderColor: Color black)]
 ]
 
@@ -160,78 +123,6 @@ SKMealyEdge >> arrowheadWidth [
 ]
 
 {
-	#category : #'calculation - popUp',
-	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 16:14'
-}
-SKMealyEdge >> calculatPopUpAnchorPoint [
-
-	self isSelfLoop ifTrue: [
-		self calculatePopUpAnchorPointForSelfLoop: self selfLoopDirection.
-		^ self].
-	self calculatePopUpAnchorPointForLineForm: self fromNode center to: self toNode center.
-	
-]
-
-{
-	#category : #calculation,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 14:23'
-}
-SKMealyEdge >> calculateAllAnchorPoints [
-
-	self
-		calculateControlPoints;
-		calculatPopUpAnchorPoint;
-		calculateArrowHeadVerticies;
-		calculateApproximatedCurvePoints;
-		calculateLabelPosition
-]
-
-{
-	#category : #calculation,
-	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 15:52'
-}
-SKMealyEdge >> calculateApproximatedCurvePoints [
-
-	| stepSize t lastPoint currentPoint curvePoints |
-	
-	stepSize := 0.1.
-	t := 1 - stepSize.
-	curvePoints := OrderedCollection new.
-	lastPoint := self calculateBezierPointForT: 1.
-	curvePoints add: lastPoint.
-	
-	[t >= 0] whileTrue: [
-		currentPoint := self calculateBezierPointForT: t.
-		curvePoints add: currentPoint.
-		lastPoint := currentPoint.
-		t := t - stepSize].
-	self approximatedCurvePoints: curvePoints
-]
-
-{
-	#category : #'calculation - arrowHead',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:28'
-}
-SKMealyEdge >> calculateArrowHeadVerticies [
-
-	| intersectionPoint orthogonalVector vectorToNode toPoint leftPoint rightPoint centerPoint |
-	
-	intersectionPoint := self calculateCurveIntersectionWithToNode.
-	vectorToNode := intersectionPoint - (self toNode center).
-	vectorToNode := vectorToNode normalized.
-	
-	toPoint := self toNode center + (vectorToNode * (self toNode extent / 2)).
-	orthogonalVector := self getOrthogonalVectorFor: vectorToNode.
-	orthogonalVector := orthogonalVector normalized * self arrowheadWidth.
-	
-	centerPoint := toPoint + (vectorToNode * self arrowheadLength).
-	rightPoint := centerPoint + orthogonalVector.
-	leftPoint := centerPoint - orthogonalVector. 
-	
-	self arrowHeadVerticies: {toPoint. leftPoint. rightPoint}
-]
-
-{
 	#category : #'bezier-curve',
 	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 18:06'
 }
@@ -256,168 +147,12 @@ SKMealyEdge >> calculateBezierPointForT: aNumber [
 ]
 
 {
-	#category : #'calculation - controlPoints',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:41'
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:10'
 }
-SKMealyEdge >> calculateContorlPointsForSelfLoopAt: aDirection [
+SKMealyEdge >> calculator [
 
-	| firstDirection secondDirection startingPosition p2 p3 |
-	
-	firstDirection := self rotateVector: aDirection by: self loopAngle.
-	secondDirection := self rotateVector: aDirection by: (self loopAngle * -1).
-	
-	startingPosition := self fromNode center.
-	p2 := startingPosition + (firstDirection * self loopHeight).
-	p3 := startingPosition + (secondDirection * self loopHeight).
-	self controlPoints: {startingPosition. p2. p3. startingPosition} 
-]
-
-{
-	#category : #'calculation - controlPoints',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 18:16'
-}
-SKMealyEdge >> calculateControlPoints [
-
-	self isSelfLoop ifTrue: [
-		self calculateContorlPointsForSelfLoopAt: self selfLoopDirection.
-		^ self].
-	self calculateControlPointsForLineFrom: self fromNode center to: self toNode center
-]
-
-{
-	#category : #'calculation - controlPoints',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 18:04'
-}
-SKMealyEdge >> calculateControlPointsForLineFrom: aPoint to: anotherPoint [
-
-	| p1 p2 p3 middelPoint halfLength direction orthogonalDirection |
-	
-	p1 := aPoint.
-	p3 := anotherPoint.
-	
-	direction := p3 - p1.
-	direction := direction normalized.
-	halfLength := (p1 dist: p3) / 2.
-	middelPoint := p1 + (direction * halfLength).
-	
-	orthogonalDirection := self getOrthogonalVectorFor: direction.
-	p2 := middelPoint + (orthogonalDirection * self curveHeight).
-	self controlPoints: { p1. p2. p3}
-]
-
-{
-	#category : #'calculation - arrowHead',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:20'
-}
-SKMealyEdge >> calculateCurveIntersectionWithToNode [
-
-
-	| stepSize t lastPoint currentPoint |
-	
-	stepSize := 0.01.
-	t := 1 - stepSize.
-	lastPoint := self calculateBezierPointForT: 1.
-	
-	[t >= 0] whileTrue: [
-		currentPoint := self calculateBezierPointForT: t.
-		(self checkIfPoint: currentPoint isOutOfNode: self toNode) ifTrue: [^ currentPoint].
-		lastPoint := currentPoint.
-		t := t - stepSize]
-	
-]
-
-{
-	#category : #'calculation - label',
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:23'
-}
-SKMealyEdge >> calculateCurveMiddelT [
-
-	| stepSize t lastPoint currentPoint distanceToStep totalLength currentLength |
-	
-	distanceToStep := OrderedCollection new.
-	
-	stepSize := 0.05.
-	t := stepSize.
-	lastPoint := self calculateBezierPointForT: 0.
-	
-	[t <= 1] whileTrue: [
-		currentPoint := self calculateBezierPointForT: t.
-		distanceToStep add: (currentPoint dist: lastPoint) -> t. 
-		lastPoint := currentPoint.
-		t := t + stepSize].
-	
-	totalLength := 0.
-	distanceToStep do: [:aPair| totalLength := totalLength + aPair key].
-	currentLength := (distanceToStep at: 1) key.
-	2 to: distanceToStep size do: [:i| currentLength := currentLength + ((distanceToStep at: i ) key).
-		currentLength > (totalLength / 2) ifTrue: [^ (distanceToStep at: i-1) value]].
-	^ 0
-]
-
-{
-	#category : #'calculation - label',
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:15'
-}
-SKMealyEdge >> calculateLabelPosition [
-
-	| curveVertexPoint curveVertexDirection curveVertexOrthogonalDirection middelT |
-	
-	self isSelfLoop ifTrue: [self labelPosition: self popUpAnchorPoint.
-		^ self].
-	
-	middelT := self calculateCurveMiddelT.
-	curveVertexPoint := self calculateBezierPointForT: middelT.
-	curveVertexDirection := curveVertexPoint - (self calculateBezierPointForT: (middelT - 0.01)).
-	curveVertexOrthogonalDirection := (self getOrthogonalVectorFor: curveVertexDirection) normalized.
-	
-	self labelPosition: (curveVertexPoint + (curveVertexOrthogonalDirection * self labelCurveDistance))
-]
-
-{
-	#category : #'calculation - popUp',
-	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 16:14'
-}
-SKMealyEdge >> calculatePopUpAnchorPointForLineForm: aPoint to: anotherPoint [
-
-	self popUpAnchorPoint: (self controlPoints at: 2)
-]
-
-{
-	#category : #'calculation - popUp',
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:16'
-}
-SKMealyEdge >> calculatePopUpAnchorPointForSelfLoop: aDirection [
-
-	self popUpAnchorPoint: (self fromNode center + (aDirection * (self loopHeight * 0.7)))
-]
-
-{
-	#category : #'accessing - helper',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 18:07'
-}
-SKMealyEdge >> calculationArray [
-
-	^ calculationArray
-]
-
-{
-	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:18'
-}
-SKMealyEdge >> checkIfPoint: aPoint isOutOfNode: aNode [
-
-	| radius |
-	radius := aNode extent / 2.
-	^ (aPoint dist: aNode center) > radius
-]
-
-{
-	#category : #'accessing - helper',
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 14:37'
-}
-SKMealyEdge >> clearCurvePointDistances [ 
-
-	curvePointDistances := nil
+	^ calculator ifNil: [calculator := SKMealyEdgeCalculator newWithEdge: self]
 ]
 
 {
@@ -491,24 +226,6 @@ SKMealyEdge >> conditionAbbreviations [
 ]
 
 {
-	#category : #'accessing - anchor-points',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 10:28'
-}
-SKMealyEdge >> controlPoints [
-
-	^ controlPoints
-]
-
-{
-	#category : #'accessing - anchor-points',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 10:28'
-}
-SKMealyEdge >> controlPoints: aPointCollection [
-
-	controlPoints := aPointCollection
-]
-
-{
 	#category : #'accessing - edge-properties',
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:53'
 }
@@ -527,16 +244,7 @@ SKMealyEdge >> controller: aController [
 ]
 
 {
-	#category : #'accessing - helper',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 18:08'
-}
-SKMealyEdge >> createCalculationArrayWithLenght: aNumber [
-
-	calculationArray := Array new: aNumber
-]
-
-{
-	#category : #'accessing - helper',
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:38'
 }
 SKMealyEdge >> currentColor [
@@ -545,7 +253,7 @@ SKMealyEdge >> currentColor [
 ]
 
 {
-	#category : #'accessing - helper',
+	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:33'
 }
 SKMealyEdge >> currentColor: aColor [
@@ -578,15 +286,6 @@ SKMealyEdge >> curve: aCurvyEdge [
 SKMealyEdge >> curveHeight [
 
 	^ 200
-]
-
-{
-	#category : #'accessing - helper',
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 14:36'
-}
-SKMealyEdge >> curvePointDistances [
-
-	^ curvePointDistances ifNil: [curvePointDistances := OrderedCollection new]
 ]
 
 {
@@ -628,21 +327,16 @@ SKMealyEdge >> distanceFrom: aPoint toLineFrom: aFromPoint to: aToPoint [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 22:58'
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:13'
 }
 SKMealyEdge >> drawCurveForControlPoints [
 
-	| stepSize t lastPoint currentPoint |
-	
-	stepSize := 0.01.
-	t := stepSize.
-	lastPoint := self calculateBezierPointForT: 0.
-	
-	[t <= 1] whileTrue: [
-		currentPoint := self calculateBezierPointForT: t.
-		self drawLineForm: lastPoint to: currentPoint.
-		lastPoint := currentPoint.
-		t := t + stepSize].
+	| point1 point2 |
+
+	1 to: (self calculator curvePoints size - 1) do: [:i | 
+		point1 := self calculator curvePoints at: i.
+		point2 := self calculator curvePoints at: i + 1.
+		self drawLineForm: point1 to: point2]
 ]
 
 {
@@ -716,70 +410,6 @@ SKMealyEdge >> generateEdgeLabel [
 ]
 
 {
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 16:09'
-}
-SKMealyEdge >> getApproximatedDistanceToEdgeFrom: aPoint [
-
-	| minDistance fromPoint toPoint |
-	
-	minDistance := Float infinity.
-	1 to: self approximatedCurvePoints size -1 do: [:i| 
-		fromPoint := self approximatedCurvePoints at: i.
-		toPoint := self approximatedCurvePoints at: i + 1.
-		minDistance := minDistance min: (self distanceFrom: aPoint toLineFrom: fromPoint to: toPoint)].
-	^ minDistance
-]
-
-{
-	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 18:03'
-}
-SKMealyEdge >> getOrthogonalVectorFor: aVector [
-
-	^ ((aVector y) @ (-1 * aVector x))
-]
-
-{
-	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 18:21'
-}
-SKMealyEdge >> getPointBetween: aPoint and: anotherPoint interpolatedBy: aNumber [
-
-	|fromPoint toPoint vectorBetween|
-	
-	fromPoint := aPoint.
-	toPoint := anotherPoint. 
-	vectorBetween := toPoint -fromPoint. 
-	^ fromPoint + (aNumber * vectorBetween)
-	
-	
-	
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:40'
-}
-SKMealyEdge >> gotDeselected [
-	
-	self popUp actionClose.
-	self currentColor: self normalColor;
-		update: #select
-]
-
-{
-	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:40'
-}
-SKMealyEdge >> gotSelected [
-
-	self popUp makeVisible.
-	self currentColor: self selectedColor;
-		update: #select
-]
-
-{
 	#category : #'accessing - edge-properties',
 	#'squeak_changestamp' : 'Lars Kuhr 6/17/2026 12:11'
 }
@@ -804,24 +434,6 @@ SKMealyEdge >> isSelfLoop: aBoolean [
 SKMealyEdge >> labelCurveDistance [
 
 	^ 30
-]
-
-{
-	#category : #'accessing - anchor-points',
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 14:18'
-}
-SKMealyEdge >> labelPosition [
-
-	^ labelPosition
-]
-
-{
-	#category : #'accessing - anchor-points',
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 14:18'
-}
-SKMealyEdge >> labelPosition: aPosition [
-
-	labelPosition := aPosition
 ]
 
 {
@@ -888,36 +500,6 @@ SKMealyEdge >> popUp: aMorph [
 ]
 
 {
-	#category : #'accessing - anchor-points',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 10:31'
-}
-SKMealyEdge >> popUpAnchorPoint [
-
-	^ popUpAnchorPoint
-]
-
-{
-	#category : #'accessing - anchor-points',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 10:31'
-}
-SKMealyEdge >> popUpAnchorPoint: aPoint [
-
-	popUpAnchorPoint := aPoint
-]
-
-{
-	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:41'
-}
-SKMealyEdge >> rotateVector: aVector by: aNumber [
-
-	| angle |
-	
-	angle := aNumber degreesToRadians.
-	^ (((aVector x * angle cos) - (aVector y * angle  sin)) @ ((aVector x * angle sin) + (aVector y * angle cos)))
-]
-
-{
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:41'
 }
@@ -927,17 +509,17 @@ SKMealyEdge >> selectedColor [
 ]
 
 {
-	#category : #'accessing - anchor-points',
-	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 15:04'
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:38'
 }
 SKMealyEdge >> selfLoopDirection [
 
-	^ selfLoopDirection ifNil: [selfLoopDirection := 0 @ -1]
+	^ selfLoopDirection ifNil: [selfLoopDirection := (0 @ -1)]
 ]
 
 {
-	#category : #'accessing - anchor-points',
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 18:13'
+	#category : #accessing,
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:35'
 }
 SKMealyEdge >> selfLoopDirection: aDirection [
 
@@ -964,11 +546,11 @@ SKMealyEdge >> toNode: aNode [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'Lars Kuhr 6/22/2026 12:23'
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:11'
 }
 SKMealyEdge >> update: aValue [
 
-	self calculateAllAnchorPoints.
+	self calculator calculateAllAnchorPoints.
 	
 	self updateCurve;
 		updateArrowhead;
@@ -978,18 +560,18 @@ SKMealyEdge >> update: aValue [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:32'
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:27'
 }
 SKMealyEdge >> updateArrowhead [
 	
 	self arrowhead delete.
-	self arrowhead setVertices: (self arrowHeadVerticies).
-	self controller playGround addComponent: self arrowhead
+	self arrowhead setVertices: (self calculator arrowHeadVerticies).
+	self controller actionAddComponent: self arrowhead
 ]
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:14'
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:27'
 }
 SKMealyEdge >> updateCurve [
 
@@ -1000,14 +582,14 @@ SKMealyEdge >> updateCurve [
 	curve := Morph new.
 	curve color: Color transparent.
 	self curve: curve.
-	self controller playGround addComponent: curve.
+	self controller actionAddComponent: curve.
 	self drawCurveForControlPoints
 
 ]
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:22'
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:27'
 }
 SKMealyEdge >> updateLabel [
 
@@ -1019,24 +601,24 @@ SKMealyEdge >> updateLabel [
 			font: ((TextStyle named: #BitstreamVeraSans) addNewFontSize: 12)).
 		self edgeLabel
 			lock.
-		self controller playGround addComponent: self edgeLabel].
+		self controller actionAddComponent: self edgeLabel].
 	self edgeLabel 
-		center: self labelPosition;
+		center: self calculator labelPosition;
 		contents: self generateEdgeLabel
 		
 ]
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:50'
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:28'
 }
 SKMealyEdge >> updatePopUp [
 
 	self popUp ifNil: [self popUp: SKSelectionPopUpWrapper new.
 		self popUp edge: self.
-		self controller playGround addComponent: self popUp].
+		self controller actionAddComponent: self popUp].
 	
-	self popUp position: self popUpAnchorPoint.
+	self popUp position: self calculator popUpAnchorPoint.
 	self popUp bringChildrenToFront.
 	
 ]

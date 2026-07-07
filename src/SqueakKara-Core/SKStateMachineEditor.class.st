@@ -16,6 +16,15 @@ Class {
 
 {
 	#category : #actions,
+	#'squeak_changestamp' : 'Lars 7/7/2026 08:12'
+}
+SKStateMachineEditor >> actionAddComponent: aMoprh [
+
+	self playGround addComponent: aMoprh
+]
+
+{
+	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 6/21/2026 14:48'
 }
 SKStateMachineEditor >> actionAddEdgeFrom: aNode to: anotherNode [

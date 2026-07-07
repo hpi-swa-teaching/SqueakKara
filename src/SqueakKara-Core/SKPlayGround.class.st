@@ -81,11 +81,11 @@ SKPlayGround >> controller: aController [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 15:57'
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:18'
 }
 SKPlayGround >> distanceFrom: aPoint toEdge: aEdge [
 
-			^ aEdge getApproximatedDistanceToEdgeFrom: aPoint
+			^ aEdge actionGetApproximatedDistanceToPoint: aPoint
 ]
 
 {

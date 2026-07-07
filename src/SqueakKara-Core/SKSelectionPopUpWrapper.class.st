@@ -224,11 +224,11 @@ SKSelectionPopUpWrapper >> getValueByType: aType [
 
 {
 	#category : #actions,
-	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:50'
+	#'squeak_changestamp' : 'Lars 7/7/2026 08:17'
 }
 SKSelectionPopUpWrapper >> handleCloseButtonClicked [
 
-	self edge gotDeselected
+	self edge actionDeselect
 
 	
 ]
