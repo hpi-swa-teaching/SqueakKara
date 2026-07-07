@@ -18,13 +18,37 @@ Class {
 
 {
 	#category : #constructor,
-	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:36'
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:52'
 }
 SKMealyNode class >> newWithName: aString [
 
 	^ (self new
 		name: aString;
+		showNameAsLabel;
 		yourself)
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:56'
+}
+SKMealyNode >> actionDeselect [
+
+	self color: self normalColor;
+		showNameAsLabel.
+	Transcript show: 'Test'; cr.
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars 7/7/2026 02:00'
+}
+SKMealyNode >> actionSelectWithMode: aMode [
+
+	aMode caseOf: {
+		[#select] -> [self showNameAsTextMorph].
+		[#edge]  -> [self color: self selectedColor]
+	} otherwise: []
 ]
 
 {
@@ -139,20 +163,28 @@ SKMealyNode >> controller: aController [
 
 {
 	#category : #helper,
-	#'squeak_changestamp' : 'Lars Kuhr 7/1/2026 13:06'
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:25'
+}
+SKMealyNode >> createNameLabel [
+
+	^ StringMorph new
+		contents: self name;
+		color: Color black;
+		center: self center;
+		yourself
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:27'
 }
 SKMealyNode >> createNodeTextMorph [
 
-	| textMorph |
-
-	self isStartingNode ifTrue: [^ self].
-	textMorph := (SKNodeTextMorph new
+	^ SKNodeTextMorph new
 		contents: self name;
 		center: self center;
 		node: self;
-		yourself).
-	self label: textMorph.
-	self addMorph: textMorph
+		yourself
 ]
 
 {
@@ -420,6 +452,38 @@ SKMealyNode >> selectNode [
 SKMealyNode >> selectedColor [
 
 	^ SKStylesheet colorRed
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:48'
+}
+SKMealyNode >> setNewNameDisplay: aDisplay [
+
+	self isStartingNode ifTrue: [^ self].
+	self label ifNotNil: [self label delete].
+	self label: aDisplay.
+	self addMorph: aDisplay
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:49'
+}
+SKMealyNode >> showNameAsLabel [
+	
+	self isStartingNode ifTrue: [^ self].
+	self label ifNotNil: [self name: self label contents].
+	self setNewNameDisplay: self createNameLabel
+]
+
+{
+	#category : #helper,
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:49'
+}
+SKMealyNode >> showNameAsTextMorph [
+
+	self setNewNameDisplay: self createNodeTextMorph
 ]
 
 {

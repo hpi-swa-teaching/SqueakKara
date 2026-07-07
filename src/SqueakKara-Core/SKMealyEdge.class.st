@@ -44,6 +44,28 @@ SKMealyEdge class >> newFrom: aNode to: anotherNode [
 ]
 
 {
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:40'
+}
+SKMealyEdge >> actionDeselect [
+	
+	self popUp actionClose.
+	self currentColor: self normalColor;
+		update: #select
+]
+
+{
+	#category : #actions,
+	#'squeak_changestamp' : 'Lars 7/7/2026 01:40'
+}
+SKMealyEdge >> actionSelect [
+
+	self popUp makeVisible.
+	self currentColor: self selectedColor;
+		update: #select
+]
+
+{
 	#category : #'accessing - helper',
 	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 14:43'
 }
