@@ -537,9 +537,9 @@ SKMealyNode >> updateSelfLoops [
 
 {
 	#category : #movement,
-	#'squeak_changestamp' : 'JS 6/23/2026 23:46'
+	#'squeak_changestamp' : 'Lars 7/7/2026 09:59'
 }
 SKMealyNode >> wantsToBeDroppedInto: aMorph [
 
-	^ aMorph isKindOf: SKPlayGround
+	^ aMorph isKindOf: SKStateMachineCanvas
 ]

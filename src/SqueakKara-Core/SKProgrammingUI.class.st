@@ -9,7 +9,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #constructor,
 	#'squeak_changestamp' : 'Lars Kuhr 5/26/2026 19:45'
 }
 SKProgrammingUI class >> newWithExecuter: aExecuter [
@@ -21,7 +21,7 @@ SKProgrammingUI class >> newWithExecuter: aExecuter [
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #constructor,
 	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 09:30'
 }
 SKProgrammingUI class >> newWithExecuter: aExecuter andEnvironment: aEnvironment [

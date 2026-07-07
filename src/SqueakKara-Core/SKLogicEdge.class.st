@@ -12,7 +12,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #constructor,
 	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 13:23'
 }
 SKLogicEdge class >> newWithCommand: aString condition: anotherString fromNode: aLogicNode toNode: anotherLogicNode [
@@ -26,7 +26,7 @@ SKLogicEdge class >> newWithCommand: aString condition: anotherString fromNode: 
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #constructor,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:30'
 }
 SKLogicEdge class >> newWithCommand: aString condition: anotherString toNode: aLogicNode [
@@ -39,7 +39,7 @@ SKLogicEdge class >> newWithCommand: aString condition: anotherString toNode: aL
 ]
 
 {
-	#category : #'as yet unclassified',
+	#category : #constructor,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 22:19'
 }
 SKLogicEdge class >> newWithfromNode: aLogicNode toNode: anotherLogicNode [

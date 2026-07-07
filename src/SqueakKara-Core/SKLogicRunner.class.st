@@ -10,7 +10,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #constructor,
 	#'squeak_changestamp' : 'Lars Kuhr 5/5/2026 21:07'
 }
 SKLogicRunner class >> newWithExecutionContext: aExecutionContext [

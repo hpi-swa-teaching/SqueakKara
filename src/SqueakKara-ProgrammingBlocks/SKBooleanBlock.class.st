@@ -13,12 +13,12 @@ Class {
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:19'
 }
 SKBooleanBlock >> drawOn: aCanvas [
 	| b p1 p2 p3 p4 p5 p6 pts indent borderWidth |
 	
-	borderWidth := SKBlockStyle borderWidth.
+	borderWidth := SKStylesheet blockBorderWidth.
 	b := self bounds insetBy: borderWidth.
 	
 	indent := self height // 2. 

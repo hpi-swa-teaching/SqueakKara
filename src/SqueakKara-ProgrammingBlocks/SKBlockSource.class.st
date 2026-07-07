@@ -245,7 +245,7 @@ SKBlockSource >> ifElseBlock [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/24/2026 02:55'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:17'
 }
 SKBlockSource >> initialize [
 
@@ -254,11 +254,11 @@ SKBlockSource >> initialize [
 	self color: Color transparent;
 		layoutPolicy: TableLayout new;
 		listDirection: #topToBottom;
-		layoutInset: SKBlockStyle unit * 2;
+		layoutInset:  SKStylesheet blockUnit * 2;
 		hResizing: #shrinkWrap;
 	 	vResizing: #shrinkWrap;
 		cellPositioning: #topLeft;
-		cellGap:  SKBlockStyle unit * 5;
+		cellGap:  SKStylesheet blockUnit * 5;
 		populate;
 		adjustLayoutBounds;
 		layoutChanged;

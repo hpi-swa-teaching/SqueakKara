@@ -29,7 +29,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #constructor,
 	#'squeak_changestamp' : 'Lars Kuhr 6/9/2026 15:42'
 }
 SKActionBlock class >> newWithLabel: aLabel andAction: anAction [
@@ -165,13 +165,13 @@ SKActionBlock >> findLastRecursiveChildBlock [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 7/3/2026 02:52'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:09'
 }
 SKActionBlock >> getBottomTabPointsFromLeft: left toRight: right atY: y [
 
 	| halfBW |
 	
-	halfBW := SKBlockStyle borderWidth // 2.
+	halfBW := SKStylesheet blockBorderWidth // 2.
 	
 	^ {	right @ y.
 		(left + self tabOffset + self tabWidth) @ y.
@@ -201,13 +201,13 @@ SKActionBlock >> getCode [
 
 {
 	#category : #drawing,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:33'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:09'
 }
 SKActionBlock >> getTopTabPointsFromLeft: left atY: y [
 
 	| halfBW |
 	
-	halfBW := SKBlockStyle borderWidth // 2.
+	halfBW := SKStylesheet blockBorderWidth // 2.
 	
 	^ {(left + self tabOffset - halfBW) @ y.
 		(left + self tabOffset - halfBW + self slantWidth) @ (y + self tabHeight).
@@ -314,11 +314,11 @@ SKActionBlock >> stackExtent [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:14'
 }
 SKActionBlock >> tabHeight [
 
-	^ SKBlockStyle tabHeight
+	^ SKStylesheet blockTabHeight
 ]
 
 {
@@ -341,11 +341,11 @@ SKActionBlock >> tabOffsetInner [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/9/2026 00:13'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:15'
 }
 SKActionBlock >> tabOffsetOuter [
 
-	^ SKBlockStyle tabOffset
+	^ SKStylesheet blockTabOffset
 ]
 
 {

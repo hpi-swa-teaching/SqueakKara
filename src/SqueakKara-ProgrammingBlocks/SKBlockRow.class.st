@@ -61,7 +61,7 @@ SKBlockRow >> connectionPoint [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 7/3/2026 02:56'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:16'
 }
 SKBlockRow >> initialize [
 	
@@ -73,9 +73,9 @@ SKBlockRow >> initialize [
 		listDirection: #leftToRight;
 		wrapCentering: #center;
     		cellPositioning: #center;
-		cellGap: SKBlockStyle unit * 3;
+		cellGap:  SKStylesheet blockUnit * 3;
 		color: Color transparent;
-		height: SKBlockStyle tabHeight * 3
+		height: SKStylesheet blockTabHeight * 3
 ]
 
 {
@@ -98,13 +98,13 @@ SKBlockRow >> isGap: aBoolean [
 
 {
 	#category : #layout,
-	#'squeak_changestamp' : 'FR 6/23/2026 17:32'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:16'
 }
 SKBlockRow >> layoutInset [
 
 	| hInset vInset |
 	
-	hInset := SKBlockStyle unit * 4 + SKBlockStyle borderWidth.
-	vInset := SKBlockStyle tabHeight + SKBlockStyle borderWidth.
+	hInset :=  SKStylesheet blockUnit * 4 +SKStylesheet blockBorderWidth.
+	vInset := SKStylesheet blockTabHeight + SKStylesheet blockBorderWidth.
 	^ self isGap ifTrue: [0] ifFalse: [(Rectangle left: hInset right: hInset top: vInset bottom: vInset)]
 ]

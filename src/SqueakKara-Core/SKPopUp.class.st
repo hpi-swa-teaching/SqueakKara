@@ -21,7 +21,7 @@ right
 
 "
 Class {
-	#name : #SKSelectionPopUpWrapper,
+	#name : #SKPopUp,
 	#superclass : #Morph,
 	#instVars : [
 		'selectionWindows',
@@ -37,7 +37,7 @@ Class {
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:11'
 }
-SKSelectionPopUpWrapper >> actionClose [
+SKPopUp >> actionClose [
 
 	self visible: false
 ]
@@ -46,7 +46,7 @@ SKSelectionPopUpWrapper >> actionClose [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:21'
 }
-SKSelectionPopUpWrapper >> actionGetCommand [
+SKPopUp >> actionGetCommand [
 
 	^ self getValueByType: #command
 ]
@@ -55,7 +55,7 @@ SKSelectionPopUpWrapper >> actionGetCommand [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:54'
 }
-SKSelectionPopUpWrapper >> actionGetCondition [
+SKPopUp >> actionGetCondition [
 
 	^ self getValueByType: #condition
 ]
@@ -64,7 +64,7 @@ SKSelectionPopUpWrapper >> actionGetCondition [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:10'
 }
-SKSelectionPopUpWrapper >> addSelectionModel: aModel [
+SKPopUp >> addSelectionModel: aModel [
 
 	self selectionModels add: aModel
 ]
@@ -73,7 +73,7 @@ SKSelectionPopUpWrapper >> addSelectionModel: aModel [
 	#category : #drawing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:58'
 }
-SKSelectionPopUpWrapper >> bringChildrenToFront [
+SKPopUp >> bringChildrenToFront [
 
 	self selectionWindows do: [:each | each comeToFront].
 	self closeButton comeToFront
@@ -84,7 +84,7 @@ SKSelectionPopUpWrapper >> bringChildrenToFront [
 	#category : #initialization,
 	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:51'
 }
-SKSelectionPopUpWrapper >> buildCloseButton [
+SKPopUp >> buildCloseButton [
 
 	| closeButton |
 
@@ -106,7 +106,7 @@ SKSelectionPopUpWrapper >> buildCloseButton [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:58'
 }
-SKSelectionPopUpWrapper >> closeButton [
+SKPopUp >> closeButton [
 
 	^ closeButton
 ]
@@ -115,7 +115,7 @@ SKSelectionPopUpWrapper >> closeButton [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JS 6/23/2026 21:38'
 }
-SKSelectionPopUpWrapper >> closeButton: aButton [
+SKPopUp >> closeButton: aButton [
 
 	closeButton := aButton
 ]
@@ -124,7 +124,7 @@ SKSelectionPopUpWrapper >> closeButton: aButton [
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:05'
 }
-SKSelectionPopUpWrapper >> closeButtonColor [
+SKPopUp >> closeButtonColor [
 
 	^ SKStylesheet colorRed
 ]
@@ -133,7 +133,7 @@ SKSelectionPopUpWrapper >> closeButtonColor [
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:05'
 }
-SKSelectionPopUpWrapper >> closeButtonHeight [
+SKPopUp >> closeButtonHeight [
 
 	^ 50
 ]
@@ -142,7 +142,7 @@ SKSelectionPopUpWrapper >> closeButtonHeight [
 	#category : #layout,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:05'
 }
-SKSelectionPopUpWrapper >> closeButtonWidth [
+SKPopUp >> closeButtonWidth [
 
 	^ 100
 ]
@@ -151,7 +151,7 @@ SKSelectionPopUpWrapper >> closeButtonWidth [
 	#category : #initialization,
 	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:24'
 }
-SKSelectionPopUpWrapper >> commandList [
+SKPopUp >> commandList [
 
 	^ #(
 		'kara move'
@@ -166,7 +166,7 @@ SKSelectionPopUpWrapper >> commandList [
 	#category : #initialization,
 	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 15:25'
 }
-SKSelectionPopUpWrapper >> conditionList [
+SKPopUp >> conditionList [
 
 	^ #(
 		'kara onCloverleaf'
@@ -180,7 +180,7 @@ SKSelectionPopUpWrapper >> conditionList [
 	#category : #drawing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 10:00'
 }
-SKSelectionPopUpWrapper >> drawSelectionWindows [
+SKPopUp >> drawSelectionWindows [
 
 	self selectionWindows do: [:each | self addMorph: each]
 
@@ -194,7 +194,7 @@ SKSelectionPopUpWrapper >> drawSelectionWindows [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/20/2026 22:49'
 }
-SKSelectionPopUpWrapper >> edge [
+SKPopUp >> edge [
 
 	^ edge
 ]
@@ -203,7 +203,7 @@ SKSelectionPopUpWrapper >> edge [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JS 6/23/2026 21:38'
 }
-SKSelectionPopUpWrapper >> edge: anEdge [
+SKPopUp >> edge: anEdge [
 
 	edge := anEdge
 ]
@@ -212,7 +212,7 @@ SKSelectionPopUpWrapper >> edge: anEdge [
 	#category : #helper,
 	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:25'
 }
-SKSelectionPopUpWrapper >> getValueByType: aType [
+SKPopUp >> getValueByType: aType [
 	
 	| model |
 	
@@ -226,7 +226,7 @@ SKSelectionPopUpWrapper >> getValueByType: aType [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars 7/7/2026 08:17'
 }
-SKSelectionPopUpWrapper >> handleCloseButtonClicked [
+SKPopUp >> handleCloseButtonClicked [
 
 	self edge actionDeselect
 
@@ -237,7 +237,7 @@ SKSelectionPopUpWrapper >> handleCloseButtonClicked [
 	#category : #initialization,
 	#'squeak_changestamp' : 'JS 6/23/2026 21:37'
 }
-SKSelectionPopUpWrapper >> initialize [
+SKPopUp >> initialize [
 
 	super initialize. 
 
@@ -262,7 +262,7 @@ SKSelectionPopUpWrapper >> initialize [
 	#category : #drawing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:11'
 }
-SKSelectionPopUpWrapper >> makeVisible [
+SKPopUp >> makeVisible [
 
 	self visible: true.
 	self comeToFront
@@ -272,7 +272,7 @@ SKSelectionPopUpWrapper >> makeVisible [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/23/2026 16:09'
 }
-SKSelectionPopUpWrapper >> selectionModels [
+SKPopUp >> selectionModels [
 
 	^ selectionModels ifNil: [selectionModels := OrderedCollection new]
 ]
@@ -281,7 +281,7 @@ SKSelectionPopUpWrapper >> selectionModels [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:59'
 }
-SKSelectionPopUpWrapper >> selectionWindows [
+SKPopUp >> selectionWindows [
 
 	(selectionWindows) ifNil:[self selectionWindows: OrderedCollection new]. 
 	^ selectionWindows
@@ -291,7 +291,7 @@ SKSelectionPopUpWrapper >> selectionWindows [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 09:59'
 }
-SKSelectionPopUpWrapper >> selectionWindows: anObject [
+SKPopUp >> selectionWindows: anObject [
 
 	selectionWindows := anObject
 ]
@@ -300,7 +300,7 @@ SKSelectionPopUpWrapper >> selectionWindows: anObject [
 	#category : #updating,
 	#'squeak_changestamp' : 'Lars Kuhr 6/10/2026 11:26'
 }
-SKSelectionPopUpWrapper >> updatePositionsOfChildren [
+SKPopUp >> updatePositionsOfChildren [
 
 	|newX newY|
 	

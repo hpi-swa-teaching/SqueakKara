@@ -161,7 +161,7 @@ SKBlockEditor >> clearPreviewBlock [
 
 {
 	#category : #resizing,
-	#'squeak_changestamp' : 'FR 7/3/2026 14:31'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:11'
 }
 SKBlockEditor >> expandIfNeededToInclude: aRectangle [
 
@@ -173,7 +173,7 @@ SKBlockEditor >> expandIfNeededToInclude: aRectangle [
 		self shiftSubmorphsBy: (aRectangle left abs @ 0).
 		self scroller offset: (self scroller offset x + aRectangle left abs @ (self scroller offset y)).
 		newExtent := (newExtent x - aRectangle left) @ newExtent y].
-	(aRectangle bottom > newExtent y) ifTrue: [newExtent := newExtent x @ aRectangle bottom + SKBlockStyle blockPartHeight].
+	(aRectangle bottom > newExtent y) ifTrue: [newExtent := newExtent x @ aRectangle bottom + SKStylesheet blockPartHeight].
 	(aRectangle top < 0) ifTrue: [
 		self shiftSubmorphsBy: (0 @ aRectangle top abs).
 		self scroller offset:( self scroller offset x @ (self scroller offset y + aRectangle top abs)).
@@ -293,14 +293,14 @@ SKBlockEditor >> nextAvailableFunctionNameFor: aString [
 
 {
 	#category : #initialization,
-	#'squeak_changestamp' : 'FR 6/24/2026 02:51'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:15'
 }
 SKBlockEditor >> open [
 
 	self window: self buildContainerWindow.
 	self startBlock fullBounds;
 		align: self startBlock topCenter
-		with: self topCenter + (0 @ SKBlockStyle unit * 5).
+		with: self topCenter + (0 @  SKStylesheet blockUnit * 5).
 	self window layoutChanged.
 	self layoutChanged.
 	self isWatchingChanges: true.

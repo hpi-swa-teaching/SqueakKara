@@ -1,5 +1,5 @@
 Class {
-	#name : #SKPlayGround,
+	#name : #SKStateMachineCanvas,
 	#superclass : #Morph,
 	#instVars : [
 		'edges',
@@ -10,10 +10,10 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #constructor,
 	#'squeak_changestamp' : 'JS 6/23/2026 23:59'
 }
-SKPlayGround class >> newWithController: aController [
+SKStateMachineCanvas class >> newWithController: aController [
 
 	^ (self new
 			controller: aController;
@@ -24,7 +24,7 @@ SKPlayGround class >> newWithController: aController [
 	#category : #dropping,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 10:57'
 }
-SKPlayGround >> acceptDroppingMorph: aMorph event: anEvent [
+SKStateMachineCanvas >> acceptDroppingMorph: aMorph event: anEvent [
 
 	^ true
 ]
@@ -33,7 +33,7 @@ SKPlayGround >> acceptDroppingMorph: aMorph event: anEvent [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:47'
 }
-SKPlayGround >> addComponent: aComponent [
+SKStateMachineCanvas >> addComponent: aComponent [
 
 	self 
 		addMorph: aComponent;
@@ -44,7 +44,7 @@ SKPlayGround >> addComponent: aComponent [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:48'
 }
-SKPlayGround >> addEdge: aEdge [
+SKStateMachineCanvas >> addEdge: aEdge [
 
 	aEdge controller: self controller.
 	self edges add: aEdge.
@@ -55,7 +55,7 @@ SKPlayGround >> addEdge: aEdge [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:26'
 }
-SKPlayGround >> addNode: aNode [
+SKStateMachineCanvas >> addNode: aNode [
 
 	aNode controller: self controller.
 	self nodes add: aNode
@@ -65,7 +65,7 @@ SKPlayGround >> addNode: aNode [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:24'
 }
-SKPlayGround >> controller [
+SKStateMachineCanvas >> controller [
 
 	^ controller
 ]
@@ -74,7 +74,7 @@ SKPlayGround >> controller [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:24'
 }
-SKPlayGround >> controller: aController [
+SKStateMachineCanvas >> controller: aController [
 
 	controller := aController 
 ]
@@ -83,7 +83,7 @@ SKPlayGround >> controller: aController [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars 7/7/2026 09:18'
 }
-SKPlayGround >> distanceFrom: aPoint toEdge: aEdge [
+SKStateMachineCanvas >> distanceFrom: aPoint toEdge: aEdge [
 
 			^ aEdge actionGetApproximatedDistanceToPoint: aPoint
 ]
@@ -92,7 +92,7 @@ SKPlayGround >> distanceFrom: aPoint toEdge: aEdge [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 5/27/2026 10:58'
 }
-SKPlayGround >> distanceFrom: aPoint toLineFrom: aFromPoint to: aToPoint [
+SKStateMachineCanvas >> distanceFrom: aPoint toLineFrom: aFromPoint to: aToPoint [
 
 	| lineVector pointVector lineLengthSquared t projection |
 
@@ -117,7 +117,7 @@ SKPlayGround >> distanceFrom: aPoint toLineFrom: aFromPoint to: aToPoint [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 12:49'
 }
-SKPlayGround >> edges [
+SKStateMachineCanvas >> edges [
 
 	^ edges ifNil: [edges := OrderedCollection new]
 ]
@@ -126,7 +126,7 @@ SKPlayGround >> edges [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:10'
 }
-SKPlayGround >> findAllEdgesFromNode: aNode [
+SKStateMachineCanvas >> findAllEdgesFromNode: aNode [
 
 	^ self edges select: [:edge | edge fromNode = aNode]
 ]
@@ -135,7 +135,7 @@ SKPlayGround >> findAllEdgesFromNode: aNode [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:10'
 }
-SKPlayGround >> findAllEdgesToNode: aNode [
+SKStateMachineCanvas >> findAllEdgesToNode: aNode [
 
 	^ self edges select: [:edge | edge toNode = aNode]
 ]
@@ -144,7 +144,7 @@ SKPlayGround >> findAllEdgesToNode: aNode [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 6/19/2026 16:09'
 }
-SKPlayGround >> findNearestEdge: aPosition [
+SKStateMachineCanvas >> findNearestEdge: aPosition [
 
 	"simple but slow implementation O(n) - faster implemetation possible"
 	| currentNearestEdge currentNearestDistance currentDistance |
@@ -165,7 +165,7 @@ SKPlayGround >> findNearestEdge: aPosition [
 	#category : #clicking,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 12:53'
 }
-SKPlayGround >> handlesMouseDown: anEvent [
+SKStateMachineCanvas >> handlesMouseDown: anEvent [
 
 	^ true
 ]
@@ -174,7 +174,7 @@ SKPlayGround >> handlesMouseDown: anEvent [
 	#category : #accessing,
 	#'squeak_changestamp' : 'JS 6/9/2026 01:01'
 }
-SKPlayGround >> isNodeEmpty [
+SKStateMachineCanvas >> isNodeEmpty [
 
 	^ self nodes isEmpty
 ]
@@ -183,7 +183,7 @@ SKPlayGround >> isNodeEmpty [
 	#category : #clicking,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 12:57'
 }
-SKPlayGround >> mouseDown: anEvent [
+SKStateMachineCanvas >> mouseDown: anEvent [
 
 	self controller playGroundClicked: anEvent position
 ]
@@ -192,7 +192,7 @@ SKPlayGround >> mouseDown: anEvent [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:04'
 }
-SKPlayGround >> nodes [
+SKStateMachineCanvas >> nodes [
 
 	^ nodes ifNil: [nodes :=  OrderedCollection new]
 ]
@@ -201,7 +201,7 @@ SKPlayGround >> nodes [
 	#category : #accessing,
 	#'squeak_changestamp' : 'LP 6/9/2026 16:28'
 }
-SKPlayGround >> removeEdge: aEdge [
+SKStateMachineCanvas >> removeEdge: aEdge [
 
 	self edges remove: aEdge
 ]
@@ -210,7 +210,7 @@ SKPlayGround >> removeEdge: aEdge [
 	#category : #accessing,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 09:05'
 }
-SKPlayGround >> removeNode: aNode [
+SKStateMachineCanvas >> removeNode: aNode [
 
 	self nodes remove: aNode
 ]
@@ -219,7 +219,7 @@ SKPlayGround >> removeNode: aNode [
 	#category : #actions,
 	#'squeak_changestamp' : 'Lars Kuhr 5/20/2026 11:45'
 }
-SKPlayGround >> setAllNodesToFront [
+SKStateMachineCanvas >> setAllNodesToFront [
 
 	self nodes do: [:node | node comeToFront]
 ]
@@ -228,7 +228,7 @@ SKPlayGround >> setAllNodesToFront [
 	#category : #dropping,
 	#'squeak_changestamp' : 'Lars Kuhr 5/13/2026 10:55'
 }
-SKPlayGround >> wantsDroppedMorph: aMorph event: anEvent [
+SKStateMachineCanvas >> wantsDroppedMorph: aMorph event: anEvent [
 
 	^ true
 ]

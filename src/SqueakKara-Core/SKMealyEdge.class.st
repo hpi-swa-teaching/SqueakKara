@@ -22,7 +22,7 @@ Class {
 }
 
 {
-	#category : #'as yet unclassified',
+	#category : #constructor,
 	#'squeak_changestamp' : 'Lars Kuhr 6/18/2026 23:34'
 }
 SKMealyEdge class >> newFrom: aNode to: anotherNode [
@@ -610,11 +610,11 @@ SKMealyEdge >> updateLabel [
 
 {
 	#category : #updating,
-	#'squeak_changestamp' : 'Lars 7/7/2026 09:28'
+	#'squeak_changestamp' : 'Lars 7/7/2026 10:02'
 }
 SKMealyEdge >> updatePopUp [
 
-	self popUp ifNil: [self popUp: SKSelectionPopUpWrapper new.
+	self popUp ifNil: [self popUp: SKPopUp new.
 		self popUp edge: self.
 		self controller actionAddComponent: self popUp].
 	
