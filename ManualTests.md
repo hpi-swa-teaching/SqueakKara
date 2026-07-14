@@ -36,3 +36,20 @@ Most of these should come up when using the project normally. This document is m
   - [ ] connected Blocks follow a dragged block that is higher in the connected 'stack'
   - [ ] if the shape of one Block A can not fit any gap in another Block B, A can also not be dropped into B
 - [ ] Number Inputs should not change width when typing a one-character number and a two-character number
+
+## State Machine UI
+
+### SKMealyEdge
+- [ ] all edges connected to a node should update in real time while the node is being dragged
+- [ ] the arrowhead should not overlap with the node
+- [ ] the arrowhead should always be rendered on top of the curve
+
+### SKMealyNode
+- [ ] long node names should not extend beyond the node border
+- [ ] the node label should always be centered
+- [ ] nodes should always be rendered on top of the edges
+
+### SKStateMachineEditor
+- [ ] the mode and action buttons should not overlap and should be separated by some margin
+- [ ] the mode buttons should be visually separated from the action buttons
+- [ ] if the start node is dragged outside the editor, it should return to its previous position
