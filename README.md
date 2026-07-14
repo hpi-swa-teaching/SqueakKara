@@ -58,6 +58,8 @@ You can also run code by using the "do it" command `CTRL+D`. If you find yoursel
 
 The LandingPage opens the Environment, which consists of the Grid, Workspace and the Executer. The grid owns every object and allows interactions between them. The workspace owns Kara and allows the do-it and print-it-statements. ProgrammingConcept defines valid combinations between an visual interface and an underlying execution model.
 
+## Test Suite 📋
 
+Automatic Tests are available for most classes and will run automatically when pushing any changes. For manual tests see [ManualTests](./ManualTests.md)
 
 
