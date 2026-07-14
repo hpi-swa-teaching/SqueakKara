@@ -1,6 +1,6 @@
 # Manual Tests for SqueakKara
 
-Most of these should come up when using the project normally. This document is more of a concise overview over (mostly UI) functionalities that are not yet being tested and in most cases are difficult to test for.
+Most of these should come up when using the project normally. This document is more of a concise overview over (mostly UI) functionalities that are not yet being tested and in most cases are difficult to test for automatically.
 
 ## Block UI
 - [ ] Block UI should have a consistent layout in all Squeak-internal scale factors
